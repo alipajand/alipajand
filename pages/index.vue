@@ -1,5 +1,8 @@
 <template>
-  <v-sheet max-width="700" class="ma-auto mh-screen d-flex flex-column justify-center align-center px-4 py-4">
+  <v-sheet
+    max-width="700"
+    class="bg-transparent ma-auto mh-screen d-flex flex-column justify-center align-center px-4 py-4"
+  >
     <Header />
 
     <Socials />
