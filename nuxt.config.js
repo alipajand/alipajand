@@ -5,8 +5,8 @@ const projectName = 'Ali Pajand | علی پژند';
 const themeColor = '#ff0000';
 const isProduction = process.env.isProduction === 'true' || process.env.isProduction === true;
 
-const googleGTAG = '';
-const webmasterTools = '';
+const googleGTAG = 'G-BW797RRZJM';
+const webmasterTools = 'iyYj7AaQGewsnkLmxHIVsQD8nzFy8lj0r2ZajH5r0tY';
 const hostName = 'https://alipajand.com';
 
 export default {
@@ -202,7 +202,7 @@ export default {
     manifest: {
       status: 'ok',
       name: projectName, // in splash screen
-      start_url: '/pwa',
+      start_url: '/',
       orientation: 'portrait',
       short_name: projectName, // in home screen
       display: 'standalone', // suggest to user to add to home screen
