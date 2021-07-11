@@ -1,46 +1,36 @@
 <template>
-  <section class="h-screen overflow-x-hidden">
-    <v-container class="py-0 position-relative">
-      <div class="dark-switch d-flex align-center justify-center pa-2">
-        <v-btn fab icon color="primary" @click="$store.commit('TOGGLE', 'isDark')">
-          <v-icon v-if="isDark">mdi-white-balance-sunny</v-icon>
-          <v-icon v-else>mdi-weather-night</v-icon>
-        </v-btn>
-      </div>
-      <v-row justify="center" align="center" class="h-screen py-10" no-gutters>
-        <v-col cols="12" md="7" xl="5">
-          <div class="d-flex flex-column justify-center align-center">
-            <Header />
+  <v-sheet max-width="700" class="ma-auto mh-screen d-flex flex-column justify-center align-center px-4 py-4">
+    <Header />
 
-            <Socials />
+    <Socials />
 
-            <div class="w-full d-flex justify-center mt-4 mb-4">
-              <v-btn
-                target="_blank"
-                class="animate zoom-in"
-                color="accent"
-                depressed
-                :href="`/resume_${isFa ? 'fa' : 'en'}.pdf`"
-              >
-                <v-icon :class="[isFa ? 'ml-2' : 'mr-2']">mdi-cloud-download-outline</v-icon>
-                <strong>{{ $t('resume') }}</strong>
-              </v-btn>
-            </div>
+    <div class="w-full d-flex justify-center mb-16">
+      <v-btn
+        target="_blank"
+        class="animate zoom-in px-8 mx-1 text-transform-none"
+        color="accent"
+        depressed
+        rounded
+        :href="`/resume_${isFa ? 'fa' : 'en'}.pdf`"
+      >
+        <strong>{{ $t('resume') }}</strong>
+      </v-btn>
 
-            <div class="mt-8 animate fade-in pb-10">
-              <nuxt-link v-if="$i18n.locale === 'en'" :to="switchLocalePath('fa')">فارسی</nuxt-link>
-              <nuxt-link v-else :to="switchLocalePath('en')">English</nuxt-link>
-            </div>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
+      <v-btn v-if="$i18n.locale === 'en'" class="animate zoom-in mx-1" color="accent" icon :to="switchLocalePath('fa')">
+        فا
+      </v-btn>
+      <v-btn v-else color="accent" class="animate zoom-in mx-1" icon :to="switchLocalePath('en')">En</v-btn>
+
+      <v-btn class="mx-1" icon color="accent" @click="changeTheme">
+        <v-icon v-if="isDark" small>mdi-white-balance-sunny</v-icon>
+        <v-icon v-else small>mdi-weather-night</v-icon>
+      </v-btn>
+    </div>
 
     <a target="_blank" href="https://fontiran.com/license/X6AWVH" class="position-fixed">
-      <img src="https://fontiran.com/wp-content/uploads/2019/02/license1-1-360x360.png" width="50" height="50" />
-      <span style="text-align: justify">Registered</span>
+      <img src="https://fontiran.com/wp-content/uploads/2019/02/license1-1-360x360.png" width="30" height="30" />
     </a>
-  </section>
+  </v-sheet>
 </template>
 
 <script>
@@ -53,6 +43,12 @@ export default {
     return {
       title: this.$i18n.t('brandName') + ' - ' + this.$i18n.t('brandDesc')
     };
+  },
+  methods: {
+    changeTheme() {
+      this.$store.commit('TOGGLE', 'isDark');
+      this.$storage.setUniversal('theme', this.isDark ? 'dark' : 'light');
+    }
   }
 };
 </script>

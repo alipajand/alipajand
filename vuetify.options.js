@@ -20,7 +20,7 @@ export default function ({ app }) {
         light: {
           primary: '#0F75BC',
           secondary: '#F7941D',
-          accent: '#BA2025',
+          accent: '#e7382a',
           success: '#2bae52',
           warning: '#f08e20',
           error: '#fa6b6b'
@@ -28,7 +28,7 @@ export default function ({ app }) {
         dark: {
           primary: '#25AAE1',
           secondary: '#FCB040',
-          accent: '#ED1C24',
+          accent: '#e7382a',
           success: '#2bae52',
           warning: '#f08e20',
           error: '#fa6b6b'
