@@ -14,6 +14,14 @@ img {
   height: 100vh;
 }
 
+.mh-screen {
+  min-height: 100vh;
+}
+
+.text-transform-none {
+  text-transform: none !important;
+}
+
 .bg-transparent {
   &,
   &:hover,

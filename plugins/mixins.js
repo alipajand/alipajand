@@ -11,11 +11,5 @@ Vue.mixin({
     isRTL() {
       return this.$store.getters.isRTL;
     }
-  },
-  watch: {
-    '$i18n.locale'(newLocale) {
-      this.$vuetify.lang.current = newLocale;
-      this.$vuetify.rtl = newLocale === 'fa';
-    }
   }
 });

@@ -23,17 +23,17 @@
 
 <script>
 export default {
-  name: 'Skills',
   computed: {
     skills() {
       return [
         { name: 'Vue/Nuxt', rate: 95, color: '#41B883' },
         { name: 'React/Next', rate: 85, color: '#61DAFB' },
-        { name: 'React Native', rate: 70, color: '#61DAFB' },
-        { name: 'Typescript', rate: 70, color: '#61DAFB' },
-        { name: 'Vuetify', rate: 95, color: '#1697F6' },
-        { name: 'Bootstrap 4 & 5', rate: 95, color: '#533B78' },
-        { name: 'Socket.io', rate: 85, color: 'warning' }
+        { name: 'React Native', rate: 65, color: '#61DAFB' },
+        { name: 'Typescript', rate: 70, color: '#1c3890' },
+        { name: 'Vuetify', rate: 95, color: '#008cf3' },
+        { name: 'Bootstrap 4/5', rate: 95, color: '#421880' },
+        { name: 'Socket.io', rate: 85, color: 'warning' },
+        { name: 'Gatsby', rate: 85, color: '#9400cb' }
       ];
     }
   }

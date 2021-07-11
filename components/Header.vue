@@ -1,25 +1,25 @@
 <template>
-  <div :class="['header d-flex flex-column justify-center align-center w-full mb-6', { extend: showSkill }]">
-    <img alt="ali pajand" class="animate zoom rounded-xl" height="170" src="/images/avatar.jpg" />
-    <h1 class="mt-4 animate slide-down delay-1">{{ $t('brandName') }}</h1>
-    <h4 :class="['grey--text mt-5 animate slide-up text-center', isDark ? 'text--lighten-5' : 'text--darken-2']">
+  <div :class="['header d-flex flex-column justify-center align-center w-full', { extend: showSkill }]">
+    <img :alt="$t('brandName')" class="animate zoom" height="192" src="/images/avatar-transparent.png" />
+    <h1
+      :class="['mt-8 mb-3 animate slide-down delay-1 text-h4 font-weight-bold', isDark ? 'white--text' : 'black--text']"
+    >
+      {{ $t('brandName') }}
+    </h1>
+    <h4 :class="['grey--text mt-5 mb-2 animate slide-up text-center', isDark ? 'text--lighten-5' : 'text--darken-2']">
       {{ $t('brandDesc') }}
     </h4>
-    <div class="d-flex align-center flex-column flex-lg-row justify-center mt-1 w-full mb-6">
+    <div class="d-flex align-center flex-column flex-lg-row justify-center mt-1 w-full">
       <h5
         :class="[
           'grey--text text-body-1 animate slide-up d-flex flex-wrap justify-center align-center',
           isDark ? 'text--lighten-3' : 'text--darken-1'
         ]"
       >
-        <span v-for="(fluent, i) in fluents" :key="i" class="px-1">{{ fluent }}</span>
+        <span v-for="(item, i) in fluents" :key="i" class="px-1">{{ item }}</span>
       </h5>
-      <v-btn
-        :class="['animate flip-in-x mt-3 mt-md-0', isFa ? 'mr-2' : 'ml-2']"
-        small
-        text
-        @click="showSkill = !showSkill"
-      >
+
+      <v-btn large rounded class="animate flip-in-x mt-6 text-transform-none" small text @click="showSkills">
         <span>{{ showSkill ? $t('hide') : $t('show') }} {{ $t('other') }} {{ $t('skills') }}</span>
         <v-icon v-if="showSkill">mdi-chevron-down</v-icon>
         <v-icon v-else-if="isFa" small>mdi-chevron-left</v-icon>
@@ -37,7 +37,6 @@
 import Skills from '~/components/Skills';
 
 export default {
-  name: 'Header',
   components: { Skills },
   data() {
     return {
@@ -48,6 +47,21 @@ export default {
     fluents() {
       return ['Vue/Nuxt', 'React/Next', 'React Native'];
     }
+  },
+  methods: {
+    showSkills() {
+      this.showSkill = !this.showSkill;
+
+      try {
+        if (this.showSkill) {
+          setTimeout(() => {
+            this.$vuetify.goTo('#skills', { duration: 2000 });
+          }, 100);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 };
 </script>
@@ -56,19 +70,19 @@ export default {
 .header {
   &:before {
     content: '';
-    position: absolute;
     top: 0;
     left: 50%;
-    height: 20vh;
+    width: 100%;
+    height: 30vh;
+    position: absolute;
+    transition: all ease 0.4s;
     transform: translateX(-50%);
     background: linear-gradient(to bottom, #fafafa 0%, #eceff1 100%);
     border-radius: 0 0 50% 50% / 0 0 100% 100%;
-    width: 100%;
-    transition: all ease 0.4s;
 
     @media screen and (min-width: 960px) {
-      width: 75vw;
-      height: 35vh;
+      width: 90vw;
+      height: 40vh;
     }
   }
 
