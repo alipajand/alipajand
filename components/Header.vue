@@ -9,7 +9,7 @@
     <h4 :class="['grey--text mt-5 mb-2 animate slide-up text-center', isDark ? 'text--lighten-5' : 'text--darken-2']">
       {{ $t('brandDesc') }}
     </h4>
-    <div class="d-flex align-center flex-column flex-lg-row justify-center mt-1 w-full">
+    <div class="d-flex align-center flex-column justify-center mt-1 w-full">
       <h5
         :class="[
           'grey--text text-body-1 animate slide-up d-flex flex-wrap justify-center align-center',

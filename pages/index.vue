@@ -1,5 +1,8 @@
 <template>
-  <v-sheet max-width="700" class="ma-auto mh-screen d-flex flex-column justify-center align-center px-4 py-4">
+  <v-sheet
+    max-width="700"
+    class="bg-transparent ma-auto mh-screen d-flex flex-column justify-center align-center px-4 py-4"
+  >
     <Header />
 
     <Socials />
@@ -11,7 +14,7 @@
         color="accent"
         depressed
         rounded
-        :href="`/resume_${isFa ? 'fa' : 'en'}.pdf`"
+        :href="`/AliPajand_${isFa ? 'fa' : 'en'}.pdf`"
       >
         <strong>{{ $t('resume') }}</strong>
       </v-btn>
