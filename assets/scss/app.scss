@@ -1,0 +1,28 @@
+@import 'variables';
+@import 'fonts';
+@import 'animations';
+
+img {
+  max-width: 100%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.bg-transparent {
+  &,
+  &:hover,
+  &:focus,
+  &.active {
+    background-color: transparent !important;
+  }
+
+  &:before {
+    display: none;
+  }
+}
