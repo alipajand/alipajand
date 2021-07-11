@@ -14,7 +14,7 @@
         color="accent"
         depressed
         rounded
-        :href="`/resume_${isFa ? 'fa' : 'en'}.pdf`"
+        :href="`/AliPajand_${isFa ? 'fa' : 'en'}.pdf`"
       >
         <strong>{{ $t('resume') }}</strong>
       </v-btn>
