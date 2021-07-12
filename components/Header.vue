@@ -1,6 +1,6 @@
 <template>
   <div :class="['header d-flex flex-column justify-center align-center w-full', { extend: showSkill }]">
-    <img :alt="$t('brandName')" class="animate zoom" height="192" src="/images/avatar-transparent.png" />
+    <img :alt="$t('brandName')" class="animate zoom" height="220" src="/images/avatar-transparent.png" />
     <h1
       :class="['mt-8 mb-3 animate slide-down delay-1 text-h4 font-weight-bold', isDark ? 'white--text' : 'black--text']"
     >
