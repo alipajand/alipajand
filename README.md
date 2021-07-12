@@ -1,20 +1,19 @@
-# Ali Pajand
+# Welcome
 
-## Build Setup
+---
+- Website: [alipajand.com](https://alipajand.com)
+- Email: [ali.pajand@gmail.com](mailto:ali.pajand@gmail.com)
+- LinkedIn & Projects: [@alipajand](https://www.linkedin.com/in/alipajand/)
+- Telegram Id: [@alipajand](https://t.me/alipajand)
 
-```bash
-# install dependencies
-$ yarn install
+### My Skills:
+- Vue / Nuxt
+- React / Next
+- React Native
+- Gatsby
 
-# serve with hot reload at localhost:3000
-$ yarn dev
 
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+- Typescript
+- Bootstrap
+- Vuetify
+- Socket
