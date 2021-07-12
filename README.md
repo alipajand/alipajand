@@ -11,9 +11,7 @@
 - React / Next
 - React Native
 - Gatsby
-
-
 - Typescript
 - Bootstrap
 - Vuetify
-- Socket
+- Socket.io
