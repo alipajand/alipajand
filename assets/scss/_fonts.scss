@@ -13,4 +13,8 @@
   }
 }
 
-@include font-face-creator($font-name, '#{$path}/#{$font-name}', 'IRANYekan', normal);
+@include font-face-creator($font-name, '#{$path}/#{$font-name}', 'IRANYekanWebRegular', normal);
+@include font-face-creator($font-name, '#{$path}/#{$font-name}', 'IRANYekanWebBold', bold);
+
+@include font-face-creator($font-name-en, '#{$path}/#{$font-name-en}', 'Ubuntu', normal);
+@include font-face-creator($font-name-en, '#{$path}/#{$font-name-en}', 'Ubuntu-Bold', bold);

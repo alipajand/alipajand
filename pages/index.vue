@@ -1,7 +1,7 @@
 <template>
   <v-sheet
-    max-width="700"
     class="bg-transparent ma-auto mh-screen d-flex flex-column justify-center align-center px-4 py-4"
+    max-width="700"
   >
     <Header />
 
@@ -9,29 +9,35 @@
 
     <div class="w-full d-flex justify-center mb-16">
       <v-btn
-        target="_blank"
+        :href="`/AliPajand_${isFa ? 'fa' : 'en'}.pdf`"
         class="animate zoom-in px-8 mx-1 text-transform-none"
         color="accent"
         depressed
         rounded
-        :href="`/AliPajand_${isFa ? 'fa' : 'en'}.pdf`"
+        target="_blank"
       >
         <strong>{{ $t('resume') }}</strong>
       </v-btn>
 
-      <v-btn v-if="$i18n.locale === 'en'" class="animate zoom-in mx-1" color="accent" icon :to="switchLocalePath('fa')">
+      <v-btn
+        v-if="$i18n.locale === 'en'"
+        :to="switchLocalePath('fa')"
+        class="animate zoom-in mx-1 persian"
+        color="accent"
+        icon
+      >
         فا
       </v-btn>
-      <v-btn v-else color="accent" class="animate zoom-in mx-1" icon :to="switchLocalePath('en')">En</v-btn>
+      <v-btn v-else :to="switchLocalePath('en')" class="animate zoom-in mx-1" color="accent" icon>En</v-btn>
 
-      <v-btn class="mx-1" icon color="accent" @click="changeTheme">
+      <v-btn class="mx-1" color="accent" icon @click="changeTheme">
         <v-icon v-if="isDark" small>mdi-white-balance-sunny</v-icon>
         <v-icon v-else small>mdi-weather-night</v-icon>
       </v-btn>
     </div>
 
-    <a target="_blank" href="https://fontiran.com/license/X6AWVH" class="position-fixed">
-      <img src="https://fontiran.com/wp-content/uploads/2019/02/license1-1-360x360.png" width="30" height="30" />
+    <a class="position-fixed" href="https://fontiran.com/license/X6AWVH" target="_blank">
+      <img height="30" src="https://fontiran.com/wp-content/uploads/2019/02/license1-1-360x360.png" width="30" />
     </a>
   </v-sheet>
 </template>

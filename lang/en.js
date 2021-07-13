@@ -1,6 +1,6 @@
 export default {
   brandName: 'Ali Pajand',
-  brandDesc: 'Senior Frontend Developer Vue/Nuxt | React/Next',
+  brandDesc: 'Senior Frontend Developer',
   fluent: 'Fluent in: ',
   resume: 'Download Resume',
   show: 'Show',

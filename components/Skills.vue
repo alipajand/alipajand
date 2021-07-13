@@ -4,7 +4,7 @@
       <div v-for="skill in skills" :key="skill.name" class="skill d-flex align-center animate slide-up mb-3">
         <div
           :class="[
-            'skill-name grey--text text-no-wrap',
+            'skill-name grey--text text-no-wrap latin',
             isFa ? 'text-left ml-2' : 'text-right mr-2',
             isDark ? 'text--lighten-2' : 'text--darken-2'
           ]"
@@ -33,7 +33,7 @@ export default {
         { name: 'Vuetify', rate: 95, color: '#008cf3' },
         { name: 'Bootstrap 4/5', rate: 95, color: '#421880' },
         { name: 'Socket.io', rate: 85, color: 'warning' },
-        { name: 'Gatsby', rate: 85, color: '#9400cb' }
+        { name: 'Gatsby', rate: 75, color: '#9400cb' }
       ];
     }
   }

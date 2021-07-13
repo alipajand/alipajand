@@ -6,10 +6,15 @@
     >
       {{ $t('brandName') }}
     </h1>
-    <h4 :class="['grey--text mt-5 mb-2 animate slide-up text-center', isDark ? 'text--lighten-5' : 'text--darken-2']">
+    <h4
+      :class="[
+        'grey--text text-h6 mt-3 mb-2 animate slide-up text-center font-weight-bold',
+        isDark ? 'text--lighten-5' : 'text--darken-3'
+      ]"
+    >
       {{ $t('brandDesc') }}
     </h4>
-    <div class="d-flex align-center flex-column justify-center mt-1 w-full">
+    <div class="d-flex align-center flex-column justify-center latin w-full">
       <h5
         :class="[
           'grey--text text-body-1 animate slide-up d-flex flex-wrap justify-center align-center',
@@ -19,7 +24,7 @@
         <span v-for="(item, i) in fluents" :key="i" class="px-1">{{ item }}</span>
       </h5>
 
-      <v-btn large rounded class="animate flip-in-x mt-6 text-transform-none" small text @click="showSkills">
+      <v-btn class="animate flip-in-x mt-6 text-transform-none" large rounded small text @click="showSkills">
         <span>{{ showSkill ? $t('hide') : $t('show') }} {{ $t('other') }} {{ $t('skills') }}</span>
         <v-icon v-if="showSkill">mdi-chevron-down</v-icon>
         <v-icon v-else-if="isFa" small>mdi-chevron-left</v-icon>
