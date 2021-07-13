@@ -1,7 +1,7 @@
 import fa from 'vuetify/es5/locale/fa';
 import en from 'vuetify/es5/locale/en';
 
-export default function ({ app }) {
+export default function () {
   return {
     rtl: true,
     icons: false,
@@ -19,7 +19,6 @@ export default function ({ app }) {
       themes: {
         light: {
           primary: '#0F75BC',
-          secondary: '#F7941D',
           accent: '#e7382a',
           success: '#2bae52',
           warning: '#f08e20',
@@ -27,7 +26,6 @@ export default function ({ app }) {
         },
         dark: {
           primary: '#25AAE1',
-          secondary: '#FCB040',
           accent: '#e7382a',
           success: '#2bae52',
           warning: '#f08e20',

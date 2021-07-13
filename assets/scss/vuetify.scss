@@ -1,9 +1,9 @@
-@import "variables";
+@import 'variables';
 
-$font-size-root: 15px;
-$font-family: $font-name;
-$body-font-family: $font-name;
-$heading-font-family: $font-name;
+$font-size-root:            15px;
+$font-family:               inherit;
+$body-font-family:          inherit;
+$heading-font-family:       inherit;
 
 $label-font-size:           14px;
 $input-font-size:           14px;
@@ -15,12 +15,11 @@ $tabs-item-letter-spacing:  0;
 
 $border-radius-root:        5px;
 
-$rounded:
-  (
-    0: 0,
-    'sm': $border-radius-root / 2,
-    'lg': $border-radius-root * 2,
-    'xl': $border-radius-root * 6,
-    'pill': 9999px,
-    'circle': 50%
-  );
+$rounded: (
+  0: 0,
+  'sm': $border-radius-root / 2,
+  'lg': $border-radius-root * 2,
+  'xl': $border-radius-root * 6,
+  'pill': 9999px,
+  'circle': 50%
+);

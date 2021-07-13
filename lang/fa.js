@@ -1,6 +1,6 @@
 export default {
   brandName: 'علی پژند',
-  brandDesc: 'برنامه نویس و توسعه دهنده سمت کاربر',
+  brandDesc: 'برنامه نویس ارشد سمت کاربر',
   fluent: 'مسلط به: ',
   resume: 'دانلود رزومه',
   show: 'مشاهده',

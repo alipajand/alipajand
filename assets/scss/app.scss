@@ -34,3 +34,11 @@ img {
     display: none;
   }
 }
+
+.latin {
+  font-family: $font-name-en, $font-name;
+}
+
+.persian {
+  font-family: $font-name, Tahoma;
+}
