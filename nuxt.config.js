@@ -47,22 +47,12 @@ export default {
       title ? `${title} | Ali Pajand {Senior Frontend Developer}` : 'Ali Pajand {Senior Frontend Developer}',
     meta: [
       { charset: 'utf-8' },
-      {
-        hid: 'keyword',
-        property: 'keyword',
-        content:
-          'سایت شخصی,سایت مهدی واعظی,مهدی واعظی,برنامه نویس فرانت,برنامه نویس رابط کاربری,frontend,front-end,frontend developer, front-end developer,fullstack, fullstack-developer'
-      },
+      { hid: 'keyword', property: 'keyword', content: '' },
       { hid: 'og:title', property: 'og:title', content: '' },
-      {
-        hid: 'og:keyword',
-        property: 'og:keyword',
-        content:
-          'سایت شخصی,سایت مهدی واعظی,مهدی واعظی,برنامه نویس فرانت,برنامه نویس رابط کاربری,frontend,front-end,frontend developer, front-end developer,fullstack, fullstack-developer'
-      },
+      { hid: 'og:keyword', property: 'og:keyword', content: '' },
 
-      { hid: 'description', name: 'description', content: 'Full-stack web developer and UI/UX javascript specialist' },
-      { hid: 'og:description', content: 'Full-stack web developer and UI/UX javascript specialist' },
+      { hid: 'description', name: 'description', content: '' },
+      { hid: 'og:description', content: '' },
 
       { httpEquiv: 'Expires', content: '0' },
       { httpEquiv: 'Pragma', content: 'no-cache' },
@@ -138,13 +128,6 @@ export default {
     '@nuxtjs/google-gtag', // google analytics
     'nuxt-i18n',
     'nuxt-compress',
-    [
-      '@nuxtjs/device',
-      {
-        defaultUserAgent:
-          'Mozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.39 Mobile Safari/537.36'
-      }
-    ],
     [
       '@nuxtjs/robots',
       {
