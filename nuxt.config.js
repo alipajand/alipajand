@@ -1,7 +1,7 @@
 import fa from './lang/fa';
 import en from './lang/en';
 
-const projectName = 'Ali Pajand | علی پژند';
+const projectName = 'Ali Pajand';
 const themeColor = '#ff0000';
 const isProduction = process.env.isProduction === 'true' || process.env.isProduction === true;
 

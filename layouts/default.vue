@@ -1,9 +1,7 @@
 <template>
-  <v-app :dark="isDark" :style="{ fontFamily: isRTL ? 'iranyekan' : 'ubuntu' }">
+  <v-app :dark="isDark" :style="{ fontFamily: isRTL ? 'iranyekan, ubuntu' : 'ubuntu, iranyekan' }">
     <v-main :class="{ 'grey darken-4 h-screen': isDark }">
-      <v-fade-transition leave-absolute>
-        <nuxt />
-      </v-fade-transition>
+      <nuxt />
     </v-main>
   </v-app>
 </template>
