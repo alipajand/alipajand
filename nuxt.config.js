@@ -3,11 +3,11 @@ import en from './lang/en';
 
 const projectName = 'Ali Pajand';
 const themeColor = '#ff0000';
-const isProduction = process.env.isProduction === 'true' || process.env.isProduction === true;
+const isProduction = process.env.NODE_ENV === 'production';
 
 const googleGTAG = 'G-BW797RRZJM';
-const webmasterTools = 'iyYj7AaQGewsnkLmxHIVsQD8nzFy8lj0r2ZajH5r0tY';
 const hostName = 'https://alipajand.com';
+const webmasterTools = 'iyYj7AaQGewsnkLmxHIVsQD8nzFy8lj0r2ZajH5r0tY';
 
 export default {
   ssr: true,
@@ -230,17 +230,18 @@ export default {
   /**
    * sitemap generator
    */
-  sitemap: isProduction
-    ? {
-        defaults: {
-          changefreq: 'daily',
-          priority: 1,
-          lastmod: new Date()
-        },
-        hostname: hostName,
-        gzip: isProduction
-      }
-    : {},
+  sitemap:
+    isProduction && hostName
+      ? {
+          defaults: {
+            changefreq: 'daily',
+            priority: 1,
+            lastmod: new Date()
+          },
+          hostname: hostName,
+          gzip: isProduction
+        }
+      : {},
 
   'google-gtag':
     googleGTAG && isProduction
