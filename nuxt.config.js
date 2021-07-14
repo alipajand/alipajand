@@ -43,8 +43,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: '',
-    titleTemplate: (title) =>
-      title ? `${title} | Ali Pajand {Senior Frontend Developer}` : 'Ali Pajand {Senior Frontend Developer}',
+    titleTemplate: (title) => title || 'Ali Pajand {Senior Frontend Developer}',
     meta: [
       { charset: 'utf-8' },
       { hid: 'keyword', property: 'keyword', content: '' },

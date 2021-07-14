@@ -1,6 +1,6 @@
 <template>
   <v-app :dark="isDark" :style="{ fontFamily: isRTL ? 'iranyekan, ubuntu' : 'ubuntu, iranyekan' }">
-    <v-main :class="{ 'grey darken-4 h-screen': isDark }">
+    <v-main :class="{ 'grey darken-4 mh-screen': isDark }">
       <nuxt />
     </v-main>
   </v-app>
@@ -23,12 +23,17 @@ export default {
       const lang = this.$storage.getUniversal('lang') || 'fa';
       const theme = this.$storage.getUniversal('theme') || 'light';
 
-      this.$store.commit('SET', { isRTL: lang === 'fa' });
-      this.$vuetify.rtl = this.isRTL;
-      this.$vuetify.lang.current = lang;
+      const isRTL = lang === 'fa';
+      const isDark = theme === 'dark';
 
-      this.$store.commit('SET', { isDark: theme === 'dark' });
-      this.$vuetify.theme.dark = this.isDark;
+      this.$vuetify.rtl = isRTL;
+      this.$vuetify.lang.current = lang;
+      this.$vuetify.theme.dark = isDark;
+
+      this.$store.commit('SET', { isRTL, isDark });
+
+      this.$storage.setUniversal('lang', lang);
+      this.$storage.setUniversal('theme', theme);
     }
   }
 };
