@@ -6,35 +6,7 @@
     <Header />
 
     <Socials />
-
-    <div class="w-full d-flex justify-center mb-16">
-      <v-btn
-        :href="`/AliPajand_${isFa ? 'fa' : 'en'}.pdf`"
-        class="animate zoom-in px-8 mx-1 text-transform-none"
-        color="accent"
-        depressed
-        rounded
-        target="_blank"
-      >
-        <strong>{{ $t('resume') }}</strong>
-      </v-btn>
-
-      <v-btn
-        v-if="$i18n.locale === 'en'"
-        :to="switchLocalePath('fa')"
-        class="animate zoom-in mx-1 persian"
-        color="accent"
-        icon
-      >
-        فا
-      </v-btn>
-      <v-btn v-else :to="switchLocalePath('en')" class="animate zoom-in mx-1" color="accent" icon>En</v-btn>
-
-      <v-btn class="mx-1" color="accent" icon @click="changeTheme">
-        <v-icon v-if="isDark" small>mdi-white-balance-sunny</v-icon>
-        <v-icon v-else small>mdi-weather-night</v-icon>
-      </v-btn>
-    </div>
+    <Settings />
 
     <a class="position-fixed" href="https://fontiran.com/license/X6AWVH" target="_blank">
       <img height="30" src="https://fontiran.com/wp-content/uploads/2019/02/license1-1-360x360.png" width="30" />
@@ -43,21 +15,16 @@
 </template>
 
 <script>
-import Header from '~/components/Header';
-import Socials from '~/components/Socials';
+import Header from '~/components/shared/Header';
+import Socials from '~/components/shared/Socials';
+import Settings from '~/components/shared/Settings';
 
 export default {
-  components: { Socials, Header },
+  components: { Socials, Header, Settings },
   head() {
     return {
       title: this.$i18n.t('brandName') + ' - ' + this.$i18n.t('brandDesc')
     };
-  },
-  methods: {
-    changeTheme() {
-      this.$store.commit('TOGGLE', 'isDark');
-      this.$storage.setUniversal('theme', this.isDark ? 'dark' : 'light');
-    }
   }
 };
 </script>

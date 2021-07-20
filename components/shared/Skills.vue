@@ -4,7 +4,7 @@
       <div v-for="skill in skills" :key="skill.name" class="skill d-flex align-center animate slide-up mb-3">
         <div
           :class="[
-            'skill-name grey--text text-no-wrap latin',
+            'skill-name grey--text text-no-wrap',
             isFa ? 'text-left ml-2' : 'text-right mr-2',
             isDark ? 'text--lighten-2' : 'text--darken-2'
           ]"
