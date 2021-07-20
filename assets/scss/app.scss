@@ -1,5 +1,5 @@
-@import 'variables';
 @import 'fonts';
+@import 'variables';
 @import 'animations';
 
 img {
@@ -33,12 +33,4 @@ img {
   &:before {
     display: none;
   }
-}
-
-.latin {
-  font-family: $font-name-en, $font-name;
-}
-
-.persian {
-  font-family: $font-name, Tahoma;
 }

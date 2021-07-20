@@ -1,5 +1,5 @@
 <template>
-  <v-app :dark="isDark" :style="{ fontFamily: isRTL ? 'iranyekan, ubuntu' : 'ubuntu, iranyekan' }">
+  <v-app :dark="isDark">
     <v-main :class="{ 'grey darken-4 mh-screen': isDark }">
       <nuxt />
     </v-main>

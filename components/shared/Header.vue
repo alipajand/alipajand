@@ -1,6 +1,12 @@
 <template>
   <div :class="['header d-flex flex-column justify-center align-center w-full', { extend: showSkill }]">
-    <img :alt="$t('brandName')" class="animate zoom" height="220" src="/images/avatar-transparent.png" />
+    <img
+      :alt="$t('brandName')"
+      class="animate zoom avatar rounded-circle shadow white"
+      height="220"
+      src="/images/avatar-transparent.png"
+    />
+
     <h1
       :class="['mt-8 mb-3 animate slide-down delay-1 text-h4 font-weight-bold', isDark ? 'white--text' : 'black--text']"
     >
@@ -14,7 +20,7 @@
     >
       {{ $t('brandDesc') }}
     </h4>
-    <div class="d-flex align-center flex-column justify-center latin w-full">
+    <div class="d-flex align-center flex-column justify-center w-full">
       <h5
         :class="[
           'grey--text text-body-1 animate slide-up d-flex flex-wrap justify-center align-center',
@@ -39,7 +45,7 @@
 </template>
 
 <script>
-import Skills from '~/components/Skills';
+import Skills from '~/components/shared/Skills';
 
 export default {
   components: { Skills },
@@ -73,6 +79,10 @@ export default {
 
 <style lang="scss" scoped>
 .header {
+  .shadow {
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  }
+
   &:before {
     content: '';
     top: 0;
@@ -87,7 +97,7 @@ export default {
 
     @media screen and (min-width: 960px) {
       width: 90vw;
-      height: 40vh;
+      height: 35vh;
     }
   }
 
