@@ -10,12 +10,13 @@ const hostName = 'https://alipajand.com';
 const webmasterTools = 'iyYj7AaQGewsnkLmxHIVsQD8nzFy8lj0r2ZajH5r0tY';
 
 export default {
-  ssr: true,
+  ssr: false,
+
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'server',
+  target: 'static',
 
   server: {
     port: process.env.PORT || 4000,
