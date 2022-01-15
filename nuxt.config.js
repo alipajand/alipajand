@@ -105,7 +105,7 @@ export default {
   css: ['~/assets/scss/app.scss', '@mdi/font/css/materialdesignicons.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/mixins', '@/plugins/persistedstate.client'],
+  plugins: ['@/plugins/mixins', '@/plugins/tippy.client', '@/plugins/persistedstate.client'],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
