@@ -105,7 +105,7 @@ export default {
   css: ['~/assets/scss/app.scss', '@mdi/font/css/materialdesignicons.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/mixins', '@/plugins/persistedstate.client'],
+  plugins: ['@/plugins/mixins', '@/plugins/tippy.client', '@/plugins/persistedstate.client'],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -121,20 +121,12 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    '@nuxtjs/dotenv',
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/universal-storage',
     '@nuxtjs/sitemap',
-    '@nuxtjs/google-gtag', // google analytics
+    '@nuxtjs/universal-storage',
+    '@nuxtjs/google-gtag', // Google Analytics
+    '@nuxtjs/robots',
     'nuxt-i18n',
-    'nuxt-compress',
-    [
-      '@nuxtjs/robots',
-      {
-        UserAgent: '*',
-        Disallow: ''
-      }
-    ]
+    'nuxt-compress'
   ],
 
   i18n: {
@@ -178,7 +170,7 @@ export default {
     : {},
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: { proxyHeaders: false, credentials: false },
+  axios: {},
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -207,25 +199,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extractCSS: isProduction,
-    optimizeCSS: isProduction,
-
-    /*
-     ** Run ESLint on save
-     */
-    extend(config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue|css)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/,
-          options: {
-            fix: true
-          }
-        });
-      }
-    }
+    optimizeCSS: isProduction
   },
 
   /**
@@ -240,7 +214,7 @@ export default {
             lastmod: new Date()
           },
           hostname: hostName,
-          gzip: isProduction
+          gzip: true
         }
       : {},
 
