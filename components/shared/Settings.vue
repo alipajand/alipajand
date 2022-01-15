@@ -1,10 +1,10 @@
 <template>
   <div class="w-full d-flex justify-center mb-16">
     <v-btn
-      :href="`/AliPajand_${isFa ? 'fa' : 'en'}.pdf`"
       class="animate zoom-in px-8 mx-1 text-transform-none"
       color="accent"
       depressed
+      href="https://github.com/alipajand/alipajand/raw/master/static/Ali-Pajand.pdf"
       rounded
       target="_blank"
     >

@@ -20,13 +20,8 @@ export default {
   computed: {
     socials() {
       return [
-        { name: 'Mail', href: 'mailto:ali.pajand@gmail.com', color: '#DB4437', icon: 'mdi-email' },
-        {
-          name: 'Linkedin',
-          href: 'https://ca.linkedin.com/in/alipajand?trk=profile-badge',
-          color: '#003687',
-          icon: 'mdi-linkedin'
-        },
+        { name: 'Mail', href: 'mailto:alipajand@gmail.com', color: '#DB4437', icon: 'mdi-email-outline' },
+        { name: 'Linkedin', href: 'https://www.linkedin.com/in/alipajand/', color: '#003687', icon: 'mdi-linkedin-in' },
         { name: 'Telegram', href: 'https://t.me/alipajand', color: '#0088cc', icon: 'mdi-telegram' },
         { name: 'Github', href: 'https://github.com/alipajand', color: '#000', icon: 'mdi-github' },
         { name: 'Gitlab', href: 'https://gitlab.com/alipajand', color: 'warning', icon: 'mdi-gitlab' }
