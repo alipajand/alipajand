@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { Education } from "components/Contact/Education";
 import { CANONICAL_URL, KEYWORDS, META_DESCRIPTION, SITE_NAME, TITLE } from "data/site";
 import React from "react";
+
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_URL),
@@ -47,6 +50,22 @@ export default function RootLayout({
       <body
         className={`${GeistSans.variable} ${GeistSans.className} antialiased bg-background text-foreground`}
       >
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
