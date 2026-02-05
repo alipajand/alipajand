@@ -1,7 +1,7 @@
 "use client";
 
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
-import { LINKS } from "utils/data/links";
+import { LINKS } from "data/links";
 
 export function Contact() {
   const {

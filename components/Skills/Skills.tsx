@@ -1,7 +1,7 @@
 "use client";
 
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
-import { SKILL_GROUPS } from "utils/data/skills";
+import { SKILL_GROUPS } from "data/skills";
 import { SkillIcon } from "components/Skills/SkillIcon";
 
 export function Skills() {

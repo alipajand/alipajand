@@ -17,7 +17,7 @@ import {
   WrenchIcon,
   ZapIcon,
 } from "components/Skills/icons";
-import { SKILL_TO_ICON } from "utils/data/skillIcons";
+import { SKILL_TO_ICON } from "data/skillIcons";
 
 const ICON_CLASS = "shrink-0 text-muted";
 

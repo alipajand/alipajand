@@ -1,7 +1,7 @@
 "use client";
 
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
-import { JOBS } from "utils/data/jobs";
+import { JOBS } from "data/jobs";
 import { useExperienceCards } from "components/Experience/hooks/useExperienceCards";
 
 export function Experience() {

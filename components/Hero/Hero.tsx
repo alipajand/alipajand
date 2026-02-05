@@ -1,7 +1,7 @@
 "use client";
 
 import { useHero } from "components/Hero/hooks/useHero";
-import { LINKS } from "utils/data/links";
+import { LINKS } from "data/links";
 
 const HERO_NAME = "Ali Pajand";
 
