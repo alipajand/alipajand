@@ -11,9 +11,10 @@ export const JOBS: Job[] = [
     company: "AlwaysGeeky Games",
     period: "2024 – 2026",
     highlights: [
-      "End-to-end frontend for Marketplace & Login (React, Next.js, AWS, Web3).",
-      "Design System & Component Library; WCAG accessibility, CI/CD with GitHub Actions.",
-      "AI-driven automation (MCP server for Cursor) for code review and velocity.",
+      "Full-stack ownership of Marketplace & Login: React/Next.js frontend to Node.js and Python backend in production.",
+      "Improved site speed and server response by ~30% via data and DB optimization; built shared component library for faster feature delivery.",
+      "Design System & Component Library with full WCAG accessibility and CI/CD (GitHub Actions).",
+      "Developer Experience: tooling, docs, and workflows; AI-driven automation (MCP server for Cursor) for code review and velocity.",
     ],
   },
   {
@@ -21,9 +22,9 @@ export const JOBS: Job[] = [
     company: "Emplifi",
     period: "2022 – 2023",
     highlights: [
-      "Data-heavy UIs with GSAP animations; Figma-to-code responsive components.",
-      "Data dashboards with D3.js and React; mobile webviews and embedded environments.",
-      "A/B testing, Sentry, Hotjar; improved retention and responsiveness.",
+      "Built data-heavy UIs with GSAP animations; translated high-fidelity Figma into responsive, performant components.",
+      "Delivered data dashboards with D3.js and React; optimized for mobile webviews and embedded environments.",
+      "Used A/B testing, Sentry, and Hotjar to drive measurable improvements in retention and interface responsiveness.",
     ],
   },
   {
@@ -31,9 +32,9 @@ export const JOBS: Job[] = [
     company: "ControlTech Startup Studio",
     period: "2018 – 2022",
     highlights: [
-      "Performance: code splitting, lazy loading, CDN; reduced first-load times.",
-      "PWA from scratch: service workers, offline support, caching.",
-      "Jest & Playwright; GitHub Actions; 99.9% deployment stability.",
+      "Owned full development cycle for multiple startup products: Figma to React/React Native, AWS infra, and stable releases for early customers.",
+      "Reduced first-load times via code splitting, lazy loading, and CDN; built PWA from scratch (service workers, offline, caching).",
+      "Established Jest & Playwright test suites and GitHub Actions CI/CD; achieved 99.9% deployment stability.",
     ],
   },
   {
@@ -41,8 +42,8 @@ export const JOBS: Job[] = [
     company: "Rayvarz Inc.",
     period: "2016 – 2017",
     highlights: [
-      "Redesigned legacy B2B dashboards; +15% engagement via data viz.",
-      "Design-to-code with Figma/Photoshop and Vue.js; user research and A/B testing.",
+      "Led redesign of legacy B2B dashboards; +15% user engagement through data viz and information architecture.",
+      "Acted as bridge between design and engineering: Figma/Photoshop to Vue.js; user research and A/B testing to validate UI decisions.",
     ],
   },
 ];

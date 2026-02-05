@@ -39,15 +39,16 @@ export function Hero() {
             ref={line2Ref}
             className="block text-muted opacity-0 translate-y-15 mt-2 text-xl sm:text-2xl font-normal"
           >
-            Senior Product Engineer | Design-Systems Architect
+            Senior Product Engineer | Design-Systems Architect | Developer Experience
           </span>
         </h1>
         <p
           ref={subRef}
           className="mt-8 max-w-xl text-muted leading-relaxed opacity-0 translate-y-15"
         >
-          React, TypeScript, Next.js & Node.js. Design systems, GSAP animations, and
-          high-performance interfaces. Building the web that feels right.
+          9+ years building fast, reliable web apps with React, TypeScript & Node.js. Design systems,
+          interactive and 3D/animated UIs, and DX tooling. Bridging design and engineering to ship
+          better products.
         </p>
         <div ref={ctaRef} className="mt-12 flex flex-wrap items-center gap-4">
           <a

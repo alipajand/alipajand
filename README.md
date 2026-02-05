@@ -1,5 +1,7 @@
 # Hi, I'm Ali Pajand 👋
 
-Senior Product Engineer | React, Next.js, TypeScript & Node.js | Design-Systems Architect
+Senior Product Engineer | Design-Systems Architect | Developer Experience
 
-LinkedIn: <a href="https://www.linkedin.com/in/alipajand/" target="_blank"> @alipajand </a>
+React, Next.js, TypeScript & Node.js · 9+ years building fast, reliable web apps and design systems.
+
+LinkedIn: [@alipajand](https://www.linkedin.com/in/alipajand/)

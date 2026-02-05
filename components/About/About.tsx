@@ -23,14 +23,23 @@ export function About() {
           About
         </h2>
         <p className="text-muted text-lg leading-relaxed" data-reveal>
-          Senior Frontend Developer, specializing in React, TypeScript, Nextjs and high-performance
-          UI. Expert in building scalable design systems and interactive 3D/animated web experiences
-          within large-scale monorepos to small ones.
+          Senior Product Engineer with 9+ years turning complex requirements into fast, reliable
+          products. I focus on frontend (React, TypeScript, Next.js) and backend (Node.js, Python,
+          APIs), with deep experience in design systems, component libraries, and Developer
+          Experience—tooling, docs, and workflows that help teams ship faster.
         </p>
         <p className="mt-6 text-muted text-lg leading-relaxed" data-reveal>
-          Proven track record of bridging the gap between complex design concepts and performant,
-          accessible production code. AI enthusiastic and looking to contribute to fast-moving teams
-          and shape product vision and execution using agile methodology.
+          I bridge design and engineering: accessible, performant UIs; interactive and 3D/animated
+          experiences; and production-ready code. I’ve driven ~30% performance gains, led design-system
+          adoption, and introduced AI-driven automation (e.g. MCP for Cursor) for code review and
+          velocity. I work best in agile, cross-functional teams and care about product vision and
+          execution.
+        </p>
+        <p className="mt-6 text-muted text-lg leading-relaxed" data-reveal>
+          <strong className="text-foreground">What I bring:</strong> Leadership, cross-functional
+          collaboration, mentorship, and a track record of stable releases (e.g. 99.9% deployment
+          stability). Open to senior and staff-level roles where I can shape architecture, DX, and
+          product quality.
         </p>
       </div>
     </section>

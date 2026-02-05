@@ -46,7 +46,7 @@ export function Skills() {
         </div>
         <p className="mt-10 text-muted text-base" data-reveal>
           <strong className="text-foreground">Core:</strong> Leadership, Cross-Functional
-          Collaboration, Communication, Problem-Solving, Mentorship.
+          Collaboration, Communication, Problem-Solving, Mentorship, Stakeholder Alignment.
         </p>
       </div>
     </section>

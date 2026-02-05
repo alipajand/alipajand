@@ -2,6 +2,7 @@
 
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import { LINKS } from "data/links";
+import { ContactForm } from "components/Contact/ContactForm";
 
 export function Contact() {
   const {
@@ -24,8 +25,13 @@ export function Contact() {
           Get in touch
         </h2>
         <p className="text-muted text-lg mb-12" data-reveal>
-          Open to new opportunities and collaborations. Let&apos;s build something great.
+          Open to senior and staff-level roles in product engineering, frontend architecture, design
+          systems, and Developer Experience. Happy to discuss full-time, contract, or advisory work.
+          Let&apos;s build something great.
         </p>
+
+        <ContactForm />
+
         <div className="grid sm:grid-cols-2 gap-6">
           {LINKS.map((c) => (
             <a
@@ -38,7 +44,7 @@ export function Contact() {
                   ? `${c.label}: ${c.value} (opens in new tab)`
                   : `${c.label}: ${c.value}`
               }
-              className="hover-lift block p-5 rounded-lg bg-card border border-border hover:border-foreground/30 transition-colors"
+              className="hover-lift block p-5 rounded-lg bg-card border-2 border-border hover:border-foreground/30 transition-colors"
               data-reveal
             >
               <span className="text-muted font-medium text-sm uppercase tracking-wider">
@@ -48,9 +54,6 @@ export function Contact() {
             </a>
           ))}
         </div>
-        <p className="mt-12 text-muted text-sm" data-reveal>
-          Master&apos;s Degree in Computer Information Technology · 2016
-        </p>
       </div>
     </section>
   );

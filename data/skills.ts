@@ -9,6 +9,10 @@ export const SKILL_GROUPS: SkillGroup[] = [
     items: ["React", "Next.js", "TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3", "Node.js"],
   },
   {
+    label: "Backend & APIs",
+    items: ["Nest.js", "Python", "PostgreSQL", "REST APIs", "GraphQL"],
+  },
+  {
     label: "Interactions",
     items: ["D3.js", "GSAP", "3D Web Graphics"],
   },
@@ -22,6 +26,6 @@ export const SKILL_GROUPS: SkillGroup[] = [
   },
   {
     label: "Tools & Cloud",
-    items: ["AWS", "Docker", "Git", "GitHub Actions", "Figma", "Storybook"],
+    items: ["AWS", "Docker", "Git", "GitHub Actions", "Vite", "Figma", "Storybook"],
   },
 ];

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import { Education } from "components/Contact/Education";
 
 export const metadata: Metadata = {
   title: "Ali Pajand — Senior Frontend Developer",
@@ -22,6 +23,11 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
+        <footer className="px-6 sm:px-10 lg:px-20 border-t border-border py-8">
+          <div className="max-w-3xl">
+            <Education />
+          </div>
+        </footer>
       </body>
     </html>
   );
