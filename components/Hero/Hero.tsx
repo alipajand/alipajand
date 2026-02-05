@@ -2,8 +2,7 @@
 
 import { useHero } from "components/Hero/hooks/useHero";
 import { LINKS } from "data/links";
-
-const HERO_NAME = "Ali Pajand";
+import { HERO_SUB, SITE_NAME, TAGLINE } from "data/site";
 
 const ICON_SRC: Record<(typeof LINKS)[number]["label"], string> = {
   Email: "/icons/email.svg",
@@ -25,7 +24,7 @@ export function Hero() {
       <div className="relative z-10 max-w-4xl">
         <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1]">
           <span ref={nameCharsRef} className="block text-foreground">
-            {HERO_NAME.split("").map((char, i) => (
+            {SITE_NAME.split("").map((char, i) => (
               <span
                 key={`${char}-${i}`}
                 className="inline-block opacity-0 translate-y-15"
@@ -39,16 +38,14 @@ export function Hero() {
             ref={line2Ref}
             className="block text-muted opacity-0 translate-y-15 mt-2 text-xl sm:text-2xl font-normal"
           >
-            Senior Product Engineer | Design-Systems Architect | Developer Experience
+            {TAGLINE}
           </span>
         </h1>
         <p
           ref={subRef}
           className="mt-8 max-w-xl text-muted leading-relaxed opacity-0 translate-y-15"
         >
-          9+ years building fast, reliable web apps with React, TypeScript & Node.js. Design systems,
-          interactive and 3D/animated UIs, and DX tooling. Bridging design and engineering to ship
-          better products.
+          {HERO_SUB}
         </p>
         <div ref={ctaRef} className="mt-12 flex flex-wrap items-center gap-4">
           <a

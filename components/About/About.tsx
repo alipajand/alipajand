@@ -1,11 +1,16 @@
 "use client";
 
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
+import { ABOUT_PARAGRAPHS } from "data/site";
 
 export function About() {
   const {
     selectors: { sectionRef },
   } = useScrollReveal({ y: 32, stagger: 0.08 });
+
+  const [first, second, third] = ABOUT_PARAGRAPHS;
+  const [thirdLabel, ...thirdRest] = third.split(": ");
+  const thirdBody = thirdRest.join(": ");
 
   return (
     <section
@@ -23,23 +28,13 @@ export function About() {
           About
         </h2>
         <p className="text-muted text-lg leading-relaxed" data-reveal>
-          Senior Product Engineer with 9+ years turning complex requirements into fast, reliable
-          products. I focus on frontend (React, TypeScript, Next.js) and backend (Node.js, Python,
-          APIs), with deep experience in design systems, component libraries, and Developer
-          Experience—tooling, docs, and workflows that help teams ship faster.
+          {first}
         </p>
         <p className="mt-6 text-muted text-lg leading-relaxed" data-reveal>
-          I bridge design and engineering: accessible, performant UIs; interactive and 3D/animated
-          experiences; and production-ready code. I’ve driven ~30% performance gains, led design-system
-          adoption, and introduced AI-driven automation (e.g. MCP for Cursor) for code review and
-          velocity. I work best in agile, cross-functional teams and care about product vision and
-          execution.
+          {second}
         </p>
         <p className="mt-6 text-muted text-lg leading-relaxed" data-reveal>
-          <strong className="text-foreground">What I bring:</strong> Leadership, cross-functional
-          collaboration, mentorship, and a track record of stable releases (e.g. 99.9% deployment
-          stability). Open to senior and staff-level roles where I can shape architecture, DX, and
-          product quality.
+          <strong className="text-foreground">{thirdLabel}:</strong> {thirdBody}
         </p>
       </div>
     </section>

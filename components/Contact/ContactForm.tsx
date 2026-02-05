@@ -41,7 +41,11 @@ export function ContactForm() {
           {...register("name", { required: "Name is required" })}
         />
         {errors.name && (
-          <p id="contact-name-error" className="mt-1 text-sm text-red-600 dark:text-red-400" role="alert">
+          <p
+            id="contact-name-error"
+            className="mt-1 text-sm text-red-600 dark:text-red-400"
+            role="alert"
+          >
             {errors.name.message}
           </p>
         )}
@@ -68,7 +72,11 @@ export function ContactForm() {
           })}
         />
         {errors.email && (
-          <p id="contact-email-error" className="mt-1 text-sm text-red-600 dark:text-red-400" role="alert">
+          <p
+            id="contact-email-error"
+            className="mt-1 text-sm text-red-600 dark:text-red-400"
+            role="alert"
+          >
             {errors.email.message}
           </p>
         )}
@@ -88,7 +96,11 @@ export function ContactForm() {
           {...register("message", { required: "Message is required" })}
         />
         {errors.message && (
-          <p id="contact-message-error" className="mt-1 text-sm text-red-600 dark:text-red-400" role="alert">
+          <p
+            id="contact-message-error"
+            className="mt-1 text-sm text-red-600 dark:text-red-400"
+            role="alert"
+          >
             {errors.message.message}
           </p>
         )}
