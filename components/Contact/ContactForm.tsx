@@ -1,5 +1,6 @@
 "use client";
 
+import classNames from "classnames";
 import { useContactForm } from "components/Contact/hooks/useContactForm";
 
 const inputClass =
@@ -81,7 +82,7 @@ export function ContactForm() {
           rows={4}
           placeholder="Your message..."
           disabled={isSubmitting}
-          className={`${inputClass} resize-y min-h-25`}
+          className={classNames(inputClass, "resize-y min-h-25")}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "contact-message-error" : undefined}
           {...register("message", { required: "Message is required" })}
