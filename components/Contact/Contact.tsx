@@ -32,7 +32,7 @@ export function Contact() {
 
         <ContactForm />
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-6 mt-28">
           {LINKS.map((c) => (
             <a
               key={c.label}
@@ -44,7 +44,7 @@ export function Contact() {
                   ? `${c.label}: ${c.value} (opens in new tab)`
                   : `${c.label}: ${c.value}`
               }
-              className="hover-lift block p-5 rounded-lg bg-card border-2 border-border hover:border-foreground/30 transition-colors"
+              className="hover-lift block p-5 rounded-lg bg-card transition-colors"
               data-reveal
             >
               <span className="text-muted font-medium text-sm uppercase tracking-wider">
