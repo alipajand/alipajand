@@ -1,5 +1,6 @@
 "use client";
 
+import classNames from "classnames";
 import { useNav } from "components/Nav/hooks/useNav";
 
 const NAV_LINKS = [
@@ -17,9 +18,10 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
-        isScrolled ? "border-b border-border bg-background/80 backdrop-blur-sm" : ""
-      }`}
+      className={classNames(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-200",
+        isScrolled && "border-b border-border bg-background/80 backdrop-blur-sm"
+      )}
     >
       <nav className="flex items-center justify-end px-6 sm:px-10 lg:px-20 h-16 max-w-7xl mx-auto">
         <ul ref={navLinksRef} className="hidden sm:flex items-center gap-6">
@@ -43,13 +45,22 @@ export function Nav() {
           onClick={handleToggleMenu}
         >
           <span
-            className={`w-5 h-0.5 bg-current transition-all duration-200 ${isMobileOpen ? "rotate-45 translate-y-2" : ""}`}
+            className={classNames(
+              "w-5 h-0.5 bg-current transition-all duration-200",
+              isMobileOpen && "rotate-45 translate-y-2"
+            )}
           />
           <span
-            className={`w-5 h-0.5 bg-current transition-all duration-200 ${isMobileOpen ? "opacity-0" : ""}`}
+            className={classNames(
+              "w-5 h-0.5 bg-current transition-all duration-200",
+              isMobileOpen && "opacity-0"
+            )}
           />
           <span
-            className={`w-5 h-0.5 bg-current transition-all duration-200 ${isMobileOpen ? "-rotate-45 -translate-y-2" : ""}`}
+            className={classNames(
+              "w-5 h-0.5 bg-current transition-all duration-200",
+              isMobileOpen && "-rotate-45 -translate-y-2"
+            )}
           />
         </button>
       </nav>
