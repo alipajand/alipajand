@@ -54,9 +54,7 @@ export function Experience() {
                       <h3 className="font-display font-semibold text-xl sm:text-2xl text-foreground">
                         {job.role}
                       </h3>
-                      <p className="font-medium mt-0.5 text-foreground/70">
-                        {job.company}
-                      </p>
+                      <p className="font-medium mt-0.5 text-foreground/70">{job.company}</p>
                     </div>
                     <span className="inline-flex items-center shrink-0 text-muted text-sm font-medium tabular-nums">
                       {job.period}

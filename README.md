@@ -1,15 +1,5 @@
-<div align="center">
-
 # Hi, I'm Ali Pajand 👋
 
-</div>
-
----
-
-**Tech I use:** React, Next.js, TypeScript, Tailwind, GSAP, D3.js, Jest, Playwright, Figma, AWS.
-
----
-
-### 📬 Get in touch
+Senior Product Engineer | React, Next.js, TypeScript & Node.js | Design-Systems Architect
 
 LinkedIn: <a href="https://www.linkedin.com/in/alipajand/" target="_blank"> @alipajand </a>

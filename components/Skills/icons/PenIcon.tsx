@@ -1,6 +1,5 @@
 const SIZE = 16;
-const PATH =
-  "M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5zM2 2l3 3";
+const PATH = "M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5zM2 2l3 3";
 
 export function PenIcon({ className }: { className?: string }) {
   return (

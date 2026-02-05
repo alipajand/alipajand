@@ -13,14 +13,7 @@ const ICON_SRC: Record<(typeof LINKS)[number]["label"], string> = {
 
 export function Hero() {
   const {
-    selectors: {
-      containerRef,
-      nameCharsRef,
-      line2Ref,
-      subRef,
-      ctaRef,
-      scrollIndicatorRef,
-    },
+    selectors: { containerRef, nameCharsRef, line2Ref, subRef, ctaRef, scrollIndicatorRef },
   } = useHero();
 
   return (
@@ -46,15 +39,15 @@ export function Hero() {
             ref={line2Ref}
             className="block text-muted opacity-0 translate-y-15 mt-2 text-xl sm:text-2xl font-normal"
           >
-            Senior Product Engineer
+            Senior Product Engineer | Design-Systems Architect
           </span>
         </h1>
         <p
           ref={subRef}
           className="mt-8 max-w-xl text-muted leading-relaxed opacity-0 translate-y-15"
         >
-          React, TypeScript, Next.js. Design systems, GSAP animations, and high-performance
-          interfaces. Building the web that feels right.
+          React, TypeScript, Next.js & Node.js. Design systems, GSAP animations, and
+          high-performance interfaces. Building the web that feels right.
         </p>
         <div ref={ctaRef} className="mt-12 flex flex-wrap items-center gap-4">
           <a

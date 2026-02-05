@@ -1,6 +1,5 @@
 const SIZE = 16;
-const PATH =
-  "M16 18l6-6-6-6M8 6l-6 6 6 6";
+const PATH = "M16 18l6-6-6-6M8 6l-6 6 6 6";
 
 export function CodeIcon({ className }: { className?: string }) {
   return (

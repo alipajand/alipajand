@@ -23,9 +23,7 @@ export interface ExperienceCardsHook {
   selectors: ExperienceCardsSelectors;
 }
 
-export function useExperienceCards(
-  options: UseExperienceCardsOptions = {}
-): ExperienceCardsHook {
+export function useExperienceCards(options: UseExperienceCardsOptions = {}): ExperienceCardsHook {
   const cardsRef = useRef<HTMLUListElement>(null);
 
   const {

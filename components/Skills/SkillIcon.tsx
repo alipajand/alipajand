@@ -1,21 +1,21 @@
 "use client";
 
 import {
-  CodeIcon,
-  DatabaseIcon,
-  ChartIcon,
-  PlayIcon,
-  CubeIcon,
-  CheckIcon,
-  CloudIcon,
+  BookIcon,
   BoxIcon,
   BranchIcon,
-  ZapIcon,
-  BookIcon,
-  PenIcon,
-  WrenchIcon,
-  ShieldIcon,
+  ChartIcon,
+  CheckIcon,
+  CloudIcon,
+  CodeIcon,
+  CubeIcon,
+  DatabaseIcon,
   LayersIcon,
+  PenIcon,
+  PlayIcon,
+  ShieldIcon,
+  WrenchIcon,
+  ZapIcon,
 } from "components/Skills/icons";
 import { SKILL_TO_ICON } from "utils/data/skillIcons";
 
