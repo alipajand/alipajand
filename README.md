@@ -1,5 +1,15 @@
-# Hi there 👋
+<div align="center">
 
-- Email: <a href="mailto:ali.pajand@gmail.com" target="_blank"> ali.pajand@gmail.com </a>
-- LinkedIn: <a href="https://www.linkedin.com/in/alipajand/" target="_blank"> @alipajand </a>
-- Telegram Id: <a href="https://t.me/alipajand" target="_blank"> @alipajand </a>
+# Hi, I'm Ali Pajand 👋
+
+</div>
+
+---
+
+**Tech I use:** React, Next.js, TypeScript, Tailwind, GSAP, D3.js, Jest, Playwright, Figma, AWS.
+
+---
+
+### 📬 Get in touch
+
+LinkedIn: <a href="https://www.linkedin.com/in/alipajand/" target="_blank"> @alipajand </a>
