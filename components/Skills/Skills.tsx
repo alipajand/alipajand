@@ -2,6 +2,7 @@
 
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import { SKILL_GROUPS } from "utils/data/skills";
+import { SkillIcon } from "components/Skills/SkillIcon";
 
 export function Skills() {
   const {
@@ -33,8 +34,9 @@ export function Skills() {
                 {group.items.map((skill) => (
                   <span
                     key={skill}
-                    className="hover-scale inline-block px-3 py-1.5 rounded-md bg-card border border-border text-foreground text-sm font-medium hover:border-foreground hover:text-foreground"
+                    className="hover-scale inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-card border border-border text-foreground text-sm font-medium hover:border-foreground hover:text-foreground"
                   >
+                    <SkillIcon skill={skill} />
                     {skill}
                   </span>
                 ))}
