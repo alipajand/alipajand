@@ -39,11 +39,4 @@ export const SKILL_GROUPS: SkillGroup[] = [
   },
 ];
 
-export const SKILLS_CORE_ITEMS = [
-  "Leadership",
-  "Cross-Functional Collaboration",
-  "Communication",
-  "Problem-Solving",
-  "Mentorship",
-  "Stakeholder Alignment",
-];
+export const SKILLS_CORE_ITEMS = ["Leadership", "Collaboration", "Communication", "Mentorship"];

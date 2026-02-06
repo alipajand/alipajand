@@ -24,7 +24,7 @@ export function Hero() {
       className="relative min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-20 pt-24 pb-32 overflow-hidden bg-background bg-grid"
     >
       <div className="relative z-10 max-w-4xl">
-        <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1]">
+        <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1]">
           <span ref={nameCharsRef} className="block text-foreground">
             {SITE_NAME.split("").map((char, i) => (
               <span

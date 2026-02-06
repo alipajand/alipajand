@@ -60,14 +60,14 @@ export function Experience() {
                       {job.period}
                     </span>
                   </div>
-                  <ul className="space-y-3 list-none pl-0">
+                  <ul className="space-y-1 list-none pl-0">
                     {job.highlights.map((h, j) => (
                       <li
                         key={j}
                         className="flex gap-3 text-muted text-[15px] sm:text-base leading-relaxed"
                       >
                         <span
-                          className="w-5 shrink-0 text-right text-foreground/50 select-none"
+                          className="w-5 shrink-0 text-right text-foreground/90 select-none"
                           aria-hidden
                         >
                           —

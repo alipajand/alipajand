@@ -44,8 +44,8 @@ export function Skills() {
             </div>
           ))}
         </div>
-        <p className="mt-10 text-muted text-base" data-reveal>
-          <strong className="text-foreground">Core:</strong> {SKILLS_CORE_ITEMS.join(", ")}.
+        <p className="mt-20 text-muted text-base" data-reveal>
+          <strong className="text-foreground">CORE:</strong> {SKILLS_CORE_ITEMS.join(", ")}.
         </p>
       </div>
     </section>
