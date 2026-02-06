@@ -20,9 +20,7 @@ describe("About", () => {
     it("should render the summary text", () => {
       render(<About />);
 
-      expect(
-        screen.getByText(/Senior Frontend Developer specializing in React/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Senior Product Engineer with 9\+ years/i)).toBeInTheDocument();
     });
   });
 });

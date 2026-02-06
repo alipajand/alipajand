@@ -16,10 +16,8 @@ import {
   ShieldIcon,
   WrenchIcon,
   ZapIcon,
-} from "components/Skills/icons";
+} from "components/Icons";
 import { SKILL_TO_ICON } from "data/skillIcons";
-
-const ICON_CLASS = "shrink-0 text-muted";
 
 const ICON_MAP = {
   code: CodeIcon,
@@ -42,5 +40,5 @@ const ICON_MAP = {
 export function SkillIcon({ skill }: { skill: string }) {
   const iconKey = (SKILL_TO_ICON[skill] ?? "code") as keyof typeof ICON_MAP;
   const Icon = ICON_MAP[iconKey] ?? CodeIcon;
-  return <Icon className={ICON_CLASS} />;
+  return <Icon className="shrink-0 text-muted" />;
 }

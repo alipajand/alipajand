@@ -17,7 +17,7 @@ class MockIntersectionObserver implements IntersectionObserver {
 
   constructor(
     public callback: IntersectionObserverCallback,
-    _options?: IntersectionObserverInit
+    _?: IntersectionObserverInit
   ) {}
 
   observe(): void {

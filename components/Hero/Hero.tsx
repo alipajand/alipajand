@@ -4,11 +4,13 @@ import { useHero } from "components/Hero/hooks/useHero";
 import { LINKS } from "data/links";
 import { HERO_SUB, SITE_NAME, TAGLINE } from "data/site";
 
-const ICON_SRC: Record<(typeof LINKS)[number]["label"], string> = {
+const ICON_SRC = {
   Email: "/icons/email.svg",
   LinkedIn: "/icons/linkedin.svg",
   GitHub: "/icons/github.svg",
-};
+} as const;
+
+type IconLabel = keyof typeof ICON_SRC;
 
 export function Hero() {
   const {
@@ -43,7 +45,7 @@ export function Hero() {
         </h1>
         <p
           ref={subRef}
-          className="mt-8 max-w-xl text-muted leading-relaxed opacity-0 translate-y-15"
+          className="mt-8 max-w-xl text-muted opacity-0 translate-y-15 tracking-wide"
         >
           {HERO_SUB}
         </p>
@@ -58,31 +60,34 @@ export function Hero() {
             className="flex items-center gap-4 opacity-0 translate-y-15"
             aria-label="Contact links"
           >
-            {LINKS.map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="text-muted hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded h-5"
-                aria-label={label}
-              >
-                <span
-                  className="inline-block size-5 bg-current shrink-0"
-                  style={{
-                    maskImage: `url(${ICON_SRC[label]})`,
-                    maskSize: "contain",
-                    maskRepeat: "no-repeat",
-                    maskPosition: "center",
-                    WebkitMaskImage: `url(${ICON_SRC[label]})`,
-                    WebkitMaskSize: "contain",
-                    WebkitMaskRepeat: "no-repeat",
-                    WebkitMaskPosition: "center",
-                  }}
-                  aria-hidden
-                />
-              </a>
-            ))}
+            {LINKS.map(({ label, href }) => {
+              const iconSrc = ICON_SRC[label as IconLabel];
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="text-muted hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded h-5"
+                  aria-label={label}
+                >
+                  <span
+                    className="inline-block size-5 bg-current shrink-0"
+                    style={{
+                      maskImage: iconSrc ? `url(${iconSrc})` : undefined,
+                      maskSize: "contain",
+                      maskRepeat: "no-repeat",
+                      maskPosition: "center",
+                      WebkitMaskImage: iconSrc ? `url(${iconSrc})` : undefined,
+                      WebkitMaskSize: "contain",
+                      WebkitMaskRepeat: "no-repeat",
+                      WebkitMaskPosition: "center",
+                    }}
+                    aria-hidden
+                  />
+                </a>
+              );
+            })}
           </nav>
         </div>
       </div>

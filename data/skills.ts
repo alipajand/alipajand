@@ -6,11 +6,20 @@ export interface SkillGroup {
 export const SKILL_GROUPS: SkillGroup[] = [
   {
     label: "Languages & Frameworks",
-    items: ["React", "Next.js", "TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3", "Node.js"],
+    items: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "JavaScript (ES6+)",
+      "Vue",
+      "Nuxt.js",
+      "HTML5",
+      "CSS3",
+    ],
   },
   {
     label: "Backend & APIs",
-    items: ["Nest.js", "Python", "PostgreSQL", "REST APIs", "GraphQL"],
+    items: ["Node.js", "Nest.js", "Python", "PostgreSQL", "REST APIs", "GraphQL"],
   },
   {
     label: "Interactions",
@@ -22,10 +31,19 @@ export const SKILL_GROUPS: SkillGroup[] = [
   },
   {
     label: "Testing & Quality",
-    items: ["Jest", "Playwright", "Cypress", "Sentry", "Chrome DevTools"],
+    items: ["Jest", "Playwright", "Sentry", "Chrome DevTools"],
   },
   {
     label: "Tools & Cloud",
     items: ["AWS", "Docker", "Git", "GitHub Actions", "Vite", "Figma", "Storybook"],
   },
+];
+
+export const SKILLS_CORE_ITEMS = [
+  "Leadership",
+  "Cross-Functional Collaboration",
+  "Communication",
+  "Problem-Solving",
+  "Mentorship",
+  "Stakeholder Alignment",
 ];

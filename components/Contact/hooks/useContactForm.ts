@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import {
+  type FormState,
+  useForm,
+  type UseFormHandleSubmit,
+  type UseFormRegister,
+} from "react-hook-form";
 
 export type ContactFormStatus = "idle" | "loading" | "success" | "error";
 
@@ -11,13 +16,30 @@ export interface ContactFormValues {
   message: string;
 }
 
+export interface ContactFormSelectors {
+  status: ContactFormStatus;
+  errorMessage: string | null;
+  isSubmitting: boolean;
+  formState: FormState<ContactFormValues>;
+}
+
+export interface ContactFormActions {
+  register: UseFormRegister<ContactFormValues>;
+  handleSubmit: ReturnType<UseFormHandleSubmit<ContactFormValues>>;
+}
+
+export interface ContactFormHook {
+  selectors: ContactFormSelectors;
+  actions: ContactFormActions;
+}
+
 const DEFAULT_VALUES: ContactFormValues = {
   name: "",
   email: "",
   message: "",
 };
 
-export function useContactForm() {
+export function useContactForm(): ContactFormHook {
   const [status, setStatus] = useState<ContactFormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -57,11 +79,15 @@ export function useContactForm() {
   }
 
   return {
-    register: form.register,
-    handleSubmit: form.handleSubmit(submitToApi),
-    formState: form.formState,
-    status,
-    errorMessage,
-    isSubmitting: status === "loading",
+    selectors: {
+      status,
+      errorMessage,
+      isSubmitting: status === "loading",
+      formState: form.formState,
+    },
+    actions: {
+      register: form.register,
+      handleSubmit: form.handleSubmit(submitToApi),
+    },
   };
 }
