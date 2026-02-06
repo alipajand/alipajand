@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend(): Resend | null {
+  const key = process.env.RESEND_API_KEY;
+  return key ? new Resend(key) : null;
+}
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CONSUMER_DOMAINS = ["@gmail.com", "@yahoo.com", "@hotmail.com"];
@@ -50,7 +53,8 @@ export async function POST(request: Request) {
     if (!EMAIL_REGEX.test(e))
       return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
 
-    if (!process.env.RESEND_API_KEY) {
+    const resend = getResend();
+    if (!resend) {
       return NextResponse.json({ error: "Email service is not configured" }, { status: 503 });
     }
 

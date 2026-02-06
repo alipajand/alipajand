@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-import { Education } from "components/Contact/Education";
-import { CANONICAL_URL, KEYWORDS, META_DESCRIPTION, SITE_NAME, TITLE } from "data/site";
+import { Education } from "components/Education/Education";
+import { CANONICAL_URL, KEYWORDS, HERO_SUB, SITE_NAME, TITLE } from "data/site";
 import React from "react";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     default: TITLE,
     template: `%s | ${SITE_NAME}`,
   },
-  description: META_DESCRIPTION,
+  description: HERO_SUB,
   keywords: KEYWORDS,
   authors: [{ name: SITE_NAME, url: CANONICAL_URL }],
   creator: SITE_NAME,
@@ -24,12 +24,12 @@ export const metadata: Metadata = {
     url: CANONICAL_URL,
     siteName: SITE_NAME,
     title: TITLE,
-    description: META_DESCRIPTION,
+    description: HERO_SUB,
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
-    description: META_DESCRIPTION,
+    description: HERO_SUB,
   },
   robots: {
     index: true,
@@ -70,11 +70,11 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
-        <footer className="px-6 sm:px-10 lg:px-20 border-t border-border py-8">
+        <section className="px-6 sm:px-10 lg:px-20 border-t border-border py-8">
           <div className="max-w-3xl">
             <Education />
           </div>
-        </footer>
+        </section>
       </body>
     </html>
   );

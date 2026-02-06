@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import { useContactForm } from "components/Contact/hooks/useContactForm";
+import { type ContactFormHook, useContactForm } from "components/Contact/hooks/useContactForm";
 
 const inputClass =
   "w-full px-4 py-2.5 rounded-md bg-card border border-border text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-foreground focus:border-transparent disabled:opacity-60";
@@ -9,13 +9,14 @@ const labelClass = "block text-sm font-medium text-foreground mb-1.5";
 
 export function ContactForm() {
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    status,
-    errorMessage,
-    isSubmitting,
-  } = useContactForm();
+    selectors: {
+      status,
+      errorMessage,
+      isSubmitting,
+      formState: { errors },
+    },
+    actions: { handleSubmit, register },
+  }: ContactFormHook = useContactForm();
 
   return (
     <form

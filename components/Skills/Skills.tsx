@@ -1,7 +1,7 @@
 "use client";
 
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
-import { SKILL_GROUPS } from "data/skills";
+import { SKILL_GROUPS, SKILLS_CORE_ITEMS } from "data/skills";
 import { SkillIcon } from "components/Skills/SkillIcon";
 
 export function Skills() {
@@ -45,8 +45,7 @@ export function Skills() {
           ))}
         </div>
         <p className="mt-10 text-muted text-base" data-reveal>
-          <strong className="text-foreground">Core:</strong> Leadership, Cross-Functional
-          Collaboration, Communication, Problem-Solving, Mentorship, Stakeholder Alignment.
+          <strong className="text-foreground">Core:</strong> {SKILLS_CORE_ITEMS.join(", ")}.
         </p>
       </div>
     </section>

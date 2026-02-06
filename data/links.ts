@@ -6,4 +6,4 @@ export const LINKS = [
     href: "https://linkedin.com/in/alipajand",
   },
   { label: "GitHub", value: "github.com/alipajand", href: "https://github.com/alipajand" },
-] as const;
+];

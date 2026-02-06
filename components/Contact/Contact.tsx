@@ -2,6 +2,7 @@
 
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import { LINKS } from "data/links";
+import { CONTACT_INTRO } from "data/site";
 import { ContactForm } from "components/Contact/ContactForm";
 
 export function Contact() {
@@ -25,9 +26,7 @@ export function Contact() {
           Get in touch
         </h2>
         <p className="text-muted text-lg mb-12" data-reveal>
-          Open to senior and staff-level roles in product engineering, frontend architecture, design
-          systems, and Developer Experience. Happy to discuss full-time, contract, or advisory work.
-          Let&apos;s build something great.
+          {CONTACT_INTRO}
         </p>
 
         <ContactForm />
