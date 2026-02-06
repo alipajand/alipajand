@@ -20,7 +20,7 @@ describe("Contact", () => {
     it("should render contact links for Email, LinkedIn, GitHub", () => {
       render(<Contact />);
 
-      expect(screen.getByText("ali.pajand@gmail.com")).toBeInTheDocument();
+      expect(screen.getByText("ali.pajand[AT]gmail.com")).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /email/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /linkedin/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /github/i })).toBeInTheDocument();
