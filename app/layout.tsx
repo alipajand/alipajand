@@ -3,15 +3,15 @@ import Script from "next/script";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { Education } from "components/Education/Education";
-import { CANONICAL_URL, KEYWORDS, HERO_SUB, SITE_NAME, TITLE } from "data/site";
-import React from "react";
+import { CANONICAL_URL, HERO_SUB, KEYWORDS, SITE_NAME, TAGLINE } from "data/site";
+import { PropsWithChildren } from "react";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_URL),
   title: {
-    default: TITLE,
+    default: TAGLINE,
     template: `%s | ${SITE_NAME}`,
   },
   description: HERO_SUB,
@@ -23,13 +23,15 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: CANONICAL_URL,
     siteName: SITE_NAME,
-    title: TITLE,
+    title: TAGLINE,
     description: HERO_SUB,
+    images: [{ url: "/icon.png", alt: TAGLINE }],
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
+    title: TAGLINE,
     description: HERO_SUB,
+    images: ["/icon.png"],
   },
   robots: {
     index: true,
@@ -40,11 +42,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className="dark">
       <body

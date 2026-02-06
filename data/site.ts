@@ -17,8 +17,6 @@ export const KEYWORDS = [
 
 export const CANONICAL_URL = "https://alipajand.com";
 
-export const TITLE = `${SITE_NAME} — ${TAGLINE}`;
-
 export const HERO_SUB =
   "9+ years building fast, reliable web apps with React, TypeScript & Node.js. Design systems, interactive and 3D/animated UIs, and DX tooling. Bridging design and engineering to ship better products.";
 

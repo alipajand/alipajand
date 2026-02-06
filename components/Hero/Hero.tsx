@@ -43,10 +43,7 @@ export function Hero() {
             {TAGLINE}
           </span>
         </h1>
-        <p
-          ref={subRef}
-          className="mt-8 max-w-xl text-muted opacity-0 translate-y-15 tracking-wide"
-        >
+        <p ref={subRef} className="mt-8 max-w-xl text-muted opacity-0 translate-y-15 tracking-wide">
           {HERO_SUB}
         </p>
         <div ref={ctaRef} className="mt-12 flex flex-wrap items-center gap-4">
