@@ -1,17 +1,13 @@
 import { ImageResponse } from "next/og";
 
-import {
-  CANONICAL_URL,
-  HERO_METRICS,
-  LOCATION,
-  SITE_NAME,
-  TAGLINE,
-} from "data/site";
+import { CANONICAL_URL, HERO_METRICS, LOCATION, SITE_NAME, TAGLINE } from "data/site";
 
 export const size = { width: 1200, height: 630 };
 
 export default function OpenGraphImage() {
   const photoUrl = `${CANONICAL_URL}/icon.png`;
+
+  const metricsLine = `${HERO_METRICS[0].value} years · React, TypeScript, Node.js · ${LOCATION}`;
 
   return new ImageResponse(
     <div
@@ -37,32 +33,35 @@ export default function OpenGraphImage() {
       >
         <div
           style={{
+            display: "flex",
             fontSize: 72,
             fontWeight: 700,
             color: "#fafafa",
             letterSpacing: "-0.02em",
           }}
         >
-          {SITE_NAME}
+          <span>{SITE_NAME}</span>
         </div>
         <div
           style={{
+            display: "flex",
             fontSize: 32,
             color: "#888888",
             fontWeight: 400,
             maxWidth: 700,
           }}
         >
-          {TAGLINE.replace(/\s*\|\s*/g, " · ")}
+          <span>{TAGLINE.replace(/\s*\|\s*/g, " · ")}</span>
         </div>
         <div
           style={{
+            display: "flex",
             fontSize: 22,
             color: "#666666",
             marginTop: 24,
           }}
         >
-          {HERO_METRICS[0].value} years · React, TypeScript, Node.js · {LOCATION}
+          <span>{metricsLine}</span>
         </div>
       </div>
       <img
