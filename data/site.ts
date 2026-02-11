@@ -1,6 +1,6 @@
 export const SITE_NAME = "Ali Pajand";
 
-export const TAGLINE = "Product engineer · Design systems · Developer experience";
+export const TAGLINE = "Senior Product Engineer · Design Systems · Developer Experience";
 
 export const KEYWORDS = [
   SITE_NAME,

@@ -111,7 +111,7 @@ export function Hero() {
             </div>
           ))}
         </div>
-        <p ref={locationRef} className="mt-6 flex items-center gap-2 text-muted text-sm opacity-0">
+        <p ref={locationRef} className="mt-16 flex items-center gap-2 text-muted text-sm opacity-0">
           <span
             className="shrink-0 size-4 bg-current"
             style={{

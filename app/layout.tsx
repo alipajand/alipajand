@@ -39,6 +39,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: CANONICAL_URL,
   },
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
