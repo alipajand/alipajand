@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { CANONICAL_URL, HERO_SUB, KEYWORDS, SITE_NAME, TAGLINE } from "data/site";
 import { PropsWithChildren } from "react";
+import { SmoothScroll } from "components/SmoothScroll/SmoothScroll";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -70,7 +71,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

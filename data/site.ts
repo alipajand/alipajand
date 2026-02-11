@@ -27,7 +27,7 @@ export const ABOUT_PARAGRAPHS = [
 ];
 
 export const CONTACT_INTRO =
-  "I'm open to senior and staff roles in product engineering, frontend, design systems, or dx. Full-time, contract, or advisory. Let's talk.";
+  "I'm open to senior and staff roles in product engineering, frontend, design systems, or dx. Let's talk.";
 
 export const HERO_METRICS = [
   { value: "9+", label: "years building product" },
