@@ -33,4 +33,5 @@ export const SKILL_TO_ICON: Record<string, string> = {
   Vite: "zap",
   Figma: "pen",
   Storybook: "book",
+  WCAG: "shield",
 };

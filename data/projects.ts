@@ -10,6 +10,12 @@ export interface BeforeAfter {
   after: string;
 }
 
+/** Optional second asset: e.g. CI/CD diagram, GSAP/D3 GIF, or MCP architecture. Add to prove implementation ownership. */
+export interface ProjectMedia {
+  src: string;
+  caption: string;
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -17,7 +23,12 @@ export interface Project {
   role: string;
   tech: string[];
   outcomes: string[];
+  /** Main screenshot (e.g. Storybook, dashboard, app). */
   image?: string;
+  /** Alt/caption for main image (e.g. "Storybook: component library"). */
+  imageCaption?: string;
+  /** Second proof asset: diagram (CI/CD, MCP) or GIF (GSAP/D3 animation). */
+  secondaryMedia?: ProjectMedia;
   caseStudy?: CaseStudyBlock;
   beforeAfter?: BeforeAfter[];
   link?: string;
@@ -28,44 +39,45 @@ export const PROJECTS: Project[] = [
     id: "design-system-alwaysgeeky",
     name: "Design System & Component Library",
     description:
-      "Led architecture and maintenance of a comprehensive design system for high-traffic Web3 products—full WCAG accessibility and cross-browser stability.",
+      "Built and maintained the design system for our Web3 products. Accessible (WCAG), consistent across browsers.",
     role: "Lead · AlwaysGeeky Games",
     tech: ["React", "TypeScript", "Storybook", "GitHub Actions", "WCAG"],
     outcomes: [
-      "Faster feature delivery: product teams adopted the library and cut UI implementation time",
-      "Visual regression and a11y checks in CI, zero accessibility regressions in releases",
+      "Teams could build UI faster because they reused the library",
+      "CI checks visual and a11y changes so we don't ship regressions",
     ],
     caseStudy: {
       problem:
-        "Multiple product teams building one-off components; inconsistent patterns and no shared accessibility baseline.",
+        "Teams were building their own components. No shared patterns, no consistent accessibility.",
       approach:
-        "Single design system with Storybook as source of truth, WCAG-aligned components, and GitHub Actions for lint, visual diff, and a11y on every PR.",
-      result:
-        "Unified UI across products, consistent a11y, and CI blocking regressions before merge.",
+        "One design system in Storybook. WCAG-built components. GitHub Actions runs lint, visual diff, and a11y on every PR.",
+      result: "Same look and a11y everywhere. CI catches problems before merge.",
     },
     beforeAfter: [
       { label: "Component reuse", before: "Ad-hoc", after: "Shared library" },
       { label: "A11y checks", before: "Manual", after: "Automated in CI" },
     ],
     image: undefined,
+    imageCaption: undefined,
+    secondaryMedia: undefined,
   },
   {
     id: "marketplace-login-web3",
     name: "Marketplace & Login (Web3)",
     description:
-      "Led end-to-end frontend delivery for Marketplace and Login flows—pixel-perfect UI, seamless API integration, and AWS-backed deployment.",
+      "Built Marketplace and Login from design to production. Clean UI, solid API and auth, deployed on AWS.",
     role: "Senior Frontend · AlwaysGeeky Games",
     tech: ["React", "Next.js", "Vite", "AWS"],
     outcomes: [
-      "High-traffic production flows shipped on time with stable releases",
-      "Seamless API and auth integration in Web3 environment",
+      "Shipped on time. Stable under real traffic.",
+      "API and auth worked smoothly in a Web3 setup.",
     ],
     caseStudy: {
       problem:
-        "High-traffic Marketplace and Login flows needed to match design specs and integrate with Web3 APIs without degrading UX.",
+        "We needed Marketplace and Login to match design and talk to Web3 APIs without feeling slow or broken.",
       approach:
-        "React/Next.js with Vite, strict design-system usage, and robust error and loading states for API and auth.",
-      result: "Shipped flows met design and performance targets; stable in production under load.",
+        "React/Next.js and Vite. Used the design system. Made sure loading and errors felt good.",
+      result: "Shipped. It matched design and held up in production.",
     },
     image: undefined,
   },
@@ -73,20 +85,19 @@ export const PROJECTS: Project[] = [
     id: "data-dashboards-emplifi",
     name: "Data Dashboards & Motion",
     description:
-      "Led development of complex, data-heavy UIs with motion design (GSAP) and D3.js dashboards—optimized for mobile webviews and embedded environments.",
+      "Built data-heavy dashboards with smooth motion (GSAP) and D3.js charts. Made them run well inside mobile webviews and embeds.",
     role: "Senior Frontend · Emplifi",
     tech: ["React", "D3.js", "GSAP", "Figma"],
     outcomes: [
-      "Drove measurable gains in retention and interface responsiveness via A/B testing and analytics",
-      "Architected rendering and state for embedded webviews so dashboards performed on mobile",
+      "A/B tests and analytics showed better retention and snappier UI",
+      "Same dashboards ran smoothly when embedded in other apps",
     ],
     caseStudy: {
       problem:
-        "Data-heavy dashboards had to feel responsive in embedded mobile webviews while matching high-fidelity motion design.",
+        "Dashboards had to look good and feel smooth inside mobile webviews, with real motion design.",
       approach:
-        "D3.js for charts, GSAP for motion, and optimized React rendering and state so the same code ran well in webviews.",
-      result:
-        "Smoother UX in embedded contexts; A/B and Hotjar/Sentry data confirmed improved retention and fewer friction points.",
+        "D3.js for charts, GSAP for motion. Tuned React so one codebase ran well in webviews.",
+      result: "Smoother experience in embeds. Data showed better retention and fewer drop-offs.",
     },
     beforeAfter: [{ label: "Embedded perf", before: "Janky", after: "Smooth 60fps" }],
     image: undefined,
@@ -95,20 +106,18 @@ export const PROJECTS: Project[] = [
     id: "pwa-performance-controltech",
     name: "PWA & Performance",
     description:
-      "Owned full development cycle for multiple startup products—code splitting, lazy loading, CDN, PWA from scratch (service workers, offline, caching).",
+      "Built several startup products end to end. Code splitting, lazy loading, CDN. PWAs with offline and caching from scratch.",
     role: "Frontend · ControlTech Startup Studio",
     tech: ["React", "React Native", "Jest", "Playwright", "GitHub Actions"],
     outcomes: [
-      "99.9% deployment stability via Jest + Playwright and GitHub Actions CI/CD",
-      "Faster first load and reliable offline experience for early customers",
+      "99.9% deployment stability with Jest, Playwright, and GitHub Actions",
+      "Faster load and offline support so early users had a good experience",
     ],
     caseStudy: {
-      problem:
-        "Startup products needed fast first load, offline capability, and reliable deployments for early adopters.",
+      problem: "Products had to load fast, work offline, and deploy without breaking.",
       approach:
-        "Code splitting, lazy loading, CDN, PWA (service workers, caching), plus Jest and Playwright with GitHub Actions.",
-      result:
-        "99.9% deployment stability; reduced first-load times and working offline for key flows.",
+        "Split code, lazy load, use a CDN. Built PWAs with service workers and caching. Added Jest, Playwright, and GitHub Actions.",
+      result: "99.9% uptime on releases. Faster first load. Key flows worked offline.",
     },
     beforeAfter: [
       { label: "Deployment stability", before: "~95%", after: "99.9%" },

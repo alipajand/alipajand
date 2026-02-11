@@ -5,7 +5,7 @@ import { SITE_NAME } from "data/site";
 
 export const metadata = {
   title: "Writing",
-  description: `Articles and notes by ${SITE_NAME} on design systems, developer experience, and frontend engineering.`,
+  description: `Articles and notes by ${SITE_NAME} on design systems, DX, and frontend.`,
 };
 
 export default function BlogPage() {
@@ -17,9 +17,7 @@ export default function BlogPage() {
         <h1 className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-2">
           Writing
         </h1>
-        <p className="text-muted text-lg mb-16">
-          Notes on design systems, DX, and frontend engineering.
-        </p>
+        <p className="text-muted text-lg mb-16">Notes on design systems, DX, and frontend.</p>
 
         {posts.length === 0 ? (
           <p className="text-muted">No posts yet. Check back soon.</p>

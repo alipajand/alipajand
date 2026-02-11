@@ -13,6 +13,23 @@ const config: Config = {
     "^data/(.*)$": "<rootDir>/data/$1",
     "^utils/(.*)$": "<rootDir>/utils/$1",
     "^components/(.*)$": "<rootDir>/components/$1",
+    "^lib/(.*)$": "<rootDir>/lib/$1",
+  },
+  collectCoverageFrom: [
+    "components/**/*.{ts,tsx}",
+    "lib/**/*.ts",
+    "utils/**/*.ts",
+    "!**/*.spec.{ts,tsx}",
+    "!**/__tests__/**",
+    "!**/node_modules/**",
+  ],
+  coverageThreshold: {
+    global: {
+      statements: 97,
+      branches: 85,
+      functions: 90,
+      lines: 97,
+    },
   },
 };
 

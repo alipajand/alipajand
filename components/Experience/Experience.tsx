@@ -22,7 +22,7 @@ export function Experience() {
       <div className="max-w-4xl mx-auto">
         <h2
           id="experience-heading"
-          className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-4"
+          className="font-display font-bold text-3xl sm:text-4xl gradient-text-animated mb-4"
           data-reveal
         >
           Experience

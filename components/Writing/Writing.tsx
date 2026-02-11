@@ -28,13 +28,13 @@ export function Writing({ posts }: { posts: WritingPost[] }) {
       <div className="max-w-4xl mx-auto">
         <h2
           id="writing-heading"
-          className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-4"
+          className="font-display font-bold text-3xl sm:text-4xl gradient-text-animated mb-4"
           data-reveal
         >
           Writing
         </h2>
         <p className="text-muted text-lg mb-12 max-w-xl" data-reveal>
-          Notes on design systems, developer experience, and frontend engineering.
+          Notes on design systems, DX, and frontend.
         </p>
         <ul className="space-y-6" data-reveal>
           {posts.map((post) => (
