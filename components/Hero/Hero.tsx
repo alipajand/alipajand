@@ -1,7 +1,6 @@
 "use client";
 
 import { useHero } from "components/Hero/hooks/useHero";
-import { HeroCanvas } from "components/Hero/HeroCanvas";
 import { LINKS } from "data/links";
 import { HERO_METRICS, HERO_SUB, LOCATION, SITE_NAME, TAGLINE } from "data/site";
 
@@ -33,7 +32,6 @@ export function Hero() {
       aria-label="Introduction"
       className="relative min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-20 pt-24 pb-32 overflow-hidden bg-background bg-grid"
     >
-      <HeroCanvas />
       <div className="relative z-10 max-w-4xl mx-auto w-full">
         <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1]">
           <span ref={nameCharsRef} className="block text-foreground hero-lcp">
