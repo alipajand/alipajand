@@ -1,6 +1,8 @@
 export const SKILL_TO_ICON: Record<string, string> = {
   React: "code",
   "Next.js": "code",
+  "Vue 3": "code",
+  "Nuxt 3": "code",
   TypeScript: "code",
   "JavaScript (ES6+)": "code",
   HTML5: "code",
@@ -16,6 +18,7 @@ export const SKILL_TO_ICON: Record<string, string> = {
   "3D Web Graphics": "cube",
   Redux: "layers",
   Zustand: "database",
+  Pinia: "layers",
   "React Query": "database",
   "Context API": "layers",
   Jest: "check",

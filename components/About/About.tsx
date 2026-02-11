@@ -19,7 +19,7 @@ export function About() {
       aria-labelledby="about-heading"
       className="px-6 sm:px-10 lg:px-20 py-24 sm:py-32"
     >
-      <div className="max-w-3xl">
+      <div className="max-w-4xl mx-auto w-full">
         <h2
           id="about-heading"
           className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-8"

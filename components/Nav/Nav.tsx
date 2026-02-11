@@ -6,9 +6,15 @@ import { useNav } from "components/Nav/hooks/useNav";
 const NAV_LINKS = [
   { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
+  { href: "#innovation", label: "Innovation" },
+  { href: "#testimonials", label: "Testimonials" },
+  { href: "/blog", label: "Writing" },
   { href: "#skills", label: "Skills" },
   { href: "#contact", label: "Contact" },
 ];
+
+const RESUME_HREF = "/resume.pdf";
 
 export function Nav() {
   const {
@@ -23,7 +29,7 @@ export function Nav() {
         isScrolled && "border-b border-border bg-background/80 backdrop-blur-sm"
       )}
     >
-      <nav className="flex items-center justify-end px-6 sm:px-10 lg:px-20 h-16 max-w-7xl mx-auto">
+      <nav className="flex items-center justify-end sm:justify-center px-6 sm:px-10 lg:px-20 h-16 max-w-7xl mx-auto">
         <ul ref={navLinksRef} className="hidden sm:flex items-center gap-6">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
@@ -35,6 +41,16 @@ export function Nav() {
               </a>
             </li>
           ))}
+          <li>
+            <a
+              href={RESUME_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-link-hover text-sm text-muted hover:text-foreground transition-colors duration-200"
+            >
+              Resume
+            </a>
+          </li>
         </ul>
         <button
           type="button"
@@ -82,6 +98,15 @@ export function Nav() {
               {link.label}
             </a>
           ))}
+          <a
+            href={RESUME_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-foreground hover:text-muted transition-colors py-2"
+            onClick={handleCloseMenu}
+          >
+            Resume
+          </a>
         </div>
       </div>
     </header>

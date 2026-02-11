@@ -1,5 +1,5 @@
 export const LINKS = [
-  { label: "Email", value: "ali.pajand@gmail.com", href: "mailto:ali.pajand@gmail.com" },
+  { label: "Email", value: "ali.pajand[AT]gmail.com", href: "mailto:ali.pajand@gmail.com" },
   {
     label: "LinkedIn",
     value: "linkedin.com/in/alipajand",

@@ -3,7 +3,7 @@
 import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
 
-import gsap from "gsap";
+import { gsap, prefersReducedMotion, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
 
 export interface UseScrollRevealOptions {
   trigger?: HTMLElement | null;
@@ -12,6 +12,7 @@ export interface UseScrollRevealOptions {
   duration?: number;
   stagger?: number;
   delay?: number;
+  start?: string;
 }
 
 export interface ScrollRevealSelectors {
@@ -25,44 +26,53 @@ export interface ScrollRevealHook {
 export function useScrollReveal(options: UseScrollRevealOptions = {}): ScrollRevealHook {
   const sectionRef = useRef<HTMLElement>(null);
 
-  const { trigger, once = false, y = 48, duration = 0.7, stagger = 0.1, delay = 0 } = options;
+  const {
+    trigger,
+    once = true,
+    y = 48,
+    duration = 0.7,
+    stagger = 0.1,
+    delay = 0,
+    start = "top 85%",
+  } = options;
 
   useEffect(() => {
+    registerGSAPPlugins();
+
     const el = sectionRef.current;
     if (!el) return;
 
-    const children = el.querySelectorAll("[data-reveal]");
-    const reset = () => gsap.set(children, { opacity: 0, y });
-    reset();
+    const children = el.querySelectorAll<HTMLElement>("[data-reveal]");
+    if (children.length === 0) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const tl = gsap.timeline({ delay });
-            tl.to(children, {
-              opacity: 1,
-              y: 0,
-              duration,
-              stagger: children.length > 1 ? stagger : 0,
-              ease: "power3.out",
-            });
-            if (once && entry.target) {
-              observer.unobserve(entry.target);
-            }
-          } else if (!once) {
-            reset();
-          }
+    if (prefersReducedMotion()) {
+      gsap.set(children, { opacity: 1, y: 0 });
+      return;
+    }
+
+    gsap.set(children, { opacity: 0, y });
+
+    const triggerEl = trigger ?? el;
+    const st = ScrollTrigger.create({
+      trigger: triggerEl,
+      start,
+      once,
+      onEnter: () => {
+        gsap.to(children, {
+          opacity: 1,
+          y: 0,
+          duration,
+          delay,
+          stagger: children.length > 1 ? stagger : 0,
+          ease: "power3.out",
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
-    );
+    });
 
-    const target = trigger ?? el;
-    observer.observe(target);
-
-    return () => observer.disconnect();
-  }, [trigger, once, y, duration, stagger, delay]);
+    return () => {
+      st.kill();
+    };
+  }, [trigger, once, y, duration, stagger, delay, start]);
 
   return {
     selectors: { sectionRef },
