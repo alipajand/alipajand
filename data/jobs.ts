@@ -11,10 +11,9 @@ export const JOBS: Job[] = [
     company: "AlwaysGeeky Games",
     period: "2024 – 2026",
     highlights: [
-      "Own the end-to-end frontend delivery of high-traffic Marketplace and Login projects using React and Next.js and AWS ensuring pixel-perfect UI execution and seamless API integration in Web3 environment, using vite, storybook and lints.",
-      "Architected and maintained a comprehensive Design System and Component Library, improving development velocity while ensuring full WCAG accessibility and cross-browser stability. Implement CI/CD pipelines using Github Actions.",
-      "Design System & Component Library with full WCAG accessibility and CI/CD (GitHub Actions).",
-      "Developer Experience: tooling, docs, and workflows; AI-driven automation (MCP server for Cursor) for code review and velocity.",
+      "Shipped high-traffic Marketplace and Login (React, Next.js, AWS) on time with pixel-perfect UI and stable Web3 API integration  production flows meeting design and performance targets.",
+      "Design system and component library led to faster feature delivery across teams; CI/CD (GitHub Actions) for visual regression and WCAG checks reduced a11y regressions to zero in releases.",
+      "Introduced AI-driven automation (custom MCP server for Cursor) for code review and lint/type feedback in-IDE, cutting feedback loops and speeding up PR readiness.",
     ],
   },
   {
@@ -22,10 +21,9 @@ export const JOBS: Job[] = [
     company: "Emplifi",
     period: "2022 – 2023",
     highlights: [
-      "Developed complex, data-heavy user interfaces focusing on smooth motion design and GSAP animations, translating high-fidelity Figma designs into responsive web components.",
-      "Optimized frontend rendering pipelines and state management to ensure performance within mobile webviews and embedded environments.",
-      "Leveraged A/B testing, Sentry, and Hotjar analytics to identify UX friction points, resulting in measurable improvements to user retention and interface responsiveness.",
-      "Delivered data dashboards with D3.js and React; optimized for mobile webviews and embedded environments.",
+      "Data-heavy dashboards and motion (GSAP, D3.js) delivered to spec; A/B testing and analytics (Sentry, Hotjar) showed measurable gains in user retention and interface responsiveness.",
+      "Optimized rendering and state for embedded mobile webviews so the same dashboards performed smoothly in third-party contexts  removing jank and friction identified in UX data.",
+      "Figma-to-code pipeline with responsive components; technical decisions validated against business KPIs and user research.",
     ],
   },
   {
@@ -33,9 +31,9 @@ export const JOBS: Job[] = [
     company: "ControlTech Startup Studio",
     period: "2018 – 2022",
     highlights: [
-      "Owned full development cycle for multiple startup products: Figma to React/React Native, AWS infra, and stable releases for early customers.",
-      "Reduced first-load times via code splitting, lazy loading, and CDN; built PWA from scratch (service workers, offline, caching).",
-      "Established Jest & Playwright test suites and GitHub Actions CI/CD; achieved 99.9% deployment stability.",
+      "Multiple startup products taken from Figma to React/React Native and AWS with stable releases for early customers; full ownership of frontend delivery.",
+      "Code splitting, lazy loading, and CDN reduced first-load times; PWA (service workers, offline, caching) improved reliability and engagement for key flows.",
+      "Jest and Playwright plus GitHub Actions CI/CD achieved 99.9% deployment stability  fewer production incidents and faster, confident releases.",
     ],
   },
   {
@@ -43,9 +41,8 @@ export const JOBS: Job[] = [
     company: "Rayvarz Inc.",
     period: "2016 – 2017",
     highlights: [
-      "Led redesign of legacy B2B dashboards; +15% user engagement through data viz and information architecture.",
-      "Acted as bridge between design and engineering: Figma/Photoshop to Vue.js; user research and A/B testing to validate UI decisions.",
-      "Conducted user research and A/B testing to validate UI changes, ensuring technical decisions were aligned with business KPIs and user needs.",
+      "Redesign of legacy B2B dashboards drove +15% user engagement (data viz and information architecture); outcomes measured and aligned with business goals.",
+      "Bridged design and engineering: Figma/Photoshop to Vue.js; user research and A/B testing used to validate UI changes and tie technical work to KPIs.",
     ],
   },
 ];

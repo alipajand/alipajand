@@ -1,5 +1,16 @@
 import "@testing-library/jest-dom";
 
+const mockScrollTriggerInstance = { kill: jest.fn() };
+const mockScrollTrigger = {
+  create: jest.fn(() => mockScrollTriggerInstance),
+};
+
+jest.mock("gsap/ScrollTrigger", () => ({
+  __esModule: true,
+  ScrollTrigger: mockScrollTrigger,
+  default: mockScrollTrigger,
+}));
+
 jest.mock("gsap", () => ({
   set: jest.fn(),
   to: jest.fn().mockReturnValue({}),
@@ -8,6 +19,7 @@ jest.mock("gsap", () => ({
     set: jest.fn().mockReturnThis(),
     to: jest.fn().mockReturnThis(),
   })),
+  registerPlugin: jest.fn(),
 }));
 
 class MockIntersectionObserver implements IntersectionObserver {

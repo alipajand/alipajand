@@ -5,13 +5,13 @@ export const TAGLINE = "Senior Product Engineer | Design-Systems Architect | Dev
 export const KEYWORDS = [
   SITE_NAME,
   "Senior Product Engineer",
+  "Senior Frontend Developer",
   "Design Systems",
   "Developer Experience",
   "React",
   "TypeScript",
   "Next.js",
   "Node.js",
-  "frontend",
   "Montreal",
 ];
 
@@ -22,9 +22,17 @@ export const HERO_SUB =
 
 export const ABOUT_PARAGRAPHS = [
   "Senior Product Engineer with 9+ years turning complex requirements into fast, reliable products. I focus on frontend (React, TypeScript, Next.js) and backend (Node.js, APIs), with deep experience in design systems, component libraries, and developer experience tooling, docs, and workflows that help teams ship faster.",
-  "I bridge design and engineering accessible, interactive and production-ready code. I've led design-system adoption, and introduced AI-driven automation (e.g. MCP for Cursor) for code review and velocity. I work best in agile, cross-functional teams and care about product vision and execution.",
+  "I bridge design and engineering with accessible, interactive and production-ready code. I've led design-system adoption, and introduced AI-driven automation (e.g. MCP for Cursor) for code review and velocity. I work best in agile, cross-functional teams and care about product vision and execution.",
   "What I bring: Leadership, collaboration, mentorship, and a track record of stable releases. I want to be part of the team that makes those complex features accessible to every developer and make the living easier.",
 ];
 
 export const CONTACT_INTRO =
   "Open to senior and staff-level roles in product engineering, frontend architecture, design systems, and developer experience (DX). Happy to discuss full-time, contract, or advisory work. Let's build something great.";
+
+export const HERO_METRICS = [
+  { value: "9+", label: "years shipping product" },
+  { value: "99.9%", label: "deployment stability" },
+  { value: "A11y-first", label: "design systems" },
+] as const;
+
+export const LOCATION = "Based in Montreal";

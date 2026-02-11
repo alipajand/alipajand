@@ -19,7 +19,7 @@ describe("useExperienceCards", () => {
 
     it("should accept options and still return correct shape", () => {
       const { result } = renderHook(() =>
-        useExperienceCards({ y: 40, duration: 0.8, threshold: 0.3 })
+        useExperienceCards({ y: 40, duration: 0.8 })
       );
 
       expect(result.current.selectors.cardsRef).toBeDefined();

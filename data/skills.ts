@@ -9,10 +9,10 @@ export const SKILL_GROUPS: SkillGroup[] = [
     items: [
       "React",
       "Next.js",
+      "Vue 3",
+      "Nuxt 3",
       "TypeScript",
       "JavaScript (ES6+)",
-      "Vue",
-      "Nuxt.js",
       "HTML5",
       "CSS3",
     ],
@@ -27,7 +27,7 @@ export const SKILL_GROUPS: SkillGroup[] = [
   },
   {
     label: "State & Data",
-    items: ["Redux", "Zustand", "React Query", "Context API"],
+    items: ["Redux", "Zustand", "Pinia", "React Query", "Context API"],
   },
   {
     label: "Testing & Quality",

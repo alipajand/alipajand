@@ -3,7 +3,7 @@
 import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
 
-import gsap from "gsap";
+import { gsap, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
 
 const CARD_SELECTOR = "[data-experience-card]";
 
@@ -11,8 +11,7 @@ export interface UseExperienceCardsOptions {
   y?: number;
   duration?: number;
   ease?: string;
-  threshold?: number;
-  rootMargin?: string;
+  start?: string;
 }
 
 export interface ExperienceCardsSelectors {
@@ -26,41 +25,36 @@ export interface ExperienceCardsHook {
 export function useExperienceCards(options: UseExperienceCardsOptions = {}): ExperienceCardsHook {
   const cardsRef = useRef<HTMLUListElement>(null);
 
-  const {
-    y = 32,
-    duration = 0.6,
-    ease = "power3.out",
-    threshold = 0.2,
-    rootMargin = "0px 0px -40px 0px",
-  } = options;
+  const { y = 36, duration = 0.65, ease = "power3.out", start = "top 88%" } = options;
 
   useEffect(() => {
+    registerGSAPPlugins();
     const list = cardsRef.current;
     if (!list) return;
 
     const cards = list.querySelectorAll<HTMLElement>(CARD_SELECTOR);
     gsap.set(cards, { opacity: 0, y });
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target as HTMLElement;
-          gsap.to(el, {
+    const triggers: ScrollTrigger[] = [];
+    cards.forEach((card) => {
+      const st = ScrollTrigger.create({
+        trigger: card,
+        start,
+        once: true,
+        onEnter: () => {
+          gsap.to(card, {
             opacity: 1,
             y: 0,
             duration,
             ease,
           });
-          observer.unobserve(el);
-        });
-      },
-      { threshold, rootMargin }
-    );
+        },
+      });
+      triggers.push(st);
+    });
 
-    cards.forEach((card) => observer.observe(card));
-    return () => observer.disconnect();
-  }, [y, duration, ease, threshold, rootMargin]);
+    return () => triggers.forEach((st) => st.kill());
+  }, [y, duration, ease, start]);
 
   return {
     selectors: { cardsRef },

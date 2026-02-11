@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-import { Education } from "components/Education/Education";
 import { CANONICAL_URL, HERO_SUB, KEYWORDS, SITE_NAME, TAGLINE } from "data/site";
 import { PropsWithChildren } from "react";
 
@@ -68,11 +67,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
           Skip to main content
         </a>
         {children}
-        <section className="px-6 sm:px-10 lg:px-20 border-t border-border py-8">
-          <div className="max-w-3xl">
-            <Education />
-          </div>
-        </section>
       </body>
     </html>
   );
