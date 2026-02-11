@@ -10,7 +10,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "1",
     quote:
-      "Ali consistently delivered high-quality, accessible UIs and helped our team ship faster with a solid design system and clear documentation.",
+      "Ali led delivery of high-quality, accessible UIs and enabled our team to ship faster with a solid design system and clear documentation.",
     author: "— Former colleague",
     role: "Engineering",
     company: "Emplifi",
@@ -18,7 +18,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "2",
     quote:
-      "Strong ownership from design to deployment. Great at bridging design and engineering and caring about both UX and performance.",
+      "Strong ownership from design to deployment. Drove alignment between design and engineering and consistently raised the bar on UX and performance.",
     author: "— Former colleague",
     role: "Product / Engineering",
     company: "ControlTech Startup Studio",
@@ -26,7 +26,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "3",
     quote:
-      "Brought structure and automation to our frontend workflow, from Storybook to CI/CD and tooling that the whole team could rely on.",
+      "Led structure and automation for our frontend workflow—Storybook, CI/CD, and tooling the whole team could rely on.",
     author: "— Former colleague",
     role: "Engineering",
     company: "ControlTech Startup Studio",

@@ -28,7 +28,7 @@ export const PROJECTS: Project[] = [
     id: "design-system-alwaysgeeky",
     name: "Design System & Component Library",
     description:
-      "Architected and maintained a comprehensive design system for high-traffic Web3 products, with full WCAG accessibility and cross-browser stability.",
+      "Led architecture and maintenance of a comprehensive design system for high-traffic Web3 products—full WCAG accessibility and cross-browser stability.",
     role: "Lead · AlwaysGeeky Games",
     tech: ["React", "TypeScript", "Storybook", "GitHub Actions", "WCAG"],
     outcomes: [
@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
     id: "marketplace-login-web3",
     name: "Marketplace & Login (Web3)",
     description:
-      "End-to-end frontend delivery for Marketplace and Login flows: pixel-perfect UI, seamless API integration, and AWS-backed deployment.",
+      "Led end-to-end frontend delivery for Marketplace and Login flows—pixel-perfect UI, seamless API integration, and AWS-backed deployment.",
     role: "Senior Frontend · AlwaysGeeky Games",
     tech: ["React", "Next.js", "Vite", "AWS"],
     outcomes: [
@@ -73,12 +73,12 @@ export const PROJECTS: Project[] = [
     id: "data-dashboards-emplifi",
     name: "Data Dashboards & Motion",
     description:
-      "Complex, data-heavy UIs with smooth motion design and GSAP animations; D3.js dashboards optimized for mobile webviews and embedded environments.",
+      "Led development of complex, data-heavy UIs with motion design (GSAP) and D3.js dashboards—optimized for mobile webviews and embedded environments.",
     role: "Senior Frontend · Emplifi",
     tech: ["React", "D3.js", "GSAP", "Figma"],
     outcomes: [
-      "A/B testing and analytics showed measurable gains in retention and interface responsiveness",
-      "Rendering and state tuned for embedded webviews so dashboards performed on mobile",
+      "Drove measurable gains in retention and interface responsiveness via A/B testing and analytics",
+      "Architected rendering and state for embedded webviews so dashboards performed on mobile",
     ],
     caseStudy: {
       problem:
@@ -95,7 +95,7 @@ export const PROJECTS: Project[] = [
     id: "pwa-performance-controltech",
     name: "PWA & Performance",
     description:
-      "Full development cycle for multiple startup products: code splitting, lazy loading, CDN, PWA from scratch (service workers, offline, caching).",
+      "Owned full development cycle for multiple startup products—code splitting, lazy loading, CDN, PWA from scratch (service workers, offline, caching).",
     role: "Frontend · ControlTech Startup Studio",
     tech: ["React", "React Native", "Jest", "Playwright", "GitHub Actions"],
     outcomes: [
