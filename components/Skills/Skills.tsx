@@ -24,8 +24,8 @@ export function Skills() {
         >
           What I do
         </h2>
-        <p className="text-muted text-lg mb-12 max-w-xl" data-reveal>
-          How I use the stack in practice—trade-offs and scale, not just keywords.
+        <p className="text-muted text-lg mb-12" data-reveal>
+          How I use the stack in practice, trade-offs and scale, not just keywords.
         </p>
         <div className="space-y-10">
           {EXPERTISE_AREAS.map((area) => (

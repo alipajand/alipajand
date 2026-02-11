@@ -9,8 +9,6 @@ export function About() {
   } = useScrollReveal({ y: 32, stagger: 0.08 });
 
   const [first, second, third] = ABOUT_PARAGRAPHS;
-  const [thirdLabel, ...thirdRest] = third.split(": ");
-  const thirdBody = thirdRest.join(": ");
 
   return (
     <section
@@ -33,8 +31,8 @@ export function About() {
         <p className="mt-6 text-muted text-lg leading-relaxed" data-reveal>
           {second}
         </p>
-        <p className="mt-6 text-muted text-lg leading-relaxed" data-reveal>
-          <strong className="text-foreground">{thirdLabel}:</strong> {thirdBody}
+        <p className="mt-6 text-lg leading-relaxed text-foreground font-bold" data-reveal>
+          {third}
         </p>
       </div>
     </section>

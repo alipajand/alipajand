@@ -34,20 +34,16 @@ export function Hero() {
     >
       <div className="relative z-10 max-w-4xl mx-auto w-full">
         <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1]">
-          <span ref={nameCharsRef} className="block text-foreground">
+          <span ref={nameCharsRef} className="block text-foreground hero-lcp">
             {SITE_NAME.split("").map((char, i) => (
-              <span
-                key={`${char}-${i}`}
-                className="inline-block opacity-0 translate-y-15"
-                data-char
-              >
+              <span key={`${char}-${i}`} className="inline-block hero-char" data-char>
                 {char === " " ? "\u00A0" : char}
               </span>
             ))}
           </span>
           <span
             ref={line2Ref}
-            className="block opacity-0 translate-y-15 mt-2 text-xl sm:text-2xl font-normal text-white/80"
+            className="block mt-2 text-xl sm:text-2xl font-normal text-white/80 hero-lcp"
           >
             {TAGLINE}
           </span>
@@ -111,7 +107,7 @@ export function Hero() {
             </div>
           ))}
         </div>
-        <p ref={locationRef} className="mt-16 flex items-center gap-2 text-muted text-sm opacity-0">
+        <p ref={locationRef} className="mt-6 flex items-center gap-2 text-muted text-sm opacity-0">
           <span
             className="shrink-0 size-4 bg-current"
             style={{
