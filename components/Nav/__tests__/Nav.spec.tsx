@@ -9,11 +9,11 @@ describe("Nav", () => {
 
       const aboutLinks = screen.getAllByRole("link", { name: /^about$/i });
       const experienceLinks = screen.getAllByRole("link", { name: /^experience$/i });
-      const skillsLinks = screen.getAllByRole("link", { name: /^skills$/i });
+      const expertiseLinks = screen.getAllByRole("link", { name: /^expertise$/i });
       const contactLinks = screen.getAllByRole("link", { name: /^contact$/i });
       expect(aboutLinks.length).toBeGreaterThanOrEqual(1);
       expect(experienceLinks.length).toBeGreaterThanOrEqual(1);
-      expect(skillsLinks.length).toBeGreaterThanOrEqual(1);
+      expect(expertiseLinks.length).toBeGreaterThanOrEqual(1);
       expect(contactLinks.length).toBeGreaterThanOrEqual(1);
     });
 

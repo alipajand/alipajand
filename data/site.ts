@@ -1,6 +1,6 @@
 export const SITE_NAME = "Ali Pajand";
 
-export const TAGLINE = "Senior Product Engineer | Design-Systems Architect | Developer Experience";
+export const TAGLINE = "Product engineer · Design systems · Developer experience";
 
 export const KEYWORDS = [
   SITE_NAME,
@@ -18,20 +18,20 @@ export const KEYWORDS = [
 export const CANONICAL_URL = "https://alipajand.com";
 
 export const HERO_SUB =
-  "9+ years leading and shipping fast, reliable web apps with React, TypeScript & Node.js. I architect design systems, interactive and 3D/animated UIs, and DX tooling—bridging design and engineering to ship better products.";
+  "9+ years building web apps with React, TypeScript & Node.js. I build design systems, smooth UIs and animations, and tools that help teams ship faster.";
 
 export const ABOUT_PARAGRAPHS = [
-  "Senior Product Engineer with 9+ years turning complex requirements into fast, reliable products. I lead frontend (React, TypeScript, Next.js) and backend (Node.js, APIs), with deep ownership of design systems, component libraries, and developer experience—tooling, docs, and workflows that enable teams to ship faster.",
-  "I bridge design and engineering with accessible, production-ready code. I've led design-system adoption and introduced AI-driven automation (e.g. MCP for Cursor) for code review and velocity. I thrive in agile, cross-functional teams and drive toward product vision and execution.",
-  "What I bring: Leadership, collaboration, mentorship, and a track record of stable releases. I'm committed to making complex features accessible to every developer and raising the bar for how teams ship.",
+  "I've spent 9+ years turning messy requirements into products that work. I do frontend (React, TypeScript, Next.js) and backend (Node.js, APIs), and I care a lot about design systems, component libraries, and the tools and docs that help teams move fast.",
+  "I sit between design and engineering: I make sure the code is accessible and actually ships. I've run design-system rollouts and built things like an MCP server for Cursor so we catch issues before review. I like working in small teams where everyone cares about the product.",
+  "I'm good at leading, working with others, and mentoring. I care about stable releases and making hard stuff simple so everyone can contribute.",
 ];
 
 export const CONTACT_INTRO =
-  "Open to senior and staff-level roles in product engineering, frontend architecture, design systems, and developer experience (DX). Happy to discuss full-time, contract, or advisory work. Let's build something great.";
+  "I'm open to senior and staff roles in product engineering, frontend, design systems, or developer experience. Full-time, contract, or advisory—let's talk.";
 
 export const HERO_METRICS = [
-  { value: "9+", label: "years shipping product" },
-  { value: "99.9%", label: "deployment stability" },
+  { value: "9+", label: "years building product" },
+  { value: "99.9%", label: "uptime on releases" },
   { value: "A11y-first", label: "design systems" },
 ] as const;
 

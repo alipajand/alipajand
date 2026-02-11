@@ -44,13 +44,17 @@ li span {
   user-select: text;
 }
 
+.gradient-text-animated::selection {
+  background: none !important;
+}
+
 ::selection {
-  background: #ea2b2b;
+  background: var(--organic-orange);
   color: white;
 }
 
 ::-moz-selection {
-  background: #ea2b2b;
+  background: var(--organic-orange);
   color: white;
 }
 

@@ -18,14 +18,13 @@ export function Innovation() {
       <div className="max-w-4xl mx-auto">
         <h2
           id="innovation-heading"
-          className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-4"
+          className="font-display font-bold text-3xl sm:text-4xl gradient-text-animated mb-4"
           data-reveal
         >
-          Innovation & tooling
+          Side projects & tooling
         </h2>
         <p className="text-muted text-lg mb-16 max-w-xl" data-reveal>
-          DX and AI-driven automation that set the bar for speed and reliability and that you can
-          show in action.
+          Things I build to ship faster—and can show you in action.
         </p>
 
         <ul ref={listRef} className="space-y-6">

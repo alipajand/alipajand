@@ -20,7 +20,9 @@ describe("About", () => {
     it("should render the summary text", () => {
       render(<About />);
 
-      expect(screen.getByText(/Senior Product Engineer with 9\+ years/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/I've spent 9\+ years turning messy requirements/i)
+      ).toBeInTheDocument();
     });
   });
 });
