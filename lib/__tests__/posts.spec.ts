@@ -12,7 +12,6 @@ jest.mock("marked", () => ({
   },
 }));
 
-// Use real content/posts in repo
 const POSTS_DIR = join(process.cwd(), "content", "posts");
 
 describe("lib/posts", () => {

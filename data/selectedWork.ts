@@ -1,7 +1,3 @@
-/**
- * Selected Work gallery: visual proof (UI shots, dashboards, diagrams).
- * Add image paths under public/ (e.g. public/selected-work/ui-component.png) when you have assets.
- */
 export type SelectedWorkType = "ui" | "dashboard" | "diagram";
 
 export interface SelectedWorkItem {
@@ -9,9 +5,7 @@ export interface SelectedWorkItem {
   type: SelectedWorkType;
   title: string;
   caption: string;
-  /** Path to image under public/ (e.g. "/selected-work/dashboard.png"). Omit for placeholder. */
   imageSrc?: string;
-  /** If true, show a blur overlay over the image (e.g. for sensitive dashboard data). */
   blurData?: boolean;
 }
 

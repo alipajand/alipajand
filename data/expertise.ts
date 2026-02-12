@@ -1,11 +1,6 @@
-/**
- * Expertise Areas: senior-level authority statements (how you use the tech and trade-offs),
- * not just keyword lists. Each sentence signals depth and judgment.
- */
 export interface ExpertiseArea {
   title: string;
   sentence: string;
-  /** Tech tags for scanability; kept for consistency with Skills icons. */
   tags: string[];
 }
 

@@ -14,8 +14,6 @@ const NAV_LINKS = [
   { href: "#contact", label: "Contact" },
 ];
 
-const RESUME_HREF = "/resume.pdf";
-
 export function Nav() {
   const {
     selectors: { isScrolled, isMobileOpen, navLinksRef, mobileMenuRef },
@@ -41,16 +39,6 @@ export function Nav() {
               </a>
             </li>
           ))}
-          <li>
-            <a
-              href={RESUME_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nav-link-hover text-sm text-muted hover:text-foreground transition-colors duration-200"
-            >
-              Resume
-            </a>
-          </li>
         </ul>
         <button
           type="button"
@@ -98,15 +86,6 @@ export function Nav() {
               {link.label}
             </a>
           ))}
-          <a
-            href={RESUME_HREF}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-foreground hover:text-muted transition-colors py-2"
-            onClick={handleCloseMenu}
-          >
-            Resume
-          </a>
         </div>
       </div>
     </header>

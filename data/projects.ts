@@ -10,7 +10,6 @@ export interface BeforeAfter {
   after: string;
 }
 
-/** Optional second asset: e.g. CI/CD diagram, GSAP/D3 GIF, or MCP architecture. Add to prove implementation ownership. */
 export interface ProjectMedia {
   src: string;
   caption: string;
@@ -23,11 +22,8 @@ export interface Project {
   role: string;
   tech: string[];
   outcomes: string[];
-  /** Main screenshot (e.g. Storybook, dashboard, app). */
   image?: string;
-  /** Alt/caption for main image (e.g. "Storybook: component library"). */
   imageCaption?: string;
-  /** Second proof asset: diagram (CI/CD, MCP) or GIF (GSAP/D3 animation). */
   secondaryMedia?: ProjectMedia;
   caseStudy?: CaseStudyBlock;
   beforeAfter?: BeforeAfter[];
