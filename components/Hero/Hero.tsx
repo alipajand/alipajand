@@ -3,6 +3,8 @@
 import { useHero } from "components/Hero/hooks/useHero";
 import { LINKS } from "data/links";
 import { HERO_METRICS, HERO_SUB, LOCATION, SITE_NAME, TAGLINE } from "data/site";
+import { HeroBackground } from "components/Hero/HeroBackground";
+import { ContactLink } from "components/Hero/ContactLink";
 
 const ICON_SRC = {
   Email: "/icons/email.svg",
@@ -30,8 +32,9 @@ export function Hero() {
     <section
       ref={containerRef}
       aria-label="Introduction"
-      className="relative min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-20 pt-24 pb-32 overflow-hidden bg-background bg-grid"
+      className="relative min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-20 pt-24 pb-32 overflow-hidden bg-background"
     >
+      <HeroBackground />
       <div className="relative z-10 max-w-4xl mx-auto w-full">
         <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1]">
           <span ref={nameCharsRef} className="block text-foreground hero-lcp">
@@ -62,34 +65,14 @@ export function Hero() {
             className="flex items-center gap-4 opacity-0 translate-y-15"
             aria-label="Contact links"
           >
-            {LINKS.map(({ label, href }) => {
-              const iconSrc = ICON_SRC[label as IconLabel];
-              return (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="text-muted hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded h-5"
-                  aria-label={label}
-                >
-                  <span
-                    className="inline-block size-5 bg-current shrink-0"
-                    style={{
-                      maskImage: iconSrc ? `url(${iconSrc})` : undefined,
-                      maskSize: "contain",
-                      maskRepeat: "no-repeat",
-                      maskPosition: "center",
-                      WebkitMaskImage: iconSrc ? `url(${iconSrc})` : undefined,
-                      WebkitMaskSize: "contain",
-                      WebkitMaskRepeat: "no-repeat",
-                      WebkitMaskPosition: "center",
-                    }}
-                    aria-hidden
-                  />
-                </a>
-              );
-            })}
+            {LINKS.map(({ label, href }) => (
+              <ContactLink
+                key={label}
+                label={label}
+                href={href}
+                iconSrc={ICON_SRC[label as IconLabel]}
+              />
+            ))}
           </nav>
         </div>
 

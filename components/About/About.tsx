@@ -20,7 +20,7 @@ export function About() {
       <div className="max-w-4xl mx-auto w-full">
         <h2
           id="about-heading"
-          className="font-display font-bold text-3xl sm:text-4xl gradient-text-animated mb-8"
+          className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-8"
           data-reveal
         >
           About

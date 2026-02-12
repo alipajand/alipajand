@@ -19,7 +19,7 @@ export function Skills() {
       <div className="max-w-4xl mx-auto w-full">
         <h2
           id="expertise-heading"
-          className="font-display font-bold text-3xl sm:text-4xl mb-4 gradient-text-animated"
+          className="font-display font-bold text-3xl sm:text-4xl mb-4 text-foreground"
           data-reveal
         >
           What I do

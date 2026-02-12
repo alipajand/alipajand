@@ -26,7 +26,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "3",
     quote:
-      "Set up our frontend workflow—Storybook, CI/CD, and tooling the whole team could rely on.",
+      "Set up our frontend workflow, Storybook, CI/CD, and tooling the whole team could rely on.",
     author: "— Former colleague",
     role: "Engineering",
     company: "ControlTech Startup Studio",

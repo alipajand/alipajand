@@ -3,6 +3,22 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { ContactForm } from "components/Contact/ContactForm";
 
 const originalFetch = global.fetch;
+const originalError = console.error;
+beforeAll(() => {
+  console.error = (...args: unknown[]) => {
+    if (
+      typeof args[0] === "string" &&
+      args[0].includes("An update to") &&
+      args[0].includes("was not wrapped in act")
+    ) {
+      return;
+    }
+    originalError.call(console, ...args);
+  };
+});
+afterAll(() => {
+  console.error = originalError;
+});
 
 function fillForm(name: string, email: string, message: string) {
   fireEvent.change(screen.getByLabelText(/name/i), { target: { value: name } });

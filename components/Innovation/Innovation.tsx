@@ -18,7 +18,7 @@ export function Innovation() {
       <div className="max-w-4xl mx-auto">
         <h2
           id="innovation-heading"
-          className="font-display font-bold text-3xl sm:text-4xl gradient-text-animated mb-4"
+          className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-4"
           data-reveal
         >
           Side projects & tooling

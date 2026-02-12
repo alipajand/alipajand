@@ -20,7 +20,7 @@ export function Contact() {
       <div className="max-w-4xl mx-auto w-full">
         <h2
           id="contact-heading"
-          className="font-display font-bold text-3xl sm:text-4xl gradient-text-animated mb-4"
+          className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-4"
           data-reveal
         >
           Get in touch

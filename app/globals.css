@@ -45,10 +45,6 @@ li span {
   user-select: text;
 }
 
-.gradient-text-animated::selection {
-  background: none !important;
-}
-
 ::selection {
   background: var(--organic-orange);
   color: white;
@@ -87,25 +83,6 @@ html {
   html {
     scroll-behavior: auto;
   }
-
-  .animate-grid-shift,
-  .animate-float,
-  .gradient-text-animated {
-    animation: none;
-  }
-
-  .gradient-text-animated {
-    background: linear-gradient(150deg, var(--organic-alabaster), var(--organic-orange));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-
-  .bg-grid::before {
-    animation: none;
-    opacity: 1;
-  }
 }
 
 body {
@@ -115,69 +92,6 @@ body {
 
 .font-display {
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-}
-
-.bg-grid {
-  position: relative;
-}
-
-.bg-grid::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 64px 64px;
-  opacity: 0;
-  animation: grid-reveal 1.2s ease-out forwards;
-  pointer-events: none;
-}
-
-@keyframes grid-reveal {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes grid-shift {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 64px 64px;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translate(-50%, 0);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translate(-50%, -8px);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-grid-shift {
-  animation: grid-shift 20s linear infinite;
-}
-
-.animate-float {
-  animation: float 2.5s ease-in-out infinite;
 }
 
 .hover-lift {
@@ -200,10 +114,6 @@ body {
 
 .hover-scale:hover {
   transform: scale(1.02);
-}
-
-.nav-link-hover {
-  position: relative;
 }
 
 .nav-link-hover::after {
@@ -230,31 +140,4 @@ button:focus-visible {
 a:focus-visible:not(.skip-link),
 button:focus-visible {
   border-radius: 0.25rem;
-}
-
-.gradient-text-animated {
-  background: linear-gradient(
-    110deg,
-    var(--organic-alabaster) 0%,
-    var(--muted) 25%,
-    var(--organic-orange) 50%,
-    var(--organic-alabaster) 75%,
-    var(--muted) 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: gradient-shift 16s ease-in-out infinite;
-}
-
-@keyframes gradient-shift {
-  0%,
-  100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
 }

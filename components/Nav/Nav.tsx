@@ -33,7 +33,7 @@ export function Nav() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="nav-link-hover text-sm text-muted hover:text-foreground transition-colors duration-200"
+                className="nav-link-hover text-sm text-muted hover:text-foreground transition-colors duration-200 relative"
               >
                 {link.label}
               </a>

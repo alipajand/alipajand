@@ -22,7 +22,7 @@ export const JOBS: Job[] = [
     period: "2022 – 2023",
     highlights: [
       "Delivered data-heavy dashboards (GSAP, D3.js) that drove measurable gains in retention and responsiveness via A/B tests and analytics (Sentry, Hotjar).",
-      "Solved embedded performance: made the same dashboards run at 60fps inside mobile webviews and third-party embeds—removed jank and friction identified in UX data.",
+      "Solved embedded performance: made the same dashboards run at 60fps inside mobile webviews and third-party embeds, removed jank and friction identified in UX data.",
       "Owned Figma-to-code pipeline; aligned technical decisions with user research and business KPIs.",
     ],
   },
@@ -32,8 +32,8 @@ export const JOBS: Job[] = [
     period: "2018 – 2022",
     highlights: [
       "Owned frontend delivery for multiple startup products (Figma → React/React Native, AWS); shipped stable releases for early adopters.",
-      "Reduced first-load times with code splitting, lazy loading, and CDN; built PWAs (offline, caching) so key flows stayed reliable—improved engagement on core flows.",
-      "Achieved 99.9% deployment stability via Jest, Playwright, and GitHub Actions CI/CD—fewer production incidents, faster and confident releases.",
+      "Reduced first-load times with code splitting, lazy loading, and CDN; built PWAs (offline, caching) so key flows stayed reliable, improved engagement on core flows.",
+      "Achieved 99.9% deployment stability via Jest, Playwright, and GitHub Actions CI/CD, fewer production incidents, faster and confident releases.",
     ],
   },
   {
