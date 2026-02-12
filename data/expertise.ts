@@ -8,7 +8,7 @@ export const EXPERTISE_AREAS: ExpertiseArea[] = [
   {
     title: "Frontend architecture",
     sentence:
-      "I scale React, Next.js, Vue 3, and Nuxt 3 apps with clear structure—libraries, design systems, and tooling so teams don't step on each other.",
+      "I scale React, Next.js, Vue 3, and Nuxt 3 apps with clear structure, libraries, design systems, and tooling so teams don't step on each other.",
     tags: ["React", "Next.js", "Vue 3", "Nuxt 3", "TypeScript", "Vite"],
   },
   {
@@ -20,7 +20,7 @@ export const EXPERTISE_AREAS: ExpertiseArea[] = [
   {
     title: "Interactions & motion",
     sentence:
-      "I build GSAP timelines, D3.js charts, and 3D/WebGL when motion and data viz are part of the product—not just eye candy.",
+      "I build GSAP timelines, D3.js charts, and 3D/WebGL when motion and data viz are part of the product, not just eye candy.",
     tags: ["GSAP", "D3.js", "3D Web Graphics"],
   },
   {
