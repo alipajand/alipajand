@@ -14,7 +14,7 @@ export function ProjectCard({ project }: { project: Project }) {
       className="group rounded-xl border border-border bg-card/50 p-6 sm:p-8 transition-all duration-300 hover:border-foreground/20 hover:bg-card hover:shadow-[0_0_0_1px_rgba(255,255,255,0.06)]"
     >
       <div className="flex flex-col gap-4">
-        {project.image && (
+        {project.image && project.image.trim() !== "" && (
           <figure className="space-y-2">
             <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-background border border-border">
               <Image
@@ -30,20 +30,24 @@ export function ProjectCard({ project }: { project: Project }) {
             )}
           </figure>
         )}
-        {project.secondaryMedia && (
-          <figure className="space-y-2">
-            <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-background border border-border">
-              <Image
-                src={project.secondaryMedia.src}
-                alt={project.secondaryMedia.caption}
-                fill
-                className="object-cover object-center"
-                sizes="(max-width: 768px) 100vw, 896px"
-              />
-            </div>
-            <figcaption className="text-muted text-sm">{project.secondaryMedia.caption}</figcaption>
-          </figure>
-        )}
+        {project.secondaryMedia &&
+          project.secondaryMedia.src &&
+          project.secondaryMedia.src.trim() !== "" && (
+            <figure className="space-y-2">
+              <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-background border border-border">
+                <Image
+                  src={project.secondaryMedia.src}
+                  alt={project.secondaryMedia.caption}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 896px"
+                />
+              </div>
+              <figcaption className="text-muted text-sm">
+                {project.secondaryMedia.caption}
+              </figcaption>
+            </figure>
+          )}
         <div>
           <h3 className="font-display font-semibold text-xl sm:text-2xl text-foreground">
             {project.name}

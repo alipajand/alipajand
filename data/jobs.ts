@@ -13,7 +13,7 @@ export const JOBS: Job[] = [
     highlights: [
       "Shipped Marketplace and Login (React, Next.js, AWS) on time with stable Web3 API integration and zero critical production incidents.",
       "Architected a Design System and component library that cut UI development time and ensured 100% WCAG compliance across products; CI (GitHub Actions) blocks visual and a11y regressions before merge.",
-      "Built a custom MCP server for Cursor so lint and types run in the editor—faster feedback and cleaner PRs.",
+      "Built a custom MCP server for Cursor so lint and types run in the editor, faster feedback and cleaner PRs.",
     ],
   },
   {
