@@ -1,0 +1,18 @@
+{
+  "name": "Ali Pajand - Senior Product Engineer",
+  "short_name": "Ali Pajand",
+  "description": "9+ years building web apps with React, TypeScript & Node.js. I build design systems, smooth UIs and animations, and tools that help teams ship faster.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

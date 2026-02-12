@@ -72,7 +72,9 @@ describe("useScrollReveal", () => {
       const killMock = jest.fn();
       jest
         .mocked(gsapUtils.ScrollTrigger.create)
-        .mockImplementation(() => ({ kill: killMock }) as unknown as ReturnType<typeof gsapUtils.ScrollTrigger.create>);
+        .mockImplementation(
+          () => ({ kill: killMock }) as unknown as ReturnType<typeof gsapUtils.ScrollTrigger.create>
+        );
       const { unmount } = render(<Wrapper />);
       unmount();
       expect(killMock).toHaveBeenCalled();
@@ -103,9 +105,7 @@ describe("useScrollReveal", () => {
   describe("no data-reveal children", () => {
     function EmptyWrapper() {
       const { selectors } = useScrollReveal();
-      return (
-        <div ref={selectors.sectionRef as React.RefObject<HTMLDivElement>}>no reveal</div>
-      );
+      return <div ref={selectors.sectionRef as React.RefObject<HTMLDivElement>}>no reveal</div>;
     }
     it("does not call ScrollTrigger.create when section has no data-reveal", () => {
       jest.mocked(gsapUtils.ScrollTrigger.create).mockClear();

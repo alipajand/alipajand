@@ -58,7 +58,9 @@ describe("useExperienceCards", () => {
       const killMock = jest.fn();
       jest
         .mocked(utilsGsap.ScrollTrigger.create)
-        .mockImplementation(() => ({ kill: killMock }) as unknown as ReturnType<typeof utilsGsap.ScrollTrigger.create>);
+        .mockImplementation(
+          () => ({ kill: killMock }) as unknown as ReturnType<typeof utilsGsap.ScrollTrigger.create>
+        );
       const { unmount } = render(<CardsWrapper />);
       unmount();
       expect(killMock).toHaveBeenCalledTimes(2);
