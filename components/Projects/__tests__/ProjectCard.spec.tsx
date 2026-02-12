@@ -4,8 +4,12 @@ import type { Project } from "data/projects";
 
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: ({ src, alt, ...props }: any) => {
-    const { fill, sizes, ...imgProps } = props;
+  default: ({
+    src,
+    alt,
+    ...props
+  }: React.ImgHTMLAttributes<HTMLImageElement> & { fill?: boolean; sizes?: string }) => {
+    const { fill: _fill, sizes: _sizes, ...imgProps } = props;
     return <img src={src} alt={alt} {...imgProps} />;
   },
 }));

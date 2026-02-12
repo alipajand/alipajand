@@ -78,7 +78,9 @@ describe("useSelectedWorkReveal", () => {
       const timelineMock = {
         to: jest.fn().mockReturnThis(),
       };
-      jest.mocked(gsapUtils.gsap.timeline).mockReturnValue(timelineMock as any);
+      jest
+        .mocked(gsapUtils.gsap.timeline)
+        .mockReturnValue(timelineMock as ReturnType<typeof gsapUtils.gsap.timeline>);
 
       render(<TestComponent />);
 
@@ -115,7 +117,7 @@ describe("useSelectedWorkReveal", () => {
       const killMock = jest.fn();
       jest.mocked(gsapUtils.ScrollTrigger.create).mockReturnValue({
         kill: killMock,
-      } as any);
+      } as ReturnType<typeof gsapUtils.ScrollTrigger.create>);
 
       const { unmount } = render(<TestComponent />);
       unmount();

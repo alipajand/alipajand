@@ -4,8 +4,12 @@ import type { SelectedWorkItem } from "data/selectedWork";
 
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: ({ src, alt, ...props }: any) => {
-    const { fill, ...imgProps } = props;
+  default: ({
+    src,
+    alt,
+    ...props
+  }: React.ImgHTMLAttributes<HTMLImageElement> & { fill?: boolean }) => {
+    const { fill: _fill, ...imgProps } = props;
     return <img src={src} alt={alt} {...imgProps} />;
   },
 }));

@@ -1,3 +1,4 @@
+import React from "react";
 import { fireEvent, render, renderHook, waitFor } from "@testing-library/react";
 import { act } from "react";
 import { useContactForm } from "components/Contact/hooks/useContactForm";
@@ -76,7 +77,7 @@ describe("useContactForm", () => {
         name: "Test User",
         email: "test@example.com",
         message: "Test message",
-      } as any);
+      } as unknown as React.BaseSyntheticEvent);
 
       await waitFor(() => {
         expect(result.current.selectors.status).toBe("loading");
@@ -105,7 +106,7 @@ describe("useContactForm", () => {
           name: "Test User",
           email: "test@example.com",
           message: "Test message",
-        });
+        } as unknown as React.BaseSyntheticEvent);
       });
       await act(async () => {
         await new Promise((r) => setTimeout(r, 0));
@@ -123,7 +124,7 @@ describe("useContactForm", () => {
         json: async () => ({}),
       } as Response);
 
-      const { getByTestId, getByRole } = render(<ContactFormWithHook />);
+      const { getByTestId } = render(<ContactFormWithHook />);
 
       await act(async () => {
         fireEvent.change(getByTestId("name"), { target: { value: "  Test User  " } });
@@ -161,7 +162,7 @@ describe("useContactForm", () => {
           name: "Test User",
           email: "test@example.com",
           message: "Test message",
-        });
+        } as unknown as React.BaseSyntheticEvent);
       });
       await act(async () => {
         await new Promise((r) => setTimeout(r, 0));
@@ -186,7 +187,7 @@ describe("useContactForm", () => {
           name: "Test User",
           email: "test@example.com",
           message: "Test message",
-        });
+        } as unknown as React.BaseSyntheticEvent);
       });
       await act(async () => {
         await new Promise((r) => setTimeout(r, 0));
@@ -209,7 +210,7 @@ describe("useContactForm", () => {
           name: "Test User",
           email: "test@example.com",
           message: "Test message",
-        });
+        } as unknown as React.BaseSyntheticEvent);
       });
       await act(async () => {
         await new Promise((r) => setTimeout(r, 0));
@@ -227,7 +228,7 @@ describe("useContactForm", () => {
         json: async () => {
           throw new Error("Invalid JSON");
         },
-      } as Response);
+      } as unknown as Response);
 
       const { result } = renderHook(() => useContactForm());
 
@@ -237,7 +238,7 @@ describe("useContactForm", () => {
           name: "Test User",
           email: "test@example.com",
           message: "Test message",
-        });
+        } as unknown as React.BaseSyntheticEvent);
       });
       await act(async () => {
         await new Promise((r) => setTimeout(r, 0));
@@ -263,7 +264,7 @@ describe("useContactForm", () => {
           name: "Test User",
           email: "test@example.com",
           message: "Test message",
-        });
+        } as unknown as React.BaseSyntheticEvent);
       });
       await act(async () => {
         await new Promise((r) => setTimeout(r, 0));
@@ -280,7 +281,7 @@ describe("useContactForm", () => {
           name: "Test User 2",
           email: "test2@example.com",
           message: "Test message 2",
-        });
+        } as unknown as React.BaseSyntheticEvent);
       });
       await act(async () => {
         await new Promise((r) => setTimeout(r, 0));

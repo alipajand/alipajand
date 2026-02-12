@@ -132,7 +132,7 @@ describe("Writing", () => {
     });
 
     it("should have data-reveal on description", () => {
-      const { container } = render(<Writing posts={mockPosts} />);
+      const { container: _container } = render(<Writing posts={mockPosts} />);
       const description = screen.getByText("Notes on design systems, DX, and Frontend.");
       expect(description).toHaveAttribute("data-reveal");
     });
@@ -144,7 +144,7 @@ describe("Writing", () => {
     });
 
     it("should have data-reveal on all posts link", () => {
-      const { container } = render(<Writing posts={mockPosts} />);
+      const { container: _container } = render(<Writing posts={mockPosts} />);
       const allPostsLink = screen.getByText("All posts →").closest("p");
       expect(allPostsLink).toHaveAttribute("data-reveal");
     });
