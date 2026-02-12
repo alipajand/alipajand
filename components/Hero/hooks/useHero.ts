@@ -32,16 +32,11 @@ export function useHero(): HeroHook {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const nameChars = nameCharsRef.current?.querySelectorAll("[data-char]");
-    const chars = nameChars ? Array.from(nameChars) : [];
     const metricsItems = metricsRef.current?.querySelectorAll("[data-metric]");
     const noMotion = prefersReducedMotion();
 
     if (noMotion) {
-      gsap.set([...chars, line2Ref.current, subRef.current, ctaRef.current?.children], {
-        opacity: 1,
-        y: 0,
-      });
+      gsap.set([subRef.current, ctaRef.current?.children], { opacity: 1, y: 0 });
       if (metricsRef.current) gsap.set(metricsRef.current, { opacity: 1, y: 0 });
       if (metricsItems?.length) gsap.set(metricsItems, { opacity: 1, y: 0 });
       if (locationRef.current) gsap.set(locationRef.current, { opacity: 1, y: 0 });
@@ -49,32 +44,29 @@ export function useHero(): HeroHook {
       return;
     }
 
-    gsap.set([...chars, line2Ref.current], { opacity: 0, y: 60 });
+    gsap.set(subRef.current, { opacity: 0, y: 24 });
+    gsap.set(ctaRef.current?.children ?? [], { opacity: 0, y: 16 });
     if (metricsRef.current) gsap.set(metricsRef.current, { opacity: 0, y: 20 });
     if (metricsItems?.length) gsap.set(metricsItems, { opacity: 0, y: 12 });
     if (locationRef.current) gsap.set(locationRef.current, { opacity: 0, y: 12 });
+    gsap.set(scrollIndicatorRef.current, { opacity: 0 });
 
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    tl.to(chars, { opacity: 1, y: 0, duration: 0.4, stagger: 0.05 })
-      .to(line2Ref.current, { opacity: 1, y: 0, duration: 0.8 }, "-=0.5")
-      .to(subRef.current, { opacity: 1, y: 0, duration: 0.6 }, "-=0.3")
-      .to(
-        ctaRef.current?.children ?? [],
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 },
-        "-=0.2"
-      );
-
+    tl.to(subRef.current, { opacity: 1, y: 0, duration: 0.5 }).to(
+      ctaRef.current?.children ?? [],
+      { opacity: 1, y: 0, duration: 0.4, stagger: 0.06 },
+      "-=0.3"
+    );
     if (metricsRef.current) {
-      tl.to(metricsRef.current, { opacity: 1, y: 0, duration: 0.5 }, "-=0.15");
+      tl.to(metricsRef.current, { opacity: 1, y: 0, duration: 0.4 }, "-=0.2");
     }
     if (metricsItems?.length) {
-      tl.to(metricsItems, { opacity: 1, y: 0, duration: 0.45, stagger: 0.08 }, "-=0.35");
+      tl.to(metricsItems, { opacity: 1, y: 0, duration: 0.35, stagger: 0.06 }, "-=0.25");
     }
     if (locationRef.current) {
-      tl.to(locationRef.current, { opacity: 1, y: 0, duration: 0.45 }, "-=0.2");
+      tl.to(locationRef.current, { opacity: 1, y: 0, duration: 0.35 }, "-=0.2");
     }
-
-    tl.to(scrollIndicatorRef.current, { opacity: 1, duration: 0.4 }, "-=0.3");
+    tl.to(scrollIndicatorRef.current, { opacity: 1, duration: 0.3 }, "-=0.2");
   }, []);
 
   useEffect(() => {

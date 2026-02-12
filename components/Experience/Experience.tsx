@@ -27,8 +27,8 @@ export function Experience() {
         >
           Experience
         </h2>
-        <p className="text-muted text-lg mb-16 max-w-xl" data-reveal>
-          Roles and impact across product teams and startups.
+        <p className="text-muted text-lg mb-16" data-reveal>
+          Problem → solution → result. Impact and outcomes, not just responsibilities.
         </p>
 
         <div className="relative">

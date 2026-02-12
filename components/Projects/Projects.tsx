@@ -24,7 +24,7 @@ export function Projects() {
         >
           Selected work
         </h2>
-        <p className="text-muted text-lg mb-16 max-w-xl" data-reveal>
+        <p className="text-muted text-lg mb-16" data-reveal>
           Real projects. For each: what was wrong, what we did, what we got.
         </p>
 

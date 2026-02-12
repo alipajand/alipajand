@@ -24,7 +24,7 @@ export function Innovation() {
           Side projects & tooling
         </h2>
         <p className="text-muted text-lg mb-16 max-w-xl" data-reveal>
-          Things I build to ship faster—and can show you in action.
+          Things I build to ship faster and can show you in action.
         </p>
 
         <ul ref={listRef} className="space-y-6">

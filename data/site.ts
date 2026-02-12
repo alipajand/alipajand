@@ -1,6 +1,6 @@
 export const SITE_NAME = "Ali Pajand";
 
-export const TAGLINE = "Product engineer · Design systems · Developer experience";
+export const TAGLINE = "Senior Product Engineer · Design Systems · Developer Experience";
 
 export const KEYWORDS = [
   SITE_NAME,
@@ -27,7 +27,7 @@ export const ABOUT_PARAGRAPHS = [
 ];
 
 export const CONTACT_INTRO =
-  "I'm open to senior and staff roles in product engineering, frontend, design systems, or developer experience. Full-time, contract, or advisory—let's talk.";
+  "I'm open to senior and staff roles in product engineering, frontend, design systems, or dx. Let's talk.";
 
 export const HERO_METRICS = [
   { value: "9+", label: "years building product" },
@@ -35,4 +35,4 @@ export const HERO_METRICS = [
   { value: "A11y-first", label: "design systems" },
 ] as const;
 
-export const LOCATION = "Based in Montreal";
+export const LOCATION = "Based in Montreal, Quebec, Canada";

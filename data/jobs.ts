@@ -11,9 +11,9 @@ export const JOBS: Job[] = [
     company: "AlwaysGeeky Games",
     period: "2024 – 2026",
     highlights: [
-      "Shipped Marketplace and Login (React, Next.js, AWS) on time. Clean UI and solid Web3 API integration.",
-      "Built the design system and component library so teams could move faster. Set up CI (GitHub Actions) so we catch visual and a11y issues before merge.",
-      "Built a custom MCP server for Cursor so lint and types run in the editor—fewer surprises in PRs.",
+      "Shipped Marketplace and Login (React, Next.js, AWS) on time with stable Web3 API integration and zero critical production incidents.",
+      "Architected a Design System and component library that cut UI development time and ensured 100% WCAG compliance across products; CI (GitHub Actions) blocks visual and a11y regressions before merge.",
+      "Built a custom MCP server for Cursor so lint and types run in the editor—faster feedback and cleaner PRs.",
     ],
   },
   {
@@ -21,9 +21,9 @@ export const JOBS: Job[] = [
     company: "Emplifi",
     period: "2022 – 2023",
     highlights: [
-      "Built data-heavy dashboards with GSAP and D3.js. Used A/B tests and analytics (Sentry, Hotjar) to improve retention and responsiveness.",
-      "Made the same dashboards run smoothly inside mobile webviews and embeds—no more jank.",
-      "Took Figma to code and kept design and engineering in sync. Used user research to decide what to build.",
+      "Delivered data-heavy dashboards (GSAP, D3.js) that drove measurable gains in retention and responsiveness via A/B tests and analytics (Sentry, Hotjar).",
+      "Solved embedded performance: made the same dashboards run at 60fps inside mobile webviews and third-party embeds—removed jank and friction identified in UX data.",
+      "Owned Figma-to-code pipeline; aligned technical decisions with user research and business KPIs.",
     ],
   },
   {
@@ -31,9 +31,9 @@ export const JOBS: Job[] = [
     company: "ControlTech Startup Studio",
     period: "2018 – 2022",
     highlights: [
-      "Built frontend for several startup products—Figma to React/React Native and AWS. Shipped stable releases for early users.",
-      "Cut load times with code splitting, lazy loading, and a CDN. Built PWAs (offline, caching) so key flows kept working.",
-      "Set up Jest, Playwright, and GitHub Actions. Got to 99.9% deployment stability—fewer fires, faster releases.",
+      "Owned frontend delivery for multiple startup products (Figma → React/React Native, AWS); shipped stable releases for early adopters.",
+      "Reduced first-load times with code splitting, lazy loading, and CDN; built PWAs (offline, caching) so key flows stayed reliable—improved engagement on core flows.",
+      "Achieved 99.9% deployment stability via Jest, Playwright, and GitHub Actions CI/CD—fewer production incidents, faster and confident releases.",
     ],
   },
   {
@@ -41,8 +41,8 @@ export const JOBS: Job[] = [
     company: "Rayvarz Inc.",
     period: "2016 – 2017",
     highlights: [
-      "Redesigned old B2B dashboards. Better data viz and layout led to +15% engagement. We measured it.",
-      "Connected design and code (Figma/Photoshop to Vue.js). Ran user research and A/B tests to check if changes actually helped.",
+      "Redesigned legacy B2B dashboards; better data viz and IA drove +15% user engagement (measured and tied to business goals).",
+      "Bridged design and engineering (Figma/Photoshop → Vue.js); ran user research and A/B tests to validate UI changes and tie technical work to outcomes.",
     ],
   },
 ];

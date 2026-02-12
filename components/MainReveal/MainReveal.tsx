@@ -10,20 +10,17 @@ export function MainReveal({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const el = wrapperRef.current;
-    if (!el) return;
+    if (!el || prefersReducedMotion()) return;
 
-    if (prefersReducedMotion()) {
-      gsap.set(el, { opacity: 1 });
-      return;
-    }
+    const t = setTimeout(() => {
+      gsap.fromTo(
+        el,
+        { opacity: 0.92 },
+        { opacity: 1, duration: 0.5, ease: "power2.out" }
+      );
+    }, 80);
 
-    gsap.set(el, { opacity: 0 });
-    gsap.to(el, {
-      opacity: 1,
-      duration: 0.8,
-      ease: "power2.out",
-      delay: 0.1,
-    });
+    return () => clearTimeout(t);
   }, []);
 
   return (

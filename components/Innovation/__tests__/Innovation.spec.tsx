@@ -16,7 +16,7 @@ describe("Innovation", () => {
   it("renders intro paragraph", () => {
     render(<Innovation />);
     expect(
-      screen.getByText(/Things I build to ship faster—and can show you in action./i)
+      screen.getByText(/Things I build to ship faster and can show you in action\./i)
     ).toBeInTheDocument();
   });
 

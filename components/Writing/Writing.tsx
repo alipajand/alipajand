@@ -34,7 +34,7 @@ export function Writing({ posts }: { posts: WritingPost[] }) {
           Writing
         </h2>
         <p className="text-muted text-lg mb-12 max-w-xl" data-reveal>
-          Notes on design systems, DX, and frontend.
+          Notes on design systems, DX, and Frontend.
         </p>
         <ul className="space-y-6" data-reveal>
           {posts.map((post) => (

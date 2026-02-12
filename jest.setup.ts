@@ -49,3 +49,11 @@ class MockIntersectionObserver implements IntersectionObserver {
 }
 
 global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
+
+class MockResizeObserver implements ResizeObserver {
+  observe(): void {}
+  unobserve(): void {}
+  disconnect(): void {}
+}
+
+global.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver;
