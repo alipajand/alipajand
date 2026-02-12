@@ -2,6 +2,10 @@ import { render, screen } from "@testing-library/react";
 
 import { Hero } from "components/Hero/Hero";
 
+jest.mock("components/Hero/HeroBackground", () => ({
+  HeroBackground: () => null,
+}));
+
 jest.mock("gsap", () => ({
   set: jest.fn(),
   to: jest.fn().mockReturnValue({}),

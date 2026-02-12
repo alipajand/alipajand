@@ -1,7 +1,4 @@
-/**
- * Node environment: window is undefined. Covers prefersReducedMotion early return.
- * @jest-environment node
- */
+/** @jest-environment node */
 
 jest.mock("gsap", () => ({ registerPlugin: jest.fn() }));
 jest.mock("gsap/ScrollTrigger", () => ({ __esModule: true, default: {} }));

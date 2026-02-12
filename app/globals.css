@@ -45,10 +45,6 @@ li span {
   user-select: text;
 }
 
-.gradient-text-animated::selection {
-  background: none !important;
-}
-
 ::selection {
   background: var(--organic-orange);
   color: white;
@@ -86,19 +82,6 @@ html {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .animate-float,
-  .gradient-text-animated {
-    animation: none;
-  }
-
-  .gradient-text-animated {
-    background: linear-gradient(150deg, var(--organic-alabaster), var(--organic-orange));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
   }
 }
 
@@ -157,31 +140,4 @@ button:focus-visible {
 a:focus-visible:not(.skip-link),
 button:focus-visible {
   border-radius: 0.25rem;
-}
-
-.gradient-text-animated {
-  background: linear-gradient(
-    110deg,
-    var(--organic-alabaster) 0%,
-    var(--muted) 25%,
-    var(--organic-orange) 50%,
-    var(--organic-alabaster) 75%,
-    var(--muted) 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: gradient-shift 16s ease-in-out infinite;
-}
-
-@keyframes gradient-shift {
-  0%,
-  100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
 }

@@ -1,59 +1,152 @@
 import { render, screen } from "@testing-library/react";
-
 import { Writing } from "components/Writing/Writing";
+import type { WritingPost } from "components/Writing/Writing";
+
+jest.mock("utils/hooks/useScrollReveal", () => ({
+  useScrollReveal: jest.fn(() => ({
+    selectors: {
+      sectionRef: { current: null },
+    },
+  })),
+}));
+
+const mockPosts: WritingPost[] = [
+  {
+    slug: "test-post-1",
+    title: "Test Post 1",
+    date: "2024-01-15",
+    excerpt: "This is a test excerpt",
+  },
+  {
+    slug: "test-post-2",
+    title: "Test Post 2",
+    date: "2024-02-20",
+    excerpt: "Another test excerpt",
+  },
+];
 
 describe("Writing", () => {
-  const mockPosts = [
-    {
-      slug: "test-post",
-      title: "Test Post",
-      date: "2025-01-15",
-      excerpt: "Test excerpt.",
-    },
-  ];
+  describe("rendering", () => {
+    it("should render heading", () => {
+      render(<Writing posts={mockPosts} />);
+      expect(screen.getByText("Writing")).toBeInTheDocument();
+    });
 
-  it("returns null when posts array is empty", () => {
-    const { container } = render(<Writing posts={[]} />);
-    expect(container.firstChild).toBeNull();
+    it("should render description", () => {
+      render(<Writing posts={mockPosts} />);
+      expect(
+        screen.getByText("Notes on design systems, DX, and Frontend.")
+      ).toBeInTheDocument();
+    });
+
+    it("should render all posts", () => {
+      render(<Writing posts={mockPosts} />);
+      expect(screen.getByText("Test Post 1")).toBeInTheDocument();
+      expect(screen.getByText("Test Post 2")).toBeInTheDocument();
+    });
+
+    it("should render post excerpts", () => {
+      render(<Writing posts={mockPosts} />);
+      expect(screen.getByText("This is a test excerpt")).toBeInTheDocument();
+      expect(screen.getByText("Another test excerpt")).toBeInTheDocument();
+    });
+
+    it("should render link to all posts", () => {
+      render(<Writing posts={mockPosts} />);
+      const link = screen.getByText("All posts →");
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute("href", "/blog");
+    });
   });
 
-  it("renders section with id writing when posts provided", () => {
-    render(<Writing posts={mockPosts} />);
-    expect(document.getElementById("writing")).toBeInTheDocument();
+  describe("post links", () => {
+    it("should render links to individual posts", () => {
+      render(<Writing posts={mockPosts} />);
+      const post1Link = screen.getByText("Test Post 1").closest("a");
+      const post2Link = screen.getByText("Test Post 2").closest("a");
+
+      expect(post1Link).toHaveAttribute("href", "/blog/test-post-1");
+      expect(post2Link).toHaveAttribute("href", "/blog/test-post-2");
+    });
+
+    it("should have correct structure for post links", () => {
+      render(<Writing posts={mockPosts} />);
+      const postLink = screen.getByText("Test Post 1").closest("a");
+      expect(postLink).toHaveClass("group", "block");
+    });
   });
 
-  it("renders Writing heading", () => {
-    render(<Writing posts={mockPosts} />);
-    expect(screen.getByRole("heading", { name: /writing/i })).toBeInTheDocument();
+  describe("date formatting", () => {
+    it("should format dates correctly", () => {
+      render(<Writing posts={mockPosts} />);
+      const timeElements = screen.getAllByRole("time");
+
+      expect(timeElements[0]).toHaveAttribute("dateTime", "2024-01-15");
+      expect(timeElements[1]).toHaveAttribute("dateTime", "2024-02-20");
+    });
+
+    it("should handle invalid dates gracefully", () => {
+      const postsWithInvalidDate: WritingPost[] = [
+        {
+          slug: "invalid-date",
+          title: "Invalid Date Post",
+          date: "invalid-date",
+          excerpt: "Test",
+        },
+      ];
+
+      render(<Writing posts={postsWithInvalidDate} />);
+      const timeElement = screen.getByRole("time");
+      expect(timeElement).toHaveAttribute("dateTime", "invalid-date");
+      expect(timeElement.textContent).toBeTruthy();
+    });
   });
 
-  it("renders post title and excerpt", () => {
-    render(<Writing posts={mockPosts} />);
-    expect(screen.getByText("Test Post")).toBeInTheDocument();
-    expect(screen.getByText("Test excerpt.")).toBeInTheDocument();
+  describe("empty state", () => {
+    it("should return null when posts array is empty", () => {
+      const { container } = render(<Writing posts={[]} />);
+      expect(container.firstChild).toBeNull();
+    });
   });
 
-  it("renders link to blog post and All posts link", () => {
-    render(<Writing posts={mockPosts} />);
-    expect(screen.getByRole("link", { name: /read more/i })).toHaveAttribute(
-      "href",
-      "/blog/test-post"
-    );
-    expect(screen.getByRole("link", { name: /all posts/i })).toHaveAttribute("href", "/blog");
+  describe("section attributes", () => {
+    it("should have correct id and aria-labelledby", () => {
+      const { container } = render(<Writing posts={mockPosts} />);
+      const section = container.querySelector("section");
+      expect(section).toHaveAttribute("id", "writing");
+      expect(section).toHaveAttribute("aria-labelledby", "writing-heading");
+    });
+
+    it("should have correct heading id", () => {
+      render(<Writing posts={mockPosts} />);
+      const heading = screen.getByText("Writing");
+      expect(heading).toHaveAttribute("id", "writing-heading");
+    });
   });
 
-  it("formats date for display", () => {
-    render(<Writing posts={mockPosts} />);
-    expect(screen.getByText(/Jan.*2025/)).toBeInTheDocument();
-  });
+  describe("data-reveal attributes", () => {
+    it("should have data-reveal on heading", () => {
+      render(<Writing posts={mockPosts} />);
+      const heading = screen.getByText("Writing");
+      expect(heading).toHaveAttribute("data-reveal");
+    });
 
-  it("renders multiple posts", () => {
-    const twoPosts = [
-      ...mockPosts,
-      { slug: "second", title: "Second Post", date: "2025-02-01", excerpt: "Second." },
-    ];
-    render(<Writing posts={twoPosts} />);
-    expect(screen.getByText("Test Post")).toBeInTheDocument();
-    expect(screen.getByText("Second Post")).toBeInTheDocument();
+    it("should have data-reveal on description", () => {
+      const { container } = render(<Writing posts={mockPosts} />);
+      const description = screen.getByText("Notes on design systems, DX, and Frontend.");
+      expect(description).toHaveAttribute("data-reveal");
+    });
+
+    it("should have data-reveal on posts list", () => {
+      const { container } = render(<Writing posts={mockPosts} />);
+      const list = container.querySelector("ul[data-reveal]");
+      expect(list).toBeInTheDocument();
+    });
+
+    it("should have data-reveal on all posts link", () => {
+      const { container } = render(<Writing posts={mockPosts} />);
+      const allPostsLink = screen.getByText("All posts →").closest("p");
+      expect(allPostsLink).toHaveAttribute("data-reveal");
+    });
   });
 });
