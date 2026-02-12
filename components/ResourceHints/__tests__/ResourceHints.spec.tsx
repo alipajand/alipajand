@@ -18,7 +18,9 @@ describe("ResourceHints", () => {
   it("should add preconnect link for googletagmanager.com", () => {
     render(<ResourceHints />);
 
-    const preconnect = document.head.querySelector('link[rel="preconnect"][href="https://www.googletagmanager.com"]');
+    const preconnect = document.head.querySelector(
+      'link[rel="preconnect"][href="https://www.googletagmanager.com"]'
+    );
     expect(preconnect).toBeInTheDocument();
     expect(preconnect).toHaveAttribute("crossOrigin", "anonymous");
   });
@@ -26,7 +28,9 @@ describe("ResourceHints", () => {
   it("should add dns-prefetch link for googletagmanager.com", () => {
     render(<ResourceHints />);
 
-    const dnsPrefetch = document.head.querySelector('link[rel="dns-prefetch"][href="https://www.googletagmanager.com"]');
+    const dnsPrefetch = document.head.querySelector(
+      'link[rel="dns-prefetch"][href="https://www.googletagmanager.com"]'
+    );
     expect(dnsPrefetch).toBeInTheDocument();
   });
 
@@ -38,15 +42,21 @@ describe("ResourceHints", () => {
 
     render(<ResourceHints />);
 
-    const links = document.head.querySelectorAll('link[rel="preconnect"][href="https://www.googletagmanager.com"]');
+    const links = document.head.querySelectorAll(
+      'link[rel="preconnect"][href="https://www.googletagmanager.com"]'
+    );
     expect(links).toHaveLength(1);
   });
 
   it("should add both preconnect and dns-prefetch when neither exists", () => {
     render(<ResourceHints />);
 
-    const preconnect = document.head.querySelector('link[rel="preconnect"][href="https://www.googletagmanager.com"]');
-    const dnsPrefetch = document.head.querySelector('link[rel="dns-prefetch"][href="https://www.googletagmanager.com"]');
+    const preconnect = document.head.querySelector(
+      'link[rel="preconnect"][href="https://www.googletagmanager.com"]'
+    );
+    const dnsPrefetch = document.head.querySelector(
+      'link[rel="dns-prefetch"][href="https://www.googletagmanager.com"]'
+    );
 
     expect(preconnect).toBeInTheDocument();
     expect(dnsPrefetch).toBeInTheDocument();
@@ -57,8 +67,12 @@ describe("ResourceHints", () => {
     rerender(<ResourceHints />);
     rerender(<ResourceHints />);
 
-    const preconnectLinks = document.head.querySelectorAll('link[rel="preconnect"][href="https://www.googletagmanager.com"]');
-    const dnsPrefetchLinks = document.head.querySelectorAll('link[rel="dns-prefetch"][href="https://www.googletagmanager.com"]');
+    const preconnectLinks = document.head.querySelectorAll(
+      'link[rel="preconnect"][href="https://www.googletagmanager.com"]'
+    );
+    const dnsPrefetchLinks = document.head.querySelectorAll(
+      'link[rel="dns-prefetch"][href="https://www.googletagmanager.com"]'
+    );
 
     expect(preconnectLinks).toHaveLength(1);
     expect(dnsPrefetchLinks).toHaveLength(1);

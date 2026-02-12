@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { Writing } from "components/Writing/Writing";
 import type { WritingPost } from "components/Writing/Writing";
+import { Writing } from "components/Writing/Writing";
 
 jest.mock("utils/hooks/useScrollReveal", () => ({
   useScrollReveal: jest.fn(() => ({
@@ -34,9 +34,7 @@ describe("Writing", () => {
 
     it("should render description", () => {
       render(<Writing posts={mockPosts} />);
-      expect(
-        screen.getByText("Notes on design systems, DX, and Frontend.")
-      ).toBeInTheDocument();
+      expect(screen.getByText("Notes on design systems, DX, and Frontend.")).toBeInTheDocument();
     });
 
     it("should render all posts", () => {

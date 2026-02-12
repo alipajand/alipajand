@@ -80,7 +80,7 @@ describe("useSelectedWorkReveal", () => {
       };
       jest
         .mocked(gsapUtils.gsap.timeline)
-        .mockReturnValue(timelineMock as ReturnType<typeof gsapUtils.gsap.timeline>);
+        .mockReturnValue(timelineMock as unknown as ReturnType<typeof gsapUtils.gsap.timeline>);
 
       render(<TestComponent />);
 
@@ -103,9 +103,7 @@ describe("useSelectedWorkReveal", () => {
       render(<TestComponent />);
 
       const setCalls = jest.mocked(gsapUtils.gsap.set).mock.calls;
-      const reducedMotionCall = setCalls.find(
-        (call) => call[1]?.opacity === 1 && call[1]?.y === 0
-      );
+      const reducedMotionCall = setCalls.find((call) => call[1]?.opacity === 1 && call[1]?.y === 0);
 
       expect(reducedMotionCall).toBeDefined();
       expect(gsapUtils.ScrollTrigger.create).not.toHaveBeenCalled();
@@ -117,7 +115,7 @@ describe("useSelectedWorkReveal", () => {
       const killMock = jest.fn();
       jest.mocked(gsapUtils.ScrollTrigger.create).mockReturnValue({
         kill: killMock,
-      } as ReturnType<typeof gsapUtils.ScrollTrigger.create>);
+      } as unknown as ReturnType<typeof gsapUtils.ScrollTrigger.create>);
 
       const { unmount } = render(<TestComponent />);
       unmount();

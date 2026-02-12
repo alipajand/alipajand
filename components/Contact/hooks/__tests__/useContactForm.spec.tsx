@@ -1,6 +1,5 @@
-import React from "react";
+import React, { act } from "react";
 import { fireEvent, render, renderHook, waitFor } from "@testing-library/react";
-import { act } from "react";
 import { useContactForm } from "components/Contact/hooks/useContactForm";
 
 global.fetch = jest.fn();
@@ -72,7 +71,7 @@ describe("useContactForm", () => {
       const { result } = renderHook(() => useContactForm());
 
       const handleSubmit = result.current.actions.handleSubmit;
-      
+
       const submitPromise = handleSubmit({
         name: "Test User",
         email: "test@example.com",
@@ -194,9 +193,7 @@ describe("useContactForm", () => {
       });
 
       expect(result.current.selectors.status).toBe("error");
-      expect(result.current.selectors.errorMessage).toBe(
-        "Something went wrong. Please try again."
-      );
+      expect(result.current.selectors.errorMessage).toBe("Something went wrong. Please try again.");
     });
 
     it("should handle fetch errors", async () => {
@@ -245,9 +242,7 @@ describe("useContactForm", () => {
       });
 
       expect(result.current.selectors.status).toBe("error");
-      expect(result.current.selectors.errorMessage).toBe(
-        "Something went wrong. Please try again."
-      );
+      expect(result.current.selectors.errorMessage).toBe("Something went wrong. Please try again.");
     });
 
     it("should reset error message when submitting again after error", async () => {
