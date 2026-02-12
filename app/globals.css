@@ -88,7 +88,6 @@ html {
     scroll-behavior: auto;
   }
 
-  .animate-grid-shift,
   .animate-float,
   .gradient-text-animated {
     animation: none;
@@ -101,11 +100,6 @@ html {
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
-
-  .bg-grid::before {
-    animation: none;
-    opacity: 1;
-  }
 }
 
 body {
@@ -115,69 +109,6 @@ body {
 
 .font-display {
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-}
-
-.bg-grid {
-  position: relative;
-}
-
-.bg-grid::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 64px 64px;
-  opacity: 0;
-  animation: grid-reveal 1.2s ease-out forwards;
-  pointer-events: none;
-}
-
-@keyframes grid-reveal {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes grid-shift {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 64px 64px;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translate(-50%, 0);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translate(-50%, -8px);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-grid-shift {
-  animation: grid-shift 20s linear infinite;
-}
-
-.animate-float {
-  animation: float 2.5s ease-in-out infinite;
 }
 
 .hover-lift {
@@ -200,10 +131,6 @@ body {
 
 .hover-scale:hover {
   transform: scale(1.02);
-}
-
-.nav-link-hover {
-  position: relative;
 }
 
 .nav-link-hover::after {
