@@ -30,15 +30,21 @@ export function HeroBackground() {
     const svg = svgRef.current;
     const paths = svg.querySelectorAll<SVGPathElement>("path[data-grid-outline]");
 
-    paths.forEach((path, index) => {
+    const maxSum = GRID_ROWS + GRID_COLS - 2;
+    const maxDelay = (GRID_ROWS * GRID_COLS - 1) * 0.015;
+
+    paths.forEach((path) => {
       const length = path.getTotalLength();
       path.style.strokeDasharray = `${length}`;
       path.style.strokeDashoffset = `${length}`;
 
+      const sum = Number(path.getAttribute("data-sum")) ?? 0;
+      const delay = maxSum > 0 ? ((maxSum - sum) / maxSum) * maxDelay : 0;
+
       gsap.to(path, {
+        delay,
         strokeDashoffset: 0,
         duration: 0.35,
-        delay: index * 0.025,
         ease: "power2.out",
       });
     });
@@ -65,12 +71,14 @@ export function HeroBackground() {
         const w = SQUARE_SIZE;
         const sum = rowIndex + colIndex;
         const maxSum = GRID_ROWS + GRID_COLS - 2;
-        const opacity = maxSum > 0 ? 0.02 + (sum / maxSum) * 0.05 : 0.02;
+        const opacity = maxSum > 0 ? 0.02 + (sum / maxSum) * 0.06 : 0.02;
         const pathD = `M ${x} ${y} L ${x + w} ${y} M ${x + w} ${y} L ${x + w} ${y + w} M ${x + w} ${y + w} L ${x} ${y + w} M ${x} ${y + w} L ${x} ${y}`;
+
         return (
           <path
             key={`${rowIndex}-${colIndex}`}
             data-grid-outline
+            data-sum={sum}
             d={pathD}
             fill="none"
             stroke={`rgba(255, 255, 255, ${opacity})`}
