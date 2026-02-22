@@ -7,6 +7,7 @@ import { ResourceHints } from "components/ResourceHints/ResourceHints";
 import { SmoothScroll } from "components/SmoothScroll/SmoothScroll";
 import { StructuredData } from "components/StructuredData/StructuredData";
 import { Analytics } from "components/Analytics/Analytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_URL),
@@ -99,6 +100,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         className={`${GeistSans.variable} ${GeistSans.className} antialiased bg-background text-foreground`}
       >
         <Analytics />
+        <VercelAnalytics />
         <ResourceHints />
         <StructuredData />
         <a href="#main-content" className="skip-link">
