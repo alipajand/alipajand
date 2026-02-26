@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { getAllPosts, getPostBySlug } from "lib/posts";
+import { getAllPosts, getPostBySlug } from "utils/posts";
+import { formatDate } from "utils/date";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -62,17 +63,4 @@ export default async function PostPage({ params }: PageProps) {
       </article>
     </div>
   );
-}
-
-function formatDate(dateStr: string): string {
-  try {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  } catch {
-    return dateStr;
-  }
 }

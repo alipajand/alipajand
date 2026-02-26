@@ -2,7 +2,7 @@
 
 import { readdirSync } from "fs";
 import { join } from "path";
-import { getAllPosts, getLatestPosts, getPostBySlug } from "lib/posts";
+import { getAllPosts, getLatestPosts, getPostBySlug } from "utils/posts";
 
 jest.mock("marked", () => ({
   marked: {
@@ -12,7 +12,7 @@ jest.mock("marked", () => ({
 
 const POSTS_DIR = join(process.cwd(), "content", "posts");
 
-describe("lib/posts", () => {
+describe("utils/posts", () => {
   describe("getAllPosts", () => {
     it("returns array of posts with slug, title, date, excerpt", () => {
       const posts = getAllPosts();
@@ -76,3 +76,4 @@ describe("lib/posts", () => {
     });
   });
 });
+

@@ -1,0 +1,27 @@
+# Alipajand Personal Site – Cursor Rules
+
+## Context
+- **Project:** Ali Pajand personal website & blog.
+- **Tech Stack:** Next.js App Router (v16), React 19, TypeScript, Tailwind CSS.
+- **Purpose:** Portfolio, writing, and experiments around developer experience and AI tooling.
+
+## Code & Architecture
+- Use **TypeScript** for all application and test code.
+- Prefer **functional React components**, server components by default; mark as client only when using hooks or browser-only APIs.
+- Keep reusable UI in `components/` and colocate hooks under `components/**/hooks` or `utils/hooks`.
+- Keep data-only modules (e.g. `data/*`, `utils/*`) free of React/DOM concerns.
+
+## Testing
+- Use **Jest + Testing Library** (`@testing-library/react`, `@testing-library/jest-dom`) for all UI and hook tests.
+- Co-locate specs in `__tests__` folders that mirror the source path and filename.
+- Test **behavior and contracts** (DOM, accessibility, props) rather than implementation details.
+
+## Content
+- Blog posts live in `content/posts` as Markdown with frontmatter (title, date, summary, tags, slug, published).
+- Slugs should be **kebab-case** and stable once published.
+- Avoid breaking existing URLs; when changing content, preserve slugs unless there is a compelling reason.
+
+## AI Usage
+- When using AI to edit code, preserve existing style, patterns, and public component APIs unless explicitly asked to refactor.
+- Prefer small, focused changes with passing tests over large rewrites.
+- Keep comments high-signal: explain intent, constraints, or trade-offs—not obvious behavior.

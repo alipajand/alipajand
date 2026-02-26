@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
         "warn",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
+      "react/display-name": "off",
     },
   },
   {

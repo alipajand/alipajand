@@ -25,10 +25,10 @@ export function Experience() {
           className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-4"
           data-reveal
         >
-          Experience
+          Work Experiences
         </h2>
         <p className="text-muted text-lg mb-16" data-reveal>
-          Problem → solution → result. Impact and outcomes, not just responsibilities.
+          Impact and outcomes, not just responsibilities.
         </p>
 
         <div className="relative">

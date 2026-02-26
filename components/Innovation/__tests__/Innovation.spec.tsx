@@ -23,6 +23,6 @@ describe("Innovation", () => {
   it("renders innovation items from data", () => {
     render(<Innovation />);
     expect(screen.getByText("MCP server for Cursor")).toBeInTheDocument();
-    expect(screen.getByText("AI in the pipeline")).toBeInTheDocument();
+    expect(screen.getByText("AI in the Pipeline")).toBeInTheDocument();
   });
 });

@@ -10,8 +10,8 @@ import { Writing } from "components/Writing/Writing";
 import { Skills } from "components/Skills/Skills";
 import { Contact } from "components/Contact/Contact";
 import { MainReveal } from "components/MainReveal/MainReveal";
-import { getLatestPosts } from "lib/posts";
-import { Education } from "../components/Education/Education";
+import { Education } from "components/Education/Education";
+import { getLatestPosts } from "utils/posts";
 
 export default function Home() {
   const latestPosts = getLatestPosts(2);

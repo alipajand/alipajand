@@ -295,4 +295,56 @@ describe("ProjectCard", () => {
       expect(screen.queryByText("View project →")).not.toBeInTheDocument();
     });
   });
+
+  describe("image accessibility", () => {
+    it("uses empty alt text when image caption is not provided", () => {
+      const projectWithImageNoCaption: Project = {
+        ...mockProject,
+        image: "/no-caption.jpg",
+      };
+
+      const { container } = render(<ProjectCard project={projectWithImageNoCaption} />);
+      const img = container.querySelector("img");
+      expect(img).not.toBeNull();
+      expect(img).toHaveAttribute("alt", "");
+    });
+  });
+
+  describe("links array fallback", () => {
+    it("renders external links from links array with target and rel", () => {
+      const projectWithLinks: Project = {
+        ...mockProject,
+        links: [
+          {
+            label: "External",
+            href: "https://example.com",
+          },
+        ],
+      };
+
+      render(<ProjectCard project={projectWithLinks} />);
+      const link = screen.getByText("View External →");
+      expect(link).toHaveAttribute("href", "https://example.com");
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    });
+
+    it("does not add target and rel for relative links in links array", () => {
+      const projectWithRelativeLink: Project = {
+        ...mockProject,
+        links: [
+          {
+            label: "Internal",
+            href: "/internal",
+          },
+        ],
+      };
+
+      render(<ProjectCard project={projectWithRelativeLink} />);
+      const link = screen.getByText("View Internal →");
+      expect(link).toHaveAttribute("href", "/internal");
+      expect(link).not.toHaveAttribute("target");
+      expect(link).not.toHaveAttribute("rel");
+    });
+  });
 });

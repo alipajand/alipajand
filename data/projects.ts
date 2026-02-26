@@ -15,6 +15,11 @@ export interface ProjectMedia {
   caption: string;
 }
 
+export interface ProjectLink {
+  label: string;
+  href: string;
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -28,9 +33,46 @@ export interface Project {
   caseStudy?: CaseStudyBlock;
   beforeAfter?: BeforeAfter[];
   link?: string;
+  links?: ProjectLink[];
 }
 
 export const PROJECTS: Project[] = [
+  {
+    id: "mapbylaw-design-system-dx",
+    name: "MapBylaw · Design system & platform DX",
+    description:
+      "Product engineering for a map-first property insights platform: shared UI across web and admin, feature-based architecture, type-safe API and PDF report system.",
+    role: "Senior Product Engineer · Design Systems · Developer Experience",
+    tech: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "@mapbylaw/ui",
+      "OpenAPI",
+      "Zod",
+      "React-PDF",
+      "pnpm monorepo",
+    ],
+    outcomes: [
+      "Single design system (@mapbylaw/ui) for web and admin; consistent toasts, shell, and tables.",
+      "Feature-based structure and path aliases so teams ship without deep import chains.",
+      "OpenAPI + Zod and strongly-typed PDF payloads keep API and report outputs in sync.",
+    ],
+    caseStudy: {
+      problem:
+        "Web app and admin app needed consistent UI and patterns. API, PDF report, and frontend had to stay aligned as we added bilingual reports, consent-gated analytics, and internal tooling.",
+      approach:
+        "Shared component library (@mapbylaw/ui) for both apps. Feature-based folders and barrel exports; path aliases (components/, features/, utils/) for clean imports. OpenAPI 3.0 and Zod for API contracts; React-PDF with a typed payload builder and shared report components so the 10-page bilingual report stays single-source.",
+      result:
+        "One design language and predictable DX. API docs and types drive frontend; report content policy (no static/fake data) enforced via shared types and audit.",
+    },
+    beforeAfter: [
+      { label: "UI across apps", before: "Separate stacks", after: "Shared @mapbylaw/ui" },
+      { label: "Report data", before: "Ad-hoc copy", after: "Typed payload + audit" },
+    ],
+    links: [{ label: "Project", href: "https://mapbylaw.ca/" }],
+    image: undefined,
+  },
   {
     id: "design-system-alwaysgeeky",
     name: "Design System & Component Library",
@@ -75,6 +117,10 @@ export const PROJECTS: Project[] = [
         "React/Next.js and Vite. Used the design system. Made sure loading and errors felt good.",
       result: "Shipped. It matched design and held up in production.",
     },
+    links: [
+      { label: "Marketplace", href: "https://market.voxies.io" },
+      { label: "Login", href: "https://login.voxies.io/" },
+    ],
     image: undefined,
   },
   {
@@ -96,6 +142,7 @@ export const PROJECTS: Project[] = [
       result: "Smoother experience in embeds. Data showed better retention and fewer drop-offs.",
     },
     beforeAfter: [{ label: "Embedded perf", before: "Janky", after: "Smooth 60fps" }],
+    links: [{ label: "Website", href: "https://emplifi.io" }],
     image: undefined,
   },
   {
@@ -119,6 +166,7 @@ export const PROJECTS: Project[] = [
       { label: "Deployment stability", before: "~95%", after: "99.9%" },
       { label: "First load", before: "Heavy bundle", after: "Split + CDN" },
     ],
+    links: [{ label: "Website", href: "https://ctrltech.org" }],
     image: undefined,
   },
 ];

@@ -67,3 +67,4 @@ export function getPostBySlug(slug: string): Post | null {
 export function getLatestPosts(count: number): Omit<Post, "contentHtml">[] {
   return getAllPosts().slice(0, count);
 }
+
