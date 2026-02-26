@@ -1,7 +1,8 @@
 import Link from "next/link";
 
-import { getAllPosts } from "lib/posts";
+import { getAllPosts } from "utils/posts";
 import { SITE_NAME } from "data/site";
+import { formatDate } from "utils/date";
 
 export const metadata = {
   title: "Writing",
@@ -63,17 +64,4 @@ export default function BlogPage() {
       </div>
     </div>
   );
-}
-
-function formatDate(dateStr: string): string {
-  try {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  } catch {
-    return dateStr;
-  }
 }

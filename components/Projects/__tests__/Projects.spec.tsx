@@ -33,6 +33,7 @@ describe("Projects", () => {
     expect(screen.getByText("Marketplace & Login (Web3)")).toBeInTheDocument();
     expect(screen.getByText("Data Dashboards & Motion")).toBeInTheDocument();
     expect(screen.getByText("PWA & Performance")).toBeInTheDocument();
+    expect(screen.getByText("MapBylaw · Design system & platform DX")).toBeInTheDocument();
   });
 
   it("renders case study labels for projects that have them", () => {

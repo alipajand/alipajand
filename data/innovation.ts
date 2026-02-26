@@ -17,7 +17,7 @@ export const INNOVATION_ITEMS: InnovationItem[] = [
   },
   {
     id: "ai-dx",
-    title: "AI in the pipeline",
+    title: "AI in the Pipeline",
     description:
       "I use AI to handle the boring checks (format, types, tests) so we can focus on design, readability, and product. Fast pipeline, fast iteration.",
     videoUrl: undefined,

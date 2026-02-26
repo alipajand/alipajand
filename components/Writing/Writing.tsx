@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
+import { formatDate } from "utils/date";
 
 export interface WritingPost {
   slug: string;
@@ -68,17 +69,4 @@ export function Writing({ posts }: { posts: WritingPost[] }) {
       </div>
     </section>
   );
-}
-
-function formatDate(dateStr: string): string {
-  try {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  } catch {
-    return dateStr;
-  }
 }

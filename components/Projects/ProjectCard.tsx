@@ -123,16 +123,32 @@ export function ProjectCard({ project }: { project: Project }) {
             </li>
           ))}
         </ul>
-        {project.link && (
-          <a
-            href={project.link}
-            target={project.link.startsWith("http") ? "_blank" : undefined}
-            rel={project.link.startsWith("http") ? "noopener noreferrer" : undefined}
-            className="text-sm font-medium text-foreground hover:text-muted transition-colors mt-1"
-          >
-            View project →
-          </a>
-        )}
+        {project.link ? (
+          <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1 border-t border-border pt-4">
+            <a
+              href={project.link}
+              target={project.link.startsWith("http") ? "_blank" : undefined}
+              rel={project.link.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="text-sm font-medium text-(--organic-orange) hover:text-(--organic-orange)/80 transition-colors"
+            >
+              View project →
+            </a>
+          </div>
+        ) : project.links && project.links.length > 0 ? (
+          <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1 border-t border-border pt-4">
+            {project.links.map(({ label, href }) => (
+              <a
+                key={href}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="text-sm font-medium text-(--organic-orange) hover:text-(--organic-orange)/80 transition-colors"
+              >
+                View {label} →
+              </a>
+            ))}
+          </div>
+        ) : null}
       </div>
     </article>
   );
