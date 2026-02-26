@@ -27,6 +27,7 @@ export interface Project {
   role: string;
   tech: string[];
   outcomes: string[];
+  image?: string;
   imageCaption?: string;
   secondaryMedia?: ProjectMedia;
   caseStudy?: CaseStudyBlock;
