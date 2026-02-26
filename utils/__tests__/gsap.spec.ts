@@ -7,17 +7,15 @@ jest.mock("gsap", () => ({
   },
 }));
 
-type MutableMatchMediaWindow = Window & {
-  matchMedia?: ((query: string) => MediaQueryList) | undefined;
-};
-
-const mutableWindow = window as MutableMatchMediaWindow;
-
 describe("utils/gsap", () => {
-  const originalMatchMedia = mutableWindow.matchMedia;
+  const originalMatchMedia = window.matchMedia;
 
   afterEach(() => {
-    mutableWindow.matchMedia = originalMatchMedia;
+    Object.defineProperty(window, "matchMedia", {
+      value: originalMatchMedia,
+      writable: true,
+      configurable: true,
+    });
     jest.clearAllMocks();
   });
 
@@ -31,21 +29,29 @@ describe("utils/gsap", () => {
   });
 
   it("prefersReducedMotion returns false when matchMedia is not a function", () => {
-    mutableWindow.matchMedia = undefined;
+    Object.defineProperty(window, "matchMedia", {
+      value: undefined,
+      writable: true,
+      configurable: true,
+    });
 
     const result = prefersReducedMotion();
     expect(result).toBe(false);
   });
 
   it("prefersReducedMotion returns matchMedia result when available", () => {
-    mutableWindow.matchMedia = jest
-      .fn()
-      .mockReturnValue({ matches: true } as MediaQueryList);
+    Object.defineProperty(window, "matchMedia", {
+      value: jest.fn().mockReturnValue({ matches: true } as MediaQueryList),
+      writable: true,
+      configurable: true,
+    });
     expect(prefersReducedMotion()).toBe(true);
 
-    mutableWindow.matchMedia = jest
-      .fn()
-      .mockReturnValue({ matches: false } as MediaQueryList);
+    Object.defineProperty(window, "matchMedia", {
+      value: jest.fn().mockReturnValue({ matches: false } as MediaQueryList),
+      writable: true,
+      configurable: true,
+    });
     expect(prefersReducedMotion()).toBe(false);
   });
 });
