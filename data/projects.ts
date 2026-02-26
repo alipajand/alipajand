@@ -38,20 +38,60 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
+    id: "mapbylaw-ai-recommendations-report-integrity",
+    name: "Typed AI Recommendations & Report Integrity",
+    description:
+      "Built an AI recommendations pipeline that stays honest under scrutiny by planners, developers, and a detailed report data audit — grounded in the same zoning rules, feasibility math, and datasets as the rest of MapBylaw.",
+    role: "Senior Product Engineer · MapBylaw",
+    tech: ["TypeScript", "Fastify", "React", "React-PDF", "Docling", "OpenAPI", "AWS", "WCAG"],
+    outcomes: [
+      "Recommendations became specific, auditable, and consistent between dashboard and PDF instead of chatbot-style advice.",
+      "Single typed contract for AI recommendations across API, dashboards, and PDF reports so audits no longer require chasing fields through multiple layers.",
+      "Updating rules or incentives in one place tightens AI context and validation automatically, keeping report content policy intact.",
+    ],
+    caseStudy: {
+      problem:
+        "Early AI recommendations were generic, hard to trace back to inputs, and sometimes drifted from MapBylaw's content policy (no fake or static data, no Montreal-only fallbacks pretending to be real). There was no single typed contract between the Fastify API, React dashboards, and React-PDF reports.",
+      approach:
+        "Defined a strict TypeScript shape for ai_recommendations in the API and database, then consumed it in both the web dashboard and PDF payload builder. Built a narrow context builder that only feeds the model what MapBylaw already knows is true (zoning code, PUM 2050 sector, heritage/climate flags, feasibility scores, computed scenarios). Wired the flow through OpenAPI + Zod validation, added tests so malformed recommendations fail fast, and codified the constraints in REPORTS_DATA_AUDIT.md, ARCHITECTURE.md, IMPLEMENTATION_STATUS.md, and API_AUDIT.md.",
+      result:
+        "Specific, auditable recommendations that line up between dashboard and PDF (e.g., “Scenario B exceeds the Plateau conversion cap; keep GFA under 200 m² or switch to a plex + ADU strategy”) and evolve automatically as rules and incentives change.",
+    },
+    beforeAfter: [
+      {
+        label: "AI interface",
+        before: "Chatbot-style, generic",
+        after: "Typed, scenario-specific service",
+      },
+      {
+        label: "Context",
+        before: "Loose, sometimes invented",
+        after: "Narrow, policy-aligned, no fake data",
+      },
+      {
+        label: "Schema",
+        before: "Scattered across layers",
+        after: "Shared contract + living audits",
+      },
+    ],
+    image: undefined,
+  },
+  {
     id: "mapbylaw-design-system-dx",
-    name: "MapBylaw · Design system & platform DX",
+    name: "Design system & platform DX",
     description:
       "Product engineering for a map-first property insights platform: shared UI across web and admin, feature-based architecture, type-safe API and PDF report system.",
-    role: "Senior Product Engineer · Design Systems · Developer Experience",
+    role: "Senior Product Engineer · MapBylaw",
     tech: [
       "Next.js",
       "React",
       "TypeScript",
       "@mapbylaw/ui",
-      "OpenAPI",
-      "Zod",
       "React-PDF",
-      "pnpm monorepo",
+      "Mapbox GL",
+      "Tailwind",
+      "Jest",
+      "Playwright",
     ],
     outcomes: [
       "Single design system (@mapbylaw/ui) for web and admin; consistent toasts, shell, and tables.",
@@ -74,49 +114,39 @@ export const PROJECTS: Project[] = [
     image: undefined,
   },
   {
-    id: "design-system-alwaysgeeky",
-    name: "Design System & Component Library",
+    id: "design-system-marketplace-login-web3",
+    name: "Design System, Marketplace & Login using (Web3)",
     description:
-      "Built and maintained the design system for our Web3 products. Accessible (WCAG), consistent across browsers.",
-    role: "Lead · AlwaysGeeky Games",
-    tech: ["React", "TypeScript", "Storybook", "GitHub Actions", "WCAG"],
+      "Built and maintained the design system for our Web3 products, then used it to ship the Marketplace and Login from design to production. Accessible (WCAG), consistent UI, solid API and auth, deployed on AWS.",
+    role: "Lead / Senior Frontend Engineer · AlwaysGeeky Games",
+    tech: [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "Storybook",
+      "GitHub Actions",
+      "Tailwind",
+      "AWS",
+      "Jest",
+      "Playwright",
+    ],
     outcomes: [
-      "Teams could build UI faster because they reused the library",
-      "CI checks visual and a11y changes so we don't ship regressions",
+      "Unified look and accessibility across products.",
+      "CI catches visual and a11y regressions before merge.",
+      "Marketplace and Login shipped on time, matched design, stayed stable under real traffic, and handled Web3 API/auth flows reliably in production.",
     ],
     caseStudy: {
       problem:
-        "Teams were building their own components. No shared patterns, no consistent accessibility.",
+        "Teams were building their own components and we needed Marketplace and Login to match design, integrate with Web3 APIs, and feel fast—not fragile or inconsistent.",
       approach:
-        "One design system in Storybook. WCAG-built components. GitHub Actions runs lint, visual diff, and a11y on every PR.",
-      result: "Same look and a11y everywhere. CI catches problems before merge.",
+        "One Storybook-driven design system with WCAG-compliant components. Wired CI (GitHub Actions) to run lint, visual diff, and a11y checks on every PR. Built Marketplace and Login in React/Next.js/Vite on top of the system, smoothing loading and error states and integrating cleanly with APIs and auth.",
+      result:
+        "Unified look and accessibility across products. CI catches visual/a11y regressions before merge, and Marketplace and Login stayed stable under real Web3 traffic.",
     },
     beforeAfter: [
       { label: "Component reuse", before: "Ad-hoc", after: "Shared library" },
       { label: "A11y checks", before: "Manual", after: "Automated in CI" },
     ],
-    image: undefined,
-    imageCaption: undefined,
-    secondaryMedia: undefined,
-  },
-  {
-    id: "marketplace-login-web3",
-    name: "Marketplace & Login (Web3)",
-    description:
-      "Built Marketplace and Login from design to production. Clean UI, solid API and auth, deployed on AWS.",
-    role: "Senior Frontend · AlwaysGeeky Games",
-    tech: ["React", "Next.js", "Vite", "AWS"],
-    outcomes: [
-      "Shipped on time. Stable under real traffic.",
-      "API and auth worked smoothly in a Web3 setup.",
-    ],
-    caseStudy: {
-      problem:
-        "We needed Marketplace and Login to match design and talk to Web3 APIs without feeling slow or broken.",
-      approach:
-        "React/Next.js and Vite. Used the design system. Made sure loading and errors felt good.",
-      result: "Shipped. It matched design and held up in production.",
-    },
     links: [
       { label: "Marketplace", href: "https://market.voxies.io" },
       { label: "Login", href: "https://login.voxies.io/" },
@@ -128,7 +158,7 @@ export const PROJECTS: Project[] = [
     name: "Data Dashboards & Motion",
     description:
       "Built data-heavy dashboards with smooth motion (GSAP) and D3.js charts. Made them run well inside mobile webviews and embeds.",
-    role: "Senior Frontend · Emplifi",
+    role: "Senior Frontend Engineer · Emplifi",
     tech: ["React", "D3.js", "GSAP", "Figma"],
     outcomes: [
       "A/B tests and analytics showed better retention and snappier UI",
@@ -150,8 +180,8 @@ export const PROJECTS: Project[] = [
     name: "PWA & Performance",
     description:
       "Built several startup products end to end. Code splitting, lazy loading, CDN. PWAs with offline and caching from scratch.",
-    role: "Frontend · ControlTech Startup Studio",
-    tech: ["React", "React Native", "Jest", "Playwright", "GitHub Actions"],
+    role: "Frontend Engineer · ControlTech Startup Studio",
+    tech: ["Vue", "Nuxt.js", "React", "React Native", "Jest", "Playwright", "GitHub Actions"],
     outcomes: [
       "99.9% deployment stability with Jest, Playwright, and GitHub Actions",
       "Faster load and offline support so early users had a good experience",
