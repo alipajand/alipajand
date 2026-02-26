@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { Projects } from "components/Projects/Projects";
+import { PROJECTS } from "data/projects";
 
 jest.mock("next/image", () => ({
   __esModule: true,
@@ -29,11 +30,9 @@ describe("Projects", () => {
 
   it("renders all projects from data", () => {
     render(<Projects />);
-    expect(screen.getByText("Design System & Component Library")).toBeInTheDocument();
-    expect(screen.getByText("Marketplace & Login (Web3)")).toBeInTheDocument();
-    expect(screen.getByText("Data Dashboards & Motion")).toBeInTheDocument();
-    expect(screen.getByText("PWA & Performance")).toBeInTheDocument();
-    expect(screen.getByText("MapBylaw · Design system & platform DX")).toBeInTheDocument();
+    PROJECTS.forEach((project) => {
+      expect(screen.getByText(project.name)).toBeInTheDocument();
+    });
   });
 
   it("renders case study labels for projects that have them", () => {
