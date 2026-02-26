@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+(No unreleased changes.)
+
+## [1.0.2] - 2026-02-26
+
 ### Changed
 
 - Update `data/projects.ts` project case studies, tech stacks, roles, and copy tone for MapBylaw, AlwaysGeeky Games, Emplifi, and ControlTech so the portfolio reads in a more senior, outcomes-focused voice.
