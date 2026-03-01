@@ -1,6 +1,6 @@
 {
   "name": "alipajand",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
@@ -28,6 +28,9 @@
     "react-dom": "19.2.4",
     "react-hook-form": "^7.71.2",
     "resend": "^6.9.2"
+  },
+  "overrides": {
+    "minimatch": ">=9.0.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
