@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 (No unreleased changes.)
 
+## [1.0.4] - 2026-03-01
+
+### Added
+
+- Add `SECURITY.md` with supported versions and instructions for reporting vulnerabilities (enables GitHub Security policy).
+
 ## [1.0.3] - 2026-03-01
 
 ### Fixed
