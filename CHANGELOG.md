@@ -9,13 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-(No unreleased changes.)
+### Fixed
+
+- **Security:** Resolve high-severity ReDoS in transitive `minimatch` (GHSA-3ppc-4f35-3m26, GHSA-7r86-cg39-jmmj, GHSA-23c5-xmqv-rm74): `matchOne()` combinatorial backtracking via multiple non-adjacent GLOBSTAR segments. Fixed via `npm audit fix` and an `overrides` entry in `package.json` pinning `minimatch` to `>=9.0.7` so Jest and other transitive dependents cannot regress; addresses Dependabot alert #6.
 
 ## [1.0.2] - 2026-02-26
 
 ### Changed
 
-- Update `data/projects.ts` project case studies, tech stacks, roles, and copy tone for MapBylaw, AlwaysGeeky Games, Emplifi, and ControlTech so the portfolio reads in a more senior, outcomes-focused voice.
+- Update `data/projects.ts` project case studies, tech stacks, roles, AlwaysGeeky Games, Emplifi, and ControlTech so the portfolio reads in a more outcomes-focused voice.
 
 ### Fixed
 
