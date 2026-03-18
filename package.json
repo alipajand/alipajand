@@ -16,7 +16,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@vercel/analytics": "^1.6.1",
+    "@vercel/analytics": "^2.0.1",
     "classnames": "^2.5.1",
     "geist": "^1.7.0",
     "gray-matter": "^4.0.3",
