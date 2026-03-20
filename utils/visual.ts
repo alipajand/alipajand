@@ -9,8 +9,8 @@ export const SECTION_RULE = "border-t border-border";
 export const SECTION_SHELL = `${SECTION_X} ${SECTION_Y} ${SECTION_RULE}`;
 export const SECTION_SHELL_BRIDGE = `${SECTION_X} ${SECTION_Y_BRIDGE} ${SECTION_RULE}`;
 
-export const SECTION_INNER = "max-w-6xl mx-auto w-full";
-export const SECTION_INNER_WIDE = "max-w-6xl mx-auto w-full";
+export const SECTION_INNER = "max-w-5xl mx-auto w-full";
+export const SECTION_INNER_WIDE = "max-w-5xl mx-auto w-full";
 
 export const SECTION_TITLE =
   "font-display font-bold tracking-tight text-3xl sm:text-4xl text-foreground";

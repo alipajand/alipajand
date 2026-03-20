@@ -18,7 +18,7 @@ export default function BlogPage() {
         tabIndex={-1}
         className="outline-none px-6 sm:px-10 lg:px-20 py-24 sm:py-32"
       >
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-5xl">
           <header className=" mb-12 sm:mb-16">
             <h1 className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-3">
               Writing

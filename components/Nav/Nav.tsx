@@ -34,7 +34,7 @@ export function Nav() {
     >
       <nav aria-label="Primary" className="relative">
         <div className="px-6 sm:px-10 lg:px-20">
-          <div className="max-w-6xl mx-auto w-full flex items-center justify-between gap-4 h-16">
+          <div className="max-w-5xl mx-auto w-full flex items-center justify-between gap-4 h-16">
             <Link
               href="/"
               aria-current={homeBrandAriaCurrent(pathname)}
