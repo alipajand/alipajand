@@ -23,7 +23,7 @@ describe("Nav", () => {
       expect(screen.getByRole("navigation", { name: "Primary" })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: SITE_NAME })).toHaveAttribute("href", "/");
       expect(screen.getByRole("link", { name: SITE_NAME })).toHaveAttribute("aria-current", "page");
-      expect(screen.getAllByRole("link", { name: /^proof$/i }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole("link", { name: /^me$/i }).length).toBeGreaterThanOrEqual(1);
       expect(screen.getAllByRole("link", { name: /^portfolio$/i }).length).toBeGreaterThanOrEqual(
         1
       );
@@ -34,7 +34,7 @@ describe("Nav", () => {
       usePathname.mockReturnValue("/blog/some-post");
       render(<Nav />);
 
-      const blogLinks = screen.getAllByRole("link", { name: /^blog$/i });
+      const blogLinks = screen.getAllByRole("link", { name: /^writing$/i });
       blogLinks.forEach((link) => {
         expect(link).toHaveAttribute("aria-current", "page");
       });

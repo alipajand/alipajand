@@ -5,7 +5,6 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import process from "node:process";
 import ts from "typescript";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
