@@ -78,7 +78,9 @@ describe("ContactForm", () => {
     fillForm("Jane", "jane@example.com", "Hello there");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     await waitFor(() => {
-      expect(screen.getByText(/Message sent. I’ll reply within a few business days./i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Message sent. I’ll reply within a few business days./i)
+      ).toBeInTheDocument();
     });
   });
 

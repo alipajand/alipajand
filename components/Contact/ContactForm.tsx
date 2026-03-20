@@ -115,9 +115,7 @@ export function ContactForm() {
           aria-invalid={errors.message ? true : undefined}
           aria-required
           aria-describedby={
-            errors.message
-              ? "contact-message-hint contact-message-error"
-              : "contact-message-hint"
+            errors.message ? "contact-message-hint contact-message-error" : "contact-message-hint"
           }
           {...register("message", { required: "Add a short message" })}
         />
@@ -132,11 +130,7 @@ export function ContactForm() {
         )}
       </div>
       {status === "success" && (
-        <p
-          className="text-sm text-green-600 dark:text-green-400"
-          role="status"
-          aria-live="polite"
-        >
+        <p className="text-sm text-green-600 dark:text-green-400" role="status" aria-live="polite">
           Message sent. I’ll reply within a few business days.
         </p>
       )}

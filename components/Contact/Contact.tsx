@@ -3,11 +3,7 @@
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import { trackGtagEvent } from "utils/analytics";
 import { LINKS } from "data/links";
-import {
-  CONTACT_FORM_LEDE,
-  CONTACT_INTRO,
-  CONTACT_REASONS,
-} from "data/site";
+import { CONTACT_FORM_LEDE, CONTACT_INTRO, CONTACT_REASONS } from "data/site";
 import { ContactForm } from "components/Contact/ContactForm";
 import {
   CARD_SURFACE_HOVER,
@@ -44,24 +40,15 @@ export function Contact() {
       className={SECTION_SHELL}
     >
       <div className={SECTION_INNER}>
-        <h2
-          id="contact-heading"
-          className={`${SECTION_TITLE} mb-5 sm:mb-6`}
-          data-reveal
-        >
+        <h2 id="contact-heading" className={`${SECTION_TITLE} mb-5 sm:mb-6`} data-reveal>
           Get in touch
         </h2>
-        <p
-          className={`${SECTION_LEDE} mb-8 sm:mb-10`}
-          data-reveal
-        >
+        <p className={`${SECTION_LEDE} mb-8 sm:mb-10`} data-reveal>
           {CONTACT_INTRO}
         </p>
 
-        <div className="mb-10" data-reveal>
-          <p className={`${LABEL_OVERLINE} mb-3`}>
-            Good reasons to reach out
-          </p>
+        <div className="mb-20" data-reveal>
+          <p className={`${LABEL_OVERLINE} mb-3`}>Good reasons to reach out</p>
           <ul className="list-none p-0 m-0 space-y-2.5 text-[15px] sm:text-base text-foreground/90 leading-relaxed border-l-2 border-border pl-4 sm:pl-5">
             {CONTACT_REASONS.map((reason) => (
               <li key={reason} className="pl-0">
@@ -75,9 +62,7 @@ export function Contact() {
         </div>
 
         <div className="mb-10" data-reveal>
-          <p className={`${LABEL_OVERLINE} mb-3`}>
-            Direct
-          </p>
+          <p className={`${LABEL_OVERLINE} mb-3`}>Direct</p>
           <ul className="grid sm:grid-cols-3 gap-3 sm:gap-4 list-none p-0 m-0">
             {LINKS.map((c) => {
               const isEmail = c.label === "Email";
@@ -144,7 +129,7 @@ export function Contact() {
           </ul>
         </div>
 
-        <div className="mb-10 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6" data-reveal>
+        <div className="mb-12 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6" data-reveal>
           <a
             href="#contact-form"
             data-analytics-event="contact_cta_write_message"
@@ -159,14 +144,14 @@ export function Contact() {
           </p>
         </div>
 
-        <div className="pt-2 border-t border-border" data-reveal>
+        <div className="pt-10 mt-10 border-t border-border" data-reveal>
           <h3
             id="contact-form-heading"
             className="font-display font-semibold tracking-tight text-xl sm:text-2xl text-foreground mb-2"
           >
             Contact form
           </h3>
-          <p className="text-muted text-sm mb-8 max-w-2xl leading-relaxed">{CONTACT_FORM_LEDE}</p>
+          <p className="text-muted text-sm mb-8  leading-relaxed">{CONTACT_FORM_LEDE}</p>
           <ContactForm />
         </div>
       </div>
