@@ -12,9 +12,6 @@ export function GalleryThumbnailFallback({ type }: { type: SelectedWorkType }) {
       {type === "ui" && <UiFallback />}
       {type === "dashboard" && <DashboardFallback />}
       {type === "diagram" && <DiagramFallback />}
-      <span className="pointer-events-none absolute bottom-2 left-2 max-w-[calc(100%-1rem)] text-[10px] sm:text-[11px] uppercase tracking-[0.1em] text-muted/55 font-medium leading-tight">
-        Illustrative · not a live screenshot
-      </span>
     </div>
   );
 }

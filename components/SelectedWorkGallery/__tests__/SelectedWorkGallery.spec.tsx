@@ -18,4 +18,3 @@ describe("SelectedWorkGallery", () => {
     expect(items).toHaveLength(SELECTED_WORK_ITEMS.length);
   });
 });
-

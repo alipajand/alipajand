@@ -88,7 +88,6 @@ describe("GalleryCard", () => {
     it("should render illustrative fallback when imageSrc is not provided", () => {
       const { container } = render(<GalleryCard item={mockItem} />);
       expect(container.querySelector('[data-gallery-fallback="ui"]')).toBeInTheDocument();
-      expect(screen.getByText(/illustrative · not a live screenshot/i)).toBeInTheDocument();
     });
 
     it("should render illustrative fallback when imageSrc is empty string", () => {
