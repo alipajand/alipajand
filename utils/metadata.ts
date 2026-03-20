@@ -52,7 +52,14 @@ export function buildArticleMetadata(post: Post): Metadata {
   const { contentHtml: _content, ...p } = post;
   void _content;
   const url = `${CANONICAL_URL}/blog/${p.slug}`;
-  const images = [{ ...defaultOgImage, alt: p.title }];
+  const images = [
+    {
+      url: `/blog/${p.slug}/opengraph-image` as const,
+      width: 1200,
+      height: 630,
+      alt: p.title,
+    },
+  ];
   return {
     title: p.title,
     description: p.excerpt,
@@ -74,7 +81,7 @@ export function buildArticleMetadata(post: Post): Metadata {
       card: "summary_large_image",
       title: p.title,
       description: p.excerpt,
-      images: [defaultOgImage.url],
+      images: [`/blog/${p.slug}/opengraph-image`],
       ...twitterExtras(),
     },
   };

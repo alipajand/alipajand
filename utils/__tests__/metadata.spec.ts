@@ -23,6 +23,13 @@ describe("utils/metadata", () => {
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/blog/my-post`);
     expect(m.openGraph?.type).toBe("article");
     expect(m.openGraph?.publishedTime).toBe("2025-01-01");
+    const ogImages = m.openGraph?.images;
+    expect(Array.isArray(ogImages) && ogImages[0]).toMatchObject({
+      url: "/blog/my-post/opengraph-image",
+      width: 1200,
+      height: 630,
+      alt: "My post",
+    });
   });
 
   it("buildPortfolioMetadata sets canonical and portfolio description", () => {

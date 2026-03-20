@@ -29,7 +29,7 @@ export const SITE_META_DESCRIPTION =
 /**
  * X (Twitter) handle without @. Used for `twitter.creator` when set; set to null if you don’t use X.
  */
-export const TWITTER_HANDLE: string | null = "alipajand";
+export const TWITTER_HANDLE: string | null = null;
 
 /** Stable @id for JSON-LD graph (Person). */
 export const PERSON_SCHEMA_ID = `${CANONICAL_URL}/#person`;
