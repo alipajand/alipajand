@@ -74,6 +74,37 @@ export function useNav(): NavHook {
     prevMobileOpen.current = isMobileOpen;
   }, [isMobileOpen]);
 
+  /** Tab / Shift+Tab cycle within the mobile link list (dialog-style focus trap). */
+  useEffect(() => {
+    if (!isMobileOpen) return;
+    const menu = mobileMenuRef.current;
+    if (!menu) return;
+
+    const getFocusables = () =>
+      Array.from(menu.querySelectorAll<HTMLAnchorElement>("a[href]"));
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusables = getFocusables();
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      if (e.shiftKey) {
+        if (active === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else if (active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    menu.addEventListener("keydown", onKeyDown);
+    return () => menu.removeEventListener("keydown", onKeyDown);
+  }, [isMobileOpen]);
+
   useEffect(() => {
     const links = navLinksRef.current?.querySelectorAll("a");
     if (!links?.length) return;

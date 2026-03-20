@@ -1,8 +1,11 @@
 "use client";
 
 import classNames from "classnames";
+import { usePathname } from "next/navigation";
+
 import { useNav } from "components/Nav/hooks/useNav";
 import { SITE_NAME } from "data/site";
+import { homeBrandAriaCurrent, navLinkAriaCurrent } from "utils/navAriaCurrent";
 import { FOCUS_RING } from "utils/visual";
 
 const NAV_LINKS = [
@@ -17,6 +20,7 @@ const NAV_LINKS = [
 ];
 
 export function Nav() {
+  const pathname = usePathname();
   const {
     selectors: { isScrolled, isMobileOpen, navLinksRef, mobileMenuRef, menuButtonRef },
     actions: { handleToggleMenu, handleCloseMenu },
@@ -33,6 +37,7 @@ export function Nav() {
         <div className="flex items-center justify-between gap-4 px-6 sm:px-10 lg:px-20 h-16">
           <a
             href="/"
+            aria-current={homeBrandAriaCurrent(pathname)}
             className={`font-display font-semibold text-foreground text-sm sm:text-base tracking-tight shrink-0 z-10 rounded-sm hover:text-muted transition-colors ${FOCUS_RING}`}
           >
             {SITE_NAME}
@@ -45,6 +50,7 @@ export function Nav() {
               <li key={link.href}>
                 <a
                   href={link.href}
+                  aria-current={navLinkAriaCurrent(link.href, pathname)}
                   className={`nav-link-hover text-sm text-muted hover:text-foreground transition-colors duration-200 relative rounded-sm ${FOCUS_RING}`}
                 >
                   {link.label}
@@ -97,6 +103,7 @@ export function Nav() {
               <a
                 key={link.href}
                 href={link.href}
+                aria-current={navLinkAriaCurrent(link.href, pathname)}
                 className={`font-medium text-foreground hover:text-muted transition-colors py-3 min-h-11 inline-flex items-center rounded-sm ${FOCUS_RING}`}
                 onClick={handleCloseMenu}
               >
