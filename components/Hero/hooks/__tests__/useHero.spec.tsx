@@ -35,6 +35,7 @@ describe("useHero", () => {
       expect(result.current.selectors.line2Ref).toBeDefined();
       expect(result.current.selectors.subRef).toBeDefined();
       expect(result.current.selectors.ctaRef).toBeDefined();
+      expect(result.current.selectors.locationRef).toBeDefined();
       expect(result.current.selectors.scrollIndicatorRef).toBeDefined();
     });
 
@@ -60,9 +61,6 @@ describe("useHero", () => {
             <div ref={selectors.ctaRef}>
               <a href="#a">Link</a>
             </div>
-            <div ref={selectors.metricsRef}>
-              <div data-metric>1</div>
-            </div>
             <p ref={selectors.locationRef}>Location</p>
             <div ref={selectors.scrollIndicatorRef}>↓</div>
           </div>
@@ -86,9 +84,6 @@ describe("useHero", () => {
             <span ref={selectors.line2Ref}>Tagline</span>
             <p ref={selectors.subRef}>Sub</p>
             <div ref={selectors.ctaRef} />
-            <div ref={selectors.metricsRef}>
-              <div data-metric>1</div>
-            </div>
             <p ref={selectors.locationRef}>Location</p>
             <div ref={selectors.scrollIndicatorRef}>↓</div>
           </div>

@@ -25,5 +25,15 @@ describe("Contact", () => {
       expect(screen.getByRole("link", { name: /linkedin/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /github/i })).toBeInTheDocument();
     });
+
+    it("should render reasons list and form jump CTA", () => {
+      render(<Contact />);
+      expect(screen.getByText(/Good reasons to reach out/i)).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: /message me here/i })).toHaveAttribute(
+        "href",
+        "#contact-form"
+      );
+      expect(screen.getByRole("heading", { name: /contact form/i })).toBeInTheDocument();
+    });
   });
 });

@@ -3,6 +3,7 @@
 import { GalleryCard } from "components/SelectedWorkGallery/GalleryCard";
 import { useSelectedWorkReveal } from "components/SelectedWorkGallery/hooks/useSelectedWorkReveal";
 import { SELECTED_WORK_ITEMS } from "data/selectedWork";
+import { SECTION_INNER, SECTION_LEDE_LG, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
 export function SelectedWorkGallery() {
   const {
@@ -13,19 +14,28 @@ export function SelectedWorkGallery() {
     <section
       id="selected-work-gallery"
       ref={sectionRef}
+      role="region"
       aria-labelledby="selected-work-gallery-heading"
-      className="px-6 sm:px-10 lg:px-20 py-24 sm:py-32 border-t border-border"
+      className={SECTION_SHELL}
     >
-      <div className="max-w-4xl mx-auto">
+      <div className={SECTION_INNER}>
         <h2
           id="selected-work-gallery-heading"
-          className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-4"
+          className={`${SECTION_TITLE} mb-4 sm:mb-5`}
           data-reveal
         >
-          Selected Work
+          Selected work
         </h2>
-        <p className="text-muted text-lg mb-12" data-reveal>
-          Screenshots and diagrams from real work, UI components, dashboards, and automation flows.
+        <p className={`${SECTION_LEDE_LG} mb-10 sm:mb-12`} data-reveal>
+          Quick visual read—real screenshots when shareable; otherwise illustrative thumbnails. Full
+          writeups live under{" "}
+          <a
+            href="/portfolio#projects"
+            className="text-foreground underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+          >
+            Case studies
+          </a>{" "}
+          on the portfolio page.
         </p>
 
         <div

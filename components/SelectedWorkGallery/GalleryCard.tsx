@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 
+import { GalleryThumbnailFallback } from "components/SelectedWorkGallery/GalleryThumbnailFallback";
 import type { SelectedWorkItem } from "data/selectedWork";
 
 export function GalleryCard({ item }: { item: SelectedWorkItem }) {
@@ -19,7 +20,7 @@ export function GalleryCard({ item }: { item: SelectedWorkItem }) {
             <>
               <Image
                 src={item.imageSrc!}
-                alt=""
+                alt={`${item.title} — sample`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -34,9 +35,7 @@ export function GalleryCard({ item }: { item: SelectedWorkItem }) {
               )}
             </>
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-background/50">
-              <span className="text-muted text-sm font-medium">No image available</span>
-            </div>
+            <GalleryThumbnailFallback type={item.type} />
           )}
         </div>
         <figcaption className="p-5 sm:p-6">

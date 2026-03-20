@@ -2,9 +2,16 @@
 
 import { useHero } from "components/Hero/hooks/useHero";
 import { LINKS } from "data/links";
-import { HERO_METRICS, HERO_SUB, LOCATION, SITE_NAME, TAGLINE } from "data/site";
+import {
+  HERO_SUB,
+  HERO_VALUE_LINE,
+  LOCATION,
+  RESUME_URL,
+  SITE_NAME,
+} from "data/site";
 import { HeroBackground } from "components/Hero/HeroBackground";
 import { ContactLink } from "components/Hero/ContactLink";
+import { CTA_PRIMARY, CTA_SECONDARY, CTA_TERTIARY } from "utils/visual";
 
 const ICON_SRC = {
   Email: "/icons/email.svg",
@@ -22,7 +29,6 @@ export function Hero() {
       line2Ref,
       subRef,
       ctaRef,
-      metricsRef,
       locationRef,
       scrollIndicatorRef,
     },
@@ -46,23 +52,51 @@ export function Hero() {
           </span>
           <span
             ref={line2Ref}
-            className="block mt-2 text-xl sm:text-2xl font-normal text-white/80 hero-lcp"
+            className="block mt-3 sm:mt-4 max-w-3xl text-lg sm:text-xl md:text-2xl font-normal text-white/85 leading-snug hero-lcp"
           >
-            {TAGLINE}
+            {HERO_VALUE_LINE}
           </span>
         </h1>
-        <p ref={subRef} className="mt-8 max-w-xl text-muted opacity-0 translate-y-15 tracking-wide">
+        <p
+          ref={subRef}
+          className="mt-6 sm:mt-7 max-w-2xl text-muted text-[15px] sm:text-base leading-relaxed opacity-0 translate-y-15"
+        >
           {HERO_SUB}
         </p>
-        <div ref={ctaRef} className="mt-12 flex flex-wrap items-center gap-6">
+
+        <div
+          ref={ctaRef}
+          className="mt-8 sm:mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-3"
+        >
           <a
             href="#contact"
-            className="hover-scale inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-foreground text-background text-sm font-medium hover:bg-accent-muted hover:text-background opacity-0 translate-y-15 transition-colors"
+            className={`hover-scale ${CTA_PRIMARY} w-full sm:w-auto opacity-0 translate-y-15`}
           >
-            Get in touch
+            Discuss a role
           </a>
+          <a
+            href="/portfolio#projects"
+            className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto opacity-0 translate-y-15`}
+          >
+            View case studies
+          </a>
+          <a
+            href="#writing"
+            className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto opacity-0 translate-y-15`}
+          >
+            Read writing
+          </a>
+          {RESUME_URL ? (
+            <a
+              href={RESUME_URL}
+              className={`hover-scale ${CTA_TERTIARY} w-full sm:w-auto opacity-0 translate-y-15 sm:ml-1`}
+              download
+            >
+              Download resume
+            </a>
+          ) : null}
           <nav
-            className="flex items-center gap-4 opacity-0 translate-y-15"
+            className="flex items-center justify-center sm:justify-start gap-4 pt-1 sm:pt-0 sm:ml-auto opacity-0 translate-y-15"
             aria-label="Contact links"
           >
             {LINKS.map(({ label, href }) => (
@@ -74,21 +108,6 @@ export function Hero() {
               />
             ))}
           </nav>
-        </div>
-
-        <div
-          ref={metricsRef}
-          className="mt-14 pt-10 flex flex-wrap gap-x-10 gap-y-2 opacity-0"
-          aria-label="By the numbers"
-        >
-          {HERO_METRICS.map(({ value, label }) => (
-            <div key={label} data-metric className="flex flex-col">
-              <span className="font-display font-semibold text-foreground text-lg tabular-nums">
-                {value}
-              </span>
-              <span className="text-muted text-sm">{label}</span>
-            </div>
-          ))}
         </div>
         <p ref={locationRef} className="mt-6 flex items-center gap-2 text-muted text-sm opacity-0">
           <span

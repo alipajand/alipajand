@@ -5,11 +5,14 @@ import { useEffect, useRef, useState } from "react";
 
 import gsap from "gsap";
 
+import { prefersReducedMotion } from "utils/gsap";
+
 export interface NavSelectors {
   isScrolled: boolean;
   isMobileOpen: boolean;
   navLinksRef: RefObject<HTMLUListElement | null>;
   mobileMenuRef: RefObject<HTMLDivElement | null>;
+  menuButtonRef: RefObject<HTMLButtonElement | null>;
 }
 
 export interface NavActions {
@@ -29,6 +32,8 @@ export function useNav(): NavHook {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const navLinksRef = useRef<HTMLUListElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const prevMobileOpen = useRef(false);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -48,8 +53,36 @@ export function useNav(): NavHook {
   }, [isMobileOpen]);
 
   useEffect(() => {
+    if (!isMobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isMobileOpen]);
+
+  /** Move focus into the mobile panel when opened; return to menu button when closed. */
+  useEffect(() => {
+    if (isMobileOpen && !prevMobileOpen.current) {
+      queueMicrotask(() => {
+        mobileMenuRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+      });
+    }
+    if (!isMobileOpen && prevMobileOpen.current) {
+      queueMicrotask(() => menuButtonRef.current?.focus());
+    }
+    prevMobileOpen.current = isMobileOpen;
+  }, [isMobileOpen]);
+
+  useEffect(() => {
     const links = navLinksRef.current?.querySelectorAll("a");
     if (!links?.length) return;
+
+    if (prefersReducedMotion()) {
+      gsap.set(links, { opacity: 1, y: 0 });
+      return;
+    }
+
     gsap.set(links, { opacity: 0, y: -8 });
     gsap.to(links, {
       opacity: 1,
@@ -64,13 +97,24 @@ export function useNav(): NavHook {
   useEffect(() => {
     const menu = mobileMenuRef.current;
     if (!menu) return;
+    const items = menu.querySelectorAll("a");
+
+    if (prefersReducedMotion()) {
+      if (isMobileOpen) {
+        gsap.set(menu, { height: "auto", opacity: 1 });
+        gsap.set(items, { opacity: 1, x: 0 });
+      } else {
+        gsap.set(menu, { height: 0, opacity: 0 });
+      }
+      return;
+    }
+
     if (isMobileOpen) {
       gsap.fromTo(
         menu,
         { height: 0, opacity: 0 },
         { height: "auto", opacity: 1, duration: 0.3, ease: "power2.out" }
       );
-      const items = menu.querySelectorAll("a");
       gsap.fromTo(
         items,
         { opacity: 0, x: -12 },
@@ -85,7 +129,7 @@ export function useNav(): NavHook {
   const handleCloseMenu = () => setIsMobileOpen(false);
 
   return {
-    selectors: { isScrolled, isMobileOpen, navLinksRef, mobileMenuRef },
+    selectors: { isScrolled, isMobileOpen, navLinksRef, mobileMenuRef, menuButtonRef },
     actions: { handleToggleMenu, handleCloseMenu },
   };
 }

@@ -3,6 +3,7 @@
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import { JOBS } from "data/jobs";
 import { useExperienceCards } from "components/Experience/hooks/useExperienceCards";
+import { SECTION_INNER, SECTION_LEDE_LG, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
 export function Experience() {
   const {
@@ -17,17 +18,17 @@ export function Experience() {
       id="experience"
       ref={sectionRef}
       aria-labelledby="experience-heading"
-      className="px-6 sm:px-10 lg:px-20 py-24 sm:py-32 border-t border-border"
+      className={SECTION_SHELL}
     >
-      <div className="max-w-4xl mx-auto">
+      <div className={SECTION_INNER}>
         <h2
           id="experience-heading"
-          className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-4"
+          className={`${SECTION_TITLE} mb-4 sm:mb-5`}
           data-reveal
         >
-          Work Experiences
+          Experience
         </h2>
-        <p className="text-muted text-lg mb-16" data-reveal>
+        <p className={`${SECTION_LEDE_LG} mb-12 sm:mb-16`} data-reveal>
           Impact and outcomes, not just responsibilities.
         </p>
 

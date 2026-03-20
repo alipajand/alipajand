@@ -1,20 +1,18 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 
 import { Nav } from "components/Nav/Nav";
+import { SITE_NAME } from "data/site";
 
 describe("Nav", () => {
   describe("default rendering", () => {
     it("should render desktop nav links", () => {
       render(<Nav />);
 
-      const aboutLinks = screen.getAllByRole("link", { name: /^about$/i });
-      const experienceLinks = screen.getAllByRole("link", { name: /^experience$/i });
-      const expertiseLinks = screen.getAllByRole("link", { name: /^expertise$/i });
-      const contactLinks = screen.getAllByRole("link", { name: /^contact$/i });
-      expect(aboutLinks.length).toBeGreaterThanOrEqual(1);
-      expect(experienceLinks.length).toBeGreaterThanOrEqual(1);
-      expect(expertiseLinks.length).toBeGreaterThanOrEqual(1);
-      expect(contactLinks.length).toBeGreaterThanOrEqual(1);
+      expect(screen.getByRole("navigation", { name: "Primary" })).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: SITE_NAME })).toHaveAttribute("href", "/");
+      expect(screen.getAllByRole("link", { name: /^proof$/i }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole("link", { name: /^portfolio$/i }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole("link", { name: /^contact$/i }).length).toBeGreaterThanOrEqual(1);
     });
 
     it("should render the menu toggle button", () => {
@@ -31,8 +29,7 @@ describe("Nav", () => {
       const toggle = screen.getByRole("button", { name: /open menu/i });
       fireEvent.click(toggle);
 
-      const aboutLinks = screen.getAllByRole("link", { name: /^about$/i });
-      expect(aboutLinks.length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole("link", { name: /^why hire$/i }).length).toBeGreaterThanOrEqual(1);
     });
   });
 });

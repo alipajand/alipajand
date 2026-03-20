@@ -1,10 +1,12 @@
 "use client";
 
+import { SECTION_INNER, SECTION_SHELL_BRIDGE } from "utils/visual";
+
 export function Education() {
   return (
-    <section className="px-6 sm:px-10 lg:px-20 border-t border-border py-8">
-      <div className="max-w-4xl mx-auto w-full">
-        <p className="text-muted text-sm">
+    <section className={SECTION_SHELL_BRIDGE}>
+      <div className={SECTION_INNER}>
+        <p className="text-muted text-sm leading-relaxed">
           Master&apos;s Degree in Computer Information Technology · 2016
         </p>
       </div>

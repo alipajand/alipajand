@@ -47,7 +47,7 @@ describe("ContactForm", () => {
     render(<ContactForm />);
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     await waitFor(() => {
-      expect(screen.getByText("Name is required")).toBeInTheDocument();
+      expect(screen.getByText("Enter your name")).toBeInTheDocument();
     });
   });
 
@@ -56,7 +56,7 @@ describe("ContactForm", () => {
     fillForm("Jane", "bad-email", "Hello");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     await waitFor(() => {
-      expect(screen.getByText("Invalid email address")).toBeInTheDocument();
+      expect(screen.getByText("Use a valid email address")).toBeInTheDocument();
     });
   });
 
@@ -65,7 +65,7 @@ describe("ContactForm", () => {
     fillForm("Jane", "jane@example.com", "");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     await waitFor(() => {
-      expect(screen.getByText("Message is required")).toBeInTheDocument();
+      expect(screen.getByText("Add a short message")).toBeInTheDocument();
     });
   });
 
@@ -78,7 +78,7 @@ describe("ContactForm", () => {
     fillForm("Jane", "jane@example.com", "Hello there");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     await waitFor(() => {
-      expect(screen.getByText(/Message sent. I'll get back to you soon./i)).toBeInTheDocument();
+      expect(screen.getByText(/Message sent. I’ll reply within a few business days./i)).toBeInTheDocument();
     });
   });
 

@@ -3,6 +3,7 @@
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import { EXPERTISE_AREAS, EXPERTISE_CORE } from "data/expertise";
 import { SkillIcon } from "components/Skills/SkillIcon";
+import { SECTION_INNER, SECTION_LEDE_LG, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
 export function Skills() {
   const {
@@ -14,17 +15,17 @@ export function Skills() {
       id="expertises"
       ref={sectionRef}
       aria-labelledby="expertise-heading"
-      className="px-6 sm:px-10 lg:px-20 py-24 sm:py-32 border-t border-border"
+      className={SECTION_SHELL}
     >
-      <div className="max-w-4xl mx-auto w-full">
+      <div className={SECTION_INNER}>
         <h2
           id="expertise-heading"
-          className="font-display font-bold text-3xl sm:text-4xl mb-4 text-foreground"
+          className={`${SECTION_TITLE} mb-4 sm:mb-5`}
           data-reveal
         >
           What I do
         </h2>
-        <p className="text-muted text-lg mb-12" data-reveal>
+        <p className={`${SECTION_LEDE_LG} mb-10 sm:mb-12`} data-reveal>
           How I use the stack in practice, trade-offs and scale, not just keywords.
         </p>
         <div className="space-y-10">

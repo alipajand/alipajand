@@ -1,3 +1,5 @@
+import { FOCUS_RING } from "utils/visual";
+
 interface ContactLinkProps {
   label: string;
   href: string;
@@ -10,7 +12,7 @@ export function ContactLink({ label, href, iconSrc }: ContactLinkProps) {
       href={href}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-      className="text-muted hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded h-5"
+      className={`text-muted hover:text-foreground transition-colors rounded h-5 min-h-11 min-w-11 inline-flex items-center justify-center ${FOCUS_RING}`}
       aria-label={label}
     >
       <span
