@@ -1,7 +1,18 @@
 "use client";
 
 import { useInnovationReveal } from "components/Innovation/hooks/useInnovationReveal";
-import { INNOVATION_ITEMS } from "data/innovation";
+import {
+  INNOVATION_ITEMS,
+  INNOVATION_SECTION_HEADING,
+  INNOVATION_SECTION_INTRO,
+} from "data/innovation";
+import {
+  CARD_SURFACE_HOVER,
+  SECTION_INNER,
+  SECTION_LEDE_LG,
+  SECTION_SHELL,
+  SECTION_TITLE,
+} from "utils/visual";
 
 export function Innovation() {
   const {
@@ -13,27 +24,20 @@ export function Innovation() {
       id="innovation"
       ref={sectionRef}
       aria-labelledby="innovation-heading"
-      className="px-6 sm:px-10 lg:px-20 py-24 sm:py-32 border-t border-border"
+      className={SECTION_SHELL}
     >
-      <div className="max-w-4xl mx-auto">
-        <h2
-          id="innovation-heading"
-          className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-4"
-          data-reveal
-        >
-          Side projects & tooling
+      <div className={SECTION_INNER}>
+        <h2 id="innovation-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`} data-reveal>
+          {INNOVATION_SECTION_HEADING}
         </h2>
-        <p className="text-muted text-lg mb-16 max-w-xl" data-reveal>
-          Things I build to ship faster and can show you in action.
+        <p className={`${SECTION_LEDE_LG} mb-12 sm:mb-16`} data-reveal>
+          {INNOVATION_SECTION_INTRO}
         </p>
 
         <ul ref={listRef} className="space-y-6">
           {INNOVATION_ITEMS.map((item) => (
             <li key={item.id}>
-              <article
-                data-innovation-card
-                className="rounded-xl border border-border bg-card/50 p-6 sm:p-8 transition-all duration-300 hover:border-foreground/20 hover:bg-card"
-              >
+              <article data-innovation-card className={`${CARD_SURFACE_HOVER} p-6 sm:p-8`}>
                 <h3 className="font-display font-semibold text-xl text-foreground">{item.title}</h3>
                 <p className="mt-3 text-muted text-[15px] sm:text-base leading-relaxed">
                   {item.description}

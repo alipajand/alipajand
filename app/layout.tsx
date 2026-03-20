@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-import { CANONICAL_URL, HERO_SUB, KEYWORDS, SITE_NAME, TAGLINE } from "data/site";
+import {
+  CANONICAL_URL,
+  SITE_META_DESCRIPTION,
+  SITE_NAME,
+  TAGLINE,
+  TWITTER_HANDLE,
+} from "data/site";
 import { PropsWithChildren } from "react";
 import { ResourceHints } from "components/ResourceHints/ResourceHints";
+import { Nav } from "components/Nav/Nav";
+import { SiteFooter } from "components/SiteFooter/SiteFooter";
 import { SmoothScroll } from "components/SmoothScroll/SmoothScroll";
 import { StructuredData } from "components/StructuredData/StructuredData";
 import { Analytics } from "components/Analytics/Analytics";
@@ -15,8 +23,7 @@ export const metadata: Metadata = {
     default: TAGLINE,
     template: `%s | ${SITE_NAME}`,
   },
-  description: HERO_SUB,
-  keywords: KEYWORDS,
+  description: SITE_META_DESCRIPTION,
   authors: [{ name: SITE_NAME, url: CANONICAL_URL }],
   creator: SITE_NAME,
   publisher: SITE_NAME,
@@ -35,22 +42,22 @@ export const metadata: Metadata = {
     url: CANONICAL_URL,
     siteName: SITE_NAME,
     title: TAGLINE,
-    description: HERO_SUB,
+    description: SITE_META_DESCRIPTION,
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: TAGLINE,
+        alt: `${SITE_NAME} — ${TAGLINE}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: TAGLINE,
-    description: HERO_SUB,
+    description: SITE_META_DESCRIPTION,
     images: ["/opengraph-image"],
-    creator: `@${SITE_NAME.toLowerCase().replace(/\s+/g, "")}`,
+    ...(TWITTER_HANDLE ? { creator: `@${TWITTER_HANDLE}`, site: `@${TWITTER_HANDLE}` } : {}),
   },
   robots: {
     index: true,
@@ -106,7 +113,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <Nav />
+          {children}
+          <SiteFooter />
+        </SmoothScroll>
       </body>
     </html>
   );

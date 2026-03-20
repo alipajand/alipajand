@@ -1,8 +1,6 @@
-/** @jest-environment node */
-
 import { readdirSync } from "fs";
 import { join } from "path";
-import { getAllPosts, getLatestPosts, getPostBySlug } from "utils/posts";
+import { getAllPosts, getLatestPosts, getPostBySlug, getPostsForWritingSection } from "utils/posts";
 
 jest.mock("marked", () => ({
   marked: {
@@ -75,5 +73,21 @@ describe("utils/posts", () => {
       expect(latest).toEqual(all.slice(0, 2));
     });
   });
-});
 
+  describe("getPostsForWritingSection", () => {
+    it("returns featured post when frontmatter marks one", () => {
+      const { featured, recent } = getPostsForWritingSection(2);
+      const all = getAllPosts();
+      const expectedFeatured = all.find((p) => p.featured === true);
+      expect(featured).toEqual(expectedFeatured ?? null);
+      if (featured) {
+        expect(recent.some((p) => p.slug === featured.slug)).toBe(false);
+      }
+    });
+
+    it("limits recent to recentCount excluding featured", () => {
+      const { recent } = getPostsForWritingSection(2);
+      expect(recent.length).toBeLessThanOrEqual(2);
+    });
+  });
+});

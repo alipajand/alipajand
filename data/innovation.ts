@@ -6,21 +6,22 @@ export interface InnovationItem {
   videoLabel?: string;
 }
 
+export const INNOVATION_SECTION_HEADING = "DX tooling & experiments";
+
+export const INNOVATION_SECTION_INTRO =
+  "Automation I run in the editor and in CI—early feedback, smaller reviews, same standards as the rest of my work.";
+
 export const INNOVATION_ITEMS: InnovationItem[] = [
   {
     id: "mcp-cursor",
     title: "MCP server for Cursor",
     description:
-      "I built an MCP server that runs lint, types, and tests inside the editor. Reviewers get faster feedback and PRs stay clean. It's one way I use AI to speed things up without replacing human review.",
-    videoUrl: undefined,
-    videoLabel: "See MCP in action (add your video link)",
+      "Custom MCP integration so lint, types, and tests run inside Cursor. Issues surface before you open a PR—same checks as CI, faster loop for the author.",
   },
   {
-    id: "ai-dx",
-    title: "AI in the Pipeline",
+    id: "ci-checks",
+    title: "Checks in GitHub Actions",
     description:
-      "I use AI to handle the boring checks (format, types, tests) so we can focus on design, readability, and product. Fast pipeline, fast iteration.",
-    videoUrl: undefined,
-    videoLabel: undefined,
+      "Format, types, and tests in the pipeline so regressions are caught before merge. Pairs with editor-side tooling: two layers of the same quality bar.",
   },
 ];

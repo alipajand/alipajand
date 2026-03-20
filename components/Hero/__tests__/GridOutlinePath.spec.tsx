@@ -22,18 +22,15 @@ describe("GridOutlinePath", () => {
 
     const path = container.querySelector("path[data-grid-outline]");
     expect(path).not.toBeNull();
-
-    // rowIndex = 1, colIndex = 2 → sum = 3
     expect(path).toHaveAttribute("data-sum", "3");
 
     const expectedX = baseGrid.startX + 2 * baseGrid.cellTotal;
-    const expectedY = baseGrid.startY + 1 * baseGrid.cellTotal;
+    const expectedY = baseGrid.startY + baseGrid.cellTotal;
     const w = baseGrid.squareSize;
     const expectedD = `M ${expectedX} ${expectedY} L ${expectedX + w} ${expectedY} M ${expectedX + w} ${expectedY} L ${expectedX + w} ${expectedY + w} M ${expectedX + w} ${expectedY + w} L ${expectedX} ${expectedY + w} M ${expectedX} ${expectedY + w} L ${expectedX} ${expectedY}`;
 
     expect(path).toHaveAttribute("d", expectedD);
 
-    // With rows=3, cols=3 → maxSum = 4, sum=3
     const maxSum = baseGrid.gridRows + baseGrid.gridCols - 2;
     const opacity = 0.02 + (3 / maxSum) * 0.06;
     expect(path).toHaveAttribute("stroke", `rgba(255, 255, 255, ${opacity})`);
@@ -57,4 +54,3 @@ describe("GridOutlinePath", () => {
     expect(path).toHaveAttribute("stroke", "rgba(255, 255, 255, 0.02)");
   });
 });
-

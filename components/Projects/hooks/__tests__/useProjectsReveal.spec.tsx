@@ -99,4 +99,3 @@ describe("useProjectsReveal", () => {
     expect(gsap.timeline).toHaveBeenCalled();
   });
 });
-

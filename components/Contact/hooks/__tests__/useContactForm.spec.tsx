@@ -2,6 +2,10 @@ import React, { act } from "react";
 import { fireEvent, render, renderHook, waitFor } from "@testing-library/react";
 import { useContactForm } from "components/Contact/hooks/useContactForm";
 
+jest.mock("utils/analytics", () => ({
+  trackGtagEvent: jest.fn(),
+}));
+
 global.fetch = jest.fn();
 
 const originalError = console.error;

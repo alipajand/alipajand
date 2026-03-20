@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
@@ -11,5 +10,4 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["gsap", "lenis"],
   },
 };
-
 export default nextConfig;

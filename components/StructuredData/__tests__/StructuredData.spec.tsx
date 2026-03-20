@@ -1,7 +1,15 @@
 import { render } from "@testing-library/react";
 import { StructuredData } from "components/StructuredData/StructuredData";
 import { LINKS } from "data/links";
-import { CANONICAL_URL, HERO_SUB, KEYWORDS, SITE_NAME, TAGLINE } from "data/site";
+import {
+  CANONICAL_URL,
+  KEYWORDS,
+  PERSON_SCHEMA_ID,
+  SITE_META_DESCRIPTION,
+  SITE_NAME,
+  TAGLINE,
+  WEBSITE_SCHEMA_ID,
+} from "data/site";
 
 describe("StructuredData", () => {
   it("should render three script tags", () => {
@@ -19,10 +27,11 @@ describe("StructuredData", () => {
 
       expect(schema["@context"]).toBe("https://schema.org");
       expect(schema["@type"]).toBe("Person");
+      expect(schema["@id"]).toBe(PERSON_SCHEMA_ID);
       expect(schema.name).toBe(SITE_NAME);
       expect(schema.url).toBe(CANONICAL_URL);
       expect(schema.jobTitle).toBe("Senior Product Engineer");
-      expect(schema.description).toBe(HERO_SUB);
+      expect(schema.description).toBe(SITE_META_DESCRIPTION);
       expect(schema.knowsAbout).toEqual(KEYWORDS);
     });
 
@@ -78,9 +87,10 @@ describe("StructuredData", () => {
 
       expect(schema["@context"]).toBe("https://schema.org");
       expect(schema["@type"]).toBe("WebSite");
+      expect(schema["@id"]).toBe(WEBSITE_SCHEMA_ID);
       expect(schema.name).toBe(SITE_NAME);
       expect(schema.url).toBe(CANONICAL_URL);
-      expect(schema.description).toBe(HERO_SUB);
+      expect(schema.description).toBe(SITE_META_DESCRIPTION);
     });
 
     it("should include publisher information", () => {
@@ -89,8 +99,7 @@ describe("StructuredData", () => {
       const websiteScript = scripts[1];
       const schema = JSON.parse(websiteScript.textContent || "{}");
 
-      expect(schema.publisher["@type"]).toBe("Person");
-      expect(schema.publisher.name).toBe(SITE_NAME);
+      expect(schema.publisher["@id"]).toBe(PERSON_SCHEMA_ID);
     });
   });
 
@@ -105,7 +114,7 @@ describe("StructuredData", () => {
       expect(schema["@type"]).toBe("ProfilePage");
       expect(schema.name).toBe(`${SITE_NAME} - ${TAGLINE}`);
       expect(schema.url).toBe(CANONICAL_URL);
-      expect(schema.description).toBe(HERO_SUB);
+      expect(schema.description).toBe(SITE_META_DESCRIPTION);
     });
 
     it("should include mainEntity information", () => {
@@ -114,8 +123,7 @@ describe("StructuredData", () => {
       const profileScript = scripts[2];
       const schema = JSON.parse(profileScript.textContent || "{}");
 
-      expect(schema.mainEntity["@type"]).toBe("Person");
-      expect(schema.mainEntity.name).toBe(SITE_NAME);
+      expect(schema.mainEntity["@id"]).toBe(PERSON_SCHEMA_ID);
     });
   });
 

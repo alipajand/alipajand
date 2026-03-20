@@ -4,17 +4,13 @@ import { SelectedWorkGallery } from "components/SelectedWorkGallery/SelectedWork
 import { SELECTED_WORK_ITEMS } from "data/selectedWork";
 
 describe("SelectedWorkGallery", () => {
-  it("renders section, heading, description, and all gallery items", () => {
+  it("renders section, heading, description, and one card per configured item", () => {
     render(<SelectedWorkGallery />);
 
     const section = screen.getByRole("region", { name: /selected work/i });
     expect(section).toBeInTheDocument();
 
-    expect(
-      screen.getByText(
-        /Screenshots and diagrams from real work, UI components, dashboards, and automation flows./i
-      )
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Quick visual read/i)).toBeInTheDocument();
 
     const list = screen.getByRole("list");
     const items = screen.getAllByRole("listitem");
@@ -22,4 +18,3 @@ describe("SelectedWorkGallery", () => {
     expect(items).toHaveLength(SELECTED_WORK_ITEMS.length);
   });
 });
-

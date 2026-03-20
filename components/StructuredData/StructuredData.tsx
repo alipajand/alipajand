@@ -1,16 +1,25 @@
 "use client";
 
-import { CANONICAL_URL, HERO_SUB, KEYWORDS, SITE_NAME, TAGLINE } from "data/site";
+import {
+  CANONICAL_URL,
+  KEYWORDS,
+  PERSON_SCHEMA_ID,
+  SITE_META_DESCRIPTION,
+  SITE_NAME,
+  TAGLINE,
+  WEBSITE_SCHEMA_ID,
+} from "data/site";
 import { LINKS } from "data/links";
 
 export function StructuredData() {
   const personSchema = {
     "@context": "https://schema.org",
+    "@id": PERSON_SCHEMA_ID,
     "@type": "Person",
     name: SITE_NAME,
     url: CANONICAL_URL,
     jobTitle: "Senior Product Engineer",
-    description: HERO_SUB,
+    description: SITE_META_DESCRIPTION,
     knowsAbout: KEYWORDS,
     address: {
       "@type": "PostalAddress",
@@ -26,13 +35,13 @@ export function StructuredData() {
 
   const websiteSchema = {
     "@context": "https://schema.org",
+    "@id": WEBSITE_SCHEMA_ID,
     "@type": "WebSite",
     name: SITE_NAME,
     url: CANONICAL_URL,
-    description: HERO_SUB,
+    description: SITE_META_DESCRIPTION,
     publisher: {
-      "@type": "Person",
-      name: SITE_NAME,
+      "@id": PERSON_SCHEMA_ID,
     },
   };
 
@@ -41,10 +50,9 @@ export function StructuredData() {
     "@type": "ProfilePage",
     name: `${SITE_NAME} - ${TAGLINE}`,
     url: CANONICAL_URL,
-    description: HERO_SUB,
+    description: SITE_META_DESCRIPTION,
     mainEntity: {
-      "@type": "Person",
-      name: SITE_NAME,
+      "@id": PERSON_SCHEMA_ID,
     },
   };
 

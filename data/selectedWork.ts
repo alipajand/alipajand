@@ -33,3 +33,9 @@ export const SELECTED_WORK_ITEMS: SelectedWorkItem[] = [
     imageSrc: undefined,
   },
 ];
+
+export function getSelectedWorkItemsWithImages(
+  items: SelectedWorkItem[] = SELECTED_WORK_ITEMS
+): SelectedWorkItem[] {
+  return items.filter((item) => Boolean(item.imageSrc?.trim()));
+}

@@ -8,6 +8,8 @@ import {
   type UseFormRegister,
 } from "react-hook-form";
 
+import { trackGtagEvent } from "utils/analytics";
+
 export type ContactFormStatus = "idle" | "loading" | "success" | "error";
 
 export interface ContactFormValues {
@@ -67,14 +69,17 @@ export function useContactForm(): ContactFormHook {
       if (!res.ok) {
         setStatus("error");
         setErrorMessage(body.error ?? "Something went wrong. Please try again.");
+        trackGtagEvent("contact_form_submit", { outcome: "error" });
         return;
       }
 
       setStatus("success");
+      trackGtagEvent("contact_form_submit", { outcome: "success" });
       form.reset(DEFAULT_VALUES);
     } catch {
       setStatus("error");
       setErrorMessage("Failed to send. Please try again or email directly.");
+      trackGtagEvent("contact_form_submit", { outcome: "network_error" });
     }
   }
 

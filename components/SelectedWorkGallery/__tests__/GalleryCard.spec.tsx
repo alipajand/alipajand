@@ -50,7 +50,7 @@ describe("GalleryCard", () => {
       const image = container.querySelector("img");
       expect(image).toBeInTheDocument();
       expect(image).toHaveAttribute("src", "/test-image.jpg");
-      expect(image).toHaveAttribute("alt", "");
+      expect(image).toHaveAttribute("alt", "Test Title — sample");
     });
 
     it("should render blur overlay when blurData is true and image exists", () => {
@@ -85,39 +85,39 @@ describe("GalleryCard", () => {
       expect(screen.queryByText("Data blurred")).not.toBeInTheDocument();
     });
 
-    it("should render placeholder when imageSrc is not provided", () => {
-      render(<GalleryCard item={mockItem} />);
-      expect(screen.getByText("No image available")).toBeInTheDocument();
+    it("should render illustrative fallback when imageSrc is not provided", () => {
+      const { container } = render(<GalleryCard item={mockItem} />);
+      expect(container.querySelector('[data-gallery-fallback="ui"]')).toBeInTheDocument();
     });
 
-    it("should render placeholder when imageSrc is empty string", () => {
+    it("should render illustrative fallback when imageSrc is empty string", () => {
       const itemWithEmptyImage: SelectedWorkItem = {
         ...mockItem,
         imageSrc: "",
       };
 
-      render(<GalleryCard item={itemWithEmptyImage} />);
-      expect(screen.getByText("No image available")).toBeInTheDocument();
+      const { container } = render(<GalleryCard item={itemWithEmptyImage} />);
+      expect(container.querySelector('[data-gallery-fallback="ui"]')).toBeInTheDocument();
     });
 
-    it("should render placeholder when imageSrc is whitespace only", () => {
+    it("should render illustrative fallback when imageSrc is whitespace only", () => {
       const itemWithWhitespaceImage: SelectedWorkItem = {
         ...mockItem,
         imageSrc: "   ",
       };
 
-      render(<GalleryCard item={itemWithWhitespaceImage} />);
-      expect(screen.getByText("No image available")).toBeInTheDocument();
+      const { container } = render(<GalleryCard item={itemWithWhitespaceImage} />);
+      expect(container.querySelector('[data-gallery-fallback="ui"]')).toBeInTheDocument();
     });
 
-    it("should not render placeholder when imageSrc is provided", () => {
+    it("should not render illustrative fallback when imageSrc is provided", () => {
       const itemWithImage: SelectedWorkItem = {
         ...mockItem,
         imageSrc: "/test-image.jpg",
       };
 
-      render(<GalleryCard item={itemWithImage} />);
-      expect(screen.queryByText("No image available")).not.toBeInTheDocument();
+      const { container } = render(<GalleryCard item={itemWithImage} />);
+      expect(container.querySelector("[data-gallery-fallback]")).not.toBeInTheDocument();
     });
   });
 

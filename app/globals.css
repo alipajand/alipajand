@@ -4,7 +4,8 @@
 :root {
   --background: #000000;
   --foreground: #fafafa;
-  --muted: #888888;
+
+  --muted: #a3a3a3;
   --accent: #ffffff;
   --accent-muted: #e5e5e5;
   --card: #0a0a0a;
@@ -12,6 +13,8 @@
   --organic-orange: #ea2b2b;
   --organic-gray: #171717;
   --organic-alabaster: #fafafa;
+
+  --surface-section: #0e0e0e;
 }
 
 @theme inline {
@@ -26,23 +29,6 @@
 
 * {
   box-sizing: border-box;
-}
-
-body {
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-li span {
-  -webkit-user-select: text;
-  user-select: text;
 }
 
 ::selection {
@@ -73,6 +59,12 @@ li span {
   transform: translateY(0);
   outline: 2px solid var(--foreground);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
 }
 
 html {
@@ -131,6 +123,25 @@ body {
   width: 100%;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift,
+  .hover-scale {
+    transition: none;
+  }
+
+  .hover-lift:hover {
+    transform: none;
+  }
+
+  .hover-scale:hover {
+    transform: none;
+  }
+
+  .nav-link-hover::after {
+    transition: none;
+  }
+}
+
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--foreground);
@@ -140,4 +151,8 @@ button:focus-visible {
 a:focus-visible:not(.skip-link),
 button:focus-visible {
   border-radius: 0.25rem;
+}
+
+.nav-link-hover:focus-visible::after {
+  width: 100%;
 }

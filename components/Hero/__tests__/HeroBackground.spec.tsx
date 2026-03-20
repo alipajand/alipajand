@@ -47,11 +47,8 @@ describe("HeroBackground", () => {
 
     mockSnakeOrder.forEach(([row, col]) => {
       expect(
-        container.querySelector(
-          `[data-testid='grid-path'][data-row='${row}'][data-col='${col}']`
-        )
+        container.querySelector(`[data-testid='grid-path'][data-row='${row}'][data-col='${col}']`)
       ).not.toBeNull();
     });
   });
 });
-

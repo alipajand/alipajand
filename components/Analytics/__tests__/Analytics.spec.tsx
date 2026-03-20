@@ -3,7 +3,6 @@ import { render } from "@testing-library/react";
 import { Analytics } from "components/Analytics/Analytics";
 
 jest.mock("next/script", () => {
-  // Simple mock that renders a div so we can assert presence
   return function MockScript(props: Record<string, unknown>) {
     return <div data-mock-script {...props} />;
   };
@@ -33,4 +32,3 @@ describe("Analytics", () => {
     expect(scripts.length).toBe(2);
   });
 });
-

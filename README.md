@@ -7,3 +7,10 @@ React, Next.js, TypeScript & Node.js · 9+ years building fast, reliable web app
 - **Site:** [alipajand.com](https://alipajand.com)
 - **LinkedIn:** [@alipajand](https://www.linkedin.com/in/alipajand/)
 - **GitHub:** [@alipajand](https://github.com/alipajand)
+
+## Site structure
+
+- **Home (`/`)** · Fast scan: positioning, proof, highlights, writing, contact.
+- **Portfolio (`/portfolio`)** · Full arc: background, experience, case studies, tooling, expertise.
+
+See `docs/SITE_STRUCTURE.md` for collaborators.

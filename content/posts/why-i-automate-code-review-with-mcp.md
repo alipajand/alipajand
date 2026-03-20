@@ -2,6 +2,9 @@
 title: "Why I automate code review with MCP"
 date: "2026-01-15"
 excerpt: "How a custom MCP server for Cursor runs lint, types, and tests for me so human reviewers can focus on architecture, trade‑offs, and naming."
+tags:
+  - DX
+  - Tooling
 ---
 
 Code review is essential, but a lot of it is the same boring checklist: did you run the tests, fix the linter errors, and keep the types happy? That work is important, but it doesn’t need a human every single time.
@@ -26,9 +29,9 @@ All of this happens inside Cursor, wired into the files I’m already editing. I
 
 For me, the value shows up in three places:
 
-1. **Faster feedback** — I don’t have to push, wait for CI, and then circle back. The MCP server tells me immediately when something breaks, so the fix is still fresh in my head.
-2. **Better reviews** — Reviewers can assume “lint, types, and tests pass” and spend their attention on architecture, readability, and long‑term maintenance instead of mechanical nits.
-3. **Easier onboarding** — New contributors don’t need to memorize the project’s scripts. They run the same MCP tools I do and get consistent, guided feedback from day one.
+1. **Faster feedback:** I don’t have to push, wait for CI, and then circle back. The MCP server tells me immediately when something breaks, so the fix is still fresh in my head.
+2. **Better reviews:** Reviewers can assume “lint, types, and tests pass” and spend their attention on architecture, readability, and long‑term maintenance instead of mechanical nits.
+3. **Easier onboarding:** New contributors don’t need to memorize the project’s scripts. They run the same MCP tools I do and get consistent, guided feedback from day one.
 
 In other words, the computer is strict about rules, and humans get to be generous about design and intent.
 

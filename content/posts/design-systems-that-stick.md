@@ -2,6 +2,9 @@
 title: "Design systems that stick"
 date: "2025-01-15"
 excerpt: "How to actually get adoption – and keep a design system alive – with clear documentation, a single source of truth, and lightweight governance."
+tags:
+  - Design systems
+  - Documentation
 ---
 
 A design system that looks great in Figma but never leaves the design team is just expensive wallpaper. The systems that
@@ -46,9 +49,9 @@ process that teams start bypassing the system to move faster.
 
 We deliberately avoided a heavyweight “design system council.” Instead we had:
 
-- **Ownership** — One team owned the core library and reviews.
-- **Contribution guidelines** — A short CONTRIBUTING.md and PR template.
-- **Versioning** — Semantic versioning and a changelog so consumers could upgrade safely.
+- **Ownership:** One team owned the core library and reviews.
+- **Contribution guidelines:** A short CONTRIBUTING.md and PR template.
+- **Versioning:** Semantic versioning and a changelog so consumers could upgrade safely.
 
 Contributions were encouraged as long as they followed the guidelines and came with documentation. Changes were visible
 and predictable thanks to versioning and a clear changelog.

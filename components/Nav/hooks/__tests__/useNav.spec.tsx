@@ -2,6 +2,10 @@ import { act, renderHook, render } from "@testing-library/react";
 
 import { useNav } from "components/Nav/hooks/useNav";
 
+jest.mock("utils/gsap", () => ({
+  prefersReducedMotion: jest.fn(() => false),
+}));
+
 jest.mock("gsap", () => ({
   __esModule: true,
   default: {

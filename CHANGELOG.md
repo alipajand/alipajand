@@ -9,7 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-(No unreleased changes.)
+_(No unreleased changes.)_
+
+## [1.1.0] - 2026-03-19
+
+### Added
+
+- `scripts/strip-comments-range.mjs`: strip `//` and `/* */` trivia via TypeScript ranges (preserves layout; keeps `///` references, `// @ts-*`, and `/** @jest-environment */`).
+- `jest-config` as a direct devDependency so strict TypeScript checking resolves Jest’s typings.
+
+### Changed
+
+- **Positioning:** Remove hiring-oriented homepage sections (HireProof, hiring snapshot) and rewrite contact intro/reasons for a non-employment posture.
+- **Navigation & footer:** Refresh primary nav labels and structure (e.g. Me, Writing for the blog route); use `next/link` for the brand and footer links.
+- **Layout & copy:** Relax default max-width on shared section ledes; align spacing and markup across sections, blog list/post routes, and portfolio.
+- **Selected work:** Drop the “Illustrative · not a live screenshot” line on fallback thumbnails.
+- **Blog & docs:** Tighten punctuation and copy in several posts; refresh README and `docs/SITE_STRUCTURE.md`.
+- **Tooling:** Exclude `.next` in `tsconfig.json` so generated route types aren’t duplicated; trim `next.config.ts`; remove `format:check`, `test:coverage`, and `test:watch` npm scripts.
+- **Maintenance:** Strip comments across app, components, data, and utils without reprinting files.
 
 ## [1.0.4] - 2026-03-01
 
@@ -48,4 +65,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix ESLint pre-commit failure by disabling the `react/display-name` rule that is incompatible with the current ESLint setup.
-

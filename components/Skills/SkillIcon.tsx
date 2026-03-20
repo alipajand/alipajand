@@ -40,5 +40,9 @@ const ICON_MAP = {
 export function SkillIcon({ skill }: { skill: string }) {
   const iconKey = (SKILL_TO_ICON[skill] ?? "code") as keyof typeof ICON_MAP;
   const Icon = ICON_MAP[iconKey] ?? CodeIcon;
-  return <Icon className="shrink-0 text-muted" />;
+  return (
+    <span aria-hidden className="inline-flex shrink-0">
+      <Icon className="shrink-0 text-muted" />
+    </span>
+  );
 }

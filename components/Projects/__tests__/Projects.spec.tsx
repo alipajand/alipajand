@@ -16,15 +16,15 @@ describe("Projects", () => {
     expect(document.getElementById("projects")).toBeInTheDocument();
   });
 
-  it("renders Selected work heading", () => {
+  it("renders Case studies heading", () => {
     render(<Projects />);
-    expect(screen.getByRole("heading", { name: /selected work/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /case studies/i })).toBeInTheDocument();
   });
 
   it("renders intro paragraph", () => {
     render(<Projects />);
     expect(
-      screen.getByText(/Real projects. For each: what was wrong, what we did, what we got./i)
+      screen.getByText(/Outcome first, then how the work was structured/i)
     ).toBeInTheDocument();
   });
 
@@ -37,14 +37,24 @@ describe("Projects", () => {
 
   it("renders case study labels for projects that have them", () => {
     render(<Projects />);
-    expect(screen.getAllByText("The issue").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("What we did").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Outcome").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Problem").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Approach").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Result").length).toBeGreaterThan(0);
   });
 
-  it("renders tech tags and outcomes", () => {
+  it("renders jump nav for case studies (in DOM for lg layout)", () => {
+    const { container } = render(<Projects />);
+    const nav = container.querySelector('[aria-label="Jump to case study"]');
+    expect(nav).toBeInTheDocument();
+    const jump = container.querySelector(
+      'a[href="#project-mapbylaw-ai-recommendations-report-integrity"]'
+    );
+    expect(jump?.textContent).toContain("MapBylaw · AI");
+  });
+
+  it("renders technical signals and full stack", () => {
     render(<Projects />);
-    expect(screen.getAllByText("React").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("TypeScript").length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/technical signals/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/full stack/i).length).toBeGreaterThan(0);
   });
 });

@@ -8,15 +8,18 @@ describe("Testimonials", () => {
     expect(document.getElementById("testimonials")).toBeInTheDocument();
   });
 
-  it("renders What people say heading", () => {
+  it("renders Peer feedback heading", () => {
     render(<Testimonials />);
-    expect(screen.getByRole("heading", { name: /what people say/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /peer feedback/i })).toBeInTheDocument();
   });
 
-  it("renders feedback intro", () => {
+  it("renders attribution intro", () => {
     render(<Testimonials />);
     expect(
-      screen.getByText(/Feedback from colleagues and teams I've worked with./i)
+      screen.getByText(/Informal endorsements from people I worked with on these teams/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Names aren.t published here without explicit permission/i)
     ).toBeInTheDocument();
   });
 
