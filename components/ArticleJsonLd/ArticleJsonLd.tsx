@@ -5,7 +5,6 @@ interface ArticleJsonLdProps {
   post: Omit<Post, "contentHtml">;
 }
 
-/** BlogPosting JSON-LD for article pages (`/blog/[slug]`). */
 export function ArticleJsonLd({ post }: ArticleJsonLdProps) {
   const url = `${CANONICAL_URL}/blog/${post.slug}`;
   const schema = {

@@ -1,7 +1,3 @@
-/**
- * Fires a GA4 event when `gtag` is present (see `components/Analytics/Analytics.tsx`).
- * Safe to call from client components; no-ops on the server or when analytics is disabled.
- */
 export function trackGtagEvent(
   eventName: string,
   params?: Record<string, string | number | boolean>

@@ -10,7 +10,7 @@ export interface PostFrontmatter {
   title: string;
   date: string;
   excerpt: string;
-  /** At most one post should set this; first match in date order wins if duplicated. */
+
   featured?: boolean;
   tags?: string[];
 }
@@ -77,7 +77,6 @@ export function getLatestPosts(count: number): Omit<Post, "contentHtml">[] {
   return getAllPosts().slice(0, count);
 }
 
-/** Featured post (if any) plus recent posts, excluding the featured slug from the list. */
 export function getPostsForWritingSection(recentCount: number): {
   featured: Omit<Post, "contentHtml"> | null;
   recent: Omit<Post, "contentHtml">[];
@@ -90,4 +89,3 @@ export function getPostsForWritingSection(recentCount: number): {
     recent: withoutFeatured.slice(0, recentCount),
   };
 }
-

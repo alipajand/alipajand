@@ -16,7 +16,6 @@ function truncate(text: string, max: number): string {
   return `${text.slice(0, max - 1).trimEnd()}…`;
 }
 
-/** Per-post OG artwork; falls back to a generic writing card if the slug is missing. */
 export default async function BlogPostOpenGraphImage({
   params,
 }: {
@@ -26,7 +25,9 @@ export default async function BlogPostOpenGraphImage({
   const post = getPostBySlug(slug);
 
   const title = post?.title ?? "Writing";
-  const excerpt = post ? truncate(post.excerpt, 220) : `${SITE_NAME} — notes on product engineering and DX.`;
+  const excerpt = post
+    ? truncate(post.excerpt, 220)
+    : `${SITE_NAME} — notes on product engineering and DX.`;
   const label = post ? "Article" : "Writing";
 
   return new ImageResponse(
@@ -89,7 +90,9 @@ export default async function BlogPostOpenGraphImage({
           paddingTop: 28,
         }}
       >
-        <div style={{ display: "flex", fontSize: 22, color: "#a3a3a3", fontWeight: 500 }}>{SITE_NAME}</div>
+        <div style={{ display: "flex", fontSize: 22, color: "#a3a3a3", fontWeight: 500 }}>
+          {SITE_NAME}
+        </div>
         <img
           src={`${CANONICAL_URL}/icon.png`}
           alt=""

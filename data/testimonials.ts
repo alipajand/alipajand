@@ -1,13 +1,12 @@
 export interface Testimonial {
   id: string;
   quote: string;
-  /** Optional display name; omit when sharing role + company only. */
+
   author?: string;
   role: string;
   company: string;
 }
 
-/** Section copy—keep aligned with how attribution is actually shown (no names without permission). */
 export const TESTIMONIALS_HEADING = "Peer feedback";
 
 export const TESTIMONIALS_INTRO =

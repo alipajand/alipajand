@@ -1,9 +1,5 @@
 import { LOCATION } from "data/site";
 
-/**
- * Compact recruiter-facing facts—phrased from existing positioning (tagline, about, contact).
- * No remote/hybrid/relocation line until that detail exists in site copy elsewhere.
- */
 export const HIRING_SUMMARY_HEADING = "Hiring snapshot";
 
 export const HIRING_SUMMARY_LEDE =

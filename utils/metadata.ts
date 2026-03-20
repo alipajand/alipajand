@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 
 import { BLOG_INDEX_DESCRIPTION } from "data/writing";
-import {
-  CANONICAL_URL,
-  PORTFOLIO_PAGE_LEDE,
-  SITE_NAME,
-  TWITTER_HANDLE,
-} from "data/site";
+import { CANONICAL_URL, PORTFOLIO_PAGE_LEDE, SITE_NAME, TWITTER_HANDLE } from "data/site";
 import type { Post } from "utils/posts";
 
 const defaultOgImage = {
@@ -21,7 +16,6 @@ function twitterExtras(): Partial<NonNullable<Metadata["twitter"]>> {
   return { creator: at, site: at };
 }
 
-/** Blog index (`/blog`) metadata. */
 export function buildBlogIndexMetadata(): Metadata {
   const url = `${CANONICAL_URL}/blog`;
   return {
@@ -47,7 +41,6 @@ export function buildBlogIndexMetadata(): Metadata {
   };
 }
 
-/** Single post (`/blog/[slug]`) metadata. */
 export function buildArticleMetadata(post: Post): Metadata {
   const { contentHtml: _content, ...p } = post;
   void _content;
@@ -87,7 +80,6 @@ export function buildArticleMetadata(post: Post): Metadata {
   };
 }
 
-/** Full portfolio (`/portfolio`) metadata. */
 export function buildPortfolioMetadata(): Metadata {
   const url = `${CANONICAL_URL}/portfolio`;
   const title = "Portfolio";

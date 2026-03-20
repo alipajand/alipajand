@@ -20,7 +20,6 @@ export interface ProjectLink {
   href: string;
 }
 
-/** Theme tags for scanning (not a gallery aesthetic—short, serious). */
 export type ProjectBadge =
   | "Design systems"
   | "DX"
@@ -36,12 +35,12 @@ export interface Project {
   role: string;
   tech: string[];
   outcomes: string[];
-  /** 2–3 strongest technical signals to surface (subset of or cross-cutting vs `tech`). */
+
   signalStack: string[];
   badges?: ProjectBadge[];
-  /** Hiring angles / role fit. */
+
   bestFor?: string[];
-  /** Short label for in-section jump nav. */
+
   navLabel: string;
   image?: string;
   imageCaption?: string;
@@ -60,7 +59,11 @@ export const PROJECTS: Project[] = [
       "Designed and implemented an AI recommendations pipeline that planners, developers, and auditors can trust—grounded in the same zoning rules, feasibility math, and datasets as the rest of MapBylaw.",
     role: "Senior product engineer · MapBylaw",
     navLabel: "MapBylaw · AI",
-    signalStack: ["TypeScript + OpenAPI/Zod", "React-PDF + typed payloads", "Policy-aligned AI context"],
+    signalStack: [
+      "TypeScript + OpenAPI/Zod",
+      "React-PDF + typed payloads",
+      "Policy-aligned AI context",
+    ],
     badges: ["AI", "Accessibility"],
     bestFor: ["AI product engineering", "Frontend architecture"],
     tech: ["TypeScript", "Fastify", "React", "React-PDF", "Docling", "OpenAPI", "AWS", "WCAG"],
@@ -142,7 +145,11 @@ export const PROJECTS: Project[] = [
       "Built and maintained the design system for our Web3 products, then used it to ship the marketplace and login flows from design to production. Accessible (WCAG), consistent UI, solid API and auth, deployed on AWS.",
     role: "Lead / Senior frontend engineer · AlwaysGeeky Games",
     navLabel: "Web3 DS & apps",
-    signalStack: ["Storybook + CI (visual/a11y)", "WCAG across products", "React / Next in production"],
+    signalStack: [
+      "Storybook + CI (visual/a11y)",
+      "WCAG across products",
+      "React / Next in production",
+    ],
     badges: ["Design systems", "Accessibility"],
     bestFor: ["Design systems", "Frontend architecture"],
     tech: [

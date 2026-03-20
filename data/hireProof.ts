@@ -1,7 +1,3 @@
-/**
- * Recruiter-facing proof points—phrased from existing site copy (jobs, expertise, about, innovation).
- * Keep summaries tight; expand detail in Experience and Case studies.
- */
 export interface HireProofItem {
   id: string;
   title: string;

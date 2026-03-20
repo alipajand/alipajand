@@ -4,7 +4,7 @@
 :root {
   --background: #000000;
   --foreground: #fafafa;
-  /* ~5.5:1 on black for body-sized secondary text (WCAG AA) */
+
   --muted: #a3a3a3;
   --accent: #ffffff;
   --accent-muted: #e5e5e5;
@@ -13,7 +13,7 @@
   --organic-orange: #ea2b2b;
   --organic-gray: #171717;
   --organic-alabaster: #fafafa;
-  /* Flat section band — no gradients */
+
   --surface-section: #0e0e0e;
 }
 
@@ -30,8 +30,6 @@
 * {
   box-sizing: border-box;
 }
-
-/* Allow text selection for reading, copying, and assistive tech; no global select-none. */
 
 ::selection {
   background: var(--organic-orange);
@@ -155,7 +153,6 @@ button:focus-visible {
   border-radius: 0.25rem;
 }
 
-/* Hover/focus parity for links that only underline on hover */
 .nav-link-hover:focus-visible::after {
   width: 100%;
 }

@@ -34,7 +34,6 @@ export const SELECTED_WORK_ITEMS: SelectedWorkItem[] = [
   },
 ];
 
-/** Items with a configured `imageSrc` appear in the on-page gallery; others are ignored. */
 export function getSelectedWorkItemsWithImages(
   items: SelectedWorkItem[] = SELECTED_WORK_ITEMS
 ): SelectedWorkItem[] {

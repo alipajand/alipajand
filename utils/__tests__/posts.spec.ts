@@ -1,5 +1,3 @@
-/** @jest-environment node */
-
 import { readdirSync } from "fs";
 import { join } from "path";
 import { getAllPosts, getLatestPosts, getPostBySlug, getPostsForWritingSection } from "utils/posts";
@@ -93,4 +91,3 @@ describe("utils/posts", () => {
     });
   });
 });
-

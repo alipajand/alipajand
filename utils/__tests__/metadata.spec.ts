@@ -1,6 +1,10 @@
 /** @jest-environment node */
 
-import { buildArticleMetadata, buildBlogIndexMetadata, buildPortfolioMetadata } from "utils/metadata";
+import {
+  buildArticleMetadata,
+  buildBlogIndexMetadata,
+  buildPortfolioMetadata,
+} from "utils/metadata";
 import { CANONICAL_URL, PORTFOLIO_PAGE_LEDE } from "data/site";
 import { BLOG_INDEX_DESCRIPTION } from "data/writing";
 
@@ -21,8 +25,12 @@ describe("utils/metadata", () => {
       contentHtml: "<p>x</p>",
     });
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/blog/my-post`);
-    expect(m.openGraph?.type).toBe("article");
-    expect(m.openGraph?.publishedTime).toBe("2025-01-01");
+    const articleOg = m.openGraph as {
+      type?: string;
+      publishedTime?: string;
+    };
+    expect(articleOg.type).toBe("article");
+    expect(articleOg.publishedTime).toBe("2025-01-01");
     const ogImages = m.openGraph?.images;
     expect(Array.isArray(ogImages) && ogImages[0]).toMatchObject({
       url: "/blog/my-post/opengraph-image",

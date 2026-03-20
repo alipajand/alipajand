@@ -11,7 +11,6 @@ const FOOTER_LINKS = [
   { href: "/#contact", label: "Contact" },
 ] as const;
 
-/** Calm internal links for crawl paths and orientation (home ↔ projects ↔ writing). */
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-background">

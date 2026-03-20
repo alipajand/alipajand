@@ -1,5 +1,3 @@
-/** @jest-environment node */
-
 import { homeBrandAriaCurrent, navLinkAriaCurrent } from "utils/navAriaCurrent";
 
 describe("navAriaCurrent", () => {

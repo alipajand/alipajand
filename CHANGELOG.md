@@ -9,7 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-(No unreleased changes.)
+### Added
+
+- `scripts/strip-comments-range.mjs`: remove `//` and `/* */` trivia via TypeScript ranges (preserves layout; keeps `///` references, `// @ts-*`, and `/** @jest-environment */`).
+
+### Changed
+
+- Remove comments across app, components, data, and utils without reprinting files.
+- Tighten punctuation and copy in several blog posts; refresh README and `docs/SITE_STRUCTURE.md`.
+- Drop `format:check`, `test:coverage`, and `test:watch` npm scripts; trim blank lines in `next.config.ts`.
 
 ## [1.0.4] - 2026-03-01
 

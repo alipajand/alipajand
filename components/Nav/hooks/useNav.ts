@@ -61,7 +61,6 @@ export function useNav(): NavHook {
     return () => window.removeEventListener("keydown", onKey);
   }, [isMobileOpen]);
 
-  /** Move focus into the mobile panel when opened; return to menu button when closed. */
   useEffect(() => {
     if (isMobileOpen && !prevMobileOpen.current) {
       queueMicrotask(() => {
@@ -74,14 +73,12 @@ export function useNav(): NavHook {
     prevMobileOpen.current = isMobileOpen;
   }, [isMobileOpen]);
 
-  /** Tab / Shift+Tab cycle within the mobile link list (dialog-style focus trap). */
   useEffect(() => {
     if (!isMobileOpen) return;
     const menu = mobileMenuRef.current;
     if (!menu) return;
 
-    const getFocusables = () =>
-      Array.from(menu.querySelectorAll<HTMLAnchorElement>("a[href]"));
+    const getFocusables = () => Array.from(menu.querySelectorAll<HTMLAnchorElement>("a[href]"));
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Tab") return;

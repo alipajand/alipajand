@@ -4,7 +4,6 @@ import { HERO_PROOF_ROW } from "data/site";
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import { SECTION_INNER, SECTION_X } from "utils/visual";
 
-/** Scannable proof metrics — separated from hero so the fold stays name, line, and CTAs. */
 export function ProofStrip() {
   const {
     selectors: { sectionRef },

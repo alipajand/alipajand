@@ -9,7 +9,6 @@ import { Contact } from "components/Contact/Contact";
 import { MainReveal } from "components/MainReveal/MainReveal";
 import { getPostsForWritingSection } from "utils/posts";
 
-/** Homepage — best-hits order for a fast scan; deep sections on `/portfolio`. */
 export default function Home() {
   const { featured: featuredPost, recent: writingPosts } = getPostsForWritingSection(2);
 

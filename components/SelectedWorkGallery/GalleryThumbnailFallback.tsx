@@ -2,10 +2,6 @@
 
 import type { SelectedWorkType } from "data/selectedWork";
 
-/**
- * When no screenshot is configured, show an intentional illustrative frame
- * (not an error state) so the gallery still reads as designed.
- */
 export function GalleryThumbnailFallback({ type }: { type: SelectedWorkType }) {
   return (
     <div
@@ -79,7 +75,14 @@ function DiagramFallback() {
             <stop offset="0%" stopColor="#171717" />
             <stop offset="100%" stopColor="#0a0a0a" />
           </linearGradient>
-          <marker id="diagram-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <marker
+            id="diagram-arrow"
+            markerWidth="8"
+            markerHeight="8"
+            refX="6"
+            refY="4"
+            orient="auto"
+          >
             <path d="M0,0 L8,4 L0,8 Z" fill="#525252" />
           </marker>
         </defs>

@@ -24,7 +24,7 @@ describe("Writing formatDate", () => {
       },
     ];
 
-    render(<Writing posts={posts} />);
+    render(<Writing featured={null} posts={posts} />);
 
     expect(screen.getByText("2024-01-01")).toBeInTheDocument();
   });

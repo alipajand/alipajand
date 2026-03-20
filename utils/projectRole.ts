@@ -1,4 +1,3 @@
-/** Split `role` lines like `Senior engineer · Acme Corp` for display. */
 export function splitRoleLine(role: string): { title: string; company: string } {
   const idx = role.lastIndexOf(" · ");
   if (idx === -1) {
