@@ -24,7 +24,9 @@ describe("Nav", () => {
       expect(screen.getByRole("link", { name: SITE_NAME })).toHaveAttribute("href", "/");
       expect(screen.getByRole("link", { name: SITE_NAME })).toHaveAttribute("aria-current", "page");
       expect(screen.getAllByRole("link", { name: /^proof$/i }).length).toBeGreaterThanOrEqual(1);
-      expect(screen.getAllByRole("link", { name: /^portfolio$/i }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole("link", { name: /^portfolio$/i }).length).toBeGreaterThanOrEqual(
+        1
+      );
       expect(screen.getAllByRole("link", { name: /^contact$/i }).length).toBeGreaterThanOrEqual(1);
     });
 
@@ -52,7 +54,7 @@ describe("Nav", () => {
       const toggle = screen.getByRole("button", { name: /open menu/i });
       fireEvent.click(toggle);
 
-      expect(screen.getAllByRole("link", { name: /^why hire$/i }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole("link", { name: /^work$/i }).length).toBeGreaterThanOrEqual(1);
     });
   });
 });

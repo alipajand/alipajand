@@ -42,13 +42,13 @@ export const ABOUT_PARAGRAPHS = [
 ];
 
 export const CONTACT_INTRO =
-  "If you’re hiring for senior or staff frontend, product engineering, or design-systems/DX work-or you want to scope contract or consulting-I’m happy to talk. Share enough context that I can reply usefully: team size, stack, timeline, and what “good” looks like.";
+  "Use this if you want to talk about something concrete—a post, a project, or a technical question. I’m not looking for employment opportunities; I’m still happy to hear from people who share enough context to reply usefully.";
 
 export const CONTACT_REASONS = [
-  "Senior or staff IC roles in frontend, product engineering, or platform/product-facing UI.",
-  "Design systems, component libraries, accessibility, or developer-experience tooling.",
-  "Contract or consulting: clear scope, timeline, and constraints-I’ll say if it’s not a fit.",
-  "Founders with a concrete product or architecture problem (not generic intros).",
+  "Feedback or questions on writing or work on this site.",
+  "Design systems, accessibility, TypeScript/React, or DX tooling—when you have a specific angle.",
+  "A concrete product or architecture problem (not generic networking intros).",
+  "Something else that fits what you see here—skip vague “just connecting” messages.",
 ] as const;
 
 export const CONTACT_FORM_LEDE =
