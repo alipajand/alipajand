@@ -4,11 +4,7 @@ import Link from "next/link";
 import { getAllPosts } from "utils/posts";
 import { formatDate } from "utils/date";
 import { buildBlogIndexMetadata } from "utils/metadata";
-import {
-  WRITING_FEATURED_LABEL,
-  WRITING_SECTION_LEDE,
-  WRITING_WHY_IT_MATTERS,
-} from "data/writing";
+import { WRITING_FEATURED_LABEL, WRITING_SECTION_LEDE, WRITING_WHY_IT_MATTERS } from "data/writing";
 
 export const metadata: Metadata = buildBlogIndexMetadata();
 
@@ -17,11 +13,19 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <main id="main-content" tabIndex={-1} className="outline-none">
-        <div className="px-6 sm:px-10 lg:px-20 py-24 sm:py-32 mx-auto max-w-4xl">
-          <header className="max-w-2xl mb-12 sm:mb-16">
-            <h1 className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-3">Writing</h1>
-            <p className="text-muted text-base sm:text-lg leading-relaxed">{WRITING_SECTION_LEDE}</p>
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="outline-none px-6 sm:px-10 lg:px-20 py-24 sm:py-32"
+      >
+        <div className="mx-auto max-w-6xl">
+          <header className=" mb-12 sm:mb-16">
+            <h1 className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-3">
+              Writing
+            </h1>
+            <p className="text-muted text-base sm:text-lg leading-relaxed">
+              {WRITING_SECTION_LEDE}
+            </p>
             <p className="mt-4 text-[15px] sm:text-base text-foreground/85 leading-relaxed border-l-2 border-border pl-4 sm:pl-5">
               {WRITING_WHY_IT_MATTERS}
             </p>
@@ -55,11 +59,15 @@ export default function BlogPage() {
                             <span className="text-border select-none" aria-hidden>
                               ·
                             </span>
-                            <span className="text-[13px] sm:text-sm text-muted/90">{post.tags.join(" · ")}</span>
+                            <span className="text-[13px] sm:text-sm text-muted/90">
+                              {post.tags.join(" · ")}
+                            </span>
                           </>
                         ) : null}
                       </div>
-                      <p className="text-muted text-[15px] sm:text-base mt-3 leading-relaxed">{post.excerpt}</p>
+                      <p className="text-muted text-[15px] sm:text-base mt-3 leading-relaxed">
+                        {post.excerpt}
+                      </p>
                       <span className="inline-flex mt-4 text-sm font-medium text-foreground/90 underline-offset-4 group-hover:underline group-focus-visible:underline">
                         Read article →
                       </span>

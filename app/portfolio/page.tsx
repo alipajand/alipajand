@@ -28,7 +28,7 @@ export default function PortfolioPage() {
             <h1 className="font-display font-bold tracking-tight text-3xl sm:text-4xl text-foreground">
               Background & case studies
             </h1>
-            <p className="text-muted text-[15px] sm:text-base leading-relaxed mt-4 max-w-2xl">
+            <p className="text-muted text-[15px] sm:text-base leading-relaxed mt-4 ">
               {PORTFOLIO_PAGE_LEDE}
             </p>
             <p className="mt-8">

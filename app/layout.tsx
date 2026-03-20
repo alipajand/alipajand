@@ -57,9 +57,7 @@ export const metadata: Metadata = {
     title: TAGLINE,
     description: SITE_META_DESCRIPTION,
     images: ["/opengraph-image"],
-    ...(TWITTER_HANDLE
-      ? { creator: `@${TWITTER_HANDLE}`, site: `@${TWITTER_HANDLE}` }
-      : {}),
+    ...(TWITTER_HANDLE ? { creator: `@${TWITTER_HANDLE}`, site: `@${TWITTER_HANDLE}` } : {}),
   },
   robots: {
     index: true,
