@@ -10,7 +10,7 @@ React, Next.js, TypeScript & Node.js · 9+ years building fast, reliable web app
 
 ## Site structure
 
-- **Home (`/`)** — Fast scan: positioning, proof, highlights, writing, contact.
-- **Portfolio (`/portfolio`)** — Full arc: background, jobs, case studies, tooling, expertise.
+- **Home (`/`)** · Fast scan: positioning, proof, highlights, writing, contact.
+- **Portfolio (`/portfolio`)** · Full arc: background, experience, case studies, tooling, expertise.
 
 See `docs/SITE_STRUCTURE.md` for collaborators.

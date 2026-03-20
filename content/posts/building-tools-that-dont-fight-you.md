@@ -29,7 +29,7 @@ The MCP server came from the same instinct, applied to code review.
 
 Lint, types, and tests are important, but they’re also **predictable and automatable**. By wrapping them in a custom MCP server that talks to Cursor, I moved those checks:
 
-- From “did you remember to run the script?”  
+- From “did you remember to run the script?”
 - To “the editor already told you what’s broken, and where.”
 
 That shifts human review time toward architecture, trade‑offs, and naming instead of red CI dots.
@@ -61,5 +61,4 @@ Across all three, the pattern I keep coming back to is:
 2. **Let machines do the repetitive work.** Lint, types, tests, report plumbing, and context building are chores computers are good at.
 3. **Reserve humans for judgement.** Design, naming, trade‑offs, and product strategy are where attention is scarce and valuable.
 
-When a tool hits that balance, people stop noticing it as “a system” or “an AI feature.” It just becomes part of how the work gets done—which is exactly where I want it to be.
-
+When a tool hits that balance, people stop noticing it as “a system” or “an AI feature.” It just becomes part of how the work gets done, which is exactly where I want it to be.
