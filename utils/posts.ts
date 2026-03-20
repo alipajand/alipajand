@@ -10,7 +10,6 @@ export interface PostFrontmatter {
   title: string;
   date: string;
   excerpt: string;
-
   featured?: boolean;
   tags?: string[];
 }

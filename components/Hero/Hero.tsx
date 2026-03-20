@@ -42,7 +42,7 @@ export function Hero() {
     >
       <HeroBackground />
       <div className="relative z-10 max-w-4xl mx-auto w-full">
-        <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1]">
+        <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
           <span ref={nameCharsRef} className="block text-foreground hero-lcp">
             {SITE_NAME.split("").map((char, i) => (
               <span key={`${char}-${i}`} className="inline-block hero-char" data-char>

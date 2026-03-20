@@ -18,7 +18,7 @@ export const KEYWORDS = [
 export const CANONICAL_URL = "https://alipajand.com";
 
 export const PORTFOLIO_PAGE_LEDE =
-  "About, trajectory, case studies, and tooling—the full arc beyond the homepage snapshot.";
+  "About, trajectory, case studies, and tooling-the full arc beyond the homepage snapshot.";
 
 export const SITE_META_DESCRIPTION =
   "Senior product engineer in Montreal. Design systems, accessibility, TypeScript/React, DX tooling, and notes on how real systems ship.";
@@ -30,7 +30,7 @@ export const PERSON_SCHEMA_ID = `${CANONICAL_URL}/#person`;
 export const WEBSITE_SCHEMA_ID = `${CANONICAL_URL}/#website`;
 
 export const HERO_VALUE_LINE =
-  "I ship accessible UIs and reliable releases—design systems, frontend architecture, and DX tooling.";
+  "I ship accessible UIs and reliable releases-design systems, frontend architecture, and DX tooling.";
 
 export const HERO_SUB =
   "9+ years turning messy requirements into shipped product. I own design-system rollouts, tight TypeScript/React stacks, and the release discipline teams need to move fast without breaking quality.";
@@ -42,12 +42,12 @@ export const ABOUT_PARAGRAPHS = [
 ];
 
 export const CONTACT_INTRO =
-  "If you’re hiring for senior or staff frontend, product engineering, or design-systems/DX work—or you want to scope contract or consulting—I’m happy to talk. Share enough context that I can reply usefully: team size, stack, timeline, and what “good” looks like.";
+  "If you’re hiring for senior or staff frontend, product engineering, or design-systems/DX work-or you want to scope contract or consulting-I’m happy to talk. Share enough context that I can reply usefully: team size, stack, timeline, and what “good” looks like.";
 
 export const CONTACT_REASONS = [
   "Senior or staff IC roles in frontend, product engineering, or platform/product-facing UI.",
   "Design systems, component libraries, accessibility, or developer-experience tooling.",
-  "Contract or consulting: clear scope, timeline, and constraints—I’ll say if it’s not a fit.",
+  "Contract or consulting: clear scope, timeline, and constraints-I’ll say if it’s not a fit.",
   "Founders with a concrete product or architecture problem (not generic intros).",
 ] as const;
 

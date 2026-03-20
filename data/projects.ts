@@ -35,12 +35,9 @@ export interface Project {
   role: string;
   tech: string[];
   outcomes: string[];
-
   signalStack: string[];
   badges?: ProjectBadge[];
-
   bestFor?: string[];
-
   navLabel: string;
   image?: string;
   imageCaption?: string;

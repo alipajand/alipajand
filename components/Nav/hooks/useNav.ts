@@ -78,14 +78,14 @@ export function useNav(): NavHook {
     const menu = mobileMenuRef.current;
     if (!menu) return;
 
-    const getFocusables = () => Array.from(menu.querySelectorAll<HTMLAnchorElement>("a[href]"));
+    const getFocusable = () => Array.from(menu.querySelectorAll<HTMLAnchorElement>("a[href]"));
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Tab") return;
-      const focusables = getFocusables();
-      if (focusables.length === 0) return;
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
+      const focusable = getFocusable();
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
       const active = document.activeElement;
       if (e.shiftKey) {
         if (active === first) {
