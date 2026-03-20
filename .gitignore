@@ -4,8 +4,6 @@
 node_modules
 /.pnp
 .pnp.js
-.cursor
-ai-reference
 
 # testing
 /coverage
@@ -41,6 +39,9 @@ next-env.d.ts
 .vscode
 .cache
 .idea
+.cursor
+.cursorrules
+ai-reference
 
 # Sentry Auth Token
 .sentryclirc
@@ -48,5 +49,3 @@ next-env.d.ts
 /test-results/
 /playwright-report/
 /playwright/.cache/
-
-.idea
