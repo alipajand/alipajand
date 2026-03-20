@@ -44,11 +44,7 @@ describe("useGridOutlineAnimation", () => {
       return (
         <svg ref={svgRef} aria-label="grid">
           {snakeOrder.slice(0, 3).map(([row, col]) => (
-            <path
-              key={`${row}-${col}`}
-              data-grid-outline
-              data-sum={row + col}
-            />
+            <path key={`${row}-${col}`} data-grid-outline data-sum={row + col} />
           ))}
         </svg>
       );
@@ -90,4 +86,3 @@ describe("useGridOutlineAnimation", () => {
     render(<TestComponent />);
   });
 });
-

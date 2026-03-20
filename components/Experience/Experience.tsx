@@ -21,11 +21,7 @@ export function Experience() {
       className={SECTION_SHELL}
     >
       <div className={SECTION_INNER}>
-        <h2
-          id="experience-heading"
-          className={`${SECTION_TITLE} mb-4 sm:mb-5`}
-          data-reveal
-        >
+        <h2 id="experience-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`} data-reveal>
           Experience
         </h2>
         <p className={`${SECTION_LEDE_LG} mb-12 sm:mb-16`} data-reveal>

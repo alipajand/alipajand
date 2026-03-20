@@ -99,4 +99,3 @@ describe("useTestimonialsReveal", () => {
     expect(gsap.timeline).toHaveBeenCalled();
   });
 });
-

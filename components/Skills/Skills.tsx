@@ -18,11 +18,7 @@ export function Skills() {
       className={SECTION_SHELL}
     >
       <div className={SECTION_INNER}>
-        <h2
-          id="expertise-heading"
-          className={`${SECTION_TITLE} mb-4 sm:mb-5`}
-          data-reveal
-        >
+        <h2 id="expertise-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`} data-reveal>
           What I do
         </h2>
         <p className={`${SECTION_LEDE_LG} mb-10 sm:mb-12`} data-reveal>

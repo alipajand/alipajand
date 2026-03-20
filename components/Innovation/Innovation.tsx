@@ -27,11 +27,7 @@ export function Innovation() {
       className={SECTION_SHELL}
     >
       <div className={SECTION_INNER}>
-        <h2
-          id="innovation-heading"
-          className={`${SECTION_TITLE} mb-4 sm:mb-5`}
-          data-reveal
-        >
+        <h2 id="innovation-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`} data-reveal>
           {INNOVATION_SECTION_HEADING}
         </h2>
         <p className={`${SECTION_LEDE_LG} mb-12 sm:mb-16`} data-reveal>
@@ -41,10 +37,7 @@ export function Innovation() {
         <ul ref={listRef} className="space-y-6">
           {INNOVATION_ITEMS.map((item) => (
             <li key={item.id}>
-              <article
-                data-innovation-card
-                className={`${CARD_SURFACE_HOVER} p-6 sm:p-8`}
-              >
+              <article data-innovation-card className={`${CARD_SURFACE_HOVER} p-6 sm:p-8`}>
                 <h3 className="font-display font-semibold text-xl text-foreground">{item.title}</h3>
                 <p className="mt-3 text-muted text-[15px] sm:text-base leading-relaxed">
                   {item.description}

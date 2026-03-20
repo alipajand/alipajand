@@ -2,13 +2,7 @@
 
 import { useHero } from "components/Hero/hooks/useHero";
 import { LINKS } from "data/links";
-import {
-  HERO_SUB,
-  HERO_VALUE_LINE,
-  LOCATION,
-  RESUME_URL,
-  SITE_NAME,
-} from "data/site";
+import { HERO_SUB, HERO_VALUE_LINE, LOCATION, RESUME_URL, SITE_NAME } from "data/site";
 import { HeroBackground } from "components/Hero/HeroBackground";
 import { ContactLink } from "components/Hero/ContactLink";
 import { CTA_PRIMARY, CTA_SECONDARY, CTA_TERTIARY } from "utils/visual";
@@ -36,12 +30,13 @@ export function Hero() {
 
   return (
     <section
+      id="hero"
       ref={containerRef}
       aria-label="Introduction"
       className="relative min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-20 pt-24 pb-32 overflow-hidden bg-background"
     >
       <HeroBackground />
-      <div className="relative z-10 max-w-4xl mx-auto w-full">
+      <div className="relative z-10 max-w-6xl mx-auto w-full">
         <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
           <span ref={nameCharsRef} className="block text-foreground hero-lcp">
             {SITE_NAME.split("").map((char, i) => (
@@ -59,7 +54,7 @@ export function Hero() {
         </h1>
         <p
           ref={subRef}
-          className="mt-6 sm:mt-7 max-w-2xl text-muted text-[15px] sm:text-base leading-relaxed opacity-0 translate-y-15"
+          className="mt-6 sm:mt-7  text-muted text-[15px] sm:text-base leading-relaxed opacity-0 translate-y-15"
         >
           {HERO_SUB}
         </p>

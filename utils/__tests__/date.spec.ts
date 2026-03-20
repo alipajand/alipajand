@@ -26,4 +26,3 @@ describe("utils/date", () => {
     expect(result).toMatch(/2025/);
   });
 });
-

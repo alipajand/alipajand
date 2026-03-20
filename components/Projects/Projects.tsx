@@ -25,9 +25,9 @@ export function Projects() {
         >
           Case studies
         </h2>
-        <p className="text-muted text-base sm:text-lg mb-10 sm:mb-12 max-w-2xl leading-relaxed" data-reveal>
+        <p className="text-muted text-base sm:text-lg mb-10 sm:mb-12  leading-relaxed" data-reveal>
           Outcome first, then how the work was structured—technical signals up front, full stack on
-          request. Serious writeups, not a gallery.
+          request. Serious write ups, not a gallery.
         </p>
 
         <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_12.5rem] xl:grid-cols-[minmax(0,1fr)_13.5rem] lg:gap-10 xl:gap-12 lg:items-start">
@@ -39,10 +39,7 @@ export function Projects() {
             ))}
           </ul>
 
-          <nav
-            className="hidden lg:block sticky top-28 self-start"
-            aria-label="Jump to case study"
-          >
+          <nav className="hidden lg:block sticky top-28 self-start" aria-label="Jump to case study">
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted mb-3">
               On this page
             </p>

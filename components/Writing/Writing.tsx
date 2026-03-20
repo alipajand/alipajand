@@ -60,7 +60,7 @@ function FeaturedPostCard({ post }: { post: WritingPost }) {
           {post.title}
         </h3>
         <PostMeta date={post.date} tags={post.tags} />
-        <p className="text-muted text-[15px] sm:text-base mt-4 leading-relaxed max-w-2xl">{post.excerpt}</p>
+        <p className="text-muted text-[15px] sm:text-base mt-4 leading-relaxed ">{post.excerpt}</p>
         <span className="inline-flex mt-5 text-sm font-medium text-foreground underline-offset-4 group-hover:underline group-focus-visible:underline">
           Read article →
         </span>
@@ -89,7 +89,13 @@ function RecentPostCard({ post }: { post: WritingPost }) {
   );
 }
 
-export function Writing({ featured, posts }: { featured: WritingPost | null; posts: WritingPost[] }) {
+export function Writing({
+  featured,
+  posts,
+}: {
+  featured: WritingPost | null;
+  posts: WritingPost[];
+}) {
   const {
     selectors: { sectionRef },
   } = useScrollReveal({ y: 32, stagger: 0.08 });
@@ -104,7 +110,7 @@ export function Writing({ featured, posts }: { featured: WritingPost | null; pos
       className={SECTION_SHELL}
     >
       <div className={SECTION_INNER}>
-        <header className="max-w-2xl mb-10 sm:mb-12" data-reveal>
+        <header className="mb-10 sm:mb-12" data-reveal>
           <h2 id="writing-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
             Writing
           </h2>
@@ -131,7 +137,10 @@ export function Writing({ featured, posts }: { featured: WritingPost | null; pos
           ) : null}
         </div>
 
-        <div className="mt-12 sm:mt-14 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4" data-reveal>
+        <div
+          className="mt-12 sm:mt-14 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+          data-reveal
+        >
           <p className="text-sm text-muted m-0">More essays and notes on the archive.</p>
           <Link
             href="/blog"

@@ -9,7 +9,7 @@ export const SECTION_RULE = "border-t border-border";
 export const SECTION_SHELL = `${SECTION_X} ${SECTION_Y} ${SECTION_RULE}`;
 export const SECTION_SHELL_BRIDGE = `${SECTION_X} ${SECTION_Y_BRIDGE} ${SECTION_RULE}`;
 
-export const SECTION_INNER = "max-w-4xl mx-auto w-full";
+export const SECTION_INNER = "max-w-6xl mx-auto w-full";
 export const SECTION_INNER_WIDE = "max-w-6xl mx-auto w-full";
 
 export const SECTION_TITLE =
@@ -18,11 +18,9 @@ export const SECTION_TITLE =
 export const SECTION_TITLE_COMPACT =
   "font-display font-bold tracking-tight text-2xl sm:text-3xl text-foreground";
 
-export const SECTION_LEDE = "text-muted text-[15px] sm:text-base leading-relaxed max-w-2xl";
+export const SECTION_LEDE = "text-muted text-[15px] sm:text-base leading-relaxed";
 
-export const SECTION_LEDE_LG = "text-muted text-base sm:text-lg leading-relaxed max-w-2xl";
-
-export const SURFACE_BAND = "bg-[var(--surface-section)]";
+export const SECTION_LEDE_LG = "text-muted text-base sm:text-lg leading-relaxed";
 
 export const CARD_SURFACE =
   "rounded-xl border border-border/70 bg-card/50 transition-colors duration-200";

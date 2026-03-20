@@ -1,11 +1,7 @@
 "use client";
 
 import { useTestimonialsReveal } from "components/Testimonials/hooks/useTestimonialsReveal";
-import {
-  TESTIMONIALS,
-  TESTIMONIALS_HEADING,
-  TESTIMONIALS_INTRO,
-} from "data/testimonials";
+import { TESTIMONIALS, TESTIMONIALS_HEADING, TESTIMONIALS_INTRO } from "data/testimonials";
 import { SECTION_LEDE, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
 export function Testimonials() {
@@ -20,12 +16,8 @@ export function Testimonials() {
       aria-labelledby="testimonials-heading"
       className={SECTION_SHELL}
     >
-      <div className="max-w-3xl mx-auto w-full">
-        <h2
-          id="testimonials-heading"
-          className={`${SECTION_TITLE} mb-5 sm:mb-6`}
-          data-reveal
-        >
+      <div className="max-w-6xl mx-auto w-full">
+        <h2 id="testimonials-heading" className={`${SECTION_TITLE} mb-5 sm:mb-6`} data-reveal>
           {TESTIMONIALS_HEADING}
         </h2>
         <p
@@ -50,7 +42,7 @@ export function Testimonials() {
                     </span>
                   </p>
                 </blockquote>
-                <figcaption className="mt-7 pt-6 border-t border-border/80">
+                <figcaption className="mt-2 pt-2 border-t border-border/80">
                   {t.author?.trim() ? (
                     <div className="space-y-1">
                       <p className="text-sm font-medium text-foreground">{t.author}</p>

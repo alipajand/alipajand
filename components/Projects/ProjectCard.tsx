@@ -87,7 +87,9 @@ export function ProjectCard({ project }: { project: Project }) {
             <span className="inline-flex items-center gap-2">
               Full stack
               <span className="text-muted/80 text-xs font-normal group-open/details:hidden">+</span>
-              <span className="text-muted/80 text-xs font-normal hidden group-open/details:inline">−</span>
+              <span className="text-muted/80 text-xs font-normal hidden group-open/details:inline">
+                −
+              </span>
             </span>
           </summary>
           <div className="mt-3 flex flex-wrap gap-2 pb-1">
@@ -145,20 +147,26 @@ export function ProjectCard({ project }: { project: Project }) {
                 <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
                   Problem
                 </span>
-                <p className="text-sm text-foreground/90 leading-relaxed">{project.caseStudy!.problem}</p>
+                <p className="text-sm text-foreground/90 leading-relaxed">
+                  {project.caseStudy!.problem}
+                </p>
               </div>
               <div className="min-w-0 space-y-2">
                 <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
                   Approach
                 </span>
-                <p className="text-sm text-foreground/90 leading-relaxed">{project.caseStudy!.approach}</p>
+                <p className="text-sm text-foreground/90 leading-relaxed">
+                  {project.caseStudy!.approach}
+                </p>
               </div>
             </div>
             <div className="min-w-0 space-y-2">
               <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
                 Result
               </span>
-              <p className="text-sm text-foreground/90 leading-relaxed">{project.caseStudy!.result}</p>
+              <p className="text-sm text-foreground/90 leading-relaxed">
+                {project.caseStudy!.result}
+              </p>
             </div>
           </div>
         )}
@@ -236,9 +244,7 @@ export function ProjectCard({ project }: { project: Project }) {
                       ↗
                     </span>
                   ) : null}
-                  {ext ? (
-                    <span className="sr-only"> (opens in new tab)</span>
-                  ) : null}
+                  {ext ? <span className="sr-only"> (opens in new tab)</span> : null}
                 </a>
               );
             })}

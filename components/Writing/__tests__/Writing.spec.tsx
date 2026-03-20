@@ -1,11 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import type { WritingPost } from "components/Writing/Writing";
 import { Writing } from "components/Writing/Writing";
-import {
-  WRITING_ALL_POSTS_CTA,
-  WRITING_SECTION_LEDE,
-  WRITING_WHY_IT_MATTERS,
-} from "data/writing";
+import { WRITING_ALL_POSTS_CTA, WRITING_SECTION_LEDE, WRITING_WHY_IT_MATTERS } from "data/writing";
 
 jest.mock("utils/hooks/useScrollReveal", () => ({
   useScrollReveal: jest.fn(() => ({

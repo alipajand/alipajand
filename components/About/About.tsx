@@ -19,11 +19,7 @@ export function About() {
       className={`${SECTION_X} ${SECTION_Y} ${SECTION_RULE}`}
     >
       <div className={SECTION_INNER}>
-        <h2
-          id="about-heading"
-          className={`${SECTION_TITLE} mb-6 sm:mb-8`}
-          data-reveal
-        >
+        <h2 id="about-heading" className={`${SECTION_TITLE} mb-6 sm:mb-8`} data-reveal>
           About
         </h2>
         <p className="text-muted text-[15px] sm:text-lg leading-[1.65]" data-reveal>
@@ -32,7 +28,10 @@ export function About() {
         <p className="mt-6 text-muted text-[15px] sm:text-lg leading-[1.65]" data-reveal>
           {second}
         </p>
-        <p className="mt-6 text-[15px] sm:text-lg leading-[1.65] text-foreground font-semibold" data-reveal>
+        <p
+          className="mt-6 text-[15px] sm:text-lg leading-[1.65] text-foreground font-semibold"
+          data-reveal
+        >
           {third}
         </p>
       </div>
