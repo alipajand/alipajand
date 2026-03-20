@@ -10,7 +10,10 @@ describe("SiteFooter", () => {
       "href",
       "/portfolio#projects"
     );
-    expect(screen.getByRole("link", { name: "Full portfolio" })).toHaveAttribute("href", "/portfolio");
+    expect(screen.getByRole("link", { name: "Full portfolio" })).toHaveAttribute(
+      "href",
+      "/portfolio"
+    );
     expect(screen.getByRole("link", { name: "Writing" })).toHaveAttribute("href", "/#writing");
     expect(screen.getByRole("link", { name: "All posts" })).toHaveAttribute("href", "/blog");
     expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/#contact");

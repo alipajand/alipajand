@@ -14,8 +14,11 @@ const FOOTER_LINKS = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-background">
-      <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-20 py-10 sm:py-12">
-        <nav aria-label="Site" className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+      <div className="px-6 sm:px-10 lg:px-20 py-10 sm:py-12">
+        <nav
+          aria-label="Site"
+          className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted max-w-6xl mx-auto"
+        >
           {FOOTER_LINKS.map((item) => (
             <Link
               key={item.href}
