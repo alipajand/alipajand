@@ -20,6 +20,15 @@ export interface ProjectLink {
   href: string;
 }
 
+/** Theme tags for scanning (not a gallery aesthetic—short, serious). */
+export type ProjectBadge =
+  | "Design systems"
+  | "DX"
+  | "AI"
+  | "Performance"
+  | "Data viz"
+  | "Accessibility";
+
 export interface Project {
   id: string;
   name: string;
@@ -27,6 +36,13 @@ export interface Project {
   role: string;
   tech: string[];
   outcomes: string[];
+  /** 2–3 strongest technical signals to surface (subset of or cross-cutting vs `tech`). */
+  signalStack: string[];
+  badges?: ProjectBadge[];
+  /** Hiring angles / role fit. */
+  bestFor?: string[];
+  /** Short label for in-section jump nav. */
+  navLabel: string;
   image?: string;
   imageCaption?: string;
   secondaryMedia?: ProjectMedia;
@@ -43,6 +59,10 @@ export const PROJECTS: Project[] = [
     description:
       "Designed and implemented an AI recommendations pipeline that planners, developers, and auditors can trust—grounded in the same zoning rules, feasibility math, and datasets as the rest of MapBylaw.",
     role: "Senior product engineer · MapBylaw",
+    navLabel: "MapBylaw · AI",
+    signalStack: ["TypeScript + OpenAPI/Zod", "React-PDF + typed payloads", "Policy-aligned AI context"],
+    badges: ["AI", "Accessibility"],
+    bestFor: ["AI product engineering", "Frontend architecture"],
     tech: ["TypeScript", "Fastify", "React", "React-PDF", "Docling", "OpenAPI", "AWS", "WCAG"],
     outcomes: [
       "Turned vague, chatbot-style suggestions into specific, auditable recommendations that stay in sync between the dashboard and PDF reports.",
@@ -81,6 +101,10 @@ export const PROJECTS: Project[] = [
     description:
       "Product engineering for a map-first property insights platform: a shared UI across web and admin, feature-based architecture, and a type-safe API and PDF report system.",
     role: "Senior product engineer · MapBylaw",
+    navLabel: "MapBylaw · DS",
+    signalStack: ["@mapbylaw/ui", "OpenAPI + Zod contracts", "React-PDF report system"],
+    badges: ["Design systems", "DX"],
+    bestFor: ["Design systems", "Frontend architecture"],
     tech: [
       "Next.js",
       "React",
@@ -117,6 +141,10 @@ export const PROJECTS: Project[] = [
     description:
       "Built and maintained the design system for our Web3 products, then used it to ship the marketplace and login flows from design to production. Accessible (WCAG), consistent UI, solid API and auth, deployed on AWS.",
     role: "Lead / Senior frontend engineer · AlwaysGeeky Games",
+    navLabel: "Web3 DS & apps",
+    signalStack: ["Storybook + CI (visual/a11y)", "WCAG across products", "React / Next in production"],
+    badges: ["Design systems", "Accessibility"],
+    bestFor: ["Design systems", "Frontend architecture"],
     tech: [
       "React",
       "TypeScript",
@@ -156,6 +184,10 @@ export const PROJECTS: Project[] = [
     description:
       "Built data-heavy dashboards with smooth motion (GSAP) and D3.js charts, tuned to run well inside mobile webviews and embedded contexts.",
     role: "Senior frontend engineer · Emplifi",
+    navLabel: "Emplifi dashboards",
+    signalStack: ["D3.js", "GSAP + profiled React", "Embedded + webview performance"],
+    badges: ["Data viz", "Performance"],
+    bestFor: ["Performance", "Dashboards"],
     tech: ["React", "D3.js", "GSAP", "Figma"],
     outcomes: [
       "A/B tests and analytics showed better retention and a noticeably snappier UI.",
@@ -178,6 +210,10 @@ export const PROJECTS: Project[] = [
     description:
       "Built several startup products end to end, focusing on code splitting, lazy loading, and CDN-backed assets, plus PWAs with offline support and caching from scratch.",
     role: "Frontend engineer · ControlTech Startup Studio",
+    navLabel: "ControlTech PWA",
+    signalStack: ["Jest + Playwright", "GitHub Actions CI/CD", "PWA + CDN delivery"],
+    badges: ["Performance", "DX"],
+    bestFor: ["Frontend architecture", "Performance"],
     tech: ["Vue", "Nuxt.js", "React", "React Native", "Jest", "Playwright", "GitHub Actions"],
     outcomes: [
       "Reached 99.9% deployment stability with Jest, Playwright, and GitHub Actions in the loop.",

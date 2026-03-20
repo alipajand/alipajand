@@ -33,3 +33,10 @@ export const SELECTED_WORK_ITEMS: SelectedWorkItem[] = [
     imageSrc: undefined,
   },
 ];
+
+/** Items with a configured `imageSrc` appear in the on-page gallery; others are ignored. */
+export function getSelectedWorkItemsWithImages(
+  items: SelectedWorkItem[] = SELECTED_WORK_ITEMS
+): SelectedWorkItem[] {
+  return items.filter((item) => Boolean(item.imageSrc?.trim()));
+}
