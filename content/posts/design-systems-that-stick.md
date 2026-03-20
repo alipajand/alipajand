@@ -2,6 +2,9 @@
 title: "Design systems that stick"
 date: "2025-01-15"
 excerpt: "How to actually get adoption – and keep a design system alive – with clear documentation, a single source of truth, and lightweight governance."
+tags:
+  - Design systems
+  - Documentation
 ---
 
 A design system that looks great in Figma but never leaves the design team is just expensive wallpaper. The systems that

@@ -2,6 +2,9 @@
 title: "Why I automate code review with MCP"
 date: "2026-01-15"
 excerpt: "How a custom MCP server for Cursor runs lint, types, and tests for me so human reviewers can focus on architecture, trade‑offs, and naming."
+tags:
+  - DX
+  - Tooling
 ---
 
 Code review is essential, but a lot of it is the same boring checklist: did you run the tests, fix the linter errors, and keep the types happy? That work is important, but it doesn’t need a human every single time.

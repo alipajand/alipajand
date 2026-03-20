@@ -2,6 +2,9 @@
 title: "Teaching MapBylaw to give honest AI recommendations"
 date: "2026-02-26"
 excerpt: "How we went from vague, ChatGPT-flavoured suggestions to grounded, auditable AI recommendations inside a real zoning and feasibility product."
+tags:
+  - Product engineering
+  - AI
 ---
 
 On MapBylaw, “AI recommendations” can’t just sound smart — they have to survive contact with a real planner, a skeptical developer, and a 10‑page report. If the text isn’t grounded in zoning rules, feasibility math, and the same datasets the rest of the app uses, it’s just copy with a chatbot accent.

@@ -2,6 +2,11 @@
 title: "Building tools that don’t fight you"
 date: "2026-02-26"
 excerpt: "How I think about design systems, automated code review, and AI recommendations as one problem: building reliable tools that disappear into the work instead of getting in the way."
+featured: true
+tags:
+  - Design systems
+  - DX
+  - Tooling
 ---
 
 Most of my work circles the same question: **how do you build tools that people actually use, trust, and eventually stop thinking about?**
