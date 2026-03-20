@@ -60,9 +60,7 @@ function stripTsComments(content, fileName) {
     content,
     ts.ScriptTarget.Latest,
     true,
-    fileName.endsWith(".tsx") || fileName.endsWith(".jsx")
-      ? ts.ScriptKind.TSX
-      : ts.ScriptKind.TS,
+    fileName.endsWith(".tsx") || fileName.endsWith(".jsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS
   );
   const ranges = collectCommentRanges(sourceFile);
   let out = content;
