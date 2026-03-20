@@ -1,37 +1,30 @@
-import { Nav } from "components/Nav/Nav";
 import { Hero } from "components/Hero/Hero";
-import { About } from "components/About/About";
-import { Experience } from "components/Experience/Experience";
-import { Projects } from "components/Projects/Projects";
+import { ProofStrip } from "components/ProofStrip/ProofStrip";
+import { HireProof } from "components/HireProof/HireProof";
 import { SelectedWorkGallery } from "components/SelectedWorkGallery/SelectedWorkGallery";
-import { Innovation } from "components/Innovation/Innovation";
 import { Testimonials } from "components/Testimonials/Testimonials";
 import { Writing } from "components/Writing/Writing";
-import { Skills } from "components/Skills/Skills";
+import { HiringSummary } from "components/HiringSummary/HiringSummary";
 import { Contact } from "components/Contact/Contact";
 import { MainReveal } from "components/MainReveal/MainReveal";
-import { Education } from "components/Education/Education";
-import { getLatestPosts } from "utils/posts";
+import { getPostsForWritingSection } from "utils/posts";
 
+/** Homepage — best-hits order for a fast scan; deep sections on `/portfolio`. */
 export default function Home() {
-  const latestPosts = getLatestPosts(2);
+  const { featured: featuredPost, recent: writingPosts } = getPostsForWritingSection(2);
 
   return (
     <>
-      <Nav />
       <MainReveal>
         <main id="main-content" tabIndex={-1}>
           <Hero />
-          <About />
-          <Experience />
-          <Projects />
+          <ProofStrip />
+          <HireProof />
           <SelectedWorkGallery />
-          <Innovation />
           <Testimonials />
-          <Writing posts={latestPosts} />
-          <Skills />
+          <Writing featured={featuredPost} posts={writingPosts} />
+          <HiringSummary />
           <Contact />
-          <Education />
         </main>
       </MainReveal>
     </>

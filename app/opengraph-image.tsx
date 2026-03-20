@@ -1,13 +1,13 @@
 import { ImageResponse } from "next/og";
 
-import { CANONICAL_URL, HERO_METRICS, LOCATION, SITE_NAME, TAGLINE } from "data/site";
+import { CANONICAL_URL, HERO_PROOF_ROW, LOCATION, SITE_NAME, TAGLINE } from "data/site";
 
 export const size = { width: 1200, height: 630 };
 
 export default function OpenGraphImage() {
   const photoUrl = `${CANONICAL_URL}/icon.png`;
 
-  const metricsLine = `${HERO_METRICS[0].value} years · React, TypeScript, Node.js · ${LOCATION}`;
+  const metricsLine = `${HERO_PROOF_ROW[0].value} ${HERO_PROOF_ROW[0].label} · ${HERO_PROOF_ROW[1].value} · ${LOCATION}`;
 
   return new ImageResponse(
     <div
@@ -66,7 +66,7 @@ export default function OpenGraphImage() {
       </div>
       <img
         src={photoUrl}
-        alt=""
+        alt={`${SITE_NAME} profile photo`}
         width={280}
         height={280}
         style={{
