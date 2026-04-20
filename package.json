@@ -24,7 +24,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.72.0",
-    "resend": "^6.11.0"
+    "resend": "^6.12.2"
   },
   "overrides": {
     "minimatch": ">=9.0.7"
