@@ -5,7 +5,7 @@ import { type ContactFormHook, useContactForm } from "components/Contact/hooks/u
 import { FOCUS_RING } from "utils/visual";
 
 const inputClass =
-  'w-full px-4 py-2.5 rounded-lg bg-card border border-border text-foreground placeholder:text-muted/90 focus:outline-none focus:ring-2 focus:ring-foreground focus:border-transparent disabled:opacity-60 disabled:cursor-not-allowed';
+  "w-full px-4 py-2.5 rounded-lg bg-card border border-border text-foreground placeholder:text-muted/90 focus:outline-none focus:ring-2 focus:ring-foreground focus:border-transparent disabled:opacity-60 disabled:cursor-not-allowed";
 const labelClass = "block text-sm font-medium text-foreground";
 const hintClass = "mt-1 text-xs text-muted leading-snug";
 
