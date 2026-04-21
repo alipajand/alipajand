@@ -50,92 +50,6 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    id: "mapbylaw-ai-recommendations-report-integrity",
-    name: "Typed AI recommendations & report integrity",
-    description:
-      "Designed and implemented an AI recommendations pipeline that planners, developers, and auditors can trust—grounded in the same zoning rules, feasibility math, and datasets as the rest of MapBylaw.",
-    role: "Senior product engineer · MapBylaw",
-    navLabel: "MapBylaw · AI",
-    signalStack: [
-      "TypeScript + OpenAPI/Zod",
-      "React-PDF + typed payloads",
-      "Policy-aligned AI context",
-    ],
-    badges: ["AI", "Accessibility"],
-    bestFor: ["AI product engineering", "Frontend architecture"],
-    tech: ["TypeScript", "Fastify", "React", "React-PDF", "Docling", "OpenAPI", "AWS", "WCAG"],
-    outcomes: [
-      "Turned vague, chatbot-style suggestions into specific, auditable recommendations that stay in sync between the dashboard and PDF reports.",
-      "Introduced a single typed contract for AI recommendations across API, dashboard, and PDF so audits no longer require chasing fields through multiple layers.",
-      "Made rule and incentive changes flow through one orchestrator, tightening both AI context and validation automatically while keeping report content policy intact.",
-    ],
-    caseStudy: {
-      problem:
-        "Early AI recommendations were generic, hard to trace back to inputs, and sometimes drifted from MapBylaw's content policy (no fake or static data, no Montreal-only fallbacks pretending to be real). There was no single typed contract between the Fastify API, React dashboards, and React-PDF reports, so auditing a recommendation meant spelunking across services and documents.",
-      approach:
-        "Standardized a strict TypeScript shape for ai_recommendations in the API and database, then consumed it in both the web dashboard and PDF payload builder. Built a narrow context builder that only feeds the model what MapBylaw already knows is true (zoning code, PUM 2050 sector, heritage/climate flags, feasibility scores, computed scenarios). Wired the flow through OpenAPI + Zod validation, added tests so malformed recommendations fail fast, and codified the constraints in REPORTS_DATA_AUDIT.md, ARCHITECTURE.md, IMPLEMENTATION_STATUS.md, and API_AUDIT.md.",
-      result:
-        "Specific, auditable recommendations that line up between dashboard and PDF (e.g., “Scenario B exceeds the Plateau conversion cap; keep GFA under 200 m² or switch to a plex + ADU strategy”) and evolve automatically as rules and incentives change—without hand-editing report copy.",
-    },
-    beforeAfter: [
-      {
-        label: "AI interface",
-        before: "Chatbot-style, generic",
-        after: "Typed, scenario-specific service",
-      },
-      {
-        label: "Context",
-        before: "Loose, sometimes invented",
-        after: "Narrow, policy-aligned, no fake data",
-      },
-      {
-        label: "Schema",
-        before: "Scattered across layers",
-        after: "Shared contract + living audits",
-      },
-    ],
-  },
-  {
-    id: "mapbylaw-design-system-dx",
-    name: "Design system & platform DX",
-    description:
-      "Product engineering for a map-first property insights platform: a shared UI across web and admin, feature-based architecture, and a type-safe API and PDF report system.",
-    role: "Senior product engineer · MapBylaw",
-    navLabel: "MapBylaw · DS",
-    signalStack: ["@mapbylaw/ui", "OpenAPI + Zod contracts", "React-PDF report system"],
-    badges: ["Design systems", "DX"],
-    bestFor: ["Design systems", "Frontend architecture"],
-    tech: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "@mapbylaw/ui",
-      "React-PDF",
-      "Mapbox GL",
-      "Tailwind",
-      "Jest",
-      "Playwright",
-    ],
-    outcomes: [
-      "Single design system (@mapbylaw/ui) for web and admin so toasts, shell, and tables behave the same everywhere.",
-      "Feature-based structure and path aliases so teams ship features without deep import chains or guessing where things live.",
-      "OpenAPI + Zod and strongly typed PDF payloads keep API contracts and report outputs in lockstep.",
-    ],
-    caseStudy: {
-      problem:
-        "Web and admin needed a consistent design language and patterns, while API, PDF report, and frontend all evolved with new bilingual reports, consent-gated analytics, and internal tooling.",
-      approach:
-        "Built a shared component library (@mapbylaw/ui) for both apps, organized by feature with barrel exports and path aliases (components/, features/, utils/) for clean imports. Used OpenAPI 3.0 and Zod for API contracts, plus React-PDF with a typed payload builder and shared report components so the 10-page bilingual report stays single-source.",
-      result:
-        "A single design language and predictable DX: API docs and types drive the frontend, and report content policy (no static/fake data) is enforced via shared types and audit.",
-    },
-    beforeAfter: [
-      { label: "UI across apps", before: "Separate stacks", after: "Shared @mapbylaw/ui" },
-      { label: "Report data", before: "Ad-hoc copy", after: "Typed payload + audit" },
-    ],
-    links: [{ label: "Project", href: "https://mapbylaw.ca/" }],
-  },
-  {
     id: "ledgerguard-deterministic-commitments-ledger",
     name: "Deterministic ledger + honest renewal read models",
     description:
@@ -173,7 +87,7 @@ export const PROJECTS: Project[] = [
     ],
     caseStudy: {
       problem:
-        "Renewal and spend-at-risk readouts are only useful if finance trusts them. Contract PDFs flow through async, idempotent pipelines that can replay, partially fail, or land fields before synthesis catches up. If any UI prefers \"whatever row got written first,\" you ship confident renewals off stale commitments—the exact failure mode that makes CFOs reject black-box contract AI.",
+        'Renewal and spend-at-risk readouts are only useful if finance trusts them. Contract PDFs flow through async, idempotent pipelines that can replay, partially fail, or land fields before synthesis catches up. If any UI prefers "whatever row got written first," you ship confident renewals off stale commitments—the exact failure mode that makes CFOs reject black-box contract AI.',
       approach:
         "Treated LedgerGuard as two systems: a deterministic API/domain layer (commitments, commitment_fields, truth_state, audit metadata) and a probabilistic worker layer that never writes tenant truth directly. Codified portfolio truth precedence (version skew, same-version drift, fields-only recovery) so read models align across routes, idempotent worker callbacks plan repair instead of clobbering newer synthesis, and human verify on synthesis-driving keys triggers realignment—or bounded honesty when realign cannot complete.",
       result:
@@ -197,6 +111,57 @@ export const PROJECTS: Project[] = [
       },
     ],
     link: "https://ledgerguard.io/",
+  },
+  {
+    id: "mapbylaw-platform-ui-ai-reports",
+    name: "Design system, typed AI & report platform",
+    description:
+      "Product engineering for the MapBylaw map-first property insights platform: shared @mapbylaw/ui across web and admin, OpenAPI + Zod contracts, typed React-PDF bilingual reports, and AI recommendations grounded in the same zoning rules, feasibility math, and datasets as the rest of the product.",
+    role: "Senior product engineer · MapBylaw",
+    navLabel: "MapBylaw",
+    signalStack: [
+      "@mapbylaw/ui + feature-based apps",
+      "OpenAPI/Zod + typed React-PDF",
+      "Policy-aligned AI recommendations",
+    ],
+    badges: ["Design systems", "DX", "AI", "Accessibility"],
+    bestFor: ["Design systems", "AI product engineering", "Frontend architecture"],
+    tech: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Fastify",
+      "@mapbylaw/ui",
+      "React-PDF",
+      "Mapbox GL",
+      "Tailwind",
+      "Docling",
+      "OpenAPI",
+      "AWS",
+      "WCAG",
+      "Jest",
+      "Playwright",
+    ],
+    outcomes: [
+      "Single design system (@mapbylaw/ui), feature-based structure, and path aliases for web and admin—OpenAPI + Zod and typed React-PDF payloads keep the bilingual report, API, and UI in lockstep.",
+      "AI recommendations as a strict typed service: narrow context from real zoning and feasibility inputs, one contract across Fastify, dashboard, and PDF, with malformed payloads failing fast instead of drifting from content policy.",
+      "Rule and incentive changes flow through one orchestrator so validation, AI context, and report integrity evolve together—without hand-editing report copy or chasing fields across layers for audits.",
+    ],
+    caseStudy: {
+      problem:
+        "Web and admin needed a consistent design language and scalable feature layout while the API, bilingual PDF reports, consent-gated analytics, and internal tooling evolved in parallel. Early AI recommendations were generic and hard to trace; there was no single typed contract between the Fastify API, React dashboards, and React-PDF, which risked drift from MapBylaw's content policy (no fake or static data, no Montreal-only fallbacks pretending to be real).",
+      approach:
+        "Built @mapbylaw/ui for both apps with feature folders, barrel exports, and path aliases (components/, features/, utils/). Standardized OpenAPI 3.0 + Zod for API contracts and a typed React-PDF payload builder with shared report components so the 10-page bilingual report stays single-source. For AI, defined a strict TypeScript shape for ai_recommendations in the API and database, a narrow context builder fed only verified inputs (zoning, PUM 2050 sector, heritage/climate flags, feasibility scores, computed scenarios), tests so bad payloads fail fast, and living audits (REPORTS_DATA_AUDIT.md, ARCHITECTURE.md, IMPLEMENTATION_STATUS.md, API_AUDIT.md).",
+      result:
+        "One design language and predictable DX, with specific auditable recommendations that line up between dashboard and PDF (e.g., scenario-level zoning guidance) and evolve automatically as rules and incentives change—report content policy enforced by shared types and audit, not ad-hoc copy.",
+    },
+    beforeAfter: [
+      { label: "UI across apps", before: "Separate stacks", after: "Shared @mapbylaw/ui" },
+      { label: "AI interface", before: "Chatbot-style, generic", after: "Typed, scenario-specific service" },
+      { label: "Context", before: "Loose, sometimes invented", after: "Narrow, policy-aligned, no fake data" },
+      { label: "Schema & reports", before: "Scattered / ad-hoc", after: "Shared contract + typed PDF + audits" },
+    ],
+    links: [{ label: "Project", href: "https://mapbylaw.ca/" }],
   },
   {
     id: "design-system-marketplace-login-web3",

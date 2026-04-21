@@ -47,9 +47,9 @@ describe("Projects", () => {
     const nav = container.querySelector('[aria-label="Jump to case study"]');
     expect(nav).toBeInTheDocument();
     const jump = container.querySelector(
-      'a[href="#project-mapbylaw-ai-recommendations-report-integrity"]'
+      'a[href="#project-mapbylaw-platform-ui-ai-reports"]'
     );
-    expect(jump?.textContent).toContain("MapBylaw · AI");
+    expect(jump?.textContent).toContain("MapBylaw");
   });
 
   it("renders technical signals and full stack", () => {
