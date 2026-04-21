@@ -10,9 +10,6 @@ import { FOCUS_RING } from "utils/visual";
 import Link from "next/link";
 
 const NAV_LINKS = [
-  { href: "/#hero", label: "Me" },
-  { href: "/#selected-work-gallery", label: "Work" },
-  { href: "/#testimonials", label: "Testimonials" },
   { href: "/blog", label: "Writing" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/#contact", label: "Contact" },

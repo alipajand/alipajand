@@ -5,7 +5,7 @@ import { type ContactFormHook, useContactForm } from "components/Contact/hooks/u
 import { FOCUS_RING } from "utils/visual";
 
 const inputClass =
-  "w-full px-4 py-2.5 rounded-lg bg-card border border-border text-foreground placeholder:text-muted/90 focus:outline-none focus:ring-2 focus:ring-foreground focus:border-transparent disabled:opacity-60 disabled:cursor-not-allowed";
+  'w-full px-4 py-2.5 rounded-lg bg-card border border-border text-foreground placeholder:text-muted/90 focus:outline-none focus:ring-2 focus:ring-foreground focus:border-transparent disabled:opacity-60 disabled:cursor-not-allowed';
 const labelClass = "block text-sm font-medium text-foreground";
 const hintClass = "mt-1 text-xs text-muted leading-snug";
 
@@ -44,12 +44,12 @@ export function ContactForm() {
           autoComplete="name"
           disabled={isSubmitting}
           className={classNames(inputClass, "mt-2")}
-          aria-invalid={errors.name ? true : undefined}
+          {...register("name", { required: "Enter your name" })}
+          aria-invalid={errors.name ? "true" : "false"}
           aria-required
           aria-describedby={
             errors.name ? "contact-name-hint contact-name-error" : "contact-name-hint"
           }
-          {...register("name", { required: "Enter your name" })}
         />
         {errors.name && (
           <p
@@ -76,11 +76,6 @@ export function ContactForm() {
           autoComplete="email"
           disabled={isSubmitting}
           className={classNames(inputClass, "mt-2")}
-          aria-invalid={errors.email ? true : undefined}
-          aria-required
-          aria-describedby={
-            errors.email ? "contact-email-hint contact-email-error" : "contact-email-hint"
-          }
           {...register("email", {
             required: "Enter your email",
             pattern: {
@@ -88,6 +83,11 @@ export function ContactForm() {
               message: "Use a valid email address",
             },
           })}
+          aria-invalid={errors.email ? "true" : "false"}
+          aria-required
+          aria-describedby={
+            errors.email ? "contact-email-hint contact-email-error" : "contact-email-hint"
+          }
         />
         {errors.email && (
           <p
@@ -111,13 +111,13 @@ export function ContactForm() {
           rows={5}
           placeholder="e.g. Staff frontend, React/TS, hybrid in Montreal, start Q2…"
           disabled={isSubmitting}
-          className={classNames(inputClass, "resize-y min-h-[7.5rem] mt-2")}
-          aria-invalid={errors.message ? true : undefined}
+          className={classNames(inputClass, "resize-y min-h-30 mt-2")}
+          {...register("message", { required: "Add a short message" })}
+          aria-invalid={errors.message ? "true" : "false"}
           aria-required
           aria-describedby={
             errors.message ? "contact-message-hint contact-message-error" : "contact-message-hint"
           }
-          {...register("message", { required: "Add a short message" })}
         />
         {errors.message && (
           <p
