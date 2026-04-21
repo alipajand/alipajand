@@ -44,13 +44,6 @@ export const ABOUT_PARAGRAPHS = [
 export const CONTACT_INTRO =
   "Use this if you want to talk about something concrete—a post, a project, or a technical question. I’m not looking for employment opportunities; I’m still happy to hear from people who share enough context to reply usefully.";
 
-export const CONTACT_REASONS = [
-  "Feedback or questions on writing or work on this site.",
-  "Design systems, accessibility, TypeScript/React, or DX tooling—when you have a specific angle.",
-  "A concrete product or architecture problem (not generic networking intros).",
-  "Something else that fits what you see here—skip vague “just connecting” messages.",
-] as const;
-
 export const CONTACT_FORM_LEDE =
   "Prefer the form? I usually reply within a few business days. All fields are required.";
 

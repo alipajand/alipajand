@@ -17,7 +17,7 @@ export function SiteFooter() {
       <div className="px-6 sm:px-10 lg:px-20 py-10 sm:py-12">
         <nav
           aria-label="Site"
-          className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted max-w-6xl mx-auto"
+          className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted max-w-5xl mx-auto"
         >
           {FOOTER_LINKS.map((item) => (
             <Link

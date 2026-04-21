@@ -34,7 +34,7 @@ export default async function PostPage({ params }: PageProps) {
     <div className="min-h-screen bg-background text-foreground">
       <main id="main-content" tabIndex={-1} className="outline-none px-6 sm:px-10 lg:px-20 py-24">
         <ArticleJsonLd post={postForJsonLd} />
-        <article className="max-w-6xl mx-auto">
+        <article className="max-w-5xl mx-auto">
           <p className="text-muted text-sm font-medium tabular-nums">
             <time dateTime={post.date}>{formatDate(post.date)}</time>
           </p>

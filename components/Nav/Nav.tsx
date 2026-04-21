@@ -10,9 +10,6 @@ import { FOCUS_RING } from "utils/visual";
 import Link from "next/link";
 
 const NAV_LINKS = [
-  { href: "/#hero", label: "Me" },
-  { href: "/#selected-work-gallery", label: "Work" },
-  { href: "/#testimonials", label: "Testimonials" },
   { href: "/blog", label: "Writing" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/#contact", label: "Contact" },
@@ -34,7 +31,7 @@ export function Nav() {
     >
       <nav aria-label="Primary" className="relative">
         <div className="px-6 sm:px-10 lg:px-20">
-          <div className="max-w-6xl mx-auto w-full flex items-center justify-between gap-4 h-16">
+          <div className="max-w-5xl mx-auto w-full flex items-center justify-between gap-4 h-16">
             <Link
               href="/"
               aria-current={homeBrandAriaCurrent(pathname)}

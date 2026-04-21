@@ -16,7 +16,7 @@ export function Testimonials() {
       aria-labelledby="testimonials-heading"
       className={SECTION_SHELL}
     >
-      <div className="max-w-6xl mx-auto w-full">
+      <div className="max-w-5xl mx-auto w-full">
         <h2 id="testimonials-heading" className={`${SECTION_TITLE} mb-5 sm:mb-6`} data-reveal>
           {TESTIMONIALS_HEADING}
         </h2>

@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _(No unreleased changes.)_
 
+---
+
+## [1.2.0] - 2026-04-21
+
+### Changed
+
+- Update some styles
+- Update nav links
+- Update favicon
+
+---
+
 ## [1.1.0] - 2026-03-19
 
 ### Added
@@ -28,17 +40,23 @@ _(No unreleased changes.)_
 - **Tooling:** Exclude `.next` in `tsconfig.json` so generated route types aren’t duplicated; trim `next.config.ts`; remove `format:check`, `test:coverage`, and `test:watch` npm scripts.
 - **Maintenance:** Strip comments across app, components, data, and utils without reprinting files.
 
+---
+
 ## [1.0.4] - 2026-03-01
 
 ### Added
 
 - Add `SECURITY.md` with supported versions and instructions for reporting vulnerabilities (enables GitHub Security policy).
 
+---
+
 ## [1.0.3] - 2026-03-01
 
 ### Fixed
 
 - **Security:** Resolve high-severity ReDoS in transitive `minimatch` (GHSA-3ppc-4f35-3m26, GHSA-7r86-cg39-jmmj, GHSA-23c5-xmqv-rm74): `matchOne()` combinatorial backtracking via multiple non-adjacent GLOBSTAR segments. Fixed via `npm audit fix` and an `overrides` entry in `package.json` pinning `minimatch` to `>=9.0.7` so Jest and other transitive dependents cannot regress; addresses Dependabot alert #6.
+
+---
 
 ## [1.0.2] - 2026-02-26
 
@@ -49,6 +67,8 @@ _(No unreleased changes.)_
 ### Fixed
 
 - Restore the optional `image` field on the `Project` type so project cards and their tests compile correctly.
+
+---
 
 ## [1.0.1] - 2026-02-26
 

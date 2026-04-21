@@ -1,13 +1,14 @@
 {
   "name": "alipajand",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "format": "prettier --write .",
+    "lint": "eslint \"**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,cjs}\"",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "prepare": "husky"
@@ -18,19 +19,19 @@
     "geist": "^1.7.0",
     "gray-matter": "^4.0.3",
     "gsap": "^3.14.2",
-    "lenis": "^1.3.18",
-    "marked": "^17.0.4",
-    "next": "16.1.7",
+    "lenis": "^1.3.21",
+    "marked": "^17.0.6",
+    "next": "^16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-hook-form": "^7.71.2",
-    "resend": "^6.9.3"
+    "react-hook-form": "^7.72.0",
+    "resend": "^6.11.0"
   },
   "overrides": {
     "minimatch": ">=9.0.7"
   },
   "devDependencies": {
-    "@asamuzakjp/css-color": "^3.2.0",
+    "@asamuzakjp/css-color": "^5.1.6",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -40,7 +41,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9.39.4",
-    "eslint-config-next": "16.1.6",
+    "eslint-config-next": "16.2.2",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "jest": "^30.3.0",
@@ -48,6 +49,6 @@
     "jest-environment-jsdom": "^30.3.0",
     "prettier": "^3.8.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^6"
   }
 }

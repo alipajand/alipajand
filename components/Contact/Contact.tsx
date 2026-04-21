@@ -3,11 +3,10 @@
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import { trackGtagEvent } from "utils/analytics";
 import { LINKS } from "data/links";
-import { CONTACT_FORM_LEDE, CONTACT_INTRO, CONTACT_REASONS } from "data/site";
+import { CONTACT_FORM_LEDE, CONTACT_INTRO } from "data/site";
 import { ContactForm } from "components/Contact/ContactForm";
 import {
   CARD_SURFACE_HOVER,
-  CTA_SECONDARY,
   LABEL_OVERLINE,
   SECTION_INNER,
   SECTION_LEDE,
@@ -46,20 +45,6 @@ export function Contact() {
         <p className={`${SECTION_LEDE} mb-8 sm:mb-10`} data-reveal>
           {CONTACT_INTRO}
         </p>
-
-        <div className="mb-20" data-reveal>
-          <p className={`${LABEL_OVERLINE} mb-3`}>Good reasons to reach out</p>
-          <ul className="list-none p-0 m-0 space-y-2.5 text-[15px] sm:text-base text-foreground/90 leading-relaxed border-l-2 border-border pl-4 sm:pl-5">
-            {CONTACT_REASONS.map((reason) => (
-              <li key={reason} className="pl-0">
-                <span className="text-muted mr-2" aria-hidden>
-                  —
-                </span>
-                {reason}
-              </li>
-            ))}
-          </ul>
-        </div>
 
         <div className="mb-10" data-reveal>
           <p className={`${LABEL_OVERLINE} mb-3`}>Direct</p>
@@ -127,21 +112,6 @@ export function Contact() {
               );
             })}
           </ul>
-        </div>
-
-        <div className="mb-12 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6" data-reveal>
-          <a
-            href="#contact-form"
-            data-analytics-event="contact_cta_write_message"
-            onClick={() => trackGtagEvent("contact_cta_click", { target: "form" })}
-            className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto font-semibold`}
-          >
-            Message me here
-          </a>
-          <p className="text-sm text-muted leading-relaxed max-w-md">
-            Jumps to the form below—use it if you want everything in one thread instead of email or
-            LinkedIn first.
-          </p>
         </div>
 
         <div className="pt-10 mt-10 border-t border-border" data-reveal>

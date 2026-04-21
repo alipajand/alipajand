@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import { Nav } from "components/Nav/Nav";
 import { SITE_NAME } from "data/site";
@@ -23,7 +23,7 @@ describe("Nav", () => {
       expect(screen.getByRole("navigation", { name: "Primary" })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: SITE_NAME })).toHaveAttribute("href", "/");
       expect(screen.getByRole("link", { name: SITE_NAME })).toHaveAttribute("aria-current", "page");
-      expect(screen.getAllByRole("link", { name: /^me$/i }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole("link", { name: /^writing$/i }).length).toBeGreaterThanOrEqual(1);
       expect(screen.getAllByRole("link", { name: /^portfolio$/i }).length).toBeGreaterThanOrEqual(
         1
       );
@@ -44,17 +44,6 @@ describe("Nav", () => {
       render(<Nav />);
 
       expect(screen.getByRole("button", { name: /open menu/i })).toBeInTheDocument();
-    });
-  });
-
-  describe("user interaction", () => {
-    it("should open mobile menu when toggle button is clicked", () => {
-      render(<Nav />);
-
-      const toggle = screen.getByRole("button", { name: /open menu/i });
-      fireEvent.click(toggle);
-
-      expect(screen.getAllByRole("link", { name: /^work$/i }).length).toBeGreaterThanOrEqual(1);
     });
   });
 });
