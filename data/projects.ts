@@ -136,6 +136,69 @@ export const PROJECTS: Project[] = [
     links: [{ label: "Project", href: "https://mapbylaw.ca/" }],
   },
   {
+    id: "ledgerguard-deterministic-commitments-ledger",
+    name: "Deterministic ledger + honest renewal read models",
+    description:
+      "Multi-tenant B2B SaaS that turns contracts into a commitments ledger finance can act on: renewal timing, notice windows, auto-renew risk, and clause-backed exposure—without treating probabilistic extraction as the system of record.",
+    role: "Product & platform engineer · LedgerGuard",
+    navLabel: "LedgerGuard",
+    signalStack: [
+      "Fastify API domain + worker internal callbacks",
+      "Truth precedence across commitments & fields",
+      "Zod/OpenAPI contracts (tenant + admin)",
+    ],
+    badges: ["AI", "DX"],
+    bestFor: ["B2B SaaS architecture", "AI product engineering"],
+    tech: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Fastify",
+      "Python",
+      "FastAPI",
+      "BullMQ",
+      "PostgreSQL",
+      "Prisma",
+      "Row-level security",
+      "Zod",
+      "OpenAPI",
+      "Supabase Auth",
+      "Stripe",
+      "Sentry",
+    ],
+    outcomes: [
+      "Separated probabilistic document intelligence (OCR, extraction, queue workers) from deterministic financial truth: workers propose via internal APIs; org-scoped domain rules decide what is stored and what renewals dashboards may claim.",
+      "Documented and implemented a single truth-precedence stack so document list, detail, and renewal summary prefer grounded extraction fields when portfolio rows lag, drift, or sit in fields-only state—surfacing explicit warnings instead of silent green checks.",
+      "End-to-end typed contracts for tenant and platform surfaces so web and admin reflect API decisions only, aligned with audit logging, feature gating, and multi-tenant isolation patterns described in the product architecture.",
+    ],
+    caseStudy: {
+      problem:
+        "Renewal and spend-at-risk readouts are only useful if finance trusts them. Contract PDFs flow through async, idempotent pipelines that can replay, partially fail, or land fields before synthesis catches up. If any UI prefers \"whatever row got written first,\" you ship confident renewals off stale commitments—the exact failure mode that makes CFOs reject black-box contract AI.",
+      approach:
+        "Treated LedgerGuard as two systems: a deterministic API/domain layer (commitments, commitment_fields, truth_state, audit metadata) and a probabilistic worker layer that never writes tenant truth directly. Codified portfolio truth precedence (version skew, same-version drift, fields-only recovery) so read models align across routes, idempotent worker callbacks plan repair instead of clobbering newer synthesis, and human verify on synthesis-driving keys triggers realignment—or bounded honesty when realign cannot complete.",
+      result:
+        "Renewal drivers and contract value trace to explainable sources with explicit hints when the ledger is incomplete or skewed—aligned with the LedgerGuard positioning: structured extraction and review, not inferred terms presented as fact—so teams can act before auto-renew locks without the UI pretending the pipeline is more certain than it is.",
+    },
+    beforeAfter: [
+      {
+        label: "Source of renewal truth",
+        before: "First persisted row wins",
+        after: "API read model + drift/skew metadata",
+      },
+      {
+        label: "Worker → database",
+        before: "Risk of bypassing domain rules",
+        after: "Validated internal callbacks only",
+      },
+      {
+        label: "Confidence in UI",
+        before: "Implied certainty",
+        after: "Warnings when truth is partial",
+      },
+    ],
+    link: "https://ledgerguard.io/",
+  },
+  {
     id: "design-system-marketplace-login-web3",
     name: "Design system, marketplace & login (web3)",
     description:
