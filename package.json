@@ -6,9 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint \"**/*.{ts,tsx}\"",
-    "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,cjs}\"",
+    "lint": "eslint",
+    "format": "prettier --write .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "prepare": "husky"
