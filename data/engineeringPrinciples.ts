@@ -3,6 +3,8 @@ export const ENGINEERING_PRINCIPLES_META_DESCRIPTION =
 
 export const ENGINEERING_PRINCIPLES_PAGE_TITLE = "Engineering principles";
 
+export const ENGINEERING_PRINCIPLES_HEADER_OVERLINE = "Philosophy";
+
 export const ENGINEERING_PRINCIPLES_LEDE =
   "Philosophy and architectural habits—how I ship software that stays understandable as it scales.";
 

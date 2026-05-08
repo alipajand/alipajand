@@ -10,7 +10,6 @@ import {
 } from "data/site";
 import { PropsWithChildren } from "react";
 import { Nav } from "components/Nav/Nav";
-import { SiteFooter } from "components/SiteFooter/SiteFooter";
 import { SmoothScroll } from "components/SmoothScroll/SmoothScroll";
 import { StructuredData } from "components/StructuredData/StructuredData";
 import { GatedGoogleAnalytics } from "components/Analytics/GatedGoogleAnalytics";
@@ -102,7 +101,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" data-scroll-behavior="smooth">
       <body
         className={`${GeistSans.variable} ${GeistSans.className} antialiased bg-background text-foreground`}
       >
@@ -114,7 +113,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <SmoothScroll>
           <Nav />
           {children}
-          <SiteFooter />
         </SmoothScroll>
       </body>
     </html>

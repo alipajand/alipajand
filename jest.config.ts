@@ -11,8 +11,9 @@ const config: Config = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   moduleNameMapper: {
     "^data/(.*)$": "<rootDir>/data/$1",
-    "^utils/(.*)$": "<rootDir>/utils/$1",
     "^components/(.*)$": "<rootDir>/components/$1",
+    "^features/(.*)$": "<rootDir>/features/$1",
+    "^utils/(.*)$": "<rootDir>/utils/$1",
     "^lib/(.*)$": "<rootDir>/lib/$1",
   },
   collectCoverageFrom: [

@@ -3,17 +3,14 @@
 import classNames from "classnames";
 import { usePathname } from "next/navigation";
 
+import { NavDesktopPrimaryLink } from "components/Nav/NavDesktopPrimaryLink";
+import { NavMobilePrimaryLink } from "components/Nav/NavMobilePrimaryLink";
 import { useNav } from "components/Nav/hooks/useNav";
+import { NAV_ARIA_PRIMARY, NAV_PRIMARY_LINKS } from "data/nav";
 import { SITE_NAME } from "data/site";
-import { homeBrandAriaCurrent, navLinkAriaCurrent } from "utils/navAriaCurrent";
+import { homeBrandAriaCurrent } from "utils/navAriaCurrent";
 import { FOCUS_RING } from "utils/visual";
 import Link from "next/link";
-
-const NAV_LINKS = [
-  { href: "/blog", label: "Writing" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/#contact", label: "Contact" },
-];
 
 export function Nav() {
   const pathname = usePathname();
@@ -29,7 +26,7 @@ export function Nav() {
         isScrolled && "border-border! bg-background"
       )}
     >
-      <nav aria-label="Primary" className="relative">
+      <nav aria-label={NAV_ARIA_PRIMARY} className="relative">
         <div className="px-6 sm:px-10 lg:px-20">
           <div className="max-w-5xl mx-auto w-full flex items-center justify-between gap-4 h-16">
             <Link
@@ -43,16 +40,13 @@ export function Nav() {
               ref={navLinksRef}
               className="hidden sm:flex flex-1 items-center justify-end gap-6 min-w-0"
             >
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    aria-current={navLinkAriaCurrent(link.href, pathname)}
-                    className={`nav-link-hover text-sm text-muted hover:text-foreground transition-colors duration-200 relative rounded-sm ${FOCUS_RING}`}
-                  >
-                    {link.label}
-                  </a>
-                </li>
+              {NAV_PRIMARY_LINKS.map((link) => (
+                <NavDesktopPrimaryLink
+                  key={link.href}
+                  pathname={pathname}
+                  href={link.href}
+                  label={link.label}
+                />
               ))}
             </ul>
             <button
@@ -97,16 +91,14 @@ export function Nav() {
           style={{ height: 0, opacity: 0 }}
         >
           <div className="py-6 px-6 flex flex-col gap-1">
-            {NAV_LINKS.map((link) => (
-              <a
+            {NAV_PRIMARY_LINKS.map((link) => (
+              <NavMobilePrimaryLink
                 key={link.href}
+                pathname={pathname}
                 href={link.href}
-                aria-current={navLinkAriaCurrent(link.href, pathname)}
-                className={`font-medium text-foreground hover:text-muted transition-colors py-3 min-h-11 inline-flex items-center rounded-sm ${FOCUS_RING}`}
-                onClick={handleCloseMenu}
-              >
-                {link.label}
-              </a>
+                label={link.label}
+                onNavigate={handleCloseMenu}
+              />
             ))}
           </div>
         </div>

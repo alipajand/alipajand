@@ -41,7 +41,7 @@ next-env.d.ts
 .idea
 .cursor
 .cursorrules
-ai-reference
+references/
 
 # Sentry Auth Token
 .sentryclirc

@@ -1,15 +1,10 @@
+import { HowIThinkGridItem } from "components/HowIThink/HowIThinkGridItem";
 import {
   HOW_I_THINK_CARDS,
   HOW_I_THINK_HEADING,
   HOW_I_THINK_LEDE,
 } from "data/howIThink";
-import {
-  CARD_SURFACE_HOVER,
-  SECTION_INNER,
-  SECTION_LEDE_LG,
-  SECTION_SHELL,
-  SECTION_TITLE,
-} from "utils/visual";
+import { SECTION_INNER, SECTION_LEDE_LG, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
 export function HowIThink() {
   return (
@@ -26,14 +21,7 @@ export function HowIThink() {
 
         <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 list-none p-0 m-0">
           {HOW_I_THINK_CARDS.map((card) => (
-            <li key={card.id}>
-              <article className={`${CARD_SURFACE_HOVER} p-5 sm:p-6 h-full`}>
-                <h3 className="font-display font-semibold text-lg text-foreground">
-                  {card.title}
-                </h3>
-                <p className="mt-2 text-muted text-sm leading-relaxed">{card.body}</p>
-              </article>
-            </li>
+            <HowIThinkGridItem key={card.id} card={card} />
           ))}
         </ul>
       </div>

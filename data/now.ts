@@ -44,7 +44,7 @@ export const NOW_SECTIONS: NowSection[] = [
     items: [
       "Architecture and DX notes—case studies, MCP workflow, and multi-tenant product engineering.",
     ],
-    footer: { href: "/blog", label: "Blog archive" },
+    footer: { href: "/writing", label: "Writing archive" },
   },
   {
     id: "current-stack",

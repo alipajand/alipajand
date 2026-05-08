@@ -30,12 +30,12 @@ describe("Nav", () => {
       expect(screen.getAllByRole("link", { name: /^contact$/i }).length).toBeGreaterThanOrEqual(1);
     });
 
-    it("sets aria-current=page on Blog when on a post route", () => {
-      usePathname.mockReturnValue("/blog/some-post");
+    it("sets aria-current=page on Writing when on a post route", () => {
+      usePathname.mockReturnValue("/writing/some-post");
       render(<Nav />);
 
-      const blogLinks = screen.getAllByRole("link", { name: /^writing$/i });
-      blogLinks.forEach((link) => {
+      const writingLinks = screen.getAllByRole("link", { name: /^writing$/i });
+      writingLinks.forEach((link) => {
         expect(link).toHaveAttribute("aria-current", "page");
       });
     });

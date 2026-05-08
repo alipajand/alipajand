@@ -1,6 +1,7 @@
 "use client";
 
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
+import { ABOUT_SECTION_HEADING } from "data/about";
 import { ABOUT_PARAGRAPHS } from "data/site";
 import { SECTION_INNER, SECTION_RULE, SECTION_TITLE, SECTION_X, SECTION_Y } from "utils/visual";
 
@@ -20,7 +21,7 @@ export function About() {
     >
       <div className={SECTION_INNER}>
         <h2 id="about-heading" className={`${SECTION_TITLE} mb-6 sm:mb-8`} data-reveal>
-          About
+          {ABOUT_SECTION_HEADING}
         </h2>
         <p className="text-muted text-[15px] sm:text-lg leading-[1.65]" data-reveal>
           {first}

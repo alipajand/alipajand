@@ -11,6 +11,8 @@ export const INNOVATION_SECTION_HEADING = "DX tooling & experiments";
 export const INNOVATION_SECTION_INTRO =
   "Automation I run in the editor and in CI—early feedback, smaller reviews, same standards as the rest of my work.";
 
+export const INNOVATION_VIDEO_LINK_DEFAULT = "Watch demo";
+
 export const INNOVATION_ITEMS: InnovationItem[] = [
   {
     id: "mcp-cursor",

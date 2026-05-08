@@ -57,3 +57,31 @@ export const HERO_PROOF_ROW = [
 export const RESUME_URL: string | null = null;
 
 export const LOCATION = "Based in Montreal, Quebec, Canada";
+
+/** Hero */
+export const HERO_SECTION_ARIA_LABEL = "Introduction";
+
+export const HERO_CTA_DISCUSS_ROLE = "Discuss a role";
+
+export const HERO_CTA_VIEW_CASE_STUDIES = "View case studies";
+
+export const HERO_CTA_READ_WRITING = "Read writing";
+
+export const HERO_CTA_DOWNLOAD_RESUME = "Download resume";
+
+export const HERO_CONTACT_NAV_ARIA_LABEL = "Contact links";
+
+/** Decorative scroll cue (often paired with aria-hidden in markup). */
+export const HERO_SCROLL_INDICATOR = "↓";
+
+/** Proof strip */
+export const PROOF_STRIP_SR_HEADING = "Proof at a glance";
+
+/** JSON-LD / Person */
+export const PERSON_SCHEMA_JOB_TITLE = "Senior Product Engineer";
+
+export const PERSON_SCHEMA_ADDRESS_LOCALITY = "Montreal";
+
+export const PERSON_SCHEMA_ADDRESS_REGION = "Quebec";
+
+export const PERSON_SCHEMA_ADDRESS_COUNTRY = "CA";
