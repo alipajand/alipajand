@@ -13,7 +13,7 @@ export function WritingFeaturedPostCard({ post }: WritingFeaturedPostCardProps) 
   return (
     <article>
       <Link
-        href={`/writing/${post.slug}`}
+        href={`/writing/${encodeURIComponent(post.slug)}`}
         className={`group block rounded-2xl ${CARD_ACCENT_RAIL} p-6 sm:p-8 pl-5 sm:pl-7 ${FOCUS_RING}`}
       >
         <p className={`${LABEL_OVERLINE} mb-3`}>{WRITING_FEATURED_LABEL}</p>
