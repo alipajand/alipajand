@@ -6,7 +6,7 @@ interface ArticleJsonLdProps {
 }
 
 export function ArticleJsonLd({ post }: ArticleJsonLdProps) {
-  const url = `${CANONICAL_URL}/blog/${post.slug}`;
+  const url = `${CANONICAL_URL}/writing/${post.slug}`;
   const schema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -34,9 +34,9 @@ export function ArticleJsonLd({ post }: ArticleJsonLdProps) {
     image: [`${CANONICAL_URL}/opengraph-image`],
     isPartOf: {
       "@type": "Blog",
-      "@id": `${CANONICAL_URL}/blog#blog`,
+      "@id": `${CANONICAL_URL}/writing#writing`,
       name: `Writing · ${SITE_NAME}`,
-      url: `${CANONICAL_URL}/blog`,
+      url: `${CANONICAL_URL}/writing`,
     },
   };
 

@@ -16,7 +16,7 @@ function truncate(text: string, max: number): string {
   return `${text.slice(0, max - 1).trimEnd()}…`;
 }
 
-export default async function BlogPostOpenGraphImage({
+export default async function WritingPostOpenGraphImage({
   params,
 }: {
   params: Promise<{ slug: string }>;

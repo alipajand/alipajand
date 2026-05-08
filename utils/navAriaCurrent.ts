@@ -1,7 +1,7 @@
 export function navLinkAriaCurrent(href: string, pathname: string | null): "page" | undefined {
   if (pathname == null) return undefined;
-  if (href === "/blog") {
-    return pathname === "/blog" || pathname.startsWith("/blog/") ? "page" : undefined;
+  if (href === "/writing") {
+    return pathname === "/writing" || pathname.startsWith("/writing/") ? "page" : undefined;
   }
   if (href === "/portfolio") {
     return pathname === "/portfolio" ? "page" : undefined;

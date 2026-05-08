@@ -6,7 +6,7 @@ import { getAllPosts } from "utils/posts";
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${CANONICAL_URL}/blog/${post.slug}`,
+    url: `${CANONICAL_URL}/writing/${post.slug}`,
     lastModified: post.date ? new Date(post.date) : new Date(),
     changeFrequency: "monthly",
     priority: 0.7,
@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${CANONICAL_URL}/blog`,
+      url: `${CANONICAL_URL}/writing`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
