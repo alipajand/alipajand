@@ -6,7 +6,7 @@ export const ENGINEERING_PRINCIPLES_PAGE_TITLE = "Engineering principles";
 export const ENGINEERING_PRINCIPLES_HEADER_OVERLINE = "Philosophy";
 
 export const ENGINEERING_PRINCIPLES_LEDE =
-  "Philosophy and architectural habits—how I ship software that stays understandable as it scales.";
+  "Philosophy and architectural habits that help me ship software that stays understandable as it scales.";
 
 export interface EngineeringPrinciplesSection {
   id: string;
@@ -19,7 +19,7 @@ export const ENGINEERING_PRINCIPLES_SECTIONS: EngineeringPrinciplesSection[] = [
     id: "systems-first",
     title: "Systems First",
     paragraphs: [
-      "I start from boundaries, contracts, and failure modes—not from the trendiest framework. Structure follows what the product must guarantee: isolation between domains, clear ownership of data flow, and fewer clever shortcuts that only work on demo day.",
+      "I start from boundaries, contracts, and failure modes, not from the trendiest framework. Structure follows what the product must guarantee: isolation between domains, clear ownership of data flow, and fewer clever shortcuts that only work on demo day.",
       "That mindset scales teams: when the system model is honest, onboarding is faster and refactors stop feeling like archaeology.",
     ],
   },
@@ -27,7 +27,7 @@ export const ENGINEERING_PRINCIPLES_SECTIONS: EngineeringPrinciplesSection[] = [
     id: "reliability-is-product",
     title: "Reliability Is Product",
     paragraphs: [
-      "Users experience outages, flaky flows, and silent bugs as product failures—not as infra tickets. Observability, rollback discipline, and CI that catches regressions early are how you earn trust at release cadence.",
+      "Users experience outages, flaky flows, and silent bugs as product failures, not infra tickets. Observability, rollback discipline, and CI that catches regressions early are how you earn trust at release cadence.",
       "Velocity without reliability is theater; reliability without empathy for operators is brittle. I optimize for both sides of that balance.",
     ],
   },
@@ -44,7 +44,7 @@ export const ENGINEERING_PRINCIPLES_SECTIONS: EngineeringPrinciplesSection[] = [
     title: "Accessibility Is Non-Negotiable",
     paragraphs: [
       "Accessibility is architectural: semantics, focus order, motion preferences, and keyboard paths shape the same contracts your automated tests should enforce. Retrofitting after launch is expensive and exclusionary.",
-      "Inclusive defaults raise quality for everyone—not only screen reader users.",
+      "Inclusive defaults raise quality for everyone, not only screen reader users.",
     ],
   },
   {

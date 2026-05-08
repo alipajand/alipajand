@@ -56,7 +56,7 @@ export const PROJECTS: Project[] = [
     id: "ledgerguard-deterministic-commitments-ledger",
     name: "Deterministic ledger + honest renewal read models",
     description:
-      "Multi-tenant B2B SaaS that turns contracts into a commitments ledger finance can act on: renewal timing, notice windows, auto-renew risk, and clause-backed exposure—without treating probabilistic extraction as the system of record.",
+      "Multi-tenant B2B SaaS that turns contracts into a commitments ledger finance can act on: renewal timing, notice windows, auto-renew risk, and clause-backed exposure, without treating probabilistic extraction as the system of record.",
     role: "Product & platform engineer · LedgerGuard",
     navLabel: "LedgerGuard",
     signalStack: [
@@ -85,22 +85,22 @@ export const PROJECTS: Project[] = [
     ],
     outcomes: [
       "Separated probabilistic document intelligence (OCR, extraction, queue workers) from deterministic financial truth: workers propose via internal APIs; org-scoped domain rules decide what is stored and what renewals dashboards may claim.",
-      "Documented and implemented a single truth-precedence stack so document list, detail, and renewal summary prefer grounded extraction fields when portfolio rows lag, drift, or sit in fields-only state—surfacing explicit warnings instead of silent green checks.",
+      "Documented and implemented a single truth-precedence stack so document list, detail, and renewal summary prefer grounded extraction fields when portfolio rows lag, drift, or sit in fields-only state, surfacing explicit warnings instead of silent green checks.",
       "End-to-end typed contracts for tenant and platform surfaces so web and admin reflect API decisions only, aligned with audit logging, feature gating, and multi-tenant isolation patterns described in the product architecture.",
     ],
     caseStudy: {
       problem:
-        "Renewal and spend-at-risk views only matter if finance trusts the underlying commitments. Contract PDFs traverse async, replayable pipelines where extraction, synthesis, and portfolio rows can land out of order or partially fail—so any UI that treats “first persisted row wins” as truth ships confident renewals on stale or skewed data.",
+        "Renewal and spend-at-risk views only matter if finance trusts the underlying commitments. Contract PDFs traverse async, replayable pipelines where extraction, synthesis, and portfolio rows can land out of order or partially fail, so any UI that treats “first persisted row wins” as truth ships confident renewals on stale or skewed data.",
       constraints:
-        "Hard multi-tenant isolation (RLS), workers cannot bypass domain invariants, pipelines must stay idempotent under replay, and finance needs clause-backed trace—not narrative inferred by models presented as fact.",
+        "Hard multi-tenant isolation (RLS), workers cannot bypass domain invariants, pipelines must stay idempotent under replay, and finance needs clause-backed trace, not narrative inferred by models presented as fact.",
       architectureDecisions:
-        "Split deterministic API/domain state (commitments, commitment_fields, truth_state, audit metadata) from probabilistic workers; workers never write tenant truth directly—only validated internal callbacks. Codified portfolio truth precedence (version skew, same-version drift, fields-only recovery) and repair planning instead of clobbering newer synthesis.",
+        "Split deterministic API/domain state (commitments, commitment_fields, truth_state, audit metadata) from probabilistic workers; workers never write tenant truth directly, only validated internal callbacks. Codified portfolio truth precedence (version skew, same-version drift, fields-only recovery) and repair planning instead of clobbering newer synthesis.",
       tradeoffs:
-        "Surfacing drift, skew, and incomplete ledger state adds UI surface area versus implied certainty—bounded honesty when realignment cannot complete beats silent green checks.",
+        "Surfacing drift, skew, and incomplete ledger state adds UI surface area versus implied certainty. Bounded honesty when realignment cannot complete beats silent green checks.",
       reliabilityPerformance:
         "Idempotent worker flows, aligned read models across list/detail/renewal routes, and explicit repair paths so behavior stays coherent when pipelines partially fail or replay.",
       outcome:
-        "Renewal drivers trace to explainable sources with explicit hints when the ledger is incomplete or skewed—teams can act before auto-renew locks without the product overstating pipeline certainty.",
+        "Renewal drivers trace to explainable sources with explicit hints when the ledger is incomplete or skewed, so teams can act before auto-renew locks without the product overstating pipeline certainty.",
     },
     beforeAfter: [
       {
@@ -152,23 +152,23 @@ export const PROJECTS: Project[] = [
       "Playwright",
     ],
     outcomes: [
-      "Single design system (@mapbylaw/ui), feature-based structure, and path aliases for web and admin—OpenAPI + Zod and typed React-PDF payloads keep the bilingual report, API, and UI in lockstep.",
+      "Single design system (@mapbylaw/ui), feature-based structure, and path aliases for web and admin. OpenAPI + Zod and typed React-PDF payloads keep the bilingual report, API, and UI in lockstep.",
       "AI recommendations as a strict typed service: narrow context from real zoning and feasibility inputs, one contract across Fastify, dashboard, and PDF, with malformed payloads failing fast instead of drifting from content policy.",
-      "Rule and incentive changes flow through one orchestrator so validation, AI context, and report integrity evolve together—without hand-editing report copy or chasing fields across layers for audits.",
+      "Rule and incentive changes flow through one orchestrator so validation, AI context, and report integrity evolve together, without hand-editing report copy or chasing fields across layers for audits.",
     ],
     caseStudy: {
       problem:
-        "Web and admin had to evolve in parallel while bilingual PDFs, consent-gated analytics, and AI recommendations stayed aligned with zoning and feasibility logic—not generic chatbot output detached from policy.",
+        "Web and admin had to evolve in parallel while bilingual PDFs, consent-gated analytics, and AI recommendations stayed aligned with zoning and feasibility logic, not generic chatbot output detached from policy.",
       constraints:
         "Content policy forbids fabricated or static market stand-ins; Montreal-only shortcuts cannot masquerade as real inputs; Fastify, dashboards, and React-PDF must agree as incentives and rules change.",
       architectureDecisions:
         "Shared @mapbylaw/ui with feature folders and path aliases; OpenAPI 3 + Zod at the boundary; typed React-PDF payload builder sharing components with web apps; ai_recommendations as a narrow TypeScript shape fed only verified scenario inputs, with living audits alongside architecture docs.",
       tradeoffs:
-        "Strict schemas and audits add ongoing maintenance versus permissive glue code—but they prevent API/report/UI drift that is expensive to unwind and risky under regulatory scrutiny.",
+        "Strict schemas and audits add ongoing maintenance versus permissive glue code, but they prevent API/report/UI drift that is expensive to unwind and risky under regulatory scrutiny.",
       reliabilityPerformance:
         "Tests reject malformed AI payloads early; orchestration keeps validation, AI context, and bilingual report integrity moving together when datasets or incentives shift.",
       outcome:
-        "One design language and scenario-level recommendations that stay consistent between dashboard and PDF as policy evolves—integrity enforced by shared types and audits, not ad-hoc copy edits.",
+        "One design language and scenario-level recommendations that stay consistent between dashboard and PDF as policy evolves, with integrity enforced by shared types and audits instead of ad-hoc copy edits.",
     },
     beforeAfter: [
       { label: "UI across apps", before: "Separate stacks", after: "Shared @mapbylaw/ui" },
@@ -210,7 +210,7 @@ export const PROJECTS: Project[] = [
     ],
     caseStudy: {
       problem:
-        "Teams were shipping one-off UI while marketplace and login needed to match design, integrate with Web3 APIs and wallet/auth flows, and survive production traffic—not a brittle demo layer.",
+        "Teams were shipping one-off UI while marketplace and login needed to match design, integrate with Web3 APIs and wallet/auth flows, and survive production traffic, not become a brittle demo layer.",
       constraints:
         "WCAG expectations across products, tight coordination with design, and shipping deadlines without dropping accessibility or error handling for chain/API failures.",
       architectureDecisions:
@@ -248,7 +248,7 @@ export const PROJECTS: Project[] = [
     ],
     caseStudy: {
       problem:
-        "Dashboards had to stay legible and responsive inside mobile webviews and embedded hosts where CPU and layout budgets are tight—smooth motion without constant jank.",
+        "Dashboards had to stay legible and responsive inside mobile webviews and embedded hosts where CPU and layout budgets are tight, with smooth motion and no constant jank.",
       constraints:
         "One codebase for standalone and embed; chart density that still reads on small viewports; motion that degrades gracefully when budgets are exhausted.",
       architectureDecisions:
@@ -256,7 +256,7 @@ export const PROJECTS: Project[] = [
       tradeoffs:
         "Rich motion increases implementation and test surface versus static charts; profiling effort traded for predictable frame time in webview contexts.",
       reliabilityPerformance:
-        "Targeted tuning for embed and webview paths—fewer assumptions from full-desktop chrome, bounded animation work per frame.",
+        "Targeted tuning for embed and webview paths, with fewer assumptions from full-desktop chrome and bounded animation work per frame.",
       outcome:
         "Dashboards that stayed usable in embedded and mobile webview contexts, with motion that remained controlled rather than chaotic.",
     },

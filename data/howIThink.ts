@@ -7,20 +7,20 @@ export interface HowIThinkCard {
 export const HOW_I_THINK_HEADING = "How I Think";
 
 export const HOW_I_THINK_LEDE =
-  "Systems thinking, AI-native engineering, and mature architecture—not generic UI churn.";
+  "Systems thinking, AI-native engineering, and mature architecture. Not generic UI churn.";
 
 export const HOW_I_THINK_CARDS: HowIThinkCard[] = [
   {
     id: "deterministic-vs-probabilistic",
     title: "Deterministic vs Probabilistic Systems",
     body:
-      "Stable product surfaces stay deterministic: predictable flows, explicit contracts, and testable behavior. AI-driven paths are probabilistic—models infer, rank, and draft—so they need boundaries, fallbacks, and evaluation harnesses. I keep those worlds separated so reliability stays intentional rather than accidental.",
+      "Stable product surfaces stay deterministic: predictable flows, explicit contracts, and testable behavior. AI-driven paths are probabilistic, models infer, rank, and draft, so they need boundaries, fallbacks, and evaluation harnesses. I keep those worlds separated so reliability stays intentional rather than accidental.",
   },
   {
     id: "human-in-the-loop-ai",
     title: "Human-in-the-Loop AI",
     body:
-      "Trust comes from validation loops: reviewers see provenance, edits are traceable, and confidence is surfaced honestly—not buried in UX polish. I design for human judgment where stakes are high, with clear escalation paths instead of silent automation.",
+      "Trust comes from validation loops: reviewers see provenance, edits are traceable, and confidence is surfaced honestly, not buried in UX polish. I design for human judgment where stakes are high, with clear escalation paths instead of silent automation.",
   },
   {
     id: "reliability-over-velocity-theater",
@@ -38,6 +38,6 @@ export const HOW_I_THINK_CARDS: HowIThinkCard[] = [
     id: "accessibility-as-architecture",
     title: "Accessibility as Architecture",
     body:
-      "Accessibility is not a checklist bolt-on—it is part of information architecture, keyboard flows, and semantics from day one. Building inclusively improves clarity for everyone and prevents expensive rework when compliance finally lands.",
+      "Accessibility is not a checklist bolt-on. It is part of information architecture, keyboard flows, and semantics from day one. Building inclusively improves clarity for everyone and prevents expensive rework when compliance finally lands.",
   },
 ];

@@ -18,7 +18,7 @@ export const KEYWORDS = [
 export const CANONICAL_URL = "https://alipajand.com";
 
 export const PORTFOLIO_PAGE_LEDE =
-  "About, trajectory, case studies, and tooling-the full arc beyond the homepage snapshot.";
+  "About, trajectory, case studies, and tooling. The full arc beyond the homepage snapshot.";
 
 export const SITE_META_DESCRIPTION =
   "Senior product engineer in Montreal. Design systems, accessibility, TypeScript/React, DX tooling, and notes on how real systems ship.";
@@ -30,7 +30,7 @@ export const PERSON_SCHEMA_ID = `${CANONICAL_URL}/#person`;
 export const WEBSITE_SCHEMA_ID = `${CANONICAL_URL}/#website`;
 
 export const HERO_VALUE_LINE =
-  "I ship accessible UIs and reliable releases-design systems, frontend architecture, and DX tooling.";
+  "I ship accessible UIs and reliable releases through design systems, frontend architecture, and DX tooling.";
 
 export const HERO_SUB =
   "9+ years turning messy requirements into shipped product. I own design-system rollouts, tight TypeScript/React stacks, and the release discipline teams need to move fast without breaking quality.";
@@ -42,7 +42,7 @@ export const ABOUT_PARAGRAPHS = [
 ];
 
 export const CONTACT_INTRO =
-  "Use this if you want to talk about something concrete—a post, a project, or a technical question. I’m not looking for employment opportunities; I’m still happy to hear from people who share enough context to reply usefully.";
+  "Use this if you want to talk about something concrete, like a post, a project, or a technical question. I am not looking for employment opportunities, but I am always happy to hear from people who share enough context for a useful reply.";
 
 export const CONTACT_FORM_LEDE =
   "Prefer the form? I usually reply within a few business days. All fields are required.";
