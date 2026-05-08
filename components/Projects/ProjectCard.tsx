@@ -19,7 +19,7 @@ import {
   PROJECT_CARD_FULL_STACK_SUMMARY,
   PROJECT_CARD_LEDGER_DIAGRAM_CAPTION,
   PROJECT_CARD_MORE_OUTCOMES,
-  PROJECT_CARD_OPEN_SITE,
+  PROJECT_CARD_OPEN_PROJECT,
   PROJECT_CARD_TECHNICAL_SIGNALS,
   PROJECT_CASE_STUDY_ROWS,
   projectCaseStudyImageAlt,
@@ -196,7 +196,7 @@ export function ProjectCard({ project }: { project: Project }) {
               rel={isHref(project.link) ? "noopener noreferrer" : undefined}
               className={`inline-flex items-center gap-2 rounded-md border border-border bg-background/60 px-4 py-2.5 text-sm font-medium text-foreground hover:border-foreground/30 hover:bg-card/80 transition-colors ${FOCUS_RING}`}
             >
-              {PROJECT_CARD_OPEN_SITE}
+              {PROJECT_CARD_OPEN_PROJECT}
               {isHref(project.link) ? (
                 <span aria-hidden className="text-muted">
                   ↗

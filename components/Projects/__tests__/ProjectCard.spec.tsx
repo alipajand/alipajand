@@ -271,14 +271,14 @@ describe("ProjectCard", () => {
   });
 
   describe("link", () => {
-    it("should render Open site when link provided", () => {
+    it("should render Project when link provided", () => {
       const projectWithLink: Project = {
         ...mockProject,
         link: "https://example.com",
       };
 
       render(<ProjectCard project={projectWithLink} />);
-      const link = screen.getByRole("link", { name: /open site/i });
+      const link = screen.getByRole("link", { name: /Project/i });
       expect(link).toBeInTheDocument();
       expect(link).toHaveAttribute("href", "https://example.com");
     });
@@ -290,7 +290,7 @@ describe("ProjectCard", () => {
       };
 
       render(<ProjectCard project={projectWithLink} />);
-      const link = screen.getByRole("link", { name: /open site/i });
+      const link = screen.getByRole("link", { name: /Project/i });
       expect(link).toHaveAttribute("target", "_blank");
       expect(link).toHaveAttribute("rel", "noopener noreferrer");
     });
@@ -302,14 +302,14 @@ describe("ProjectCard", () => {
       };
 
       render(<ProjectCard project={projectWithLink} />);
-      const link = screen.getByRole("link", { name: /open site/i });
+      const link = screen.getByRole("link", { name: /Project/i });
       expect(link).not.toHaveAttribute("target");
       expect(link).not.toHaveAttribute("rel");
     });
 
     it("should not render link when not provided", () => {
       render(<ProjectCard project={mockProject} />);
-      expect(screen.queryByRole("link", { name: /open site/i })).not.toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: /Project/i })).not.toBeInTheDocument();
     });
   });
 

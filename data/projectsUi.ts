@@ -24,7 +24,7 @@ export const PROJECT_CARD_LEDGER_DIAGRAM_CAPTION =
 
 export const PROJECT_CARD_MORE_OUTCOMES = "More outcomes";
 
-export const PROJECT_CARD_OPEN_SITE = "Open site";
+export const PROJECT_CARD_OPEN_PROJECT = "Project";
 
 export const PROJECT_CARD_EXTERNAL_NEW_TAB_HINT = " (opens in new tab)";
 
