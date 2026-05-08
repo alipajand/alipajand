@@ -1,6 +1,8 @@
 "use client";
 
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
+import { ExperienceJobCard } from "components/Experience/ExperienceJobCard";
+import { EXPERIENCE_SECTION_HEADING, EXPERIENCE_SECTION_LEDE } from "data/experience";
 import { JOBS } from "data/jobs";
 import { useExperienceCards } from "components/Experience/hooks/useExperienceCards";
 import { SECTION_INNER, SECTION_LEDE_LG, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
@@ -22,10 +24,10 @@ export function Experience() {
     >
       <div className={SECTION_INNER}>
         <h2 id="experience-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`} data-reveal>
-          Experience
+          {EXPERIENCE_SECTION_HEADING}
         </h2>
         <p className={`${SECTION_LEDE_LG} mb-12 sm:mb-16`} data-reveal>
-          Impact and outcomes, not just responsibilities.
+          {EXPERIENCE_SECTION_LEDE}
         </p>
 
         <div className="relative">
@@ -35,46 +37,7 @@ export function Experience() {
           />
           <ul ref={cardsRef} className="space-y-0">
             {JOBS.map((job) => (
-              <li key={job.company} className="relative pl-10 sm:pl-12 pb-16 last:pb-0">
-                <div
-                  className="absolute left-0 top-1.5 w-6 h-6 sm:w-7.5 sm:h-7.5 rounded-full border-2 border-border bg-background flex items-center justify-center"
-                  aria-hidden
-                >
-                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-foreground/60" />
-                </div>
-                <article
-                  data-experience-card
-                  className="experience-card group rounded-xl border border-border bg-card/50 p-6 sm:p-8 transition-all duration-300 hover:border-foreground/20 hover:bg-card"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-                    <div>
-                      <h3 className="font-display font-semibold text-xl sm:text-2xl text-foreground">
-                        {job.role}
-                      </h3>
-                      <p className="font-medium mt-0.5 text-foreground/70">{job.company}</p>
-                    </div>
-                    <span className="inline-flex items-center shrink-0 text-muted text-sm font-medium tabular-nums">
-                      {job.period}
-                    </span>
-                  </div>
-                  <ul className="space-y-1 list-none pl-0">
-                    {job.highlights.map((h, j) => (
-                      <li
-                        key={j}
-                        className="flex gap-3 text-muted text-[15px] sm:text-base leading-relaxed"
-                      >
-                        <span
-                          className="w-5 shrink-0 text-right text-foreground/90 select-none"
-                          aria-hidden
-                        >
-                          —
-                        </span>
-                        <span className="flex-1 min-w-0">{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              </li>
+              <ExperienceJobCard key={job.company} job={job} />
             ))}
           </ul>
         </div>

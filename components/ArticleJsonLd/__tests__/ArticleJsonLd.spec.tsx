@@ -3,7 +3,7 @@ import { ArticleJsonLd } from "components/ArticleJsonLd/ArticleJsonLd";
 import { CANONICAL_URL, PERSON_SCHEMA_ID, SITE_NAME } from "data/site";
 
 describe("ArticleJsonLd", () => {
-  it("renders BlogPosting JSON-LD", () => {
+  it("renders article JSON-LD for writing posts", () => {
     const { container } = render(
       <ArticleJsonLd
         post={{
@@ -19,7 +19,7 @@ describe("ArticleJsonLd", () => {
     const schema = JSON.parse(script?.textContent || "{}");
     expect(schema["@type"]).toBe("BlogPosting");
     expect(schema.headline).toBe("Test title");
-    expect(schema.url).toBe(`${CANONICAL_URL}/blog/test-slug`);
+    expect(schema.url).toBe(`${CANONICAL_URL}/writing/test-slug`);
     expect(schema.author["@id"]).toBe(PERSON_SCHEMA_ID);
     expect(schema.publisher["@id"]).toBe(PERSON_SCHEMA_ID);
     expect(schema.isPartOf.name).toContain(SITE_NAME);

@@ -1,25 +1,8 @@
-import { Hero } from "components/Hero/Hero";
-import { ProofStrip } from "components/ProofStrip/ProofStrip";
-import { SelectedWorkGallery } from "components/SelectedWorkGallery/SelectedWorkGallery";
-import { Testimonials } from "components/Testimonials/Testimonials";
-import { Writing } from "components/Writing/Writing";
-import { Contact } from "components/Contact/Contact";
-import { MainReveal } from "components/MainReveal/MainReveal";
+import { HomePageContent } from "features/home/HomePageContent";
 import { getPostsForWritingSection } from "utils/posts";
 
 export default function Home() {
-  const { featured: featuredPost, recent: writingPosts } = getPostsForWritingSection(2);
+  const { featured, recent } = getPostsForWritingSection(2);
 
-  return (
-    <MainReveal>
-      <main id="main-content" tabIndex={-1}>
-        <Hero />
-        <ProofStrip />
-        <SelectedWorkGallery />
-        <Testimonials />
-        <Writing featured={featuredPost} posts={writingPosts} />
-        <Contact />
-      </main>
-    </MainReveal>
-  );
+  return <HomePageContent writingFeatured={featured} writingRecent={recent} />;
 }

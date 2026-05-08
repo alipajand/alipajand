@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { Writing } from "components/Writing/Writing";
-import type { WritingPost } from "components/Writing/Writing";
+import type { WritingPost } from "components/Writing/WritingPost";
 
 describe("Writing formatDate", () => {
   const originalToLocaleDateString = Date.prototype.toLocaleDateString;

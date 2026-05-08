@@ -1,12 +1,6 @@
 "use client";
 
-import type { HeroGridConfig } from "components/Hero/hooks/useGridOutlineAnimation";
-
-export interface GridOutlinePathProps {
-  grid: HeroGridConfig;
-  rowIndex: number;
-  colIndex: number;
-}
+import type { GridOutlinePathProps } from "components/Hero/GridOutlinePath.types";
 
 export function GridOutlinePath({ grid, rowIndex, colIndex }: GridOutlinePathProps) {
   const { startX, startY, cellTotal, squareSize, gridRows, gridCols } = grid;

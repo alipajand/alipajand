@@ -9,13 +9,12 @@ import {
   TWITTER_HANDLE,
 } from "data/site";
 import { PropsWithChildren } from "react";
-import { ResourceHints } from "components/ResourceHints/ResourceHints";
 import { Nav } from "components/Nav/Nav";
-import { SiteFooter } from "components/SiteFooter/SiteFooter";
 import { SmoothScroll } from "components/SmoothScroll/SmoothScroll";
 import { StructuredData } from "components/StructuredData/StructuredData";
-import { Analytics } from "components/Analytics/Analytics";
-import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { GatedGoogleAnalytics } from "components/Analytics/GatedGoogleAnalytics";
+import { GatedVercelAnalytics } from "components/Analytics/GatedVercelAnalytics";
+import { GatedVercelSpeedInsights } from "components/Analytics/GatedVercelSpeedInsights";
 
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_URL),
@@ -102,21 +101,18 @@ export const viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" data-scroll-behavior="smooth">
       <body
         className={`${GeistSans.variable} ${GeistSans.className} antialiased bg-background text-foreground`}
       >
-        <Analytics />
-        <VercelAnalytics />
-        <ResourceHints />
+        <GatedGoogleAnalytics />
+        <GatedVercelAnalytics />
+        <GatedVercelSpeedInsights />
+
         <StructuredData />
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
         <SmoothScroll>
           <Nav />
           {children}
-          <SiteFooter />
         </SmoothScroll>
       </body>
     </html>

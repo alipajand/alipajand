@@ -2,13 +2,31 @@
 
 import Image from "next/image";
 
+import { LedgerGuardArchitectureDiagram } from "components/diagrams/LedgerGuardArchitectureDiagram";
+import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
+import { ProjectCardBeforeAfterRow } from "components/Projects/ProjectCardBeforeAfterRow";
+import { ProjectCardCaseStudyField } from "components/Projects/ProjectCardCaseStudyField";
+import { ProjectCardFooterLink } from "components/Projects/ProjectCardFooterLink";
+import { ProjectCardSignalStackItem } from "components/Projects/ProjectCardSignalStackItem";
+import { ProjectCardSupportingOutcome } from "components/Projects/ProjectCardSupportingOutcome";
+import { ProjectCardTechChip } from "components/Projects/ProjectCardTechChip";
 import type { Project } from "data/projects";
+import {
+  PROJECT_CARD_ARIA_BADGES,
+  PROJECT_CARD_BEST_FOR_PREFIX,
+  PROJECT_CARD_CASE_STUDY_SR,
+  PROJECT_CARD_EXTERNAL_NEW_TAB_HINT,
+  PROJECT_CARD_FULL_STACK_SUMMARY,
+  PROJECT_CARD_LEDGER_DIAGRAM_CAPTION,
+  PROJECT_CARD_MORE_OUTCOMES,
+  PROJECT_CARD_OPEN_PROJECT,
+  PROJECT_CARD_TECHNICAL_SIGNALS,
+  PROJECT_CASE_STUDY_ROWS,
+  projectCaseStudyImageAlt,
+} from "data/projectsUi";
 import { splitRoleLine } from "utils/projectRole";
+import { isHref } from "utils/isHttpOrHttpsHref";
 import { FOCUS_RING } from "utils/visual";
-
-function isExternalHref(href: string): boolean {
-  return href.startsWith("http://") || href.startsWith("https://");
-}
 
 export function ProjectCard({ project }: { project: Project }) {
   const hasCaseStudy = project.caseStudy != null;
@@ -25,13 +43,9 @@ export function ProjectCard({ project }: { project: Project }) {
     >
       <div className="flex flex-col gap-6 sm:gap-7">
         {project.badges && project.badges.length > 0 && (
-          <ul className="flex flex-wrap gap-2 list-none p-0 m-0" aria-label="Project themes">
+          <ul className="flex flex-wrap gap-2 list-none p-0 m-0" aria-label={PROJECT_CARD_ARIA_BADGES}>
             {project.badges.map((b) => (
-              <li key={b}>
-                <span className="inline-flex items-center rounded border border-border/80 bg-background/60 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted">
-                  {b}
-                </span>
-              </li>
+              <ProjectCardBadge key={b}>{b}</ProjectCardBadge>
             ))}
           </ul>
         )}
@@ -59,7 +73,7 @@ export function ProjectCard({ project }: { project: Project }) {
           </p>
           {project.bestFor && project.bestFor.length > 0 && (
             <p className="text-[13px] sm:text-sm text-muted leading-relaxed">
-              <span className="text-foreground/80 font-medium">Best for:</span>{" "}
+              <span className="text-foreground/80 font-medium">{PROJECT_CARD_BEST_FOR_PREFIX}</span>{" "}
               {project.bestFor.join(" · ")}
             </p>
           )}
@@ -67,15 +81,11 @@ export function ProjectCard({ project }: { project: Project }) {
 
         <div className="space-y-2">
           <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
-            Technical signals
+            {PROJECT_CARD_TECHNICAL_SIGNALS}
           </p>
           <ul className="flex flex-wrap gap-2 list-none p-0 m-0">
             {project.signalStack.map((s) => (
-              <li key={s}>
-                <span className="inline-flex items-center rounded-md border border-border bg-background/80 px-2.5 py-1 text-xs font-medium text-foreground/90">
-                  {s}
-                </span>
-              </li>
+              <ProjectCardSignalStackItem key={s}>{s}</ProjectCardSignalStackItem>
             ))}
           </ul>
         </div>
@@ -85,7 +95,7 @@ export function ProjectCard({ project }: { project: Project }) {
             className={`cursor-pointer list-none font-medium text-muted transition-colors hover:text-foreground rounded-sm [&::-webkit-details-marker]:hidden ${FOCUS_RING}`}
           >
             <span className="inline-flex items-center gap-2">
-              Full stack
+              {PROJECT_CARD_FULL_STACK_SUMMARY}
               <span className="text-muted/80 text-xs font-normal group-open/details:hidden">+</span>
               <span className="text-muted/80 text-xs font-normal hidden group-open/details:inline">
                 −
@@ -94,12 +104,7 @@ export function ProjectCard({ project }: { project: Project }) {
           </summary>
           <div className="mt-3 flex flex-wrap gap-2 pb-1">
             {project.tech.map((t) => (
-              <span
-                key={t}
-                className="inline-flex px-2 py-0.5 rounded border border-border/80 text-foreground/70 text-xs"
-              >
-                {t}
-              </span>
+              <ProjectCardTechChip key={t}>{t}</ProjectCardTechChip>
             ))}
           </div>
         </details>
@@ -109,7 +114,7 @@ export function ProjectCard({ project }: { project: Project }) {
             <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-background border border-border">
               <Image
                 src={project.image}
-                alt={project.imageCaption ? "" : `Case study visual: ${project.name}`}
+                alt={project.imageCaption ? "" : projectCaseStudyImageAlt(project.name)}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 896px"
@@ -141,50 +146,31 @@ export function ProjectCard({ project }: { project: Project }) {
 
         {hasCaseStudy && (
           <div className="space-y-5 pt-1 border-t border-border">
-            <h4 className="sr-only">Case study</h4>
-            <div className="grid gap-5 md:grid-cols-2 md:gap-6">
-              <div className="min-w-0 space-y-2">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
-                  Problem
-                </span>
-                <p className="text-sm text-foreground/90 leading-relaxed">
-                  {project.caseStudy!.problem}
-                </p>
+            <h4 className="sr-only">{PROJECT_CARD_CASE_STUDY_SR}</h4>
+            {project.id === "ledgerguard-deterministic-commitments-ledger" ? (
+              <figure className="space-y-2">
+                <LedgerGuardArchitectureDiagram />
+                <figcaption className="text-muted text-xs sm:text-sm leading-snug">
+                  {PROJECT_CARD_LEDGER_DIAGRAM_CAPTION}
+                </figcaption>
+              </figure>
+            ) : null}
+            {project.caseStudy ? (
+              <div className="grid gap-5 md:grid-cols-2 md:gap-6">
+                {PROJECT_CASE_STUDY_ROWS.map(({ key, label }) => (
+                  <ProjectCardCaseStudyField key={key} label={label}>
+                    {project.caseStudy![key]}
+                  </ProjectCardCaseStudyField>
+                ))}
               </div>
-              <div className="min-w-0 space-y-2">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
-                  Approach
-                </span>
-                <p className="text-sm text-foreground/90 leading-relaxed">
-                  {project.caseStudy!.approach}
-                </p>
-              </div>
-            </div>
-            <div className="min-w-0 space-y-2">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
-                Result
-              </span>
-              <p className="text-sm text-foreground/90 leading-relaxed">
-                {project.caseStudy!.result}
-              </p>
-            </div>
+            ) : null}
           </div>
         )}
 
         {hasBeforeAfter && (
           <div className="flex flex-wrap gap-3 pt-1">
             {project.beforeAfter!.map((ba) => (
-              <div
-                key={ba.label}
-                className="flex items-center gap-2 rounded-md bg-background/80 border border-border px-3 py-2 text-sm min-w-0"
-              >
-                <span className="text-muted shrink-0">{ba.label}:</span>
-                <span className="text-foreground/60 line-through truncate">{ba.before}</span>
-                <span className="text-foreground/50 shrink-0" aria-hidden>
-                  →
-                </span>
-                <span className="text-foreground font-medium truncate">{ba.after}</span>
-              </div>
+              <ProjectCardBeforeAfterRow key={ba.label} row={ba} />
             ))}
           </div>
         )}
@@ -192,16 +178,11 @@ export function ProjectCard({ project }: { project: Project }) {
         {supportingOutcomes.length > 0 && (
           <div className="space-y-2">
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
-              More outcomes
+              {PROJECT_CARD_MORE_OUTCOMES}
             </p>
             <ul className="flex flex-col gap-2 list-none pl-0 m-0">
               {supportingOutcomes.map((outcome, i) => (
-                <li key={i} className="flex gap-2 text-sm text-foreground/90 leading-relaxed">
-                  <span className="text-foreground/50 shrink-0" aria-hidden>
-                    —
-                  </span>
-                  <span>{outcome}</span>
-                </li>
+                <ProjectCardSupportingOutcome key={i}>{outcome}</ProjectCardSupportingOutcome>
               ))}
             </ul>
           </div>
@@ -211,43 +192,26 @@ export function ProjectCard({ project }: { project: Project }) {
           <div className="flex flex-wrap gap-3 pt-2 border-t border-border">
             <a
               href={project.link}
-              target={isExternalHref(project.link) ? "_blank" : undefined}
-              rel={isExternalHref(project.link) ? "noopener noreferrer" : undefined}
+              target={isHref(project.link) ? "_blank" : undefined}
+              rel={isHref(project.link) ? "noopener noreferrer" : undefined}
               className={`inline-flex items-center gap-2 rounded-md border border-border bg-background/60 px-4 py-2.5 text-sm font-medium text-foreground hover:border-foreground/30 hover:bg-card/80 transition-colors ${FOCUS_RING}`}
             >
-              Open site
-              {isExternalHref(project.link) ? (
+              {PROJECT_CARD_OPEN_PROJECT}
+              {isHref(project.link) ? (
                 <span aria-hidden className="text-muted">
                   ↗
                 </span>
               ) : null}
-              {isExternalHref(project.link) ? (
-                <span className="sr-only"> (opens in new tab)</span>
+              {isHref(project.link) ? (
+                <span className="sr-only">{PROJECT_CARD_EXTERNAL_NEW_TAB_HINT}</span>
               ) : null}
             </a>
           </div>
         ) : project.links && project.links.length > 0 ? (
           <div className="flex flex-wrap gap-3 pt-2 border-t border-border">
-            {project.links.map(({ label, href }) => {
-              const ext = isExternalHref(href);
-              return (
-                <a
-                  key={href}
-                  href={href}
-                  target={ext ? "_blank" : undefined}
-                  rel={ext ? "noopener noreferrer" : undefined}
-                  className={`inline-flex items-center gap-2 rounded-md border border-border bg-background/60 px-4 py-2.5 text-sm font-medium text-foreground hover:border-foreground/30 hover:bg-card/80 transition-colors ${FOCUS_RING}`}
-                >
-                  {label}
-                  {ext ? (
-                    <span aria-hidden className="text-muted">
-                      ↗
-                    </span>
-                  ) : null}
-                  {ext ? <span className="sr-only"> (opens in new tab)</span> : null}
-                </a>
-              );
-            })}
+            {project.links.map(({ label, href }) => (
+              <ProjectCardFooterLink key={href} label={label} href={href} />
+            ))}
           </div>
         ) : null}
       </div>

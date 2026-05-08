@@ -1,3 +1,5 @@
+export const TESTIMONIAL_ATTRIBUTION_SR_ONLY = "Attribution";
+
 export interface Testimonial {
   id: string;
   quote: string;

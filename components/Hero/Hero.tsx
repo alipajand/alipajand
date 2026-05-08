@@ -1,19 +1,25 @@
 "use client";
 
 import { useHero } from "components/Hero/hooks/useHero";
+import { HeroContactNavLink } from "components/Hero/HeroContactNavLink";
+import { HeroDisplayChar } from "components/Hero/HeroDisplayChar";
 import { LINKS } from "data/links";
-import { HERO_SUB, HERO_VALUE_LINE, LOCATION, RESUME_URL, SITE_NAME } from "data/site";
+import {
+  HERO_CONTACT_NAV_ARIA_LABEL,
+  HERO_CTA_DISCUSS_ROLE,
+  HERO_CTA_DOWNLOAD_RESUME,
+  HERO_CTA_READ_WRITING,
+  HERO_CTA_VIEW_CASE_STUDIES,
+  HERO_SCROLL_INDICATOR,
+  HERO_SECTION_ARIA_LABEL,
+  HERO_SUB,
+  HERO_VALUE_LINE,
+  LOCATION,
+  RESUME_URL,
+  SITE_NAME,
+} from "data/site";
 import { HeroBackground } from "components/Hero/HeroBackground";
-import { ContactLink } from "components/Hero/ContactLink";
 import { CTA_PRIMARY, CTA_SECONDARY, CTA_TERTIARY } from "utils/visual";
-
-const ICON_SRC = {
-  Email: "/icons/email.svg",
-  LinkedIn: "/icons/linkedin.svg",
-  GitHub: "/icons/github.svg",
-} as const;
-
-type IconLabel = keyof typeof ICON_SRC;
 
 export function Hero() {
   const {
@@ -32,7 +38,7 @@ export function Hero() {
     <section
       id="hero"
       ref={containerRef}
-      aria-label="Introduction"
+      aria-label={HERO_SECTION_ARIA_LABEL}
       className="relative min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-20 pt-24 pb-32 overflow-hidden bg-background"
     >
       <HeroBackground />
@@ -40,9 +46,7 @@ export function Hero() {
         <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
           <span ref={nameCharsRef} className="block text-foreground hero-lcp">
             {SITE_NAME.split("").map((char, i) => (
-              <span key={`${char}-${i}`} className="inline-block hero-char" data-char>
-                {char === " " ? "\u00A0" : char}
-              </span>
+              <HeroDisplayChar key={`${char}-${i}`} char={char} />
             ))}
           </span>
           <span
@@ -67,19 +71,19 @@ export function Hero() {
             href="#contact"
             className={`hover-scale ${CTA_PRIMARY} w-full sm:w-auto opacity-0 translate-y-15`}
           >
-            Discuss a role
+            {HERO_CTA_DISCUSS_ROLE}
           </a>
           <a
             href="/portfolio#projects"
             className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto opacity-0 translate-y-15`}
           >
-            View case studies
+            {HERO_CTA_VIEW_CASE_STUDIES}
           </a>
           <a
             href="#writing"
             className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto opacity-0 translate-y-15`}
           >
-            Read writing
+            {HERO_CTA_READ_WRITING}
           </a>
           {RESUME_URL ? (
             <a
@@ -87,20 +91,15 @@ export function Hero() {
               className={`hover-scale ${CTA_TERTIARY} w-full sm:w-auto opacity-0 translate-y-15 sm:ml-1`}
               download
             >
-              Download resume
+              {HERO_CTA_DOWNLOAD_RESUME}
             </a>
           ) : null}
           <nav
             className="flex items-center justify-center sm:justify-start gap-4 pt-1 sm:pt-0 sm:ml-auto opacity-0 translate-y-15"
-            aria-label="Contact links"
+            aria-label={HERO_CONTACT_NAV_ARIA_LABEL}
           >
             {LINKS.map(({ label, href }) => (
-              <ContactLink
-                key={label}
-                label={label}
-                href={href}
-                iconSrc={ICON_SRC[label as IconLabel]}
-              />
+              <HeroContactNavLink key={label} label={label} href={href} />
             ))}
           </nav>
         </div>
@@ -127,7 +126,7 @@ export function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted text-sm opacity-0"
         aria-hidden
       >
-        ↓
+        {HERO_SCROLL_INDICATOR}
       </div>
     </section>
   );

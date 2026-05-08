@@ -184,18 +184,27 @@ describe("ProjectCard", () => {
         ...mockProject,
         caseStudy: {
           problem: "The problem",
-          approach: "The approach",
-          result: "The result",
+          constraints: "The constraints",
+          architectureDecisions: "The architecture decisions",
+          tradeoffs: "The tradeoffs",
+          reliabilityPerformance: "The reliability",
+          outcome: "The outcome",
         },
       };
 
       render(<ProjectCard project={projectWithCaseStudy} />);
       expect(screen.getByText("Problem")).toBeInTheDocument();
       expect(screen.getByText("The problem")).toBeInTheDocument();
-      expect(screen.getByText("Approach")).toBeInTheDocument();
-      expect(screen.getByText("The approach")).toBeInTheDocument();
-      expect(screen.getByText("Result")).toBeInTheDocument();
-      expect(screen.getByText("The result")).toBeInTheDocument();
+      expect(screen.getByText("Constraints")).toBeInTheDocument();
+      expect(screen.getByText("The constraints")).toBeInTheDocument();
+      expect(screen.getByText("Architecture decisions")).toBeInTheDocument();
+      expect(screen.getByText("The architecture decisions")).toBeInTheDocument();
+      expect(screen.getByText("Tradeoffs")).toBeInTheDocument();
+      expect(screen.getByText("The tradeoffs")).toBeInTheDocument();
+      expect(screen.getByText("Reliability / performance")).toBeInTheDocument();
+      expect(screen.getByText("The reliability")).toBeInTheDocument();
+      expect(screen.getByText("Outcome")).toBeInTheDocument();
+      expect(screen.getByText("The outcome")).toBeInTheDocument();
     });
 
     it("should not render case study when not provided", () => {
@@ -262,14 +271,14 @@ describe("ProjectCard", () => {
   });
 
   describe("link", () => {
-    it("should render Open site when link provided", () => {
+    it("should render Project when link provided", () => {
       const projectWithLink: Project = {
         ...mockProject,
         link: "https://example.com",
       };
 
       render(<ProjectCard project={projectWithLink} />);
-      const link = screen.getByRole("link", { name: /open site/i });
+      const link = screen.getByRole("link", { name: /Project/i });
       expect(link).toBeInTheDocument();
       expect(link).toHaveAttribute("href", "https://example.com");
     });
@@ -281,7 +290,7 @@ describe("ProjectCard", () => {
       };
 
       render(<ProjectCard project={projectWithLink} />);
-      const link = screen.getByRole("link", { name: /open site/i });
+      const link = screen.getByRole("link", { name: /Project/i });
       expect(link).toHaveAttribute("target", "_blank");
       expect(link).toHaveAttribute("rel", "noopener noreferrer");
     });
@@ -293,14 +302,14 @@ describe("ProjectCard", () => {
       };
 
       render(<ProjectCard project={projectWithLink} />);
-      const link = screen.getByRole("link", { name: /open site/i });
+      const link = screen.getByRole("link", { name: /Project/i });
       expect(link).not.toHaveAttribute("target");
       expect(link).not.toHaveAttribute("rel");
     });
 
     it("should not render link when not provided", () => {
       render(<ProjectCard project={mockProject} />);
-      expect(screen.queryByRole("link", { name: /open site/i })).not.toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: /Project/i })).not.toBeInTheDocument();
     });
   });
 

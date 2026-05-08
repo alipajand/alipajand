@@ -1,3 +1,10 @@
+export const EXPERTISE_SECTION_HEADING = "What I do";
+
+export const EXPERTISE_SECTION_LEDE =
+  "How I use the stack in practice, trade-offs and scale, not just keywords.";
+
+export const EXPERTISE_CORE_LABEL = "CORE:";
+
 export interface ExpertiseArea {
   title: string;
   sentence: string;

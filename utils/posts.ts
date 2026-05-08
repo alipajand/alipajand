@@ -6,6 +6,14 @@ import { marked } from "marked";
 
 const POSTS_DIR = join(process.cwd(), "content", "posts");
 
+function toSafeSlug(value: string): string {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export interface PostFrontmatter {
   title: string;
   date: string;
@@ -28,7 +36,8 @@ function getPostSlugs(): string[] {
   if (!readdirSync(POSTS_DIR, { withFileTypes: true })) return [];
   return readdirSync(POSTS_DIR)
     .filter((f) => f.endsWith(".md") && f.toLowerCase() !== "readme.md")
-    .map((f) => f.replace(/\.md$/, ""));
+    .map((f) => toSafeSlug(f.replace(/\.md$/, "")))
+    .filter((slug) => slug.length > 0);
 }
 
 export function getAllPosts(): Omit<Post, "contentHtml">[] {

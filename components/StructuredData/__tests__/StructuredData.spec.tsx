@@ -4,7 +4,11 @@ import { LINKS } from "data/links";
 import {
   CANONICAL_URL,
   KEYWORDS,
+  PERSON_SCHEMA_ADDRESS_COUNTRY,
+  PERSON_SCHEMA_ADDRESS_LOCALITY,
+  PERSON_SCHEMA_ADDRESS_REGION,
   PERSON_SCHEMA_ID,
+  PERSON_SCHEMA_JOB_TITLE,
   SITE_META_DESCRIPTION,
   SITE_NAME,
   TAGLINE,
@@ -30,7 +34,7 @@ describe("StructuredData", () => {
       expect(schema["@id"]).toBe(PERSON_SCHEMA_ID);
       expect(schema.name).toBe(SITE_NAME);
       expect(schema.url).toBe(CANONICAL_URL);
-      expect(schema.jobTitle).toBe("Senior Product Engineer");
+      expect(schema.jobTitle).toBe(PERSON_SCHEMA_JOB_TITLE);
       expect(schema.description).toBe(SITE_META_DESCRIPTION);
       expect(schema.knowsAbout).toEqual(KEYWORDS);
     });
@@ -42,9 +46,9 @@ describe("StructuredData", () => {
       const schema = JSON.parse(personScript.textContent || "{}");
 
       expect(schema.address["@type"]).toBe("PostalAddress");
-      expect(schema.address.addressLocality).toBe("Montreal");
-      expect(schema.address.addressRegion).toBe("Quebec");
-      expect(schema.address.addressCountry).toBe("CA");
+      expect(schema.address.addressLocality).toBe(PERSON_SCHEMA_ADDRESS_LOCALITY);
+      expect(schema.address.addressRegion).toBe(PERSON_SCHEMA_ADDRESS_REGION);
+      expect(schema.address.addressCountry).toBe(PERSON_SCHEMA_ADDRESS_COUNTRY);
     });
 
     it("should include sameAs links from LINKS data", () => {

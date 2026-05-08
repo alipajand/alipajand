@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import type { WritingPost } from "components/Writing/Writing";
+import type { WritingPost } from "components/Writing/WritingPost";
 import { Writing } from "components/Writing/Writing";
 import { WRITING_ALL_POSTS_CTA, WRITING_SECTION_LEDE, WRITING_WHY_IT_MATTERS } from "data/writing";
 
@@ -76,7 +76,7 @@ describe("Writing", () => {
     it("should link to all posts archive", () => {
       render(<Writing featured={null} posts={mockPosts} />);
       const link = screen.getByRole("link", { name: WRITING_ALL_POSTS_CTA });
-      expect(link).toHaveAttribute("href", "/blog");
+      expect(link).toHaveAttribute("href", "/writing");
     });
   });
 
@@ -86,8 +86,8 @@ describe("Writing", () => {
       const post1Link = screen.getByText("Test Post 1").closest("a");
       const post2Link = screen.getByText("Test Post 2").closest("a");
 
-      expect(post1Link).toHaveAttribute("href", "/blog/test-post-1");
-      expect(post2Link).toHaveAttribute("href", "/blog/test-post-2");
+      expect(post1Link).toHaveAttribute("href", "/writing/test-post-1");
+      expect(post2Link).toHaveAttribute("href", "/writing/test-post-2");
     });
 
     it("should have correct structure for post links", () => {

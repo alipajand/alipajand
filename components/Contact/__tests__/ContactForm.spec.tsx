@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import { ContactForm } from "components/Contact/ContactForm";
+import { CONTACT_FORM_SUCCESS_MESSAGE } from "data/contactForm";
 
 const originalFetch = global.fetch;
 const originalError = console.error;
@@ -78,9 +79,7 @@ describe("ContactForm", () => {
     fillForm("Jane", "jane@example.com", "Hello there");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     await waitFor(() => {
-      expect(
-        screen.getByText(/Message sent. I’ll reply within a few business days./i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(CONTACT_FORM_SUCCESS_MESSAGE)).toBeInTheDocument();
     });
   });
 

@@ -18,7 +18,7 @@ export const KEYWORDS = [
 export const CANONICAL_URL = "https://alipajand.com";
 
 export const PORTFOLIO_PAGE_LEDE =
-  "About, trajectory, case studies, and tooling-the full arc beyond the homepage snapshot.";
+  "About, trajectory, case studies, and tooling. The full arc beyond the homepage snapshot.";
 
 export const SITE_META_DESCRIPTION =
   "Senior product engineer in Montreal. Design systems, accessibility, TypeScript/React, DX tooling, and notes on how real systems ship.";
@@ -30,7 +30,7 @@ export const PERSON_SCHEMA_ID = `${CANONICAL_URL}/#person`;
 export const WEBSITE_SCHEMA_ID = `${CANONICAL_URL}/#website`;
 
 export const HERO_VALUE_LINE =
-  "I ship accessible UIs and reliable releases-design systems, frontend architecture, and DX tooling.";
+  "I ship accessible UIs and reliable releases through design systems, frontend architecture, and DX tooling.";
 
 export const HERO_SUB =
   "9+ years turning messy requirements into shipped product. I own design-system rollouts, tight TypeScript/React stacks, and the release discipline teams need to move fast without breaking quality.";
@@ -42,7 +42,7 @@ export const ABOUT_PARAGRAPHS = [
 ];
 
 export const CONTACT_INTRO =
-  "Use this if you want to talk about something concrete—a post, a project, or a technical question. I’m not looking for employment opportunities; I’m still happy to hear from people who share enough context to reply usefully.";
+  "Use this if you want to talk about something concrete, like a post, a project, or a technical question. I am not looking for employment opportunities, but I am always happy to hear from people who share enough context for a useful reply.";
 
 export const CONTACT_FORM_LEDE =
   "Prefer the form? I usually reply within a few business days. All fields are required.";
@@ -57,3 +57,31 @@ export const HERO_PROOF_ROW = [
 export const RESUME_URL: string | null = null;
 
 export const LOCATION = "Based in Montreal, Quebec, Canada";
+
+/** Hero */
+export const HERO_SECTION_ARIA_LABEL = "Introduction";
+
+export const HERO_CTA_DISCUSS_ROLE = "Discuss a role";
+
+export const HERO_CTA_VIEW_CASE_STUDIES = "View case studies";
+
+export const HERO_CTA_READ_WRITING = "Read writing";
+
+export const HERO_CTA_DOWNLOAD_RESUME = "Download resume";
+
+export const HERO_CONTACT_NAV_ARIA_LABEL = "Contact links";
+
+/** Decorative scroll cue (often paired with aria-hidden in markup). */
+export const HERO_SCROLL_INDICATOR = "↓";
+
+/** Proof strip */
+export const PROOF_STRIP_SR_HEADING = "Proof at a glance";
+
+/** JSON-LD / Person */
+export const PERSON_SCHEMA_JOB_TITLE = "Senior Product Engineer";
+
+export const PERSON_SCHEMA_ADDRESS_LOCALITY = "Montreal";
+
+export const PERSON_SCHEMA_ADDRESS_REGION = "Quebec";
+
+export const PERSON_SCHEMA_ADDRESS_COUNTRY = "CA";

@@ -2,6 +2,25 @@
 
 import classNames from "classnames";
 import { type ContactFormHook, useContactForm } from "components/Contact/hooks/useContactForm";
+import {
+  CONTACT_FIELD_EMAIL_HINT,
+  CONTACT_FIELD_EMAIL_LABEL,
+  CONTACT_FIELD_EMAIL_PLACEHOLDER,
+  CONTACT_FIELD_MESSAGE_HINT,
+  CONTACT_FIELD_MESSAGE_LABEL,
+  CONTACT_FIELD_MESSAGE_PLACEHOLDER,
+  CONTACT_FIELD_NAME_HINT,
+  CONTACT_FIELD_NAME_LABEL,
+  CONTACT_FIELD_NAME_PLACEHOLDER,
+  CONTACT_FORM_REQUIRED_MARKER,
+  CONTACT_FORM_SUBMIT_IDLE,
+  CONTACT_FORM_SUBMIT_LOADING,
+  CONTACT_FORM_SUCCESS_MESSAGE,
+  CONTACT_VALIDATION_EMAIL_PATTERN,
+  CONTACT_VALIDATION_EMAIL_REQUIRED,
+  CONTACT_VALIDATION_MESSAGE_REQUIRED,
+  CONTACT_VALIDATION_NAME_REQUIRED,
+} from "data/contactForm";
 import { FOCUS_RING } from "utils/visual";
 
 const inputClass =
@@ -32,19 +51,20 @@ export function ContactForm() {
     >
       <div>
         <label htmlFor="contact-name" className={labelClass}>
-          Name <span className="text-muted font-normal">(required)</span>
+          {CONTACT_FIELD_NAME_LABEL}{" "}
+          <span className="text-muted font-normal">{CONTACT_FORM_REQUIRED_MARKER}</span>
         </label>
         <p id="contact-name-hint" className={hintClass}>
-          How you’d like to be addressed.
+          {CONTACT_FIELD_NAME_HINT}
         </p>
         <input
           id="contact-name"
           type="text"
-          placeholder="Jane Doe"
+          placeholder={CONTACT_FIELD_NAME_PLACEHOLDER}
           autoComplete="name"
           disabled={isSubmitting}
           className={classNames(inputClass, "mt-2")}
-          {...register("name", { required: "Enter your name" })}
+          {...register("name", { required: CONTACT_VALIDATION_NAME_REQUIRED })}
           aria-invalid={errors.name ? "true" : "false"}
           aria-required
           aria-describedby={
@@ -63,24 +83,25 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="contact-email" className={labelClass}>
-          Email <span className="text-muted font-normal">(required)</span>
+          {CONTACT_FIELD_EMAIL_LABEL}{" "}
+          <span className="text-muted font-normal">{CONTACT_FORM_REQUIRED_MARKER}</span>
         </label>
         <p id="contact-email-hint" className={hintClass}>
-          I only use this to reply—no mailing lists.
+          {CONTACT_FIELD_EMAIL_HINT}
         </p>
         <input
           id="contact-email"
           type="email"
           inputMode="email"
-          placeholder="you@company.com"
+          placeholder={CONTACT_FIELD_EMAIL_PLACEHOLDER}
           autoComplete="email"
           disabled={isSubmitting}
           className={classNames(inputClass, "mt-2")}
           {...register("email", {
-            required: "Enter your email",
+            required: CONTACT_VALIDATION_EMAIL_REQUIRED,
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Use a valid email address",
+              message: CONTACT_VALIDATION_EMAIL_PATTERN,
             },
           })}
           aria-invalid={errors.email ? "true" : "false"}
@@ -101,18 +122,19 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="contact-message" className={labelClass}>
-          Message <span className="text-muted font-normal">(required)</span>
+          {CONTACT_FIELD_MESSAGE_LABEL}{" "}
+          <span className="text-muted font-normal">{CONTACT_FORM_REQUIRED_MARKER}</span>
         </label>
         <p id="contact-message-hint" className={hintClass}>
-          Role, location, timeline, stack, or the problem you’re solving—short is fine.
+          {CONTACT_FIELD_MESSAGE_HINT}
         </p>
         <textarea
           id="contact-message"
           rows={5}
-          placeholder="e.g. Staff frontend, React/TS, hybrid in Montreal, start Q2…"
+          placeholder={CONTACT_FIELD_MESSAGE_PLACEHOLDER}
           disabled={isSubmitting}
           className={classNames(inputClass, "resize-y min-h-30 mt-2")}
-          {...register("message", { required: "Add a short message" })}
+          {...register("message", { required: CONTACT_VALIDATION_MESSAGE_REQUIRED })}
           aria-invalid={errors.message ? "true" : "false"}
           aria-required
           aria-describedby={
@@ -131,7 +153,7 @@ export function ContactForm() {
       </div>
       {status === "success" && (
         <p className="text-sm text-green-600 dark:text-green-400" role="status" aria-live="polite">
-          Message sent. I’ll reply within a few business days.
+          {CONTACT_FORM_SUCCESS_MESSAGE}
         </p>
       )}
       {status === "error" && errorMessage && (
@@ -146,7 +168,7 @@ export function ContactForm() {
         data-analytics-event="contact_form_submit_click"
         className={`hover-scale inline-flex items-center justify-center px-5 py-2.5 rounded-md bg-foreground text-background text-sm font-semibold hover:bg-accent-muted hover:text-background transition-colors disabled:opacity-60 disabled:pointer-events-none ${FOCUS_RING}`}
       >
-        {isSubmitting ? "Sending…" : "Send message"}
+        {isSubmitting ? CONTACT_FORM_SUBMIT_LOADING : CONTACT_FORM_SUBMIT_IDLE}
       </button>
     </form>
   );

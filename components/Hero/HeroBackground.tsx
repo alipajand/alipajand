@@ -1,6 +1,6 @@
 "use client";
 
-import { GridOutlinePath } from "components/Hero/GridOutlinePath";
+import { HeroGridOutlinePathCell } from "components/Hero/HeroGridOutlinePathCell";
 import {
   HERO_GRID_CONFIG,
   useGridOutlineAnimation,
@@ -22,7 +22,7 @@ export function HeroBackground() {
       aria-hidden="true"
     >
       {snakeOrder.map(([rowIndex, colIndex]) => (
-        <GridOutlinePath
+        <HeroGridOutlinePathCell
           key={`${rowIndex}-${colIndex}`}
           grid={HERO_GRID_CONFIG}
           rowIndex={rowIndex}

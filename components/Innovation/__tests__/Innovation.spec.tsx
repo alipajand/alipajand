@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { Innovation } from "components/Innovation/Innovation";
+import { INNOVATION_SECTION_INTRO } from "data/innovation";
 
 describe("Innovation", () => {
   it("renders section with id innovation", () => {
@@ -15,11 +16,7 @@ describe("Innovation", () => {
 
   it("renders intro paragraph", () => {
     render(<Innovation />);
-    expect(
-      screen.getByText(
-        /Automation I run in the editor and in CI—early feedback, smaller reviews, same standards as the rest of my work./i
-      )
-    ).toBeInTheDocument();
+    expect(screen.getByText(INNOVATION_SECTION_INTRO)).toBeInTheDocument();
   });
 
   it("renders innovation items from data", () => {

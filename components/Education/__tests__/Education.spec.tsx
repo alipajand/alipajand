@@ -6,7 +6,7 @@ describe("Education", () => {
   it("renders section with education text", () => {
     render(<Education />);
     expect(
-      screen.getByText(/Master's Degree in Computer Information Technology · 2016/i)
+      screen.getByText(/Master[\u2019']s Degree in Computer Information Technology · 2016/i)
     ).toBeInTheDocument();
   });
 
