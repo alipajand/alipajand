@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 
+import {
+  ENGINEERING_PRINCIPLES_META_DESCRIPTION,
+  ENGINEERING_PRINCIPLES_PAGE_TITLE,
+} from "data/engineeringPrinciples";
+import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
 import { BLOG_INDEX_DESCRIPTION } from "data/writing";
 import { CANONICAL_URL, PORTFOLIO_PAGE_LEDE, SITE_NAME, TWITTER_HANDLE } from "data/site";
 import type { Post } from "utils/posts";
@@ -84,6 +89,60 @@ export function buildPortfolioMetadata(): Metadata {
   const url = `${CANONICAL_URL}/portfolio`;
   const title = "Portfolio";
   const description = PORTFOLIO_PAGE_LEDE;
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      url,
+      siteName: SITE_NAME,
+      title: `${title} · ${SITE_NAME}`,
+      description,
+      locale: "en_US",
+      images: [{ ...defaultOgImage, alt: `${title} · ${SITE_NAME}` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} · ${SITE_NAME}`,
+      description,
+      images: [defaultOgImage.url],
+      ...twitterExtras(),
+    },
+  };
+}
+
+export function buildEngineeringPrinciplesMetadata(): Metadata {
+  const url = `${CANONICAL_URL}/engineering-principles`;
+  const title = ENGINEERING_PRINCIPLES_PAGE_TITLE;
+  const description = ENGINEERING_PRINCIPLES_META_DESCRIPTION;
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      url,
+      siteName: SITE_NAME,
+      title: `${title} · ${SITE_NAME}`,
+      description,
+      locale: "en_US",
+      images: [{ ...defaultOgImage, alt: `${title} · ${SITE_NAME}` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} · ${SITE_NAME}`,
+      description,
+      images: [defaultOgImage.url],
+      ...twitterExtras(),
+    },
+  };
+}
+
+export function buildNowMetadata(): Metadata {
+  const url = `${CANONICAL_URL}/now`;
+  const title = NOW_PAGE_TITLE;
+  const description = NOW_META_DESCRIPTION;
   return {
     title,
     description,

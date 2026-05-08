@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 
+import { LedgerGuardArchitectureDiagram } from "components/diagrams/LedgerGuardArchitectureDiagram";
 import type { Project } from "data/projects";
 import { splitRoleLine } from "utils/projectRole";
 import { FOCUS_RING } from "utils/visual";
@@ -142,32 +143,40 @@ export function ProjectCard({ project }: { project: Project }) {
         {hasCaseStudy && (
           <div className="space-y-5 pt-1 border-t border-border">
             <h4 className="sr-only">Case study</h4>
-            <div className="grid gap-5 md:grid-cols-2 md:gap-6">
-              <div className="min-w-0 space-y-2">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
-                  Problem
-                </span>
-                <p className="text-sm text-foreground/90 leading-relaxed">
-                  {project.caseStudy!.problem}
-                </p>
+            {project.id === "ledgerguard-deterministic-commitments-ledger" ? (
+              <figure className="space-y-2">
+                <LedgerGuardArchitectureDiagram />
+                <figcaption className="text-muted text-xs sm:text-sm leading-snug">
+                  High-level flow: domain API owns tenant truth; workers run asynchronously and
+                  return through verification and internal callbacks—not direct writes.
+                </figcaption>
+              </figure>
+            ) : null}
+            {project.caseStudy ? (
+              <div className="grid gap-5 md:grid-cols-2 md:gap-6">
+                {[
+                  { label: "Problem", text: project.caseStudy.problem },
+                  { label: "Constraints", text: project.caseStudy.constraints },
+                  {
+                    label: "Architecture decisions",
+                    text: project.caseStudy.architectureDecisions,
+                  },
+                  { label: "Tradeoffs", text: project.caseStudy.tradeoffs },
+                  {
+                    label: "Reliability / performance",
+                    text: project.caseStudy.reliabilityPerformance,
+                  },
+                  { label: "Outcome", text: project.caseStudy.outcome },
+                ].map(({ label, text }) => (
+                  <div key={label} className="min-w-0 space-y-2">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
+                      {label}
+                    </span>
+                    <p className="text-sm text-foreground/90 leading-relaxed">{text}</p>
+                  </div>
+                ))}
               </div>
-              <div className="min-w-0 space-y-2">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
-                  Approach
-                </span>
-                <p className="text-sm text-foreground/90 leading-relaxed">
-                  {project.caseStudy!.approach}
-                </p>
-              </div>
-            </div>
-            <div className="min-w-0 space-y-2">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
-                Result
-              </span>
-              <p className="text-sm text-foreground/90 leading-relaxed">
-                {project.caseStudy!.result}
-              </p>
-            </div>
+            ) : null}
           </div>
         )}
 

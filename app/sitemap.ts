@@ -31,6 +31,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.85,
     },
+    {
+      url: `${CANONICAL_URL}/engineering-principles`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
+    {
+      url: `${CANONICAL_URL}/now`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.72,
+    },
     ...postEntries,
   ];
 }

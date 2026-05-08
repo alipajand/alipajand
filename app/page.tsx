@@ -1,4 +1,5 @@
 import { Hero } from "components/Hero/Hero";
+import { HowIThink } from "components/HowIThink/HowIThink";
 import { ProofStrip } from "components/ProofStrip/ProofStrip";
 import { SelectedWorkGallery } from "components/SelectedWorkGallery/SelectedWorkGallery";
 import { Testimonials } from "components/Testimonials/Testimonials";
@@ -12,14 +13,13 @@ export default function Home() {
 
   return (
     <MainReveal>
-      <main id="main-content" tabIndex={-1}>
-        <Hero />
-        <ProofStrip />
-        <SelectedWorkGallery />
-        <Testimonials />
-        <Writing featured={featuredPost} posts={writingPosts} />
-        <Contact />
-      </main>
+      <Hero />
+      <ProofStrip />
+      <HowIThink />
+      <SelectedWorkGallery />
+      <Testimonials />
+      <Writing featured={featuredPost} posts={writingPosts} />
+      <Contact />
     </MainReveal>
   );
 }

@@ -38,8 +38,9 @@ describe("Projects", () => {
   it("renders case study labels for projects that have them", () => {
     render(<Projects />);
     expect(screen.getAllByText("Problem").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Approach").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Result").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Constraints").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Architecture decisions").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Outcome").length).toBeGreaterThan(0);
   });
 
   it("renders jump nav for case studies (in DOM for lg layout)", () => {

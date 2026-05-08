@@ -184,18 +184,27 @@ describe("ProjectCard", () => {
         ...mockProject,
         caseStudy: {
           problem: "The problem",
-          approach: "The approach",
-          result: "The result",
+          constraints: "The constraints",
+          architectureDecisions: "The architecture decisions",
+          tradeoffs: "The tradeoffs",
+          reliabilityPerformance: "The reliability",
+          outcome: "The outcome",
         },
       };
 
       render(<ProjectCard project={projectWithCaseStudy} />);
       expect(screen.getByText("Problem")).toBeInTheDocument();
       expect(screen.getByText("The problem")).toBeInTheDocument();
-      expect(screen.getByText("Approach")).toBeInTheDocument();
-      expect(screen.getByText("The approach")).toBeInTheDocument();
-      expect(screen.getByText("Result")).toBeInTheDocument();
-      expect(screen.getByText("The result")).toBeInTheDocument();
+      expect(screen.getByText("Constraints")).toBeInTheDocument();
+      expect(screen.getByText("The constraints")).toBeInTheDocument();
+      expect(screen.getByText("Architecture decisions")).toBeInTheDocument();
+      expect(screen.getByText("The architecture decisions")).toBeInTheDocument();
+      expect(screen.getByText("Tradeoffs")).toBeInTheDocument();
+      expect(screen.getByText("The tradeoffs")).toBeInTheDocument();
+      expect(screen.getByText("Reliability / performance")).toBeInTheDocument();
+      expect(screen.getByText("The reliability")).toBeInTheDocument();
+      expect(screen.getByText("Outcome")).toBeInTheDocument();
+      expect(screen.getByText("The outcome")).toBeInTheDocument();
     });
 
     it("should not render case study when not provided", () => {
