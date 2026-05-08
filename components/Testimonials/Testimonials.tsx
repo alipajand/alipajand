@@ -32,7 +32,7 @@ export function Testimonials() {
             <li key={t.id}>
               <figure className="m-0" data-testimonial-card>
                 <blockquote className="m-0 border-0 p-0">
-                  <p className="text-foreground/95 text-[17px] sm:text-lg leading-[1.65] font-normal text-balance">
+                  <p className="text-foreground/95 text-[17px] sm:text-lg leading-[1.65] font-normal">
                     <span className="text-foreground/45 select-none" aria-hidden>
                       &ldquo;
                     </span>

@@ -1,7 +1,6 @@
 import { Hero } from "components/Hero/Hero";
 import { HowIThink } from "components/HowIThink/HowIThink";
 import { ProofStrip } from "components/ProofStrip/ProofStrip";
-import { SelectedWorkGallery } from "components/SelectedWorkGallery/SelectedWorkGallery";
 import { Testimonials } from "components/Testimonials/Testimonials";
 import { Writing } from "components/Writing/Writing";
 import { Contact } from "components/Contact/Contact";
@@ -16,7 +15,6 @@ export default function Home() {
       <Hero />
       <ProofStrip />
       <HowIThink />
-      <SelectedWorkGallery />
       <Testimonials />
       <Writing featured={featuredPost} posts={writingPosts} />
       <Contact />

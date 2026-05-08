@@ -15,10 +15,7 @@ export const SECTION_INNER_WIDE = "max-w-5xl mx-auto w-full";
 export const SECTION_TITLE =
   "font-display font-bold tracking-tight text-3xl sm:text-4xl text-foreground";
 
-export const SECTION_TITLE_COMPACT =
-  "font-display font-bold tracking-tight text-2xl sm:text-3xl text-foreground";
-
-export const SECTION_LEDE = "text-muted text-[15px] sm:text-base leading-relaxed";
+export const SECTION_LEDE = "text-muted text-[15px] sm:text-base leading-relaxed mt-3";
 
 export const SECTION_LEDE_LG = "text-muted text-base sm:text-lg leading-relaxed";
 
