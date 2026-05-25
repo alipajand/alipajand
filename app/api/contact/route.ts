@@ -10,7 +10,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CONSUMER_DOMAINS = ["@gmail.com", "@yahoo.com", "@hotmail.com"];
 
 function getToEmail(): string {
-  const raw = process.env.CONTACT_EMAIL?.trim() ?? "ali.pajand@gmail.com";
+  const raw = process.env.CONTACT_EMAIL?.trim() ?? "alipajand@gmail.com";
   const match = raw.match(/<([^>]+)>/);
   return match ? match[1].trim() : raw;
 }
