@@ -3,8 +3,7 @@ export const NOW_PAGE_TITLE = "Now";
 export const NOW_META_DESCRIPTION =
   "Current focus: what’s shipping, what’s under study, tooling experiments, writing, and the stack in use.";
 
-export const NOW_LEDE =
-  "Snapshot of active work and interests, updated when priorities shift.";
+export const NOW_LEDE = "Snapshot of active work and interests, updated when priorities shift.";
 
 export interface NowSection {
   id: string;

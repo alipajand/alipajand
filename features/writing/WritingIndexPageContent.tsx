@@ -29,7 +29,9 @@ export function WritingIndexPageContent({ posts }: WritingIndexPageContentProps)
             <h1 className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-3">
               {WRITING_SECTION_HEADING}
             </h1>
-            <p className="text-muted text-base sm:text-lg leading-relaxed">{WRITING_SECTION_LEDE}</p>
+            <p className="text-muted text-base sm:text-lg leading-relaxed">
+              {WRITING_SECTION_LEDE}
+            </p>
             <p className="mt-4 text-[15px] sm:text-base text-foreground/85 leading-relaxed border-l-2 border-border pl-4 sm:pl-5">
               {WRITING_WHY_IT_MATTERS}
             </p>

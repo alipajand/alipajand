@@ -1,7 +1,5 @@
 import { trackContactLinkClick } from "components/Contact/trackContactLinkClick";
-import {
-  CARD_SURFACE_HOVER,
-} from "utils/visual";
+import { CARD_SURFACE_HOVER } from "utils/visual";
 
 const ICON_SRC = {
   Email: "/icons/email.svg",

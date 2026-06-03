@@ -30,7 +30,9 @@ export function NotFoundPageContent() {
         <p className="text-muted text-[15px] sm:text-base max-w-md leading-relaxed mb-4">
           {NOT_FOUND_DESCRIPTION}
         </p>
-        <p className="text-muted text-sm max-w-md leading-relaxed mb-10">{NOT_FOUND_KEYBOARD_TIP}</p>
+        <p className="text-muted text-sm max-w-md leading-relaxed mb-10">
+          {NOT_FOUND_KEYBOARD_TIP}
+        </p>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <Link
             href="/"

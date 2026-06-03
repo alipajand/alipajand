@@ -1,27 +1,31 @@
 export const SITE_NAME = "Ali Pajand";
 
-export const TAGLINE = "Senior Product Engineer · Design Systems · DX & Frontend";
+export const TAGLINE =
+  "Senior Product Engineer · Frontend Architecture · Design Systems · AI Product Workflows";
 
 export const KEYWORDS = [
   SITE_NAME,
   "Senior Product Engineer",
-  "Senior Frontend Developer",
+  "Senior Frontend Engineer",
+  "Frontend Architecture",
   "Design Systems",
   "Developer Experience",
+  "AI Product Engineering",
   "React",
   "TypeScript",
   "Next.js",
   "Node.js",
+  "Accessibility",
   "Montreal",
 ];
 
 export const CANONICAL_URL = "https://alipajand.com";
 
 export const PORTFOLIO_PAGE_LEDE =
-  "About, trajectory, case studies, and tooling. The full arc beyond the homepage snapshot.";
+  "Case studies, product systems, architecture decisions, and shipped work across design systems, AI workflows, dashboards, and developer experience.";
 
 export const SITE_META_DESCRIPTION =
-  "Senior product engineer in Montreal. Design systems, accessibility, TypeScript/React, DX tooling, and notes on how real systems ship.";
+  "Senior Product Engineer in Montreal focused on frontend architecture, design systems, AI product workflows, accessibility, TypeScript/React, and developer experience.";
 
 export const TWITTER_HANDLE: string | null = null;
 
@@ -30,28 +34,28 @@ export const PERSON_SCHEMA_ID = `${CANONICAL_URL}/#person`;
 export const WEBSITE_SCHEMA_ID = `${CANONICAL_URL}/#website`;
 
 export const HERO_VALUE_LINE =
-  "I ship accessible UIs and reliable releases through design systems, frontend architecture, and DX tooling.";
+  "I build reliable product interfaces, design systems, and AI-assisted workflows that help teams ship faster without losing quality.";
 
 export const HERO_SUB =
-  "9+ years turning messy requirements into shipped product. I own design-system rollouts, tight TypeScript/React stacks, and the release discipline teams need to move fast without breaking quality.";
+  "9+ years turning messy product requirements into shipped systems. I work across React, TypeScript, Next.js, API contracts, accessibility, CI quality gates, and developer tooling so teams can move quickly without losing reliability.";
 
 export const ABOUT_PARAGRAPHS = [
-  "I've spent 9+ years turning messy requirements into products that work. I do frontend (React, TypeScript, Next.js) and backend (Node.js, APIs), and I care a lot about design systems, component libraries, and the tools and docs that help teams move fast.",
-  "I sit between design and engineering: I make sure the code is accessible and actually ships. I've run design-system rollouts and built things like an MCP server for Cursor so we catch issues before review. I like working in small teams where everyone cares about the product.",
-  "I'm good at leading, working with others, and mentoring. I care about stable releases and making hard stuff simple so everyone can contribute.",
+  "I'm a senior product engineer based in Montreal. My strongest work sits between product, design, and engineering: shaping ambiguous requirements, building reliable interfaces, and creating systems other developers can extend without friction.",
+  "I specialize in frontend architecture, design systems, accessibility, developer experience, and AI-assisted product workflows. I care about clear boundaries, typed contracts, honest UI states, and release discipline because users experience quality through the product, not through the org chart.",
+  "I like small, high-ownership teams where engineers think beyond tickets. I mentor through code review, documentation, and architectural clarity, with a bias toward practical systems that ship and stay maintainable.",
 ];
 
 export const CONTACT_INTRO =
-  "Use this if you want to talk about something concrete, like a post, a project, or a technical question. I am not looking for employment opportunities, but I am always happy to hear from people who share enough context for a useful reply.";
+  "I'm open to senior product engineering, frontend platform, design systems, and AI-product engineering conversations — especially where the work involves product ownership, system quality, and shipping discipline. Share the role, problem, stack, timeline, and location context so I can reply usefully.";
 
 export const CONTACT_FORM_LEDE =
-  "Prefer the form? I usually reply within a few business days. All fields are required.";
+  "Prefer the form? Send the role, project, technical problem, or collaboration context. I usually reply within a few business days.";
 
 export const HERO_PROOF_ROW = [
-  { value: "9+", label: "years building product" },
-  { value: "Design systems", label: "rollouts & shared UI" },
-  { value: "DX & architecture", label: "typed APIs, pipelines, review" },
-  { value: "A11y-first", label: "UIs that ship" },
+  { value: "9+", label: "years shipping product" },
+  { value: "Design systems", label: "shared UI, tokens, docs" },
+  { value: "Architecture", label: "typed contracts, boundaries, CI" },
+  { value: "AI workflows", label: "trust, review, reliability" },
 ] as const;
 
 export const RESUME_URL: string | null = null;

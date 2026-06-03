@@ -38,7 +38,14 @@ export function McpWorkflowDiagram() {
           stroke="currentColor"
           strokeWidth="1"
         />
-        <text x="62" y="92" textAnchor="middle" fill="currentColor" fontSize="11" fontFamily="inherit">
+        <text
+          x="62"
+          y="92"
+          textAnchor="middle"
+          fill="currentColor"
+          fontSize="11"
+          fontFamily="inherit"
+        >
           Editor
         </text>
         <text x="62" y="106" textAnchor="middle" fill="currentColor" fontSize="10" opacity="0.75">
@@ -56,7 +63,14 @@ export function McpWorkflowDiagram() {
           stroke="currentColor"
           strokeWidth="1"
         />
-        <text x="207" y="88" textAnchor="middle" fill="currentColor" fontSize="11" fontFamily="inherit">
+        <text
+          x="207"
+          y="88"
+          textAnchor="middle"
+          fill="currentColor"
+          fontSize="11"
+          fontFamily="inherit"
+        >
           MCP server
         </text>
         <text x="207" y="104" textAnchor="middle" fill="currentColor" fontSize="10" opacity="0.75">
@@ -74,7 +88,14 @@ export function McpWorkflowDiagram() {
           stroke="currentColor"
           strokeWidth="1"
         />
-        <text x="365" y="76" textAnchor="middle" fill="currentColor" fontSize="11" fontFamily="inherit">
+        <text
+          x="365"
+          y="76"
+          textAnchor="middle"
+          fill="currentColor"
+          fontSize="11"
+          fontFamily="inherit"
+        >
           Lint · types · tests
         </text>
         <text x="365" y="94" textAnchor="middle" fill="currentColor" fontSize="10" opacity="0.75">

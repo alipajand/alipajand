@@ -1,18 +1,10 @@
 import { HowIThinkGridItem } from "components/HowIThink/HowIThinkGridItem";
-import {
-  HOW_I_THINK_CARDS,
-  HOW_I_THINK_HEADING,
-  HOW_I_THINK_LEDE,
-} from "data/howIThink";
+import { HOW_I_THINK_CARDS, HOW_I_THINK_HEADING, HOW_I_THINK_LEDE } from "data/howIThink";
 import { SECTION_INNER, SECTION_LEDE_LG, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
 export function HowIThink() {
   return (
-    <section
-      id="how-i-think"
-      aria-labelledby="how-i-think-heading"
-      className={SECTION_SHELL}
-    >
+    <section id="how-i-think" aria-labelledby="how-i-think-heading" className={SECTION_SHELL}>
       <div className={SECTION_INNER}>
         <h2 id="how-i-think-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
           {HOW_I_THINK_HEADING}

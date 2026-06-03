@@ -18,7 +18,9 @@ export function EngineeringPrinciplesSectionBlock({
       </h2>
       <div className="mt-4 space-y-4">
         {section.paragraphs.map((p, i) => (
-          <EngineeringPrinciplesParagraph key={`${section.id}-${i}`}>{p}</EngineeringPrinciplesParagraph>
+          <EngineeringPrinciplesParagraph key={`${section.id}-${i}`}>
+            {p}
+          </EngineeringPrinciplesParagraph>
         ))}
       </div>
     </section>

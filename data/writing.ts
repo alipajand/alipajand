@@ -1,19 +1,20 @@
 export const WRITING_SECTION_LEDE =
-  "Long-form notes on design systems, developer experience, and shipping product UIs.";
+  "Notes on the engineering decisions behind reliable product systems: design systems, AI trust boundaries, DX tooling, accessibility, and shipping discipline.";
 
 export const WRITING_WHY_IT_MATTERS =
-  "These pieces unpack how I reason about systems and trade-offs, so you can see how I explain complexity and align engineering with product goals.";
+  "These pieces show how I reason about trade-offs, explain complexity, and align product engineering decisions with systems that teams can actually ship and maintain.";
 
 export const WRITING_FEATURED_LABEL = "Featured";
 
 export const WRITING_ALL_POSTS_CTA = "Browse all posts";
 
 export const WRITING_INDEX_DESCRIPTION =
-  "Essays on design systems, DX, and shipping product UIs, with trade-offs, tooling, and practical alignment between engineering and product goals.";
+  "Essays on frontend architecture, design systems, AI product workflows, DX, accessibility, and the trade-offs behind reliable product delivery.";
 
 export const WRITING_SECTION_HEADING = "Writing";
 
-export const WRITING_HOME_ARCHIVE_TEASER = "More essays and notes on the archive.";
+export const WRITING_HOME_ARCHIVE_TEASER =
+  "More notes on product engineering, systems, and shipping reliable interfaces.";
 
 export const WRITING_READ_ARTICLE_CTA = "Read article →";
 

@@ -13,12 +13,7 @@ import {
   WRITING_SECTION_LEDE,
   WRITING_WHY_IT_MATTERS,
 } from "data/writing";
-import {
-  SECTION_INNER,
-  SECTION_LEDE_LG,
-  SECTION_SHELL,
-  SECTION_TITLE,
-} from "utils/visual";
+import { SECTION_INNER, SECTION_LEDE_LG, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
 interface WritingProps {
   featured: WritingPost | null;

@@ -2,10 +2,7 @@ import Link from "next/link";
 
 import type { WritingIndexPost } from "features/writing/WritingIndexPost";
 import { formatDate } from "utils/date";
-import {
-  WRITING_FEATURED_LABEL,
-  WRITING_READ_ARTICLE_CTA,
-} from "data/writing";
+import { WRITING_FEATURED_LABEL, WRITING_READ_ARTICLE_CTA } from "data/writing";
 
 interface WritingIndexPostListItemProps {
   post: WritingIndexPost;

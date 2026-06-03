@@ -39,7 +39,14 @@ export function LedgerGuardArchitectureDiagram() {
           stroke="currentColor"
           strokeWidth="1"
         />
-        <text x="248" y="29" textAnchor="middle" fill="currentColor" fontSize="11" fontFamily="inherit">
+        <text
+          x="248"
+          y="29"
+          textAnchor="middle"
+          fill="currentColor"
+          fontSize="11"
+          fontFamily="inherit"
+        >
           Frontend
         </text>
 
@@ -54,7 +61,14 @@ export function LedgerGuardArchitectureDiagram() {
           stroke="currentColor"
           strokeWidth="1"
         />
-        <text x="248" y="84" textAnchor="middle" fill="currentColor" fontSize="11" fontFamily="inherit">
+        <text
+          x="248"
+          y="84"
+          textAnchor="middle"
+          fill="currentColor"
+          fontSize="11"
+          fontFamily="inherit"
+        >
           API (domain)
         </text>
 
@@ -69,7 +83,14 @@ export function LedgerGuardArchitectureDiagram() {
           stroke="currentColor"
           strokeWidth="1"
         />
-        <text x="400" y="84" textAnchor="middle" fill="currentColor" fontSize="11" fontFamily="inherit">
+        <text
+          x="400"
+          y="84"
+          textAnchor="middle"
+          fill="currentColor"
+          fontSize="11"
+          fontFamily="inherit"
+        >
           Database
         </text>
 
@@ -84,7 +105,14 @@ export function LedgerGuardArchitectureDiagram() {
           stroke="currentColor"
           strokeWidth="1"
         />
-        <text x="116" y="157" textAnchor="middle" fill="currentColor" fontSize="11" fontFamily="inherit">
+        <text
+          x="116"
+          y="157"
+          textAnchor="middle"
+          fill="currentColor"
+          fontSize="11"
+          fontFamily="inherit"
+        >
           Queues
         </text>
 
@@ -99,7 +127,14 @@ export function LedgerGuardArchitectureDiagram() {
           stroke="currentColor"
           strokeWidth="1"
         />
-        <text x="288" y="152" textAnchor="middle" fill="currentColor" fontSize="11" fontFamily="inherit">
+        <text
+          x="288"
+          y="152"
+          textAnchor="middle"
+          fill="currentColor"
+          fontSize="11"
+          fontFamily="inherit"
+        >
           AI workers
         </text>
         <text x="288" y="166" textAnchor="middle" fill="currentColor" fontSize="10" opacity="0.8">
@@ -117,7 +152,14 @@ export function LedgerGuardArchitectureDiagram() {
           stroke="currentColor"
           strokeWidth="1"
         />
-        <text x="260" y="228" textAnchor="middle" fill="currentColor" fontSize="11" fontFamily="inherit">
+        <text
+          x="260"
+          y="228"
+          textAnchor="middle"
+          fill="currentColor"
+          fontSize="11"
+          fontFamily="inherit"
+        >
           Verification loop
         </text>
         <text x="260" y="242" textAnchor="middle" fill="currentColor" fontSize="10" opacity="0.8">

@@ -1,12 +1,12 @@
 export const ENGINEERING_PRINCIPLES_META_DESCRIPTION =
-  "How I approach engineering: systems first, reliability as product, AI trust boundaries, accessibility, fast feedback loops, and product thinking over ticket thinking.";
+  "How I approach product engineering: systems first, reliability as product, AI trust boundaries, accessibility, fast feedback loops, and product thinking over ticket thinking.";
 
 export const ENGINEERING_PRINCIPLES_PAGE_TITLE = "Engineering principles";
 
 export const ENGINEERING_PRINCIPLES_HEADER_OVERLINE = "Philosophy";
 
 export const ENGINEERING_PRINCIPLES_LEDE =
-  "Philosophy and architectural habits that help me ship software that stays understandable as it scales.";
+  "The engineering habits behind how I build product surfaces, design systems, AI workflows, and reliable software that stays understandable as it scales.";
 
 export interface EngineeringPrinciplesSection {
   id: string;
