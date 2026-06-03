@@ -6,25 +6,49 @@ function getResend(): Resend | null {
   return key ? new Resend(key) : null;
 }
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_EMAIL_LENGTH = 254;
 const CONSUMER_DOMAINS = ["@gmail.com", "@yahoo.com", "@hotmail.com"];
+
+function isValidEmail(value: string): boolean {
+  if (value.length === 0 || value.length > MAX_EMAIL_LENGTH) return false;
+
+  const at = value.indexOf("@");
+  if (at <= 0 || at !== value.lastIndexOf("@")) return false;
+
+  const local = value.slice(0, at);
+  const domain = value.slice(at + 1);
+  if (local.length === 0 || domain.length === 0) return false;
+
+  const dot = domain.lastIndexOf(".");
+  if (dot <= 0 || dot === domain.length - 1) return false;
+
+  for (let i = 0; i < value.length; i += 1) {
+    const code = value.charCodeAt(i);
+    if (code <= 32 || code === 127) return false;
+  }
+
+  return true;
+}
+
+function parseAngleEmail(value: string): string | null {
+  const lt = value.indexOf("<");
+  const gt = value.lastIndexOf(">");
+  if (lt === -1 || gt <= lt) return null;
+  return value.slice(lt + 1, gt).trim();
+}
 
 function getToEmail(): string {
   const raw = process.env.CONTACT_EMAIL?.trim() ?? "alipajand@gmail.com";
-  const match = raw.match(/<([^>]+)>/);
-  return match ? match[1].trim() : raw;
+  const parsed = parseAngleEmail(raw);
+  return parsed ?? raw;
 }
 
 function getFromEmail(): string {
   const raw = process.env.RESEND_FROM?.trim();
   if (!raw) return "onboarding@resend.dev";
-  if (!EMAIL_REGEX.test(raw) && !/^[\s\S]+\s*<[^>]+>$/.test(raw)) return "onboarding@resend.dev";
-  const email = raw.includes("<")
-    ? raw
-        .replace(/^.+<\s*/, "")
-        .replace(/\s*>$/, "")
-        .trim()
-    : raw;
+
+  const email = parseAngleEmail(raw) ?? raw;
+  if (!isValidEmail(email)) return "onboarding@resend.dev";
   if (CONSUMER_DOMAINS.some((d) => email.endsWith(d))) return "onboarding@resend.dev";
   return raw;
 }
@@ -50,7 +74,7 @@ export async function POST(request: Request) {
     if (!n) return NextResponse.json({ error: "Name is required" }, { status: 400 });
     if (!e) return NextResponse.json({ error: "Email is required" }, { status: 400 });
     if (!m) return NextResponse.json({ error: "Message is required" }, { status: 400 });
-    if (!EMAIL_REGEX.test(e))
+    if (!isValidEmail(e))
       return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
 
     const resend = getResend();
