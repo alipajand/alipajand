@@ -57,7 +57,7 @@ export const PROJECTS: Project[] = [
     name: "LedgerGuard — AI contract intelligence with deterministic financial truth",
     description:
       "Multi-tenant B2B SaaS that turns vendor contracts into commitment, renewal, notice-window, and spend-risk views. The core product decision: keep probabilistic AI/OCR extraction separate from deterministic financial truth so the UI never presents stale or partial data as certainty.",
-    role: "Founder / product engineer · LedgerGuard",
+    role: "Founder / Senior Product Engineer · LedgerGuard",
     navLabel: "LedgerGuard",
     signalStack: [
       "Fastify API domain + worker internal callbacks",
@@ -126,7 +126,7 @@ export const PROJECTS: Project[] = [
     name: "MapBylaw — typed AI recommendations, shared UI, and report infrastructure",
     description:
       "Product engineering for a map-first property insights platform: shared UI across web/admin, typed API contracts, bilingual React-PDF reports, and AI recommendations grounded in zoning rules, feasibility math, and verified scenario inputs.",
-    role: "Senior product engineer · MapBylaw",
+    role: "Senior Product Engineer · MapBylaw",
     navLabel: "MapBylaw",
     signalStack: [
       "@mapbylaw/ui + feature-based apps",
@@ -195,7 +195,7 @@ export const PROJECTS: Project[] = [
     name: "AlwaysGeeky — design system, marketplace, and login platform",
     description:
       "Led frontend delivery for Web3 product surfaces by building a reusable design system and shipping marketplace and login flows with accessible components, reliable auth/API states, Storybook documentation, and CI quality checks.",
-    role: "Lead / Senior frontend engineer · AlwaysGeeky Games",
+    role: "Lead Frontend Engineer · Design Systems · AlwaysGeeky Games",
     navLabel: "Web3 DS & apps",
     signalStack: [
       "Storybook + CI (visual/a11y)",
@@ -248,7 +248,7 @@ export const PROJECTS: Project[] = [
     name: "Emplifi — data-heavy dashboards and embedded performance",
     description:
       "Built and tuned dashboard interfaces using React, D3.js, and GSAP, with attention to readability, motion discipline, and performance inside embedded and mobile webview contexts.",
-    role: "Senior frontend engineer · Emplifi",
+    role: "Senior Frontend Engineer · Emplifi",
     navLabel: "Emplifi dashboards",
     signalStack: ["D3.js", "GSAP + profiled React", "Embedded + webview performance"],
     badges: ["Data viz", "Performance"],
