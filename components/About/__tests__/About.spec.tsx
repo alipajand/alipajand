@@ -21,7 +21,7 @@ describe("About", () => {
       render(<About />);
 
       expect(
-        screen.getByText(/I've spent 9\+ years turning messy requirements/i)
+        screen.getByText(/I'm a senior product engineer based in Montreal/i)
       ).toBeInTheDocument();
     });
   });

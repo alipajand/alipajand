@@ -10,3 +10,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
+    ignore:
+      # ESLint 10 breaks eslint-plugin-react until ecosystem catches up
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]

@@ -3,6 +3,7 @@
 import type { WritingPost } from "components/Writing/WritingPost";
 import { Contact } from "components/Contact/Contact";
 import { Hero } from "components/Hero/Hero";
+import { HiringFit } from "components/HiringFit/HiringFit";
 import { HowIThink } from "components/HowIThink/HowIThink";
 import { MainReveal } from "components/MainReveal/MainReveal";
 import { ProofStrip } from "components/ProofStrip/ProofStrip";
@@ -19,6 +20,7 @@ export function HomePageContent({ writingFeatured, writingRecent }: HomePageCont
     <MainReveal>
       <Hero />
       <ProofStrip />
+      <HiringFit />
       <HowIThink />
       <Testimonials />
       <Writing featured={writingFeatured} posts={writingRecent} />

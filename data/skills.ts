@@ -5,38 +5,78 @@ export interface SkillGroup {
 
 export const SKILL_GROUPS: SkillGroup[] = [
   {
-    label: "Languages & Frameworks",
+    label: "Product Frontend Architecture",
     items: [
       "React",
       "Next.js",
-      "Vue 3",
-      "Nuxt 3",
       "TypeScript",
-      "JavaScript (ES6+)",
-      "HTML5",
-      "CSS3",
+      "Frontend Platform",
+      "App Router",
+      "Server Components",
+      "TanStack Query",
+      "Component Architecture",
     ],
   },
   {
-    label: "Backend & APIs",
-    items: ["Node.js", "Nest.js", "Python", "PostgreSQL", "REST APIs", "GraphQL"],
+    label: "Design Systems & Accessibility",
+    items: [
+      "Storybook",
+      "Design Tokens",
+      "Component APIs",
+      "Design System Governance",
+      "WCAG",
+      "Semantic HTML",
+      "Keyboard UX",
+      "Figma",
+    ],
   },
   {
-    label: "Interactions",
-    items: ["D3.js", "GSAP", "3D Web Graphics"],
+    label: "AI Product Workflows",
+    items: [
+      "Human-in-the-loop UX",
+      "AI Review Flows",
+      "Structured Outputs",
+      "Trust Boundaries",
+      "Evaluation UX",
+    ],
   },
   {
-    label: "State & Data",
-    items: ["Redux", "Zustand", "Pinia", "React Query", "Context API"],
+    label: "Backend & API Contracts",
+    items: [
+      "Node.js",
+      "Fastify",
+      "Nest.js",
+      "Python",
+      "PostgreSQL",
+      "REST APIs",
+      "GraphQL",
+      "Zod",
+      "OpenAPI",
+    ],
   },
   {
-    label: "Testing & Quality",
-    items: ["Jest", "Playwright", "Sentry", "Chrome DevTools"],
+    label: "Quality, Observability & DX",
+    items: [
+      "Jest",
+      "Playwright",
+      "GitHub Actions",
+      "Sentry",
+      "CI Quality Gates",
+      "TypeScript Strictness",
+      "Performance Budgets",
+      "Cursor Tooling",
+      "Chrome DevTools",
+    ],
   },
   {
-    label: "Tools & Cloud",
-    items: ["AWS", "Docker", "Git", "GitHub Actions", "Vite", "Figma", "Storybook"],
+    label: "Data Visualization & Performance",
+    items: ["D3.js", "GSAP", "Web Performance", "Dashboards", "PWA", "Embedded Webviews"],
   },
 ];
 
-export const SKILLS_CORE_ITEMS = ["Leadership", "Collaboration", "Communication", "Mentorship"];
+export const SKILLS_CORE_ITEMS = [
+  "Product ownership",
+  "Architecture judgment",
+  "Cross-functional collaboration",
+  "Mentorship",
+];

@@ -43,7 +43,10 @@ export function ProjectCard({ project }: { project: Project }) {
     >
       <div className="flex flex-col gap-6 sm:gap-7">
         {project.badges && project.badges.length > 0 && (
-          <ul className="flex flex-wrap gap-2 list-none p-0 m-0" aria-label={PROJECT_CARD_ARIA_BADGES}>
+          <ul
+            className="flex flex-wrap gap-2 list-none p-0 m-0"
+            aria-label={PROJECT_CARD_ARIA_BADGES}
+          >
             {project.badges.map((b) => (
               <ProjectCardBadge key={b}>{b}</ProjectCardBadge>
             ))}

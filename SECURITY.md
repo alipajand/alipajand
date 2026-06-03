@@ -14,7 +14,7 @@ Security updates are considered for the current stable version of this project.
 If you believe you’ve found a security vulnerability, please report it responsibly:
 
 1. **Do not** open a public issue for the vulnerability.
-2. **Email** the maintainer at **ali.pajand@gmail.com** with:
+2. **Email** the maintainer at **alipajand@gmail.com** with:
    - A short description of the issue
    - Steps to reproduce (if applicable)
    - Impact and suggested fix (optional)

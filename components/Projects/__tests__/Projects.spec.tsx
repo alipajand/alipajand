@@ -47,9 +47,7 @@ describe("Projects", () => {
     const { container } = render(<Projects />);
     const nav = container.querySelector('[aria-label="Jump to case study"]');
     expect(nav).toBeInTheDocument();
-    const jump = container.querySelector(
-      'a[href="#project-mapbylaw-platform-ui-ai-reports"]'
-    );
+    const jump = container.querySelector('a[href="#project-mapbylaw-platform-ui-ai-reports"]');
     expect(jump?.textContent).toContain("MapBylaw");
   });
 

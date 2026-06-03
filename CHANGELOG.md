@@ -7,9 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [1.4.0] - 2026-06-03
 
-_(No unreleased changes.)_
+### Added
+
+- Homepage **Hiring fit** section with four strength cards, role-fit pills, and CTAs to portfolio and engineering principles.
+- Writing post: _How I approach senior frontend architecture_.
+- Apple touch icon (`app/apple-icon.tsx`) with AP monogram.
+
+### Changed
+
+- **Positioning:** Unify site copy around **Senior Product Engineer**; broaden hiring-fit messaging for senior frontend, frontend platform, design systems, and AI product UI searches.
+- **Skills:** Expand Product Frontend Architecture, Design Systems & Accessibility, and Quality/Observability/DX groups (TanStack Query, Server Components, design-system governance, performance budgets, and related terms).
+- **Portfolio:** Standardize case-study role labels for LedgerGuard, MapBylaw, AlwaysGeeky Games, and Emplifi.
+- **Writing:** Render post tags as accessible pill badges on writing cards.
+- Refresh app icon treatment, update section ids, and upgrade core dependencies (Next.js, React, Tailwind, TypeScript, and related packages).
+
+### Fixed
+
+- **Security:** Harden post slug handling in `utils/posts.ts` to address CodeQL stored XSS risk in writing routes.
+- Fix broken `pnpm-lock.yaml` after dependency upgrades.
+
+---
+
+## [1.3.0] - 2026-05-08
+
+### Added
+
+- **Now** page (`/now`) and **Engineering principles** page (`/engineering-principles`) with dedicated content and metadata.
+- LedgerGuard portfolio case study and blog post on pipeline truth between extraction and finance.
+- LedgerGuard and MCP workflow diagrams for case studies and posts.
+- **How I think** homepage section.
+
+### Changed
+
+- **Routes:** Migrate blog to **Writing** (`/writing`, `/writing/[slug]`); add redirects from legacy `/blog` paths.
+- **Portfolio:** Reorder case studies and expand project card case-study presentation.
+- Refine ledes, section descriptions, and validation messages across the site.
+- Switch package management to **pnpm** (`pnpm-lock.yaml`, workspace config) and refresh dependency versions.
+- Routine dependency bumps (Next.js, React, marked, Tailwind, Prettier, and related packages).
+
+### Removed
+
+- Site footer and associated components/tests.
+- Gated analytics wrappers, resource hints, and selected-work gallery (and their tests).
 
 ---
 
@@ -21,9 +62,9 @@ _(No unreleased changes.)_
 
 ### Changed
 
-- Update some styles
-- Update nav links
-- Update favicon
+- Visual polish across hero, contact, nav, testimonials, and shared section styling (`utils/visual.ts`).
+- Update nav links and favicon.
+- Routine dependency bumps (Next.js 16.2.x, TypeScript 6, Tailwind 4.2.x, and related packages).
 
 ---
 

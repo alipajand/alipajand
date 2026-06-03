@@ -11,16 +11,16 @@ describe("Contact", () => {
       expect(section).toBeInTheDocument();
     });
 
-    it("should render the Get in touch heading", () => {
+    it("should render the Contact heading", () => {
       render(<Contact />);
 
-      expect(screen.getByRole("heading", { name: /get in touch/i })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: /^contact$/i })).toBeInTheDocument();
     });
 
     it("should render contact links for Email, LinkedIn, GitHub", () => {
       render(<Contact />);
 
-      expect(screen.getByText("ali.pajand[AT]gmail.com")).toBeInTheDocument();
+      expect(screen.getByText("alipajand[AT]gmail.com")).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /email/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /linkedin/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /github/i })).toBeInTheDocument();
@@ -28,7 +28,7 @@ describe("Contact", () => {
 
     it("should render reasons list and form jump CTA", () => {
       render(<Contact />);
-      expect(screen.getByRole("heading", { name: /contact form/i })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: /send context/i })).toBeInTheDocument();
     });
   });
 });

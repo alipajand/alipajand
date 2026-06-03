@@ -54,10 +54,10 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: "ledgerguard-deterministic-commitments-ledger",
-    name: "Deterministic ledger + honest renewal read models",
+    name: "LedgerGuard — AI contract intelligence with deterministic financial truth",
     description:
-      "Multi-tenant B2B SaaS that turns contracts into a commitments ledger finance can act on: renewal timing, notice windows, auto-renew risk, and clause-backed exposure, without treating probabilistic extraction as the system of record.",
-    role: "Product & platform engineer · LedgerGuard",
+      "Multi-tenant B2B SaaS that turns vendor contracts into commitment, renewal, notice-window, and spend-risk views. The core product decision: keep probabilistic AI/OCR extraction separate from deterministic financial truth so the UI never presents stale or partial data as certainty.",
+    role: "Founder / Senior Product Engineer · LedgerGuard",
     navLabel: "LedgerGuard",
     signalStack: [
       "Fastify API domain + worker internal callbacks",
@@ -84,9 +84,9 @@ export const PROJECTS: Project[] = [
       "Sentry",
     ],
     outcomes: [
-      "Separated probabilistic document intelligence (OCR, extraction, queue workers) from deterministic financial truth: workers propose via internal APIs; org-scoped domain rules decide what is stored and what renewals dashboards may claim.",
-      "Documented and implemented a single truth-precedence stack so document list, detail, and renewal summary prefer grounded extraction fields when portfolio rows lag, drift, or sit in fields-only state, surfacing explicit warnings instead of silent green checks.",
-      "End-to-end typed contracts for tenant and platform surfaces so web and admin reflect API decisions only, aligned with audit logging, feature gating, and multi-tenant isolation patterns described in the product architecture.",
+      "Designed the product architecture across Next.js, Fastify, Python workers, Supabase/Postgres, async document extraction, Stripe, feature flags, audit trails, and multi-tenant access patterns.",
+      "Separated probabilistic document intelligence from deterministic financial read models: workers propose, domain rules validate, and renewal/commitment surfaces show explicit warnings when truth is partial, stale, or skewed.",
+      "Built buyer-facing and operator-facing product surfaces including upload, verification, commitments ledger, renewal risk, portfolio demo, and typed API contracts that keep web/admin behavior aligned with backend decisions.",
     ],
     caseStudy: {
       problem:
@@ -123,10 +123,10 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "mapbylaw-platform-ui-ai-reports",
-    name: "Design system, typed AI & report platform",
+    name: "MapBylaw — typed AI recommendations, shared UI, and report infrastructure",
     description:
-      "Product engineering for the MapBylaw map-first property insights platform: shared @mapbylaw/ui across web and admin, OpenAPI + Zod contracts, typed React-PDF bilingual reports, and AI recommendations grounded in the same zoning rules, feasibility math, and datasets as the rest of the product.",
-    role: "Senior product engineer · MapBylaw",
+      "Product engineering for a map-first property insights platform: shared UI across web/admin, typed API contracts, bilingual React-PDF reports, and AI recommendations grounded in zoning rules, feasibility math, and verified scenario inputs.",
+    role: "Senior Product Engineer · MapBylaw",
     navLabel: "MapBylaw",
     signalStack: [
       "@mapbylaw/ui + feature-based apps",
@@ -152,9 +152,9 @@ export const PROJECTS: Project[] = [
       "Playwright",
     ],
     outcomes: [
-      "Single design system (@mapbylaw/ui), feature-based structure, and path aliases for web and admin. OpenAPI + Zod and typed React-PDF payloads keep the bilingual report, API, and UI in lockstep.",
-      "AI recommendations as a strict typed service: narrow context from real zoning and feasibility inputs, one contract across Fastify, dashboard, and PDF, with malformed payloads failing fast instead of drifting from content policy.",
-      "Rule and incentive changes flow through one orchestrator so validation, AI context, and report integrity evolve together, without hand-editing report copy or chasing fields across layers for audits.",
+      "Built a shared UI foundation across web and admin so core flows, visual language, accessibility patterns, and product states stay consistent as the platform grows.",
+      "Aligned Fastify APIs, Zod/OpenAPI contracts, dashboard surfaces, and React-PDF payloads so reports and product UI use the same verified data model.",
+      "Constrained AI recommendations to policy-aware, scenario-specific inputs with strict typed outputs, preventing generic chatbot responses from drifting away from zoning and feasibility rules.",
     ],
     caseStudy: {
       problem:
@@ -172,18 +172,30 @@ export const PROJECTS: Project[] = [
     },
     beforeAfter: [
       { label: "UI across apps", before: "Separate stacks", after: "Shared @mapbylaw/ui" },
-      { label: "AI interface", before: "Chatbot-style, generic", after: "Typed, scenario-specific service" },
-      { label: "Context", before: "Loose, sometimes invented", after: "Narrow, policy-aligned, no fake data" },
-      { label: "Schema & reports", before: "Scattered / ad-hoc", after: "Shared contract + typed PDF + audits" },
+      {
+        label: "AI interface",
+        before: "Chatbot-style, generic",
+        after: "Typed, scenario-specific service",
+      },
+      {
+        label: "Context",
+        before: "Loose, sometimes invented",
+        after: "Narrow, policy-aligned, no fake data",
+      },
+      {
+        label: "Schema & reports",
+        before: "Scattered / ad-hoc",
+        after: "Shared contract + typed PDF + audits",
+      },
     ],
     links: [{ label: "Project", href: "https://mapbylaw.ca/" }],
   },
   {
     id: "design-system-marketplace-login-web3",
-    name: "Design system, marketplace & login (web3)",
+    name: "AlwaysGeeky — design system, marketplace, and login platform",
     description:
-      "Built and maintained the design system for our Web3 products, then used it to ship the marketplace and login flows from design to production. Accessible (WCAG), consistent UI, solid API and auth, deployed on AWS.",
-    role: "Lead / Senior frontend engineer · AlwaysGeeky Games",
+      "Led frontend delivery for Web3 product surfaces by building a reusable design system and shipping marketplace and login flows with accessible components, reliable auth/API states, Storybook documentation, and CI quality checks.",
+    role: "Lead Frontend Engineer · Design Systems · AlwaysGeeky Games",
     navLabel: "Web3 DS & apps",
     signalStack: [
       "Storybook + CI (visual/a11y)",
@@ -204,9 +216,9 @@ export const PROJECTS: Project[] = [
       "Playwright",
     ],
     outcomes: [
-      "Unified look and accessibility across products so new features feel native no matter which Web3 surface they land on.",
-      "CI catches visual and a11y regressions before merge, so teams can move quickly without breaking accessibility.",
-      "Marketplace and login shipped on time, matched design, stayed stable under real traffic, and handled Web3 API/auth flows reliably in production.",
+      "Built shared frontend foundations so marketplace, login, and product surfaces used consistent accessible components instead of one-off UI.",
+      "Added Storybook and CI quality checks for visual, accessibility, and regression coverage before merge.",
+      "Shipped production marketplace and login flows with explicit loading, empty, error, and Web3 auth/API states instead of happy-path-only UI.",
     ],
     caseStudy: {
       problem:
@@ -233,10 +245,10 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "data-dashboards-emplifi",
-    name: "Data Dashboards & Motion",
+    name: "Emplifi — data-heavy dashboards and embedded performance",
     description:
-      "Built data-heavy dashboards with smooth motion (GSAP) and D3.js charts, tuned to run well inside mobile webviews and embedded contexts.",
-    role: "Senior frontend engineer · Emplifi",
+      "Built and tuned dashboard interfaces using React, D3.js, and GSAP, with attention to readability, motion discipline, and performance inside embedded and mobile webview contexts.",
+    role: "Senior Frontend Engineer · Emplifi",
     navLabel: "Emplifi dashboards",
     signalStack: ["D3.js", "GSAP + profiled React", "Embedded + webview performance"],
     badges: ["Data viz", "Performance"],
@@ -260,14 +272,20 @@ export const PROJECTS: Project[] = [
       outcome:
         "Dashboards that stayed usable in embedded and mobile webview contexts, with motion that remained controlled rather than chaotic.",
     },
-    beforeAfter: [{ label: "Embedded performance", before: "Unbounded motion cost", after: "Profiled, bounded motion" }],
+    beforeAfter: [
+      {
+        label: "Embedded performance",
+        before: "Unbounded motion cost",
+        after: "Profiled, bounded motion",
+      },
+    ],
     links: [{ label: "Website", href: "https://emplifi.io" }],
   },
   {
     id: "pwa-performance-controltech",
-    name: "PWA & Performance",
+    name: "ControlTech — PWA, performance, and startup product delivery",
     description:
-      "Built several startup products end to end, focusing on code splitting, lazy loading, and CDN-backed assets, plus PWAs with offline support and caching from scratch.",
+      "Built startup product surfaces end to end across Vue, Nuxt, React, and React Native, with focus on performance, offline/PWA behavior, test coverage, CI/CD, and practical delivery.",
     role: "Frontend engineer · ControlTech Startup Studio",
     navLabel: "ControlTech PWA",
     signalStack: ["Jest + Playwright", "GitHub Actions CI/CD", "PWA + CDN delivery"],
@@ -293,7 +311,11 @@ export const PROJECTS: Project[] = [
         "Releases stopped routinely breaking core flows; first load improved materially and offline-capable paths stayed usable on unstable networks.",
     },
     beforeAfter: [
-      { label: "Release confidence", before: "Manual, high variance", after: "CI-gated, repeatable" },
+      {
+        label: "Release confidence",
+        before: "Manual, high variance",
+        after: "CI-gated, repeatable",
+      },
       { label: "First load", before: "Heavy bundle", after: "Split + CDN" },
     ],
     links: [{ label: "Website", href: "https://ctrltech.org" }],

@@ -63,7 +63,27 @@ describe("Writing", () => {
 
     it("should render tags when present", () => {
       render(<Writing featured={null} posts={mockPosts} />);
-      expect(screen.getByText("Alpha · Beta")).toBeInTheDocument();
+      const tagList = screen.getByRole("list", { name: "Post tags" });
+      expect(tagList).toHaveTextContent("Alpha");
+      expect(tagList).toHaveTextContent("Beta");
+    });
+
+    it("should render featured post tags for Building tools that don't fight you", () => {
+      const featured: WritingPost = {
+        slug: "building-tools-that-dont-fight-you",
+        title: "Building tools that don\u2019t fight you",
+        date: "2026-02-26",
+        excerpt: "How I think about design systems, automated code review, and AI recommendations.",
+        featured: true,
+        tags: ["Design systems", "DX", "Tooling"],
+      };
+
+      render(<Writing featured={featured} posts={[]} />);
+
+      const tagList = screen.getByRole("list", { name: "Post tags" });
+      expect(tagList).toHaveTextContent("Design systems");
+      expect(tagList).toHaveTextContent("DX");
+      expect(tagList).toHaveTextContent("Tooling");
     });
 
     it("should render featured post when provided", () => {

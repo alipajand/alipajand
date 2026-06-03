@@ -9,6 +9,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   ci:
     name: Lint, typecheck, test, build
@@ -20,8 +23,6 @@ jobs:
 
       - name: Set up pnpm
         uses: pnpm/action-setup@v5
-        with:
-          version: 10
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
