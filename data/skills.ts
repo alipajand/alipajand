@@ -6,11 +6,29 @@ export interface SkillGroup {
 export const SKILL_GROUPS: SkillGroup[] = [
   {
     label: "Product Frontend Architecture",
-    items: ["React", "Next.js", "TypeScript", "JavaScript", "App Router", "Component Architecture"],
+    items: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Frontend Platform",
+      "App Router",
+      "Server Components",
+      "TanStack Query",
+      "Component Architecture",
+    ],
   },
   {
     label: "Design Systems & Accessibility",
-    items: ["Storybook", "Design Tokens", "WCAG", "Semantic HTML", "Keyboard UX", "Figma"],
+    items: [
+      "Storybook",
+      "Design Tokens",
+      "Component APIs",
+      "Design System Governance",
+      "WCAG",
+      "Semantic HTML",
+      "Keyboard UX",
+      "Figma",
+    ],
   },
   {
     label: "AI Product Workflows",
@@ -44,6 +62,8 @@ export const SKILL_GROUPS: SkillGroup[] = [
       "GitHub Actions",
       "Sentry",
       "CI Quality Gates",
+      "TypeScript Strictness",
+      "Performance Budgets",
       "Cursor Tooling",
       "Chrome DevTools",
     ],
