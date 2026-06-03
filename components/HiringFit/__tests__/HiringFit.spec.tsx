@@ -8,12 +8,21 @@ import {
   HIRING_FIT_CTA_SECONDARY_HREF,
   HIRING_FIT_CTA_SECONDARY_LABEL,
   HIRING_FIT_HEADING,
+  HIRING_FIT_ROLE_STRIP,
 } from "data/hiringFit";
 
 describe("HiringFit", () => {
   it("renders section heading", () => {
     render(<HiringFit />);
     expect(screen.getByRole("heading", { name: HIRING_FIT_HEADING })).toBeInTheDocument();
+  });
+
+  it("renders all role strip items", () => {
+    render(<HiringFit />);
+    const roleList = screen.getByRole("list", { name: "Role fit" });
+    for (const role of HIRING_FIT_ROLE_STRIP) {
+      expect(roleList).toHaveTextContent(role);
+    }
   });
 
   it("renders all four card titles", () => {

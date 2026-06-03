@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { HiringFitGridItem } from "components/HiringFit/HiringFitGridItem";
+import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
 import {
   HIRING_FIT_CARDS,
   HIRING_FIT_CTA_PRIMARY_HREF,
@@ -9,6 +10,7 @@ import {
   HIRING_FIT_CTA_SECONDARY_LABEL,
   HIRING_FIT_HEADING,
   HIRING_FIT_LEDE,
+  HIRING_FIT_ROLE_STRIP,
 } from "data/hiringFit";
 import {
   CTA_PRIMARY,
@@ -26,7 +28,13 @@ export function HiringFit() {
         <h2 id="hiring-fit-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
           {HIRING_FIT_HEADING}
         </h2>
-        <p className={`${SECTION_LEDE_LG} mb-10 sm:mb-12`}>{HIRING_FIT_LEDE}</p>
+        <p className={`${SECTION_LEDE_LG} mb-6 sm:mb-8`}>{HIRING_FIT_LEDE}</p>
+
+        <ul aria-label="Role fit" className="mb-10 sm:mb-12 flex flex-wrap gap-2 list-none p-0 m-0">
+          {HIRING_FIT_ROLE_STRIP.map((role) => (
+            <ProjectCardBadge key={role}>{role}</ProjectCardBadge>
+          ))}
+        </ul>
 
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">
           {HIRING_FIT_CARDS.map((card) => (

@@ -4,10 +4,18 @@ export interface HiringFitCard {
   body: string;
 }
 
-export const HIRING_FIT_HEADING = "For teams hiring senior product engineering";
+export const HIRING_FIT_HEADING = "For teams hiring senior frontend and product engineering";
 
 export const HIRING_FIT_LEDE =
-  "I'm strongest in roles where frontend quality, product judgment, architecture, and developer experience all matter. I do not only implement screens — I help teams turn ambiguous product work into reliable systems that ship.";
+  "I'm strongest in senior frontend roles with product-engineering scope: frontend architecture, design systems, complex product UI, accessibility, developer experience, and AI-assisted workflows. I do not only implement screens — I help teams turn ambiguous product work into reliable systems that ship.";
+
+export const HIRING_FIT_ROLE_STRIP = [
+  "Senior Frontend Engineer",
+  "Senior Product Engineer",
+  "Frontend Platform",
+  "Design Systems",
+  "AI Product UI",
+] as const;
 
 export const HIRING_FIT_CARDS: HiringFitCard[] = [
   {
