@@ -1,0 +1,41 @@
+---
+description: Jest and Testing Library conventions for this project
+globs: **/__tests__/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Testing Conventions
+
+## Location
+
+Tests live colocated in `__tests__/` folders next to their subject:
+
+```
+components/Hero/__tests__/Hero.spec.tsx
+components/Hero/hooks/__tests__/useHero.spec.tsx
+```
+
+## Tooling
+
+- Jest + `@testing-library/react`
+- Use `screen` queries; prefer `getByRole` and `getByLabelText` over `getByTestId`
+- Do not use snapshot tests for large component trees
+
+## Expectations
+
+- Add or update tests whenever component behavior, hooks, or utils change.
+- Do not skip or disable tests without explicit approval.
+- Do not modify `jest.config.ts` or CI config without explicit approval.
+
+## Naming
+
+- Files: `<Subject>.spec.tsx` (components) or `<Subject>.spec.ts` (utils/hooks)
+- Describe blocks: component or function name
+- It blocks: plain English describing the behavior
+
+```ts
+describe("ContactForm", () => {
+  it("shows a success message after form submission", async () => { … });
+  it("displays a validation error when email is empty", async () => { … });
+});
+```

@@ -1,0 +1,41 @@
+# alipajand — Cursor Rules
+
+This is Ali Pajand's personal portfolio — a Next.js 15 App Router site deployed on Vercel.
+Detailed rules live in `.cursor/rules/`. This file summarises the most important constraints.
+
+## Stack
+
+Next.js 15 App Router · TypeScript · Tailwind CSS v4 · GSAP + Lenis · Resend · Jest
+
+## Module responsibilities
+
+- `app/`          → routes, layouts, metadata, API handlers
+- `features/`     → page-level sections (colocated logic)
+- `components/`   → shared reusable UI
+- `data/`         → ALL static copy and structured content (source of truth)
+- `content/`      → Markdown blog posts (gray-matter frontmatter)
+- `utils/`        → pure helpers and custom React hooks
+
+## Hard rules
+
+1. All copy strings belong in `data/*.ts` — never hard-code text in JSX.
+2. Default to React Server Components; add `"use client"` only for hooks/browser APIs/animations.
+3. Named exports only — no default exports for components.
+4. Tests colocated in `__tests__/` next to their subject; run `pnpm test` before finishing.
+5. Use path aliases (`components/`, `data/`, `utils/`) — no relative `../../` climbs.
+6. Import shared CTA styles from `utils/visual`, design tokens from Tailwind config.
+
+## Forbidden without explicit approval
+
+- Public route slugs or URLs
+- `app/api/contact` (live Resend email route)
+- `.env*` files or secrets
+- Vercel config
+- `aria-*` wiring, focus order, accessibility landmarks
+- New npm deps with significant bundle cost
+
+## Commands
+
+```bash
+pnpm dev | pnpm build | pnpm test | pnpm lint | pnpm typecheck | pnpm format
+```

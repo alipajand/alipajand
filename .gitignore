@@ -41,8 +41,6 @@ next-env.d.ts
 .vscode
 .cache
 .idea
-.cursor
-.cursorrules
 references/
 
 # Sentry Auth Token
