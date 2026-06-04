@@ -41,7 +41,6 @@ next-env.d.ts
 .vscode
 .cache
 .idea
-references/
 
 # Sentry Auth Token
 .sentryclirc
