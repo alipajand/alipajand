@@ -1,5 +1,3 @@
-export const TESTIMONIAL_ATTRIBUTION_SR_ONLY = "Attribution";
-
 export interface Testimonial {
   id: string;
   quote: string;
@@ -11,7 +9,7 @@ export interface Testimonial {
 export const TESTIMONIALS_HEADING = "Peer feedback";
 
 export const TESTIMONIALS_INTRO =
-  "Informal endorsements from people I worked with on these teams. Names aren’t published here without explicit permission; each line shows role and employer only, as they described it.";
+  "Names withheld publicly; role and company are included with permission.";
 
 export const TESTIMONIALS: Testimonial[] = [
   {
