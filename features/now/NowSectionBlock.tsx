@@ -10,7 +10,7 @@ interface NowSectionBlockProps {
 
 export function NowSectionBlock({ section }: NowSectionBlockProps) {
   return (
-    <section aria-labelledby={`now-${section.id}-heading`}>
+    <section data-reveal aria-labelledby={`now-${section.id}-heading`}>
       <h2
         id={`now-${section.id}-heading`}
         className="font-display font-semibold text-xl sm:text-2xl text-foreground tracking-tight"

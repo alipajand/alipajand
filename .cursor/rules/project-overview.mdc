@@ -1,0 +1,41 @@
+---
+description: Project overview, stack, module boundaries, forbidden changes, and workflow commands
+alwaysApply: true
+---
+
+# alipajand — Project Overview
+
+Personal portfolio for Ali Pajand. Next.js 15 App Router, TypeScript, Tailwind CSS v4, GSAP + Lenis, Resend for email. Deployed to Vercel. No database, no auth.
+
+## Module boundaries
+
+| Module | Responsibility |
+|---|---|
+| `app/` | Routes, layouts, metadata, API handlers |
+| `features/` | Page-level sections (colocated logic) |
+| `components/` | Shared, reusable UI |
+| `data/` | Static typed content — source of truth for all copy |
+| `content/` | Markdown blog posts with gray-matter frontmatter |
+| `utils/` | Pure helpers and custom hooks |
+
+## Forbidden without approval
+
+- Public route slugs or URLs (SEO impact)
+- `app/api/contact` (live email sending via Resend)
+- `.env*` files or environment variables
+- Vercel config or deployment targets
+- `aria-*` wiring, focus order, or accessibility landmarks
+- New npm dependencies with significant bundle cost
+
+## Workflow
+
+```bash
+pnpm dev        # dev server
+pnpm build      # production build
+pnpm test       # Jest
+pnpm lint       # ESLint
+pnpm typecheck  # tsc
+pnpm format     # Prettier
+```
+
+Run `pnpm test` before finishing any task.

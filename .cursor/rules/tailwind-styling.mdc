@@ -1,0 +1,33 @@
+---
+description: Tailwind CSS v4 styling conventions for this project
+globs: **/*.tsx
+alwaysApply: false
+---
+
+# Tailwind CSS v4 Styling
+
+## General rules
+
+- Use Tailwind utility classes directly on JSX elements — no CSS modules or inline `style` objects except where Tailwind can't reach (e.g. SVG mask tricks, GSAP-set values).
+- Respect the design tokens defined in the project: `bg-background`, `text-foreground`, `text-muted`, etc. Do not hardcode arbitrary colors.
+- Prefer responsive modifiers (`sm:`, `md:`, `lg:`) over duplicating elements per breakpoint.
+
+## Shared CTA variants
+
+Import CTA class strings from `utils/visual`:
+
+```tsx
+import { CTA_PRIMARY, CTA_SECONDARY, CTA_TERTIARY } from "utils/visual";
+
+<a className={`hover-scale ${CTA_PRIMARY}`}>…</a>
+```
+
+Do not re-define button styles inline.
+
+## Class ordering
+
+Follow Tailwind's recommended class order (layout → box model → typography → visual → interactive). Run `pnpm format` to auto-sort via Prettier plugin.
+
+## Dark mode
+
+The site uses a dark theme by default. Use `text-foreground` / `text-muted` / `bg-background` design tokens. Avoid hardcoded `dark:` variants unless specifically adding light-mode support.

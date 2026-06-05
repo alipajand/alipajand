@@ -16,10 +16,7 @@ describe("Testimonials", () => {
   it("renders attribution intro", () => {
     render(<Testimonials />);
     expect(
-      screen.getByText(/Informal endorsements from people I worked with on these teams/i)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Names aren.t published here without explicit permission/i)
+      screen.getByText(/Names withheld publicly; role and company are included with permission/i)
     ).toBeInTheDocument();
   });
 

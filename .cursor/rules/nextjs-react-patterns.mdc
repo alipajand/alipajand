@@ -1,0 +1,48 @@
+---
+description: Next.js 15 App Router and React component conventions for this project
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Next.js & React Patterns
+
+## Server vs Client components
+
+Default to **React Server Components**. Add `"use client"` only when the component needs:
+- React hooks (`useState`, `useEffect`, `useRef`, etc.)
+- Browser APIs
+- GSAP animations or Lenis scroll
+
+```tsx
+// ✅ RSC — no directive needed
+export function ExperienceCard({ job }: { job: Job }) { … }
+
+// ✅ client — interaction or animation required
+"use client";
+export function Hero() { … }
+```
+
+## Naming
+
+- Named exports only — no default exports for components.
+- Component files match the component name: `ProjectCard.tsx` → `export function ProjectCard`.
+- Custom hooks live in a `hooks/` subdirectory and are prefixed `use`.
+
+## Props
+
+- Define prop types inline or with a local `interface` — no `React.FC`.
+- Keep prop interfaces small; split components before growing a props list.
+
+## Animations
+
+- GSAP and Lenis are client-side only. Wrap in `"use client"` and initialize inside `useEffect` or a custom hook.
+- Expose DOM refs through a `selectors` object returned from the hook, not scattered `useRef` calls.
+
+## Static params & metadata
+
+- Use `generateStaticParams` for dynamic routes.
+- Use the shared `utils/metadata.ts` builder — do not define metadata ad-hoc.
+
+## Imports
+
+- Use path aliases (`components/`, `data/`, `utils/`, `features/`) — no relative `../../` climbs.

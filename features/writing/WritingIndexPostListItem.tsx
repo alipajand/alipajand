@@ -10,7 +10,7 @@ interface WritingIndexPostListItemProps {
 
 export function WritingIndexPostListItem({ post }: WritingIndexPostListItemProps) {
   return (
-    <li>
+    <li data-writ-item>
       <article>
         <Link
           href={`/writing/${post.slug}`}

@@ -1,15 +1,18 @@
 {
   "name": "alipajand",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "jest",
     "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .next",
     "prepare": "husky"
   },
   "dependencies": {

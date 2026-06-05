@@ -23,6 +23,9 @@ const config: Config = {
     "!**/*.spec.{ts,tsx}",
     "!**/__tests__/**",
     "!**/node_modules/**",
+    // Type-only declaration files have no runtime code to exercise.
+    "!**/*.types.ts",
+    "!components/Writing/WritingPost.ts",
   ],
   coverageThreshold: {
     global: {

@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 set -e
 
-pnpm run build
 pnpm run lint
+pnpm run format:check
+pnpm run build
 pnpm run typecheck
 pnpm run test

@@ -3,14 +3,17 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import {
   CANONICAL_URL,
+  HOME_TITLE,
   SITE_META_DESCRIPTION,
   SITE_NAME,
   TAGLINE,
   TWITTER_HANDLE,
 } from "data/site";
 import { PropsWithChildren } from "react";
+import { Footer } from "components/Footer/Footer";
 import { Nav } from "components/Nav/Nav";
 import { SmoothScroll } from "components/SmoothScroll/SmoothScroll";
+import { SKIP_TO_CONTENT_LABEL } from "data/pageChrome";
 import { StructuredData } from "components/StructuredData/StructuredData";
 import { GatedGoogleAnalytics } from "components/Analytics/GatedGoogleAnalytics";
 import { GatedVercelAnalytics } from "components/Analytics/GatedVercelAnalytics";
@@ -19,7 +22,7 @@ import { GatedVercelSpeedInsights } from "components/Analytics/GatedVercelSpeedI
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_URL),
   title: {
-    default: TAGLINE,
+    default: HOME_TITLE,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_META_DESCRIPTION,
@@ -40,7 +43,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: CANONICAL_URL,
     siteName: SITE_NAME,
-    title: TAGLINE,
+    title: HOME_TITLE,
     description: SITE_META_DESCRIPTION,
     images: [
       {
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: TAGLINE,
+    title: HOME_TITLE,
     description: SITE_META_DESCRIPTION,
     images: ["/opengraph-image"],
     ...(TWITTER_HANDLE ? { creator: `@${TWITTER_HANDLE}`, site: `@${TWITTER_HANDLE}` } : {}),
@@ -109,10 +112,15 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <GatedVercelAnalytics />
         <GatedVercelSpeedInsights />
 
+        <a href="#main-content" className="skip-link">
+          {SKIP_TO_CONTENT_LABEL}
+        </a>
+
         <StructuredData />
         <SmoothScroll>
           <Nav />
           {children}
+          <Footer />
         </SmoothScroll>
       </body>
     </html>

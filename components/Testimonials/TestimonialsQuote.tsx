@@ -1,5 +1,4 @@
 import type { Testimonial } from "data/testimonials";
-import { TESTIMONIAL_ATTRIBUTION_SR_ONLY } from "data/testimonials";
 
 interface TestimonialsQuoteProps {
   testimonial: Testimonial;
@@ -19,22 +18,19 @@ export function TestimonialsQuote({ testimonial: t }: TestimonialsQuoteProps) {
           </span>
         </p>
       </blockquote>
-      <figcaption className="mt-2 pt-2 border-t border-border/80">
+      <figcaption className="mt-2 pt-2 border-t border-border/80 text-[13px] leading-snug">
         {t.author?.trim() ? (
-          <div className="space-y-1">
-            <p className="text-sm font-medium text-foreground">{t.author}</p>
-            <p className="text-[13px] text-muted leading-snug">
-              <span className="text-foreground/85">{t.role}</span>
-              <span className="text-muted"> · </span>
-              <span>{t.company}</span>
-            </p>
-          </div>
+          <>
+            <span className="text-sm font-medium text-foreground">{t.author}</span>
+            <span className="text-muted">
+              {" · "}
+              {t.role} · {t.company}
+            </span>
+          </>
         ) : (
-          <dl className="m-0 space-y-1.5">
-            <dt className="sr-only">{TESTIMONIAL_ATTRIBUTION_SR_ONLY}</dt>
-            <dd className="text-sm font-medium text-foreground leading-snug">{t.role}</dd>
-            <dd className="text-[13px] text-muted leading-snug">{t.company}</dd>
-          </dl>
+          <span className="text-muted">
+            <span className="text-foreground/85">{t.role}</span> · {t.company}
+          </span>
         )}
       </figcaption>
     </figure>

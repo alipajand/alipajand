@@ -11,6 +11,7 @@ jest.mock("gsap", () => ({
 jest.mock("utils/gsap", () => ({
   gsap: { set: jest.fn(), to: jest.fn() },
   registerGSAPPlugins: jest.fn(),
+  prefersReducedMotion: jest.fn().mockReturnValue(false),
   ScrollTrigger: {
     create: jest.fn(() => ({ kill: jest.fn() })),
   },
@@ -75,6 +76,14 @@ describe("useExperienceCards", () => {
         expect.anything(),
         expect.objectContaining({ duration: 0.5, ease: "power2.out" })
       );
+    });
+
+    it("sets cards visible without ScrollTrigger when reduced motion is preferred", () => {
+      jest.mocked(utilsGsap.prefersReducedMotion).mockReturnValueOnce(true);
+      render(<CardsWrapper />);
+
+      expect(utilsGsap.gsap.set).toHaveBeenCalledWith(expect.anything(), { opacity: 1, y: 0 });
+      expect(utilsGsap.ScrollTrigger.create).not.toHaveBeenCalled();
     });
   });
 });

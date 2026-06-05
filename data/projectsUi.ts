@@ -19,10 +19,16 @@ export const PROJECT_CARD_FULL_STACK_SUMMARY = "Full stack";
 
 export const PROJECT_CARD_CASE_STUDY_SR = "Case study";
 
+export const PROJECT_CARD_HIGH_LEVEL_FLOW_LABEL = "High-level flow";
+
+export const PROJECT_CARD_HIGH_LEVEL_FLOW_ARIA = "High-level flow steps";
+
 export const PROJECT_CARD_LEDGER_DIAGRAM_CAPTION =
   "High-level flow: domain API owns tenant truth; workers run asynchronously and return through verification and internal callbacks, not direct writes.";
 
 export const PROJECT_CARD_MORE_OUTCOMES = "More outcomes";
+
+export const PROJECT_CARD_OWNED_LABEL = "What I owned";
 
 export const PROJECT_CARD_OPEN_PROJECT = "Project";
 
@@ -32,11 +38,18 @@ export function projectCaseStudyImageAlt(projectName: string): string {
   return `Case study visual: ${projectName}`;
 }
 
-export const PROJECT_CASE_STUDY_ROWS: { key: keyof CaseStudyBlock; label: string }[] = [
-  { key: "problem", label: "Problem" },
+/**
+ * Case-study rows rendered after the "My role" / "What I owned" lead block,
+ * following the mandated section order. `owned` and `highLevelFlow` are rendered separately.
+ */
+type CaseStudyRowKey = Exclude<keyof CaseStudyBlock, "owned" | "highLevelFlow">;
+
+export const PROJECT_CASE_STUDY_ROWS: { key: CaseStudyRowKey; label: string }[] = [
+  { key: "problem", label: "Context and problem" },
   { key: "constraints", label: "Constraints" },
-  { key: "architectureDecisions", label: "Architecture decisions" },
-  { key: "tradeoffs", label: "Tradeoffs" },
-  { key: "reliabilityPerformance", label: "Reliability / performance" },
-  { key: "outcome", label: "Outcome" },
+  { key: "architectureDecisions", label: "Key decisions" },
+  { key: "technicalImplementation", label: "Technical implementation" },
+  { key: "uxAccessibility", label: "UX and accessibility" },
+  { key: "outcome", label: "Outcome and evidence" },
+  { key: "tradeoffs", label: "Trade-offs and lessons" },
 ];

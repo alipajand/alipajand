@@ -1,0 +1,39 @@
+---
+description: Rules for editing static content in data/ and Markdown posts in content/
+globs: {data/**/*.ts,content/**/*.md}
+alwaysApply: false
+---
+
+# Content & Data Rules
+
+## data/ — static typed content
+
+All copy and content lives in `data/*.ts`. **Never hard-code strings directly in JSX**.
+
+```ts
+// ✅ data/site.ts
+export const HERO_VALUE_LINE = "Staff engineer focused on…";
+
+// ❌ inline in component
+<h1>Staff engineer focused on…</h1>
+```
+
+- Export constants in SCREAMING_SNAKE_CASE for copy strings.
+- Export typed arrays/objects for structured data (experience, projects, skills).
+- Do not add logic or side effects to data files — pure data only.
+
+## content/ — Markdown blog posts
+
+Posts use gray-matter frontmatter. Required fields:
+
+```md
+---
+title: "Post title"
+date: "YYYY-MM-DD"
+description: "One-sentence summary for SEO"
+---
+```
+
+- Do not change existing post slugs (filename = URL slug).
+- Load posts only through `utils/posts.ts` — never read Markdown files directly in components.
+- Keep `data/posts/` index in sync when adding a new post.

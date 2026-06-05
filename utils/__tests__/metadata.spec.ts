@@ -2,9 +2,16 @@
 
 import {
   buildArticleMetadata,
+  buildEngineeringPrinciplesMetadata,
+  buildNowMetadata,
   buildPortfolioMetadata,
   buildWritingIndexMetadata,
 } from "utils/metadata";
+import {
+  ENGINEERING_PRINCIPLES_META_DESCRIPTION,
+  ENGINEERING_PRINCIPLES_PAGE_TITLE,
+} from "data/engineeringPrinciples";
+import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
 import { CANONICAL_URL, PORTFOLIO_PAGE_LEDE } from "data/site";
 import { WRITING_INDEX_DESCRIPTION } from "data/writing";
 
@@ -44,5 +51,21 @@ describe("utils/metadata", () => {
     const m = buildPortfolioMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/portfolio`);
     expect(m.description).toBe(PORTFOLIO_PAGE_LEDE);
+  });
+
+  it("buildEngineeringPrinciplesMetadata sets canonical, title, and description", () => {
+    const m = buildEngineeringPrinciplesMetadata();
+    expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/engineering-principles`);
+    expect(m.title).toBe(ENGINEERING_PRINCIPLES_PAGE_TITLE);
+    expect(m.description).toBe(ENGINEERING_PRINCIPLES_META_DESCRIPTION);
+    expect(m.openGraph?.url).toBe(`${CANONICAL_URL}/engineering-principles`);
+  });
+
+  it("buildNowMetadata sets canonical, title, and description", () => {
+    const m = buildNowMetadata();
+    expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/now`);
+    expect(m.title).toBe(NOW_PAGE_TITLE);
+    expect(m.description).toBe(NOW_META_DESCRIPTION);
+    expect(m.openGraph?.url).toBe(`${CANONICAL_URL}/now`);
   });
 });

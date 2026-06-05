@@ -28,6 +28,23 @@ describe("utils/gsap", () => {
     expect(mockGsap.registerPlugin).toHaveBeenCalledTimes(1);
   });
 
+  it("registerGSAPPlugins no-ops when registerPlugin is not a function", async () => {
+    await jest.isolateModulesAsync(async () => {
+      jest.doMock("gsap", () => ({
+        __esModule: true,
+        default: {},
+      }));
+      jest.doMock("gsap/ScrollTrigger", () => ({
+        __esModule: true,
+        ScrollTrigger: {},
+        default: {},
+      }));
+
+      const { registerGSAPPlugins } = await import("utils/gsap");
+      expect(() => registerGSAPPlugins()).not.toThrow();
+    });
+  });
+
   it("prefersReducedMotion returns false when matchMedia is not a function", () => {
     Object.defineProperty(window, "matchMedia", {
       value: undefined,

@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 
 import { HiringFitGridItem } from "components/HiringFit/HiringFitGridItem";
+import { useHiringFitReveal } from "components/HiringFit/hooks/useHiringFitReveal";
 import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
 import {
   HIRING_FIT_CARDS,
@@ -22,17 +25,30 @@ import {
 } from "utils/visual";
 
 export function HiringFit() {
+  const {
+    selectors: { sectionRef },
+  } = useHiringFitReveal();
+
   return (
-    <section id="hiring-fit" aria-labelledby="hiring-fit-heading" className={SECTION_SHELL}>
+    <section
+      id="hiring-fit"
+      ref={sectionRef}
+      aria-labelledby="hiring-fit-heading"
+      className={SECTION_SHELL}
+    >
       <div className={SECTION_INNER}>
-        <h2 id="hiring-fit-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
+        <h2 id="hiring-fit-heading" data-hiring-heading className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
           {HIRING_FIT_HEADING}
         </h2>
-        <p className={`${SECTION_LEDE_LG} mb-6 sm:mb-8`}>{HIRING_FIT_LEDE}</p>
+        <p data-hiring-lede className={`${SECTION_LEDE_LG} mb-6 sm:mb-8`}>
+          {HIRING_FIT_LEDE}
+        </p>
 
         <ul aria-label="Role fit" className="mb-10 sm:mb-12 flex flex-wrap gap-2 list-none p-0 m-0">
           {HIRING_FIT_ROLE_STRIP.map((role) => (
-            <ProjectCardBadge key={role}>{role}</ProjectCardBadge>
+            <ProjectCardBadge key={role} data-hiring-badge>
+              {role}
+            </ProjectCardBadge>
           ))}
         </ul>
 
@@ -42,7 +58,10 @@ export function HiringFit() {
           ))}
         </ul>
 
-        <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row sm:flex-wrap gap-4">
+        <div
+          data-hiring-ctas
+          className="mt-10 sm:mt-12 flex flex-col sm:flex-row sm:flex-wrap gap-4"
+        >
           <Link href={HIRING_FIT_CTA_PRIMARY_HREF} className={`${CTA_PRIMARY} w-full sm:w-auto`}>
             {HIRING_FIT_CTA_PRIMARY_LABEL}
           </Link>

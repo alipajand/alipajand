@@ -7,26 +7,56 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.5.0] - 2026-06-05
+
+### Added
+
+- Selected case studies on the homepage (four cards, above writing).
+- Site footer with links to Now and Engineering principles.
+- Skip-to-content link in the root layout.
+- Optional Company field on the contact form.
+- Flow steps on project case study cards.
+- Reading progress bar on writing posts.
+- Shared page-header animation; motion tokens in `utils/motion`.
+- Contributor docs (`AGENTS.md`, architecture notes) under `docs/`.
+- Tests for homepage sections, contact, nav, metadata, and GSAP helpers.
+
+### Changed
+
+- Homepage copy and metadata lead with Senior Frontend / Product Engineer.
+- Reordered homepage sections; renamed Hiring fit to "What I bring to a team".
+- Nav: Work, Writing, About, Contact. Résumé link only when `RESUME_URL` is set.
+- Case studies lead with role and what I owned; cleaned up project badges.
+- Contact copy for hiring inquiries; dropped the response-time line on success.
+- Testimonials use a short Role · Company line.
+- Type-only files excluded from Jest coverage.
+
+### Fixed
+
+- Hero scroll cue skips animation when `prefers-reduced-motion` is on.
+
+---
+
 ## [1.4.0] - 2026-06-03
 
 ### Added
 
-- Homepage **Hiring fit** section with four strength cards, role-fit pills, and CTAs to portfolio and engineering principles.
+- Hiring fit section on the homepage.
 - Writing post: _How I approach senior frontend architecture_.
 - Apple touch icon (`app/apple-icon.tsx`) with AP monogram.
 
 ### Changed
 
-- **Positioning:** Unify site copy around **Senior Product Engineer**; broaden hiring-fit messaging for senior frontend, frontend platform, design systems, and AI product UI searches.
-- **Skills:** Expand Product Frontend Architecture, Design Systems & Accessibility, and Quality/Observability/DX groups (TanStack Query, Server Components, design-system governance, performance budgets, and related terms).
-- **Portfolio:** Standardize case-study role labels for LedgerGuard, MapBylaw, AlwaysGeeky Games, and Emplifi.
-- **Writing:** Render post tags as accessible pill badges on writing cards.
-- Refresh app icon treatment, update section ids, and upgrade core dependencies (Next.js, React, Tailwind, TypeScript, and related packages).
+- Positioning copy updated for Senior Product Engineer.
+- Skills groups expanded (TanStack Query, Server Components, DX tooling, and related items).
+- Portfolio role labels for LedgerGuard, MapBylaw, AlwaysGeeky Games, and Emplifi.
+- Writing tags render as pills on post cards.
+- App icon, section ids, and core dependencies (Next.js, React, Tailwind, TypeScript).
 
 ### Fixed
 
-- **Security:** Harden post slug handling in `utils/posts.ts` to address CodeQL stored XSS risk in writing routes.
-- Fix broken `pnpm-lock.yaml` after dependency upgrades.
+- Sanitize post slugs in `utils/posts.ts` (CodeQL XSS finding).
+- Broken `pnpm-lock.yaml` after dependency upgrades.
 
 ---
 
@@ -34,27 +64,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Now** page (`/now`) and **Engineering principles** page (`/engineering-principles`) with dedicated content and metadata.
-- LedgerGuard portfolio case study and blog post on pipeline truth between extraction and finance.
-- LedgerGuard and MCP workflow diagrams for case studies and posts.
-- **How I think** homepage section.
+- `/now` and `/engineering-principles` pages.
+- LedgerGuard case study and blog post; workflow diagrams for case studies and posts.
+- How I think section on the homepage.
 
 ### Changed
 
-- **Routes:** Migrate blog to **Writing** (`/writing`, `/writing/[slug]`); add redirects from legacy `/blog` paths.
-- **Portfolio:** Reorder case studies and expand project card case-study presentation.
-- Refine ledes, section descriptions, and validation messages across the site.
-- Switch package management to **pnpm** (`pnpm-lock.yaml`, workspace config) and refresh dependency versions.
-- Routine dependency bumps (Next.js, React, marked, Tailwind, Prettier, and related packages).
+- Blog routes moved to `/writing` with redirects from `/blog`.
+- Portfolio case study order and project card layout.
+- Copy tweaks across sections.
+- Switched to pnpm; bumped dependencies.
 
 ### Removed
 
-- Site footer and associated components/tests.
-- Gated analytics wrappers, resource hints, and selected-work gallery (and their tests).
-
----
-
-## [1.3.0] - 2026-05-08
+- Site footer and related components/tests.
+- Analytics wrappers, resource hints, and selected work gallery.
 
 ---
 
@@ -62,9 +86,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Visual polish across hero, contact, nav, testimonials, and shared section styling (`utils/visual.ts`).
-- Update nav links and favicon.
-- Routine dependency bumps (Next.js 16.2.x, TypeScript 6, Tailwind 4.2.x, and related packages).
+- Style pass on hero, contact, nav, testimonials, and shared sections (`utils/visual.ts`).
+- Nav links and favicon.
+- Dependency bumps (Next.js 16.2.x, TypeScript 6, Tailwind 4.2.x).
 
 ---
 
@@ -72,18 +96,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `scripts/strip-comments-range.mjs`: strip `//` and `/* */` trivia via TypeScript ranges (preserves layout; keeps `///` references, `// @ts-*`, and `/** @jest-environment */`).
-- `jest-config` as a direct devDependency so strict TypeScript checking resolves Jest’s typings.
+- `scripts/strip-comments-range.mjs` to strip `//` and `/* */` via TypeScript ranges (keeps `///`, `// @ts-*`, and `/** @jest-environment */`).
+- `jest-config` as a direct devDependency for Jest typings under strict TypeScript.
 
 ### Changed
 
-- **Positioning:** Remove hiring-oriented homepage sections (HireProof, hiring snapshot) and rewrite contact intro/reasons for a non-employment posture.
-- **Navigation & footer:** Refresh primary nav labels and structure (e.g. Me, Writing for the blog route); use `next/link` for the brand and footer links.
-- **Layout & copy:** Relax default max-width on shared section ledes; align spacing and markup across sections, blog list/post routes, and portfolio.
-- **Selected work:** Drop the “Illustrative · not a live screenshot” line on fallback thumbnails.
-- **Blog & docs:** Tighten punctuation and copy in several posts; refresh README and `docs/SITE_STRUCTURE.md`.
-- **Tooling:** Exclude `.next` in `tsconfig.json` so generated route types aren’t duplicated; trim `next.config.ts`; remove `format:check`, `test:coverage`, and `test:watch` npm scripts.
-- **Maintenance:** Strip comments across app, components, data, and utils without reprinting files.
+- Removed HireProof and hiring snapshot from the homepage; contact copy no longer hiring-focused.
+- Nav labels and structure (e.g. Me, Writing); brand and footer links use `next/link`.
+- Wider default max-width on section ledes; spacing and markup aligned across sections.
+- Dropped the fallback thumbnail caption on selected work.
+- Punctuation and copy in several posts; README and `docs/SITE_STRUCTURE.md` updated.
+- Excluded `.next` from `tsconfig.json`; trimmed `next.config.ts`; removed `format:check`, `test:coverage`, and `test:watch` scripts.
+- Stripped comments across app, components, data, and utils.
 
 ---
 
@@ -91,7 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add `SECURITY.md` with supported versions and instructions for reporting vulnerabilities (enables GitHub Security policy).
+- `SECURITY.md` for supported versions and vulnerability reporting.
 
 ---
 
@@ -99,7 +123,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Security:** Resolve high-severity ReDoS in transitive `minimatch` (GHSA-3ppc-4f35-3m26, GHSA-7r86-cg39-jmmj, GHSA-23c5-xmqv-rm74): `matchOne()` combinatorial backtracking via multiple non-adjacent GLOBSTAR segments. Fixed via `npm audit fix` and an `overrides` entry in `package.json` pinning `minimatch` to `>=9.0.7` so Jest and other transitive dependents cannot regress; addresses Dependabot alert #6.
+- ReDoS in transitive `minimatch` (GHSA-3ppc-4f35-3m26, GHSA-7r86-cg39-jmmj, GHSA-23c5-xmqv-rm74). Pinned `minimatch` to `>=9.0.7` via `overrides` in `package.json` (Dependabot #6).
 
 ---
 
@@ -107,11 +131,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update `data/projects.ts` project case studies, tech stacks, roles, AlwaysGeeky Games, Emplifi, and ControlTech so the portfolio reads in a more outcomes-focused voice.
+- Updated case studies, stacks, and roles in `data/projects.ts` (AlwaysGeeky Games, Emplifi, ControlTech, and others).
 
 ### Fixed
 
-- Restore the optional `image` field on the `Project` type so project cards and their tests compile correctly.
+- Restored optional `image` on the `Project` type so cards and tests compile.
 
 ---
 
@@ -119,14 +143,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add MIT LICENSE file at the project root.
-- Add CHANGELOG file.
+- MIT LICENSE at the project root.
+- This changelog.
 
 ### Changed
 
-- Mark the root package as non-private and add MIT license metadata in `package.json` so the project can be published.
-- Update `package-lock.json` metadata to mark relevant dependencies as peer where appropriate.
+- Package marked non-private with MIT license in `package.json`.
+- `package-lock.json` peer metadata cleanup.
 
 ### Fixed
 
-- Fix ESLint pre-commit failure by disabling the `react/display-name` rule that is incompatible with the current ESLint setup.
+- ESLint pre-commit: disabled `react/display-name` (incompatible with current setup).

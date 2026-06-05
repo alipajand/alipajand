@@ -7,7 +7,7 @@ interface HowIThinkGridItemProps {
 
 export function HowIThinkGridItem({ card }: HowIThinkGridItemProps) {
   return (
-    <li>
+    <li data-howitink-card>
       <HowIThinkCard card={card} />
     </li>
   );

@@ -185,31 +185,38 @@ describe("ProjectCard", () => {
         caseStudy: {
           problem: "The problem",
           constraints: "The constraints",
+          owned: ["Owned area one", "Owned area two"],
           architectureDecisions: "The architecture decisions",
-          tradeoffs: "The tradeoffs",
-          reliabilityPerformance: "The reliability",
+          technicalImplementation: "The implementation",
+          uxAccessibility: "The ux and accessibility",
           outcome: "The outcome",
+          tradeoffs: "The tradeoffs",
         },
       };
 
       render(<ProjectCard project={projectWithCaseStudy} />);
-      expect(screen.getByText("Problem")).toBeInTheDocument();
+      expect(screen.getByText("What I owned")).toBeInTheDocument();
+      expect(screen.getByText("Owned area one")).toBeInTheDocument();
+      expect(screen.getByText("Owned area two")).toBeInTheDocument();
+      expect(screen.getByText("Context and problem")).toBeInTheDocument();
       expect(screen.getByText("The problem")).toBeInTheDocument();
       expect(screen.getByText("Constraints")).toBeInTheDocument();
       expect(screen.getByText("The constraints")).toBeInTheDocument();
-      expect(screen.getByText("Architecture decisions")).toBeInTheDocument();
+      expect(screen.getByText("Key decisions")).toBeInTheDocument();
       expect(screen.getByText("The architecture decisions")).toBeInTheDocument();
-      expect(screen.getByText("Tradeoffs")).toBeInTheDocument();
-      expect(screen.getByText("The tradeoffs")).toBeInTheDocument();
-      expect(screen.getByText("Reliability / performance")).toBeInTheDocument();
-      expect(screen.getByText("The reliability")).toBeInTheDocument();
-      expect(screen.getByText("Outcome")).toBeInTheDocument();
+      expect(screen.getByText("Technical implementation")).toBeInTheDocument();
+      expect(screen.getByText("The implementation")).toBeInTheDocument();
+      expect(screen.getByText("UX and accessibility")).toBeInTheDocument();
+      expect(screen.getByText("The ux and accessibility")).toBeInTheDocument();
+      expect(screen.getByText("Outcome and evidence")).toBeInTheDocument();
       expect(screen.getByText("The outcome")).toBeInTheDocument();
+      expect(screen.getByText("Trade-offs and lessons")).toBeInTheDocument();
+      expect(screen.getByText("The tradeoffs")).toBeInTheDocument();
     });
 
     it("should not render case study when not provided", () => {
       render(<ProjectCard project={mockProject} />);
-      expect(screen.queryByText("Problem")).not.toBeInTheDocument();
+      expect(screen.queryByText("Context and problem")).not.toBeInTheDocument();
     });
   });
 
