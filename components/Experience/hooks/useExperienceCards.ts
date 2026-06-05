@@ -3,7 +3,7 @@
 import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
 
-import { gsap, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
+import { gsap, prefersReducedMotion, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
 
 const CARD_SELECTOR = "[data-experience-card]";
 
@@ -33,6 +33,12 @@ export function useExperienceCards(options: UseExperienceCardsOptions = {}): Exp
     if (!list) return;
 
     const cards = list.querySelectorAll<HTMLElement>(CARD_SELECTOR);
+
+    if (prefersReducedMotion()) {
+      gsap.set(cards, { opacity: 1, y: 0 });
+      return;
+    }
+
     gsap.set(cards, { opacity: 0, y });
 
     const triggers: ScrollTrigger[] = [];

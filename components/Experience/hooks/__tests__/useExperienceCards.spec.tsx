@@ -11,6 +11,7 @@ jest.mock("gsap", () => ({
 jest.mock("utils/gsap", () => ({
   gsap: { set: jest.fn(), to: jest.fn() },
   registerGSAPPlugins: jest.fn(),
+  prefersReducedMotion: jest.fn().mockReturnValue(false),
   ScrollTrigger: {
     create: jest.fn(() => ({ kill: jest.fn() })),
   },
