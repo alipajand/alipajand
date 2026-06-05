@@ -1,20 +1,22 @@
 export const SITE_NAME = "Ali Pajand";
 
-export const TAGLINE =
-  "Senior Product Engineer · Frontend Architecture · Design Systems · AI Product Workflows";
+/** Primary role label used across title, hero eyebrow, and structured data. */
+export const TAGLINE = "Senior Frontend / Product Engineer";
+
+/** Homepage <title> and Open Graph title. */
+export const HOME_TITLE = `${SITE_NAME} — ${TAGLINE}`;
 
 export const KEYWORDS = [
   SITE_NAME,
-  "Senior Product Engineer",
   "Senior Frontend Engineer",
+  "Senior Product Engineer",
+  "Frontend Platform Engineer",
+  "Design Systems Engineer",
   "Frontend Architecture",
-  "Design Systems",
   "Developer Experience",
-  "AI Product Engineering",
   "React",
   "TypeScript",
   "Next.js",
-  "Node.js",
   "Accessibility",
   "Montreal",
 ];
@@ -25,7 +27,7 @@ export const PORTFOLIO_PAGE_LEDE =
   "Case studies, product systems, architecture decisions, and shipped work across design systems, AI workflows, dashboards, and developer experience.";
 
 export const SITE_META_DESCRIPTION =
-  "Senior Product Engineer in Montreal focused on frontend architecture, design systems, AI product workflows, accessibility, TypeScript/React, and developer experience.";
+  "Senior Frontend and Product Engineer with 9+ years of experience building React and TypeScript products, design systems, accessible interfaces, frontend architecture, and developer tooling.";
 
 export const TWITTER_HANDLE: string | null = null;
 
@@ -33,11 +35,14 @@ export const PERSON_SCHEMA_ID = `${CANONICAL_URL}/#person`;
 
 export const WEBSITE_SCHEMA_ID = `${CANONICAL_URL}/#website`;
 
+/** Hero eyebrow shown above the name. */
+export const HERO_EYEBROW = "Senior Frontend / Product Engineer · Montreal, Canada";
+
 export const HERO_VALUE_LINE =
-  "I build reliable product interfaces, design systems, and AI-assisted workflows that help teams ship faster without losing quality.";
+  "I build complex product interfaces that stay usable, accessible, and reliable.";
 
 export const HERO_SUB =
-  "9+ years turning messy product requirements into shipped systems. I work across React, TypeScript, Next.js, API contracts, accessibility, CI quality gates, and developer tooling so teams can move quickly without losing reliability.";
+  "9+ years building React and TypeScript products, design systems, workflow-heavy SaaS interfaces, and frontend platforms. I turn ambiguous product requirements into maintainable systems teams can ship with confidence.";
 
 export const ABOUT_PARAGRAPHS = [
   "I'm a senior product engineer based in Montreal. My strongest work sits between product, design, and engineering: shaping ambiguous requirements, building reliable interfaces, and creating systems other developers can extend without friction.",
@@ -46,16 +51,16 @@ export const ABOUT_PARAGRAPHS = [
 ];
 
 export const CONTACT_INTRO =
-  "I'm open to senior product engineering, frontend platform, design systems, and AI-product engineering conversations — especially where the work involves product ownership, system quality, and shipping discipline. Share the role, problem, stack, timeline, and location context so I can reply usefully.";
+  "Hiring for a senior frontend or product engineer? Share the role, team, location, and the problem you need solved. I’m open to relevant opportunities in Canada and remote roles with compatible hiring arrangements.";
 
 export const CONTACT_FORM_LEDE =
-  "Prefer the form? Send the role, project, technical problem, or collaboration context. I usually reply within a few business days.";
+  "Prefer the form? Share the role, team, location, and what you need built.";
 
 export const HERO_PROOF_ROW = [
-  { value: "9+", label: "years shipping product" },
-  { value: "Design systems", label: "shared UI, tokens, docs" },
-  { value: "Architecture", label: "typed contracts, boundaries, CI" },
-  { value: "AI workflows", label: "trust, review, reliability" },
+  { value: "9+ years", label: "Product and frontend engineering" },
+  { value: "Design systems", label: "Shared UI, accessibility, adoption, and documentation" },
+  { value: "Product architecture", label: "Typed contracts, async states, data-heavy workflows" },
+  { value: "Developer experience", label: "Tooling, CI quality gates, release reliability" },
 ] as const;
 
 export const RESUME_URL: string | null = null;
@@ -69,9 +74,7 @@ export const HERO_CTA_DISCUSS_ROLE = "Discuss a role";
 
 export const HERO_CTA_VIEW_CASE_STUDIES = "View case studies";
 
-export const HERO_CTA_READ_WRITING = "Read writing";
-
-export const HERO_CTA_DOWNLOAD_RESUME = "Download resume";
+export const HERO_CTA_DOWNLOAD_RESUME = "Download résumé";
 
 export const HERO_CONTACT_NAV_ARIA_LABEL = "Contact links";
 
@@ -82,7 +85,7 @@ export const HERO_SCROLL_INDICATOR = "↓";
 export const PROOF_STRIP_SR_HEADING = "Proof at a glance";
 
 /** JSON-LD / Person */
-export const PERSON_SCHEMA_JOB_TITLE = "Senior Product Engineer";
+export const PERSON_SCHEMA_JOB_TITLE = "Senior Frontend / Product Engineer";
 
 export const PERSON_SCHEMA_ADDRESS_LOCALITY = "Montreal";
 

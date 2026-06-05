@@ -8,8 +8,8 @@ import {
   HERO_CONTACT_NAV_ARIA_LABEL,
   HERO_CTA_DISCUSS_ROLE,
   HERO_CTA_DOWNLOAD_RESUME,
-  HERO_CTA_READ_WRITING,
   HERO_CTA_VIEW_CASE_STUDIES,
+  HERO_EYEBROW,
   HERO_SCROLL_INDICATOR,
   HERO_SECTION_ARIA_LABEL,
   HERO_SUB,
@@ -43,6 +43,9 @@ export function Hero() {
     >
       <HeroBackground />
       <div className="relative z-10 max-w-5xl mx-auto w-full">
+        <p className="mb-4 sm:mb-5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+          {HERO_EYEBROW}
+        </p>
         <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
           <span ref={nameCharsRef} className="block text-foreground hero-lcp">
             {SITE_NAME.split("").map((char, i) => (
@@ -51,7 +54,7 @@ export function Hero() {
           </span>
           <span
             ref={line2Ref}
-            className="block mt-3 sm:mt-4 max-w-3xl text-lg sm:text-xl md:text-2xl font-normal text-white/85 leading-snug hero-lcp"
+            className="block mt-3 sm:mt-4 max-w-3xl text-lg sm:text-xl md:text-2xl font-normal text-white/85 leading-snug hero-lcp opacity-0"
           >
             {HERO_VALUE_LINE}
           </span>
@@ -68,22 +71,16 @@ export function Hero() {
           className="mt-8 sm:mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-3"
         >
           <a
-            href="#contact"
-            className={`hover-scale ${CTA_PRIMARY} w-full sm:w-auto opacity-0 translate-y-15`}
-          >
-            {HERO_CTA_DISCUSS_ROLE}
-          </a>
-          <a
             href="/portfolio#projects"
-            className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto opacity-0 translate-y-15`}
+            className={`hover-scale ${CTA_PRIMARY} w-full sm:w-auto opacity-0 translate-y-15`}
           >
             {HERO_CTA_VIEW_CASE_STUDIES}
           </a>
           <a
-            href="#writing"
+            href="#contact"
             className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto opacity-0 translate-y-15`}
           >
-            {HERO_CTA_READ_WRITING}
+            {HERO_CTA_DISCUSS_ROLE}
           </a>
           {RESUME_URL ? (
             <a

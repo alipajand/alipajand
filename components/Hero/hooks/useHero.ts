@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 
 import gsap from "gsap";
 import { prefersReducedMotion } from "utils/gsap";
+import { DUR, EASE, STAGGER } from "utils/motion";
 
 export interface HeroSelectors {
   containerRef: RefObject<HTMLElement | null>;
@@ -32,7 +33,13 @@ export function useHero(): HeroHook {
   useEffect(() => {
     const noMotion = prefersReducedMotion();
 
+    const chars = nameCharsRef.current
+      ? nameCharsRef.current.querySelectorAll<HTMLElement>("[data-char]")
+      : [];
+
     if (noMotion) {
+      gsap.set([...chars], { opacity: 1, y: 0 });
+      gsap.set(line2Ref.current, { opacity: 1, y: 0 });
       gsap.set(subRef.current, { opacity: 1, y: 0 });
       gsap.set(ctaRef.current?.children ?? [], { opacity: 1, y: 0 });
       if (locationRef.current) gsap.set(locationRef.current, { opacity: 1, y: 0 });
@@ -40,29 +47,61 @@ export function useHero(): HeroHook {
       return;
     }
 
+    /* ── Initial hidden states ────────────────────────────────────────── */
+    gsap.set([...chars], { opacity: 0, y: 52 });
+    gsap.set(line2Ref.current, { opacity: 0, y: 28 });
     gsap.set(subRef.current, { opacity: 0, y: 24 });
     gsap.set(ctaRef.current?.children ?? [], { opacity: 0, y: 16 });
     if (locationRef.current) gsap.set(locationRef.current, { opacity: 0, y: 12 });
     gsap.set(scrollIndicatorRef.current, { opacity: 0 });
 
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    tl.to(subRef.current, { opacity: 1, y: 0, duration: 0.5 });
+    /* ── Entrance timeline ────────────────────────────────────────────── */
+    const tl = gsap.timeline({ defaults: { ease: EASE.smooth } });
+
+    // 1. Name chars stagger — each letter sweeps up individually
+    if (chars.length > 0) {
+      tl.to([...chars], {
+        opacity: 1,
+        y: 0,
+        duration: DUR.md,
+        stagger: STAGGER.chars,
+        ease: EASE.snap,
+      });
+    }
+
+    // 2. Tagline (line2) slides up just as last char lands
+    tl.to(
+      line2Ref.current,
+      { opacity: 1, y: 0, duration: DUR.lg },
+      chars.length > 0 ? `-=${DUR.sm}` : 0
+    );
+
+    // 3. Sub paragraph
+    tl.to(subRef.current, { opacity: 1, y: 0, duration: DUR.md }, `-=${DUR.sm}`);
+
+    // 4. CTA row — buttons stagger
     tl.to(
       ctaRef.current?.children ?? [],
-      { opacity: 1, y: 0, duration: 0.4, stagger: 0.06 },
-      "-=0.2"
+      { opacity: 1, y: 0, duration: DUR.sm, stagger: 0.06 },
+      `-=${DUR.xs}`
     );
+
+    // 5. Location line
     if (locationRef.current) {
-      tl.to(locationRef.current, { opacity: 1, y: 0, duration: 0.35 }, "-=0.2");
+      tl.to(locationRef.current, { opacity: 1, y: 0, duration: DUR.sm }, `-=${DUR.sm}`);
     }
-    tl.to(scrollIndicatorRef.current, { opacity: 1, duration: 0.3 }, "-=0.2");
+
+    // 6. Scroll indicator fades in last
+    tl.to(scrollIndicatorRef.current, { opacity: 1, duration: DUR.sm }, `-=${DUR.xs}`);
   }, []);
 
+  /* ── Scroll-cue bounce loop ─────────────────────────────────────────── */
   useEffect(() => {
     if (!scrollIndicatorRef.current) return;
+    if (prefersReducedMotion()) return;
     gsap.to(scrollIndicatorRef.current, {
-      y: 8,
-      duration: 1.2,
+      y: 9,
+      duration: 1.3,
       ease: "power2.inOut",
       repeat: -1,
       yoyo: true,
