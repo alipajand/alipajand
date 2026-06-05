@@ -7,7 +7,7 @@ import { NavDesktopPrimaryLink } from "components/Nav/NavDesktopPrimaryLink";
 import { NavMobilePrimaryLink } from "components/Nav/NavMobilePrimaryLink";
 import { useNav } from "components/Nav/hooks/useNav";
 import { NAV_ARIA_PRIMARY, NAV_PRIMARY_LINKS } from "data/nav";
-import { SITE_NAME } from "data/site";
+import { HERO_CTA_DOWNLOAD_RESUME, RESUME_URL, SITE_NAME } from "data/site";
 import { homeBrandAriaCurrent } from "utils/navAriaCurrent";
 import { FOCUS_RING } from "utils/visual";
 import Link from "next/link";
@@ -48,6 +48,17 @@ export function Nav() {
                   label={link.label}
                 />
               ))}
+              {RESUME_URL ? (
+                <li>
+                  <a
+                    href={RESUME_URL}
+                    download
+                    className={`inline-flex min-h-9 items-center rounded-md border border-border px-3 py-1.5 text-sm font-medium text-foreground hover:border-foreground/35 hover:bg-card/50 transition-colors ${FOCUS_RING}`}
+                  >
+                    {HERO_CTA_DOWNLOAD_RESUME}
+                  </a>
+                </li>
+              ) : null}
             </ul>
             <button
               ref={menuButtonRef}
@@ -100,6 +111,16 @@ export function Nav() {
                 onNavigate={handleCloseMenu}
               />
             ))}
+            {RESUME_URL ? (
+              <a
+                href={RESUME_URL}
+                download
+                onClick={handleCloseMenu}
+                className={`font-medium text-foreground hover:text-muted transition-colors py-3 min-h-11 inline-flex items-center rounded-sm ${FOCUS_RING}`}
+              >
+                {HERO_CTA_DOWNLOAD_RESUME}
+              </a>
+            ) : null}
           </div>
         </div>
       </nav>
