@@ -6,6 +6,7 @@ import { LedgerGuardArchitectureDiagram } from "components/diagrams/LedgerGuardA
 import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
 import { ProjectCardBeforeAfterRow } from "components/Projects/ProjectCardBeforeAfterRow";
 import { ProjectCardCaseStudyField } from "components/Projects/ProjectCardCaseStudyField";
+import { ProjectCardHighLevelFlow } from "components/Projects/ProjectCardHighLevelFlow";
 import { ProjectCardFooterLink } from "components/Projects/ProjectCardFooterLink";
 import { ProjectCardSignalStackItem } from "components/Projects/ProjectCardSignalStackItem";
 import { ProjectCardSupportingOutcome } from "components/Projects/ProjectCardSupportingOutcome";
@@ -169,6 +170,9 @@ export function ProjectCard({ project }: { project: Project }) {
         {hasCaseStudy && (
           <div className="space-y-5 pt-1 border-t border-border">
             <h4 className="sr-only">{PROJECT_CARD_CASE_STUDY_SR}</h4>
+            {project.caseStudy?.highLevelFlow && project.caseStudy.highLevelFlow.length > 0 ? (
+              <ProjectCardHighLevelFlow steps={project.caseStudy.highLevelFlow} />
+            ) : null}
             {project.id === "ledgerguard-deterministic-commitments-ledger" ? (
               <figure className="space-y-2">
                 <LedgerGuardArchitectureDiagram />

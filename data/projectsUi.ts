@@ -19,6 +19,10 @@ export const PROJECT_CARD_FULL_STACK_SUMMARY = "Full stack";
 
 export const PROJECT_CARD_CASE_STUDY_SR = "Case study";
 
+export const PROJECT_CARD_HIGH_LEVEL_FLOW_LABEL = "High-level flow";
+
+export const PROJECT_CARD_HIGH_LEVEL_FLOW_ARIA = "High-level flow steps";
+
 export const PROJECT_CARD_LEDGER_DIAGRAM_CAPTION =
   "High-level flow: domain API owns tenant truth; workers run asynchronously and return through verification and internal callbacks, not direct writes.";
 
@@ -36,9 +40,9 @@ export function projectCaseStudyImageAlt(projectName: string): string {
 
 /**
  * Case-study rows rendered after the "My role" / "What I owned" lead block,
- * following the mandated section order. `owned` is rendered separately above.
+ * following the mandated section order. `owned` and `highLevelFlow` are rendered separately.
  */
-type CaseStudyRowKey = Exclude<keyof CaseStudyBlock, "owned">;
+type CaseStudyRowKey = Exclude<keyof CaseStudyBlock, "owned" | "highLevelFlow">;
 
 export const PROJECT_CASE_STUDY_ROWS: { key: CaseStudyRowKey; label: string }[] = [
   { key: "problem", label: "Context and problem" },

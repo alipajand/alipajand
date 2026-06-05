@@ -3,6 +3,8 @@ export interface CaseStudyBlock {
   constraints: string;
   /** Areas Ali personally owned (distinct from collaborative or team outcomes). */
   owned: string[];
+  /** Ordered, high-level system flow shown as connected steps (e.g. Upload → Extract → Validate). */
+  highLevelFlow?: string[];
   architectureDecisions: string;
   technicalImplementation: string;
   uxAccessibility: string;
@@ -101,6 +103,13 @@ export const PROJECTS: Project[] = [
         "Built buyer- and operator-facing surfaces (upload, verification, commitments ledger, renewal risk) and typed tenant/admin API contracts.",
         "Codified renewal-truth precedence and repair planning so newer synthesis is not clobbered by stale rows.",
       ],
+      highLevelFlow: [
+        "Upload contract",
+        "Async AI/OCR extraction",
+        "Domain validation via internal callbacks",
+        "Truth-precedence resolves drift/skew",
+        "Renewal ledger UI with honest warnings",
+      ],
       architectureDecisions:
         "Split deterministic API/domain state (commitments, commitment_fields, truth_state, audit metadata) from probabilistic workers; workers never write tenant truth directly, only validated internal callbacks. Codified portfolio truth precedence (version skew, same-version drift, fields-only recovery) and repair planning instead of clobbering newer synthesis.",
       technicalImplementation:
@@ -176,6 +185,13 @@ export const PROJECTS: Project[] = [
         "Aligned Fastify APIs, Zod/OpenAPI contracts, and typed React-PDF payloads on one verified data model.",
         "Constrained AI recommendations to typed, policy-aligned scenario inputs.",
       ],
+      highLevelFlow: [
+        "Verified scenario inputs",
+        "Typed API (Zod/OpenAPI)",
+        "Policy-aligned AI recommendations",
+        "Shared @mapbylaw/ui",
+        "Dashboard + bilingual PDF",
+      ],
       architectureDecisions:
         "Shared @mapbylaw/ui with feature folders and path aliases; OpenAPI 3 + Zod at the boundary; typed React-PDF payload builder sharing components with web apps; ai_recommendations as a narrow TypeScript shape fed only verified scenario inputs, with living audits alongside architecture docs.",
       technicalImplementation:
@@ -247,6 +263,13 @@ export const PROJECTS: Project[] = [
         "Added CI gates for visual and accessibility regressions before merge.",
         "Shipped marketplace and login flows with explicit loading, empty, error, and Web3 auth/API states.",
       ],
+      highLevelFlow: [
+        "Shared primitives & tokens",
+        "Storybook documentation",
+        "CI visual/a11y gates",
+        "Marketplace & login flows",
+        "Production-ready states",
+      ],
       architectureDecisions:
         "Storybook-driven design system with shared primitives; GitHub Actions running lint, visual regression, and accessibility checks on every PR; marketplace and login implemented on the same stack with explicit loading, empty, and failure surfaces.",
       technicalImplementation:
@@ -291,6 +314,13 @@ export const PROJECTS: Project[] = [
         "Built D3.js dashboards with profiled, bounded GSAP motion (team delivery).",
         "Tuned embed and mobile-webview performance paths against tight CPU and layout budgets.",
       ],
+      highLevelFlow: [
+        "Dashboard data",
+        "D3.js charts",
+        "Profiled, bounded GSAP motion",
+        "Embed & webview tuning",
+        "Responsive dashboards",
+      ],
       architectureDecisions:
         "D3.js for chart fidelity; GSAP for timeline-style motion; React profiling so animation work stays bounded on low-power devices and embeds.",
       technicalImplementation:
@@ -334,6 +364,13 @@ export const PROJECTS: Project[] = [
       owned: [
         "Built startup product surfaces across Vue, Nuxt, React, and React Native.",
         "Set up route-level code splitting, CDN delivery, PWA caching, and CI test gates (Jest/Playwright/GitHub Actions).",
+      ],
+      highLevelFlow: [
+        "Route-level code splitting",
+        "CDN-backed assets",
+        "Service-worker PWA cache",
+        "CI test gates",
+        "Fast, offline-resilient UI",
       ],
       architectureDecisions:
         "Route-level code splitting and lazy loading; CDN-backed static assets; service worker caching for PWA shells; Jest and Playwright in CI with GitHub Actions gating merges.",
