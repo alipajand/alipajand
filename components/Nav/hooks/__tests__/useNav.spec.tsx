@@ -243,7 +243,10 @@ describe("useNav", () => {
       getByText("Toggle").click();
     });
 
-    expect(gsap.default.set).toHaveBeenCalledWith(expect.anything(), { height: "auto", opacity: 1 });
+    expect(gsap.default.set).toHaveBeenCalledWith(expect.anything(), {
+      height: "auto",
+      opacity: 1,
+    });
     expect(gsap.default.fromTo).not.toHaveBeenCalled();
   });
 

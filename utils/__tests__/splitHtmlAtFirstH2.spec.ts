@@ -2,7 +2,7 @@ import { splitHtmlAtFirstH2 } from "utils/splitHtmlAtFirstH2";
 
 describe("splitHtmlAtFirstH2", () => {
   it("splits the html at the first h2 tag", () => {
-    const html = "<p>Intro</p><h2 id=\"a\">Heading</h2><p>Body</p>";
+    const html = '<p>Intro</p><h2 id="a">Heading</h2><p>Body</p>';
     const { before, fromH2 } = splitHtmlAtFirstH2(html);
     expect(before).toBe("<p>Intro</p>");
     expect(fromH2).toBe('<h2 id="a">Heading</h2><p>Body</p>');
