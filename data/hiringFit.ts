@@ -4,39 +4,38 @@ export interface HiringFitCard {
   body: string;
 }
 
-export const HIRING_FIT_HEADING = "For teams hiring senior frontend and product engineering";
+export const HIRING_FIT_HEADING = "What I bring to a team";
 
 export const HIRING_FIT_LEDE =
-  "I'm strongest in senior frontend roles with product-engineering scope: frontend architecture, design systems, complex product UI, accessibility, developer experience, and AI-assisted workflows. I do not only implement screens — I help teams turn ambiguous product work into reliable systems that ship.";
+  "Four areas where I add senior-level value: I turn ambiguous product work into reliable systems teams can ship, not just individual screens.";
 
 export const HIRING_FIT_ROLE_STRIP = [
   "Senior Frontend Engineer",
   "Senior Product Engineer",
-  "Frontend Platform",
-  "Design Systems",
-  "AI Product UI",
+  "Frontend Platform Engineer",
+  "Design Systems Engineer",
 ] as const;
 
 export const HIRING_FIT_CARDS: HiringFitCard[] = [
   {
-    id: "frontend-architecture",
-    title: "Frontend architecture",
-    body: "I design React, TypeScript, and Next.js product surfaces around clear boundaries, typed contracts, honest loading/error states, and maintainable component structure. The goal is product UI that stays understandable as complexity grows.",
+    id: "product-minded-frontend-ownership",
+    title: "Product-minded frontend ownership",
+    body: "Turns ambiguous workflows into clear, maintainable product surfaces.",
   },
   {
     id: "design-systems",
     title: "Design systems",
-    body: "I build shared UI foundations that improve consistency, accessibility, and delivery speed: tokens, components, Storybook documentation, usage patterns, and review habits that help teams stop rebuilding the same interface decisions.",
+    body: "Builds reusable, accessible foundations that improve consistency and delivery speed.",
   },
   {
-    id: "ai-product-workflows",
-    title: "AI product workflows",
-    body: "I separate probabilistic AI behavior from deterministic product truth. For AI-assisted interfaces, I care about provenance, human review, confidence states, correction loops, and making sure the UI does not overstate what the system actually knows.",
+    id: "frontend-architecture",
+    title: "Frontend architecture",
+    body: "Designs typed state boundaries, async flows, performance strategies, and sustainable component structures.",
   },
   {
-    id: "developer-experience-quality",
-    title: "Developer experience & quality",
-    body: "I improve the path from idea to production with type safety, CI gates, test coverage, observability, docs, and editor tooling. Faster shipping should come from better feedback loops, not from ignoring reliability.",
+    id: "developer-experience",
+    title: "Developer experience",
+    body: "Improves tooling, documentation, review quality, testing, and release confidence.",
   },
 ];
 
