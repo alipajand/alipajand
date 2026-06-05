@@ -15,25 +15,37 @@ import {
   PAGE_LINK_BACK_TO_HOMEPAGE,
 } from "data/pageChrome";
 import { PORTFOLIO_PAGE_LEDE } from "data/site";
+import { usePageHeader } from "utils/hooks/usePageHeader";
 import { SECTION_INNER, SECTION_X } from "utils/visual";
 
 export function PortfolioPageContent() {
+  const {
+    selectors: { headerRef },
+  } = usePageHeader();
+
   return (
     <MainReveal>
       <header
+        ref={headerRef}
         className={`${SECTION_X} border-b border-border bg-background pt-28 pb-10 sm:pb-12 sm:pt-32`}
       >
         <div className={SECTION_INNER}>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted mb-2">
+          <p
+            data-header-overline
+            className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted mb-2"
+          >
             {PORTFOLIO_PAGE_HEADER_OVERLINE}
           </p>
-          <h1 className="font-display font-bold tracking-tight text-3xl sm:text-4xl text-foreground">
+          <h1
+            data-header-title
+            className="font-display font-bold tracking-tight text-3xl sm:text-4xl text-foreground"
+          >
             {PORTFOLIO_PAGE_HEADER_TITLE}
           </h1>
-          <p className="text-muted text-[15px] sm:text-base leading-relaxed mt-4 ">
+          <p data-header-lede className="text-muted text-[15px] sm:text-base leading-relaxed mt-4">
             {PORTFOLIO_PAGE_LEDE}
           </p>
-          <p className="mt-8">
+          <p data-header-back className="mt-8">
             <Link
               href="/"
               className="text-sm font-medium text-foreground underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"

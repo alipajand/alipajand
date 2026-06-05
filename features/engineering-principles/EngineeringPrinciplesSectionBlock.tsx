@@ -9,7 +9,7 @@ export function EngineeringPrinciplesSectionBlock({
   section,
 }: EngineeringPrinciplesSectionBlockProps) {
   return (
-    <section aria-labelledby={`${section.id}-heading`}>
+    <section data-reveal aria-labelledby={`${section.id}-heading`}>
       <h2
         id={`${section.id}-heading`}
         className="font-display font-semibold text-xl sm:text-2xl text-foreground tracking-tight"
