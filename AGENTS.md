@@ -8,29 +8,29 @@ There are no databases, no auth, and no multi-tenant concerns. All content is st
 
 ## Stack
 
-| Layer | Technology |
-| --------- | -------------------------------------------- |
-| Framework | Next.js 15 App Router |
-| Language | TypeScript |
-| Styling | Tailwind CSS v4 |
-| Animation | GSAP + Lenis |
-| Email | Resend (`app/api/contact`) |
-| Testing | Jest + @testing-library/react |
-| Lint/fmt | ESLint + Prettier |
-| CI | GitHub Actions (`.github/workflows/ci.yml`) |
+| Layer     | Technology                                  |
+| --------- | ------------------------------------------- |
+| Framework | Next.js 15 App Router                       |
+| Language  | TypeScript                                  |
+| Styling   | Tailwind CSS v4                             |
+| Animation | GSAP + Lenis                                |
+| Email     | Resend (`app/api/contact`)                  |
+| Testing   | Jest + @testing-library/react               |
+| Lint/fmt  | ESLint + Prettier                           |
+| CI        | GitHub Actions (`.github/workflows/ci.yml`) |
 
 ## Architecture boundaries
 
 Read `docs/ARCHITECTURE.md` before large changes. Respect module boundaries:
 
-| Module | Responsibility |
-| ------------ | ----------------------------------------------- |
-| `app/` | Next.js routes, layouts, metadata, API handlers |
-| `features/` | Page-level feature sections (colocated logic) |
-| `components/` | Shared, reusable UI components |
-| `data/` | Static typed content (experience, skills, etc.) |
-| `content/` | Markdown posts for the writing section |
-| `utils/` | Pure utility functions and hooks |
+| Module        | Responsibility                                  |
+| ------------- | ----------------------------------------------- |
+| `app/`        | Next.js routes, layouts, metadata, API handlers |
+| `features/`   | Page-level feature sections (colocated logic)   |
+| `components/` | Shared, reusable UI components                  |
+| `data/`       | Static typed content (experience, skills, etc.) |
+| `content/`    | Markdown posts for the writing section          |
+| `utils/`      | Pure utility functions and hooks                |
 
 **Agent-editable areas:** UI components, features, data files, utils, tests, and documentation under `docs/`.
 

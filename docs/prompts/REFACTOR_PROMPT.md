@@ -35,6 +35,7 @@ Reason for refactor: `[DESCRIBE THE PROBLEM — e.g. "component is too large", "
 ### Output
 
 Report:
+
 1. What changed and why
 2. Files modified
 3. Commands run and results

@@ -23,12 +23,13 @@ All site copy lives in `data/*.ts`. Edit there and run `pnpm test && pnpm build`
 
 ## Environment and secrets
 
-| Variable | Purpose | Where to set |
-| --------------------- | --------------------------------- | -------------------- |
-| `RESEND_API_KEY` | Contact form email sender | Vercel dashboard |
-| `CONTACT_TO_EMAIL` | Recipient email address | Vercel dashboard |
+| Variable           | Purpose                   | Where to set     |
+| ------------------ | ------------------------- | ---------------- |
+| `RESEND_API_KEY`   | Contact form email sender | Vercel dashboard |
+| `CONTACT_TO_EMAIL` | Recipient email address   | Vercel dashboard |
 
 **Security rules:**
+
 - Never commit `.env` or `.env.local`. Both are in `.gitignore`.
 - Use `.env.example` to document required variables without values.
 - All secrets are server-side only — never prefix with `NEXT_PUBLIC_`.

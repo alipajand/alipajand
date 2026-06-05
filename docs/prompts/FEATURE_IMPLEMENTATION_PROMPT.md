@@ -40,6 +40,7 @@ Description: `[WHAT IT DOES AND WHY]`
 ### Output
 
 Report:
+
 1. Summary of what was built
 2. Files created or modified
 3. Commands run and results

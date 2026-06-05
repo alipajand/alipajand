@@ -62,10 +62,10 @@ app/api/contact ──► Resend API  (server only, POST)
 
 ## Environment variables
 
-| Variable | Purpose | Required |
-| --------------------- | ------------------------- | -------- |
-| `RESEND_API_KEY` | Contact form email sender | Yes |
-| `CONTACT_TO_EMAIL` | Recipient email address | Yes |
+| Variable           | Purpose                   | Required |
+| ------------------ | ------------------------- | -------- |
+| `RESEND_API_KEY`   | Contact form email sender | Yes      |
+| `CONTACT_TO_EMAIL` | Recipient email address   | Yes      |
 
 See `.env.example` for the full list. Never commit real values.
 
