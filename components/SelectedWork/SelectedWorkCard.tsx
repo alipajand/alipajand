@@ -26,9 +26,7 @@ export function SelectedWorkCard({ item }: { item: SelectedWorkItem }) {
           aria-label={SELECTED_WORK_THEMES_LABEL}
         >
           {item.themes.map((theme) => (
-            <li key={theme}>
-              <ProjectCardBadge>{theme}</ProjectCardBadge>
-            </li>
+            <ProjectCardBadge key={theme}>{theme}</ProjectCardBadge>
           ))}
         </ul>
       )}

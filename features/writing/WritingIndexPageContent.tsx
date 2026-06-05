@@ -85,9 +85,7 @@ export function WritingIndexPageContent({ posts }: WritingIndexPageContentProps)
           ) : (
             <ul ref={listRef} className="space-y-6 sm:space-y-8 list-none p-0 m-0">
               {posts.map((post) => (
-                <li key={post.slug} data-writ-item>
-                  <WritingIndexPostListItem post={post} />
-                </li>
+                <WritingIndexPostListItem key={post.slug} post={post} />
               ))}
             </ul>
           )}

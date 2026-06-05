@@ -46,9 +46,9 @@ export function HiringFit() {
 
         <ul aria-label="Role fit" className="mb-10 sm:mb-12 flex flex-wrap gap-2 list-none p-0 m-0">
           {HIRING_FIT_ROLE_STRIP.map((role) => (
-            <li key={role} data-hiring-badge>
-              <ProjectCardBadge>{role}</ProjectCardBadge>
-            </li>
+            <ProjectCardBadge key={role} data-hiring-badge>
+              {role}
+            </ProjectCardBadge>
           ))}
         </ul>
 
