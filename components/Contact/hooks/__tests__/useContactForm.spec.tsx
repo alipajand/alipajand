@@ -25,12 +25,13 @@ afterAll(() => {
   console.error = originalError;
 });
 
-function ContactFormWithHook() {
+function ContactFormWithHook({ withCompany = false }: { withCompany?: boolean }) {
   const { actions } = useContactForm();
   return (
     <form onSubmit={actions.handleSubmit} data-testid="contact-form">
       <input {...actions.register("name")} data-testid="name" />
       <input {...actions.register("email")} data-testid="email" type="email" />
+      {withCompany ? <input {...actions.register("company")} data-testid="company" /> : null}
       <textarea {...actions.register("message")} data-testid="message" />
       <button type="submit">Submit</button>
     </form>
@@ -118,6 +119,38 @@ describe("useContactForm", () => {
       expect(result.current.selectors.status).toBe("success");
       expect(result.current.selectors.isSubmitting).toBe(false);
       expect(result.current.selectors.errorMessage).toBeNull();
+    });
+
+    it("should prepend the company to the message body when provided", async () => {
+      const fetchMock = jest.mocked(fetch);
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({}),
+      } as Response);
+
+      const { getByTestId } = render(<ContactFormWithHook withCompany />);
+
+      await act(async () => {
+        fireEvent.change(getByTestId("name"), { target: { value: "Test User" } });
+        fireEvent.change(getByTestId("email"), { target: { value: "test@example.com" } });
+        fireEvent.change(getByTestId("company"), { target: { value: "  Acme Inc  " } });
+        fireEvent.change(getByTestId("message"), { target: { value: "Hello there" } });
+      });
+      await act(async () => {
+        fireEvent.submit(getByTestId("contact-form"));
+      });
+
+      await waitFor(() => {
+        expect(fetchMock).toHaveBeenCalledWith("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: "Test User",
+            email: "test@example.com",
+            message: "Company: Acme Inc\n\nHello there",
+          }),
+        });
+      });
     });
 
     it("should trim form values before sending", async () => {
