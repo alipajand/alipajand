@@ -20,4 +20,10 @@ describe("navAriaCurrent", () => {
     expect(homeBrandAriaCurrent("/")).toBe("page");
     expect(homeBrandAriaCurrent("/writing")).toBeUndefined();
   });
+
+  it("returns undefined when pathname is null", () => {
+    expect(navLinkAriaCurrent("/writing", null)).toBeUndefined();
+    expect(navLinkAriaCurrent("/portfolio", null)).toBeUndefined();
+    expect(homeBrandAriaCurrent(null)).toBeUndefined();
+  });
 });
