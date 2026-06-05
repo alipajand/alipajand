@@ -16,6 +16,7 @@ export type ContactFormStatus = "idle" | "loading" | "success" | "error";
 export interface ContactFormValues {
   name: string;
   email: string;
+  company: string;
   message: string;
 }
 
@@ -39,8 +40,17 @@ export interface ContactFormHook {
 const DEFAULT_VALUES: ContactFormValues = {
   name: "",
   email: "",
+  company: "",
   message: "",
 };
+
+/** Fold the optional company into the message body so the API contract stays unchanged. */
+function composeMessage(message: string, company: string): string {
+  const trimmedMessage = message.trim();
+  const trimmedCompany = company.trim();
+  if (!trimmedCompany) return trimmedMessage;
+  return `Company: ${trimmedCompany}\n\n${trimmedMessage}`;
+}
 
 export function useContactForm(): ContactFormHook {
   const [status, setStatus] = useState<ContactFormStatus>("idle");
@@ -62,7 +72,7 @@ export function useContactForm(): ContactFormHook {
         body: JSON.stringify({
           name: data.name.trim(),
           email: data.email.trim(),
-          message: data.message.trim(),
+          message: composeMessage(data.message, data.company),
         }),
       });
       const body = await res.json().catch(() => ({}));

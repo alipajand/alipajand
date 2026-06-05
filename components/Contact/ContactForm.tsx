@@ -3,6 +3,9 @@
 import classNames from "classnames";
 import { type ContactFormHook, useContactForm } from "components/Contact/hooks/useContactForm";
 import {
+  CONTACT_FIELD_COMPANY_HINT,
+  CONTACT_FIELD_COMPANY_LABEL,
+  CONTACT_FIELD_COMPANY_PLACEHOLDER,
   CONTACT_FIELD_EMAIL_HINT,
   CONTACT_FIELD_EMAIL_LABEL,
   CONTACT_FIELD_EMAIL_PLACEHOLDER,
@@ -12,6 +15,7 @@ import {
   CONTACT_FIELD_NAME_HINT,
   CONTACT_FIELD_NAME_LABEL,
   CONTACT_FIELD_NAME_PLACEHOLDER,
+  CONTACT_FORM_OPTIONAL_MARKER,
   CONTACT_FORM_REQUIRED_MARKER,
   CONTACT_FORM_SUBMIT_IDLE,
   CONTACT_FORM_SUBMIT_LOADING,
@@ -119,6 +123,25 @@ export function ContactForm() {
             {errors.email.message}
           </p>
         )}
+      </div>
+      <div>
+        <label htmlFor="contact-company" className={labelClass}>
+          {CONTACT_FIELD_COMPANY_LABEL}{" "}
+          <span className="text-muted font-normal">{CONTACT_FORM_OPTIONAL_MARKER}</span>
+        </label>
+        <p id="contact-company-hint" className={hintClass}>
+          {CONTACT_FIELD_COMPANY_HINT}
+        </p>
+        <input
+          id="contact-company"
+          type="text"
+          placeholder={CONTACT_FIELD_COMPANY_PLACEHOLDER}
+          autoComplete="organization"
+          disabled={isSubmitting}
+          className={classNames(inputClass, "mt-2")}
+          {...register("company")}
+          aria-describedby="contact-company-hint"
+        />
       </div>
       <div>
         <label htmlFor="contact-message" className={labelClass}>
