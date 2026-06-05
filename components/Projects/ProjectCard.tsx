@@ -20,6 +20,7 @@ import {
   PROJECT_CARD_LEDGER_DIAGRAM_CAPTION,
   PROJECT_CARD_MORE_OUTCOMES,
   PROJECT_CARD_OPEN_PROJECT,
+  PROJECT_CARD_OWNED_LABEL,
   PROJECT_CARD_TECHNICAL_SIGNALS,
   PROJECT_CASE_STUDY_ROWS,
   projectCaseStudyImageAlt,
@@ -81,6 +82,24 @@ export function ProjectCard({ project }: { project: Project }) {
             </p>
           )}
         </div>
+
+        {project.caseStudy && project.caseStudy.owned.length > 0 && (
+          <div className="space-y-2">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
+              {PROJECT_CARD_OWNED_LABEL}
+            </p>
+            <ul className="flex flex-col gap-1.5 list-none p-0 m-0">
+              {project.caseStudy.owned.map((point) => (
+                <li
+                  key={point}
+                  className="relative pl-4 text-muted text-[15px] leading-relaxed before:absolute before:left-0 before:top-[0.6em] before:size-1.5 before:-translate-y-1/2 before:rounded-full before:bg-foreground/40"
+                >
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="space-y-2">
           <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">

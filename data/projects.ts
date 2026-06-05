@@ -1,10 +1,13 @@
 export interface CaseStudyBlock {
   problem: string;
   constraints: string;
+  /** Areas Ali personally owned (distinct from collaborative or team outcomes). */
+  owned: string[];
   architectureDecisions: string;
-  tradeoffs: string;
-  reliabilityPerformance: string;
+  technicalImplementation: string;
+  uxAccessibility: string;
   outcome: string;
+  tradeoffs: string;
 }
 
 export interface BeforeAfter {
@@ -57,7 +60,7 @@ export const PROJECTS: Project[] = [
     name: "LedgerGuard — AI contract intelligence with deterministic financial truth",
     description:
       "Multi-tenant B2B SaaS that turns vendor contracts into commitment, renewal, notice-window, and spend-risk views. The core product decision: keep probabilistic AI/OCR extraction separate from deterministic financial truth so the UI never presents stale or partial data as certainty.",
-    role: "Founder / Senior Product Engineer · LedgerGuard",
+    role: "Senior Product Engineer · LedgerGuard (independent product)",
     navLabel: "LedgerGuard",
     signalStack: [
       "Fastify API domain + worker internal callbacks",
@@ -93,14 +96,21 @@ export const PROJECTS: Project[] = [
         "Renewal and spend-at-risk views only matter if finance trusts the underlying commitments. Contract PDFs traverse async, replayable pipelines where extraction, synthesis, and portfolio rows can land out of order or partially fail, so any UI that treats “first persisted row wins” as truth ships confident renewals on stale or skewed data.",
       constraints:
         "Hard multi-tenant isolation (RLS), workers cannot bypass domain invariants, pipelines must stay idempotent under replay, and finance needs clause-backed trace, not narrative inferred by models presented as fact.",
+      owned: [
+        "Designed the product architecture across Next.js, Fastify, Python workers, Supabase/Postgres, and async document extraction.",
+        "Built buyer- and operator-facing surfaces (upload, verification, commitments ledger, renewal risk) and typed tenant/admin API contracts.",
+        "Codified renewal-truth precedence and repair planning so newer synthesis is not clobbered by stale rows.",
+      ],
       architectureDecisions:
         "Split deterministic API/domain state (commitments, commitment_fields, truth_state, audit metadata) from probabilistic workers; workers never write tenant truth directly, only validated internal callbacks. Codified portfolio truth precedence (version skew, same-version drift, fields-only recovery) and repair planning instead of clobbering newer synthesis.",
-      tradeoffs:
-        "Surfacing drift, skew, and incomplete ledger state adds UI surface area versus implied certainty. Bounded honesty when realignment cannot complete beats silent green checks.",
-      reliabilityPerformance:
+      technicalImplementation:
         "Idempotent worker flows, aligned read models across list/detail/renewal routes, and explicit repair paths so behavior stays coherent when pipelines partially fail or replay.",
+      uxAccessibility:
+        "Honest UI states: explicit warnings when truth is partial, stale, or skewed instead of implied certainty, with verification flows that stay keyboard reachable.",
       outcome:
         "Renewal drivers trace to explainable sources with explicit hints when the ledger is incomplete or skewed, so teams can act before auto-renew locks without the product overstating pipeline certainty.",
+      tradeoffs:
+        "Surfacing drift, skew, and incomplete ledger state adds UI surface area versus implied certainty. Bounded honesty when realignment cannot complete beats silent green checks.",
     },
     beforeAfter: [
       {
@@ -161,14 +171,21 @@ export const PROJECTS: Project[] = [
         "Web and admin had to evolve in parallel while bilingual PDFs, consent-gated analytics, and AI recommendations stayed aligned with zoning and feasibility logic, not generic chatbot output detached from policy.",
       constraints:
         "Content policy forbids fabricated or static market stand-ins; Montreal-only shortcuts cannot masquerade as real inputs; Fastify, dashboards, and React-PDF must agree as incentives and rules change.",
+      owned: [
+        "Built the shared @mapbylaw/ui foundation used across web and admin.",
+        "Aligned Fastify APIs, Zod/OpenAPI contracts, and typed React-PDF payloads on one verified data model.",
+        "Constrained AI recommendations to typed, policy-aligned scenario inputs.",
+      ],
       architectureDecisions:
         "Shared @mapbylaw/ui with feature folders and path aliases; OpenAPI 3 + Zod at the boundary; typed React-PDF payload builder sharing components with web apps; ai_recommendations as a narrow TypeScript shape fed only verified scenario inputs, with living audits alongside architecture docs.",
-      tradeoffs:
-        "Strict schemas and audits add ongoing maintenance versus permissive glue code, but they prevent API/report/UI drift that is expensive to unwind and risky under regulatory scrutiny.",
-      reliabilityPerformance:
+      technicalImplementation:
         "Tests reject malformed AI payloads early; orchestration keeps validation, AI context, and bilingual report integrity moving together when datasets or incentives shift.",
+      uxAccessibility:
+        "WCAG-minded shared components and consistent product states (loading, empty, error) across web and admin, plus bilingual report parity.",
       outcome:
         "One design language and scenario-level recommendations that stay consistent between dashboard and PDF as policy evolves, with integrity enforced by shared types and audits instead of ad-hoc copy edits.",
+      tradeoffs:
+        "Strict schemas and audits add ongoing maintenance versus permissive glue code, but they prevent API/report/UI drift that is expensive to unwind and risky under regulatory scrutiny.",
     },
     beforeAfter: [
       { label: "UI across apps", before: "Separate stacks", after: "Shared @mapbylaw/ui" },
@@ -225,14 +242,21 @@ export const PROJECTS: Project[] = [
         "Teams were shipping one-off UI while marketplace and login needed to match design, integrate with Web3 APIs and wallet/auth flows, and survive production traffic, not become a brittle demo layer.",
       constraints:
         "WCAG expectations across products, tight coordination with design, and shipping deadlines without dropping accessibility or error handling for chain/API failures.",
+      owned: [
+        "Established the shared component architecture and Storybook documentation (in close coordination with design).",
+        "Added CI gates for visual and accessibility regressions before merge.",
+        "Shipped marketplace and login flows with explicit loading, empty, error, and Web3 auth/API states.",
+      ],
       architectureDecisions:
         "Storybook-driven design system with shared primitives; GitHub Actions running lint, visual regression, and accessibility checks on every PR; marketplace and login implemented on the same stack with explicit loading, empty, and failure surfaces.",
-      tradeoffs:
-        "CI adds merge friction up front versus discovering visual and a11y failures in production; shared components slow one-off hacks but reduce long-term drift across games and surfaces.",
-      reliabilityPerformance:
+      technicalImplementation:
         "Automated gates catch regressions before release; flows tuned for noisy Web3 backends and real user traffic rather than happy-path-only demos.",
+      uxAccessibility:
+        "WCAG-aligned accessible primitives reused across products, with explicit non-happy-path states instead of demo-only UI.",
       outcome:
         "A consistent accessible baseline across products; marketplace and login remained stable in production with regressions caught before they reached users.",
+      tradeoffs:
+        "CI adds merge friction up front versus discovering visual and a11y failures in production; shared components slow one-off hacks but reduce long-term drift across games and surfaces.",
     },
     beforeAfter: [
       { label: "Component reuse", before: "Ad-hoc", after: "Shared library" },
@@ -263,14 +287,20 @@ export const PROJECTS: Project[] = [
         "Dashboards had to stay legible and responsive inside mobile webviews and embedded hosts where CPU and layout budgets are tight, with smooth motion and no constant jank.",
       constraints:
         "One codebase for standalone and embed; chart density that still reads on small viewports; motion that degrades gracefully when budgets are exhausted.",
+      owned: [
+        "Built D3.js dashboards with profiled, bounded GSAP motion (team delivery).",
+        "Tuned embed and mobile-webview performance paths against tight CPU and layout budgets.",
+      ],
       architectureDecisions:
         "D3.js for chart fidelity; GSAP for timeline-style motion; React profiling so animation work stays bounded on low-power devices and embeds.",
-      tradeoffs:
-        "Rich motion increases implementation and test surface versus static charts; profiling effort traded for predictable frame time in webview contexts.",
-      reliabilityPerformance:
+      technicalImplementation:
         "Targeted tuning for embed and webview paths, with fewer assumptions from full-desktop chrome and bounded animation work per frame.",
+      uxAccessibility:
+        "Readable chart density on small viewports and motion that degrades gracefully when frame budgets are exhausted.",
       outcome:
         "Dashboards that stayed usable in embedded and mobile webview contexts, with motion that remained controlled rather than chaotic.",
+      tradeoffs:
+        "Rich motion increases implementation and test surface versus static charts; profiling effort traded for predictable frame time in webview contexts.",
     },
     beforeAfter: [
       {
@@ -301,14 +331,20 @@ export const PROJECTS: Project[] = [
         "Products had to load quickly on modest hardware, tolerate flaky networks, and ship without repeatedly breaking primary flows.",
       constraints:
         "Offline-capable shells where product requirements demanded it; small team release cadence; low tolerance for production regressions affecting early adopters.",
+      owned: [
+        "Built startup product surfaces across Vue, Nuxt, React, and React Native.",
+        "Set up route-level code splitting, CDN delivery, PWA caching, and CI test gates (Jest/Playwright/GitHub Actions).",
+      ],
       architectureDecisions:
         "Route-level code splitting and lazy loading; CDN-backed static assets; service worker caching for PWA shells; Jest and Playwright in CI with GitHub Actions gating merges.",
-      tradeoffs:
-        "More pipeline and test code versus shipping larger bundles faster; offline caches trade freshness for resilience until invalidated.",
-      reliabilityPerformance:
+      technicalImplementation:
         "Automated tests and CI reduced regressions reaching users; splitting and CDN work addressed first-load pain on slow connections.",
+      uxAccessibility:
+        "Offline-capable shells kept core flows usable on unstable networks for early adopters.",
       outcome:
         "Releases stopped routinely breaking core flows; first load improved materially and offline-capable paths stayed usable on unstable networks.",
+      tradeoffs:
+        "More pipeline and test code versus shipping larger bundles faster; offline caches trade freshness for resilience until invalidated.",
     },
     beforeAfter: [
       {

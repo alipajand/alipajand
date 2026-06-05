@@ -24,6 +24,8 @@ export const PROJECT_CARD_LEDGER_DIAGRAM_CAPTION =
 
 export const PROJECT_CARD_MORE_OUTCOMES = "More outcomes";
 
+export const PROJECT_CARD_OWNED_LABEL = "What I owned";
+
 export const PROJECT_CARD_OPEN_PROJECT = "Project";
 
 export const PROJECT_CARD_EXTERNAL_NEW_TAB_HINT = " (opens in new tab)";
@@ -32,11 +34,18 @@ export function projectCaseStudyImageAlt(projectName: string): string {
   return `Case study visual: ${projectName}`;
 }
 
-export const PROJECT_CASE_STUDY_ROWS: { key: keyof CaseStudyBlock; label: string }[] = [
-  { key: "problem", label: "Problem" },
+/**
+ * Case-study rows rendered after the "My role" / "What I owned" lead block,
+ * following the mandated section order. `owned` is rendered separately above.
+ */
+type CaseStudyRowKey = Exclude<keyof CaseStudyBlock, "owned">;
+
+export const PROJECT_CASE_STUDY_ROWS: { key: CaseStudyRowKey; label: string }[] = [
+  { key: "problem", label: "Context and problem" },
   { key: "constraints", label: "Constraints" },
-  { key: "architectureDecisions", label: "Architecture decisions" },
-  { key: "tradeoffs", label: "Tradeoffs" },
-  { key: "reliabilityPerformance", label: "Reliability / performance" },
-  { key: "outcome", label: "Outcome" },
+  { key: "architectureDecisions", label: "Key decisions" },
+  { key: "technicalImplementation", label: "Technical implementation" },
+  { key: "uxAccessibility", label: "UX and accessibility" },
+  { key: "outcome", label: "Outcome and evidence" },
+  { key: "tradeoffs", label: "Trade-offs and lessons" },
 ];
