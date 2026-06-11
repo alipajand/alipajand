@@ -1,4 +1,4 @@
-import { renderHook, render } from "@testing-library/react";
+import { render, renderHook } from "@testing-library/react";
 
 import { useProjectsReveal } from "components/Projects/hooks/useProjectsReveal";
 
