@@ -27,7 +27,6 @@ function scrambleText(el: HTMLElement, target: string, duration: number, onCompl
       .split("")
       .map((char, i) => {
         if (char === " ") return " ";
-        // Reveal characters left-to-right as progress increases
         if (i / target.length < progress) return char;
         return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
       })
@@ -70,14 +69,12 @@ export function NotFoundPageContent() {
 
     gsap.set(belowEls, { opacity: 0, y: 20 });
 
-    // 1. Scramble the "404" code on mount
     if (code) {
       const original = code.textContent ?? NOT_FOUND_CODE;
       code.textContent = SCRAMBLE_CHARS.slice(0, original.length);
 
       gsap.delayedCall(0.15, () => {
         scrambleText(code, original, 0.9, () => {
-          // 2. After scramble, reveal the rest with a stagger
           gsap.to(belowEls, {
             opacity: 1,
             y: 0,

@@ -16,17 +16,7 @@ const config: Config = {
     "^utils/(.*)$": "<rootDir>/utils/$1",
     "^lib/(.*)$": "<rootDir>/lib/$1",
   },
-  collectCoverageFrom: [
-    "components/**/*.{ts,tsx}",
-    "lib/**/*.ts",
-    "utils/**/*.ts",
-    "!**/*.spec.{ts,tsx}",
-    "!**/__tests__/**",
-    "!**/node_modules/**",
-    // Type-only declaration files have no runtime code to exercise.
-    "!**/*.types.ts",
-    "!components/Writing/WritingPost.ts",
-  ],
+  collectCoverageFrom: ["!**/node_modules/**"],
   coverageThreshold: {
     global: {
       statements: 97,

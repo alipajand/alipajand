@@ -14,7 +14,6 @@ import {
   HERO_SECTION_ARIA_LABEL,
   HERO_SUB,
   HERO_VALUE_LINE,
-  LOCATION,
   RESUME_URL,
   SITE_NAME,
 } from "data/site";
@@ -23,15 +22,7 @@ import { CTA_PRIMARY, CTA_SECONDARY, CTA_TERTIARY } from "utils/visual";
 
 export function Hero() {
   const {
-    selectors: {
-      containerRef,
-      nameCharsRef,
-      line2Ref,
-      subRef,
-      ctaRef,
-      locationRef,
-      scrollIndicatorRef,
-    },
+    selectors: { containerRef, nameCharsRef, line2Ref, subRef, ctaRef, scrollIndicatorRef },
   } = useHero();
 
   return (
@@ -100,23 +91,6 @@ export function Hero() {
             ))}
           </nav>
         </div>
-        <p ref={locationRef} className="mt-6 flex items-center gap-2 text-muted text-sm opacity-0">
-          <span
-            className="shrink-0 size-4 bg-current"
-            style={{
-              maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E")`,
-              maskSize: "contain",
-              maskRepeat: "no-repeat",
-              maskPosition: "center",
-              WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E")`,
-              WebkitMaskSize: "contain",
-              WebkitMaskRepeat: "no-repeat",
-              WebkitMaskPosition: "center",
-            }}
-            aria-hidden
-          />
-          {LOCATION}
-        </p>
       </div>
       <div
         ref={scrollIndicatorRef}

@@ -1,5 +1,3 @@
-/** Footer copy and secondary navigation. Social links come from `data/links.ts`. */
-
 export const FOOTER_ARIA_LABEL = "Site footer";
 
 export const FOOTER_NAV_ARIA_LABEL = "Footer";

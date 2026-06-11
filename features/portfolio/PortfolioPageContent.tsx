@@ -10,9 +10,9 @@ import { MainReveal } from "components/MainReveal/MainReveal";
 import { Projects } from "components/Projects/Projects";
 import { Skills } from "components/Skills/Skills";
 import {
+  PAGE_LINK_BACK_TO_HOMEPAGE,
   PORTFOLIO_PAGE_HEADER_OVERLINE,
   PORTFOLIO_PAGE_HEADER_TITLE,
-  PAGE_LINK_BACK_TO_HOMEPAGE,
 } from "data/pageChrome";
 import { PORTFOLIO_PAGE_LEDE } from "data/site";
 import { usePageHeader } from "utils/hooks/usePageHeader";

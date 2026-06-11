@@ -38,10 +38,6 @@ export function projectCaseStudyImageAlt(projectName: string): string {
   return `Case study visual: ${projectName}`;
 }
 
-/**
- * Case-study rows rendered after the "My role" / "What I owned" lead block,
- * following the mandated section order. `owned` and `highLevelFlow` are rendered separately.
- */
 type CaseStudyRowKey = Exclude<keyof CaseStudyBlock, "owned" | "highLevelFlow">;
 
 export const PROJECT_CASE_STUDY_ROWS: { key: CaseStudyRowKey; label: string }[] = [

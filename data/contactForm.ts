@@ -1,5 +1,3 @@
-/** Contact form field copy, validation messages, and UI strings used by ContactForm and useContactForm. */
-
 export const CONTACT_FORM_REQUIRED_MARKER = "(required)";
 export const CONTACT_FORM_OPTIONAL_MARKER = "(optional)";
 

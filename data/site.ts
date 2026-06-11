@@ -1,9 +1,7 @@
 export const SITE_NAME = "Ali Pajand";
 
-/** Primary role label used across title, hero eyebrow, and structured data. */
-export const TAGLINE = "Senior Frontend / Product Engineer";
+export const TAGLINE = "Senior Frontend Engineer";
 
-/** Homepage <title> and Open Graph title. */
 export const HOME_TITLE = `${SITE_NAME} — ${TAGLINE}`;
 
 export const KEYWORDS = [
@@ -35,7 +33,6 @@ export const PERSON_SCHEMA_ID = `${CANONICAL_URL}/#person`;
 
 export const WEBSITE_SCHEMA_ID = `${CANONICAL_URL}/#website`;
 
-/** Hero eyebrow shown above the name. */
 export const HERO_EYEBROW = "Senior Frontend / Product Engineer · Montreal, Canada";
 
 export const HERO_VALUE_LINE =
@@ -67,7 +64,6 @@ export const RESUME_URL: string | null = null;
 
 export const LOCATION = "Based in Montreal, Quebec, Canada";
 
-/** Hero */
 export const HERO_SECTION_ARIA_LABEL = "Introduction";
 
 export const HERO_CTA_DISCUSS_ROLE = "Discuss a role";
@@ -78,13 +74,10 @@ export const HERO_CTA_DOWNLOAD_RESUME = "Download résumé";
 
 export const HERO_CONTACT_NAV_ARIA_LABEL = "Contact links";
 
-/** Decorative scroll cue (often paired with aria-hidden in markup). */
 export const HERO_SCROLL_INDICATOR = "↓";
 
-/** Proof strip */
 export const PROOF_STRIP_SR_HEADING = "Proof at a glance";
 
-/** JSON-LD / Person */
 export const PERSON_SCHEMA_JOB_TITLE = "Senior Frontend / Product Engineer";
 
 export const PERSON_SCHEMA_ADDRESS_LOCALITY = "Montreal";
