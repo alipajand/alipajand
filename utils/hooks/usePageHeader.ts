@@ -11,16 +11,6 @@ export interface PageHeaderSelectors {
   headerRef: RefObject<HTMLElement | null>;
 }
 
-/**
- * Animates interior page headers (Portfolio, Now, Engineering Principles).
- * Targets elements with data-header-* attributes inside the header element.
- *
- * Usage: attach `headerRef` to <header>, then add data attributes:
- *   data-header-overline  → small overline label
- *   data-header-title     → h1
- *   data-header-lede      → paragraph
- *   data-header-back      → back link
- */
 export function usePageHeader(): { selectors: PageHeaderSelectors } {
   const headerRef = useRef<HTMLElement>(null);
 

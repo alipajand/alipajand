@@ -44,7 +44,6 @@ const DEFAULT_VALUES: ContactFormValues = {
   message: "",
 };
 
-/** Fold the optional company into the message body so the API contract stays unchanged. */
 function composeMessage(message: string, company: string): string {
   const trimmedMessage = message.trim();
   const trimmedCompany = company.trim();

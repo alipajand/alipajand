@@ -1,9 +1,7 @@
 export interface CaseStudyBlock {
   problem: string;
   constraints: string;
-  /** Areas Ali personally owned (distinct from collaborative or team outcomes). */
   owned: string[];
-  /** Ordered, high-level system flow shown as connected steps (e.g. Upload → Extract → Validate). */
   highLevelFlow?: string[];
   architectureDecisions: string;
   technicalImplementation: string;

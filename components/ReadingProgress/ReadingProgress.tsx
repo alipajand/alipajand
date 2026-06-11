@@ -4,10 +4,6 @@ import { useEffect, useRef } from "react";
 
 import { gsap, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
 
-/**
- * A thin progress bar fixed at the top of the viewport that fills
- * as the user scrolls through an article. Shown only on writing posts.
- */
 export function ReadingProgress() {
   const barRef = useRef<HTMLDivElement>(null);
 

@@ -29,7 +29,7 @@ export function useHowIThinkReveal(): { selectors: HowIThinkRevealSelectors } {
     }
 
     gsap.set([heading, lede].filter(Boolean), { opacity: 0, y: 28 });
-    // Cards start slightly rotated for a "dealt cards" effect
+
     gsap.set([...cards], { opacity: 0, y: 48, rotationX: 8, transformPerspective: 600 });
 
     const st = ScrollTrigger.create({

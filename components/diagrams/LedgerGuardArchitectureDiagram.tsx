@@ -1,5 +1,3 @@
-/** Static SVG — uses currentColor for theme compatibility. */
-
 export function LedgerGuardArchitectureDiagram() {
   return (
     <div className="w-full overflow-x-auto rounded-lg border border-border/70 bg-background/40 px-2 py-3 sm:px-4 sm:py-4">

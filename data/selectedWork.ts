@@ -1,11 +1,5 @@
 import type { ProjectBadge } from "data/projects";
 
-/**
- * Homepage "Selected case studies" previews. Copy is curated for the homepage and
- * each item deep-links to its full write-up on the work page (`/portfolio#project-<projectId>`).
- * All claims are derived from `data/projects.ts`; no new metrics are introduced.
- */
-
 export const SELECTED_WORK_HEADING = "Selected case studies";
 
 export const SELECTED_WORK_LEDE =
