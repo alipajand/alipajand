@@ -7,8 +7,8 @@ import {
   HOMEPAGE_CASE_STUDIES,
   HOMEPAGE_CASE_STUDIES_HEADING,
   HOMEPAGE_CASE_STUDIES_LEDE,
-  HOMEPAGE_HERO_PRIMARY_CTA_HREF,
 } from "data/homepage";
+import { SELECTED_WORK_SECTION_CTA_HREF, SELECTED_WORK_SECTION_CTA_LABEL } from "data/selectedWork";
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import {
   CTA_SECONDARY,
@@ -48,10 +48,10 @@ export function SelectedWork() {
 
         <div className="mt-10 sm:mt-12" data-reveal>
           <Link
-            href={HOMEPAGE_HERO_PRIMARY_CTA_HREF}
+            href={SELECTED_WORK_SECTION_CTA_HREF}
             className={`${CTA_SECONDARY} w-full sm:w-auto`}
           >
-            View all case studies
+            {SELECTED_WORK_SECTION_CTA_LABEL}
           </Link>
         </div>
       </div>

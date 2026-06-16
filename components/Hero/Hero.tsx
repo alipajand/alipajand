@@ -45,13 +45,15 @@ export function Hero() {
         </p>
         <h1
           ref={line2Ref}
-          className="max-w-4xl font-display font-bold text-4xl sm:text-5xl md:text-6xl leading-[1.05] text-foreground hero-lcp opacity-0"
+          data-hero-animate
+          className="max-w-4xl font-display font-bold text-4xl sm:text-5xl md:text-6xl leading-[1.05] text-foreground hero-lcp"
         >
           {HOMEPAGE_HERO_TITLE}
         </h1>
         <p
           ref={subRef}
-          className="mt-6 sm:mt-7 max-w-3xl text-muted text-[15px] sm:text-lg leading-relaxed opacity-0 translate-y-15"
+          data-hero-animate="slide-up"
+          className="mt-6 sm:mt-7 max-w-3xl text-muted text-[15px] sm:text-lg leading-relaxed"
         >
           {HOMEPAGE_HERO_BODY}
         </p>
@@ -60,19 +62,22 @@ export function Hero() {
           <div className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
             <Link
               href={HOMEPAGE_HERO_PRIMARY_CTA_HREF}
-              className={`hover-scale ${CTA_PRIMARY} w-full sm:w-auto opacity-0 translate-y-15`}
+              data-hero-animate="slide-up"
+              className={`hover-scale ${CTA_PRIMARY} w-full sm:w-auto`}
             >
               {HOMEPAGE_HERO_PRIMARY_CTA_LABEL}
             </Link>
             <Link
               href={HOMEPAGE_HERO_SECONDARY_CTA_HREF}
-              className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto opacity-0 translate-y-15`}
+              data-hero-animate="slide-up"
+              className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto`}
             >
               {HOMEPAGE_HERO_SECONDARY_CTA_LABEL}
             </Link>
           </div>
           <p
-            className="text-sm sm:text-base text-foreground/80 leading-relaxed opacity-0 translate-y-15"
+            data-hero-animate="slide-up"
+            className="text-sm sm:text-base text-foreground/80 leading-relaxed"
             data-hero-availability
           >
             {HOMEPAGE_HERO_AVAILABILITY}
@@ -81,7 +86,8 @@ export function Hero() {
       </div>
       <div
         ref={scrollIndicatorRef}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted text-sm opacity-0"
+        data-hero-animate
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted text-sm"
         aria-hidden
       >
         {HERO_SCROLL_INDICATOR}

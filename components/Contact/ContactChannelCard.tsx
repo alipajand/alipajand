@@ -1,4 +1,5 @@
 import { trackContactLinkClick } from "components/Contact/trackContactLinkClick";
+import { EXTERNAL_LINK_NEW_TAB_HINT } from "data/pageChrome";
 import { CARD_SURFACE_HOVER } from "utils/visual";
 
 const ICON_SRC = {
@@ -32,7 +33,7 @@ export function ContactChannelCard({ channel }: ContactChannelCardProps) {
         data-analytics-event={`contact_link_${channel.label.toLowerCase()}`}
         aria-label={
           channel.href.startsWith("http")
-            ? `${channel.label}: ${channel.value} (opens in new tab)`
+            ? `${channel.label}: ${channel.value}${EXTERNAL_LINK_NEW_TAB_HINT}`
             : `${channel.label}: ${channel.value}`
         }
         onClick={() => trackContactLinkClick(channel.label)}

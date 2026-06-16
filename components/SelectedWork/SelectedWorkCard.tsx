@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
 import type { HomepageCaseStudy } from "data/homepage";
+import { SELECTED_WORK_CARD_CTA, SELECTED_WORK_CARD_CTA_SR } from "data/selectedWork";
 import { FOCUS_RING } from "utils/visual";
 
 const FIELD_LABEL = "text-[11px] font-semibold uppercase tracking-[0.12em] text-muted";
@@ -59,9 +60,10 @@ export function SelectedWorkCard({ caseStudy }: { caseStudy: HomepageCaseStudy }
       <div className="mt-auto pt-2">
         <Link
           href={caseStudy.href}
+          aria-label={`${SELECTED_WORK_CARD_CTA}${SELECTED_WORK_CARD_CTA_SR}`}
           className={`inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-foreground underline-offset-4 hover:underline ${FOCUS_RING} rounded-sm`}
         >
-          Read case study
+          {SELECTED_WORK_CARD_CTA}
           <span aria-hidden className="text-muted transition-transform group-hover:translate-x-0.5">
             →
           </span>

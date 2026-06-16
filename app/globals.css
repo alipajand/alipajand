@@ -68,6 +68,16 @@
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-hero-animate] {
+    opacity: 0;
+  }
+
+  html.js [data-hero-animate="slide-up"] {
+    transform: translateY(3.75rem);
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

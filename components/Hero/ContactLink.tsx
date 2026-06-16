@@ -1,3 +1,4 @@
+import { EXTERNAL_LINK_NEW_TAB_HINT } from "data/pageChrome";
 import { FOCUS_RING } from "utils/visual";
 
 interface ContactLinkProps {
@@ -7,13 +8,15 @@ interface ContactLinkProps {
 }
 
 export function ContactLink({ label, href, iconSrc }: ContactLinkProps) {
+  const isExternal = href.startsWith("http");
+
   return (
     <a
       href={href}
-      target={href.startsWith("http") ? "_blank" : undefined}
-      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
       className={`text-muted hover:text-foreground transition-colors rounded h-5 min-h-11 min-w-11 inline-flex items-center justify-center ${FOCUS_RING}`}
-      aria-label={label}
+      aria-label={isExternal ? `${label}${EXTERNAL_LINK_NEW_TAB_HINT}` : label}
     >
       <span
         className="inline-block size-5 bg-current shrink-0"

@@ -1,4 +1,5 @@
 import { INNOVATION_VIDEO_LINK_DEFAULT, type InnovationItem } from "data/innovation";
+import { EXTERNAL_LINK_NEW_TAB_HINT } from "data/pageChrome";
 import { CARD_SURFACE_HOVER } from "utils/visual";
 
 interface InnovationListItemProps {
@@ -21,6 +22,7 @@ export function InnovationListItem({ item }: InnovationListItemProps) {
             className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-muted transition-colors"
           >
             {item.videoLabel ?? INNOVATION_VIDEO_LINK_DEFAULT}
+            <span className="sr-only">{EXTERNAL_LINK_NEW_TAB_HINT}</span>
             <span aria-hidden>→</span>
           </a>
         ) : null}

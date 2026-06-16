@@ -11,11 +11,10 @@ describe("ContactLink", () => {
       expect(link).toHaveAttribute("href", "mailto:test@example.com");
     });
 
-    it("should render with aria-label", () => {
+    it("should render with aria-label including new-tab hint for external links", () => {
       render(<ContactLink label="GitHub" href="https://github.com" />);
 
-      const link = screen.getByRole("link", { name: "GitHub" });
-      expect(link).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: "GitHub (opens in new tab)" })).toBeInTheDocument();
     });
 
     it("should render icon span with aria-hidden", () => {

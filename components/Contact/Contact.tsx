@@ -4,8 +4,8 @@ import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import { LINKS } from "data/links";
 import {
   CONTACT_DIRECT_LABEL,
-  CONTACT_SECTION_BODY,
   CONTACT_FORM_SECTION_HEADING,
+  CONTACT_SECTION_BODY,
   CONTACT_SECTION_HEADING,
 } from "data/contact";
 import { CONTACT_FORM_LEDE } from "data/site";

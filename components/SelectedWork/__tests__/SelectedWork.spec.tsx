@@ -5,8 +5,8 @@ import {
   HOMEPAGE_CASE_STUDIES,
   HOMEPAGE_CASE_STUDIES_HEADING,
   HOMEPAGE_CASE_STUDIES_LEDE,
-  HOMEPAGE_HERO_PRIMARY_CTA_HREF,
 } from "data/homepage";
+import { SELECTED_WORK_SECTION_CTA_HREF, SELECTED_WORK_SECTION_CTA_LABEL } from "data/selectedWork";
 
 describe("SelectedWork", () => {
   it("renders the section with the case-studies id", () => {
@@ -31,7 +31,7 @@ describe("SelectedWork", () => {
 
   it("renders the section CTA pointing to the work page", () => {
     render(<SelectedWork />);
-    const cta = screen.getByRole("link", { name: /view all case studies/i });
-    expect(cta).toHaveAttribute("href", HOMEPAGE_HERO_PRIMARY_CTA_HREF);
+    const cta = screen.getByRole("link", { name: SELECTED_WORK_SECTION_CTA_LABEL });
+    expect(cta).toHaveAttribute("href", SELECTED_WORK_SECTION_CTA_HREF);
   });
 });

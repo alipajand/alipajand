@@ -51,7 +51,9 @@ describe("InnovationListItem", () => {
       </ul>
     );
 
-    expect(screen.getByRole("link", { name: INNOVATION_VIDEO_LINK_DEFAULT })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: `${INNOVATION_VIDEO_LINK_DEFAULT} (opens in new tab)` })
+    ).toBeInTheDocument();
   });
 
   it("renders a muted label paragraph when videoLabel is set without a url", () => {
