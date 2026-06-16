@@ -8,7 +8,6 @@ import { WritingRecentPostListItem } from "components/Writing/WritingRecentPostL
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import {
   WRITING_ALL_POSTS_CTA,
-  WRITING_HOME_ARCHIVE_TEASER,
   WRITING_SECTION_HEADING,
   WRITING_SECTION_LEDE,
   WRITING_WHY_IT_MATTERS,
@@ -64,7 +63,6 @@ export function Writing({ featured, posts }: WritingProps) {
           className="mt-12 sm:mt-14 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
           data-reveal
         >
-          <p className="text-sm text-muted m-0">{WRITING_HOME_ARCHIVE_TEASER}</p>
           <Link
             href="/writing"
             className="inline-flex w-full sm:w-auto min-h-11 justify-center items-center rounded-lg border border-foreground/20 bg-foreground/[0.06] px-5 py-3 text-sm font-semibold text-foreground hover:bg-foreground/10 hover:border-foreground/35 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"

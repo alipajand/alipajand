@@ -13,9 +13,6 @@ export const WRITING_INDEX_DESCRIPTION =
 
 export const WRITING_SECTION_HEADING = "Writing";
 
-export const WRITING_HOME_ARCHIVE_TEASER =
-  "More notes on product engineering, systems, and shipping reliable interfaces.";
-
 export const WRITING_READ_ARTICLE_CTA = "Read article →";
 
 export const WRITING_INDEX_EMPTY_MESSAGE = "No posts yet. Check back soon.";
