@@ -41,10 +41,10 @@ export const FOOTER_DIRECT_LABEL = "Direct";
 
 export const FOOTER_RESUME_LABEL = "Résumé";
 
-export function footerCopyright(year: number): string {
+export const footerCopyright = (year: number): string => {
   return `©${year} by Ali Pajand`;
-}
+};
 
-export function getFooterNavLinksFlat(): FooterNavLink[] {
+export const getFooterNavLinksFlat = (): FooterNavLink[] => {
   return FOOTER_NAV_LINKS.flatMap((category) => [...category.links]);
-}
+};

@@ -12,7 +12,7 @@ import {
   TAGLINE,
 } from "data/site";
 
-export function HomeStructuredData() {
+export const HomeStructuredData = () => {
   const personSchema = {
     "@context": "https://schema.org",
     "@id": PERSON_SCHEMA_ID,
@@ -57,4 +57,4 @@ export function HomeStructuredData() {
       />
     </>
   );
-}
+};

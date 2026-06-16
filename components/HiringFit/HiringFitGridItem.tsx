@@ -5,10 +5,10 @@ interface HiringFitGridItemProps {
   card: HiringFitCardModel;
 }
 
-export function HiringFitGridItem({ card }: HiringFitGridItemProps) {
+export const HiringFitGridItem = ({ card }: HiringFitGridItemProps) => {
   return (
     <li data-hiring-card>
       <HiringFitCard card={card} />
     </li>
   );
-}
+};

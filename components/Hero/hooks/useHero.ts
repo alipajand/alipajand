@@ -21,7 +21,7 @@ export interface HeroHook {
   selectors: HeroSelectors;
 }
 
-export function useHero(): HeroHook {
+export const useHero = (): HeroHook => {
   const containerRef = useRef<HTMLElement>(null);
   const nameCharsRef = useRef<HTMLSpanElement>(null);
   const line2Ref = useRef<HTMLHeadingElement>(null);
@@ -110,4 +110,4 @@ export function useHero(): HeroHook {
       scrollIndicatorRef,
     },
   };
-}
+};

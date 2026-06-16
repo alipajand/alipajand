@@ -7,7 +7,7 @@ import type { Project } from "data/projects";
 import { PROJECT_CARD_CAPABILITIES_LABEL, PROJECT_CARD_READ_CASE_STUDY } from "data/projectsUi";
 import { CARD_SURFACE_HOVER, FOCUS_RING, LABEL_OVERLINE } from "utils/visual";
 
-export function ProjectCard({ project }: { project: Project }) {
+export const ProjectCard = ({ project }: { project: Project }) => {
   return (
     <article
       className={`${CARD_SURFACE_HOVER} flex h-full flex-col overflow-hidden rounded-2xl`}
@@ -52,4 +52,4 @@ export function ProjectCard({ project }: { project: Project }) {
       </div>
     </article>
   );
-}
+};

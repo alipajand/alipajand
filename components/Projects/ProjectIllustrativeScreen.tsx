@@ -6,7 +6,10 @@ type ProjectIllustrativeScreenProps = {
   variant: "emplifi" | "controltech";
 };
 
-function EmplifiIllustration({ titleId, descId }: Omit<ProjectIllustrativeScreenProps, "variant">) {
+const EmplifiIllustration = ({
+  titleId,
+  descId,
+}: Omit<ProjectIllustrativeScreenProps, "variant">) => {
   return (
     <svg
       viewBox="0 0 1600 1035"
@@ -86,12 +89,12 @@ function EmplifiIllustration({ titleId, descId }: Omit<ProjectIllustrativeScreen
       </defs>
     </svg>
   );
-}
+};
 
-function ControlTechIllustration({
+const ControlTechIllustration = ({
   titleId,
   descId,
-}: Omit<ProjectIllustrativeScreenProps, "variant">) {
+}: Omit<ProjectIllustrativeScreenProps, "variant">) => {
   return (
     <svg
       viewBox="0 0 1600 1035"
@@ -154,16 +157,15 @@ function ControlTechIllustration({
       </defs>
     </svg>
   );
-}
+};
 
-export function ProjectIllustrativeScreen({
+export const ProjectIllustrativeScreen = ({
   titleId,
   descId,
   variant,
-}: ProjectIllustrativeScreenProps) {
+}: ProjectIllustrativeScreenProps) => {
   if (variant === "controltech") {
     return <ControlTechIllustration titleId={titleId} descId={descId} />;
   }
-
   return <EmplifiIllustration titleId={titleId} descId={descId} />;
-}
+};

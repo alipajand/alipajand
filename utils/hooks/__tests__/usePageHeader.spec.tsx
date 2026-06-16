@@ -23,20 +23,22 @@ type GsapMock = {
   timeline: jest.Mock;
 };
 
-function getGsap(): GsapMock {
+const getGsap = (): GsapMock => {
   return jest.requireMock("gsap") as unknown as GsapMock;
-}
+};
 
-function getReducedMotionMock(): jest.Mock {
-  return (jest.requireMock("utils/gsap") as { prefersReducedMotion: jest.Mock })
-    .prefersReducedMotion;
-}
+const getReducedMotionMock = (): jest.Mock => {
+  return (
+    jest.requireMock("utils/gsap") as {
+      prefersReducedMotion: jest.Mock;
+    }
+  ).prefersReducedMotion;
+};
 
-function Harness() {
+const Harness = () => {
   const {
     selectors: { headerRef },
   } = usePageHeader();
-
   return (
     <header ref={headerRef}>
       <span data-header-overline>Overline</span>
@@ -45,7 +47,7 @@ function Harness() {
       <span data-header-back>Back</span>
     </header>
   );
-}
+};
 
 describe("usePageHeader", () => {
   beforeEach(() => {
@@ -82,12 +84,12 @@ describe("usePageHeader", () => {
     getReducedMotionMock().mockReturnValue(false);
     const gsap = getGsap();
 
-    function EmptyHarness() {
+    const EmptyHarness = () => {
       const {
         selectors: { headerRef },
       } = usePageHeader();
       return <header ref={headerRef} />;
-    }
+    };
 
     render(<EmptyHarness />);
 

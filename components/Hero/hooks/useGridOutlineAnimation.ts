@@ -65,9 +65,9 @@ export interface GridOutlineAnimationHook {
   selectors: GridOutlineAnimationSelectors;
 }
 
-export function useGridOutlineAnimation(
+export const useGridOutlineAnimation = (
   options: UseGridOutlineAnimationOptions = {}
-): GridOutlineAnimationHook {
+): GridOutlineAnimationHook => {
   const svgRef = useRef<SVGSVGElement>(null);
   const { delayPerCell = 0.015, duration = 0.35 } = options;
 
@@ -103,4 +103,4 @@ export function useGridOutlineAnimation(
       snakeOrder: SNAKE_ORDER,
     },
   };
-}
+};

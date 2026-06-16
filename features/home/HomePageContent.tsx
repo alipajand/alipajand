@@ -16,7 +16,7 @@ interface HomePageContentProps {
   writingRecent: WritingPost[];
 }
 
-export function HomePageContent({ writingFeatured, writingRecent }: HomePageContentProps) {
+export const HomePageContent = ({ writingFeatured, writingRecent }: HomePageContentProps) => {
   return (
     <MainReveal>
       <Hero />
@@ -32,4 +32,4 @@ export function HomePageContent({ writingFeatured, writingRecent }: HomePageCont
       <Contact />
     </MainReveal>
   );
-}
+};

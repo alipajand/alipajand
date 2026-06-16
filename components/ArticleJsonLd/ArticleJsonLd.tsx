@@ -5,7 +5,7 @@ interface ArticleJsonLdProps {
   post: Omit<Post, "contentHtml">;
 }
 
-export function ArticleJsonLd({ post }: ArticleJsonLdProps) {
+export const ArticleJsonLd = ({ post }: ArticleJsonLdProps) => {
   const url = `${CANONICAL_URL}/writing/${post.slug}`;
   const schema = {
     "@context": "https://schema.org",
@@ -46,4 +46,4 @@ export function ArticleJsonLd({ post }: ArticleJsonLdProps) {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
-}
+};

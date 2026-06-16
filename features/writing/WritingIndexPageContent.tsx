@@ -20,7 +20,7 @@ interface WritingIndexPageContentProps {
   posts: WritingIndexPost[];
 }
 
-export function WritingIndexPageContent({ posts }: WritingIndexPageContentProps) {
+export const WritingIndexPageContent = ({ posts }: WritingIndexPageContentProps) => {
   const headerRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
@@ -99,4 +99,4 @@ export function WritingIndexPageContent({ posts }: WritingIndexPageContentProps)
       </main>
     </div>
   );
-}
+};

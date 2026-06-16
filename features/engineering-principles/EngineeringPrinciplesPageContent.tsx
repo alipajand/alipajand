@@ -21,7 +21,7 @@ import {
   SECTION_SHELL_BRIDGE,
 } from "utils/visual";
 
-export function EngineeringPrinciplesPageContent() {
+export const EngineeringPrinciplesPageContent = () => {
   const {
     selectors: { headerRef },
   } = usePageHeader();
@@ -68,4 +68,4 @@ export function EngineeringPrinciplesPageContent() {
       </div>
     </MainReveal>
   );
-}
+};

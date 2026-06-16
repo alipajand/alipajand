@@ -5,7 +5,7 @@ interface WritingPostMetaProps {
   tags?: string[];
 }
 
-export function WritingPostMeta({ date, tags }: WritingPostMetaProps) {
+export const WritingPostMeta = ({ date, tags }: WritingPostMetaProps) => {
   return (
     <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted">
       <time dateTime={date} className="font-medium tabular-nums">
@@ -24,4 +24,4 @@ export function WritingPostMeta({ date, tags }: WritingPostMetaProps) {
       ) : null}
     </div>
   );
-}
+};

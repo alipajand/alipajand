@@ -101,10 +101,9 @@ describe("useNav", () => {
       default: { set: jest.Mock; to: jest.Mock; fromTo: jest.Mock };
     };
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useNav();
       const { navLinksRef } = selectors;
-
       return (
         <nav>
           <ul ref={navLinksRef}>
@@ -117,7 +116,7 @@ describe("useNav", () => {
           </ul>
         </nav>
       );
-    }
+    };
 
     render(<TestComponent />);
 
@@ -130,10 +129,9 @@ describe("useNav", () => {
       default: { fromTo: jest.Mock; to: jest.Mock };
     };
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors, actions } = useNav();
       const { mobileMenuRef } = selectors;
-
       return (
         <>
           <button type="button" onClick={actions.handleToggleMenu}>
@@ -144,7 +142,7 @@ describe("useNav", () => {
           </div>
         </>
       );
-    }
+    };
 
     const { getByText } = render(<TestComponent />);
 
@@ -195,7 +193,7 @@ describe("useNav", () => {
 
     prefersReducedMotion.mockImplementation(() => true);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useNav();
       return (
         <ul ref={selectors.navLinksRef}>
@@ -204,7 +202,7 @@ describe("useNav", () => {
           </li>
         </ul>
       );
-    }
+    };
 
     render(<TestComponent />);
 
@@ -222,7 +220,7 @@ describe("useNav", () => {
 
     prefersReducedMotion.mockImplementation(() => true);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors, actions } = useNav();
       return (
         <>
@@ -235,7 +233,7 @@ describe("useNav", () => {
           </div>
         </>
       );
-    }
+    };
 
     const { getByText } = render(<TestComponent />);
 
@@ -251,7 +249,7 @@ describe("useNav", () => {
   });
 
   it("wraps focus from the last mobile link to the menu button on Tab", () => {
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors, actions } = useNav();
       return (
         <>
@@ -264,7 +262,7 @@ describe("useNav", () => {
           </div>
         </>
       );
-    }
+    };
 
     const { getByText } = render(<TestComponent />);
 
@@ -288,7 +286,7 @@ describe("useNav", () => {
   });
 
   it("wraps focus from the menu button to the last mobile link on Shift+Tab", () => {
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors, actions } = useNav();
       return (
         <>
@@ -301,7 +299,7 @@ describe("useNav", () => {
           </div>
         </>
       );
-    }
+    };
 
     const { getByText } = render(<TestComponent />);
 
@@ -330,14 +328,14 @@ describe("useNav", () => {
     const footer = document.createElement("footer");
     document.body.append(main, footer);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors, actions } = useNav();
       return (
         <button type="button" ref={selectors.menuButtonRef} onClick={actions.handleToggleMenu}>
           Toggle
         </button>
       );
-    }
+    };
 
     const { getByText, unmount } = render(<TestComponent />);
 

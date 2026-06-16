@@ -11,7 +11,9 @@ export interface PageHeaderSelectors {
   headerRef: RefObject<HTMLElement | null>;
 }
 
-export function usePageHeader(): { selectors: PageHeaderSelectors } {
+export const usePageHeader = (): {
+  selectors: PageHeaderSelectors;
+} => {
   const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -42,4 +44,4 @@ export function usePageHeader(): { selectors: PageHeaderSelectors } {
   }, []);
 
   return { selectors: { headerRef } };
-}
+};

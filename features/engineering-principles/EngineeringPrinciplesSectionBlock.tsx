@@ -5,9 +5,9 @@ interface EngineeringPrinciplesSectionBlockProps {
   section: EngineeringPrinciplesSection;
 }
 
-export function EngineeringPrinciplesSectionBlock({
+export const EngineeringPrinciplesSectionBlock = ({
   section,
-}: EngineeringPrinciplesSectionBlockProps) {
+}: EngineeringPrinciplesSectionBlockProps) => {
   return (
     <section data-reveal aria-labelledby={`${section.id}-heading`}>
       <h2
@@ -25,4 +25,4 @@ export function EngineeringPrinciplesSectionBlock({
       </div>
     </section>
   );
-}
+};

@@ -1,4 +1,4 @@
-export function McpWorkflowDiagram() {
+export const McpWorkflowDiagram = () => {
   return (
     <div className="w-full overflow-x-auto rounded-lg border border-border/70 bg-background/40 px-2 py-3 sm:px-4 sm:py-4">
       <svg
@@ -139,4 +139,4 @@ export function McpWorkflowDiagram() {
       </svg>
     </div>
   );
-}
+};

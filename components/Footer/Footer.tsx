@@ -25,7 +25,7 @@ interface FooterProps {
   latestWritings: WritingIndexPost[];
 }
 
-export function Footer({ latestWritings }: FooterProps) {
+export const Footer = ({ latestWritings }: FooterProps) => {
   const year = new Date().getFullYear();
 
   return (
@@ -92,4 +92,4 @@ export function Footer({ latestWritings }: FooterProps) {
       </div>
     </footer>
   );
-}
+};

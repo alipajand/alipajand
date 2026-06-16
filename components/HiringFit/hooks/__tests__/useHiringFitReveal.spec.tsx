@@ -26,15 +26,14 @@ type GsapMock = {
   ScrollTrigger: { create: jest.Mock };
 };
 
-function getMock(): GsapMock {
+const getMock = (): GsapMock => {
   return jest.requireMock("utils/gsap") as GsapMock;
-}
+};
 
-function Harness() {
+const Harness = () => {
   const {
     selectors: { sectionRef },
   } = useHiringFitReveal();
-
   return (
     <section ref={sectionRef}>
       <h2 data-hiring-heading>Heading</h2>
@@ -46,7 +45,7 @@ function Harness() {
       <div data-hiring-ctas>CTAs</div>
     </section>
   );
-}
+};
 
 describe("useHiringFitReveal", () => {
   beforeEach(() => {

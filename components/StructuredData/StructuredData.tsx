@@ -6,7 +6,7 @@ import {
   WEBSITE_SCHEMA_ID,
 } from "data/site";
 
-export function StructuredData() {
+export const StructuredData = () => {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@id": WEBSITE_SCHEMA_ID,
@@ -18,11 +18,10 @@ export function StructuredData() {
       "@id": PERSON_SCHEMA_ID,
     },
   };
-
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
     />
   );
-}
+};

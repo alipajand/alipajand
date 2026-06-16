@@ -25,7 +25,7 @@ afterAll(() => {
   console.error = originalError;
 });
 
-function ContactFormWithHook({ withCompany = false }: { withCompany?: boolean }) {
+const ContactFormWithHook = ({ withCompany = false }: { withCompany?: boolean }) => {
   const { actions } = useContactForm();
   return (
     <form onSubmit={actions.handleSubmit} data-testid="contact-form">
@@ -36,7 +36,7 @@ function ContactFormWithHook({ withCompany = false }: { withCompany?: boolean })
       <button type="submit">Submit</button>
     </form>
   );
-}
+};
 
 describe("useContactForm", () => {
   beforeEach(() => {

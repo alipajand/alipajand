@@ -18,7 +18,7 @@ import {
 import { HeroBackground } from "components/Hero/HeroBackground";
 import { CTA_PRIMARY, CTA_SECONDARY } from "utils/visual";
 
-export function Hero() {
+export const Hero = () => {
   const {
     selectors: { containerRef, nameCharsRef, line2Ref, subRef, ctaRef, scrollIndicatorRef },
   } = useHero();
@@ -94,4 +94,4 @@ export function Hero() {
       </div>
     </section>
   );
-}
+};

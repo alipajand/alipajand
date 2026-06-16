@@ -24,14 +24,14 @@ interface WritingPostPageContentProps {
   proseFromH2: string;
 }
 
-export function WritingPostPageContent({
+export const WritingPostPageContent = ({
   title,
   date,
   showMcpDiagram,
   contentHtml,
   proseBeforeH2,
   proseFromH2,
-}: WritingPostPageContentProps) {
+}: WritingPostPageContentProps) => {
   const dateRef = useRef<HTMLParagraphElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -113,4 +113,4 @@ export function WritingPostPageContent({
       </div>
     </>
   );
-}
+};

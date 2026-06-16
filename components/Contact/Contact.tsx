@@ -19,7 +19,7 @@ import {
   SECTION_TITLE,
 } from "utils/visual";
 
-export function Contact() {
+export const Contact = () => {
   const {
     selectors: { sectionRef },
   } = useScrollReveal({ y: 32, stagger: 0.08 });
@@ -61,4 +61,4 @@ export function Contact() {
       </div>
     </section>
   );
-}
+};

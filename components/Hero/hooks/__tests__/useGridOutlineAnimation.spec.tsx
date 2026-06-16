@@ -36,10 +36,9 @@ describe("useGridOutlineAnimation", () => {
 
     prefersReducedMotion.mockReturnValue(false);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useGridOutlineAnimation({ delayPerCell: 0.01, duration: 0.1 });
       const { svgRef, snakeOrder } = selectors;
-
       return (
         <svg ref={svgRef} aria-label="grid">
           {snakeOrder.slice(0, 3).map(([row, col]) => (
@@ -47,7 +46,7 @@ describe("useGridOutlineAnimation", () => {
           ))}
         </svg>
       );
-    }
+    };
 
     const proto = Element.prototype as Element & {
       getTotalLength?: () => number;
@@ -71,16 +70,15 @@ describe("useGridOutlineAnimation", () => {
 
     prefersReducedMotion.mockReturnValue(true);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useGridOutlineAnimation();
       const { svgRef } = selectors;
-
       return (
         <svg ref={svgRef} aria-label="grid">
           <path data-grid-outline data-sum="0" />
         </svg>
       );
-    }
+    };
 
     render(<TestComponent />);
   });

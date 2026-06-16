@@ -26,9 +26,10 @@ export interface UseProjectsRevealSelectors {
   secondaryProjects: Project[];
 }
 
-export function useProjectsReveal(): { selectors: UseProjectsRevealSelectors } {
+export const useProjectsReveal = (): {
+  selectors: UseProjectsRevealSelectors;
+} => {
   const sectionRef = useRef<HTMLElement>(null);
-
   const orderedProjects = useMemo(
     () =>
       [...PROJECTS].sort(
@@ -38,35 +39,28 @@ export function useProjectsReveal(): { selectors: UseProjectsRevealSelectors } {
       ),
     []
   );
-
   const primaryProjects = useMemo(
     () => orderedProjects.filter((project) => primaryProjectIds.has(project.id)),
     [orderedProjects]
   );
-
   const secondaryProjects = useMemo(
     () => orderedProjects.filter((project) => !primaryProjectIds.has(project.id)),
     [orderedProjects]
   );
-
   useEffect(() => {
     registerGSAPPlugins();
     const section = sectionRef.current;
     if (!section) return;
-
     const cards = section.querySelectorAll<HTMLElement>(CARD_SELECTOR);
     const heading = section.querySelector<HTMLElement>("[data-reveal]");
     const sub = section.querySelectorAll<HTMLElement>("[data-reveal]")?.[1];
-
     if (prefersReducedMotion()) {
       gsap.set([...cards, heading, sub].filter(Boolean), { opacity: 1, y: 0, scale: 1 });
       return;
     }
-
     gsap.set(cards, { opacity: 0, y: 56, scale: 0.98 });
     if (heading) gsap.set(heading, { opacity: 0, y: 32 });
     if (sub) gsap.set(sub, { opacity: 0, y: 24 });
-
     const stSection = ScrollTrigger.create({
       trigger: section,
       start: "top 82%",
@@ -89,11 +83,9 @@ export function useProjectsReveal(): { selectors: UseProjectsRevealSelectors } {
         );
       },
     });
-
     return () => stSection.kill();
   }, []);
-
   return {
     selectors: { sectionRef, orderedProjects, primaryProjects, secondaryProjects },
   };
-}
+};

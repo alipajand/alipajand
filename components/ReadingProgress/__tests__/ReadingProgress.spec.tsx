@@ -19,9 +19,9 @@ type GsapMock = {
   registerGSAPPlugins: jest.Mock;
 };
 
-function getMock(): GsapMock {
+const getMock = (): GsapMock => {
   return jest.requireMock("utils/gsap") as GsapMock;
-}
+};
 
 describe("ReadingProgress", () => {
   beforeEach(() => {

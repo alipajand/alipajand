@@ -4,7 +4,7 @@ interface TestimonialsQuoteProps {
   testimonial: Testimonial;
 }
 
-export function TestimonialsQuote({ testimonial: t }: TestimonialsQuoteProps) {
+export const TestimonialsQuote = ({ testimonial: t }: TestimonialsQuoteProps) => {
   return (
     <figure className="m-0" data-testimonial-card>
       <blockquote className="m-0 border-0 p-0">
@@ -23,4 +23,4 @@ export function TestimonialsQuote({ testimonial: t }: TestimonialsQuoteProps) {
       </figcaption>
     </figure>
   );
-}
+};

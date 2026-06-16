@@ -23,9 +23,8 @@ export interface ScrollRevealHook {
   selectors: ScrollRevealSelectors;
 }
 
-export function useScrollReveal(options: UseScrollRevealOptions = {}): ScrollRevealHook {
+export const useScrollReveal = (options: UseScrollRevealOptions = {}): ScrollRevealHook => {
   const sectionRef = useRef<HTMLElement>(null);
-
   const {
     trigger,
     once = true,
@@ -77,4 +76,4 @@ export function useScrollReveal(options: UseScrollRevealOptions = {}): ScrollRev
   return {
     selectors: { sectionRef },
   };
-}
+};

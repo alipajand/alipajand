@@ -7,10 +7,10 @@ interface HeroGridOutlinePathCellProps {
   colIndex: number;
 }
 
-export function HeroGridOutlinePathCell({
+export const HeroGridOutlinePathCell = ({
   grid,
   rowIndex,
   colIndex,
-}: HeroGridOutlinePathCellProps) {
+}: HeroGridOutlinePathCellProps) => {
   return <GridOutlinePath grid={grid} rowIndex={rowIndex} colIndex={colIndex} />;
-}
+};

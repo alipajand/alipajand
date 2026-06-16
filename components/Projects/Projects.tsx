@@ -24,11 +24,10 @@ import {
   SECTION_Y,
 } from "utils/visual";
 
-export function Projects() {
+export const Projects = () => {
   const {
     selectors: { sectionRef, orderedProjects, primaryProjects, secondaryProjects },
   } = useProjectsReveal();
-
   return (
     <section
       id="case-studies"
@@ -97,4 +96,4 @@ export function Projects() {
       </div>
     </section>
   );
-}
+};

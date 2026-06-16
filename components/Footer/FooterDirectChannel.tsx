@@ -14,7 +14,7 @@ interface FooterDirectChannelProps {
   href: string;
 }
 
-export function FooterDirectChannel({ label, href }: FooterDirectChannelProps) {
+export const FooterDirectChannel = ({ label, href }: FooterDirectChannelProps) => {
   const iconSrc = ICON_SRC[label as IconLabel];
   const isExternal = href.startsWith("http");
 
@@ -43,4 +43,4 @@ export function FooterDirectChannel({ label, href }: FooterDirectChannelProps) {
       <span className="text-xs font-medium">{label}</span>
     </a>
   );
-}
+};

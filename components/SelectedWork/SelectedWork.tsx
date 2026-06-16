@@ -18,11 +18,10 @@ import {
   SECTION_TITLE,
 } from "utils/visual";
 
-export function SelectedWork() {
+export const SelectedWork = () => {
   const {
     selectors: { sectionRef },
   } = useScrollReveal({ y: 32, stagger: 0.08 });
-
   return (
     <section
       id="case-studies"
@@ -57,4 +56,4 @@ export function SelectedWork() {
       </div>
     </section>
   );
-}
+};

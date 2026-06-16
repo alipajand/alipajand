@@ -9,7 +9,7 @@ interface WritingFeaturedPostCardProps {
   post: WritingPost;
 }
 
-export function WritingFeaturedPostCard({ post }: WritingFeaturedPostCardProps) {
+export const WritingFeaturedPostCard = ({ post }: WritingFeaturedPostCardProps) => {
   return (
     <article>
       <Link
@@ -28,4 +28,4 @@ export function WritingFeaturedPostCard({ post }: WritingFeaturedPostCardProps) 
       </Link>
     </article>
   );
-}
+};

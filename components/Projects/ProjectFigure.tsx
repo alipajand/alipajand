@@ -11,17 +11,14 @@ type ProjectFigureProps = {
   compact?: boolean;
 };
 
-export function ProjectFigure({ figure, compact = false }: ProjectFigureProps) {
+export const ProjectFigure = ({ figure, compact = false }: ProjectFigureProps) => {
   const figureId = useId();
   const titleId = `figure-title-${figureId}`;
   const descId = `figure-desc-${figureId}`;
-
   return (
     <figure className={compact ? "space-y-2" : "space-y-3"}>
       <div
-        className={`overflow-hidden rounded-2xl border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01))] ${
-          compact ? "" : "lg:-mx-4 xl:-mx-8"
-        }`}
+        className={`overflow-hidden rounded-2xl border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01))] ${compact ? "" : "lg:-mx-4 xl:-mx-8"}`}
       >
         {figure.type === "image" && figure.src ? (
           <Image
@@ -56,4 +53,4 @@ export function ProjectFigure({ figure, compact = false }: ProjectFigureProps) {
       </figcaption>
     </figure>
   );
-}
+};

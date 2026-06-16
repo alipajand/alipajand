@@ -21,11 +21,11 @@ afterAll(() => {
   console.error = originalError;
 });
 
-function fillForm(name: string, email: string, message: string) {
+const fillForm = (name: string, email: string, message: string) => {
   fireEvent.change(screen.getByLabelText(/name/i), { target: { value: name } });
   fireEvent.change(screen.getByLabelText(/email/i), { target: { value: email } });
   fireEvent.change(screen.getByLabelText(/message/i), { target: { value: message } });
-}
+};
 
 beforeEach(() => {
   global.fetch = jest.fn();

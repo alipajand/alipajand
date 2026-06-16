@@ -20,13 +20,11 @@ interface WritingProps {
   heading?: string;
 }
 
-export function Writing({ featured, posts, heading = WRITING_SECTION_HEADING }: WritingProps) {
+export const Writing = ({ featured, posts, heading = WRITING_SECTION_HEADING }: WritingProps) => {
   const {
     selectors: { sectionRef },
   } = useScrollReveal({ y: 32, stagger: 0.08 });
-
   if (!featured && posts.length === 0) return null;
-
   return (
     <section
       id="writing"
@@ -74,4 +72,4 @@ export function Writing({ featured, posts, heading = WRITING_SECTION_HEADING }: 
       </div>
     </section>
   );
-}
+};

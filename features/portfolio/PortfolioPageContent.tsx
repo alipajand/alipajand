@@ -9,7 +9,7 @@ import { PAGE_LINK_BACK_TO_HOMEPAGE } from "data/pageChrome";
 import { usePageHeader } from "utils/hooks/usePageHeader";
 import { PAGE_HEADER_SHELL, SECTION_INNER } from "utils/visual";
 
-export function PortfolioPageContent() {
+export const PortfolioPageContent = () => {
   const {
     selectors: { headerRef },
   } = usePageHeader();
@@ -43,4 +43,4 @@ export function PortfolioPageContent() {
       <Projects />
     </MainReveal>
   );
-}
+};

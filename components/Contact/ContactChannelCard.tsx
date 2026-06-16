@@ -20,7 +20,7 @@ interface ContactChannelCardProps {
   channel: ContactChannel;
 }
 
-export function ContactChannelCard({ channel }: ContactChannelCardProps) {
+export const ContactChannelCard = ({ channel }: ContactChannelCardProps) => {
   const isEmail = channel.label === "Email";
   const iconSrc = ICON_SRC[channel.label as IconLabel];
 
@@ -72,9 +72,7 @@ export function ContactChannelCard({ channel }: ContactChannelCardProps) {
             {channel.label}
           </span>
           <span
-            className={`mt-0.5 block text-sm font-medium truncate ${
-              isEmail ? "text-background" : "text-foreground"
-            }`}
+            className={`mt-0.5 block text-sm font-medium truncate ${isEmail ? "text-background" : "text-foreground"}`}
           >
             {channel.value}
           </span>
@@ -82,4 +80,4 @@ export function ContactChannelCard({ channel }: ContactChannelCardProps) {
       </a>
     </li>
   );
-}
+};

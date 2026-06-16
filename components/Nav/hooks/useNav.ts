@@ -29,7 +29,7 @@ export interface NavHook {
 
 const SCROLL_THRESHOLD = 48;
 
-export function useNav(): NavHook {
+export const useNav = (): NavHook => {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -207,4 +207,4 @@ export function useNav(): NavHook {
     selectors: { isScrolled, isMobileOpen, pathname, navLinksRef, mobileMenuRef, menuButtonRef },
     actions: { handleToggleMenu, handleCloseMenu },
   };
-}
+};

@@ -33,7 +33,7 @@ const inputClass =
 const labelClass = "block text-sm font-medium text-foreground";
 const hintClass = "mt-1 text-xs text-muted leading-snug";
 
-export function ContactForm() {
+export const ContactForm = () => {
   const {
     selectors: {
       status,
@@ -215,4 +215,4 @@ export function ContactForm() {
       </button>
     </form>
   );
-}
+};

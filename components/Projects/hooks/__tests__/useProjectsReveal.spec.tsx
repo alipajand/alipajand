@@ -30,7 +30,8 @@ describe("useProjectsReveal", () => {
     expect(result.current.selectors.primaryProjects.length).toBeGreaterThan(0);
     expect(
       result.current.selectors.secondaryProjects.every(
-        (project) => !result.current.selectors.primaryProjects.some((primary) => primary.id === project.id)
+        (project) =>
+          !result.current.selectors.primaryProjects.some((primary) => primary.id === project.id)
       )
     ).toBe(true);
   });
@@ -50,10 +51,9 @@ describe("useProjectsReveal", () => {
 
     prefersReducedMotion.mockReturnValueOnce(true);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useProjectsReveal();
       const { sectionRef } = selectors;
-
       return (
         <section ref={sectionRef}>
           <h2 data-reveal>Heading</h2>
@@ -64,7 +64,7 @@ describe("useProjectsReveal", () => {
           </ul>
         </section>
       );
-    }
+    };
 
     render(<TestComponent />);
 
@@ -81,10 +81,9 @@ describe("useProjectsReveal", () => {
 
     prefersReducedMotion.mockReturnValue(false);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useProjectsReveal();
       const { sectionRef } = selectors;
-
       return (
         <section ref={sectionRef}>
           <h2 data-reveal>Heading</h2>
@@ -95,7 +94,7 @@ describe("useProjectsReveal", () => {
           </ul>
         </section>
       );
-    }
+    };
 
     render(<TestComponent />);
 

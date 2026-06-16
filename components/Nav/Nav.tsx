@@ -16,7 +16,7 @@ import { homeBrandAriaCurrent } from "utils/navAriaCurrent";
 import { FOCUS_RING } from "utils/visual";
 import Link from "next/link";
 
-export function Nav() {
+export const Nav = () => {
   const {
     selectors: { isScrolled, isMobileOpen, pathname, navLinksRef, mobileMenuRef, menuButtonRef },
     actions: { handleToggleMenu, handleCloseMenu },
@@ -129,4 +129,4 @@ export function Nav() {
       </nav>
     </header>
   );
-}
+};

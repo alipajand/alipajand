@@ -47,7 +47,7 @@ const CARD_TITLE = "font-display font-semibold text-xl text-foreground leading-t
 const CARD_TEXT = "text-muted text-[15px] leading-relaxed";
 const FIELD_LABEL = "text-[11px] font-semibold uppercase tracking-[0.12em] text-muted";
 
-function OpenSourceProjectCard({ project }: { project: OpenSourceProject }) {
+const OpenSourceProjectCard = ({ project }: { project: OpenSourceProject }) => {
   return (
     <article className={`${CARD_SURFACE_HOVER} flex h-full flex-col gap-6 p-6 sm:p-8`}>
       <div className="space-y-3">
@@ -113,18 +113,18 @@ function OpenSourceProjectCard({ project }: { project: OpenSourceProject }) {
       </div>
     </article>
   );
-}
+};
 
-function OpenSourcePrincipleCard({ principle }: { principle: OpenSourcePrinciple }) {
+const OpenSourcePrincipleCard = ({ principle }: { principle: OpenSourcePrinciple }) => {
   return (
     <article className={`${CARD_SURFACE_HOVER} h-full p-5 sm:p-6`}>
       <h3 className="font-display font-semibold text-lg text-foreground">{principle.title}</h3>
       <p className="mt-2 text-muted text-sm leading-relaxed">{principle.body}</p>
     </article>
   );
-}
+};
 
-export function OpenSourcePageContent() {
+export const OpenSourcePageContent = () => {
   const {
     selectors: { headerRef, contentRef, featuredProjects, supportingProjects },
   } = useOpenSourcePageContent();
@@ -265,4 +265,4 @@ export function OpenSourcePageContent() {
       </div>
     </MainReveal>
   );
-}
+};

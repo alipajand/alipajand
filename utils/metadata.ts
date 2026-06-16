@@ -14,17 +14,17 @@ const defaultOgImage = {
   height: 630,
 };
 
-function exactTitle(title: string): NonNullable<Metadata["title"]> {
+const exactTitle = (title: string): NonNullable<Metadata["title"]> => {
   return { absolute: title };
-}
+};
 
-function twitterExtras(): Partial<NonNullable<Metadata["twitter"]>> {
+const twitterExtras = (): Partial<NonNullable<Metadata["twitter"]>> => {
   if (!TWITTER_HANDLE) return {};
   const at = `@${TWITTER_HANDLE}`;
   return { creator: at, site: at };
-}
+};
 
-export function buildWritingIndexMetadata(): Metadata {
+export const buildWritingIndexMetadata = (): Metadata => {
   const url = `${CANONICAL_URL}/writing`;
   const title = "Writing on Product Engineering and Frontend Systems — Ali Pajand";
   return {
@@ -48,9 +48,9 @@ export function buildWritingIndexMetadata(): Metadata {
       ...twitterExtras(),
     },
   };
-}
+};
 
-export function buildArticleMetadata(post: Post): Metadata {
+export const buildArticleMetadata = (post: Post): Metadata => {
   const { contentHtml: _content, ...p } = post;
   void _content;
   const url = `${CANONICAL_URL}/writing/${p.slug}`;
@@ -87,9 +87,9 @@ export function buildArticleMetadata(post: Post): Metadata {
       ...twitterExtras(),
     },
   };
-}
+};
 
-export function buildPortfolioMetadata(): Metadata {
+export const buildPortfolioMetadata = (): Metadata => {
   const url = `${CANONICAL_URL}/portfolio`;
   const title = PORTFOLIO_META_TITLE;
   const description = PORTFOLIO_META_DESCRIPTION;
@@ -114,9 +114,9 @@ export function buildPortfolioMetadata(): Metadata {
       ...twitterExtras(),
     },
   };
-}
+};
 
-export function buildEngineeringPrinciplesMetadata(): Metadata {
+export const buildEngineeringPrinciplesMetadata = (): Metadata => {
   const url = `${CANONICAL_URL}/engineering-principles`;
   const title = "Engineering Principles — Ali Pajand";
   const description = ENGINEERING_PRINCIPLES_META_DESCRIPTION;
@@ -141,9 +141,9 @@ export function buildEngineeringPrinciplesMetadata(): Metadata {
       ...twitterExtras(),
     },
   };
-}
+};
 
-export function buildNowMetadata(): Metadata {
+export const buildNowMetadata = (): Metadata => {
   const url = `${CANONICAL_URL}/now`;
   const title = NOW_PAGE_TITLE;
   const description = NOW_META_DESCRIPTION;
@@ -168,9 +168,9 @@ export function buildNowMetadata(): Metadata {
       ...twitterExtras(),
     },
   };
-}
+};
 
-export function buildOpenSourceMetadata(): Metadata {
+export const buildOpenSourceMetadata = (): Metadata => {
   const url = `${CANONICAL_URL}/open-source`;
   const title = OPEN_SOURCE_META_TITLE;
   const description = OPEN_SOURCE_META_DESCRIPTION;
@@ -195,4 +195,4 @@ export function buildOpenSourceMetadata(): Metadata {
       ...twitterExtras(),
     },
   };
-}
+};

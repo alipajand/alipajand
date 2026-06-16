@@ -8,7 +8,7 @@ interface NavDesktopPrimaryLinkProps {
   label: string;
 }
 
-export function NavDesktopPrimaryLink({ pathname, href, label }: NavDesktopPrimaryLinkProps) {
+export const NavDesktopPrimaryLink = ({ pathname, href, label }: NavDesktopPrimaryLinkProps) => {
   return (
     <li>
       <Link
@@ -20,4 +20,4 @@ export function NavDesktopPrimaryLink({ pathname, href, label }: NavDesktopPrima
       </Link>
     </li>
   );
-}
+};

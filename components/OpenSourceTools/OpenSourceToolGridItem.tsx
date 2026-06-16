@@ -5,10 +5,10 @@ interface OpenSourceToolGridItemProps {
   tool: OpenSourceTool;
 }
 
-export function OpenSourceToolGridItem({ tool }: OpenSourceToolGridItemProps) {
+export const OpenSourceToolGridItem = ({ tool }: OpenSourceToolGridItemProps) => {
   return (
     <li data-open-source-tool-card data-reveal className="h-full">
       <OpenSourceToolCard tool={tool} />
     </li>
   );
-}
+};

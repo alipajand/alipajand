@@ -26,7 +26,7 @@ type TocItem = {
   label: string;
 };
 
-function ResponsibilityList({ heading, items }: { heading: string; items: string[] }) {
+const ResponsibilityList = ({ heading, items }: { heading: string; items: string[] }) => {
   return (
     <div className="space-y-2">
       <h4 className="text-base font-semibold text-foreground">{heading}</h4>
@@ -39,9 +39,9 @@ function ResponsibilityList({ heading, items }: { heading: string; items: string
       </ul>
     </div>
   );
-}
+};
 
-export function ProjectCaseStudyArticle({ project, nextProject }: ProjectCaseStudyArticleProps) {
+export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStudyArticleProps) => {
   const tocItems: TocItem[] = [
     { id: `${project.id}-overview`, label: "Overview" },
     { id: `${project.id}-context`, label: "Context and constraints" },
@@ -55,7 +55,6 @@ export function ProjectCaseStudyArticle({ project, nextProject }: ProjectCaseStu
     { id: `${project.id}-improve`, label: "What I would improve next" },
     { id: `${project.id}-related`, label: "Related work" },
   ];
-
   return (
     <article
       id={`project-${project.id}`}
@@ -278,4 +277,4 @@ export function ProjectCaseStudyArticle({ project, nextProject }: ProjectCaseStu
       </div>
     </article>
   );
-}
+};

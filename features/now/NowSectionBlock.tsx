@@ -8,7 +8,7 @@ interface NowSectionBlockProps {
   section: NowSection;
 }
 
-export function NowSectionBlock({ section }: NowSectionBlockProps) {
+export const NowSectionBlock = ({ section }: NowSectionBlockProps) => {
   return (
     <section data-reveal aria-labelledby={`now-${section.id}-heading`}>
       <h2
@@ -36,4 +36,4 @@ export function NowSectionBlock({ section }: NowSectionBlockProps) {
       </div>
     </section>
   );
-}
+};

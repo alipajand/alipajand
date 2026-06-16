@@ -1,4 +1,4 @@
-export function formatDate(dateStr: string): string {
+export const formatDate = (dateStr: string): string => {
   try {
     const d = new Date(dateStr);
     return d.toLocaleDateString("en-US", {
@@ -9,4 +9,4 @@ export function formatDate(dateStr: string): string {
   } catch {
     return dateStr;
   }
-}
+};

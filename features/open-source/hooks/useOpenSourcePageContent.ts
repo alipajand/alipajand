@@ -13,7 +13,9 @@ export interface OpenSourcePageContentSelectors {
   supportingProjects: OpenSourceProject[];
 }
 
-export function useOpenSourcePageContent(): { selectors: OpenSourcePageContentSelectors } {
+export const useOpenSourcePageContent = (): {
+  selectors: OpenSourcePageContentSelectors;
+} => {
   const {
     selectors: { headerRef },
   } = usePageHeader();
@@ -40,4 +42,4 @@ export function useOpenSourcePageContent(): { selectors: OpenSourcePageContentSe
       supportingProjects,
     },
   };
-}
+};

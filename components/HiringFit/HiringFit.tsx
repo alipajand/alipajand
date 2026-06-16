@@ -3,7 +3,7 @@ import { useHiringFitReveal } from "components/HiringFit/hooks/useHiringFitRevea
 import { HIRING_FIT_CARDS, HIRING_FIT_HEADING } from "data/hiringFit";
 import { SECTION_INNER, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
-export function HiringFit() {
+export const HiringFit = () => {
   const {
     selectors: { sectionRef },
   } = useHiringFitReveal();
@@ -28,4 +28,4 @@ export function HiringFit() {
       </div>
     </section>
   );
-}
+};

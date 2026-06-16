@@ -3,7 +3,7 @@
 import type { ProjectDecision } from "data/projects";
 import { CARD_SURFACE, LABEL_OVERLINE } from "utils/visual";
 
-export function ProjectDecisionCard({ decision }: { decision: ProjectDecision }) {
+export const ProjectDecisionCard = ({ decision }: { decision: ProjectDecision }) => {
   return (
     <article className={`${CARD_SURFACE} p-5 sm:p-6`}>
       <div className="space-y-4">
@@ -26,4 +26,4 @@ export function ProjectDecisionCard({ decision }: { decision: ProjectDecision })
       </div>
     </article>
   );
-}
+};

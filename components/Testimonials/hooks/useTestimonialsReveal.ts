@@ -12,27 +12,24 @@ export interface UseTestimonialsRevealSelectors {
   listRef: RefObject<HTMLUListElement | null>;
 }
 
-export function useTestimonialsReveal(): { selectors: UseTestimonialsRevealSelectors } {
+export const useTestimonialsReveal = (): {
+  selectors: UseTestimonialsRevealSelectors;
+} => {
   const sectionRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
-
   useEffect(() => {
     registerGSAPPlugins();
     const list = listRef.current;
     const section = sectionRef.current;
     if (!list || !section) return;
-
     const cards = list.querySelectorAll<HTMLElement>(CARD_SELECTOR);
     const headings = section.querySelectorAll<HTMLElement>("[data-reveal]");
-
     if (prefersReducedMotion()) {
       gsap.set([...cards, ...headings], { opacity: 1, x: 0, y: 0 });
       return;
     }
-
     gsap.set(cards, { opacity: 0, x: -24 });
     headings.forEach((h) => gsap.set(h, { opacity: 0, y: 24 }));
-
     const st = ScrollTrigger.create({
       trigger: section,
       start: "top 80%",
@@ -53,11 +50,9 @@ export function useTestimonialsReveal(): { selectors: UseTestimonialsRevealSelec
         );
       },
     });
-
     return () => st.kill();
   }, []);
-
   return {
     selectors: { sectionRef, listRef },
   };
-}
+};

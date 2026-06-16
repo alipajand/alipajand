@@ -9,12 +9,12 @@ interface NavMobilePrimaryLinkProps {
   onNavigate: () => void;
 }
 
-export function NavMobilePrimaryLink({
+export const NavMobilePrimaryLink = ({
   pathname,
   href,
   label,
   onNavigate,
-}: NavMobilePrimaryLinkProps) {
+}: NavMobilePrimaryLinkProps) => {
   return (
     <Link
       href={href}
@@ -25,4 +25,4 @@ export function NavMobilePrimaryLink({
       {label}
     </Link>
   );
-}
+};

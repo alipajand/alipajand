@@ -7,7 +7,7 @@ interface BreadcrumbJsonLdProps {
   items: BreadcrumbItem[];
 }
 
-export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
+export const BreadcrumbJsonLd = ({ items }: BreadcrumbJsonLdProps) => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -25,4 +25,4 @@ export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
-}
+};

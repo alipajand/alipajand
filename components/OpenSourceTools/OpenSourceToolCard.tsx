@@ -7,7 +7,7 @@ interface OpenSourceToolCardProps {
   tool: OpenSourceTool;
 }
 
-export function OpenSourceToolCard({ tool }: OpenSourceToolCardProps) {
+export const OpenSourceToolCard = ({ tool }: OpenSourceToolCardProps) => {
   return (
     <article className={`${CARD_SURFACE_HOVER} flex h-full flex-col gap-4 p-5 sm:p-6`}>
       <div className="space-y-3">
@@ -51,4 +51,4 @@ export function OpenSourceToolCard({ tool }: OpenSourceToolCardProps) {
       </div>
     </article>
   );
-}
+};

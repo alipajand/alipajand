@@ -8,7 +8,7 @@ import { FOCUS_RING } from "utils/visual";
 
 const FIELD_LABEL = "text-[11px] font-semibold uppercase tracking-[0.12em] text-muted";
 
-export function SelectedWorkCard({ caseStudy }: { caseStudy: HomepageCaseStudy }) {
+export const SelectedWorkCard = ({ caseStudy }: { caseStudy: HomepageCaseStudy }) => {
   return (
     <article className="group flex h-full flex-col gap-5 rounded-xl border border-border/70 bg-card/50 p-6 sm:p-8 transition-colors duration-200 hover:border-foreground/25 hover:bg-card/70">
       <div className="space-y-3">
@@ -71,4 +71,4 @@ export function SelectedWorkCard({ caseStudy }: { caseStudy: HomepageCaseStudy }
       </div>
     </article>
   );
-}
+};

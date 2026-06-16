@@ -7,9 +7,9 @@ jest.mock("@vercel/speed-insights/next", () => ({
   SpeedInsights: () => <div data-testid="vercel-speed-insights" />,
 }));
 
-function setNodeEnv(value: string): void {
+const setNodeEnv = (value: string): void => {
   (process.env as Record<string, string>).NODE_ENV = value;
-}
+};
 
 describe("GatedVercelSpeedInsights", () => {
   const originalEnv = process.env.NODE_ENV;

@@ -4,16 +4,13 @@ import { useEffect, useRef } from "react";
 
 import { gsap, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
 
-export function ReadingProgress() {
+export const ReadingProgress = () => {
   const barRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     registerGSAPPlugins();
     const bar = barRef.current;
     if (!bar) return;
-
     gsap.set(bar, { scaleX: 0 });
-
     const st = ScrollTrigger.create({
       trigger: document.documentElement,
       start: "top top",
@@ -22,10 +19,8 @@ export function ReadingProgress() {
         gsap.set(bar, { scaleX: self.progress, overwrite: true });
       },
     });
-
     return () => st.kill();
   }, []);
-
   return (
     <div
       ref={barRef}
@@ -33,4 +28,4 @@ export function ReadingProgress() {
       aria-hidden="true"
     />
   );
-}
+};
