@@ -10,7 +10,7 @@ jest.mock("data/site", () => ({
 
 describe("Footer with a résumé URL", () => {
   it("renders a downloadable résumé link when RESUME_URL is set", () => {
-    render(<Footer />);
+    render(<Footer latestWritings={[]} />);
 
     const resumeLink = screen.getByRole("link", {
       name: new RegExp(HERO_CTA_DOWNLOAD_RESUME, "i"),

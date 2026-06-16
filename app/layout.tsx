@@ -11,6 +11,8 @@ import {
 } from "data/site";
 import { PropsWithChildren } from "react";
 import { Footer } from "components/Footer/Footer";
+import { FOOTER_LATEST_WRITINGS_COUNT } from "data/footer";
+import { getLatestPosts } from "utils/posts";
 import { Nav } from "components/Nav/Nav";
 import { SmoothScroll } from "components/SmoothScroll/SmoothScroll";
 import { SKIP_TO_CONTENT_LABEL } from "data/pageChrome";
@@ -104,8 +106,17 @@ export const viewport = {
 export const dynamic = "force-static";
 
 export default function RootLayout({ children }: PropsWithChildren) {
+  const latestWritings = getLatestPosts(FOOTER_LATEST_WRITINGS_COUNT);
+
   return (
-    <html lang="en" className="dark" data-scroll-behavior="smooth">
+    <html lang="en" className="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add("js")`,
+          }}
+        />
+      </head>
       <body
         className={`${GeistSans.variable} ${GeistSans.className} antialiased bg-background text-foreground`}
       >
@@ -120,7 +131,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <RouteChangeFocus />
           <Nav />
           {children}
-          <Footer />
+          <Footer latestWritings={latestWritings} />
         </SmoothScroll>
       </body>
     </html>
