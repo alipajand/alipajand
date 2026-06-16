@@ -23,12 +23,10 @@ jest.mock("utils/gsap", () => {
 });
 
 describe("useProjectsReveal", () => {
-  it("returns sectionRef and listRef", () => {
+  it("returns sectionRef", () => {
     const { result } = renderHook(() => useProjectsReveal());
     expect(result.current.selectors.sectionRef).toBeDefined();
-    expect(result.current.selectors.listRef).toBeDefined();
     expect(result.current.selectors.sectionRef.current).toBeNull();
-    expect(result.current.selectors.listRef.current).toBeNull();
   });
 
   it("sets elements directly when reduced motion is preferred", () => {
@@ -42,13 +40,13 @@ describe("useProjectsReveal", () => {
 
     function TestComponent() {
       const { selectors } = useProjectsReveal();
-      const { sectionRef, listRef } = selectors;
+      const { sectionRef } = selectors;
 
       return (
         <section ref={sectionRef}>
           <h2 data-reveal>Heading</h2>
           <p data-reveal>Subheading</p>
-          <ul ref={listRef}>
+          <ul>
             <li data-project-card>Card 1</li>
             <li data-project-card>Card 2</li>
           </ul>
@@ -73,13 +71,13 @@ describe("useProjectsReveal", () => {
 
     function TestComponent() {
       const { selectors } = useProjectsReveal();
-      const { sectionRef, listRef } = selectors;
+      const { sectionRef } = selectors;
 
       return (
         <section ref={sectionRef}>
           <h2 data-reveal>Heading</h2>
           <p data-reveal>Subheading</p>
-          <ul ref={listRef}>
+          <ul>
             <li data-project-card>Card 1</li>
             <li data-project-card>Card 2</li>
           </ul>

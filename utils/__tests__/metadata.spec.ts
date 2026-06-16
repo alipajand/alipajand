@@ -11,7 +11,7 @@ import {
 import { ENGINEERING_PRINCIPLES_META_DESCRIPTION } from "data/engineeringPrinciples";
 import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
 import { OPEN_SOURCE_META_DESCRIPTION, OPEN_SOURCE_META_TITLE } from "data/openSourcePage";
-import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/portfolioFit";
+import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/projects";
 import { CANONICAL_URL } from "data/site";
 import { WRITING_INDEX_DESCRIPTION } from "data/writing";
 

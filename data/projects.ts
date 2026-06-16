@@ -1,13 +1,20 @@
-export interface CaseStudyBlock {
-  problem: string;
-  constraints: string;
-  owned: string[];
-  highLevelFlow?: string[];
-  architectureDecisions: string;
-  technicalImplementation: string;
-  uxAccessibility: string;
-  outcome: string;
-  tradeoffs: string;
+export interface ProjectFigure {
+  type: "image" | "illustration";
+  src?: string;
+  width: number;
+  height: number;
+  alt: string;
+  captionLead: string;
+  captionBody: string;
+  disclosureLabel?: string;
+  illustrationVariant?: "emplifi" | "controltech";
+}
+
+export interface ProjectDecision {
+  decision: string;
+  why: string;
+  tradeOff: string;
+  result: string;
 }
 
 export interface BeforeAfter {
@@ -16,532 +23,601 @@ export interface BeforeAfter {
   after: string;
 }
 
-export interface ProjectMedia {
-  src: string;
-  caption: string;
-}
-
 export interface ProjectLink {
   label: string;
   href: string;
 }
 
-export type ProjectBadge =
-  | "Design systems"
-  | "DX"
-  | "AI"
-  | "Performance"
-  | "Data viz"
-  | "Accessibility";
+export interface ProjectResponsibility {
+  owned: string[];
+  collaborative: string[];
+  outside: string[];
+  factualReviewNote?: string;
+}
+
+export interface ProjectCaseStudy {
+  title: string;
+  overview: string;
+  contextAndConstraints: string;
+  responsibility: ProjectResponsibility;
+  problem: string;
+  decisions: ProjectDecision[];
+  workflow: string[];
+  interfaceEvidence: ProjectFigure[];
+  difficultStates: string[];
+  outcome: string[];
+  nextImprovements: string[];
+}
 
 export interface Project {
   id: string;
   name: string;
-  description: string;
+  caseStudyTitle: string;
+  employerContext: string;
+  cardProblem: string;
   role: string;
-  contribution?: string;
-  highlighted?: boolean;
-  tech: string[];
-  outcomes: string[];
-  signalStack: string[];
-  badges?: ProjectBadge[];
-  bestFor?: string[];
-  navLabel: string;
-  image?: string;
-  imageCaption?: string;
-  secondaryMedia?: ProjectMedia;
-  caseStudy?: CaseStudyBlock;
-  beforeAfter?: BeforeAfter[];
-  link?: string;
-  links?: ProjectLink[];
+  timeframe?: string;
+  capabilityTags: string[];
+  heroFigure: ProjectFigure;
+  caseStudy: ProjectCaseStudy;
+  relatedLinks: ProjectLink[];
 }
+
+export const PORTFOLIO_PAGE_HEADER_TITLE = "Product engineering case studies";
+
+export const PORTFOLIO_PAGE_INTRO =
+  "I work across product decisions, interface design, frontend architecture, design systems, and delivery. These case studies focus on the constraints, decisions, and implementation details behind the finished interfaces.";
+
+export const PORTFOLIO_CASE_STUDIES_HEADING = "Selected case studies";
+
+export const PORTFOLIO_CASE_STUDIES_LEDE =
+  "Commercial product work first: each entry starts with the problem, then the decisions, evidence, and delivery boundaries behind the shipped workflow.";
+
+export const PORTFOLIO_OTHER_WORK_HEADING = "Other selected product work";
+
+export const PORTFOLIO_OPEN_SOURCE_CALLOUT_HEADING = "Open-source engineering tools";
+
+export const PORTFOLIO_OPEN_SOURCE_CALLOUT_BODY =
+  "Developer tooling and AI workflow guardrails live separately from the commercial product case studies. Explore the open-source work on its own page.";
+
+export const PORTFOLIO_OPEN_SOURCE_CALLOUT_CTA = "View open-source work";
+
+export const PORTFOLIO_META_TITLE = "Product Engineering Case Studies — Ali Pajand";
+
+export const PORTFOLIO_META_DESCRIPTION =
+  "Evidence-led product engineering case studies covering frontend architecture, design systems, complex workflows, and delivery decisions.";
+
+export const PORTFOLIO_CASE_STUDY_ORDER = [
+  "ledgerguard-deterministic-commitments-ledger",
+  "design-system-marketplace-login-web3",
+  "data-dashboards-emplifi",
+  "mapbylaw-platform-ui-ai-reports",
+  "pwa-performance-controltech",
+] as const;
 
 export const PROJECTS: Project[] = [
   {
     id: "ledgerguard-deterministic-commitments-ledger",
     name: "LedgerGuard",
-    description:
-      "AI contract intelligence SaaS for renewals, commitments, notice windows, and financial exposure. I designed and built the product experience end to end, including document review, verification, source evidence, renewal-risk, and portfolio dashboard workflows.",
+    caseStudyTitle: "Designing a trustworthy contract review and renewal workflow",
+    employerContext:
+      "AI contract intelligence SaaS for renewals, commitments, notice windows, and financial exposure.",
+    cardProblem:
+      "Finance teams needed renewal risk they could trust, even when OCR, extraction, synthesis, and portfolio rows landed out of order or partially failed.",
     role: "Senior Product Engineer · LedgerGuard",
-    contribution:
-      "Owned product experience, visual hierarchy, interaction states, frontend implementation, review workflows, and production iteration.",
-    highlighted: true,
-    navLabel: "LedgerGuard",
-    signalStack: [
-      "Fastify API domain + worker internal callbacks",
-      "Truth precedence across commitments & fields",
-      "Zod/OpenAPI contracts (tenant + admin)",
-    ],
-    badges: ["AI", "DX"],
-    bestFor: [
-      "Senior frontend architecture",
-      "AI-assisted product UI",
-      "Workflow-heavy SaaS",
-      "Product ownership",
-    ],
-    image: "/portfolio-media/ledgerguard.png",
-    imageCaption:
-      "Document review and renewal-risk workflows showing source evidence, validation states, and portfolio-level visibility.",
-    tech: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Fastify",
-      "Python",
-      "FastAPI",
-      "BullMQ",
-      "PostgreSQL",
-      "Prisma",
-      "Row-level security",
-      "Zod",
-      "OpenAPI",
-      "Supabase Auth",
-      "Stripe",
-      "Sentry",
-    ],
-    outcomes: [
-      "Designed and built the product experience end to end, from navigation and information hierarchy to document review, verification, renewal-risk, and portfolio dashboard workflows.",
-      "Created visual and interaction patterns for complex AI states, including confidence gaps, source evidence, partial extraction, validation errors, and human review.",
-      "Designed responsive React / Next.js interfaces directly in code, iterating on layout, typography, density, empty states, and workflow clarity without relying on fully specified design handoffs.",
-      "Built a reusable component foundation that kept buyer-facing, tenant, and operator surfaces visually consistent and accessible.",
-      "Owned the complete product loop across problem definition, UX decisions, implementation, testing, production behavior, and iteration.",
-    ],
-    caseStudy: {
-      problem:
-        "Renewal and spend-at-risk views only matter if finance trusts the underlying commitments. Contract PDFs traverse async, replayable pipelines where extraction, synthesis, and portfolio rows can land out of order or partially fail, so any UI that treats “first persisted row wins” as truth ships confident renewals on stale or skewed data.",
-      constraints:
-        "Hard multi-tenant isolation (RLS), workers cannot bypass domain invariants, pipelines must stay idempotent under replay, and finance needs clause-backed trace, not narrative inferred by models presented as fact.",
-      owned: [
-        "Designed the product architecture across Next.js, Fastify, Python workers, Supabase/Postgres, and async document extraction.",
-        "Built buyer- and operator-facing surfaces (upload, verification, commitments ledger, renewal risk) and typed tenant/admin API contracts.",
-        "Codified renewal-truth precedence and repair planning so newer synthesis is not clobbered by stale rows.",
-      ],
-      highLevelFlow: [
-        "Contract upload",
-        "Async OCR + extraction",
-        "Verification + source evidence review",
-        "Truth-precedence ledger update",
-        "Renewal risk + portfolio visibility",
-      ],
-      architectureDecisions:
-        "Split deterministic API/domain state (commitments, commitment_fields, truth_state, audit metadata) from probabilistic workers; workers never write tenant truth directly, only validated internal callbacks. Codified portfolio truth precedence (version skew, same-version drift, fields-only recovery) and repair planning instead of clobbering newer synthesis.",
-      technicalImplementation:
-        "Idempotent worker flows, aligned read models across list/detail/renewal routes, and explicit repair paths so behavior stays coherent when pipelines partially fail or replay.",
-      uxAccessibility:
-        "Honest UI states: explicit warnings when truth is partial, stale, or skewed instead of implied certainty, with verification flows that stay keyboard reachable.",
-      outcome:
-        "Renewal drivers trace to explainable sources with explicit hints when the ledger is incomplete or skewed, so teams can act before auto-renew locks without the product overstating pipeline certainty.",
-      tradeoffs:
-        "Surfacing drift, skew, and incomplete ledger state adds UI surface area versus implied certainty. Bounded honesty when realignment cannot complete beats silent green checks.",
+    capabilityTags: ["AI workflows", "Frontend architecture", "Product ownership"],
+    heroFigure: {
+      type: "image",
+      src: "/portfolio-media/ledgerguard.png",
+      width: 3456,
+      height: 2234,
+      alt: "LedgerGuard verification workspace showing extracted contract values alongside source evidence so finance reviewers can validate renewal-critical commitments before portfolio decisions are made.",
+      captionLead: "Verification workspace.",
+      captionBody:
+        "Extracted values stay connected to contract evidence, while incomplete or conflicting fields are separated for human review before they influence renewal risk.",
     },
-    beforeAfter: [
-      {
-        label: "Source of renewal truth",
-        before: "First persisted row wins",
-        after: "API read model + drift/skew metadata",
-      },
-      {
-        label: "Worker → database",
-        before: "Risk of bypassing domain rules",
-        after: "Validated internal callbacks only",
-      },
-      {
-        label: "Confidence in UI",
-        before: "Implied certainty",
-        after: "Warnings when truth is partial",
-      },
-    ],
-    // TODO(portfolio-media): Add 2–3 screenshots or a short walkthrough showing the final interface, edge states, and responsive behavior.
-    link: "https://ledgerguard.io/",
-  },
-  {
-    id: "mapbylaw-platform-ui-ai-reports",
-    name: "MapBylaw",
-    description:
-      "Map-first property insights platform with shared UI, typed API contracts, bilingual report surfaces, and product workflows grounded in zoning rules, feasibility math, and verified scenario inputs.",
-    role: "Senior Product Engineer · Frontend architecture & product UI · MapBylaw",
-    contribution:
-      "Owned shared UI foundations, typed frontend contracts, dashboard/report surfaces, and workflow-heavy product UI.",
-    highlighted: true,
-    navLabel: "MapBylaw",
-    signalStack: [
-      "@mapbylaw/ui + feature-based apps",
-      "OpenAPI/Zod + typed React-PDF",
-      "Policy-aligned AI recommendations",
-    ],
-    badges: ["Design systems", "DX", "AI", "Accessibility"],
-    bestFor: [
-      "Design systems",
-      "Frontend architecture",
-      "Data-heavy product UI",
-      "AI-assisted workflows",
-    ],
-    image: "/portfolio-media/mapbylaw.png",
-    imageCaption:
-      "Map-first analysis and report workflows showing shared UI, data density, and policy-grounded recommendations.",
-    tech: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Fastify",
-      "@mapbylaw/ui",
-      "React-PDF",
-      "Mapbox GL",
-      "Tailwind",
-      "Docling",
-      "OpenAPI",
-      "AWS",
-      "WCAG",
-      "Jest",
-      "Playwright",
-    ],
-    outcomes: [
-      "Built shared UI foundations across web and admin so product flows, visual language, accessibility patterns, and interface states stayed consistent as the platform grew.",
-      "Aligned Fastify APIs, Zod/OpenAPI contracts, dashboard surfaces, and React-PDF payloads so reports and product UI use the same verified data model.",
-      "Designed workflow-heavy interfaces for property analysis, recommendations, and report generation with attention to hierarchy, density, responsive behavior, and reliability.",
-      "Constrained AI recommendations to policy-aware, scenario-specific inputs with strict typed outputs, preventing generic chatbot responses from drifting away from zoning and feasibility rules.",
-    ],
     caseStudy: {
+      title: "Designing a trustworthy contract review and renewal workflow",
+      overview:
+        "LedgerGuard needed to turn noisy contract extraction into a product workflow that finance teams could actually rely on. The work covered document review, verification, renewal truth, and portfolio visibility rather than a narrow UI slice.",
+      contextAndConstraints:
+        "The product sat across Next.js, Fastify, Python workers, and Supabase/Postgres. Tenant isolation, idempotent worker replay, and clause-backed traceability were non-negotiable because a polished dashboard is not useful if the commitments behind it are stale, skewed, or unverifiable.",
+      responsibility: {
+        owned: [
+          "Designed the product experience across upload, verification, commitments, renewal risk, and portfolio views.",
+          "Built the buyer-facing and operator-facing frontend surfaces and the typed tenant/admin API contracts they depended on.",
+          "Codified how renewal truth should be surfaced when newer synthesis, stale rows, or fields-only recovery disagree.",
+        ],
+        collaborative: [
+          "Domain rules and worker callbacks had to align across the Fastify API and Python extraction pipeline; the repository shows the cross-system dependency, but not a subsystem-by-subsystem contributor split.",
+          "Product language around verification, warnings, and auditability depended on coordination between interface decisions and the underlying contract-processing model.",
+        ],
+        outside: [
+          "Commercial outcomes, finance team operating metrics, and any model-training details are not established in this repository.",
+          "The repository does not document ownership for every backend or extraction subsystem beyond the frontend, contracts, and product architecture responsibilities described here.",
+        ],
+      },
       problem:
-        "Web and admin had to evolve in parallel while bilingual PDFs, consent-gated analytics, and AI recommendations stayed aligned with zoning and feasibility logic, not generic chatbot output detached from policy.",
-      constraints:
-        "Content policy forbids fabricated or static market stand-ins; Montreal-only shortcuts cannot masquerade as real inputs; Fastify, dashboards, and React-PDF must agree as incentives and rules change.",
-      owned: [
-        "Built the shared @mapbylaw/ui foundation used across web and admin.",
-        "Aligned Fastify APIs, Zod/OpenAPI contracts, and typed React-PDF payloads on one verified data model.",
-        "Constrained AI recommendations to typed, policy-aligned scenario inputs.",
+        "Renewal and spend-at-risk views only matter if users trust the underlying commitments. If the interface quietly treats the first persisted value as truth, it can present confident renewal recommendations on top of stale synthesis, partial extraction, or version-skewed portfolio data.",
+      decisions: [
+        {
+          decision:
+            "Separate deterministic API truth from probabilistic worker output instead of letting workers write tenant truth directly.",
+          why: "The UI needed a stable read model that could explain where a renewal value came from and whether it was safe to trust.",
+          tradeOff:
+            "This adds callback and repair-planning complexity compared with simply persisting worker output into the main product tables.",
+          result:
+            "Verification and renewal screens can show clause-backed truth, partial states, and drift warnings without pretending the pipeline is always complete.",
+        },
+        {
+          decision:
+            "Surface drift, skew, and incomplete ledger states explicitly rather than collapsing them into a green success path.",
+          why: "Finance reviewers need to know when to stop and inspect evidence instead of absorbing inferred certainty from the interface.",
+          tradeOff:
+            "Honest warnings create more UI surface area and require more nuanced copy, empty states, and review logic.",
+          result:
+            "The product communicates uncertainty in a bounded way and keeps human review connected to the source evidence that matters.",
+        },
       ],
-      highLevelFlow: [
-        "Property search + verified inputs",
-        "Typed zoning + feasibility API",
-        "Policy-aware recommendations",
-        "Shared dashboard + report state",
-        "Bilingual premium report delivery",
+      workflow: [
+        "Contract upload starts an async OCR and extraction pipeline.",
+        "Verification surfaces extracted values, source evidence, and incomplete or conflicting fields for review.",
+        "Validated callbacks update the commitments ledger through domain rules rather than direct worker writes.",
+        "Renewal-risk and portfolio views read from that reconciled truth model, including drift or recovery metadata.",
       ],
-      architectureDecisions:
-        "Shared @mapbylaw/ui with feature folders and path aliases; OpenAPI 3 + Zod at the boundary; typed React-PDF payload builder sharing components with web apps; ai_recommendations as a narrow TypeScript shape fed only verified scenario inputs, with living audits alongside architecture docs.",
-      technicalImplementation:
-        "Tests reject malformed AI payloads early; orchestration keeps validation, AI context, and bilingual report integrity moving together when datasets or incentives shift.",
-      uxAccessibility:
-        "WCAG-minded shared components and consistent product states (loading, empty, error) across web and admin, plus bilingual report parity.",
-      outcome:
-        "One design language and scenario-level recommendations that stay consistent between dashboard and PDF as policy evolves, with integrity enforced by shared types and audits instead of ad-hoc copy edits.",
-      tradeoffs:
-        "Strict schemas and audits add ongoing maintenance versus permissive glue code, but they prevent API/report/UI drift that is expensive to unwind and risky under regulatory scrutiny.",
+      interfaceEvidence: [
+        {
+          type: "image",
+          src: "/portfolio-media/ledgerguard.png",
+          width: 3456,
+          height: 2234,
+          alt: "LedgerGuard verification workspace showing commitment fields, extracted values, and linked source evidence so reviewers can confirm truth before renewal-risk calculations are trusted.",
+          captionLead: "Verification workspace.",
+          captionBody:
+            "Source-backed fields, warnings, and review controls stay in the same view so incomplete extraction does not turn into silent portfolio certainty.",
+        },
+      ],
+      difficultStates: [
+        "Partial extraction and fields-only recovery are surfaced as review-required states rather than hidden fallbacks.",
+        "Stale or conflicting data is called out through drift and skew messaging before it affects renewal visibility.",
+        "Async completion and replay behavior are reflected in the UI so a late worker result does not look like a definitive answer.",
+        "Human review stays connected to source evidence instead of collapsing into a generic confidence score.",
+      ],
+      outcome: [
+        "A production workflow for contract review, verification, renewal risk, and portfolio visibility shipped as one coherent product experience.",
+        "Reusable UI patterns were established for source evidence, partial truth, warnings, and review-required states in an AI-assisted workflow.",
+        "The product can communicate when the ledger is incomplete or skewed instead of overstating certainty.",
+      ],
+      nextImprovements: [
+        "Tighten the portfolio-level summaries for drift, skew, and incomplete ledger state so reviewers can prioritize exceptions faster.",
+        "Add more evidence views covering mobile and edge-state verification paths to make responsive review behavior easier to audit.",
+      ],
     },
-    beforeAfter: [
-      { label: "UI across apps", before: "Separate stacks", after: "Shared @mapbylaw/ui" },
+    relatedLinks: [
+      { label: "Live product", href: "https://ledgerguard.io/" },
       {
-        label: "AI interface",
-        before: "Chatbot-style, generic",
-        after: "Typed, scenario-specific service",
-      },
-      {
-        label: "Context",
-        before: "Loose, sometimes invented",
-        after: "Narrow, policy-aligned, no fake data",
-      },
-      {
-        label: "Schema & reports",
-        before: "Scattered / ad-hoc",
-        after: "Shared contract + typed PDF + audits",
+        label: "Related writing",
+        href: "/writing/ledgerguard-truth-between-extraction-and-finance",
       },
     ],
-    // TODO(portfolio-media): Add 2–3 screenshots or a short walkthrough showing the final interface, edge states, and responsive behavior.
-    links: [{ label: "Project", href: "https://mapbylaw.ca/" }],
   },
   {
     id: "design-system-marketplace-login-web3",
-    name: "AlwaysGeeky — design system, marketplace, and authentication flows",
-    description:
-      "React / Next.js product surfaces for marketplace, authentication, and Web3 workflows, supported by a shared design system, accessibility standards, Storybook documentation, and CI quality checks.",
+    name: "AlwaysGeeky Games",
+    caseStudyTitle: "Shipping marketplace and authentication flows on a reusable design system",
+    employerContext:
+      "Marketplace, authentication, and Web3 product surfaces delivered with shared UI, Storybook documentation, and CI quality checks.",
+    cardProblem:
+      "Marketplace and login flows had to match design intent, survive real wallet and API failures, and stay accessible without becoming a collection of one-off UI fixes.",
     role: "Senior Frontend Engineer · Design systems · AlwaysGeeky Games",
-    contribution:
-      "Owned design-system implementation, design-to-code translation, frontend states, accessibility, and production delivery.",
-    navLabel: "Web3 DS & apps",
-    signalStack: [
-      "Storybook + CI (visual/a11y)",
-      "WCAG across products",
-      "React / Next in production",
-    ],
-    badges: ["Design systems", "Accessibility"],
-    bestFor: [
-      "Design systems",
-      "Senior frontend engineering",
-      "Design-to-code workflows",
-      "Accessibility",
-    ],
-    image: "/portfolio-media/alwaysgeeky-marketplace.png",
-    imageCaption:
-      "Marketplace and authentication surfaces showing shared component patterns, responsive behavior, and design-system consistency.",
-    secondaryMedia: {
-      src: "/portfolio-media/alwaysgeeky-login.png",
-      caption:
-        "Authentication surface showing shared component patterns, responsive behavior, and design-system consistency.",
+    capabilityTags: ["Design systems", "Accessibility", "Frontend delivery"],
+    heroFigure: {
+      type: "image",
+      src: "/portfolio-media/alwaysgeeky-marketplace.png",
+      width: 3456,
+      height: 2234,
+      alt: "AlwaysGeeky marketplace interface showing a responsive product catalog and shared merchandising components so Web3 purchase flows stay consistent across the application.",
+      captionLead: "Marketplace catalog.",
+      captionBody:
+        "Shared component patterns keep merchandising, navigation, and action states consistent while the product scales across responsive breakpoints.",
     },
-    tech: [
-      "React",
-      "TypeScript",
-      "Next.js",
-      "Storybook",
-      "GitHub Actions",
-      "Tailwind",
-      "AWS",
-      "Jest",
-      "Playwright",
-    ],
-    outcomes: [
-      "Partnered with design and product to turn early concepts and incomplete requirements into polished marketplace, authentication, and product experiences.",
-      "Built and evolved a shared design system covering component APIs, visual states, responsive behavior, accessibility, and Storybook documentation.",
-      "Translated Figma designs into production interfaces while resolving practical gaps in hierarchy, spacing, interactions, responsive behavior, and edge states.",
-      "Designed reusable loading, empty, error, success, and recovery patterns for API-driven and authentication-heavy workflows.",
-      "Worked independently across visual refinement, frontend implementation, testing, release quality, and production follow-up.",
-    ],
     caseStudy: {
+      title: "Shipping marketplace and authentication flows on a reusable design system",
+      overview:
+        "This work connected design-system implementation to the product surfaces people actually used: marketplace browsing, login, wallet interactions, and the error-prone states around them. The goal was not just visual consistency, but production-ready behavior under Web3 and API constraints.",
+      contextAndConstraints:
+        "The product needed WCAG-conscious components, close design-to-code translation, and delivery speed without dropping error handling for wallet connections, API failures, or authentication edge cases. Storybook and CI had to reinforce the same patterns used in the shipped interfaces.",
+      responsibility: {
+        owned: [
+          "Built and evolved the shared component architecture, Storybook usage patterns, and frontend states used across marketplace and authentication flows.",
+          "Implemented marketplace and login interfaces with explicit loading, empty, error, and success states.",
+          "Added CI gates for visual and accessibility regressions before merge.",
+        ],
+        collaborative: [
+          "The design system and product surfaces were built in close coordination with design, especially where Figma intent left practical interaction and responsive gaps to resolve in code.",
+          "Wallet, authentication, and API integrations depended on backend and platform boundaries that are referenced in the repository but not fully broken down by contributor.",
+        ],
+        outside: [
+          "The repository does not establish ownership for every backend integration, game-system decision, or commercial marketplace metric.",
+          "Brand strategy and product direction beyond the documented frontend and design-system work are not attributed here.",
+        ],
+        factualReviewNote:
+          "The repository clearly establishes frontend, accessibility, Storybook, and CI ownership. It does not fully document the subsystem split for backend, wallet, or product-strategy work.",
+      },
       problem:
-        "Teams were shipping one-off UI while marketplace and login needed to match design, integrate with Web3 APIs and wallet/auth flows, and survive production traffic, not become a brittle demo layer.",
-      constraints:
-        "WCAG expectations across products, tight coordination with design, and shipping deadlines without dropping accessibility or error handling for chain/API failures.",
-      owned: [
-        "Established the shared component architecture and Storybook documentation (in close coordination with design).",
-        "Added CI gates for visual and accessibility regressions before merge.",
-        "Shipped marketplace and login flows with explicit loading, empty, error, and Web3 auth/API states.",
+        "Teams were shipping marketplace and authentication experiences that had to do more than look polished. They needed to reuse design-system primitives, handle real wallet and API failures, and avoid turning production Web3 behavior into a demo-only happy path.",
+      decisions: [
+        {
+          decision:
+            "Drive the shared component system through Storybook and documented usage patterns instead of treating it as a loose visual library.",
+          why: "Marketplace and login flows needed the same primitives, states, and accessibility behavior to avoid drift as product surfaces multiplied.",
+          tradeOff:
+            "Codifying the design system adds maintenance work and slows ad-hoc one-off UI work in the short term.",
+          result:
+            "Shared components became the baseline for production surfaces, not just a reference set, and the same accessibility and responsive decisions propagated across flows.",
+        },
+        {
+          decision:
+            "Treat non-happy-path states as part of the product system rather than cleanup work after the main interface ships.",
+          why: "Wallet connectivity, authentication, and API-backed marketplaces fail in distinctive ways that users experience directly.",
+          tradeOff:
+            "Explicit loading, validation, recovery, and failure states increase the implementation and QA surface.",
+          result:
+            "Marketplace and login flows remained understandable when requests stalled, wallets failed, or account access needed recovery.",
+        },
       ],
-      highLevelFlow: [
-        "Design primitives + tokens",
-        "Storybook + usage patterns",
-        "Marketplace + auth workflows",
-        "Explicit API / wallet states",
-        "CI-backed release quality",
+      workflow: [
+        "Design-system primitives and tokens define the shared visual and interaction baseline.",
+        "Storybook documents component states and usage patterns for implementation and review.",
+        "Marketplace and authentication flows reuse those components across responsive layouts.",
+        "CI gates catch visual and accessibility regressions before shared changes reach production surfaces.",
       ],
-      architectureDecisions:
-        "Storybook-driven design system with shared primitives; GitHub Actions running lint, visual regression, and accessibility checks on every PR; marketplace and login implemented on the same stack with explicit loading, empty, and failure surfaces.",
-      technicalImplementation:
-        "Automated gates catch regressions before release; flows tuned for noisy Web3 backends and real user traffic rather than happy-path-only demos.",
-      uxAccessibility:
-        "WCAG-aligned accessible primitives reused across products, with explicit non-happy-path states instead of demo-only UI.",
-      outcome:
-        "A consistent accessible baseline across products; marketplace and login remained stable in production with regressions caught before they reached users.",
-      tradeoffs:
-        "CI adds merge friction up front versus discovering visual and a11y failures in production; shared components slow one-off hacks but reduce long-term drift across games and surfaces.",
+      interfaceEvidence: [
+        {
+          type: "image",
+          src: "/portfolio-media/alwaysgeeky-marketplace.png",
+          width: 3456,
+          height: 2234,
+          alt: "AlwaysGeeky marketplace surface showing responsive catalog cards, navigation, and calls to action that rely on a shared design-system baseline.",
+          captionLead: "Marketplace surface.",
+          captionBody:
+            "Catalog browsing, merchandising, and action states stay visually consistent because they share the same component APIs and responsive rules.",
+        },
+        {
+          type: "image",
+          src: "/portfolio-media/alwaysgeeky-login.png",
+          width: 3456,
+          height: 2234,
+          alt: "AlwaysGeeky authentication interface showing shared form patterns and recovery affordances so wallet and account access flows stay consistent with the rest of the product.",
+          captionLead: "Authentication flow.",
+          captionBody:
+            "The same component system carries validation, loading, and recovery states through account-access workflows instead of relying on separate one-off screens.",
+        },
+      ],
+      difficultStates: [
+        "Loading and empty states were designed as first-class component states rather than temporary placeholders.",
+        "Validation failures and authentication recovery were handled within the same UI system as the main account flows.",
+        "Wallet and API failures required explicit error and retry surfaces rather than optimistic happy-path assumptions.",
+      ],
+      outcome: [
+        "A reusable component baseline shipped across marketplace and authentication surfaces instead of isolated screens.",
+        "Accessibility and visual-regression checks were enforced in CI before shared component changes merged.",
+        "Marketplace and login workflows stayed stable in production with clearer handling for non-happy-path behavior.",
+      ],
+      nextImprovements: [
+        "Expand product-level regression coverage around wallet-connect and purchase paths so shared-component changes expose workflow effects even earlier.",
+        "Document more design-to-code edge cases in Storybook so interaction decisions remain traceable as the system grows.",
+      ],
     },
-    beforeAfter: [
-      { label: "Component reuse", before: "Ad-hoc", after: "Shared library" },
-      { label: "A11y checks", before: "Manual", after: "Automated in CI" },
-    ],
-    links: [
-      // TODO(portfolio-media): Add 2–3 screenshots or a short walkthrough showing the final interface, edge states, and responsive behavior.
+    relatedLinks: [
       { label: "Marketplace", href: "https://market.voxies.io" },
       { label: "Login", href: "https://login.voxies.io/" },
     ],
   },
   {
-    id: "agent-engineering-toolkit",
-    name: "Agent Engineering Toolkit — deterministic safeguards for AI coding workflows",
-    description:
-      "A family of open-source TypeScript tools for making AI-assisted development safer and more operationally reliable. The toolkit audits repository readiness, agent instruction quality, pull-request risk, and CI enforcement without depending on opaque model judgment.",
-    role: "Creator and maintainer · Open-source developer tooling",
-    contribution:
-      "Owned product definition, CLI UX, rule design, TypeScript implementation, testing, documentation, release structure, and repository maintenance.",
-    navLabel: "Agent tooling",
-    signalStack: [
-      "Deterministic repository audits",
-      "Agent instruction validation",
-      "Pull-request risk analysis",
-      "GitHub Actions enforcement",
-    ],
-    badges: ["DX", "AI"],
-    bestFor: [
-      "Developer experience",
-      "AI-assisted engineering",
-      "CLI tooling",
-      "CI quality systems",
-    ],
-    tech: [
-      "TypeScript",
-      "Node.js",
-      "CLI design",
-      "GitHub Actions",
-      "CI/CD",
-      "Vitest",
-      "Static analysis",
-      "JSON output",
-      "Markdown reporting",
-    ],
-    outcomes: [
-      "Designed a shared problem model across repository readiness, instruction quality, pull-request risk, and CI enforcement.",
-      "Built deterministic CLI workflows with machine-readable output, severity thresholds, exit codes, configuration, and automated tests.",
-      "Focused the tools on practical failure modes: contradictory instructions, missing validation commands, unsafe agent guidance, sensitive-file changes, and incomplete repository context.",
-      "Kept the tools explainable and CI-friendly so teams can understand why a check failed instead of receiving a generic AI-generated warning.",
-      "Created documentation, examples, security guidance, and contributor-facing structure suitable for public repositories.",
-    ],
-    caseStudy: {
-      problem:
-        "Coding agents can generate changes quickly, but repository context, instruction quality, validation commands, and review boundaries are often incomplete or contradictory. That creates avoidable failures before code review even begins.",
-      constraints:
-        "The tools needed to work locally and in CI, produce explainable results, avoid hidden model judgment, support different repositories, and remain small enough for teams to adopt without introducing another heavy platform.",
-      owned: [],
-      architectureDecisions:
-        "Split the workflow into focused tools: repository readiness, instruction-file auditing, pull-request risk analysis, and GitHub Actions enforcement. Use deterministic rules, explicit configuration, structured output, and stable exit behavior across the toolkit.",
-      technicalImplementation:
-        "CLI-first execution, predictable exit codes, fixture-driven tests, machine-readable output, and narrow file analysis keep the tools suitable for local workflows and continuous integration.",
-      uxAccessibility:
-        "Kept the tools explainable and CI-friendly so teams can understand why a check failed instead of receiving a generic AI-generated warning.",
-      outcome:
-        "A coherent set of open-source guardrails that helps teams identify missing context, unsafe instructions, risky changes, and readiness gaps before agent-assisted work reaches production.",
-      tradeoffs:
-        "Deterministic rules cannot interpret every repository-specific nuance, but they are reproducible, testable, and easier to trust in CI. The tools prefer clear bounded checks over broad AI-generated review commentary.",
+    id: "data-dashboards-emplifi",
+    name: "Emplifi",
+    caseStudyTitle: "Keeping dense dashboards responsive in embedded and mobile webview contexts",
+    employerContext:
+      "Enterprise analytics dashboards built with React, TypeScript, D3.js, and GSAP under tight rendering budgets.",
+    cardProblem:
+      "Data-heavy dashboards had to stay readable and responsive inside mobile webviews and embedded hosts where motion and rendering costs could become jank immediately.",
+    role: "Senior Frontend Engineer · Dashboards & performance · Emplifi",
+    capabilityTags: ["Data-heavy UI", "Performance", "Interaction design"],
+    heroFigure: {
+      type: "illustration",
+      width: 1600,
+      height: 1035,
+      alt: "Illustrative reconstruction of an embedded analytics dashboard showing dense charts and filters arranged to stay legible while preserving interaction performance in constrained hosts.",
+      captionLead: "Embedded analytics dashboard.",
+      captionBody:
+        "The layout emphasizes chart density, coordinated controls, and bounded motion so the interface stays usable inside embedded and mobile-webview contexts.",
+      disclosureLabel: "Illustrative reconstruction based on the production workflow.",
+      illustrationVariant: "emplifi",
     },
-    beforeAfter: [
-      {
-        label: "Repository guidance",
-        before: "Scattered or incomplete",
-        after: "Audited for commands, boundaries, and validation",
+    caseStudy: {
+      title: "Keeping dense dashboards responsive in embedded and mobile webview contexts",
+      overview:
+        "Emplifi’s dashboard work focused on the harder version of data visualization UI: dense information, interaction-heavy charts, and performance constraints inside embedded and mobile-webview environments. The challenge was not chart rendering alone, but preserving legibility and responsiveness when browser budgets were limited.",
+      contextAndConstraints:
+        "The same dashboard patterns had to survive standalone use, embedded hosts, and mobile webviews. D3.js and GSAP enabled fidelity and motion, but they also demanded disciplined rendering budgets and careful profiling to avoid jitter, layout thrash, or unreadable small-screen density.",
+      responsibility: {
+        owned: [
+          "Built dashboard UI behavior with React, TypeScript, D3.js, and GSAP.",
+          "Tuned rendering and interaction performance for embedded and mobile-webview contexts.",
+          "Defined frontend patterns for handling dense data updates and chart interactions.",
+        ],
+        collaborative: [
+          "Dashboard definitions, metrics, and experimentation instrumentation depended on broader product and analytics collaboration that is referenced in the repository but not attributed subsystem by subsystem.",
+          "Motion and data-density choices had to coordinate with the surrounding product surfaces and host environments rather than existing as isolated chart work.",
+        ],
+        outside: [
+          "The repository does not establish ownership for backend analytics pipelines, experimentation strategy, or commercial reporting outcomes.",
+          "Specific teammate ownership for charting infrastructure and product analytics beyond the documented frontend performance work needs factual confirmation.",
+        ],
+        factualReviewNote:
+          "Frontend dashboard implementation and performance ownership are established here. The exact split with analytics, product, and backend contributors is not fully documented.",
       },
-      {
-        label: "Agent instructions",
-        before: "Contradictory or stale",
-        after: "Deterministic quality and safety checks",
-      },
-      {
-        label: "PR review",
-        before: "Generic AI commentary",
-        after: "Explainable risk rules and exit behavior",
-      },
-      {
-        label: "Enforcement",
-        before: "Manual local checks",
-        after: "Reusable GitHub Actions workflow",
-      },
-    ],
-    links: [
-      { label: "Agent Readiness Kit", href: "https://github.com/alipajand/agent-readiness-kit" },
-      {
-        label: "Agent Context Doctor",
-        href: "https://github.com/alipajand/agent-context-doctor",
-      },
-      {
-        label: "Agent PR Reviewer Lite",
-        href: "https://github.com/alipajand/agent-pr-reviewer-lite",
-      },
-      {
-        label: "Agent Readiness Action",
-        href: "https://github.com/alipajand/agent-readiness-action",
-      },
-    ],
+      problem:
+        "Dashboards that feel acceptable on a desktop can break down quickly in embedded or mobile-webview contexts. High-density charts, frequent UI updates, and motion-heavy interactions can overwhelm CPU and layout budgets, leaving users with sluggish or unreadable reporting surfaces.",
+      decisions: [
+        {
+          decision:
+            "Use D3.js for chart fidelity and GSAP for bounded motion, then profile the interaction cost instead of assuming the stack would behave well by default.",
+          why: "The product needed expressive dashboards and controlled motion, but only within tight performance budgets.",
+          tradeOff:
+            "Richer motion and chart control increase implementation complexity and require more profiling discipline than static visualizations.",
+          result:
+            "Dashboard interactions stayed controlled in constrained contexts instead of degrading into unbounded animation cost.",
+        },
+        {
+          decision:
+            "Optimize specifically for embedded and mobile-webview paths rather than treating them as smaller desktop layouts.",
+          why: "Those hosts have different CPU, layout, and chrome assumptions, so generic responsive behavior is not enough.",
+          tradeOff: "Host-specific tuning adds separate QA and implementation paths to maintain.",
+          result:
+            "The interfaces remained usable in the environments where tight rendering budgets would otherwise surface first.",
+        },
+      ],
+      workflow: [
+        "Dashboard data feeds chart and interaction components built in React and D3.js.",
+        "GSAP motion is applied selectively where it improves orientation without exceeding frame budgets.",
+        "Performance tuning targets embedded and mobile-webview paths with tighter layout and CPU constraints.",
+        "The resulting patterns inform readable high-density dashboard layouts across those hosts.",
+      ],
+      interfaceEvidence: [
+        {
+          type: "illustration",
+          width: 1600,
+          height: 1035,
+          alt: "Illustrative reconstruction of a dense analytics dashboard with filters, comparison charts, and summary tiles arranged for legibility in an embedded host.",
+          captionLead: "Dashboard reconstruction.",
+          captionBody:
+            "Dense chart areas and summary rows are arranged to show how interaction performance and readability had to coexist in embedded reporting surfaces.",
+          disclosureLabel: "Illustrative reconstruction based on the production workflow.",
+          illustrationVariant: "emplifi",
+        },
+      ],
+      difficultStates: [
+        "Motion degrades gracefully when frame budgets are tight instead of assuming full-desktop rendering headroom.",
+        "Dense data views are tuned for smaller or embedded hosts where layout space and CPU are limited.",
+        "High-frequency interaction work is bounded so chart updates do not overwhelm surrounding dashboard controls.",
+      ],
+      outcome: [
+        "Enterprise dashboard interfaces shipped with controlled motion and more predictable rendering behavior in embedded and mobile-webview contexts.",
+        "Frontend patterns were established for dense chart layouts and high-frequency interaction updates.",
+        "Performance tuning focused on real host constraints rather than a desktop-only happy path.",
+      ],
+      nextImprovements: [
+        "Document explicit motion and rendering budgets per dashboard pattern so new surfaces inherit the same constraints more consistently.",
+        "Capture more production evidence for embedded and mobile-webview edge states to complement the implementation narrative in this repository.",
+      ],
+    },
+    relatedLinks: [{ label: "Company website", href: "https://emplifi.io" }],
   },
   {
-    id: "data-dashboards-emplifi",
-    name: "Emplifi — data-heavy dashboards and interaction performance",
-    description:
-      "Enterprise dashboard interfaces built with React, TypeScript, D3.js, and GSAP, focused on data density, motion, rendering performance, and embedded/mobile webview constraints.",
-    role: "Senior Frontend Engineer · Dashboards & performance · Emplifi",
-    contribution:
-      "Owned dashboard UI implementation, interaction behavior, rendering performance, and data-dense frontend patterns.",
-    navLabel: "Emplifi dashboards",
-    signalStack: ["D3.js", "GSAP + profiled React", "Embedded + webview performance"],
-    badges: ["Data viz", "Performance"],
-    bestFor: ["Dashboards", "Data-heavy UI", "Performance", "Interaction design"],
-    tech: ["React", "TypeScript", "D3.js", "GSAP", "Figma"],
-    outcomes: [
-      "Built data-heavy enterprise dashboards with real-time rendering constraints.",
-      "Developed interactive UI experiences using React, TypeScript, D3.js, and GSAP.",
-      "Optimized rendering performance for mobile webviews, embedded contexts, and large datasets.",
-      "Defined frontend data flow and component patterns for high-frequency UI updates.",
-      "Integrated analytics, experimentation, Sentry, and Hotjar to connect UX decisions to product outcomes.",
-    ],
-    caseStudy: {
-      problem:
-        "Dashboards had to stay legible and responsive inside mobile webviews and embedded hosts where CPU and layout budgets are tight, with smooth motion and no constant jank.",
-      constraints:
-        "One codebase for standalone and embed; chart density that still reads on small viewports; motion that degrades gracefully when budgets are exhausted.",
-      owned: [
-        "Built D3.js dashboards with profiled, bounded GSAP motion (team delivery).",
-        "Tuned embed and mobile-webview performance paths against tight CPU and layout budgets.",
-      ],
-      highLevelFlow: [
-        "Live dashboard data",
-        "D3 chart rendering",
-        "GSAP interaction motion",
-        "Embed + webview tuning",
-        "Readable high-density dashboards",
-      ],
-      architectureDecisions:
-        "D3.js for chart fidelity; GSAP for timeline-style motion; React profiling so animation work stays bounded on low-power devices and embeds.",
-      technicalImplementation:
-        "Targeted tuning for embed and webview paths, with fewer assumptions from full-desktop chrome and bounded animation work per frame.",
-      uxAccessibility:
-        "Readable chart density on small viewports and motion that degrades gracefully when frame budgets are exhausted.",
-      outcome:
-        "Dashboards that stayed usable in embedded and mobile webview contexts, with motion that remained controlled rather than chaotic.",
-      tradeoffs:
-        "Rich motion increases implementation and test surface versus static charts; profiling effort traded for predictable frame time in webview contexts.",
+    id: "mapbylaw-platform-ui-ai-reports",
+    name: "MapBylaw",
+    caseStudyTitle: "Aligning typed product workflows, policy-aware AI, and bilingual reports",
+    employerContext:
+      "Map-first property insights platform with shared UI, typed APIs, AI recommendations, and bilingual report generation.",
+    cardProblem:
+      "Web, admin, AI recommendations, and bilingual reports all needed to stay aligned to verified zoning and feasibility data instead of drifting into disconnected product states.",
+    role: "Senior Product Engineer · Frontend architecture & product UI · MapBylaw",
+    capabilityTags: ["Design systems", "AI workflows", "Typed contracts"],
+    heroFigure: {
+      type: "image",
+      src: "/portfolio-media/mapbylaw.png",
+      width: 3456,
+      height: 2234,
+      alt: "MapBylaw property analysis workspace showing map-led inputs, structured recommendations, and report-ready data so dashboard decisions remain aligned with typed zoning and feasibility rules.",
+      captionLead: "Property analysis workspace.",
+      captionBody:
+        "Shared typed inputs keep dashboard decisions and bilingual reports aligned to zoning and feasibility rules instead of free-form AI output.",
     },
-    beforeAfter: [
-      {
-        label: "Embedded performance",
-        before: "Unbounded motion cost",
-        after: "Profiled, bounded motion",
+    caseStudy: {
+      title: "Aligning typed product workflows, policy-aware AI, and bilingual reports",
+      overview:
+        "MapBylaw needed a product system where the dashboard, admin workflows, AI recommendations, and bilingual premium reports all agreed on the same verified property inputs. The work combined shared UI foundations with contract-driven data flow and policy-aware AI constraints.",
+      contextAndConstraints:
+        "Fastify APIs, Zod/OpenAPI contracts, shared UI, and React-PDF reports had to move together as incentives, policies, and scenario rules changed. Content policy also ruled out fabricated market stand-ins, which meant AI outputs had to stay narrow and tied to verified scenario data.",
+      responsibility: {
+        owned: [
+          "Built the shared `@mapbylaw/ui` foundation used across web and admin surfaces.",
+          "Aligned Fastify APIs, Zod/OpenAPI contracts, and typed React-PDF payloads on the same data model.",
+          "Constrained AI recommendations to typed, scenario-specific inputs grounded in policy and feasibility rules.",
+        ],
+        collaborative: [
+          "Scenario logic, zoning interpretation, and report requirements depended on product and domain collaboration beyond the frontend surface itself.",
+          "The repository shows close alignment between dashboard, API, and report work, but it does not break down every contributor by subsystem.",
+        ],
+        outside: [
+          "The repository does not attribute ownership for every backend service, municipal-data source, or domain-policy decision.",
+          "Commercial outcomes and customer adoption metrics are not established here.",
+        ],
       },
+      problem:
+        "A property-analysis workflow becomes brittle when the dashboard, AI recommendations, and report generator drift apart. If each layer interprets scenario inputs differently, the product starts presenting inconsistent advice or report output even when the UI looks coherent.",
+      decisions: [
+        {
+          decision:
+            "Build a shared `@mapbylaw/ui` foundation and feature-based app structure instead of letting web and admin evolve separate interface systems.",
+          why: "The product needed one visual and interaction language across analysis, admin, and report-adjacent states.",
+          tradeOff:
+            "Shared foundations create upfront structure and maintenance work compared with fast isolated page-level components.",
+          result:
+            "Web and admin surfaces stayed aligned on accessibility behavior, state handling, and reusable component patterns.",
+        },
+        {
+          decision:
+            "Use OpenAPI and Zod at the product boundary so dashboards, AI recommendations, and React-PDF reports consume the same verified shapes.",
+          why: "Scenario recommendations and bilingual reports lose credibility quickly if they diverge from the dashboard’s source model.",
+          tradeOff:
+            "Strict schemas and audits add ongoing maintenance as incentive rules and scenario logic change.",
+          result:
+            "The product can evolve policies and recommendations without relying on ad-hoc copy fixes or loosely typed payload glue.",
+        },
+      ],
+      workflow: [
+        "Verified property inputs feed typed zoning and feasibility APIs.",
+        "Shared UI surfaces present dashboard and admin workflows against those same verified shapes.",
+        "AI recommendations consume narrow scenario-specific inputs instead of free-form prompt context.",
+        "Bilingual React-PDF reports render from the same validated payload model used in the product.",
+      ],
+      interfaceEvidence: [
+        {
+          type: "image",
+          src: "/portfolio-media/mapbylaw.png",
+          width: 3456,
+          height: 2234,
+          alt: "MapBylaw analysis and reporting interface showing map-led property context, structured recommendation modules, and report-ready data aligned to typed contracts.",
+          captionLead: "Analysis and reporting surface.",
+          captionBody:
+            "The same structured inputs support product decisions, AI recommendations, and report generation so the interface does not drift from the underlying policy model.",
+        },
+      ],
+      difficultStates: [
+        "Malformed or overly broad AI payloads are rejected early so recommendations stay scenario-specific.",
+        "Changing incentives and policy rules require synchronized updates across API contracts, shared UI, and bilingual report output.",
+        "The product avoids generic AI responses by constraining recommendation inputs to verified scenario data.",
+      ],
+      outcome: [
+        "A shared design language and typed contract system shipped across web, admin, and report workflows.",
+        "AI recommendations stayed aligned to policy-aware scenario inputs instead of drifting into generic chatbot output.",
+        "Dashboard and PDF outputs remained consistent through shared types and audits rather than manual reconciliation.",
+      ],
+      nextImprovements: [
+        "Continue expanding audit coverage around policy changes so report, dashboard, and recommendation drift is caught even earlier.",
+        "Add more evidence around bilingual and premium-report edge states to make parity checks easier to review.",
+      ],
+    },
+    relatedLinks: [
+      { label: "Live product", href: "https://mapbylaw.ca/" },
+      { label: "Related writing", href: "/writing/mapbylaw-ai-recommendations" },
     ],
-    // TODO(portfolio-media): Add 2–3 screenshots or a short walkthrough showing the final interface, edge states, and responsive behavior.
-    links: [{ label: "Website", href: "https://emplifi.io" }],
   },
   {
     id: "pwa-performance-controltech",
-    name: "ControlTech — startup product delivery, PWAs, and frontend systems",
-    description:
-      "Frontend delivery across multiple early-stage products, including PWAs, dashboards, workflow-heavy interfaces, offline-first behavior, reusable frontend patterns, and automated release pipelines.",
+    name: "ControlTech",
+    caseStudyTitle:
+      "Shipping startup product workflows that tolerate slow networks and fast release cycles",
+    employerContext:
+      "Startup product delivery across PWAs, dashboards, and workflow-heavy interfaces inside ControlTech Startup Studio.",
+    cardProblem:
+      "Early-stage products needed to load quickly, survive flaky connections, and release repeatedly without breaking their primary workflows.",
     role: "Frontend Engineer · Startup product delivery · ControlTech Startup Studio",
-    contribution:
-      "Owned frontend delivery across early-stage products, including product states, responsive UI, PWAs, testing, and release pipelines.",
-    navLabel: "ControlTech PWA",
-    signalStack: ["Jest + Playwright", "GitHub Actions CI/CD", "PWA + CDN delivery"],
-    badges: ["Performance", "DX"],
-    bestFor: ["Startup ownership", "PWAs", "Frontend systems", "Fast iteration"],
-    tech: ["Vue", "Nuxt.js", "React", "React Native", "Jest", "Playwright", "GitHub Actions"],
-    outcomes: [
-      "Owned frontend delivery across multiple early-stage products, often working from incomplete requirements and rapidly changing priorities.",
-      "Moved between product definition, interaction decisions, implementation, testing, and deployment with minimal process overhead.",
-      "Built PWAs, dashboards, and workflow-heavy interfaces, refining responsive behavior and product states directly in code.",
-      "Established reusable frontend patterns, automated testing, and release pipelines to help small teams ship quickly without creating avoidable regressions.",
-    ],
-    caseStudy: {
-      problem:
-        "Products had to load quickly on modest hardware, tolerate flaky networks, and ship without repeatedly breaking primary flows.",
-      constraints:
-        "Offline-capable shells where product requirements demanded it; small team release cadence; low tolerance for production regressions affecting early adopters.",
-      owned: [
-        "Built startup product surfaces across Vue, Nuxt, React, and React Native.",
-        "Set up route-level code splitting, CDN delivery, PWA caching, and CI test gates (Jest/Playwright/GitHub Actions).",
-      ],
-      highLevelFlow: [
-        "Ambiguous product requirements",
-        "Reusable frontend patterns",
-        "PWA + offline-ready flows",
-        "Automated tests + CI/CD",
-        "Fast startup releases",
-      ],
-      architectureDecisions:
-        "Route-level code splitting and lazy loading; CDN-backed static assets; service worker caching for PWA shells; Jest and Playwright in CI with GitHub Actions gating merges.",
-      technicalImplementation:
-        "Automated tests and CI reduced regressions reaching users; splitting and CDN work addressed first-load pain on slow connections.",
-      uxAccessibility:
-        "Offline-capable shells kept core flows usable on unstable networks for early adopters.",
-      outcome:
-        "Releases stopped routinely breaking core flows; first load improved materially and offline-capable paths stayed usable on unstable networks.",
-      tradeoffs:
-        "More pipeline and test code versus shipping larger bundles faster; offline caches trade freshness for resilience until invalidated.",
+    capabilityTags: ["PWAs", "Release reliability", "Frontend systems"],
+    heroFigure: {
+      type: "illustration",
+      width: 1600,
+      height: 1035,
+      alt: "Illustrative reconstruction of an operations dashboard with offline-capable navigation and resilient loading states, representing startup product workflows designed for slow networks and repeatable releases.",
+      captionLead: "Offline-capable product workflow.",
+      captionBody:
+        "The reconstruction focuses on quick route changes, resilient loading states, and release-safe interaction patterns for products shipping under startup constraints.",
+      disclosureLabel: "Illustrative reconstruction based on the production workflow.",
+      illustrationVariant: "controltech",
     },
-    beforeAfter: [
-      {
-        label: "Release confidence",
-        before: "Manual, high variance",
-        after: "CI-gated, repeatable",
+    caseStudy: {
+      title:
+        "Shipping startup product workflows that tolerate slow networks and fast release cycles",
+      overview:
+        "At ControlTech, the frontend work spanned multiple early-stage products rather than one polished flagship surface. The recurring challenge was turning ambiguous requirements into usable product flows that remained stable on modest hardware, unstable networks, and small-team release schedules.",
+      contextAndConstraints:
+        "The stack moved across Vue, Nuxt, React, and React Native, with PWA requirements where the product demanded offline-capable shells. Reusable patterns, automated tests, and release pipelines mattered because early adopters feel regressions immediately when teams ship fast.",
+      responsibility: {
+        owned: [
+          "Built startup product surfaces across Vue, Nuxt, React, and React Native.",
+          "Set up route-level code splitting, CDN-backed delivery, PWA caching where needed, and CI test gates with Jest, Playwright, and GitHub Actions.",
+          "Refined responsive product states directly in code while moving between problem definition, implementation, and release follow-up.",
+        ],
+        collaborative: [
+          "Product requirements and scope changed quickly across multiple early-stage efforts, so delivery depended on close iteration with small product and engineering teams.",
+          "The repository establishes broad frontend ownership but does not separate every product contribution by team member or product line.",
+        ],
+        outside: [
+          "The repository does not establish ownership for every backend service, mobile-platform concern, or commercial startup outcome.",
+          "Precise subsystem boundaries across each early-stage product would need factual confirmation from the original teams.",
+        ],
+        factualReviewNote:
+          "This repository supports the broad startup frontend, testing, and release-pipeline narrative. Exact product-by-product subsystem ownership is not fully documented.",
       },
-      { label: "First load", before: "Heavy bundle", after: "Split + CDN" },
-    ],
-    // TODO(portfolio-media): Add 2–3 screenshots or a short walkthrough showing the final interface, edge states, and responsive behavior.
-    links: [{ label: "Website", href: "https://ctrltech.org" }],
+      problem:
+        "When products ship quickly on small teams, the primary failure mode is not a missing feature. It is a flow that becomes too heavy for slow connections, too brittle for repeated releases, or too fragile to tolerate intermittent network conditions.",
+      decisions: [
+        {
+          decision:
+            "Invest in reusable frontend patterns and CI gates early instead of treating them as cleanup after the product stabilized.",
+          why: "Small teams shipping frequently need repeatable quality signals or regressions will keep landing on primary flows.",
+          tradeOff:
+            "Tests, pipelines, and shared patterns take time that could otherwise go into short-term feature output.",
+          result:
+            "Release confidence improved and core flows stopped depending entirely on manual verification.",
+        },
+        {
+          decision:
+            "Use route-level splitting, CDN-backed assets, and PWA caching where product requirements justified it.",
+          why: "First-load pain and unstable networks were practical product constraints, not theoretical optimization targets.",
+          tradeOff:
+            "Caching and offline behavior add invalidation complexity and require more careful coordination with release behavior.",
+          result:
+            "Products became more usable on slow connections and better able to tolerate intermittent connectivity.",
+        },
+      ],
+      workflow: [
+        "Ambiguous requirements are shaped into reusable interface and state patterns.",
+        "Product routes are optimized through splitting, CDN delivery, and PWA behavior where needed.",
+        "Automated tests and GitHub Actions gates protect primary flows before release.",
+        "The same foundations support rapid iteration across multiple early-stage products.",
+      ],
+      interfaceEvidence: [
+        {
+          type: "illustration",
+          width: 1600,
+          height: 1035,
+          alt: "Illustrative reconstruction of a startup operations dashboard with resilient loading panels, quick navigation, and offline-capable workflow affordances.",
+          captionLead: "Startup workflow reconstruction.",
+          captionBody:
+            "The layout highlights fast route changes, resilient async states, and the kind of compact workflow structure that benefits from repeatable release safeguards.",
+          disclosureLabel: "Illustrative reconstruction based on the production workflow.",
+          illustrationVariant: "controltech",
+        },
+      ],
+      difficultStates: [
+        "Slow-network loading states had to remain usable rather than blocking core flows behind heavy initial loads.",
+        "Offline-capable shells required careful trade-offs between resilience and cache freshness.",
+        "Retry and recovery behavior mattered because release velocity and unstable connections amplify small regressions quickly.",
+      ],
+      outcome: [
+        "Reusable frontend patterns, automated tests, and release pipelines supported repeated startup delivery without depending solely on manual checks.",
+        "Performance work reduced first-load pain and improved resilience on unstable connections.",
+        "Workflow-heavy interfaces were shaped directly in code under changing requirements and small-team constraints.",
+      ],
+      nextImprovements: [
+        "Strengthen cache invalidation and recovery guidance for offline-capable flows as products evolve.",
+        "Capture more product-specific evidence so individual startup engagements can be separated more clearly in the portfolio narrative.",
+      ],
+    },
+    relatedLinks: [{ label: "Company website", href: "https://ctrltech.org" }],
   },
 ];

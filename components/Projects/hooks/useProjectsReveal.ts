@@ -9,20 +9,17 @@ const CARD_SELECTOR = "[data-project-card]";
 
 export interface UseProjectsRevealSelectors {
   sectionRef: RefObject<HTMLElement | null>;
-  listRef: RefObject<HTMLUListElement | null>;
 }
 
 export function useProjectsReveal(): { selectors: UseProjectsRevealSelectors } {
   const sectionRef = useRef<HTMLElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     registerGSAPPlugins();
-    const list = listRef.current;
     const section = sectionRef.current;
-    if (!list || !section) return;
+    if (!section) return;
 
-    const cards = list.querySelectorAll<HTMLElement>(CARD_SELECTOR);
+    const cards = section.querySelectorAll<HTMLElement>(CARD_SELECTOR);
     const heading = section.querySelector<HTMLElement>("[data-reveal]");
     const sub = section.querySelectorAll<HTMLElement>("[data-reveal]")?.[1];
 
@@ -62,6 +59,6 @@ export function useProjectsReveal(): { selectors: UseProjectsRevealSelectors } {
   }, []);
 
   return {
-    selectors: { sectionRef, listRef },
+    selectors: { sectionRef },
   };
 }
