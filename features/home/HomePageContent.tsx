@@ -5,6 +5,7 @@ import { Contact } from "components/Contact/Contact";
 import { Hero } from "components/Hero/Hero";
 import { HiringFit } from "components/HiringFit/HiringFit";
 import { MainReveal } from "components/MainReveal/MainReveal";
+import { OpenSourceTools } from "components/OpenSourceTools/OpenSourceTools";
 import { ProofStrip } from "components/ProofStrip/ProofStrip";
 import { SelectedWork } from "components/SelectedWork/SelectedWork";
 import { Testimonials } from "components/Testimonials/Testimonials";
@@ -22,6 +23,7 @@ export function HomePageContent({ writingFeatured, writingRecent }: HomePageCont
       <ProofStrip />
       <SelectedWork />
       <HiringFit />
+      <OpenSourceTools />
       <Writing featured={writingFeatured} posts={writingRecent} />
       <Testimonials />
       <Contact />

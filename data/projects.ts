@@ -336,6 +336,101 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: "agent-engineering-toolkit",
+    name: "Agent Engineering Toolkit — deterministic safeguards for AI coding workflows",
+    description:
+      "A family of open-source TypeScript tools for making AI-assisted development safer and more operationally reliable. The toolkit audits repository readiness, agent instruction quality, pull-request risk, and CI enforcement without depending on opaque model judgment.",
+    role: "Creator and maintainer · Open-source developer tooling",
+    contribution:
+      "Owned product definition, CLI UX, rule design, TypeScript implementation, testing, documentation, release structure, and repository maintenance.",
+    navLabel: "Agent tooling",
+    signalStack: [
+      "Deterministic repository audits",
+      "Agent instruction validation",
+      "Pull-request risk analysis",
+      "GitHub Actions enforcement",
+    ],
+    badges: ["DX", "AI"],
+    bestFor: [
+      "Developer experience",
+      "AI-assisted engineering",
+      "CLI tooling",
+      "CI quality systems",
+    ],
+    tech: [
+      "TypeScript",
+      "Node.js",
+      "CLI design",
+      "GitHub Actions",
+      "CI/CD",
+      "Vitest",
+      "Static analysis",
+      "JSON output",
+      "Markdown reporting",
+    ],
+    outcomes: [
+      "Designed a shared problem model across repository readiness, instruction quality, pull-request risk, and CI enforcement.",
+      "Built deterministic CLI workflows with machine-readable output, severity thresholds, exit codes, configuration, and automated tests.",
+      "Focused the tools on practical failure modes: contradictory instructions, missing validation commands, unsafe agent guidance, sensitive-file changes, and incomplete repository context.",
+      "Kept the tools explainable and CI-friendly so teams can understand why a check failed instead of receiving a generic AI-generated warning.",
+      "Created documentation, examples, security guidance, and contributor-facing structure suitable for public repositories.",
+    ],
+    caseStudy: {
+      problem:
+        "Coding agents can generate changes quickly, but repository context, instruction quality, validation commands, and review boundaries are often incomplete or contradictory. That creates avoidable failures before code review even begins.",
+      constraints:
+        "The tools needed to work locally and in CI, produce explainable results, avoid hidden model judgment, support different repositories, and remain small enough for teams to adopt without introducing another heavy platform.",
+      owned: [],
+      architectureDecisions:
+        "Split the workflow into focused tools: repository readiness, instruction-file auditing, pull-request risk analysis, and GitHub Actions enforcement. Use deterministic rules, explicit configuration, structured output, and stable exit behavior across the toolkit.",
+      technicalImplementation:
+        "CLI-first execution, predictable exit codes, fixture-driven tests, machine-readable output, and narrow file analysis keep the tools suitable for local workflows and continuous integration.",
+      uxAccessibility:
+        "Kept the tools explainable and CI-friendly so teams can understand why a check failed instead of receiving a generic AI-generated warning.",
+      outcome:
+        "A coherent set of open-source guardrails that helps teams identify missing context, unsafe instructions, risky changes, and readiness gaps before agent-assisted work reaches production.",
+      tradeoffs:
+        "Deterministic rules cannot interpret every repository-specific nuance, but they are reproducible, testable, and easier to trust in CI. The tools prefer clear bounded checks over broad AI-generated review commentary.",
+    },
+    beforeAfter: [
+      {
+        label: "Repository guidance",
+        before: "Scattered or incomplete",
+        after: "Audited for commands, boundaries, and validation",
+      },
+      {
+        label: "Agent instructions",
+        before: "Contradictory or stale",
+        after: "Deterministic quality and safety checks",
+      },
+      {
+        label: "PR review",
+        before: "Generic AI commentary",
+        after: "Explainable risk rules and exit behavior",
+      },
+      {
+        label: "Enforcement",
+        before: "Manual local checks",
+        after: "Reusable GitHub Actions workflow",
+      },
+    ],
+    links: [
+      { label: "Agent Readiness Kit", href: "https://github.com/alipajand/agent-readiness-kit" },
+      {
+        label: "Agent Context Doctor",
+        href: "https://github.com/alipajand/agent-context-doctor",
+      },
+      {
+        label: "Agent PR Reviewer Lite",
+        href: "https://github.com/alipajand/agent-pr-reviewer-lite",
+      },
+      {
+        label: "Agent Readiness Action",
+        href: "https://github.com/alipajand/agent-readiness-action",
+      },
+    ],
+  },
+  {
     id: "data-dashboards-emplifi",
     name: "Emplifi — data-heavy dashboards and interaction performance",
     description:

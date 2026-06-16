@@ -6,6 +6,7 @@ export const FOOTER_TAGLINE = "Senior Frontend / Product Engineer · Montreal, C
 
 export const FOOTER_NAV_LINKS = [
   { href: "/portfolio", label: "Work" },
+  { href: "/open-source", label: "Open source" },
   { href: "/writing", label: "Writing" },
   { href: "/portfolio#about", label: "About" },
   { href: "/now", label: "Now" },

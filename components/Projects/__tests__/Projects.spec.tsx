@@ -37,6 +37,7 @@ describe("Projects", () => {
       "Senior Product Engineer · Frontend architecture & product UI · MapBylaw"
     );
     expect(text).toContain("Senior Frontend Engineer · Design systems · AlwaysGeeky Games");
+    expect(text).toContain("Creator and maintainer · Open-source developer tooling");
     expect(text).toContain("Senior Frontend Engineer · Dashboards & performance · Emplifi");
     expect(text).toContain(
       "Frontend Engineer · Startup product delivery · ControlTech Startup Studio"
@@ -74,6 +75,65 @@ describe("Projects", () => {
     const websiteHrefs = websiteLinks.map((link) => link.getAttribute("href"));
     expect(websiteHrefs).toContain("https://emplifi.io");
     expect(websiteHrefs).toContain("https://ctrltech.org");
+  });
+
+  it("renders the grouped agent tooling project with all repository links", () => {
+    render(<Projects />);
+
+    expect(
+      screen.getByText(
+        "Agent Engineering Toolkit — deterministic safeguards for AI coding workflows"
+      )
+    ).toBeInTheDocument();
+
+    expect(screen.getByRole("link", { name: /Agent Readiness Kit/i })).toHaveAttribute(
+      "href",
+      "https://github.com/alipajand/agent-readiness-kit"
+    );
+    expect(screen.getByRole("link", { name: /Agent Context Doctor/i })).toHaveAttribute(
+      "href",
+      "https://github.com/alipajand/agent-context-doctor"
+    );
+    expect(screen.getByRole("link", { name: /Agent PR Reviewer Lite/i })).toHaveAttribute(
+      "href",
+      "https://github.com/alipajand/agent-pr-reviewer-lite"
+    );
+    expect(screen.getByRole("link", { name: /Agent Readiness Action/i })).toHaveAttribute(
+      "href",
+      "https://github.com/alipajand/agent-readiness-action"
+    );
+  });
+
+  it("renders the contribution text for the grouped agent tooling project", () => {
+    render(<Projects />);
+
+    expect(
+      screen.getByText(
+        "Owned product definition, CLI UX, rule design, TypeScript implementation, testing, documentation, release structure, and repository maintenance."
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("renders the grouped project after AlwaysGeeky and before Emplifi", () => {
+    const { container } = render(<Projects />);
+    const projectHeadings = Array.from(container.querySelectorAll("[data-project-card] h3")).map(
+      (heading) => heading.textContent
+    );
+
+    expect(
+      projectHeadings.indexOf("AlwaysGeeky — design system, marketplace, and authentication flows")
+    ).toBeLessThan(
+      projectHeadings.indexOf(
+        "Agent Engineering Toolkit — deterministic safeguards for AI coding workflows"
+      )
+    );
+    expect(
+      projectHeadings.indexOf(
+        "Agent Engineering Toolkit — deterministic safeguards for AI coding workflows"
+      )
+    ).toBeLessThan(
+      projectHeadings.indexOf("Emplifi — data-heavy dashboards and interaction performance")
+    );
   });
 
   it("renders all projects from data", () => {

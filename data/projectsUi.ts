@@ -24,9 +24,6 @@ export const PROJECT_CARD_HIGH_LEVEL_FLOW_LABEL = "High-level flow";
 
 export const PROJECT_CARD_HIGH_LEVEL_FLOW_ARIA = "High-level flow steps";
 
-export const PROJECT_CARD_LEDGER_DIAGRAM_CAPTION =
-  "High-level flow: domain API owns tenant truth; workers run asynchronously and return through verification and internal callbacks, not direct writes.";
-
 export const PROJECT_CARD_MORE_OUTCOMES = "More outcomes";
 
 export const PROJECT_CARD_OWNED_LABEL = "What I owned";

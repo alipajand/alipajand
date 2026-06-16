@@ -5,6 +5,7 @@ import {
   ENGINEERING_PRINCIPLES_PAGE_TITLE,
 } from "data/engineeringPrinciples";
 import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
+import { OPEN_SOURCE_META_DESCRIPTION, OPEN_SOURCE_META_TITLE } from "data/openSourcePage";
 import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/portfolioFit";
 import { WRITING_INDEX_DESCRIPTION } from "data/writing";
 import { CANONICAL_URL, SITE_NAME, TWITTER_HANDLE } from "data/site";
@@ -160,6 +161,33 @@ export function buildNowMetadata(): Metadata {
     twitter: {
       card: "summary_large_image",
       title: `${title} · ${SITE_NAME}`,
+      description,
+      images: [defaultOgImage.url],
+      ...twitterExtras(),
+    },
+  };
+}
+
+export function buildOpenSourceMetadata(): Metadata {
+  const url = `${CANONICAL_URL}/open-source`;
+  const title = OPEN_SOURCE_META_TITLE;
+  const description = OPEN_SOURCE_META_DESCRIPTION;
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      url,
+      siteName: SITE_NAME,
+      title,
+      description,
+      locale: "en_US",
+      images: [{ ...defaultOgImage, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
       description,
       images: [defaultOgImage.url],
       ...twitterExtras(),
