@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-import { CANONICAL_URL, SITE_NAME } from "data/site";
+import { SITE_NAME } from "data/site";
 import { getAllPosts, getPostBySlug } from "utils/posts";
 
 export const size = { width: 1200, height: 630 };
@@ -93,13 +93,23 @@ export default async function WritingPostOpenGraphImage({
         <div style={{ display: "flex", fontSize: 22, color: "#a3a3a3", fontWeight: 500 }}>
           {SITE_NAME}
         </div>
-        <img
-          src={`${CANONICAL_URL}/icon.png`}
-          alt=""
-          width={72}
-          height={72}
-          style={{ width: 72, height: 72, borderRadius: "50%", objectFit: "cover" }}
-        />
+        <div
+          style={{
+            width: 72,
+            height: 72,
+            borderRadius: "50%",
+            border: "1px solid #262626",
+            color: "#fafafa",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 28,
+            fontWeight: 800,
+            letterSpacing: "-0.05em",
+          }}
+        >
+          AP
+        </div>
       </div>
     </div>,
     { ...size }

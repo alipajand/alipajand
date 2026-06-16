@@ -32,7 +32,7 @@ describe("Projects", () => {
     const { container } = render(<Projects />);
     const text = container.textContent ?? "";
 
-    expect(text).toContain("Senior Product Engineer · Design-minded frontend owner · LedgerGuard");
+    expect(text).toContain("Senior Product Engineer · LedgerGuard");
     expect(text).toContain(
       "Senior Product Engineer · Frontend architecture & product UI · MapBylaw"
     );

@@ -1,24 +1,22 @@
 "use client";
 
+import Link from "next/link";
 import { useHero } from "components/Hero/hooks/useHero";
-import { HeroContactNavLink } from "components/Hero/HeroContactNavLink";
 import { HeroDisplayChar } from "components/Hero/HeroDisplayChar";
-import { LINKS } from "data/links";
+import { HERO_SCROLL_INDICATOR, HERO_SECTION_ARIA_LABEL } from "data/site";
 import {
-  HERO_CONTACT_NAV_ARIA_LABEL,
-  HERO_CTA_DISCUSS_ROLE,
-  HERO_CTA_DOWNLOAD_RESUME,
-  HERO_CTA_VIEW_CASE_STUDIES,
-  HERO_EYEBROW,
-  HERO_SCROLL_INDICATOR,
-  HERO_SECTION_ARIA_LABEL,
-  HERO_SUB,
-  HERO_VALUE_LINE,
-  RESUME_URL,
-  SITE_NAME,
-} from "data/site";
+  HOMEPAGE_HERO_AVAILABILITY,
+  HOMEPAGE_HERO_BODY,
+  HOMEPAGE_HERO_EYEBROW,
+  HOMEPAGE_HERO_NAME,
+  HOMEPAGE_HERO_PRIMARY_CTA_HREF,
+  HOMEPAGE_HERO_PRIMARY_CTA_LABEL,
+  HOMEPAGE_HERO_SECONDARY_CTA_HREF,
+  HOMEPAGE_HERO_SECONDARY_CTA_LABEL,
+  HOMEPAGE_HERO_TITLE,
+} from "data/homepage";
 import { HeroBackground } from "components/Hero/HeroBackground";
-import { CTA_PRIMARY, CTA_SECONDARY, CTA_TERTIARY } from "utils/visual";
+import { CTA_PRIMARY, CTA_SECONDARY } from "utils/visual";
 
 export function Hero() {
   const {
@@ -35,61 +33,50 @@ export function Hero() {
       <HeroBackground />
       <div className="relative z-10 max-w-5xl mx-auto w-full">
         <p className="mb-4 sm:mb-5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-          {HERO_EYEBROW}
+          {HOMEPAGE_HERO_EYEBROW}
         </p>
-        <h1 className="font-display font-bold text-5xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
-          <span ref={nameCharsRef} className="block text-foreground hero-lcp">
-            {SITE_NAME.split("").map((char, i) => (
+        <p className="mb-3 text-base sm:text-lg font-medium text-foreground">
+          <span className="sr-only">{HOMEPAGE_HERO_NAME}</span>
+          <span aria-hidden ref={nameCharsRef} className="block text-foreground hero-lcp">
+            {HOMEPAGE_HERO_NAME.split("").map((char, i) => (
               <HeroDisplayChar key={`${char}-${i}`} char={char} />
             ))}
           </span>
-          <span
-            ref={line2Ref}
-            className="block mt-3 sm:mt-4 max-w-3xl text-lg sm:text-xl md:text-2xl font-normal text-white/85 leading-snug hero-lcp opacity-0"
-          >
-            {HERO_VALUE_LINE}
-          </span>
+        </p>
+        <h1
+          ref={line2Ref}
+          className="max-w-4xl font-display font-bold text-4xl sm:text-5xl md:text-6xl leading-[1.05] text-foreground hero-lcp opacity-0"
+        >
+          {HOMEPAGE_HERO_TITLE}
         </h1>
         <p
           ref={subRef}
-          className="mt-6 sm:mt-7  text-muted text-[15px] sm:text-base leading-relaxed opacity-0 translate-y-15"
+          className="mt-6 sm:mt-7 max-w-3xl text-muted text-[15px] sm:text-lg leading-relaxed opacity-0 translate-y-15"
         >
-          {HERO_SUB}
+          {HOMEPAGE_HERO_BODY}
         </p>
 
-        <div
-          ref={ctaRef}
-          className="mt-8 sm:mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-3"
-        >
-          <a
-            href="/portfolio#projects"
-            className={`hover-scale ${CTA_PRIMARY} w-full sm:w-auto opacity-0 translate-y-15`}
-          >
-            {HERO_CTA_VIEW_CASE_STUDIES}
-          </a>
-          <a
-            href="#contact"
-            className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto opacity-0 translate-y-15`}
-          >
-            {HERO_CTA_DISCUSS_ROLE}
-          </a>
-          {RESUME_URL ? (
-            <a
-              href={RESUME_URL}
-              className={`hover-scale ${CTA_TERTIARY} w-full sm:w-auto opacity-0 translate-y-15 sm:ml-1`}
-              download
+        <div ref={ctaRef} className="mt-8 sm:mt-10 flex flex-col gap-4 sm:items-start">
+          <div className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+            <Link
+              href={HOMEPAGE_HERO_PRIMARY_CTA_HREF}
+              className={`hover-scale ${CTA_PRIMARY} w-full sm:w-auto opacity-0 translate-y-15`}
             >
-              {HERO_CTA_DOWNLOAD_RESUME}
-            </a>
-          ) : null}
-          <nav
-            className="flex items-center justify-center sm:justify-start gap-4 pt-1 sm:pt-0 sm:ml-auto opacity-0 translate-y-15"
-            aria-label={HERO_CONTACT_NAV_ARIA_LABEL}
+              {HOMEPAGE_HERO_PRIMARY_CTA_LABEL}
+            </Link>
+            <Link
+              href={HOMEPAGE_HERO_SECONDARY_CTA_HREF}
+              className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto opacity-0 translate-y-15`}
+            >
+              {HOMEPAGE_HERO_SECONDARY_CTA_LABEL}
+            </Link>
+          </div>
+          <p
+            className="text-sm sm:text-base text-foreground/80 leading-relaxed opacity-0 translate-y-15"
+            data-hero-availability
           >
-            {LINKS.map(({ label, href }) => (
-              <HeroContactNavLink key={label} label={label} href={href} />
-            ))}
-          </nav>
+            {HOMEPAGE_HERO_AVAILABILITY}
+          </p>
         </div>
       </div>
       <div

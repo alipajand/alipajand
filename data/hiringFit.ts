@@ -4,43 +4,27 @@ export interface HiringFitCard {
   body: string;
 }
 
-export const HIRING_FIT_HEADING = "What I bring to a team";
-
-export const HIRING_FIT_LEDE =
-  "Four areas where I add senior-level value: I turn ambiguous product work into reliable systems teams can ship, not just individual screens.";
-
-export const HIRING_FIT_ROLE_STRIP = [
-  "Senior Frontend Engineer",
-  "Senior Product Engineer",
-  "Frontend Platform Engineer",
-  "Design Systems Engineer",
-] as const;
+export const HIRING_FIT_HEADING = "Core capabilities";
 
 export const HIRING_FIT_CARDS: HiringFitCard[] = [
   {
-    id: "product-minded-frontend-ownership",
-    title: "Product-minded frontend ownership",
-    body: "Turns ambiguous workflows into clear, maintainable product surfaces.",
-  },
-  {
-    id: "design-systems",
-    title: "Design systems",
-    body: "Builds reusable, accessible foundations that improve consistency and delivery speed.",
+    id: "product-engineering",
+    title: "Product engineering",
+    body: "I turn incomplete requirements into clear workflows, implementation decisions, and production-ready interfaces.",
   },
   {
     id: "frontend-architecture",
     title: "Frontend architecture",
-    body: "Designs typed state boundaries, async flows, performance strategies, and sustainable component structures.",
+    body: "I design typed React and Next.js systems that remain understandable as product states, data flows, and teams grow.",
+  },
+  {
+    id: "design-systems",
+    title: "Design systems",
+    body: "I build component foundations that align accessibility, visual consistency, responsive behaviour, and practical escape hatches.",
   },
   {
     id: "developer-experience",
     title: "Developer experience",
-    body: "Improves tooling, documentation, review quality, testing, and release confidence.",
+    body: "I improve feedback loops through testing, CI, documentation, deterministic automation, and focused engineering tools.",
   },
 ];
-
-export const HIRING_FIT_CTA_PRIMARY_LABEL = "View case studies";
-export const HIRING_FIT_CTA_PRIMARY_HREF = "/portfolio";
-
-export const HIRING_FIT_CTA_SECONDARY_LABEL = "Read engineering principles";
-export const HIRING_FIT_CTA_SECONDARY_HREF = "/engineering-principles";

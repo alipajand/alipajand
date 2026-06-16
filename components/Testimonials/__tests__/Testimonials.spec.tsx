@@ -16,12 +16,17 @@ describe("Testimonials", () => {
   it("renders attribution intro", () => {
     render(<Testimonials />);
     expect(
-      screen.getByText(/Names withheld publicly; role and company are included with permission/i)
+      screen.getByText(/Names remain withheld publicly unless permission has been granted/i)
     ).toBeInTheDocument();
   });
 
   it("renders testimonial quotes", () => {
     render(<Testimonials />);
     expect(screen.getByText(/Ali built high-quality, accessible UIs/i)).toBeInTheDocument();
+  });
+
+  it("renders at most two endorsements", () => {
+    const { container } = render(<Testimonials />);
+    expect(container.querySelectorAll("[data-testimonial-card]")).toHaveLength(2);
   });
 });

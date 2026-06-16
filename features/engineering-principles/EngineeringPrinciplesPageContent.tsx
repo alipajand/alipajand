@@ -13,7 +13,13 @@ import {
 import { PAGE_LINK_BACK_TO_HOMEPAGE } from "data/pageChrome";
 import { usePageHeader } from "utils/hooks/usePageHeader";
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
-import { LABEL_OVERLINE, SECTION_INNER, SECTION_LEDE, SECTION_X } from "utils/visual";
+import {
+  LABEL_OVERLINE,
+  PAGE_HEADER_SHELL,
+  SECTION_INNER,
+  SECTION_LEDE,
+  SECTION_SHELL_BRIDGE,
+} from "utils/visual";
 
 export function EngineeringPrinciplesPageContent() {
   const {
@@ -26,10 +32,7 @@ export function EngineeringPrinciplesPageContent() {
 
   return (
     <MainReveal>
-      <header
-        ref={headerRef}
-        className={`${SECTION_X} border-b border-border bg-background pt-28 pb-10 sm:pb-12 sm:pt-32`}
-      >
+      <header ref={headerRef} className={PAGE_HEADER_SHELL}>
         <div className={SECTION_INNER}>
           <p data-header-overline className={`${LABEL_OVERLINE} mb-2`}>
             {ENGINEERING_PRINCIPLES_HEADER_OVERLINE}
@@ -54,7 +57,7 @@ export function EngineeringPrinciplesPageContent() {
         </div>
       </header>
 
-      <div className={`${SECTION_X} py-14 sm:py-16 lg:py-20 border-t border-border bg-background`}>
+      <div className={SECTION_SHELL_BRIDGE}>
         <article className={SECTION_INNER}>
           <div ref={sectionsRef as React.Ref<HTMLDivElement>} className="space-y-12 sm:space-y-14">
             {ENGINEERING_PRINCIPLES_SECTIONS.map((section) => (

@@ -40,12 +40,12 @@ describe("PortfolioPageContent", () => {
 
     expect(
       screen.getByText(
-        "Selected work across React, Next.js, TypeScript, design systems, workflow-heavy SaaS interfaces, dashboards, AI-assisted review flows, and frontend architecture."
+        "Case studies covering product engineering, frontend architecture, design systems, complex workflows, and AI-assisted interfaces."
       )
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "I’m a design-minded Senior Frontend Engineer. My best work sits between product, design, and engineering: turning ambiguous requirements into clear, accessible interfaces and production-ready systems. These projects show visual and interaction decisions, frontend architecture, design-system thinking, performance work, and end-to-end ownership."
+        "I’m a Senior Product Engineer specializing in frontend architecture, design systems, and developer experience. These case studies focus on designing and shipping complex, reliable product workflows without sacrificing clarity, accessibility, or maintainability."
       )
     ).toBeInTheDocument();
   });
@@ -55,7 +55,7 @@ describe("PortfolioPageContent", () => {
 
     const roleFit = screen.getByLabelText("Portfolio role fit");
     expect(roleFit).toBeInTheDocument();
-    expect(within(roleFit).getByText("Senior Frontend Engineer")).toBeInTheDocument();
+    expect(within(roleFit).getByText("Senior Product Engineer")).toBeInTheDocument();
     expect(within(roleFit).getByText("Developer experience")).toBeInTheDocument();
   });
 

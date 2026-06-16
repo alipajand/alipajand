@@ -1,7 +1,13 @@
 import { render, screen } from "@testing-library/react";
 
 import { Hero } from "components/Hero/Hero";
-import { HERO_VALUE_LINE } from "data/site";
+import {
+  HOMEPAGE_HERO_AVAILABILITY,
+  HOMEPAGE_HERO_NAME,
+  HOMEPAGE_HERO_PRIMARY_CTA_HREF,
+  HOMEPAGE_HERO_SECONDARY_CTA_HREF,
+  HOMEPAGE_HERO_TITLE,
+} from "data/homepage";
 
 jest.mock("components/Hero/HeroBackground", () => ({
   HeroBackground: () => null,
@@ -19,20 +25,13 @@ jest.mock("gsap", () => ({
 
 describe("Hero", () => {
   describe("default rendering", () => {
-    it("should render the main heading with name and value line", () => {
+    it("should render the accessible name, hero heading, and availability copy", () => {
       render(<Hero />);
 
       const heading = screen.getByRole("heading", { level: 1 });
-      expect(heading).toHaveTextContent("Ali Pajand");
-      expect(heading).toHaveTextContent(HERO_VALUE_LINE);
-    });
-
-    it("should render contact link icons", () => {
-      render(<Hero />);
-
-      expect(screen.getByRole("link", { name: /email/i })).toBeInTheDocument();
-      expect(screen.getByRole("link", { name: /linkedin/i })).toBeInTheDocument();
-      expect(screen.getByRole("link", { name: /github/i })).toBeInTheDocument();
+      expect(heading).toHaveTextContent(HOMEPAGE_HERO_TITLE);
+      expect(screen.getByText(HOMEPAGE_HERO_NAME)).toBeInTheDocument();
+      expect(screen.getByText(HOMEPAGE_HERO_AVAILABILITY)).toBeInTheDocument();
     });
 
     it("should render primary CTA to portfolio case studies", () => {
@@ -40,14 +39,14 @@ describe("Hero", () => {
 
       const link = screen.getByRole("link", { name: /view case studies/i });
       expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute("href", "/portfolio#projects");
+      expect(link).toHaveAttribute("href", HOMEPAGE_HERO_PRIMARY_CTA_HREF);
     });
 
-    it("should render secondary CTA to contact section", () => {
+    it("should render secondary CTA to engineering principles", () => {
       render(<Hero />);
 
-      const link = screen.getByRole("link", { name: /discuss a role/i });
-      expect(link).toHaveAttribute("href", "#contact");
+      const link = screen.getByRole("link", { name: /read my engineering principles/i });
+      expect(link).toHaveAttribute("href", HOMEPAGE_HERO_SECONDARY_CTA_HREF);
     });
   });
 });

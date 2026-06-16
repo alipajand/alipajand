@@ -9,7 +9,7 @@ export const WRITING_FEATURED_LABEL = "Featured";
 export const WRITING_ALL_POSTS_CTA = "Browse all posts";
 
 export const WRITING_INDEX_DESCRIPTION =
-  "Essays on frontend architecture, design systems, AI product workflows, DX, accessibility, and the trade-offs behind reliable product delivery.";
+  "Articles about product engineering, frontend architecture, design systems, developer experience, and reliable AI product workflows.";
 
 export const WRITING_SECTION_HEADING = "Writing";
 

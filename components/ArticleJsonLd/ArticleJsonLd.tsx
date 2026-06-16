@@ -9,7 +9,7 @@ export function ArticleJsonLd({ post }: ArticleJsonLdProps) {
   const url = `${CANONICAL_URL}/writing/${post.slug}`;
   const schema = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    "@type": "Article",
     headline: post.title,
     description: post.excerpt,
     datePublished: post.date,
@@ -31,11 +31,11 @@ export function ArticleJsonLd({ post }: ArticleJsonLdProps) {
       name: SITE_NAME,
       url: CANONICAL_URL,
     },
-    image: [`${CANONICAL_URL}/opengraph-image`],
+    image: [`${CANONICAL_URL}/writing/${post.slug}/opengraph-image`],
     isPartOf: {
-      "@type": "Blog",
-      "@id": `${CANONICAL_URL}/writing#writing`,
-      name: `Writing · ${SITE_NAME}`,
+      "@type": "CollectionPage",
+      "@id": `${CANONICAL_URL}/writing#archive`,
+      name: `Writing on Product Engineering and Frontend Systems — ${SITE_NAME}`,
       url: `${CANONICAL_URL}/writing`,
     },
   };

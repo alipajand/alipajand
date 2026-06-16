@@ -28,7 +28,7 @@ export function Nav() {
     >
       <nav aria-label={NAV_ARIA_PRIMARY} className="relative">
         <div className="px-6 sm:px-10 lg:px-20">
-          <div className="max-w-5xl mx-auto w-full flex items-center justify-between gap-4 h-16">
+          <div className="max-w-5xl mx-auto w-full flex items-center justify-between gap-4 min-h-16">
             <Link
               href="/"
               aria-current={homeBrandAriaCurrent(pathname)}
@@ -38,7 +38,7 @@ export function Nav() {
             </Link>
             <ul
               ref={navLinksRef}
-              className="hidden sm:flex flex-1 items-center justify-end gap-6 min-w-0"
+              className="hidden md:flex flex-1 items-center justify-end gap-5 min-w-0"
             >
               {NAV_PRIMARY_LINKS.map((link) => (
                 <NavDesktopPrimaryLink
@@ -66,7 +66,7 @@ export function Nav() {
               aria-label={isMobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMobileOpen}
               aria-controls="mobile-nav"
-              className={`sm:hidden inline-flex min-h-11 min-w-11 flex-col items-center justify-center gap-1.5 p-2 text-foreground transition-transform duration-200 rounded-sm ${FOCUS_RING}`}
+              className={`md:hidden inline-flex min-h-11 min-w-11 flex-col items-center justify-center gap-1.5 p-2 text-foreground transition-transform duration-200 rounded-sm ${FOCUS_RING}`}
               onClick={handleToggleMenu}
             >
               <span
@@ -98,7 +98,7 @@ export function Nav() {
           ref={mobileMenuRef}
           inert={!isMobileOpen}
           aria-hidden={!isMobileOpen}
-          className="sm:hidden absolute top-16 left-0 right-0 overflow-hidden bg-background border-b border-border"
+          className="md:hidden absolute top-16 left-0 right-0 overflow-hidden bg-background border-b border-border"
           style={{ height: 0, opacity: 0 }}
         >
           <div className="py-6 px-6 flex flex-col gap-1">

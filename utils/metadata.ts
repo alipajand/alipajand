@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 
-import {
-  ENGINEERING_PRINCIPLES_META_DESCRIPTION,
-  ENGINEERING_PRINCIPLES_PAGE_TITLE,
-} from "data/engineeringPrinciples";
+import { ENGINEERING_PRINCIPLES_META_DESCRIPTION } from "data/engineeringPrinciples";
 import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
 import { OPEN_SOURCE_META_DESCRIPTION, OPEN_SOURCE_META_TITLE } from "data/openSourcePage";
 import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/portfolioFit";
@@ -17,6 +14,10 @@ const defaultOgImage = {
   height: 630,
 };
 
+function exactTitle(title: string): NonNullable<Metadata["title"]> {
+  return { absolute: title };
+}
+
 function twitterExtras(): Partial<NonNullable<Metadata["twitter"]>> {
   if (!TWITTER_HANDLE) return {};
   const at = `@${TWITTER_HANDLE}`;
@@ -25,22 +26,23 @@ function twitterExtras(): Partial<NonNullable<Metadata["twitter"]>> {
 
 export function buildWritingIndexMetadata(): Metadata {
   const url = `${CANONICAL_URL}/writing`;
+  const title = "Writing on Product Engineering and Frontend Systems — Ali Pajand";
   return {
-    title: "Writing",
+    title: exactTitle(title),
     description: WRITING_INDEX_DESCRIPTION,
     alternates: { canonical: url },
     openGraph: {
       type: "website",
       url,
       siteName: SITE_NAME,
-      title: `Writing · ${SITE_NAME}`,
+      title,
       description: WRITING_INDEX_DESCRIPTION,
       locale: "en_US",
-      images: [{ ...defaultOgImage, alt: `Writing · ${SITE_NAME}` }],
+      images: [{ ...defaultOgImage, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `Writing · ${SITE_NAME}`,
+      title,
       description: WRITING_INDEX_DESCRIPTION,
       images: [defaultOgImage.url],
       ...twitterExtras(),
@@ -61,7 +63,7 @@ export function buildArticleMetadata(post: Post): Metadata {
     },
   ];
   return {
-    title: p.title,
+    title: exactTitle(`${p.title} — ${SITE_NAME}`),
     description: p.excerpt,
     alternates: { canonical: url },
     authors: [{ name: SITE_NAME, url: CANONICAL_URL }],
@@ -92,7 +94,7 @@ export function buildPortfolioMetadata(): Metadata {
   const title = PORTFOLIO_META_TITLE;
   const description = PORTFOLIO_META_DESCRIPTION;
   return {
-    title,
+    title: exactTitle(title),
     description,
     alternates: { canonical: url },
     openGraph: {
@@ -116,24 +118,24 @@ export function buildPortfolioMetadata(): Metadata {
 
 export function buildEngineeringPrinciplesMetadata(): Metadata {
   const url = `${CANONICAL_URL}/engineering-principles`;
-  const title = ENGINEERING_PRINCIPLES_PAGE_TITLE;
+  const title = "Engineering Principles — Ali Pajand";
   const description = ENGINEERING_PRINCIPLES_META_DESCRIPTION;
   return {
-    title,
+    title: exactTitle(title),
     description,
     alternates: { canonical: url },
     openGraph: {
       type: "website",
       url,
       siteName: SITE_NAME,
-      title: `${title} · ${SITE_NAME}`,
+      title,
       description,
       locale: "en_US",
-      images: [{ ...defaultOgImage, alt: `${title} · ${SITE_NAME}` }],
+      images: [{ ...defaultOgImage, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} · ${SITE_NAME}`,
+      title,
       description,
       images: [defaultOgImage.url],
       ...twitterExtras(),
@@ -146,7 +148,7 @@ export function buildNowMetadata(): Metadata {
   const title = NOW_PAGE_TITLE;
   const description = NOW_META_DESCRIPTION;
   return {
-    title,
+    title: exactTitle(`${title} — ${SITE_NAME}`),
     description,
     alternates: { canonical: url },
     openGraph: {
@@ -173,7 +175,7 @@ export function buildOpenSourceMetadata(): Metadata {
   const title = OPEN_SOURCE_META_TITLE;
   const description = OPEN_SOURCE_META_DESCRIPTION;
   return {
-    title,
+    title: exactTitle(title),
     description,
     alternates: { canonical: url },
     openGraph: {

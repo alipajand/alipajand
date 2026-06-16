@@ -24,6 +24,7 @@ export function Projects() {
       aria-labelledby="projects-heading"
       className={`${SECTION_X} ${SECTION_Y} ${SECTION_RULE}`}
     >
+      <div id="case-studies" className="scroll-mt-28" aria-hidden />
       <div className={SECTION_INNER_WIDE}>
         <h2
           id="projects-heading"

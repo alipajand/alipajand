@@ -13,6 +13,7 @@ import {
 import { gsap, prefersReducedMotion, registerGSAPPlugins } from "utils/gsap";
 import { DUR, EASE } from "utils/motion";
 import { formatDate } from "utils/date";
+import { PAGE_ARTICLE_SHELL, SECTION_INNER } from "utils/visual";
 
 interface WritingPostPageContentProps {
   title: string;
@@ -60,8 +61,8 @@ export function WritingPostPageContent({
     <>
       <ReadingProgress />
       <div className="min-h-screen bg-background text-foreground">
-        <main id="main-content" tabIndex={-1} className="outline-none px-6 sm:px-10 lg:px-20 py-24">
-          <article className="max-w-5xl mx-auto">
+        <main id="main-content" tabIndex={-1} className={`outline-none ${PAGE_ARTICLE_SHELL}`}>
+          <article className={SECTION_INNER}>
             <p ref={dateRef} className="text-muted text-sm font-medium tabular-nums">
               <time dateTime={date}>{formatDate(date)}</time>
             </p>
@@ -73,7 +74,7 @@ export function WritingPostPageContent({
             </h1>
             <div
               ref={bodyRef}
-              className="prose prose-invert prose-neutral max-w-none text-muted text-[15px] sm:text-base leading-relaxed [&_a]:text-foreground [&_a]:underline [&_a:hover]:text-muted [&_a:focus-visible]:outline-none [&_a:focus-visible]:ring-2 [&_a:focus-visible]:ring-foreground [&_a:focus-visible]:ring-offset-2 [&_a:focus-visible]:ring-offset-background [&_a:focus-visible]:rounded-sm [&_h2]:font-display [&_h2]:font-semibold [&_h2]:text-foreground [&_h2]:text-xl [&_h2]:mt-8 [&_h2]:mb-3 [&_p]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_hr]:border-border [&_strong]:text-foreground"
+              className="prose prose-invert prose-neutral max-w-none text-muted text-[15px] sm:text-base leading-relaxed [&_a]:break-words [&_a]:text-foreground [&_a]:underline [&_a:hover]:text-muted [&_a:focus-visible]:outline-none [&_a:focus-visible]:ring-2 [&_a:focus-visible]:ring-foreground [&_a:focus-visible]:ring-offset-2 [&_a:focus-visible]:ring-offset-background [&_a:focus-visible]:rounded-sm [&_code]:break-words [&_h2]:font-display [&_h2]:font-semibold [&_h2]:text-foreground [&_h2]:text-xl [&_h2]:mt-8 [&_h2]:mb-3 [&_p]:mb-4 [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_hr]:border-border [&_strong]:text-foreground"
             >
               {showMcpDiagram ? (
                 <>

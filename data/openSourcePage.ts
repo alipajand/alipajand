@@ -12,10 +12,9 @@ export interface OpenSourcePrinciple {
   body: string;
 }
 
-export const OPEN_SOURCE_PAGE_TITLE = "Open Source";
-export const OPEN_SOURCE_META_TITLE = "Open Source — Ali Pajand";
+export const OPEN_SOURCE_META_TITLE = "Open-Source Engineering Tools — Ali Pajand";
 export const OPEN_SOURCE_META_DESCRIPTION =
-  "Open-source TypeScript tools by Ali Pajand for repository readiness, agent instruction quality, pull-request risk, and CI enforcement in AI-assisted software development.";
+  "Open-source tools and experiments for code review, agent context quality, frontend reliability, and developer experience.";
 
 export const OPEN_SOURCE_HEADER_OVERLINE = "Open source";
 export const OPEN_SOURCE_HEADER_HEADING =

@@ -14,6 +14,7 @@ import {
 } from "data/writing";
 import { gsap, prefersReducedMotion, registerGSAPPlugins } from "utils/gsap";
 import { DUR, EASE, STAGGER } from "utils/motion";
+import { PAGE_MAIN_SHELL, SECTION_INNER } from "utils/visual";
 
 interface WritingIndexPageContentProps {
   posts: WritingIndexPost[];
@@ -56,12 +57,8 @@ export function WritingIndexPageContent({ posts }: WritingIndexPageContentProps)
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <main
-        id="main-content"
-        tabIndex={-1}
-        className="outline-none px-6 sm:px-10 lg:px-20 py-24 sm:py-32"
-      >
-        <div className="mx-auto max-w-5xl">
+      <main id="main-content" tabIndex={-1} className={`outline-none ${PAGE_MAIN_SHELL}`}>
+        <div className={SECTION_INNER}>
           <header ref={headerRef} className="mb-12 sm:mb-16">
             <h1
               data-writ-heading

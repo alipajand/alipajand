@@ -1,19 +1,18 @@
 export const PORTFOLIO_POSITIONING_PARAGRAPH =
-  "I’m a design-minded Senior Frontend Engineer. My best work sits between product, design, and engineering: turning ambiguous requirements into clear, accessible interfaces and production-ready systems. These projects show visual and interaction decisions, frontend architecture, design-system thinking, performance work, and end-to-end ownership.";
+  "I’m a Senior Product Engineer specializing in frontend architecture, design systems, and developer experience. These case studies focus on designing and shipping complex, reliable product workflows without sacrificing clarity, accessibility, or maintainability.";
 
 export const PORTFOLIO_ROLE_FIT_ARIA_LABEL = "Portfolio role fit";
 
 export const PORTFOLIO_ROLE_FIT_LABELS = [
-  "Senior Frontend Engineer",
-  "Design-minded engineer",
-  "React / Next.js / TypeScript",
+  "Senior Product Engineer",
+  "Complex product workflows",
+  "Frontend architecture",
   "Design systems",
   "Product UI",
-  "Dashboards",
   "AI-assisted workflows",
   "Accessibility",
-  "Performance",
   "Developer experience",
+  "React / Next.js / TypeScript",
 ] as const;
 
 export const PORTFOLIO_LOOK_FOR_HEADING = "What to look for";
@@ -45,7 +44,7 @@ export const PORTFOLIO_LOOK_FOR_CARDS: PortfolioLookForCard[] = [
   },
 ];
 
-export const PORTFOLIO_META_TITLE = "Portfolio — Ali Pajand";
+export const PORTFOLIO_META_TITLE = "Product Engineering Case Studies — Ali Pajand";
 
 export const PORTFOLIO_META_DESCRIPTION =
-  "Selected Senior Frontend Engineer work by Ali Pajand across React, Next.js, TypeScript, design systems, product UI, dashboards, AI-assisted workflows, accessibility, performance, and developer experience.";
+  "Case studies covering product engineering, frontend architecture, design systems, complex workflows, and AI-assisted interfaces.";

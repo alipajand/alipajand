@@ -10,7 +10,7 @@ import { DUR, EASE, STAGGER } from "utils/motion";
 export interface HeroSelectors {
   containerRef: RefObject<HTMLElement | null>;
   nameCharsRef: RefObject<HTMLSpanElement | null>;
-  line2Ref: RefObject<HTMLSpanElement | null>;
+  line2Ref: RefObject<HTMLHeadingElement | null>;
   subRef: RefObject<HTMLParagraphElement | null>;
   ctaRef: RefObject<HTMLDivElement | null>;
   locationRef: RefObject<HTMLParagraphElement | null>;
@@ -24,7 +24,7 @@ export interface HeroHook {
 export function useHero(): HeroHook {
   const containerRef = useRef<HTMLElement>(null);
   const nameCharsRef = useRef<HTMLSpanElement>(null);
-  const line2Ref = useRef<HTMLSpanElement>(null);
+  const line2Ref = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const locationRef = useRef<HTMLParagraphElement>(null);

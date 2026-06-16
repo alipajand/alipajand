@@ -23,12 +23,17 @@ describe("Nav", () => {
       expect(screen.getByRole("navigation", { name: "Primary" })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: SITE_NAME })).toHaveAttribute("href", "/");
       expect(screen.getByRole("link", { name: SITE_NAME })).toHaveAttribute("aria-current", "page");
+      expect(screen.getAllByRole("link", { name: /^home$/i }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole("link", { name: /^portfolio$/i }).length).toBeGreaterThanOrEqual(
+        1
+      );
       expect(screen.getAllByRole("link", { name: /^writing$/i }).length).toBeGreaterThanOrEqual(1);
-      expect(screen.getAllByRole("link", { name: /^work$/i }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole("link", { name: /^principles$/i }).length).toBeGreaterThanOrEqual(
+        1
+      );
       expect(screen.getAllByRole("link", { name: /^open source$/i }).length).toBeGreaterThanOrEqual(
         1
       );
-      expect(screen.getAllByRole("link", { name: /^about$/i }).length).toBeGreaterThanOrEqual(1);
       expect(screen.getAllByRole("link", { name: /^contact$/i }).length).toBeGreaterThanOrEqual(1);
     });
 

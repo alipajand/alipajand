@@ -6,11 +6,10 @@ import {
   FOOTER_NAV_ARIA_LABEL,
   FOOTER_NAV_LINKS,
   FOOTER_RESUME_LABEL,
-  FOOTER_TAGLINE,
   footerCopyright,
 } from "data/footer";
 import { LINKS } from "data/links";
-import { HERO_CTA_DOWNLOAD_RESUME, RESUME_URL, SITE_NAME } from "data/site";
+import { HERO_CTA_DOWNLOAD_RESUME, RESUME_URL } from "data/site";
 import { FOCUS_RING, SECTION_INNER, SECTION_X } from "utils/visual";
 
 const LINK_CLASS = `text-sm text-muted hover:text-foreground transition-colors rounded-sm inline-flex min-h-9 items-center ${FOCUS_RING}`;
@@ -25,11 +24,6 @@ export function Footer() {
     >
       <div className={SECTION_INNER}>
         <div className="flex flex-col gap-10 sm:flex-row sm:justify-between">
-          <div className="max-w-sm">
-            <p className="font-display font-semibold text-foreground text-base">{SITE_NAME}</p>
-            <p className="mt-2 text-sm text-muted leading-relaxed">{FOOTER_TAGLINE}</p>
-          </div>
-
           <nav
             aria-label={FOOTER_NAV_ARIA_LABEL}
             className="grid grid-cols-2 gap-x-10 gap-y-1 sm:flex sm:flex-col sm:gap-y-1"

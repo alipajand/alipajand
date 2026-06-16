@@ -19,7 +19,7 @@ import { PortfolioRoleFitStrip } from "features/portfolio/PortfolioRoleFitStrip"
 import { PortfolioWhatToLookFor } from "features/portfolio/PortfolioWhatToLookFor";
 import { PORTFOLIO_PAGE_LEDE } from "data/site";
 import { usePageHeader } from "utils/hooks/usePageHeader";
-import { SECTION_INNER, SECTION_X } from "utils/visual";
+import { PAGE_HEADER_SHELL, SECTION_INNER } from "utils/visual";
 
 export function PortfolioPageContent() {
   const {
@@ -28,10 +28,7 @@ export function PortfolioPageContent() {
 
   return (
     <MainReveal>
-      <header
-        ref={headerRef}
-        className={`${SECTION_X} border-b border-border bg-background pt-28 pb-10 sm:pb-12 sm:pt-32`}
-      >
+      <header ref={headerRef} className={PAGE_HEADER_SHELL}>
         <div className={SECTION_INNER}>
           <p
             data-header-overline

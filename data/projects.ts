@@ -62,7 +62,7 @@ export const PROJECTS: Project[] = [
     name: "LedgerGuard",
     description:
       "AI contract intelligence SaaS for renewals, commitments, notice windows, and financial exposure. I designed and built the product experience end to end, including document review, verification, source evidence, renewal-risk, and portfolio dashboard workflows.",
-    role: "Senior Product Engineer · Design-minded frontend owner · LedgerGuard",
+    role: "Senior Product Engineer · LedgerGuard",
     contribution:
       "Owned product experience, visual hierarchy, interaction states, frontend implementation, review workflows, and production iteration.",
     highlighted: true,

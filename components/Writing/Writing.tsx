@@ -17,9 +17,10 @@ import { SECTION_INNER, SECTION_LEDE_LG, SECTION_SHELL, SECTION_TITLE } from "ut
 interface WritingProps {
   featured: WritingPost | null;
   posts: WritingPost[];
+  heading?: string;
 }
 
-export function Writing({ featured, posts }: WritingProps) {
+export function Writing({ featured, posts, heading = WRITING_SECTION_HEADING }: WritingProps) {
   const {
     selectors: { sectionRef },
   } = useScrollReveal({ y: 32, stagger: 0.08 });
@@ -36,7 +37,7 @@ export function Writing({ featured, posts }: WritingProps) {
       <div className={SECTION_INNER}>
         <header className="mb-10 sm:mb-12" data-reveal>
           <h2 id="writing-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
-            {WRITING_SECTION_HEADING}
+            {heading}
           </h2>
           <p className={SECTION_LEDE_LG}>{WRITING_SECTION_LEDE}</p>
           <p className="mt-4 text-[15px] sm:text-base text-foreground/85 leading-relaxed border-l-2 border-border pl-4 sm:pl-5">

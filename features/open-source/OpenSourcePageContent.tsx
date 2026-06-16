@@ -34,6 +34,7 @@ import {
   CTA_SECONDARY,
   FOCUS_RING,
   LABEL_OVERLINE,
+  PAGE_HEADER_SHELL,
   SECTION_INNER,
   SECTION_LEDE,
   SECTION_LEDE_LG,
@@ -112,10 +113,7 @@ export function OpenSourcePageContent() {
 
   return (
     <MainReveal>
-      <header
-        ref={headerRef}
-        className={`${SECTION_X} border-b border-border bg-background pt-28 pb-10 sm:pb-12 sm:pt-32`}
-      >
+      <header ref={headerRef} className={PAGE_HEADER_SHELL}>
         <div className={SECTION_INNER}>
           <p data-header-overline className={`${LABEL_OVERLINE} mb-2`}>
             {OPEN_SOURCE_HEADER_OVERLINE}
