@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 
 import { SelectedWork } from "components/SelectedWork/SelectedWork";
+import { PROJECTS } from "data/projects";
 import {
-  SELECTED_WORK,
   SELECTED_WORK_HEADING,
   SELECTED_WORK_LEDE,
   SELECTED_WORK_SECTION_CTA_HREF,
@@ -23,8 +23,8 @@ describe("SelectedWork", () => {
 
   it("renders a card for every selected work item", () => {
     render(<SelectedWork />);
-    for (const item of SELECTED_WORK) {
-      expect(screen.getByRole("heading", { name: item.name })).toBeInTheDocument();
+    for (const project of PROJECTS.filter((item) => item.highlighted)) {
+      expect(screen.getByRole("heading", { name: project.name })).toBeInTheDocument();
     }
   });
 

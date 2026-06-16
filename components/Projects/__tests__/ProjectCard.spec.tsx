@@ -43,6 +43,17 @@ describe("ProjectCard", () => {
       expect(screen.getByText("Test description")).toBeInTheDocument();
     });
 
+    it("should render contribution when provided", () => {
+      const projectWithContribution: Project = {
+        ...mockProject,
+        contribution: "Owned core frontend delivery.",
+      };
+
+      render(<ProjectCard project={projectWithContribution} />);
+      expect(screen.getByText("My contribution")).toBeInTheDocument();
+      expect(screen.getByText("Owned core frontend delivery.")).toBeInTheDocument();
+    });
+
     it("should render signal stack", () => {
       render(<ProjectCard project={mockProject} />);
       expect(screen.getByText("Typed APIs")).toBeInTheDocument();
@@ -186,6 +197,7 @@ describe("ProjectCard", () => {
           problem: "The problem",
           constraints: "The constraints",
           owned: ["Owned area one", "Owned area two"],
+          highLevelFlow: ["Step one", "Step two", "Step three"],
           architectureDecisions: "The architecture decisions",
           technicalImplementation: "The implementation",
           uxAccessibility: "The ux and accessibility",
@@ -212,6 +224,29 @@ describe("ProjectCard", () => {
       expect(screen.getByText("The outcome")).toBeInTheDocument();
       expect(screen.getByText("Trade-offs and lessons")).toBeInTheDocument();
       expect(screen.getByText("The tradeoffs")).toBeInTheDocument();
+    });
+
+    it("should render the high-level flow chips when provided", () => {
+      const projectWithFlow: Project = {
+        ...mockProject,
+        caseStudy: {
+          problem: "The problem",
+          constraints: "The constraints",
+          owned: ["Owned area one"],
+          highLevelFlow: ["Step one", "Step two", "Step three"],
+          architectureDecisions: "The architecture decisions",
+          technicalImplementation: "The implementation",
+          uxAccessibility: "The ux and accessibility",
+          outcome: "The outcome",
+          tradeoffs: "The tradeoffs",
+        },
+      };
+
+      render(<ProjectCard project={projectWithFlow} />);
+      expect(screen.getByText("High-level flow")).toBeInTheDocument();
+      expect(screen.getAllByText("Step one").length).toBeGreaterThan(0);
+      expect(screen.getAllByText("Step two").length).toBeGreaterThan(0);
+      expect(screen.getAllByText("Step three").length).toBeGreaterThan(0);
     });
 
     it("should not render case study when not provided", () => {

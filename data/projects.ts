@@ -39,6 +39,8 @@ export interface Project {
   name: string;
   description: string;
   role: string;
+  contribution?: string;
+  highlighted?: boolean;
   tech: string[];
   outcomes: string[];
   signalStack: string[];
@@ -57,10 +59,13 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: "ledgerguard-deterministic-commitments-ledger",
-    name: "LedgerGuard — AI contract intelligence with deterministic financial truth",
+    name: "LedgerGuard",
     description:
-      "Multi-tenant B2B SaaS that turns vendor contracts into commitment, renewal, notice-window, and spend-risk views. The core product decision: keep probabilistic AI/OCR extraction separate from deterministic financial truth so the UI never presents stale or partial data as certainty.",
-    role: "Senior Product Engineer · LedgerGuard (independent product)",
+      "AI contract intelligence SaaS for renewals, commitments, notice windows, and financial exposure. I designed and built the product experience end to end, including document review, verification, source evidence, renewal-risk, and portfolio dashboard workflows.",
+    role: "Senior Product Engineer · Design-minded frontend owner · LedgerGuard",
+    contribution:
+      "Owned product experience, visual hierarchy, interaction states, frontend implementation, review workflows, and production iteration.",
+    highlighted: true,
     navLabel: "LedgerGuard",
     signalStack: [
       "Fastify API domain + worker internal callbacks",
@@ -68,7 +73,15 @@ export const PROJECTS: Project[] = [
       "Zod/OpenAPI contracts (tenant + admin)",
     ],
     badges: ["AI", "DX"],
-    bestFor: ["B2B SaaS architecture", "AI product engineering"],
+    bestFor: [
+      "Senior frontend architecture",
+      "AI-assisted product UI",
+      "Workflow-heavy SaaS",
+      "Product ownership",
+    ],
+    image: "/portfolio-media/ledgerguard.png",
+    imageCaption:
+      "Document review and renewal-risk workflows showing source evidence, validation states, and portfolio-level visibility.",
     tech: [
       "Next.js",
       "React",
@@ -87,9 +100,11 @@ export const PROJECTS: Project[] = [
       "Sentry",
     ],
     outcomes: [
-      "Designed the product architecture across Next.js, Fastify, Python workers, Supabase/Postgres, async document extraction, Stripe, feature flags, audit trails, and multi-tenant access patterns.",
-      "Separated probabilistic document intelligence from deterministic financial read models: workers propose, domain rules validate, and renewal/commitment surfaces show explicit warnings when truth is partial, stale, or skewed.",
-      "Built buyer-facing and operator-facing product surfaces including upload, verification, commitments ledger, renewal risk, portfolio demo, and typed API contracts that keep web/admin behavior aligned with backend decisions.",
+      "Designed and built the product experience end to end, from navigation and information hierarchy to document review, verification, renewal-risk, and portfolio dashboard workflows.",
+      "Created visual and interaction patterns for complex AI states, including confidence gaps, source evidence, partial extraction, validation errors, and human review.",
+      "Designed responsive React / Next.js interfaces directly in code, iterating on layout, typography, density, empty states, and workflow clarity without relying on fully specified design handoffs.",
+      "Built a reusable component foundation that kept buyer-facing, tenant, and operator surfaces visually consistent and accessible.",
+      "Owned the complete product loop across problem definition, UX decisions, implementation, testing, production behavior, and iteration.",
     ],
     caseStudy: {
       problem:
@@ -102,11 +117,11 @@ export const PROJECTS: Project[] = [
         "Codified renewal-truth precedence and repair planning so newer synthesis is not clobbered by stale rows.",
       ],
       highLevelFlow: [
-        "Upload contract",
-        "Async AI/OCR extraction",
-        "Domain validation via internal callbacks",
-        "Truth-precedence resolves drift/skew",
-        "Renewal ledger UI with honest warnings",
+        "Contract upload",
+        "Async OCR + extraction",
+        "Verification + source evidence review",
+        "Truth-precedence ledger update",
+        "Renewal risk + portfolio visibility",
       ],
       architectureDecisions:
         "Split deterministic API/domain state (commitments, commitment_fields, truth_state, audit metadata) from probabilistic workers; workers never write tenant truth directly, only validated internal callbacks. Codified portfolio truth precedence (version skew, same-version drift, fields-only recovery) and repair planning instead of clobbering newer synthesis.",
@@ -136,14 +151,18 @@ export const PROJECTS: Project[] = [
         after: "Warnings when truth is partial",
       },
     ],
+    // TODO(portfolio-media): Add 2–3 screenshots or a short walkthrough showing the final interface, edge states, and responsive behavior.
     link: "https://ledgerguard.io/",
   },
   {
     id: "mapbylaw-platform-ui-ai-reports",
-    name: "MapBylaw — typed AI recommendations, shared UI, and report infrastructure",
+    name: "MapBylaw",
     description:
-      "Product engineering for a map-first property insights platform: shared UI across web/admin, typed API contracts, bilingual React-PDF reports, and AI recommendations grounded in zoning rules, feasibility math, and verified scenario inputs.",
-    role: "Senior Product Engineer · MapBylaw",
+      "Map-first property insights platform with shared UI, typed API contracts, bilingual report surfaces, and product workflows grounded in zoning rules, feasibility math, and verified scenario inputs.",
+    role: "Senior Product Engineer · Frontend architecture & product UI · MapBylaw",
+    contribution:
+      "Owned shared UI foundations, typed frontend contracts, dashboard/report surfaces, and workflow-heavy product UI.",
+    highlighted: true,
     navLabel: "MapBylaw",
     signalStack: [
       "@mapbylaw/ui + feature-based apps",
@@ -151,7 +170,15 @@ export const PROJECTS: Project[] = [
       "Policy-aligned AI recommendations",
     ],
     badges: ["Design systems", "DX", "AI", "Accessibility"],
-    bestFor: ["Design systems", "AI product engineering", "Frontend architecture"],
+    bestFor: [
+      "Design systems",
+      "Frontend architecture",
+      "Data-heavy product UI",
+      "AI-assisted workflows",
+    ],
+    image: "/portfolio-media/mapbylaw.png",
+    imageCaption:
+      "Map-first analysis and report workflows showing shared UI, data density, and policy-grounded recommendations.",
     tech: [
       "Next.js",
       "React",
@@ -169,8 +196,9 @@ export const PROJECTS: Project[] = [
       "Playwright",
     ],
     outcomes: [
-      "Built a shared UI foundation across web and admin so core flows, visual language, accessibility patterns, and product states stay consistent as the platform grows.",
+      "Built shared UI foundations across web and admin so product flows, visual language, accessibility patterns, and interface states stayed consistent as the platform grew.",
       "Aligned Fastify APIs, Zod/OpenAPI contracts, dashboard surfaces, and React-PDF payloads so reports and product UI use the same verified data model.",
+      "Designed workflow-heavy interfaces for property analysis, recommendations, and report generation with attention to hierarchy, density, responsive behavior, and reliability.",
       "Constrained AI recommendations to policy-aware, scenario-specific inputs with strict typed outputs, preventing generic chatbot responses from drifting away from zoning and feasibility rules.",
     ],
     caseStudy: {
@@ -184,11 +212,11 @@ export const PROJECTS: Project[] = [
         "Constrained AI recommendations to typed, policy-aligned scenario inputs.",
       ],
       highLevelFlow: [
-        "Verified scenario inputs",
-        "Typed API (Zod/OpenAPI)",
-        "Policy-aligned AI recommendations",
-        "Shared @mapbylaw/ui",
-        "Dashboard + bilingual PDF",
+        "Property search + verified inputs",
+        "Typed zoning + feasibility API",
+        "Policy-aware recommendations",
+        "Shared dashboard + report state",
+        "Bilingual premium report delivery",
       ],
       architectureDecisions:
         "Shared @mapbylaw/ui with feature folders and path aliases; OpenAPI 3 + Zod at the boundary; typed React-PDF payload builder sharing components with web apps; ai_recommendations as a narrow TypeScript shape fed only verified scenario inputs, with living audits alongside architecture docs.",
@@ -219,14 +247,17 @@ export const PROJECTS: Project[] = [
         after: "Shared contract + typed PDF + audits",
       },
     ],
+    // TODO(portfolio-media): Add 2–3 screenshots or a short walkthrough showing the final interface, edge states, and responsive behavior.
     links: [{ label: "Project", href: "https://mapbylaw.ca/" }],
   },
   {
     id: "design-system-marketplace-login-web3",
-    name: "AlwaysGeeky — design system, marketplace, and login platform",
+    name: "AlwaysGeeky — design system, marketplace, and authentication flows",
     description:
-      "Led frontend delivery for Web3 product surfaces by building a reusable design system and shipping marketplace and login flows with accessible components, reliable auth/API states, Storybook documentation, and CI quality checks.",
-    role: "Lead Frontend Engineer · Design Systems · AlwaysGeeky Games",
+      "React / Next.js product surfaces for marketplace, authentication, and Web3 workflows, supported by a shared design system, accessibility standards, Storybook documentation, and CI quality checks.",
+    role: "Senior Frontend Engineer · Design systems · AlwaysGeeky Games",
+    contribution:
+      "Owned design-system implementation, design-to-code translation, frontend states, accessibility, and production delivery.",
     navLabel: "Web3 DS & apps",
     signalStack: [
       "Storybook + CI (visual/a11y)",
@@ -234,7 +265,20 @@ export const PROJECTS: Project[] = [
       "React / Next in production",
     ],
     badges: ["Design systems", "Accessibility"],
-    bestFor: ["Design systems", "Frontend architecture"],
+    bestFor: [
+      "Design systems",
+      "Senior frontend engineering",
+      "Design-to-code workflows",
+      "Accessibility",
+    ],
+    image: "/portfolio-media/alwaysgeeky-marketplace.png",
+    imageCaption:
+      "Marketplace and authentication surfaces showing shared component patterns, responsive behavior, and design-system consistency.",
+    secondaryMedia: {
+      src: "/portfolio-media/alwaysgeeky-login.png",
+      caption:
+        "Authentication surface showing shared component patterns, responsive behavior, and design-system consistency.",
+    },
     tech: [
       "React",
       "TypeScript",
@@ -247,9 +291,11 @@ export const PROJECTS: Project[] = [
       "Playwright",
     ],
     outcomes: [
-      "Built shared frontend foundations so marketplace, login, and product surfaces used consistent accessible components instead of one-off UI.",
-      "Added Storybook and CI quality checks for visual, accessibility, and regression coverage before merge.",
-      "Shipped production marketplace and login flows with explicit loading, empty, error, and Web3 auth/API states instead of happy-path-only UI.",
+      "Partnered with design and product to turn early concepts and incomplete requirements into polished marketplace, authentication, and product experiences.",
+      "Built and evolved a shared design system covering component APIs, visual states, responsive behavior, accessibility, and Storybook documentation.",
+      "Translated Figma designs into production interfaces while resolving practical gaps in hierarchy, spacing, interactions, responsive behavior, and edge states.",
+      "Designed reusable loading, empty, error, success, and recovery patterns for API-driven and authentication-heavy workflows.",
+      "Worked independently across visual refinement, frontend implementation, testing, release quality, and production follow-up.",
     ],
     caseStudy: {
       problem:
@@ -262,11 +308,11 @@ export const PROJECTS: Project[] = [
         "Shipped marketplace and login flows with explicit loading, empty, error, and Web3 auth/API states.",
       ],
       highLevelFlow: [
-        "Shared primitives & tokens",
-        "Storybook documentation",
-        "CI visual/a11y gates",
-        "Marketplace & login flows",
-        "Production-ready states",
+        "Design primitives + tokens",
+        "Storybook + usage patterns",
+        "Marketplace + auth workflows",
+        "Explicit API / wallet states",
+        "CI-backed release quality",
       ],
       architectureDecisions:
         "Storybook-driven design system with shared primitives; GitHub Actions running lint, visual regression, and accessibility checks on every PR; marketplace and login implemented on the same stack with explicit loading, empty, and failure surfaces.",
@@ -284,24 +330,125 @@ export const PROJECTS: Project[] = [
       { label: "A11y checks", before: "Manual", after: "Automated in CI" },
     ],
     links: [
+      // TODO(portfolio-media): Add 2–3 screenshots or a short walkthrough showing the final interface, edge states, and responsive behavior.
       { label: "Marketplace", href: "https://market.voxies.io" },
       { label: "Login", href: "https://login.voxies.io/" },
     ],
   },
   {
-    id: "data-dashboards-emplifi",
-    name: "Emplifi — data-heavy dashboards and embedded performance",
+    id: "agent-engineering-toolkit",
+    name: "Agent Engineering Toolkit — deterministic safeguards for AI coding workflows",
     description:
-      "Built and tuned dashboard interfaces using React, D3.js, and GSAP, with attention to readability, motion discipline, and performance inside embedded and mobile webview contexts.",
-    role: "Senior Frontend Engineer · Emplifi",
+      "A family of open-source TypeScript tools for making AI-assisted development safer and more operationally reliable. The toolkit audits repository readiness, agent instruction quality, pull-request risk, and CI enforcement without depending on opaque model judgment.",
+    role: "Creator and maintainer · Open-source developer tooling",
+    contribution:
+      "Owned product definition, CLI UX, rule design, TypeScript implementation, testing, documentation, release structure, and repository maintenance.",
+    navLabel: "Agent tooling",
+    signalStack: [
+      "Deterministic repository audits",
+      "Agent instruction validation",
+      "Pull-request risk analysis",
+      "GitHub Actions enforcement",
+    ],
+    badges: ["DX", "AI"],
+    bestFor: [
+      "Developer experience",
+      "AI-assisted engineering",
+      "CLI tooling",
+      "CI quality systems",
+    ],
+    tech: [
+      "TypeScript",
+      "Node.js",
+      "CLI design",
+      "GitHub Actions",
+      "CI/CD",
+      "Vitest",
+      "Static analysis",
+      "JSON output",
+      "Markdown reporting",
+    ],
+    outcomes: [
+      "Designed a shared problem model across repository readiness, instruction quality, pull-request risk, and CI enforcement.",
+      "Built deterministic CLI workflows with machine-readable output, severity thresholds, exit codes, configuration, and automated tests.",
+      "Focused the tools on practical failure modes: contradictory instructions, missing validation commands, unsafe agent guidance, sensitive-file changes, and incomplete repository context.",
+      "Kept the tools explainable and CI-friendly so teams can understand why a check failed instead of receiving a generic AI-generated warning.",
+      "Created documentation, examples, security guidance, and contributor-facing structure suitable for public repositories.",
+    ],
+    caseStudy: {
+      problem:
+        "Coding agents can generate changes quickly, but repository context, instruction quality, validation commands, and review boundaries are often incomplete or contradictory. That creates avoidable failures before code review even begins.",
+      constraints:
+        "The tools needed to work locally and in CI, produce explainable results, avoid hidden model judgment, support different repositories, and remain small enough for teams to adopt without introducing another heavy platform.",
+      owned: [],
+      architectureDecisions:
+        "Split the workflow into focused tools: repository readiness, instruction-file auditing, pull-request risk analysis, and GitHub Actions enforcement. Use deterministic rules, explicit configuration, structured output, and stable exit behavior across the toolkit.",
+      technicalImplementation:
+        "CLI-first execution, predictable exit codes, fixture-driven tests, machine-readable output, and narrow file analysis keep the tools suitable for local workflows and continuous integration.",
+      uxAccessibility:
+        "Kept the tools explainable and CI-friendly so teams can understand why a check failed instead of receiving a generic AI-generated warning.",
+      outcome:
+        "A coherent set of open-source guardrails that helps teams identify missing context, unsafe instructions, risky changes, and readiness gaps before agent-assisted work reaches production.",
+      tradeoffs:
+        "Deterministic rules cannot interpret every repository-specific nuance, but they are reproducible, testable, and easier to trust in CI. The tools prefer clear bounded checks over broad AI-generated review commentary.",
+    },
+    beforeAfter: [
+      {
+        label: "Repository guidance",
+        before: "Scattered or incomplete",
+        after: "Audited for commands, boundaries, and validation",
+      },
+      {
+        label: "Agent instructions",
+        before: "Contradictory or stale",
+        after: "Deterministic quality and safety checks",
+      },
+      {
+        label: "PR review",
+        before: "Generic AI commentary",
+        after: "Explainable risk rules and exit behavior",
+      },
+      {
+        label: "Enforcement",
+        before: "Manual local checks",
+        after: "Reusable GitHub Actions workflow",
+      },
+    ],
+    links: [
+      { label: "Agent Readiness Kit", href: "https://github.com/alipajand/agent-readiness-kit" },
+      {
+        label: "Agent Context Doctor",
+        href: "https://github.com/alipajand/agent-context-doctor",
+      },
+      {
+        label: "Agent PR Reviewer Lite",
+        href: "https://github.com/alipajand/agent-pr-reviewer-lite",
+      },
+      {
+        label: "Agent Readiness Action",
+        href: "https://github.com/alipajand/agent-readiness-action",
+      },
+    ],
+  },
+  {
+    id: "data-dashboards-emplifi",
+    name: "Emplifi — data-heavy dashboards and interaction performance",
+    description:
+      "Enterprise dashboard interfaces built with React, TypeScript, D3.js, and GSAP, focused on data density, motion, rendering performance, and embedded/mobile webview constraints.",
+    role: "Senior Frontend Engineer · Dashboards & performance · Emplifi",
+    contribution:
+      "Owned dashboard UI implementation, interaction behavior, rendering performance, and data-dense frontend patterns.",
     navLabel: "Emplifi dashboards",
     signalStack: ["D3.js", "GSAP + profiled React", "Embedded + webview performance"],
     badges: ["Data viz", "Performance"],
-    bestFor: ["Performance", "Dashboards"],
-    tech: ["React", "D3.js", "GSAP", "Figma"],
+    bestFor: ["Dashboards", "Data-heavy UI", "Performance", "Interaction design"],
+    tech: ["React", "TypeScript", "D3.js", "GSAP", "Figma"],
     outcomes: [
-      "Instrumentation and qualitative review pointed to a snappier-feeling UI and stronger engagement after tightening motion and embed performance.",
-      "The same dashboards ran smoothly when embedded in other apps and mobile webviews.",
+      "Built data-heavy enterprise dashboards with real-time rendering constraints.",
+      "Developed interactive UI experiences using React, TypeScript, D3.js, and GSAP.",
+      "Optimized rendering performance for mobile webviews, embedded contexts, and large datasets.",
+      "Defined frontend data flow and component patterns for high-frequency UI updates.",
+      "Integrated analytics, experimentation, Sentry, and Hotjar to connect UX decisions to product outcomes.",
     ],
     caseStudy: {
       problem:
@@ -313,11 +460,11 @@ export const PROJECTS: Project[] = [
         "Tuned embed and mobile-webview performance paths against tight CPU and layout budgets.",
       ],
       highLevelFlow: [
-        "Dashboard data",
-        "D3.js charts",
-        "Profiled, bounded GSAP motion",
-        "Embed & webview tuning",
-        "Responsive dashboards",
+        "Live dashboard data",
+        "D3 chart rendering",
+        "GSAP interaction motion",
+        "Embed + webview tuning",
+        "Readable high-density dashboards",
       ],
       architectureDecisions:
         "D3.js for chart fidelity; GSAP for timeline-style motion; React profiling so animation work stays bounded on low-power devices and embeds.",
@@ -337,22 +484,27 @@ export const PROJECTS: Project[] = [
         after: "Profiled, bounded motion",
       },
     ],
+    // TODO(portfolio-media): Add 2–3 screenshots or a short walkthrough showing the final interface, edge states, and responsive behavior.
     links: [{ label: "Website", href: "https://emplifi.io" }],
   },
   {
     id: "pwa-performance-controltech",
-    name: "ControlTech — PWA, performance, and startup product delivery",
+    name: "ControlTech — startup product delivery, PWAs, and frontend systems",
     description:
-      "Built startup product surfaces end to end across Vue, Nuxt, React, and React Native, with focus on performance, offline/PWA behavior, test coverage, CI/CD, and practical delivery.",
-    role: "Frontend engineer · ControlTech Startup Studio",
+      "Frontend delivery across multiple early-stage products, including PWAs, dashboards, workflow-heavy interfaces, offline-first behavior, reusable frontend patterns, and automated release pipelines.",
+    role: "Frontend Engineer · Startup product delivery · ControlTech Startup Studio",
+    contribution:
+      "Owned frontend delivery across early-stage products, including product states, responsive UI, PWAs, testing, and release pipelines.",
     navLabel: "ControlTech PWA",
     signalStack: ["Jest + Playwright", "GitHub Actions CI/CD", "PWA + CDN delivery"],
     badges: ["Performance", "DX"],
-    bestFor: ["Frontend architecture", "Performance"],
+    bestFor: ["Startup ownership", "PWAs", "Frontend systems", "Fast iteration"],
     tech: ["Vue", "Nuxt.js", "React", "React Native", "Jest", "Playwright", "GitHub Actions"],
     outcomes: [
-      "CI and automated tests sharply reduced regressions shipped to users compared with manual release habits.",
-      "Improved load time and offline behavior so early users had a fast, resilient experience on unstable connections.",
+      "Owned frontend delivery across multiple early-stage products, often working from incomplete requirements and rapidly changing priorities.",
+      "Moved between product definition, interaction decisions, implementation, testing, and deployment with minimal process overhead.",
+      "Built PWAs, dashboards, and workflow-heavy interfaces, refining responsive behavior and product states directly in code.",
+      "Established reusable frontend patterns, automated testing, and release pipelines to help small teams ship quickly without creating avoidable regressions.",
     ],
     caseStudy: {
       problem:
@@ -364,11 +516,11 @@ export const PROJECTS: Project[] = [
         "Set up route-level code splitting, CDN delivery, PWA caching, and CI test gates (Jest/Playwright/GitHub Actions).",
       ],
       highLevelFlow: [
-        "Route-level code splitting",
-        "CDN-backed assets",
-        "Service-worker PWA cache",
-        "CI test gates",
-        "Fast, offline-resilient UI",
+        "Ambiguous product requirements",
+        "Reusable frontend patterns",
+        "PWA + offline-ready flows",
+        "Automated tests + CI/CD",
+        "Fast startup releases",
       ],
       architectureDecisions:
         "Route-level code splitting and lazy loading; CDN-backed static assets; service worker caching for PWA shells; Jest and Playwright in CI with GitHub Actions gating merges.",
@@ -389,6 +541,7 @@ export const PROJECTS: Project[] = [
       },
       { label: "First load", before: "Heavy bundle", after: "Split + CDN" },
     ],
+    // TODO(portfolio-media): Add 2–3 screenshots or a short walkthrough showing the final interface, edge states, and responsive behavior.
     links: [{ label: "Website", href: "https://ctrltech.org" }],
   },
 ];

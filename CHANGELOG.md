@@ -7,7 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.6.0] - 2026-06-16
+
+### Added
+
+- `/open-source` page with a dedicated tooling section, sitemap entry, and navigation/footer links.
+- Portfolio media previews for LedgerGuard, MapBylaw, and AlwaysGeeky case studies.
+- Portfolio fit content that highlights role alignment and what hiring teams should look for.
+
+### Changed
+
+- Refined portfolio and selected-work content to surface stronger proof points, project context, and richer case-study details.
+- Expanded reusable metadata helpers and related tests to cover the new open-source page and portfolio updates.
+- Dependency bumps for `eslint-config-next`, `@tailwindcss/postcss`, `tailwindcss`, `react-hook-form`, and `@types/node`.
+
+### Removed
+
+- Obsolete `LedgerGuardArchitectureDiagram` component and the unused writing archive teaser content.
+
+---
+
 ## [1.5.1] - 2026-06-11
+
+### Changed
+
+- Dependency bumps across the stack, including Next.js, React, Tailwind, ESLint config, Resend, Marked, Jest tooling, and related type packages.
+- Refined hero behavior and copy across shared data files and sections.
+- Simplified motion and helper hooks by removing unused comments and cleanup code.
+
+### Fixed
+
+- Jest coverage collection now skips type-only files so thresholds reflect executable code.
+- Lockfile and config updates brought package metadata back in sync after the release branch changes.
 
 ---
 

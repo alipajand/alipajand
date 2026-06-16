@@ -9,11 +9,14 @@ import { Innovation } from "components/Innovation/Innovation";
 import { MainReveal } from "components/MainReveal/MainReveal";
 import { Projects } from "components/Projects/Projects";
 import { Skills } from "components/Skills/Skills";
+import { PORTFOLIO_POSITIONING_PARAGRAPH } from "data/portfolioFit";
 import {
   PAGE_LINK_BACK_TO_HOMEPAGE,
   PORTFOLIO_PAGE_HEADER_OVERLINE,
   PORTFOLIO_PAGE_HEADER_TITLE,
 } from "data/pageChrome";
+import { PortfolioRoleFitStrip } from "features/portfolio/PortfolioRoleFitStrip";
+import { PortfolioWhatToLookFor } from "features/portfolio/PortfolioWhatToLookFor";
 import { PORTFOLIO_PAGE_LEDE } from "data/site";
 import { usePageHeader } from "utils/hooks/usePageHeader";
 import { SECTION_INNER, SECTION_X } from "utils/visual";
@@ -45,6 +48,10 @@ export function PortfolioPageContent() {
           <p data-header-lede className="text-muted text-[15px] sm:text-base leading-relaxed mt-4">
             {PORTFOLIO_PAGE_LEDE}
           </p>
+          <p className="mt-5 max-w-4xl text-foreground/90 text-[15px] sm:text-base leading-relaxed">
+            {PORTFOLIO_POSITIONING_PARAGRAPH}
+          </p>
+          <PortfolioRoleFitStrip />
           <p data-header-back className="mt-8">
             <Link
               href="/"
@@ -57,6 +64,7 @@ export function PortfolioPageContent() {
       </header>
       <About />
       <Experience />
+      <PortfolioWhatToLookFor />
       <Projects />
       <Innovation />
       <Skills />

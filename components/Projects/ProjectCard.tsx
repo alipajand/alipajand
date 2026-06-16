@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-
-import { LedgerGuardArchitectureDiagram } from "components/diagrams/LedgerGuardArchitectureDiagram";
 import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
 import { ProjectCardBeforeAfterRow } from "components/Projects/ProjectCardBeforeAfterRow";
 import { ProjectCardCaseStudyField } from "components/Projects/ProjectCardCaseStudyField";
@@ -16,9 +14,9 @@ import {
   PROJECT_CARD_ARIA_BADGES,
   PROJECT_CARD_BEST_FOR_PREFIX,
   PROJECT_CARD_CASE_STUDY_SR,
+  PROJECT_CARD_CONTRIBUTION_LABEL,
   PROJECT_CARD_EXTERNAL_NEW_TAB_HINT,
   PROJECT_CARD_FULL_STACK_SUMMARY,
-  PROJECT_CARD_LEDGER_DIAGRAM_CAPTION,
   PROJECT_CARD_MORE_OUTCOMES,
   PROJECT_CARD_OPEN_PROJECT,
   PROJECT_CARD_OWNED_LABEL,
@@ -82,6 +80,16 @@ export function ProjectCard({ project }: { project: Project }) {
               {project.bestFor.join(" · ")}
             </p>
           )}
+          {project.contribution ? (
+            <div className="space-y-1.5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
+                {PROJECT_CARD_CONTRIBUTION_LABEL}
+              </p>
+              <p className="text-muted text-[15px] sm:text-base leading-relaxed max-w-prose">
+                {project.contribution}
+              </p>
+            </div>
+          ) : null}
         </div>
 
         {project.caseStudy && project.caseStudy.owned.length > 0 && (
@@ -172,14 +180,6 @@ export function ProjectCard({ project }: { project: Project }) {
             <h4 className="sr-only">{PROJECT_CARD_CASE_STUDY_SR}</h4>
             {project.caseStudy?.highLevelFlow && project.caseStudy.highLevelFlow.length > 0 ? (
               <ProjectCardHighLevelFlow steps={project.caseStudy.highLevelFlow} />
-            ) : null}
-            {project.id === "ledgerguard-deterministic-commitments-ledger" ? (
-              <figure className="space-y-2">
-                <LedgerGuardArchitectureDiagram />
-                <figcaption className="text-muted text-xs sm:text-sm leading-snug">
-                  {PROJECT_CARD_LEDGER_DIAGRAM_CAPTION}
-                </figcaption>
-              </figure>
             ) : null}
             {project.caseStudy ? (
               <div className="grid gap-5 md:grid-cols-2 md:gap-6">
