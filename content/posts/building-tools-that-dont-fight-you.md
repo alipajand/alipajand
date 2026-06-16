@@ -1,7 +1,7 @@
 ---
-title: "Building tools that don’t fight you"
+title: "Building tools that don't fight you"
 date: "2026-02-26"
-excerpt: "How I think about design systems, automated code review, and AI recommendations as one problem: building reliable tools that disappear into the work instead of getting in the way."
+excerpt: "A short framework for evaluating whether a design system, developer tool, or AI feature is actually helping the work instead of adding another layer around it."
 featured: true
 tags:
   - Design systems
@@ -9,56 +9,54 @@ tags:
   - Tooling
 ---
 
-Most of my work circles the same question: **how do you build tools that people actually use, trust, and eventually stop thinking about?**
+Most of my work circles the same question: how do you build tools people actually use, trust, and then stop thinking about?
 
-Over the past couple of years that’s shown up in three different places: a design system, a custom MCP server for code review, and AI recommendations inside MapBylaw. On paper they look unrelated; in practice they’re the same problem repeated with different constraints.
+The tool changes. Sometimes it is a design system. Sometimes it is editor automation. Sometimes it is an AI recommendation layer inside a product workflow. The test stays the same.
 
-## 1. Design systems: adoption or it didn’t happen
+## The adoption test
 
-In the design system, the real work wasn’t clever tokens or perfect Figma files. It was:
+I use a simple framework to tell whether a tool is helping or just adding ceremony:
 
-- Writing **documentation where people already look** (Storybook, README) instead of in a separate wiki.
-- Treating Storybook as the **contract between design and code**, so there’s one source of truth.
-- Keeping **governance lightweight** enough that teams didn’t feel blocked when they needed a new pattern.
+1. Does the tool appear where the decision happens?
+2. Is its contract explicit?
+3. Is failure visible?
+4. Can users override it safely?
+5. Is the preferred path easier than bypassing it?
 
-When that clicked, the system stopped being a “project” and turned into a default: people reached for it first because it was the easiest, safest option. That’s the bar.
+If several answers are no, the tool is probably fighting its users, no matter how polished the implementation looks.
 
-## 2. MCP: make the computer do the boring parts
+## How tools fight their users
 
-The MCP server came from the same instinct, applied to code review.
+Tools usually become frustrating in predictable ways.
 
-Lint, types, and tests are important, but they’re also **predictable and automatable**. By wrapping them in a custom MCP server that talks to Cursor, I moved those checks:
+They live in the wrong place. The design system hides in a wiki nobody checks during implementation. The validation workflow only speaks up in CI after the author has already moved on. The AI layer writes polished prose without showing what shaped it.
 
-- From “did you remember to run the script?”
-- To “the editor already told you what’s broken, and where.”
+They also hide too much. A component looks reusable until a real accessibility or failure state appears. A local tool runs commands but does not explain what failed. A recommendation engine gives advice without showing its limits.
 
-That shifts human review time toward architecture, trade‑offs, and naming instead of red CI dots.
+And they are often easier to bypass than to use properly. That is the clearest failure signal. When a one-off component, a skipped check, or a generic prompt is the path of least resistance, the system has an adoption problem, not just a documentation problem.
 
-Again, the pattern is the same: put a clear, typed contract in front of a process, automate the mechanical parts, and keep humans for judgement calls.
+## The same pattern in three different systems
 
-## 3. MapBylaw AI: honest recommendations or none at all
+In [Design systems that stick](/writing/design-systems-that-stick), the adoption problem was that product teams were bypassing shared components when the contract did not cover the states they actually needed. The fix was not more evangelism. It was better component APIs, clearer documentation, migration paths, and explicit accessibility requirements.
 
-On MapBylaw, AI recommendations had to earn their place.
+In [Moving deterministic checks into the editor with MCP](/writing/why-i-automate-code-review-with-mcp), the issue was not whether lint, types, and tests existed. It was where they appeared and how usable their output was. Structured editor-local feedback beats making authors wait for CI to rediscover deterministic failures.
 
-We already had a serious analysis pipeline: geocoding, zoning, PUM 2050 sectors, heritage and climate checks, rental stock protection rules, Plateau conversion caps, fiscal incentives, and a 10‑page PDF report that’s been audited for **“no static or fake data”**.
+In [Teaching MapBylaw to give honest AI recommendations](/writing/mapbylaw-ai-recommendations), the constraint was trust. Narrowing the context and validating the output made the AI feature less expansive, but more believable. That is a good trade in a product that already has strict rules about verified data.
 
-Dropping a generic chatbot on top of that would have been worse than nothing.
+The same test holds across all three. Once the tool drifts away from the moment of decision, hides its rules, or makes the workaround easier, it stops feeling like support and starts feeling like overhead.
 
-So I treated AI as just another **typed service** in the architecture:
+## What I optimize for
 
-- A strict **TypeScript shape** for `ai_recommendations` that flows through the API, dashboard, and PDF.
-- A **narrow context builder** that only feeds the model what the rest of the product already knows is true.
-- **OpenAPI + Zod** validation and tests so malformed or over‑eager recommendations fail fast instead of quietly leaking into production.
-- Alignment with the **reports data audit**: if the data doesn’t exist, the AI doesn’t get to invent it. It either says “data not available” or stays quiet.
+I want tools that make the correct behavior feel ordinary.
 
-The result is advice that feels like it comes from MapBylaw itself, not from a detached chatbot we bolted on after the fact.
+That usually means clear rules, visible failure, and a safe path that is easier than the workaround. It also means leaving room for judgment. A design system should not absorb domain logic. An MCP tool should not pretend to perform full code review. An AI recommendation layer should not speak beyond verified product knowledge.
 
-## The through‑line
+Safe override matters here too. Good tools do not trap users in a false binary between "use the system exactly as designed" and "bypass it completely." They make the supported path obvious, but they also leave a controlled way to handle the cases the shared path does not cover yet. That is equally true for product components, local validation workflows, and constrained AI features.
 
-Across all three, the pattern I keep coming back to is:
+When a tool gets those boundaries right, people stop treating it as an initiative. It just becomes part of the work, which is the highest compliment I know how to give a system.
 
-1. **Make the contract explicit.** Types, docs, and schemas are what keep tools honest and predictable.
-2. **Let machines do the repetitive work.** Lint, types, tests, report plumbing, and context building are chores computers are good at.
-3. **Reserve humans for judgement.** Design, naming, trade‑offs, and product strategy are where attention is scarce and valuable.
+## Related reading
 
-When a tool hits that balance, people stop noticing it as “a system” or “an AI feature.” It just becomes part of how the work gets done, which is exactly where I want it to be.
+- [Design systems that stick](/writing/design-systems-that-stick)
+- [Moving deterministic checks into the editor with MCP](/writing/why-i-automate-code-review-with-mcp)
+- [Teaching MapBylaw to give honest AI recommendations](/writing/mapbylaw-ai-recommendations)

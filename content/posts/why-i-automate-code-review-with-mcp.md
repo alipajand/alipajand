@@ -1,48 +1,111 @@
 ---
-title: "Why I automate code review with MCP"
+title: "Moving deterministic checks into the editor with MCP"
 date: "2026-01-15"
-excerpt: "How a custom MCP server for Cursor runs lint, types, and tests for me so human reviewers can focus on architecture, trade‑offs, and naming."
+excerpt: "Why I use MCP to run deterministic local checks in the editor, what that buys over scripts or hooks alone, and where human review still starts."
 tags:
   - DX
   - Tooling
 ---
 
-Code review is essential, but a lot of it is the same boring checklist: did you run the tests, fix the linter errors, and keep the types happy? That work is important, but it doesn’t need a human every single time.
+Code review should spend human attention on behavior, architecture, naming, and product risk. It should not spend that attention on whether someone forgot to run lint.
 
-I set up a **custom MCP server for Cursor** so those checks run automatically in my editor. By the time someone else looks at a pull request, we’re already past “your linter failed” and into the interesting parts: architecture, trade‑offs, and naming.
+That is why I moved deterministic checks into the editor with MCP. Not because lint, typecheck, and tests are "full code review," but because they are the wrong things to discover late.
 
-## What the MCP server does
+## Why MCP instead of a shell script, hook, or CI-only loop
 
-At a high level, the MCP server acts like a very opinionated assistant that understands my project and knows which commands to run.
+Shell scripts, Git hooks, and CI all have value. I still use local scripts and I still trust CI as the authoritative merge gate.
 
-It:
+The question was where deterministic feedback should appear first.
 
-- Runs the project’s **linter** and **type checker**, reporting errors by file and line directly in Cursor.
-- Triggers **tests** (e.g. Jest) and surfaces failures without leaving the IDE.
-- Optionally runs **format checks** so code style is consistent before the PR ever exists.
+A shell script is easy to write, but it still depends on the developer deciding when to run it and then parsing terminal output manually. A Git hook runs automatically, but usually at a fixed moment like pre-commit or pre-push, which is later than I want and less flexible. CI is essential, but it is the slowest place to learn about a broken type or test.
 
-Instead of remembering half a dozen `npm` scripts, I invoke one MCP tool and get a clear, structured summary of what’s broken and where.
+MCP was the right fit because it put the checks where the decision happens: inside the editor, attached to the files being changed, with structured results tooling can interpret instead of just printing.
 
-All of this happens inside Cursor, wired into the files I’m already editing. I see problems early, fix them in place, and push only when the build is effectively “green” locally.
+That is the key architectural decision. I did not primarily need "a thing that can run commands." I needed a thin tool boundary that lets the editor call allowed commands, return structured output, and keep feedback local to the code being edited.
 
-## Why it helps
+## What structured tool output enables
 
-For me, the value shows up in three places:
+Once the checks are exposed as tools instead of terminal habits, the output can be shaped for use instead of display.
 
-1. **Faster feedback:** I don’t have to push, wait for CI, and then circle back. The MCP server tells me immediately when something breaks, so the fix is still fresh in my head.
-2. **Better reviews:** Reviewers can assume “lint, types, and tests pass” and spend their attention on architecture, readability, and long‑term maintenance instead of mechanical nits.
-3. **Easier onboarding:** New contributors don’t need to memorize the project’s scripts. They run the same MCP tools I do and get consistent, guided feedback from day one.
+Structured output enables:
 
-In other words, the computer is strict about rules, and humans get to be generous about design and intent.
+- file- and line-aware issue reporting in the editor
+- consistent summaries across lint, typecheck, and tests
+- easier composition with agent workflows that need deterministic check results
+- predictable handling of failures, truncation, and timeouts
 
-## How I wired it up (at a high level)
+That matters because raw shell output is optimized for a terminal, not for a workflow. MCP lets the editor ask for a result and then decide how to present it.
 
-Under the hood, the setup is straightforward:
+The rejected alternative was a lightweight editor task that shells out to existing scripts. That can be enough for solo work, but it does not provide the same tool contract for structured consumption or broader automation.
 
-- The MCP server exposes tools like `run_lint`, `run_types`, and `run_tests`.
-- Each tool wraps the project’s existing commands (for example, `npm run lint`) and parses their output into a structured format.
-- Cursor calls these tools and decorates the editor with the results, so I can jump directly to offending lines.
+The trade-off is that MCP requires one more layer to define and maintain. I think that is justified when you want the checks to behave like reliable tools rather than one-off commands.
 
-I didn’t have to change my stack to get this working; I just formalized the checks I was already running into a repeatable, machine‑driven flow.
+## Guardrails: allowlists, timeouts, and output limits
 
-If you’re already using Cursor and you have a Node/TypeScript project, a small MCP server like this is a modest one‑time investment that keeps paying off every time you open a pull request.
+The server should be narrow on purpose.
+
+For this kind of workflow, the important safety boundary is not "MCP is magic." It is that the exposed commands are allowlisted, predictable, and small in scope. If the tool is meant to run lint, typecheck, tests, or format checks, then those are the commands it should expose. Not arbitrary shell access.
+
+Timeouts and output limits matter for the same reason. Deterministic checks should fail clearly when they hang or produce too much output. A local tool that can wedge the editor or dump unbounded logs is not helping.
+
+If the implementation targets only changed files for some checks, that is useful for speed, but it should be treated as an optimization rather than a trust boundary. Changed-file targeting can reduce noise for lint or tests, but the full project still needs authoritative validation elsewhere.
+
+The point is to make the local loop fast and safe, not to pretend the local loop is the final judge.
+
+## Local checks versus authoritative CI
+
+This is where the distinction matters most.
+
+Local MCP-driven checks are for early feedback. CI is still the authoritative shared environment. It is the merge gate, the branch-level record, and the place where the full repository runs in a standardized context.
+
+The local loop answers: "Did I just break something obvious while editing this feature?"
+
+CI answers: "Does this change pass the full project standard in the environment we trust for integration?"
+
+Those are complementary responsibilities. I do not want reviewers to assume that passing local checks means the change is correct. I want them to assume that basic deterministic failures have already surfaced early, so review time can focus on product and architectural judgment.
+
+## What remains exclusively human review work
+
+This is the line I care about protecting.
+
+Human review is still responsible for:
+
+- whether the change solves the right problem
+- whether the ownership boundaries are sound
+- whether the naming and abstractions are understandable
+- whether the failure handling is honest
+- whether the product, security, or accessibility trade-offs are acceptable
+
+No lint rule or local test command can answer those questions for you.
+
+If the workflow needs deterministic PR-risk inspection beyond local checks, that belongs in purpose-built tooling such as [Agent PR Reviewer Lite](https://github.com/alipajand/agent-pr-reviewer-lite), which inspects diffs with explicit deterministic rules. That is a different job from an MCP server that primarily exposes local validation commands inside the editor.
+
+## Comparison
+
+| Approach                        | Best at                                                                | Weakness                                                     |
+| ------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------ |
+| MCP in the editor               | Fast, structured, file-aware local feedback where code is being edited | Extra tool layer to maintain; not an authority on its own    |
+| Local scripts or Git hooks      | Simple automation around existing commands                             | Less structured output and usually weaker editor integration |
+| CI                              | Authoritative shared validation and merge gating                       | Slowest feedback loop for the author                         |
+| Deterministic PR-review tooling | Diff-aware policy and risk inspection beyond basic checks              | Different scope from local edit-time validation              |
+
+## Why I keep this setup
+
+I use MCP here because it improves where and how deterministic checks show up, not because it replaces review.
+
+The implementation idea is intentionally modest:
+
+- expose a small set of allowed validation commands
+- keep results structured enough for editor use
+- bound runtime with timeouts and output limits
+- use local checks for speed and CI for authority
+
+That is enough to move a lot of mechanical failure discovery earlier in the workflow.
+
+The reusable lesson is broader than MCP itself. Deterministic checks should appear as close as possible to the moment an engineer makes the change. Human review should begin where deterministic checking stops.
+
+## Related reading
+
+- [Building tools that don't fight you](/writing/building-tools-that-dont-fight-you)
+- [Design systems that stick](/writing/design-systems-that-stick)
+- [Agent PR Reviewer Lite](https://github.com/alipajand/agent-pr-reviewer-lite)
