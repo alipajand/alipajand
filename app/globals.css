@@ -43,14 +43,15 @@
 
 .skip-link {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0.75rem;
+  left: 0.75rem;
   z-index: 100;
   padding: 0.75rem 1rem;
   background: var(--accent);
   color: var(--background);
   font-weight: 600;
   text-decoration: none;
+  border-radius: 0.5rem;
   transform: translateY(-100%);
   transition: transform 0.2s ease;
 }
@@ -80,6 +81,16 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+#main-content {
+  scroll-margin-top: 5.5rem;
+}
+
+#main-content:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 4px;
+  border-radius: 0.75rem;
 }
 
 .font-display {
@@ -143,13 +154,21 @@ body {
 }
 
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
   outline: 2px solid var(--foreground);
   outline-offset: 2px;
 }
 
 a:focus-visible:not(.skip-link),
-button:focus-visible {
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
   border-radius: 0.25rem;
 }
 

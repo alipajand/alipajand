@@ -21,4 +21,17 @@ describe("MainReveal", () => {
     const wrapper = container.firstChild as HTMLElement;
     expect(wrapper).toHaveClass("min-h-screen");
   });
+
+  it("renders the shared main-content focus target", () => {
+    const { container } = render(
+      <MainReveal>
+        <div />
+      </MainReveal>
+    );
+    const wrapper = container.firstChild as HTMLElement;
+
+    expect(wrapper.tagName).toBe("MAIN");
+    expect(wrapper).toHaveAttribute("id", "main-content");
+    expect(wrapper).toHaveAttribute("tabindex", "-1");
+  });
 });

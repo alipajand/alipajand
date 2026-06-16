@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import { Nav } from "components/Nav/Nav";
 import { SITE_NAME } from "data/site";
@@ -49,6 +49,18 @@ describe("Nav", () => {
 
     it("should render the menu toggle button", () => {
       render(<Nav />);
+
+      expect(screen.getByRole("button", { name: /open menu/i })).toBeInTheDocument();
+    });
+
+    it("closes the mobile menu after a route change", () => {
+      const { rerender } = render(<Nav />);
+
+      fireEvent.click(screen.getByRole("button", { name: /open menu/i }));
+      expect(screen.getByRole("button", { name: /close menu/i })).toBeInTheDocument();
+
+      usePathname.mockReturnValue("/portfolio");
+      rerender(<Nav />);
 
       expect(screen.getByRole("button", { name: /open menu/i })).toBeInTheDocument();
     });

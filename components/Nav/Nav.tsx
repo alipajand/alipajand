@@ -2,6 +2,7 @@
 
 import classNames from "classnames";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 import { NavDesktopPrimaryLink } from "components/Nav/NavDesktopPrimaryLink";
 import { NavMobilePrimaryLink } from "components/Nav/NavMobilePrimaryLink";
@@ -14,10 +15,18 @@ import Link from "next/link";
 
 export function Nav() {
   const pathname = usePathname();
+  const previousPathname = useRef(pathname);
   const {
     selectors: { isScrolled, isMobileOpen, navLinksRef, mobileMenuRef, menuButtonRef },
     actions: { handleToggleMenu, handleCloseMenu },
   } = useNav();
+
+  useEffect(() => {
+    if (previousPathname.current !== pathname && isMobileOpen) {
+      handleCloseMenu();
+    }
+    previousPathname.current = pathname;
+  }, [handleCloseMenu, isMobileOpen, pathname]);
 
   return (
     <header

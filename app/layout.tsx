@@ -18,6 +18,8 @@ import { StructuredData } from "components/StructuredData/StructuredData";
 import { GatedGoogleAnalytics } from "components/Analytics/GatedGoogleAnalytics";
 import { GatedVercelAnalytics } from "components/Analytics/GatedVercelAnalytics";
 import { GatedVercelSpeedInsights } from "components/Analytics/GatedVercelSpeedInsights";
+import { RouteChangeFocus } from "components/RouteChangeFocus/RouteChangeFocus";
+import { SkipLink } from "components/SkipLink/SkipLink";
 
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_URL),
@@ -111,12 +113,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <GatedVercelAnalytics />
         <GatedVercelSpeedInsights />
 
-        <a href="#main-content" className="skip-link">
-          {SKIP_TO_CONTENT_LABEL}
-        </a>
+        <SkipLink href="#main-content" label={SKIP_TO_CONTENT_LABEL} />
 
         <StructuredData />
         <SmoothScroll>
+          <RouteChangeFocus />
           <Nav />
           {children}
           <Footer />

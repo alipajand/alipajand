@@ -1,7 +1,7 @@
 "use client";
 
 import type { RefObject } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import gsap from "gsap";
 
@@ -64,7 +64,9 @@ export function useNav(): NavHook {
   useEffect(() => {
     if (isMobileOpen && !prevMobileOpen.current) {
       queueMicrotask(() => {
-        mobileMenuRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+        mobileMenuRef.current?.querySelector<HTMLElement>(
+          "a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'])"
+        )?.focus();
       });
     }
     if (!isMobileOpen && prevMobileOpen.current) {
@@ -78,7 +80,12 @@ export function useNav(): NavHook {
     const menu = mobileMenuRef.current;
     if (!menu) return;
 
-    const getFocusable = () => Array.from(menu.querySelectorAll<HTMLAnchorElement>("a[href]"));
+    const getFocusable = () =>
+      Array.from(
+        menu.querySelectorAll<HTMLElement>(
+          "a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'])"
+        )
+      ).filter((element) => !element.hasAttribute("inert") && !element.getAttribute("aria-hidden"));
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Tab") return;
@@ -93,6 +100,9 @@ export function useNav(): NavHook {
           last.focus();
         }
       } else if (active === last) {
+        e.preventDefault();
+        first.focus();
+      } else if (!focusable.includes(active as HTMLElement)) {
         e.preventDefault();
         first.focus();
       }
@@ -153,8 +163,8 @@ export function useNav(): NavHook {
     }
   }, [isMobileOpen]);
 
-  const handleToggleMenu = () => setIsMobileOpen((prev) => !prev);
-  const handleCloseMenu = () => setIsMobileOpen(false);
+  const handleToggleMenu = useCallback(() => setIsMobileOpen((prev) => !prev), []);
+  const handleCloseMenu = useCallback(() => setIsMobileOpen(false), []);
 
   return {
     selectors: { isScrolled, isMobileOpen, navLinksRef, mobileMenuRef, menuButtonRef },
