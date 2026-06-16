@@ -23,6 +23,18 @@ jest.mock("utils/gsap", () => {
 });
 
 describe("useProjectsReveal", () => {
+  it("returns ordered project collections", () => {
+    const { result } = renderHook(() => useProjectsReveal());
+
+    expect(result.current.selectors.orderedProjects.length).toBeGreaterThan(0);
+    expect(result.current.selectors.primaryProjects.length).toBeGreaterThan(0);
+    expect(
+      result.current.selectors.secondaryProjects.every(
+        (project) => !result.current.selectors.primaryProjects.some((primary) => primary.id === project.id)
+      )
+    ).toBe(true);
+  });
+
   it("returns sectionRef", () => {
     const { result } = renderHook(() => useProjectsReveal());
     expect(result.current.selectors.sectionRef).toBeDefined();

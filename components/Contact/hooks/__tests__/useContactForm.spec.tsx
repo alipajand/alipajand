@@ -62,6 +62,13 @@ describe("useContactForm", () => {
       const formValues = result.current.actions.register("name");
       expect(formValues).toBeDefined();
     });
+
+    it("should return validation helpers for the error summary", () => {
+      const { result } = renderHook(() => useContactForm());
+
+      expect(result.current.selectors.validationErrors).toEqual([]);
+      expect(result.current.selectors.errorSummaryRef).toBeDefined();
+    });
   });
 
   describe("form submission", () => {

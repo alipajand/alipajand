@@ -1,18 +1,53 @@
 "use client";
 
 import type { RefObject } from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
+import { PORTFOLIO_CASE_STUDY_ORDER, PROJECTS, type Project } from "data/projects";
 import { gsap, prefersReducedMotion, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
 
 const CARD_SELECTOR = "[data-project-card]";
 
+const projectOrder = new Map<string, number>(
+  PORTFOLIO_CASE_STUDY_ORDER.map((id, index) => [id, index])
+);
+
+const primaryProjectIds = new Set<string>([
+  "ledgerguard-deterministic-commitments-ledger",
+  "design-system-marketplace-login-web3",
+  "data-dashboards-emplifi",
+  "mapbylaw-platform-ui-ai-reports",
+]);
+
 export interface UseProjectsRevealSelectors {
   sectionRef: RefObject<HTMLElement | null>;
+  orderedProjects: Project[];
+  primaryProjects: Project[];
+  secondaryProjects: Project[];
 }
 
 export function useProjectsReveal(): { selectors: UseProjectsRevealSelectors } {
   const sectionRef = useRef<HTMLElement>(null);
+
+  const orderedProjects = useMemo(
+    () =>
+      [...PROJECTS].sort(
+        (a, b) =>
+          (projectOrder.get(a.id) ?? Number.MAX_SAFE_INTEGER) -
+          (projectOrder.get(b.id) ?? Number.MAX_SAFE_INTEGER)
+      ),
+    []
+  );
+
+  const primaryProjects = useMemo(
+    () => orderedProjects.filter((project) => primaryProjectIds.has(project.id)),
+    [orderedProjects]
+  );
+
+  const secondaryProjects = useMemo(
+    () => orderedProjects.filter((project) => !primaryProjectIds.has(project.id)),
+    [orderedProjects]
+  );
 
   useEffect(() => {
     registerGSAPPlugins();
@@ -59,6 +94,6 @@ export function useProjectsReveal(): { selectors: UseProjectsRevealSelectors } {
   }, []);
 
   return {
-    selectors: { sectionRef },
+    selectors: { sectionRef, orderedProjects, primaryProjects, secondaryProjects },
   };
 }

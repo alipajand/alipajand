@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import {
   type FormState,
   useForm,
@@ -25,6 +25,8 @@ export interface ContactFormSelectors {
   errorMessage: string | null;
   isSubmitting: boolean;
   formState: FormState<ContactFormValues>;
+  validationErrors: string[];
+  errorSummaryRef: RefObject<HTMLDivElement | null>;
 }
 
 export interface ContactFormActions {
@@ -54,11 +56,29 @@ function composeMessage(message: string, company: string): string {
 export function useContactForm(): ContactFormHook {
   const [status, setStatus] = useState<ContactFormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const errorSummaryRef = useRef<HTMLDivElement>(null);
 
   const form = useForm<ContactFormValues>({
     defaultValues: DEFAULT_VALUES,
     mode: "onBlur",
   });
+
+  const {
+    formState: { errors, submitCount },
+  } = form;
+
+  const validationErrors = useMemo(
+    () =>
+      [errors.name?.message, errors.email?.message, errors.message?.message].filter(
+        (value): value is string => Boolean(value)
+      ),
+    [errors.email?.message, errors.message?.message, errors.name?.message]
+  );
+
+  useEffect(() => {
+    if (submitCount < 1 || validationErrors.length === 0) return;
+    errorSummaryRef.current?.focus();
+  }, [submitCount, validationErrors]);
 
   async function submitToApi(data: ContactFormValues) {
     setStatus("loading");
@@ -99,6 +119,8 @@ export function useContactForm(): ContactFormHook {
       errorMessage,
       isSubmitting: status === "loading",
       formState: form.formState,
+      validationErrors,
+      errorSummaryRef,
     },
     actions: {
       register: form.register,

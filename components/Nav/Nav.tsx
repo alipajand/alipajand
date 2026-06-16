@@ -1,32 +1,26 @@
 "use client";
 
 import classNames from "classnames";
-import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
 
 import { NavDesktopPrimaryLink } from "components/Nav/NavDesktopPrimaryLink";
 import { NavMobilePrimaryLink } from "components/Nav/NavMobilePrimaryLink";
 import { useNav } from "components/Nav/hooks/useNav";
-import { NAV_ARIA_PRIMARY, NAV_PRIMARY_LINKS } from "data/nav";
+import {
+  NAV_ARIA_PRIMARY,
+  NAV_MENU_CLOSE_LABEL,
+  NAV_MENU_OPEN_LABEL,
+  NAV_PRIMARY_LINKS,
+} from "data/nav";
 import { HERO_CTA_DOWNLOAD_RESUME, RESUME_URL, SITE_NAME } from "data/site";
 import { homeBrandAriaCurrent } from "utils/navAriaCurrent";
 import { FOCUS_RING } from "utils/visual";
 import Link from "next/link";
 
 export function Nav() {
-  const pathname = usePathname();
-  const previousPathname = useRef(pathname);
   const {
-    selectors: { isScrolled, isMobileOpen, navLinksRef, mobileMenuRef, menuButtonRef },
+    selectors: { isScrolled, isMobileOpen, pathname, navLinksRef, mobileMenuRef, menuButtonRef },
     actions: { handleToggleMenu, handleCloseMenu },
   } = useNav();
-
-  useEffect(() => {
-    if (previousPathname.current !== pathname && isMobileOpen) {
-      handleCloseMenu();
-    }
-    previousPathname.current = pathname;
-  }, [handleCloseMenu, isMobileOpen, pathname]);
 
   return (
     <header
@@ -72,7 +66,7 @@ export function Nav() {
             <button
               ref={menuButtonRef}
               type="button"
-              aria-label={isMobileOpen ? "Close menu" : "Open menu"}
+              aria-label={isMobileOpen ? NAV_MENU_CLOSE_LABEL : NAV_MENU_OPEN_LABEL}
               aria-expanded={isMobileOpen}
               aria-controls="mobile-nav"
               className={`md:hidden inline-flex min-h-11 min-w-11 flex-col items-center justify-center gap-1.5 p-2 text-foreground transition-transform duration-200 rounded-sm ${FOCUS_RING}`}

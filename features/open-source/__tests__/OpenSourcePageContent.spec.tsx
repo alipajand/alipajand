@@ -14,18 +14,13 @@ import {
   OPEN_SOURCE_SUPPORTING_HEADING,
 } from "data/openSourcePage";
 
-jest.mock("utils/hooks/usePageHeader", () => ({
-  usePageHeader: jest.fn(() => ({
+jest.mock("features/open-source/hooks/useOpenSourcePageContent", () => ({
+  useOpenSourcePageContent: jest.fn(() => ({
     selectors: {
       headerRef: { current: null },
-    },
-  })),
-}));
-
-jest.mock("utils/hooks/useScrollReveal", () => ({
-  useScrollReveal: jest.fn(() => ({
-    selectors: {
-      sectionRef: { current: null },
+      contentRef: { current: null },
+      featuredProjects: OPEN_SOURCE_PROJECTS.filter((project) => project.featured),
+      supportingProjects: OPEN_SOURCE_PROJECTS.filter((project) => !project.featured),
     },
   })),
 }));
@@ -65,9 +60,9 @@ describe("OpenSourcePageContent", () => {
       screen.getByRole("heading", { name: OPEN_SOURCE_SUPPORTING_HEADING })
     ).toBeInTheDocument();
 
-    const featuredTitles = Array.from(container.querySelectorAll("[data-open-source-project] h3")).map(
-      (heading) => heading.textContent
-    );
+    const featuredTitles = Array.from(
+      container.querySelectorAll("[data-open-source-project] h3")
+    ).map((heading) => heading.textContent);
 
     expect(featuredTitles).toEqual(["Agent PR Reviewer Lite", "Agent Context Doctor"]);
   });

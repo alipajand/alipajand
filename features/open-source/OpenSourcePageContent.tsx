@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { MainReveal } from "components/MainReveal/MainReveal";
 import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
+import { useOpenSourcePageContent } from "features/open-source/hooks/useOpenSourcePageContent";
 import { PAGE_LINK_BACK_TO_HOMEPAGE } from "data/pageChrome";
 import {
   OPEN_SOURCE_CTA_BODY,
@@ -12,13 +13,12 @@ import {
   OPEN_SOURCE_CTA_PRIMARY_LABEL,
   OPEN_SOURCE_CTA_SECONDARY_HREF,
   OPEN_SOURCE_CTA_SECONDARY_LABEL,
+  OPEN_SOURCE_FEATURED_HEADING,
+  OPEN_SOURCE_FEATURED_LEDE,
   OPEN_SOURCE_HEADER_HEADING,
   OPEN_SOURCE_HEADER_INTRO,
   OPEN_SOURCE_HEADER_LEDE,
   OPEN_SOURCE_HEADER_OVERLINE,
-  OPEN_SOURCE_FEATURED_HEADING,
-  OPEN_SOURCE_FEATURED_LEDE,
-  OPEN_SOURCE_PROJECTS,
   OPEN_SOURCE_SHARED_PRINCIPLES,
   OPEN_SOURCE_SHARED_PRINCIPLES_HEADING,
   OPEN_SOURCE_SUPPORTING_HEADING,
@@ -28,8 +28,6 @@ import {
   type OpenSourcePrinciple,
   type OpenSourceProject,
 } from "data/openSourcePage";
-import { usePageHeader } from "utils/hooks/usePageHeader";
-import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import {
   CARD_SURFACE_HOVER,
   CTA_PRIMARY,
@@ -128,15 +126,8 @@ function OpenSourcePrincipleCard({ principle }: { principle: OpenSourcePrinciple
 
 export function OpenSourcePageContent() {
   const {
-    selectors: { headerRef },
-  } = usePageHeader();
-
-  const {
-    selectors: { sectionRef: contentRef },
-  } = useScrollReveal({ y: 36, stagger: 0.1, start: "top 90%" });
-
-  const featuredProjects = OPEN_SOURCE_PROJECTS.filter((project) => project.featured);
-  const supportingProjects = OPEN_SOURCE_PROJECTS.filter((project) => !project.featured);
+    selectors: { headerRef, contentRef, featuredProjects, supportingProjects },
+  } = useOpenSourcePageContent();
 
   return (
     <MainReveal>
@@ -188,10 +179,7 @@ export function OpenSourcePageContent() {
         <section aria-labelledby="open-source-supporting-heading" className={SECTION_BLOCK}>
           <div className={SECTION_INNER}>
             <header className="mb-10 sm:mb-12" data-reveal>
-              <h2
-                id="open-source-supporting-heading"
-                className={`${SECTION_TITLE} mb-4 sm:mb-5`}
-              >
+              <h2 id="open-source-supporting-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
                 {OPEN_SOURCE_SUPPORTING_HEADING}
               </h2>
               <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_SUPPORTING_LEDE}</p>

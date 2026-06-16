@@ -12,8 +12,6 @@ import {
   PORTFOLIO_OPEN_SOURCE_CALLOUT_CTA,
   PORTFOLIO_OPEN_SOURCE_CALLOUT_HEADING,
   PORTFOLIO_OTHER_WORK_HEADING,
-  PORTFOLIO_CASE_STUDY_ORDER,
-  PROJECTS,
 } from "data/projects";
 import { PROJECT_COLLECTION_ARIA_LABEL } from "data/projectsUi";
 import {
@@ -21,36 +19,14 @@ import {
   CTA_SECONDARY,
   SECTION_INNER_WIDE,
   SECTION_RULE,
+  SECTION_TITLE,
   SECTION_X,
   SECTION_Y,
-  SECTION_TITLE,
 } from "utils/visual";
-
-const projectOrder = new Map<string, number>(
-  PORTFOLIO_CASE_STUDY_ORDER.map((id, index) => [id, index])
-);
-const primaryProjectIds = new Set<string>([
-  "ledgerguard-deterministic-commitments-ledger",
-  "design-system-marketplace-login-web3",
-  "data-dashboards-emplifi",
-  "mapbylaw-platform-ui-ai-reports",
-]);
-
-const orderedProjects = [...PROJECTS].sort(
-  (a, b) =>
-    (projectOrder.get(a.id) ?? Number.MAX_SAFE_INTEGER) -
-    (projectOrder.get(b.id) ?? Number.MAX_SAFE_INTEGER)
-);
-
-const primaryProjects = orderedProjects.filter((project) => primaryProjectIds.has(project.id));
-
-const secondaryProjects = orderedProjects.filter(
-  (project) => !primaryProjects.some((primary) => primary.id === project.id)
-);
 
 export function Projects() {
   const {
-    selectors: { sectionRef },
+    selectors: { sectionRef, orderedProjects, primaryProjects, secondaryProjects },
   } = useProjectsReveal();
 
   return (
