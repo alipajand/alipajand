@@ -7,7 +7,7 @@ export interface Job {
 
 export const JOBS: Job[] = [
   {
-    role: "Senior Frontend Developer",
+    role: "Senior Frontend Engineer",
     company: "AlwaysGeeky Games",
     period: "2024 – 2026",
     highlights: [
@@ -17,7 +17,7 @@ export const JOBS: Job[] = [
     ],
   },
   {
-    role: "Senior Frontend Developer",
+    role: "Senior Frontend Engineer",
     company: "Emplifi",
     period: "2022 – 2023",
     highlights: [

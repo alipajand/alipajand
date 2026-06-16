@@ -5,8 +5,9 @@ import {
   ENGINEERING_PRINCIPLES_PAGE_TITLE,
 } from "data/engineeringPrinciples";
 import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
+import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/portfolioFit";
 import { WRITING_INDEX_DESCRIPTION } from "data/writing";
-import { CANONICAL_URL, PORTFOLIO_PAGE_LEDE, SITE_NAME, TWITTER_HANDLE } from "data/site";
+import { CANONICAL_URL, SITE_NAME, TWITTER_HANDLE } from "data/site";
 import type { Post } from "utils/posts";
 
 const defaultOgImage = {
@@ -87,8 +88,8 @@ export function buildArticleMetadata(post: Post): Metadata {
 
 export function buildPortfolioMetadata(): Metadata {
   const url = `${CANONICAL_URL}/portfolio`;
-  const title = "Portfolio";
-  const description = PORTFOLIO_PAGE_LEDE;
+  const title = PORTFOLIO_META_TITLE;
+  const description = PORTFOLIO_META_DESCRIPTION;
   return {
     title,
     description,
@@ -97,14 +98,14 @@ export function buildPortfolioMetadata(): Metadata {
       type: "website",
       url,
       siteName: SITE_NAME,
-      title: `${title} · ${SITE_NAME}`,
+      title,
       description,
       locale: "en_US",
-      images: [{ ...defaultOgImage, alt: `${title} · ${SITE_NAME}` }],
+      images: [{ ...defaultOgImage, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} · ${SITE_NAME}`,
+      title,
       description,
       images: [defaultOgImage.url],
       ...twitterExtras(),

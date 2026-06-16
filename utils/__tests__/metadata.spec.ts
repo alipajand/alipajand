@@ -12,7 +12,8 @@ import {
   ENGINEERING_PRINCIPLES_PAGE_TITLE,
 } from "data/engineeringPrinciples";
 import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
-import { CANONICAL_URL, PORTFOLIO_PAGE_LEDE } from "data/site";
+import { PORTFOLIO_META_DESCRIPTION } from "data/portfolioFit";
+import { CANONICAL_URL } from "data/site";
 import { WRITING_INDEX_DESCRIPTION } from "data/writing";
 
 describe("utils/metadata", () => {
@@ -50,7 +51,7 @@ describe("utils/metadata", () => {
   it("buildPortfolioMetadata sets canonical and portfolio description", () => {
     const m = buildPortfolioMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/portfolio`);
-    expect(m.description).toBe(PORTFOLIO_PAGE_LEDE);
+    expect(m.description).toBe(PORTFOLIO_META_DESCRIPTION);
   });
 
   it("buildEngineeringPrinciplesMetadata sets canonical, title, and description", () => {

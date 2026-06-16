@@ -22,7 +22,7 @@ export const KEYWORDS = [
 export const CANONICAL_URL = "https://alipajand.com";
 
 export const PORTFOLIO_PAGE_LEDE =
-  "Case studies, product systems, architecture decisions, and shipped work across design systems, AI workflows, dashboards, and developer experience.";
+  "Selected work across React, Next.js, TypeScript, design systems, workflow-heavy SaaS interfaces, dashboards, AI-assisted review flows, and frontend architecture.";
 
 export const SITE_META_DESCRIPTION =
   "Senior Frontend and Product Engineer with 9+ years of experience building React and TypeScript products, design systems, accessible interfaces, frontend architecture, and developer tooling.";

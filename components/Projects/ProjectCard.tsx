@@ -16,6 +16,7 @@ import {
   PROJECT_CARD_ARIA_BADGES,
   PROJECT_CARD_BEST_FOR_PREFIX,
   PROJECT_CARD_CASE_STUDY_SR,
+  PROJECT_CARD_CONTRIBUTION_LABEL,
   PROJECT_CARD_EXTERNAL_NEW_TAB_HINT,
   PROJECT_CARD_FULL_STACK_SUMMARY,
   PROJECT_CARD_LEDGER_DIAGRAM_CAPTION,
@@ -82,6 +83,16 @@ export function ProjectCard({ project }: { project: Project }) {
               {project.bestFor.join(" · ")}
             </p>
           )}
+          {project.contribution ? (
+            <div className="space-y-1.5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
+                {PROJECT_CARD_CONTRIBUTION_LABEL}
+              </p>
+              <p className="text-muted text-[15px] sm:text-base leading-relaxed max-w-prose">
+                {project.contribution}
+              </p>
+            </div>
+          ) : null}
         </div>
 
         {project.caseStudy && project.caseStudy.owned.length > 0 && (

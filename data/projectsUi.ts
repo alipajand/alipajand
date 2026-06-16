@@ -14,6 +14,7 @@ export const PROJECT_CARD_ARIA_BADGES = "Project themes";
 export const PROJECT_CARD_BEST_FOR_PREFIX = "Best for:";
 
 export const PROJECT_CARD_TECHNICAL_SIGNALS = "Technical signals";
+export const PROJECT_CARD_CONTRIBUTION_LABEL = "My contribution";
 
 export const PROJECT_CARD_FULL_STACK_SUMMARY = "Full stack";
 

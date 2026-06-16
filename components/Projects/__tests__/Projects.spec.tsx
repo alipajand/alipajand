@@ -28,10 +28,58 @@ describe("Projects", () => {
     ).toBeInTheDocument();
   });
 
+  it("renders updated project roles", () => {
+    const { container } = render(<Projects />);
+    const text = container.textContent ?? "";
+
+    expect(text).toContain("Senior Product Engineer · Design-minded frontend owner · LedgerGuard");
+    expect(text).toContain(
+      "Senior Product Engineer · Frontend architecture & product UI · MapBylaw"
+    );
+    expect(text).toContain("Senior Frontend Engineer · Design systems · AlwaysGeeky Games");
+    expect(text).toContain("Senior Frontend Engineer · Dashboards & performance · Emplifi");
+    expect(text).toContain(
+      "Frontend Engineer · Startup product delivery · ControlTech Startup Studio"
+    );
+  });
+
+  it("renders contribution fields for updated projects", () => {
+    render(<Projects />);
+
+    expect(screen.getAllByText("My contribution").length).toBeGreaterThan(0);
+    expect(
+      screen.getByText(
+        "Owned product experience, visual hierarchy, interaction states, frontend implementation, review workflows, and production iteration."
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("preserves existing project links", () => {
+    render(<Projects />);
+
+    const projectLinks = screen.getAllByRole("link", { name: /Project/i });
+    const hrefs = projectLinks.map((link) => link.getAttribute("href"));
+
+    expect(hrefs).toContain("https://ledgerguard.io/");
+    expect(hrefs).toContain("https://mapbylaw.ca/");
+    expect(screen.getByRole("link", { name: /Marketplace/i })).toHaveAttribute(
+      "href",
+      "https://market.voxies.io"
+    );
+    expect(screen.getByRole("link", { name: /Login/i })).toHaveAttribute(
+      "href",
+      "https://login.voxies.io/"
+    );
+    const websiteLinks = screen.getAllByRole("link", { name: /Website/i });
+    const websiteHrefs = websiteLinks.map((link) => link.getAttribute("href"));
+    expect(websiteHrefs).toContain("https://emplifi.io");
+    expect(websiteHrefs).toContain("https://ctrltech.org");
+  });
+
   it("renders all projects from data", () => {
     render(<Projects />);
     PROJECTS.forEach((project) => {
-      expect(screen.getByText(project.name)).toBeInTheDocument();
+      expect(screen.getAllByText(project.name).length).toBeGreaterThan(0);
     });
   });
 

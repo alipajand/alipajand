@@ -3,8 +3,8 @@
 import Link from "next/link";
 
 import { SelectedWorkCard } from "components/SelectedWork/SelectedWorkCard";
+import { PROJECTS } from "data/projects";
 import {
-  SELECTED_WORK,
   SELECTED_WORK_HEADING,
   SELECTED_WORK_LEDE,
   SELECTED_WORK_SECTION_CTA_HREF,
@@ -23,6 +23,7 @@ export function SelectedWork() {
   const {
     selectors: { sectionRef },
   } = useScrollReveal({ y: 32, stagger: 0.08 });
+  const selectedWorkProjects = PROJECTS.filter((project) => project.highlighted);
 
   return (
     <section
@@ -40,9 +41,9 @@ export function SelectedWork() {
         </header>
 
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">
-          {SELECTED_WORK.map((item) => (
-            <li key={item.projectId} data-reveal className="h-full">
-              <SelectedWorkCard item={item} />
+          {selectedWorkProjects.map((project) => (
+            <li key={project.id} data-reveal className="h-full">
+              <SelectedWorkCard project={project} />
             </li>
           ))}
         </ul>
