@@ -6,10 +6,12 @@ import {
   OPEN_SOURCE_CTA_PRIMARY_LABEL,
   OPEN_SOURCE_CTA_SECONDARY_HREF,
   OPEN_SOURCE_CTA_SECONDARY_LABEL,
+  OPEN_SOURCE_FEATURED_HEADING,
   OPEN_SOURCE_HEADER_HEADING,
   OPEN_SOURCE_PROJECTS,
   OPEN_SOURCE_SHARED_PRINCIPLES,
   OPEN_SOURCE_SHARED_PRINCIPLES_HEADING,
+  OPEN_SOURCE_SUPPORTING_HEADING,
 } from "data/openSourcePage";
 
 jest.mock("utils/hooks/usePageHeader", () => ({
@@ -53,6 +55,38 @@ describe("OpenSourcePageContent", () => {
         })
       ).toHaveAttribute("href", project.repositoryUrl);
     });
+  });
+
+  it("features agent-pr-reviewer-lite and agent-context-doctor first", () => {
+    const { container } = render(<OpenSourcePageContent />);
+
+    expect(screen.getByRole("heading", { name: OPEN_SOURCE_FEATURED_HEADING })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: OPEN_SOURCE_SUPPORTING_HEADING })
+    ).toBeInTheDocument();
+
+    const featuredTitles = Array.from(container.querySelectorAll("[data-open-source-project] h3")).map(
+      (heading) => heading.textContent
+    );
+
+    expect(featuredTitles).toEqual(["Agent PR Reviewer Lite", "Agent Context Doctor"]);
+  });
+
+  it("renders example input and output blocks for the featured tools", () => {
+    render(<OpenSourcePageContent />);
+
+    expect(screen.getAllByText("Example input")).toHaveLength(2);
+    expect(screen.getAllByText("Example output")).toHaveLength(2);
+    expect(screen.getByText(/git diff --name-only HEAD~1..HEAD/)).toBeInTheDocument();
+    expect(screen.getByText(/Severity: medium/)).toBeInTheDocument();
+  });
+
+  it("renders maturity and tested capability labels without GitHub stats copy", () => {
+    render(<OpenSourcePageContent />);
+
+    expect(screen.getAllByText("Maturity").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Tested capabilities").length).toBeGreaterThan(0);
+    expect(screen.queryByText(/stars|forks|followers/i)).not.toBeInTheDocument();
   });
 
   it("renders the shared principles heading", () => {
