@@ -17,7 +17,12 @@ import { DUR, EASE } from "utils/motion";
 
 const SCRAMBLE_CHARS = "!@#%^&*xX01?$";
 
-function scrambleText(el: HTMLElement, target: string, duration: number, onComplete?: () => void) {
+const scrambleText = (
+  el: HTMLElement,
+  target: string,
+  duration: number,
+  onComplete?: () => void
+) => {
   const totalFrames = Math.round(duration * 60);
   let frame = 0;
 
@@ -42,9 +47,9 @@ function scrambleText(el: HTMLElement, target: string, duration: number, onCompl
   };
 
   requestAnimationFrame(tick);
-}
+};
 
-export function NotFoundPageContent() {
+export const NotFoundPageContent = () => {
   const codeRef = useRef<HTMLParagraphElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
@@ -134,4 +139,4 @@ export function NotFoundPageContent() {
       </main>
     </>
   );
-}
+};

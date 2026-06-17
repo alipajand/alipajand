@@ -4,36 +4,46 @@ import Link from "next/link";
 
 import { MainReveal } from "components/MainReveal/MainReveal";
 import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
+import { useOpenSourcePageContent } from "features/open-source/hooks/useOpenSourcePageContent";
 import { PAGE_LINK_BACK_TO_HOMEPAGE } from "data/pageChrome";
 import {
+  OPEN_SOURCE_CONTRIBUTION_LABEL,
   OPEN_SOURCE_CTA_BODY,
   OPEN_SOURCE_CTA_HEADING,
   OPEN_SOURCE_CTA_PRIMARY_HREF,
   OPEN_SOURCE_CTA_PRIMARY_LABEL,
   OPEN_SOURCE_CTA_SECONDARY_HREF,
   OPEN_SOURCE_CTA_SECONDARY_LABEL,
+  OPEN_SOURCE_EXAMPLE_COMMAND_LABEL,
+  OPEN_SOURCE_EXAMPLE_DISCLAIMER,
+  OPEN_SOURCE_EXAMPLE_INPUT_LABEL,
+  OPEN_SOURCE_EXAMPLE_OUTPUT_LABEL,
+  OPEN_SOURCE_FEATURED_HEADING,
+  OPEN_SOURCE_FEATURED_LEDE,
+  OPEN_SOURCE_FORMAT_LABEL,
   OPEN_SOURCE_HEADER_HEADING,
   OPEN_SOURCE_HEADER_INTRO,
   OPEN_SOURCE_HEADER_LEDE,
   OPEN_SOURCE_HEADER_OVERLINE,
-  OPEN_SOURCE_PROJECTS,
+  OPEN_SOURCE_REPOSITORY_LINK_LABEL,
   OPEN_SOURCE_SHARED_PRINCIPLES,
   OPEN_SOURCE_SHARED_PRINCIPLES_HEADING,
+  OPEN_SOURCE_STATUS_LABEL,
+  OPEN_SOURCE_SUPPORTING_HEADING,
+  OPEN_SOURCE_SUPPORTING_LEDE,
   OPEN_SOURCE_TECHNOLOGY_BADGES,
   OPEN_SOURCE_TECHNOLOGY_HEADING,
-  OPEN_SOURCE_TOOLKIT_HEADING,
-  OPEN_SOURCE_TOOLKIT_LEDE,
   type OpenSourcePrinciple,
   type OpenSourceProject,
+  openSourceRepositoryAriaLabel,
 } from "data/openSourcePage";
-import { usePageHeader } from "utils/hooks/usePageHeader";
-import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import {
   CARD_SURFACE_HOVER,
   CTA_PRIMARY,
   CTA_SECONDARY,
   FOCUS_RING,
   LABEL_OVERLINE,
+  PAGE_HEADER_SHELL,
   SECTION_INNER,
   SECTION_LEDE,
   SECTION_LEDE_LG,
@@ -46,7 +56,7 @@ const CARD_TITLE = "font-display font-semibold text-xl text-foreground leading-t
 const CARD_TEXT = "text-muted text-[15px] leading-relaxed";
 const FIELD_LABEL = "text-[11px] font-semibold uppercase tracking-[0.12em] text-muted";
 
-function OpenSourceProjectCard({ project }: { project: OpenSourceProject }) {
+const OpenSourceProjectCard = ({ project }: { project: OpenSourceProject }) => {
   return (
     <article className={`${CARD_SURFACE_HOVER} flex h-full flex-col gap-6 p-6 sm:p-8`}>
       <div className="space-y-3">
@@ -54,13 +64,24 @@ function OpenSourceProjectCard({ project }: { project: OpenSourceProject }) {
         <p className={CARD_TEXT}>{project.summary}</p>
       </div>
 
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-2">
+          <p className={FIELD_LABEL}>{OPEN_SOURCE_STATUS_LABEL}</p>
+          <p className="text-sm leading-relaxed text-foreground/85">{project.status}</p>
+        </div>
+        <div className="space-y-2">
+          <p className={FIELD_LABEL}>{OPEN_SOURCE_FORMAT_LABEL}</p>
+          <p className="text-sm leading-relaxed text-foreground/85">{project.format}</p>
+        </div>
+      </div>
+
       <div className="space-y-3">
-        <p className={FIELD_LABEL}>{project.checklistLabel}</p>
+        <p className={FIELD_LABEL}>{project.testedCapabilitiesLabel}</p>
         <ul
           className="flex flex-col gap-2 list-none p-0 m-0"
-          aria-label={`${project.title} checks`}
+          aria-label={`${project.title} capabilities`}
         >
-          {project.checklistItems.map((item) => (
+          {project.testedCapabilities.map((item) => (
             <li
               key={item}
               className="relative pl-4 text-foreground/85 text-[15px] leading-relaxed before:absolute before:left-0 before:top-[0.6em] before:size-1.5 before:-translate-y-1/2 before:rounded-full before:bg-foreground/40"
@@ -72,17 +93,45 @@ function OpenSourceProjectCard({ project }: { project: OpenSourceProject }) {
       </div>
 
       <div className="space-y-2">
-        <p className={FIELD_LABEL}>Contribution</p>
+        <p className={FIELD_LABEL}>{OPEN_SOURCE_CONTRIBUTION_LABEL}</p>
         <p className={CARD_TEXT}>{project.contribution}</p>
       </div>
+
+      {project.exampleOutput ? (
+        <div className="space-y-4 rounded-xl border border-border/70 bg-background/55 p-4">
+          {project.exampleCommand ? (
+            <div className="space-y-2">
+              <p className={FIELD_LABEL}>{OPEN_SOURCE_EXAMPLE_COMMAND_LABEL}</p>
+              <pre className="overflow-x-auto whitespace-pre-wrap break-words rounded-lg border border-border/70 bg-background px-3 py-3 text-xs leading-relaxed text-foreground/85">
+                <code>{project.exampleCommand}</code>
+              </pre>
+            </div>
+          ) : null}
+          {project.exampleInput ? (
+            <div className="space-y-2">
+              <p className={FIELD_LABEL}>{OPEN_SOURCE_EXAMPLE_INPUT_LABEL}</p>
+              <pre className="overflow-x-auto whitespace-pre-wrap break-words rounded-lg border border-border/70 bg-background px-3 py-3 text-xs leading-relaxed text-foreground/85">
+                <code>{project.exampleInput}</code>
+              </pre>
+            </div>
+          ) : null}
+          <div className="space-y-2">
+            <p className={FIELD_LABEL}>{OPEN_SOURCE_EXAMPLE_OUTPUT_LABEL}</p>
+            <pre className="overflow-x-auto whitespace-pre-wrap break-words rounded-lg border border-border/70 bg-background px-3 py-3 text-xs leading-relaxed text-foreground/85">
+              <code>{project.exampleOutput}</code>
+            </pre>
+          </div>
+          <p className="text-xs leading-relaxed text-muted">{OPEN_SOURCE_EXAMPLE_DISCLAIMER}</p>
+        </div>
+      ) : null}
 
       <div className="mt-auto pt-1">
         <Link
           href={project.repositoryUrl}
-          aria-label={`Open ${project.title} repository on GitHub`}
+          aria-label={openSourceRepositoryAriaLabel(project.title)}
           className={`inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 decoration-foreground/40 hover:decoration-foreground rounded-sm ${FOCUS_RING}`}
         >
-          <span>Repository</span>
+          <span>{OPEN_SOURCE_REPOSITORY_LINK_LABEL}</span>
           <span aria-hidden className="text-muted">
             ↗
           </span>
@@ -90,32 +139,25 @@ function OpenSourceProjectCard({ project }: { project: OpenSourceProject }) {
       </div>
     </article>
   );
-}
+};
 
-function OpenSourcePrincipleCard({ principle }: { principle: OpenSourcePrinciple }) {
+const OpenSourcePrincipleCard = ({ principle }: { principle: OpenSourcePrinciple }) => {
   return (
     <article className={`${CARD_SURFACE_HOVER} h-full p-5 sm:p-6`}>
       <h3 className="font-display font-semibold text-lg text-foreground">{principle.title}</h3>
       <p className="mt-2 text-muted text-sm leading-relaxed">{principle.body}</p>
     </article>
   );
-}
+};
 
-export function OpenSourcePageContent() {
+export const OpenSourcePageContent = () => {
   const {
-    selectors: { headerRef },
-  } = usePageHeader();
-
-  const {
-    selectors: { sectionRef: contentRef },
-  } = useScrollReveal({ y: 36, stagger: 0.1, start: "top 90%" });
+    selectors: { headerRef, contentRef, featuredProjects, supportingProjects },
+  } = useOpenSourcePageContent();
 
   return (
     <MainReveal>
-      <header
-        ref={headerRef}
-        className={`${SECTION_X} border-b border-border bg-background pt-28 pb-10 sm:pb-12 sm:pt-32`}
-      >
+      <header ref={headerRef} className={PAGE_HEADER_SHELL}>
         <div className={SECTION_INNER}>
           <p data-header-overline className={`${LABEL_OVERLINE} mb-2`}>
             {OPEN_SOURCE_HEADER_OVERLINE}
@@ -141,18 +183,42 @@ export function OpenSourcePageContent() {
       </header>
 
       <div ref={contentRef as React.Ref<HTMLDivElement>}>
-        <section aria-labelledby="open-source-toolkit-heading" className={SECTION_BLOCK}>
+        <section aria-labelledby="open-source-featured-heading" className={SECTION_BLOCK}>
           <div className={SECTION_INNER}>
             <header className="mb-10 sm:mb-12" data-reveal>
-              <h2 id="open-source-toolkit-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
-                {OPEN_SOURCE_TOOLKIT_HEADING}
+              <h2 id="open-source-featured-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
+                {OPEN_SOURCE_FEATURED_HEADING}
               </h2>
-              <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_TOOLKIT_LEDE}</p>
+              <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_FEATURED_LEDE}</p>
             </header>
 
             <ul className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">
-              {OPEN_SOURCE_PROJECTS.map((project) => (
+              {featuredProjects.map((project) => (
                 <li key={project.title} data-reveal data-open-source-project className="h-full">
+                  <OpenSourceProjectCard project={project} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section aria-labelledby="open-source-supporting-heading" className={SECTION_BLOCK}>
+          <div className={SECTION_INNER}>
+            <header className="mb-10 sm:mb-12" data-reveal>
+              <h2 id="open-source-supporting-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
+                {OPEN_SOURCE_SUPPORTING_HEADING}
+              </h2>
+              <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_SUPPORTING_LEDE}</p>
+            </header>
+
+            <ul className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">
+              {supportingProjects.map((project) => (
+                <li
+                  key={project.title}
+                  data-reveal
+                  data-open-source-supporting-project
+                  className="h-full"
+                >
                   <OpenSourceProjectCard project={project} />
                 </li>
               ))}
@@ -225,4 +291,4 @@ export function OpenSourcePageContent() {
       </div>
     </MainReveal>
   );
-}
+};

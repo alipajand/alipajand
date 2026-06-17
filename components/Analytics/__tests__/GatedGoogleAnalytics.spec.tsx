@@ -8,7 +8,7 @@ jest.mock("next/script", () => ({
   ),
 }));
 
-async function loadComponent(gaId?: string): Promise<ComponentType> {
+const loadComponent = async (gaId?: string): Promise<ComponentType> => {
   let Component!: ComponentType;
   await jest.isolateModulesAsync(async () => {
     if (gaId === undefined) {
@@ -22,7 +22,7 @@ async function loadComponent(gaId?: string): Promise<ComponentType> {
     Component = mod.GatedGoogleAnalytics;
   });
   return Component;
-}
+};
 
 describe("GatedGoogleAnalytics", () => {
   const originalGaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;

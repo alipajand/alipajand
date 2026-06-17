@@ -49,7 +49,7 @@ describe("useHero", () => {
 
   describe("effect with mounted refs", () => {
     it("calls gsap when refs are attached", () => {
-      function HeroWrapper() {
+      const HeroWrapper = () => {
         const { selectors } = useHero();
         return (
           <div ref={selectors.containerRef as React.RefObject<HTMLDivElement>}>
@@ -65,7 +65,7 @@ describe("useHero", () => {
             <div ref={selectors.scrollIndicatorRef}>↓</div>
           </div>
         );
-      }
+      };
       render(<HeroWrapper />);
       expect(gsap.set).toHaveBeenCalled();
       expect(gsap.timeline).toHaveBeenCalled();
@@ -74,7 +74,7 @@ describe("useHero", () => {
 
     it("sets opacity 1 when prefersReducedMotion is true", () => {
       jest.mocked(utilsGsap.prefersReducedMotion).mockReturnValue(true);
-      function HeroWrapper() {
+      const HeroWrapper = () => {
         const { selectors } = useHero();
         return (
           <div ref={selectors.containerRef as React.RefObject<HTMLDivElement>}>
@@ -88,7 +88,7 @@ describe("useHero", () => {
             <div ref={selectors.scrollIndicatorRef}>↓</div>
           </div>
         );
-      }
+      };
       render(<HeroWrapper />);
       expect(gsap.set).toHaveBeenCalledWith(
         expect.anything(),

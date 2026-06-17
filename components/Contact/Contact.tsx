@@ -5,9 +5,10 @@ import { LINKS } from "data/links";
 import {
   CONTACT_DIRECT_LABEL,
   CONTACT_FORM_SECTION_HEADING,
+  CONTACT_SECTION_BODY,
   CONTACT_SECTION_HEADING,
 } from "data/contact";
-import { CONTACT_FORM_LEDE, CONTACT_INTRO } from "data/site";
+import { CONTACT_FORM_LEDE } from "data/site";
 import { ContactChannelCard } from "components/Contact/ContactChannelCard";
 import { ContactForm } from "components/Contact/ContactForm";
 import {
@@ -18,7 +19,7 @@ import {
   SECTION_TITLE,
 } from "utils/visual";
 
-export function Contact() {
+export const Contact = () => {
   const {
     selectors: { sectionRef },
   } = useScrollReveal({ y: 32, stagger: 0.08 });
@@ -35,7 +36,7 @@ export function Contact() {
           {CONTACT_SECTION_HEADING}
         </h2>
         <p className={`${SECTION_LEDE} mb-8 sm:mb-10`} data-reveal>
-          {CONTACT_INTRO}
+          {CONTACT_SECTION_BODY}
         </p>
 
         <div className="mb-10" data-reveal>
@@ -60,4 +61,4 @@ export function Contact() {
       </div>
     </section>
   );
-}
+};

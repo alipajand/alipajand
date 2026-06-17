@@ -10,7 +10,9 @@ export interface HiringFitRevealSelectors {
   sectionRef: RefObject<HTMLElement | null>;
 }
 
-export function useHiringFitReveal(): { selectors: HiringFitRevealSelectors } {
+export const useHiringFitReveal = (): {
+  selectors: HiringFitRevealSelectors;
+} => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -68,4 +70,4 @@ export function useHiringFitReveal(): { selectors: HiringFitRevealSelectors } {
   }, []);
 
   return { selectors: { sectionRef } };
-}
+};

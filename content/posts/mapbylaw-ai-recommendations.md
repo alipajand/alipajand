@@ -1,32 +1,163 @@
 ---
 title: "Teaching MapBylaw to give honest AI recommendations"
 date: "2026-02-26"
-excerpt: "How we went from vague, ChatGPT-flavoured suggestions to grounded, auditable AI recommendations inside a real zoning and feasibility product."
+excerpt: "How I moved from vague, ChatGPT-flavored suggestions to grounded, auditable AI recommendations inside a real zoning and feasibility product."
 tags:
   - Product engineering
   - AI
 ---
 
-On MapBylaw, “AI recommendations” can’t just sound smart: they have to survive contact with a real planner, a skeptical developer, and a 10‑page report. If the text isn’t grounded in zoning rules, feasibility math, and the same datasets the rest of the app uses, it’s just copy with a chatbot accent.
+On MapBylaw, "AI recommendations" cannot just sound smart. They have to survive contact with a planner, a skeptical developer, and a 10-page report. If the text is not grounded in zoning rules, feasibility math, and the same verified datasets the rest of the product uses, it is just copy with a chatbot accent.
 
-This is how I went from “ChatGPT-flavoured suggestions” to recommendations that are specific, auditable, and aligned with our own report content policy.
+This is how I moved the feature from vague suggestions to recommendations that are specific, auditable, and aligned with our report content policy.
 
-**Problem: vague advice and no guardrails.**  
-Early experiments produced generic text like “consider adding more units” or “optimize density where possible.” It didn’t reference the actual parcel, PUM 2050 sector, heritage constraints, or the report content policy we’d already written (“no static or fake data, no region-hardcoded fallbacks that pretend to be real”).
+## Problem: vague advice with no contract
 
-On top of that, there was no clear contract between the Fastify API, the React dashboards, and the React‑PDF report. The AI could “see” some combination of fields, but there was no easy way for us to prove which ones or to enforce that the dashboard and PDF were looking at the same payload. Auditing a recommendation meant chasing it through multiple layers of code.
+A typical first failure is not bad writing. It is letting the model speak too freely.
 
-**Solution: type the pipeline and narrow the context.**  
-The turning point was treating AI recommendations as just another typed service in the architecture instead of a black box bolted on the side.
+Generic recommendation output can sound plausible without being tied tightly enough to the parcel, zoning constraints, PUM 2050 sector, heritage or climate flags, or the scenario calculations already produced elsewhere in the product.
 
-- Defined a **strict TypeScript shape** for `ai_recommendations` in the API and database, and consumed that in both the web dashboard and PDF payload builder.
-- Built a **narrow context builder** that only feeds the model what we already know is true: zoning code, PUM 2050 sector, heritage/climate flags, feasibility scores, and the development scenarios we’ve actually computed. Nothing else.
-- Wired the flow into **OpenAPI + Zod** so every field is validated before it can hit the UI or the report, and added tests so a missing or malformed recommendation fails fast instead of silently rendering nonsense.
-- Aligned the copy with our **reports data audit and content policy**: no invented numbers, no synthetic fallbacks masquerading as real data, no hardcoded Montreal details in places that should be configurable, and explicit “data not available” messages when upstream data is missing.
+The architectural problem was just as important. The Fastify API, the React dashboard, and the React-PDF report did not yet share one obvious recommendation contract. That made it harder to prove what the model had seen, harder to validate what it returned, and harder to guarantee that the dashboard and PDF rendered the same thing.
 
-**Result: grounded, auditable guidance.**  
-Recommendations are now specific (“Scenario B exceeds the Plateau conversion cap; keep gross floor area under 200 m² or switch to a plex + ADU strategy”) and consistent across the dashboard and PDF, because they flow through the same typed payload.
+Keeping the recommendations loosely typed and treating them as presentation copy would have been faster short term, but it would have created drift between API payloads, product UI, and report output at the exact point where users expect consistency.
 
-When we ship a new rule (like rental stock protection, eco‑district incentives, or updated risk categories), we update the orchestrator and types once. The AI layer automatically gets better context and stricter validation without anyone hand‑editing copy.
+## Solution: narrow context and typed output
 
-The practical effect is simple: users get advice that feels like it comes from MapBylaw, with the same constraints, data sources, and caveats as the rest of the product, instead of from a detached chatbot you happen to have embedded on the side.
+The turning point was treating AI recommendations as a typed product service, not a black box hanging off the side of the app.
+
+The context builder only includes inputs the product already considers verified. In simplified form, it looks like this:
+
+```ts
+type RecommendationContext = {
+  propertyId: string;
+  zoningCode: string;
+  pum2050Sector: string | null;
+  heritageFlag: boolean;
+  climateConstraint: boolean;
+  feasibilityScore: number | null;
+  scenarios: Array<{
+    id: string;
+    label: string;
+    status: "viable" | "constrained" | "not-supported";
+    keyConstraints: string[];
+  }>;
+};
+```
+
+That narrow shape is deliberate. The model gets zoning, sector, policy flags, feasibility signals, and scenarios we have already computed. It does not get permission to improvise market facts or infer hidden municipal rules.
+
+The output is also constrained:
+
+```ts
+type StructuredRecommendation = {
+  summary: string;
+  scenarioId: string;
+  recommendationType: "pursue" | "revise" | "avoid";
+  rationale: string[];
+  citedInputs: string[];
+  limitations: string[];
+};
+```
+
+I traded breadth for grounding. Broader context can produce more expansive recommendations, but it also increases the chance that the model starts sounding authoritative about facts the product has not actually verified.
+
+## Validation is what makes the feature believable
+
+Once the context and output were explicit, validation became part of the feature instead of an afterthought.
+
+An example of valid input is small and boring, which is exactly what you want:
+
+```ts
+const context: RecommendationContext = {
+  propertyId: "prop_1284",
+  zoningCode: "R3-12",
+  pum2050Sector: "Urban corridor",
+  heritageFlag: false,
+  climateConstraint: true,
+  feasibilityScore: 0.72,
+  scenarios: [
+    {
+      id: "scenario_b",
+      label: "Plex + ADU",
+      status: "viable",
+      keyConstraints: ["Height cap", "Parking waiver not assumed"],
+    },
+  ],
+};
+```
+
+A valid output has to reference that world. It needs a known `scenarioId`, an allowed recommendation type, and rationale tied to inputs the system can point back to.
+
+A rejected output is easy to recognize:
+
+```ts
+const invalid = {
+  summary: "Build a 20-unit tower for maximum ROI.",
+  scenarioId: "scenario_z",
+  recommendationType: "go-big",
+  rationale: ["Nearby comps support luxury absorption."],
+  citedInputs: ["market-trends-api"],
+  limitations: [],
+};
+```
+
+That response fails for multiple reasons. It points to an unknown scenario, uses an unsupported enum value, and cites inputs outside the verified product contract. The right behavior is rejection, not cleanup. If the model steps outside the schema, the system should fail fast.
+
+## What the model is not allowed to do
+
+This was the most important product boundary to state clearly.
+
+The model is not allowed to:
+
+- Invent parcel facts, market figures, incentives, or policy exceptions.
+- Reference datasets that are not part of the verified property-analysis pipeline.
+- Recommend scenarios the product has not already computed.
+- Hide missing data behind generic confidence-sounding prose.
+- Diverge between dashboard and PDF payloads.
+
+That boundary is why narrow context works. It keeps the model grounded in verified product knowledge, even though it limits recommendations to what the system already knows.
+
+A narrow context builder will not produce sweeping strategic commentary. It will also avoid pretending that a product with constrained verified inputs has a right to give sweeping strategic commentary.
+
+## End-to-end flow: from domain data to dashboard and PDF
+
+The full flow matters more than the prompt.
+
+First, the property analysis pipeline produces verified domain inputs: zoning data, PUM 2050 sector, heritage and climate flags, feasibility signals, and scenario outputs. Those inputs already exist because the rest of the product depends on them.
+
+Second, the recommendation orchestrator builds the narrow context payload from those verified fields only. That payload is sent to the model with instructions aligned to the report content policy.
+
+Third, the model returns a structured payload that is validated through the same contract used by the API boundary. Malformed or unsupported responses are rejected before they reach presentation layers.
+
+Fourth, the accepted recommendation payload becomes part of the typed application state consumed by both the dashboard and the PDF builder. The same structured result powers the in-app recommendation card and the report section, so there is no copy-editing fork where one surface says something the other cannot defend.
+
+Fifth, if policy rules, incentive logic, or scenario rules change, the context builder and schema update with them. That keeps the recommendation layer moving with the verified domain model instead of becoming its own undocumented product.
+
+## Why narrowing the contract was the right move
+
+MapBylaw already had strong constraints: no static or fake data, no region-hardcoded fallbacks pretending to be real, and consistency between app surfaces and reports.
+
+Given those constraints, the better move was not "make the model smarter." It was "make the contract narrower and more enforceable."
+
+A more expressive but less governable AI layer might have looked impressive in isolated demos. It would have been harder to audit, harder to test, and more likely to drift away from the product's actual zoning and feasibility logic.
+
+The implementation behaves better because it is stricter. Tests can reject malformed payloads early. Engineers can trace recommendations back to the scenario-level inputs that shaped them. Users get guidance that feels like part of MapBylaw, not a detached chatbot layered on top.
+
+## Reusable lesson
+
+In applied AI products, "good recommendations" usually start earlier than prompt writing. They start with whether the rest of the system has decided what counts as verified input, what output is allowed, and what should happen when the model wanders outside that boundary.
+
+The lesson I would reuse is simple:
+
+- Narrow the model's context to facts your product already trusts.
+- Make output schema validation non-optional.
+- Share one typed payload across every surface that presents the result.
+- Reject unsupported answers instead of laundering them into something presentable.
+
+That costs flexibility. It buys honesty, which is the more important feature.
+
+## Related reading
+
+- [The quiet failure mode in contract AI: when the UI believes the wrong row](/writing/ledgerguard-truth-between-extraction-and-finance)
+- [Moving deterministic checks into the editor with MCP](/writing/why-i-automate-code-review-with-mcp)
+- [Building tools that don't fight you](/writing/building-tools-that-dont-fight-you)

@@ -19,11 +19,10 @@ import {
   SECTION_TITLE,
 } from "utils/visual";
 
-export function OpenSourceTools() {
+export const OpenSourceTools = () => {
   const {
     selectors: { sectionRef },
   } = useScrollReveal({ y: 32, stagger: 0.08 });
-
   return (
     <section
       id="open-source-tools"
@@ -53,4 +52,4 @@ export function OpenSourceTools() {
       </div>
     </section>
   );
-}
+};

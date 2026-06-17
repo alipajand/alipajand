@@ -1,4 +1,16 @@
-export function McpWorkflowDiagram() {
+import {
+  MCP_WORKFLOW_DIAGRAM_CHECKS_LABEL,
+  MCP_WORKFLOW_DIAGRAM_CHECKS_SUBLABEL_CI,
+  MCP_WORKFLOW_DIAGRAM_CHECKS_SUBLABEL_OUTPUT,
+  MCP_WORKFLOW_DIAGRAM_EDITOR_LABEL,
+  MCP_WORKFLOW_DIAGRAM_EDITOR_SUBLABEL,
+  MCP_WORKFLOW_DIAGRAM_FEEDBACK_LABEL,
+  MCP_WORKFLOW_DIAGRAM_SERVER_LABEL,
+  MCP_WORKFLOW_DIAGRAM_SERVER_SUBLABEL,
+  MCP_WORKFLOW_DIAGRAM_TITLE,
+} from "data/diagrams";
+
+export const McpWorkflowDiagram = () => {
   return (
     <div className="w-full overflow-x-auto rounded-lg border border-border/70 bg-background/40 px-2 py-3 sm:px-4 sm:py-4">
       <svg
@@ -7,10 +19,7 @@ export function McpWorkflowDiagram() {
         role="img"
         aria-labelledby="mcp-workflow-title"
       >
-        <title id="mcp-workflow-title">
-          MCP workflow: the editor invokes an MCP server that runs lint, types, and tests; results
-          feed back into the editor in a tight feedback loop.
-        </title>
+        <title id="mcp-workflow-title">{MCP_WORKFLOW_DIAGRAM_TITLE}</title>
         <defs>
           <marker
             id="mcp-arrow"
@@ -44,10 +53,10 @@ export function McpWorkflowDiagram() {
           fontSize="11"
           fontFamily="inherit"
         >
-          Editor
+          {MCP_WORKFLOW_DIAGRAM_EDITOR_LABEL}
         </text>
         <text x="62" y="106" textAnchor="middle" fill="currentColor" fontSize="10" opacity="0.75">
-          Cursor
+          {MCP_WORKFLOW_DIAGRAM_EDITOR_SUBLABEL}
         </text>
 
         <rect
@@ -69,10 +78,10 @@ export function McpWorkflowDiagram() {
           fontSize="11"
           fontFamily="inherit"
         >
-          MCP server
+          {MCP_WORKFLOW_DIAGRAM_SERVER_LABEL}
         </text>
         <text x="207" y="104" textAnchor="middle" fill="currentColor" fontSize="10" opacity="0.75">
-          tools · project context
+          {MCP_WORKFLOW_DIAGRAM_SERVER_SUBLABEL}
         </text>
 
         <rect
@@ -94,13 +103,13 @@ export function McpWorkflowDiagram() {
           fontSize="11"
           fontFamily="inherit"
         >
-          Lint · types · tests
+          {MCP_WORKFLOW_DIAGRAM_CHECKS_LABEL}
         </text>
         <text x="365" y="94" textAnchor="middle" fill="currentColor" fontSize="10" opacity="0.75">
-          same scripts as CI
+          {MCP_WORKFLOW_DIAGRAM_CHECKS_SUBLABEL_CI}
         </text>
         <text x="365" y="114" textAnchor="middle" fill="currentColor" fontSize="10" opacity="0.75">
-          structured output
+          {MCP_WORKFLOW_DIAGRAM_CHECKS_SUBLABEL_OUTPUT}
         </text>
 
         <line
@@ -134,9 +143,9 @@ export function McpWorkflowDiagram() {
           opacity="0.75"
         />
         <text x="200" y="178" textAnchor="middle" fill="currentColor" fontSize="10" opacity="0.7">
-          feedback loop
+          {MCP_WORKFLOW_DIAGRAM_FEEDBACK_LABEL}
         </text>
       </svg>
     </div>
   );
-}
+};

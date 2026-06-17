@@ -1,63 +1,99 @@
 "use client";
 
+import Link from "next/link";
+
+import { ProjectCard } from "components/Projects/ProjectCard";
+import { ProjectCaseStudyArticle } from "components/Projects/ProjectCaseStudyArticle";
 import { useProjectsReveal } from "components/Projects/hooks/useProjectsReveal";
-import { ProjectsListItem } from "components/Projects/ProjectsListItem";
-import { ProjectsSidebarNavLink } from "components/Projects/ProjectsSidebarNavLink";
-import { PROJECTS } from "data/projects";
 import {
-  PROJECTS_SECTION_HEADING,
-  PROJECTS_SECTION_LEDE,
-  PROJECTS_SIDEBAR_ARIA_LABEL,
-  PROJECTS_SIDEBAR_HEADING,
-} from "data/projectsUi";
-import { SECTION_INNER_WIDE, SECTION_RULE, SECTION_X, SECTION_Y } from "utils/visual";
+  PORTFOLIO_CASE_STUDIES_HEADING,
+  PORTFOLIO_CASE_STUDIES_LEDE,
+  PORTFOLIO_OPEN_SOURCE_CALLOUT_BODY,
+  PORTFOLIO_OPEN_SOURCE_CALLOUT_CTA,
+  PORTFOLIO_OPEN_SOURCE_CALLOUT_HEADING,
+  PORTFOLIO_OTHER_WORK_HEADING,
+} from "data/projects";
+import { PROJECT_COLLECTION_ARIA_LABEL } from "data/projectsUi";
+import {
+  CARD_SURFACE,
+  CTA_SECONDARY,
+  SECTION_INNER_WIDE,
+  SECTION_RULE,
+  SECTION_TITLE,
+  SECTION_X,
+  SECTION_Y,
+} from "utils/visual";
 
-export function Projects() {
+export const Projects = () => {
   const {
-    selectors: { sectionRef, listRef },
+    selectors: { sectionRef, orderedProjects, primaryProjects, secondaryProjects },
   } = useProjectsReveal();
-
   return (
     <section
-      id="projects"
+      id="case-studies"
       ref={sectionRef}
       aria-labelledby="projects-heading"
       className={`${SECTION_X} ${SECTION_Y} ${SECTION_RULE}`}
     >
       <div className={SECTION_INNER_WIDE}>
-        <h2
-          id="projects-heading"
-          className="font-display font-bold tracking-tight text-3xl sm:text-4xl text-foreground mb-4 sm:mb-5"
-          data-reveal
-        >
-          {PROJECTS_SECTION_HEADING}
-        </h2>
-        <p className="text-muted text-base sm:text-lg mb-10 sm:mb-12  leading-relaxed" data-reveal>
-          {PROJECTS_SECTION_LEDE}
-        </p>
+        <div className="space-y-4">
+          <h2 id="projects-heading" className={SECTION_TITLE} data-reveal>
+            {PORTFOLIO_CASE_STUDIES_HEADING}
+          </h2>
+          <p className="max-w-4xl text-base leading-relaxed text-muted" data-reveal>
+            {PORTFOLIO_CASE_STUDIES_LEDE}
+          </p>
+        </div>
 
-        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_12.5rem] xl:grid-cols-[minmax(0,1fr)_13.5rem] lg:gap-10 xl:gap-12 lg:items-start">
-          <ul ref={listRef} className="space-y-12 sm:space-y-14 min-w-0">
-            {PROJECTS.map((project) => (
-              <ProjectsListItem key={project.id} project={project} />
-            ))}
-          </ul>
-
-          <nav
-            className="hidden lg:block sticky top-28 self-start"
-            aria-label={PROJECTS_SIDEBAR_ARIA_LABEL}
+        <div className="mt-10 space-y-8">
+          <div
+            className="grid gap-5 lg:grid-cols-2"
+            aria-label={PROJECT_COLLECTION_ARIA_LABEL}
+            data-reveal
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted mb-3">
-              {PROJECTS_SIDEBAR_HEADING}
-            </p>
-            <ul className="space-y-1.5 text-sm border-l border-border pl-3">
-              {PROJECTS.map((p) => (
-                <ProjectsSidebarNavLink key={p.id} projectId={p.id} navLabel={p.navLabel} />
-              ))}
-            </ul>
-          </nav>
+            {primaryProjects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+
+          {secondaryProjects.length > 0 ? (
+            <div className="space-y-5" data-reveal>
+              <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+                {PORTFOLIO_OTHER_WORK_HEADING}
+              </h3>
+              <div className="grid gap-5 lg:grid-cols-2">
+                {secondaryProjects.map((project) => (
+                  <ProjectCard key={project.id} project={project} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </div>
+
+        <aside className={`${CARD_SURFACE} mt-10 p-5 sm:p-6`} data-reveal>
+          <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+            {PORTFOLIO_OPEN_SOURCE_CALLOUT_HEADING}
+          </h3>
+          <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-muted">
+            {PORTFOLIO_OPEN_SOURCE_CALLOUT_BODY}
+          </p>
+          <div className="mt-5">
+            <Link href="/open-source" className={CTA_SECONDARY}>
+              {PORTFOLIO_OPEN_SOURCE_CALLOUT_CTA}
+            </Link>
+          </div>
+        </aside>
+
+        <div className="mt-14 space-y-0">
+          {orderedProjects.map((project, index) => (
+            <ProjectCaseStudyArticle
+              key={project.id}
+              project={project}
+              nextProject={orderedProjects[index + 1]}
+            />
+          ))}
         </div>
       </div>
     </section>
   );
-}
+};

@@ -2,7 +2,7 @@
 
 import type { GridOutlinePathProps } from "components/Hero/GridOutlinePath.types";
 
-export function GridOutlinePath({ grid, rowIndex, colIndex }: GridOutlinePathProps) {
+export const GridOutlinePath = ({ grid, rowIndex, colIndex }: GridOutlinePathProps) => {
   const { startX, startY, cellTotal, squareSize, gridRows, gridCols } = grid;
   const x = startX + colIndex * cellTotal;
   const y = startY + rowIndex * cellTotal;
@@ -28,4 +28,4 @@ export function GridOutlinePath({ grid, rowIndex, colIndex }: GridOutlinePathPro
       }}
     />
   );
-}
+};

@@ -5,11 +5,10 @@ import { TestimonialsListItem } from "components/Testimonials/TestimonialsListIt
 import { TESTIMONIALS, TESTIMONIALS_HEADING, TESTIMONIALS_INTRO } from "data/testimonials";
 import { SECTION_LEDE, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
-export function Testimonials() {
+export const Testimonials = () => {
   const {
     selectors: { sectionRef, listRef },
   } = useTestimonialsReveal();
-
   return (
     <section
       id="testimonials"
@@ -36,4 +35,4 @@ export function Testimonials() {
       </div>
     </section>
   );
-}
+};

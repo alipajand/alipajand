@@ -6,24 +6,21 @@ import {
   OPEN_SOURCE_CTA_PRIMARY_LABEL,
   OPEN_SOURCE_CTA_SECONDARY_HREF,
   OPEN_SOURCE_CTA_SECONDARY_LABEL,
+  OPEN_SOURCE_FEATURED_HEADING,
   OPEN_SOURCE_HEADER_HEADING,
   OPEN_SOURCE_PROJECTS,
   OPEN_SOURCE_SHARED_PRINCIPLES,
   OPEN_SOURCE_SHARED_PRINCIPLES_HEADING,
+  OPEN_SOURCE_SUPPORTING_HEADING,
 } from "data/openSourcePage";
 
-jest.mock("utils/hooks/usePageHeader", () => ({
-  usePageHeader: jest.fn(() => ({
+jest.mock("features/open-source/hooks/useOpenSourcePageContent", () => ({
+  useOpenSourcePageContent: jest.fn(() => ({
     selectors: {
       headerRef: { current: null },
-    },
-  })),
-}));
-
-jest.mock("utils/hooks/useScrollReveal", () => ({
-  useScrollReveal: jest.fn(() => ({
-    selectors: {
-      sectionRef: { current: null },
+      contentRef: { current: null },
+      featuredProjects: OPEN_SOURCE_PROJECTS.filter((project) => project.featured),
+      supportingProjects: OPEN_SOURCE_PROJECTS.filter((project) => !project.featured),
     },
   })),
 }));
@@ -53,6 +50,45 @@ describe("OpenSourcePageContent", () => {
         })
       ).toHaveAttribute("href", project.repositoryUrl);
     });
+  });
+
+  it("features agent-pr-reviewer-lite and agent-context-doctor first", () => {
+    const { container } = render(<OpenSourcePageContent />);
+
+    expect(screen.getByRole("heading", { name: OPEN_SOURCE_FEATURED_HEADING })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: OPEN_SOURCE_SUPPORTING_HEADING })
+    ).toBeInTheDocument();
+
+    const featuredTitles = Array.from(
+      container.querySelectorAll("[data-open-source-project] h3")
+    ).map((heading) => heading.textContent);
+
+    expect(featuredTitles).toEqual(["Agent PR Reviewer Lite", "Agent Context Doctor"]);
+  });
+
+  it("renders CLI example blocks for the featured tools", () => {
+    render(<OpenSourcePageContent />);
+
+    expect(screen.getAllByText("Command")).toHaveLength(2);
+    expect(screen.getAllByText("Fixture input")).toHaveLength(2);
+    expect(screen.getAllByText("CLI output")).toHaveLength(2);
+    expect(
+      screen.getByText(/agent-pr-reviewer-lite --base HEAD~1 --head HEAD/)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/\[high\] AGENTS\.md:2 — Risky instruction: "skip tests"/)
+    ).toBeInTheDocument();
+    expect(screen.getAllByText(/Simplified for readability/)).toHaveLength(2);
+  });
+
+  it("renders status and tested capability labels without GitHub stats copy", () => {
+    render(<OpenSourcePageContent />);
+
+    expect(screen.getAllByText("Status").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Format").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Tested capabilities").length).toBeGreaterThan(0);
+    expect(screen.queryByText(/stars|forks|followers/i)).not.toBeInTheDocument();
   });
 
   it("renders the shared principles heading", () => {

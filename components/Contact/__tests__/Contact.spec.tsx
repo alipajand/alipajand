@@ -14,7 +14,9 @@ describe("Contact", () => {
     it("should render the Contact heading", () => {
       render(<Contact />);
 
-      expect(screen.getByRole("heading", { name: /^contact$/i })).toBeInTheDocument();
+      expect(
+        screen.getByRole("heading", { name: /let’s discuss a product or engineering role/i })
+      ).toBeInTheDocument();
     });
 
     it("should render contact links for Email, LinkedIn, GitHub", () => {
@@ -29,6 +31,15 @@ describe("Contact", () => {
     it("should render reasons list and form jump CTA", () => {
       render(<Contact />);
       expect(screen.getByRole("heading", { name: /send context/i })).toBeInTheDocument();
+    });
+
+    it("should render the updated hiring paragraph", () => {
+      render(<Contact />);
+      expect(
+        screen.getByText(
+          /I’m open to senior product engineering, frontend architecture, design systems, and developer experience roles/i
+        )
+      ).toBeInTheDocument();
     });
   });
 });

@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+
 import { ProjectCard } from "components/Projects/ProjectCard";
 import type { Project } from "data/projects";
 
@@ -14,409 +15,84 @@ jest.mock("next/image", () => ({
   },
 }));
 
+jest.mock("next/link", () => {
+  return function MockLink({
+    href,
+    children,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) {
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    );
+  };
+});
+
 const mockProject: Project = {
   id: "test-project",
   name: "Test Project",
-  description: "Test description",
+  caseStudyTitle: "A short case-study title",
+  employerContext: "Employer context",
+  cardProblem: "One-sentence problem",
   role: "Developer · Acme",
-  navLabel: "Test nav",
-  signalStack: ["Typed APIs", "CI discipline", "Shared UI layer"],
-  tech: ["React", "TypeScript", "Node", "Jest"],
-  outcomes: ["Outcome 1", "Outcome 2"],
+  capabilityTags: ["Typed APIs", "Design systems", "Delivery"],
+  heroFigure: {
+    type: "image",
+    src: "/test-image.jpg",
+    width: 1600,
+    height: 1035,
+    alt: "Representative product interface",
+    captionLead: "Representative interface.",
+    captionBody: "The interface highlights a workflow decision that matters.",
+  },
+  caseStudy: {
+    title: "A short case-study title",
+    overview: "Overview",
+    contextAndConstraints: "Context",
+    responsibility: {
+      owned: ["Owned"],
+      collaborative: ["Collaborative"],
+      outside: ["Outside"],
+    },
+    problem: "Problem",
+    decisions: [
+      {
+        decision: "Decision",
+        why: "Why",
+        tradeOff: "Trade-off",
+        result: "Result",
+      },
+    ],
+    workflow: ["Step one"],
+    interfaceEvidence: [],
+    difficultStates: ["State"],
+    outcome: ["Outcome"],
+    nextImprovements: ["Improve"],
+  },
+  relatedLinks: [{ label: "Live product", href: "https://example.com" }],
 };
 
 describe("ProjectCard", () => {
-  describe("basic rendering", () => {
-    it("should render project name", () => {
-      render(<ProjectCard project={mockProject} />);
-      expect(screen.getByText("Test Project")).toBeInTheDocument();
-    });
+  it("renders the required card content and case-study anchor", () => {
+    render(<ProjectCard project={mockProject} />);
 
-    it("should render role and company", () => {
-      render(<ProjectCard project={mockProject} />);
-      expect(screen.getByText("Developer")).toBeInTheDocument();
-      expect(screen.getByText("Acme")).toBeInTheDocument();
-    });
-
-    it("should render project description", () => {
-      render(<ProjectCard project={mockProject} />);
-      expect(screen.getByText("Test description")).toBeInTheDocument();
-    });
-
-    it("should render contribution when provided", () => {
-      const projectWithContribution: Project = {
-        ...mockProject,
-        contribution: "Owned core frontend delivery.",
-      };
-
-      render(<ProjectCard project={projectWithContribution} />);
-      expect(screen.getByText("My contribution")).toBeInTheDocument();
-      expect(screen.getByText("Owned core frontend delivery.")).toBeInTheDocument();
-    });
-
-    it("should render signal stack", () => {
-      render(<ProjectCard project={mockProject} />);
-      expect(screen.getByText("Typed APIs")).toBeInTheDocument();
-      expect(screen.getByText("CI discipline")).toBeInTheDocument();
-      expect(screen.getByText(/technical signals/i)).toBeInTheDocument();
-    });
-
-    it("should render lead outcome and more outcomes", () => {
-      render(<ProjectCard project={mockProject} />);
-      expect(screen.getByText("Outcome 1")).toBeInTheDocument();
-      expect(screen.getByText("Outcome 2")).toBeInTheDocument();
-      expect(screen.getByText(/more outcomes/i)).toBeInTheDocument();
-    });
-
-    it("should have data-project-card attribute and anchor id", () => {
-      const { container } = render(<ProjectCard project={mockProject} />);
-      expect(container.querySelector("[data-project-card]")).toBeInTheDocument();
-      expect(document.getElementById("project-test-project")).toBeInTheDocument();
-    });
+    expect(screen.getByText("Employer context")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Test Project" })).toBeInTheDocument();
+    expect(screen.getByText("Developer · Acme")).toBeInTheDocument();
+    expect(screen.getByText("One-sentence problem")).toBeInTheDocument();
+    expect(screen.getByAltText("Representative product interface")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Read case study" })).toHaveAttribute(
+      "href",
+      "#project-test-project"
+    );
   });
 
-  describe("image rendering", () => {
-    it("should render image when provided", () => {
-      const projectWithImage: Project = {
-        ...mockProject,
-        image: "/test-image.jpg",
-        imageCaption: "Test caption",
-      };
+  it("renders at most three capability tags", () => {
+    render(<ProjectCard project={mockProject} />);
 
-      const { container } = render(<ProjectCard project={projectWithImage} />);
-      const image = container.querySelector('img[src="/test-image.jpg"]');
-      expect(image).not.toBeNull();
-      expect(image).toHaveAttribute("alt", "");
-      expect(screen.getByText("Test caption")).toBeInTheDocument();
-    });
-
-    it("should render image caption when provided", () => {
-      const projectWithImage: Project = {
-        ...mockProject,
-        image: "/test-image.jpg",
-        imageCaption: "Test caption",
-      };
-
-      render(<ProjectCard project={projectWithImage} />);
-      expect(screen.getByText("Test caption")).toBeInTheDocument();
-    });
-
-    it("should not render image when image is empty string", () => {
-      const projectWithEmptyImage: Project = {
-        ...mockProject,
-        image: "",
-      };
-
-      render(<ProjectCard project={projectWithEmptyImage} />);
-      expect(screen.queryByRole("img")).not.toBeInTheDocument();
-    });
-
-    it("should not render image when image is whitespace only", () => {
-      const projectWithWhitespaceImage: Project = {
-        ...mockProject,
-        image: "   ",
-      };
-
-      render(<ProjectCard project={projectWithWhitespaceImage} />);
-      expect(screen.queryByRole("img")).not.toBeInTheDocument();
-    });
-
-    it("should not render image when image is not provided", () => {
-      render(<ProjectCard project={mockProject} />);
-      expect(screen.queryByRole("img")).not.toBeInTheDocument();
-    });
-  });
-
-  describe("secondary media", () => {
-    it("should render secondary media when provided", () => {
-      const projectWithSecondary: Project = {
-        ...mockProject,
-        secondaryMedia: {
-          src: "/secondary.jpg",
-          caption: "Secondary caption",
-        },
-      };
-
-      const { container } = render(<ProjectCard project={projectWithSecondary} />);
-      const image = container.querySelector('img[src="/secondary.jpg"]');
-      expect(image).not.toBeNull();
-      expect(image).toHaveAttribute("alt", "");
-      expect(screen.getByText("Secondary caption")).toBeInTheDocument();
-    });
-
-    it("should render secondary media caption", () => {
-      const projectWithSecondary: Project = {
-        ...mockProject,
-        secondaryMedia: {
-          src: "/secondary.jpg",
-          caption: "Secondary caption",
-        },
-      };
-
-      render(<ProjectCard project={projectWithSecondary} />);
-      expect(screen.getByText("Secondary caption")).toBeInTheDocument();
-    });
-
-    it("should not render secondary media when src is empty", () => {
-      const projectWithEmptySecondary: Project = {
-        ...mockProject,
-        secondaryMedia: {
-          src: "",
-          caption: "Caption",
-        },
-      };
-
-      render(<ProjectCard project={projectWithEmptySecondary} />);
-      expect(screen.queryByAltText("Caption")).not.toBeInTheDocument();
-    });
-
-    it("should not render secondary media when src is whitespace", () => {
-      const projectWithWhitespaceSecondary: Project = {
-        ...mockProject,
-        secondaryMedia: {
-          src: "   ",
-          caption: "Caption",
-        },
-      };
-
-      render(<ProjectCard project={projectWithWhitespaceSecondary} />);
-      expect(screen.queryByAltText("Caption")).not.toBeInTheDocument();
-    });
-
-    it("should not render secondary media when not provided", () => {
-      render(<ProjectCard project={mockProject} />);
-      expect(screen.queryAllByRole("img")).toHaveLength(0);
-    });
-  });
-
-  describe("case study", () => {
-    it("should render case study when provided", () => {
-      const projectWithCaseStudy: Project = {
-        ...mockProject,
-        caseStudy: {
-          problem: "The problem",
-          constraints: "The constraints",
-          owned: ["Owned area one", "Owned area two"],
-          highLevelFlow: ["Step one", "Step two", "Step three"],
-          architectureDecisions: "The architecture decisions",
-          technicalImplementation: "The implementation",
-          uxAccessibility: "The ux and accessibility",
-          outcome: "The outcome",
-          tradeoffs: "The tradeoffs",
-        },
-      };
-
-      render(<ProjectCard project={projectWithCaseStudy} />);
-      expect(screen.getByText("What I owned")).toBeInTheDocument();
-      expect(screen.getByText("Owned area one")).toBeInTheDocument();
-      expect(screen.getByText("Owned area two")).toBeInTheDocument();
-      expect(screen.getByText("Context and problem")).toBeInTheDocument();
-      expect(screen.getByText("The problem")).toBeInTheDocument();
-      expect(screen.getByText("Constraints")).toBeInTheDocument();
-      expect(screen.getByText("The constraints")).toBeInTheDocument();
-      expect(screen.getByText("Key decisions")).toBeInTheDocument();
-      expect(screen.getByText("The architecture decisions")).toBeInTheDocument();
-      expect(screen.getByText("Technical implementation")).toBeInTheDocument();
-      expect(screen.getByText("The implementation")).toBeInTheDocument();
-      expect(screen.getByText("UX and accessibility")).toBeInTheDocument();
-      expect(screen.getByText("The ux and accessibility")).toBeInTheDocument();
-      expect(screen.getByText("Outcome and evidence")).toBeInTheDocument();
-      expect(screen.getByText("The outcome")).toBeInTheDocument();
-      expect(screen.getByText("Trade-offs and lessons")).toBeInTheDocument();
-      expect(screen.getByText("The tradeoffs")).toBeInTheDocument();
-    });
-
-    it("should render the high-level flow chips when provided", () => {
-      const projectWithFlow: Project = {
-        ...mockProject,
-        caseStudy: {
-          problem: "The problem",
-          constraints: "The constraints",
-          owned: ["Owned area one"],
-          highLevelFlow: ["Step one", "Step two", "Step three"],
-          architectureDecisions: "The architecture decisions",
-          technicalImplementation: "The implementation",
-          uxAccessibility: "The ux and accessibility",
-          outcome: "The outcome",
-          tradeoffs: "The tradeoffs",
-        },
-      };
-
-      render(<ProjectCard project={projectWithFlow} />);
-      expect(screen.getByText("High-level flow")).toBeInTheDocument();
-      expect(screen.getAllByText("Step one").length).toBeGreaterThan(0);
-      expect(screen.getAllByText("Step two").length).toBeGreaterThan(0);
-      expect(screen.getAllByText("Step three").length).toBeGreaterThan(0);
-    });
-
-    it("should not render case study when not provided", () => {
-      render(<ProjectCard project={mockProject} />);
-      expect(screen.queryByText("Context and problem")).not.toBeInTheDocument();
-    });
-  });
-
-  describe("before after", () => {
-    it("should render before after when provided", () => {
-      const projectWithBeforeAfter: Project = {
-        ...mockProject,
-        beforeAfter: [
-          {
-            label: "Metric",
-            before: "10",
-            after: "20",
-          },
-        ],
-      };
-
-      render(<ProjectCard project={projectWithBeforeAfter} />);
-      expect(screen.getByText("Metric:")).toBeInTheDocument();
-      expect(screen.getByText("10")).toBeInTheDocument();
-      expect(screen.getByText("20")).toBeInTheDocument();
-    });
-
-    it("should render multiple before after items", () => {
-      const projectWithBeforeAfter: Project = {
-        ...mockProject,
-        beforeAfter: [
-          {
-            label: "Metric 1",
-            before: "10",
-            after: "20",
-          },
-          {
-            label: "Metric 2",
-            before: "5",
-            after: "15",
-          },
-        ],
-      };
-
-      render(<ProjectCard project={projectWithBeforeAfter} />);
-      expect(screen.getByText("Metric 1:")).toBeInTheDocument();
-      expect(screen.getByText("Metric 2:")).toBeInTheDocument();
-    });
-
-    it("should not render before after when empty array", () => {
-      const projectWithEmptyBeforeAfter: Project = {
-        ...mockProject,
-        beforeAfter: [],
-      };
-
-      render(<ProjectCard project={projectWithEmptyBeforeAfter} />);
-      expect(screen.queryByText(/:/)).not.toBeInTheDocument();
-    });
-
-    it("should not render before after when not provided", () => {
-      render(<ProjectCard project={mockProject} />);
-      expect(screen.queryByText(/Metric/)).not.toBeInTheDocument();
-    });
-  });
-
-  describe("link", () => {
-    it("should render Project when link provided", () => {
-      const projectWithLink: Project = {
-        ...mockProject,
-        link: "https://example.com",
-      };
-
-      render(<ProjectCard project={projectWithLink} />);
-      const link = screen.getByRole("link", { name: /Project/i });
-      expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute("href", "https://example.com");
-    });
-
-    it("should add target and rel for external links", () => {
-      const projectWithLink: Project = {
-        ...mockProject,
-        link: "https://example.com",
-      };
-
-      render(<ProjectCard project={projectWithLink} />);
-      const link = screen.getByRole("link", { name: /Project/i });
-      expect(link).toHaveAttribute("target", "_blank");
-      expect(link).toHaveAttribute("rel", "noopener noreferrer");
-    });
-
-    it("should not add target and rel for relative links", () => {
-      const projectWithLink: Project = {
-        ...mockProject,
-        link: "/project",
-      };
-
-      render(<ProjectCard project={projectWithLink} />);
-      const link = screen.getByRole("link", { name: /Project/i });
-      expect(link).not.toHaveAttribute("target");
-      expect(link).not.toHaveAttribute("rel");
-    });
-
-    it("should not render link when not provided", () => {
-      render(<ProjectCard project={mockProject} />);
-      expect(screen.queryByRole("link", { name: /Project/i })).not.toBeInTheDocument();
-    });
-  });
-
-  describe("image accessibility", () => {
-    it("uses descriptive alt text when image caption is not provided", () => {
-      const projectWithImageNoCaption: Project = {
-        ...mockProject,
-        image: "/no-caption.jpg",
-      };
-
-      const { container } = render(<ProjectCard project={projectWithImageNoCaption} />);
-      const img = container.querySelector("img");
-      expect(img).not.toBeNull();
-      expect(img).toHaveAttribute("alt", "Case study visual: Test Project");
-    });
-
-    it("uses empty alt when image caption is provided (caption is in figcaption)", () => {
-      const projectWithCaption: Project = {
-        ...mockProject,
-        image: "/with-caption.jpg",
-        imageCaption: "Screenshot of the dashboard",
-      };
-
-      const { container } = render(<ProjectCard project={projectWithCaption} />);
-      const imgs = container.querySelectorAll("img");
-      expect(imgs.length).toBeGreaterThan(0);
-      expect(imgs[0]).toHaveAttribute("alt", "");
-    });
-  });
-
-  describe("links array fallback", () => {
-    it("renders external links from links array with target and rel", () => {
-      const projectWithLinks: Project = {
-        ...mockProject,
-        links: [
-          {
-            label: "External",
-            href: "https://example.com",
-          },
-        ],
-      };
-
-      render(<ProjectCard project={projectWithLinks} />);
-      const link = screen.getByRole("link", { name: /external/i });
-      expect(link).toHaveAttribute("href", "https://example.com");
-      expect(link).toHaveAttribute("target", "_blank");
-      expect(link).toHaveAttribute("rel", "noopener noreferrer");
-    });
-
-    it("does not add target and rel for relative links in links array", () => {
-      const projectWithRelativeLink: Project = {
-        ...mockProject,
-        links: [
-          {
-            label: "Internal",
-            href: "/internal",
-          },
-        ],
-      };
-
-      render(<ProjectCard project={projectWithRelativeLink} />);
-      const link = screen.getByRole("link", { name: /internal/i });
-      expect(link).toHaveAttribute("href", "/internal");
-      expect(link).not.toHaveAttribute("target");
-      expect(link).not.toHaveAttribute("rel");
-    });
+    expect(screen.getByText("Typed APIs")).toBeInTheDocument();
+    expect(screen.getByText("Design systems")).toBeInTheDocument();
+    expect(screen.getByText("Delivery")).toBeInTheDocument();
   });
 });

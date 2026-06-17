@@ -23,12 +23,23 @@ jest.mock("utils/gsap", () => {
 });
 
 describe("useProjectsReveal", () => {
-  it("returns sectionRef and listRef", () => {
+  it("returns ordered project collections", () => {
+    const { result } = renderHook(() => useProjectsReveal());
+
+    expect(result.current.selectors.orderedProjects.length).toBeGreaterThan(0);
+    expect(result.current.selectors.primaryProjects.length).toBeGreaterThan(0);
+    expect(
+      result.current.selectors.secondaryProjects.every(
+        (project) =>
+          !result.current.selectors.primaryProjects.some((primary) => primary.id === project.id)
+      )
+    ).toBe(true);
+  });
+
+  it("returns sectionRef", () => {
     const { result } = renderHook(() => useProjectsReveal());
     expect(result.current.selectors.sectionRef).toBeDefined();
-    expect(result.current.selectors.listRef).toBeDefined();
     expect(result.current.selectors.sectionRef.current).toBeNull();
-    expect(result.current.selectors.listRef.current).toBeNull();
   });
 
   it("sets elements directly when reduced motion is preferred", () => {
@@ -40,21 +51,20 @@ describe("useProjectsReveal", () => {
 
     prefersReducedMotion.mockReturnValueOnce(true);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useProjectsReveal();
-      const { sectionRef, listRef } = selectors;
-
+      const { sectionRef } = selectors;
       return (
         <section ref={sectionRef}>
           <h2 data-reveal>Heading</h2>
           <p data-reveal>Subheading</p>
-          <ul ref={listRef}>
+          <ul>
             <li data-project-card>Card 1</li>
             <li data-project-card>Card 2</li>
           </ul>
         </section>
       );
-    }
+    };
 
     render(<TestComponent />);
 
@@ -71,21 +81,20 @@ describe("useProjectsReveal", () => {
 
     prefersReducedMotion.mockReturnValue(false);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useProjectsReveal();
-      const { sectionRef, listRef } = selectors;
-
+      const { sectionRef } = selectors;
       return (
         <section ref={sectionRef}>
           <h2 data-reveal>Heading</h2>
           <p data-reveal>Subheading</p>
-          <ul ref={listRef}>
+          <ul>
             <li data-project-card>Card 1</li>
             <li data-project-card>Card 2</li>
           </ul>
         </section>
       );
-    }
+    };
 
     render(<TestComponent />);
 

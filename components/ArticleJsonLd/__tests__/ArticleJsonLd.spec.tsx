@@ -17,11 +17,12 @@ describe("ArticleJsonLd", () => {
     const script = container.querySelector('script[type="application/ld+json"]');
     expect(script).toBeInTheDocument();
     const schema = JSON.parse(script?.textContent || "{}");
-    expect(schema["@type"]).toBe("BlogPosting");
+    expect(schema["@type"]).toBe("Article");
     expect(schema.headline).toBe("Test title");
     expect(schema.url).toBe(`${CANONICAL_URL}/writing/test-slug`);
     expect(schema.author["@id"]).toBe(PERSON_SCHEMA_ID);
     expect(schema.publisher["@id"]).toBe(PERSON_SCHEMA_ID);
+    expect(schema.image).toEqual([`${CANONICAL_URL}/writing/test-slug/opengraph-image`]);
     expect(schema.isPartOf.name).toContain(SITE_NAME);
   });
 });

@@ -1,17 +1,17 @@
 export const SITE_NAME = "Ali Pajand";
 
-export const TAGLINE = "Senior Frontend Engineer";
+export const TAGLINE = "Senior Product Engineer";
 
-export const HOME_TITLE = `${SITE_NAME} — ${TAGLINE}`;
+export const HOME_TITLE = `${SITE_NAME} | ${TAGLINE}`;
 
 export const KEYWORDS = [
   SITE_NAME,
-  "Senior Frontend Engineer",
   "Senior Product Engineer",
-  "Frontend Platform Engineer",
-  "Design Systems Engineer",
+  "Frontend architecture",
+  "Design systems",
   "Frontend Architecture",
   "Developer Experience",
+  "Reliable product workflows",
   "React",
   "TypeScript",
   "Next.js",
@@ -21,11 +21,8 @@ export const KEYWORDS = [
 
 export const CANONICAL_URL = "https://alipajand.com";
 
-export const PORTFOLIO_PAGE_LEDE =
-  "Selected work across React, Next.js, TypeScript, design systems, workflow-heavy SaaS interfaces, dashboards, AI-assisted review flows, and frontend architecture.";
-
 export const SITE_META_DESCRIPTION =
-  "Senior Frontend and Product Engineer with 9+ years of experience building React and TypeScript products, design systems, accessible interfaces, frontend architecture, and developer tooling.";
+  "Senior Product Engineer in Montreal specializing in frontend architecture, design systems, developer experience, and reliable product workflows.";
 
 export const TWITTER_HANDLE: string | null = null;
 
@@ -33,25 +30,7 @@ export const PERSON_SCHEMA_ID = `${CANONICAL_URL}/#person`;
 
 export const WEBSITE_SCHEMA_ID = `${CANONICAL_URL}/#website`;
 
-export const HERO_EYEBROW = "Senior Frontend / Product Engineer · Montreal, Canada";
-
-export const HERO_VALUE_LINE =
-  "I build complex product interfaces that stay usable, accessible, and reliable.";
-
-export const HERO_SUB =
-  "9+ years building React and TypeScript products, design systems, workflow-heavy SaaS interfaces, and frontend platforms. I turn ambiguous product requirements into maintainable systems teams can ship with confidence.";
-
-export const ABOUT_PARAGRAPHS = [
-  "I'm a senior product engineer based in Montreal. My strongest work sits between product, design, and engineering: shaping ambiguous requirements, building reliable interfaces, and creating systems other developers can extend without friction.",
-  "I specialize in frontend architecture, design systems, accessibility, developer experience, and AI-assisted product workflows. I care about clear boundaries, typed contracts, honest UI states, and release discipline because users experience quality through the product, not through the org chart.",
-  "I like small, high-ownership teams where engineers think beyond tickets. I mentor through code review, documentation, and architectural clarity, with a bias toward practical systems that ship and stay maintainable.",
-];
-
-export const CONTACT_INTRO =
-  "Hiring for a senior frontend or product engineer? Share the role, team, location, and the problem you need solved. I’m open to relevant opportunities in Canada and remote roles with compatible hiring arrangements.";
-
-export const CONTACT_FORM_LEDE =
-  "Prefer the form? Share the role, team, location, and what you need built.";
+export const CONTACT_FORM_LEDE = "Share the team, role, location, and what you need help building.";
 
 export const HERO_PROOF_ROW = [
   { value: "9+ years", label: "Product and frontend engineering" },
@@ -66,19 +45,11 @@ export const LOCATION = "Based in Montreal, Quebec, Canada";
 
 export const HERO_SECTION_ARIA_LABEL = "Introduction";
 
-export const HERO_CTA_DISCUSS_ROLE = "Discuss a role";
-
-export const HERO_CTA_VIEW_CASE_STUDIES = "View case studies";
-
 export const HERO_CTA_DOWNLOAD_RESUME = "Download résumé";
-
-export const HERO_CONTACT_NAV_ARIA_LABEL = "Contact links";
 
 export const HERO_SCROLL_INDICATOR = "↓";
 
-export const PROOF_STRIP_SR_HEADING = "Proof at a glance";
-
-export const PERSON_SCHEMA_JOB_TITLE = "Senior Frontend / Product Engineer";
+export const PERSON_SCHEMA_JOB_TITLE = "Senior Product Engineer";
 
 export const PERSON_SCHEMA_ADDRESS_LOCALITY = "Montreal";
 

@@ -15,6 +15,7 @@ import {
   CONTACT_FIELD_NAME_HINT,
   CONTACT_FIELD_NAME_LABEL,
   CONTACT_FIELD_NAME_PLACEHOLDER,
+  CONTACT_FORM_ERROR_SUMMARY_HEADING,
   CONTACT_FORM_OPTIONAL_MARKER,
   CONTACT_FORM_REQUIRED_MARKER,
   CONTACT_FORM_SUBMIT_IDLE,
@@ -28,17 +29,19 @@ import {
 import { FOCUS_RING } from "utils/visual";
 
 const inputClass =
-  "w-full px-4 py-2.5 rounded-lg bg-card border border-border text-foreground placeholder:text-muted/90 focus:outline-none focus:ring-2 focus:ring-foreground focus:border-transparent disabled:opacity-60 disabled:cursor-not-allowed";
+  "w-full px-4 py-2.5 rounded-lg bg-card border border-border text-foreground placeholder:text-muted/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:border-transparent disabled:opacity-60 disabled:cursor-not-allowed";
 const labelClass = "block text-sm font-medium text-foreground";
 const hintClass = "mt-1 text-xs text-muted leading-snug";
 
-export function ContactForm() {
+export const ContactForm = () => {
   const {
     selectors: {
       status,
       errorMessage,
       isSubmitting,
       formState: { errors },
+      validationErrors,
+      errorSummaryRef,
     },
     actions: { handleSubmit, register },
   }: ContactFormHook = useContactForm();
@@ -53,6 +56,23 @@ export function ContactForm() {
       noValidate
       data-analytics-form="contact"
     >
+      {validationErrors.length > 0 ? (
+        <div
+          ref={errorSummaryRef}
+          tabIndex={-1}
+          role="alert"
+          aria-live="assertive"
+          className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-600 dark:text-red-400 outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          <p className="font-semibold">{CONTACT_FORM_ERROR_SUMMARY_HEADING}</p>
+          <ul className="mt-2 space-y-1 list-disc pl-5">
+            {validationErrors.map((message) => (
+              <li key={message}>{message}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
       <div>
         <label htmlFor="contact-name" className={labelClass}>
           {CONTACT_FIELD_NAME_LABEL}{" "}
@@ -195,4 +215,4 @@ export function ContactForm() {
       </button>
     </form>
   );
-}
+};

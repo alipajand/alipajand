@@ -40,10 +40,9 @@ describe("useTestimonialsReveal", () => {
 
     prefersReducedMotion.mockReturnValueOnce(true);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useTestimonialsReveal();
       const { sectionRef, listRef } = selectors;
-
       return (
         <section ref={sectionRef}>
           <h2 data-reveal>Heading</h2>
@@ -54,7 +53,7 @@ describe("useTestimonialsReveal", () => {
           </ul>
         </section>
       );
-    }
+    };
 
     render(<TestComponent />);
 
@@ -71,10 +70,9 @@ describe("useTestimonialsReveal", () => {
 
     prefersReducedMotion.mockReturnValue(false);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useTestimonialsReveal();
       const { sectionRef, listRef } = selectors;
-
       return (
         <section ref={sectionRef}>
           <h2 data-reveal>Heading</h2>
@@ -85,7 +83,7 @@ describe("useTestimonialsReveal", () => {
           </ul>
         </section>
       );
-    }
+    };
 
     render(<TestComponent />);
 

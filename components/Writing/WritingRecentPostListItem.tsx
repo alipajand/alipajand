@@ -5,10 +5,10 @@ interface WritingRecentPostListItemProps {
   post: WritingPost;
 }
 
-export function WritingRecentPostListItem({ post }: WritingRecentPostListItemProps) {
+export const WritingRecentPostListItem = ({ post }: WritingRecentPostListItemProps) => {
   return (
     <li>
       <WritingRecentPostCard post={post} />
     </li>
   );
-}
+};

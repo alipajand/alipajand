@@ -8,7 +8,7 @@ import {
   VIEWBOX_WIDTH,
 } from "components/Hero/hooks/useGridOutlineAnimation";
 
-export function HeroBackground() {
+export const HeroBackground = () => {
   const {
     selectors: { snakeOrder, svgRef },
   } = useGridOutlineAnimation();
@@ -31,4 +31,4 @@ export function HeroBackground() {
       ))}
     </svg>
   );
-}
+};

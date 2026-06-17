@@ -4,7 +4,7 @@ import Script from "next/script";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
-export function GatedGoogleAnalytics() {
+export const GatedGoogleAnalytics = () => {
   if (!GA_ID) {
     return null;
   }
@@ -30,4 +30,4 @@ export function GatedGoogleAnalytics() {
       </Script>
     </>
   );
-}
+};

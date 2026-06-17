@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import { ContactForm } from "components/Contact/ContactForm";
-import { CONTACT_FORM_SUCCESS_MESSAGE } from "data/contactForm";
+import { CONTACT_FORM_ERROR_SUMMARY_HEADING, CONTACT_FORM_SUCCESS_MESSAGE } from "data/contactForm";
 
 const originalFetch = global.fetch;
 const originalError = console.error;
@@ -21,11 +21,11 @@ afterAll(() => {
   console.error = originalError;
 });
 
-function fillForm(name: string, email: string, message: string) {
+const fillForm = (name: string, email: string, message: string) => {
   fireEvent.change(screen.getByLabelText(/name/i), { target: { value: name } });
   fireEvent.change(screen.getByLabelText(/email/i), { target: { value: email } });
   fireEvent.change(screen.getByLabelText(/message/i), { target: { value: message } });
-}
+};
 
 beforeEach(() => {
   global.fetch = jest.fn();
@@ -48,8 +48,9 @@ describe("ContactForm", () => {
     render(<ContactForm />);
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     await waitFor(() => {
-      expect(screen.getByText("Enter your name")).toBeInTheDocument();
+      expect(screen.getAllByText("Enter your name").length).toBeGreaterThan(0);
     });
+    expect(screen.getByText(CONTACT_FORM_ERROR_SUMMARY_HEADING)).toBeInTheDocument();
   });
 
   it("shows validation error for invalid email", async () => {
@@ -57,7 +58,20 @@ describe("ContactForm", () => {
     fillForm("Jane", "bad-email", "Hello");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     await waitFor(() => {
-      expect(screen.getByText("Use a valid email address")).toBeInTheDocument();
+      expect(screen.getAllByText("Use a valid email address").length).toBeGreaterThan(0);
+    });
+  });
+
+  it("focuses the validation summary when submit fails client-side validation", async () => {
+    render(<ContactForm />);
+    fireEvent.click(screen.getByRole("button", { name: /send message/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText(CONTACT_FORM_ERROR_SUMMARY_HEADING)).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(document.activeElement).toHaveTextContent(CONTACT_FORM_ERROR_SUMMARY_HEADING);
     });
   });
 
@@ -66,7 +80,7 @@ describe("ContactForm", () => {
     fillForm("Jane", "jane@example.com", "");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     await waitFor(() => {
-      expect(screen.getByText("Add a short message")).toBeInTheDocument();
+      expect(screen.getAllByText("Add a short message").length).toBeGreaterThan(0);
     });
   });
 

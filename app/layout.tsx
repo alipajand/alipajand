@@ -11,6 +11,8 @@ import {
 } from "data/site";
 import { PropsWithChildren } from "react";
 import { Footer } from "components/Footer/Footer";
+import { FOOTER_LATEST_WRITINGS_COUNT } from "data/footer";
+import { getLatestPosts } from "utils/posts";
 import { Nav } from "components/Nav/Nav";
 import { SmoothScroll } from "components/SmoothScroll/SmoothScroll";
 import { SKIP_TO_CONTENT_LABEL } from "data/pageChrome";
@@ -18,6 +20,8 @@ import { StructuredData } from "components/StructuredData/StructuredData";
 import { GatedGoogleAnalytics } from "components/Analytics/GatedGoogleAnalytics";
 import { GatedVercelAnalytics } from "components/Analytics/GatedVercelAnalytics";
 import { GatedVercelSpeedInsights } from "components/Analytics/GatedVercelSpeedInsights";
+import { RouteChangeFocus } from "components/RouteChangeFocus/RouteChangeFocus";
+import { SkipLink } from "components/SkipLink/SkipLink";
 
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_URL),
@@ -50,7 +54,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: `${SITE_NAME} — ${TAGLINE}`,
+        alt: `${SITE_NAME} | ${TAGLINE}`,
       },
     ],
   },
@@ -76,11 +80,8 @@ export const metadata: Metadata = {
     canonical: CANONICAL_URL,
   },
   icons: {
-    icon: [
-      { url: "/icon.png", sizes: "any" },
-      { url: "/icon.png", type: "image/png" },
-    ],
-    apple: [{ url: "/icon.png", sizes: "180x180", type: "image/png" }],
+    icon: [{ url: "/favicon.ico" }, { url: "/icon", type: "image/png", sizes: "32x32" }],
+    apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
   },
   manifest: "/manifest.json",
   appleWebApp: {
@@ -103,8 +104,17 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
+  const latestWritings = getLatestPosts(FOOTER_LATEST_WRITINGS_COUNT);
+
   return (
-    <html lang="en" className="dark" data-scroll-behavior="smooth">
+    <html lang="en" className="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add("js")`,
+          }}
+        />
+      </head>
       <body
         className={`${GeistSans.variable} ${GeistSans.className} antialiased bg-background text-foreground`}
       >
@@ -112,15 +122,14 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <GatedVercelAnalytics />
         <GatedVercelSpeedInsights />
 
-        <a href="#main-content" className="skip-link">
-          {SKIP_TO_CONTENT_LABEL}
-        </a>
+        <SkipLink href="#main-content" label={SKIP_TO_CONTENT_LABEL} />
 
         <StructuredData />
         <SmoothScroll>
+          <RouteChangeFocus />
           <Nav />
           {children}
-          <Footer />
+          <Footer latestWritings={latestWritings} />
         </SmoothScroll>
       </body>
     </html>

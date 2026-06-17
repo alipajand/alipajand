@@ -2,6 +2,6 @@ interface NowBulletItemProps {
   children: string;
 }
 
-export function NowBulletItem({ children }: NowBulletItemProps) {
+export const NowBulletItem = ({ children }: NowBulletItemProps) => {
   return <li>{children}</li>;
-}
+};

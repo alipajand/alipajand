@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import { Nav } from "components/Nav/Nav";
 import { SITE_NAME } from "data/site";
@@ -23,12 +23,17 @@ describe("Nav", () => {
       expect(screen.getByRole("navigation", { name: "Primary" })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: SITE_NAME })).toHaveAttribute("href", "/");
       expect(screen.getByRole("link", { name: SITE_NAME })).toHaveAttribute("aria-current", "page");
+      expect(screen.getAllByRole("link", { name: /^home$/i }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole("link", { name: /^portfolio$/i }).length).toBeGreaterThanOrEqual(
+        1
+      );
       expect(screen.getAllByRole("link", { name: /^writing$/i }).length).toBeGreaterThanOrEqual(1);
-      expect(screen.getAllByRole("link", { name: /^work$/i }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole("link", { name: /^principles$/i }).length).toBeGreaterThanOrEqual(
+        1
+      );
       expect(screen.getAllByRole("link", { name: /^open source$/i }).length).toBeGreaterThanOrEqual(
         1
       );
-      expect(screen.getAllByRole("link", { name: /^about$/i }).length).toBeGreaterThanOrEqual(1);
       expect(screen.getAllByRole("link", { name: /^contact$/i }).length).toBeGreaterThanOrEqual(1);
     });
 
@@ -44,6 +49,18 @@ describe("Nav", () => {
 
     it("should render the menu toggle button", () => {
       render(<Nav />);
+
+      expect(screen.getByRole("button", { name: /open menu/i })).toBeInTheDocument();
+    });
+
+    it("closes the mobile menu after a route change", () => {
+      const { rerender } = render(<Nav />);
+
+      fireEvent.click(screen.getByRole("button", { name: /open menu/i }));
+      expect(screen.getByRole("button", { name: /close menu/i })).toBeInTheDocument();
+
+      usePathname.mockReturnValue("/portfolio");
+      rerender(<Nav />);
 
       expect(screen.getByRole("button", { name: /open menu/i })).toBeInTheDocument();
     });

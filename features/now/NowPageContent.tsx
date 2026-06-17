@@ -10,7 +10,7 @@ import { usePageHeader } from "utils/hooks/usePageHeader";
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import { LABEL_OVERLINE, SECTION_INNER, SECTION_LEDE, SECTION_X } from "utils/visual";
 
-export function NowPageContent() {
+export const NowPageContent = () => {
   const {
     selectors: { headerRef },
   } = usePageHeader();
@@ -60,4 +60,4 @@ export function NowPageContent() {
       </div>
     </MainReveal>
   );
-}
+};

@@ -25,7 +25,7 @@ afterAll(() => {
   console.error = originalError;
 });
 
-function ContactFormWithHook({ withCompany = false }: { withCompany?: boolean }) {
+const ContactFormWithHook = ({ withCompany = false }: { withCompany?: boolean }) => {
   const { actions } = useContactForm();
   return (
     <form onSubmit={actions.handleSubmit} data-testid="contact-form">
@@ -36,7 +36,7 @@ function ContactFormWithHook({ withCompany = false }: { withCompany?: boolean })
       <button type="submit">Submit</button>
     </form>
   );
-}
+};
 
 describe("useContactForm", () => {
   beforeEach(() => {
@@ -61,6 +61,13 @@ describe("useContactForm", () => {
 
       const formValues = result.current.actions.register("name");
       expect(formValues).toBeDefined();
+    });
+
+    it("should return validation helpers for the error summary", () => {
+      const { result } = renderHook(() => useContactForm());
+
+      expect(result.current.selectors.validationErrors).toEqual([]);
+      expect(result.current.selectors.errorSummaryRef).toBeDefined();
     });
   });
 

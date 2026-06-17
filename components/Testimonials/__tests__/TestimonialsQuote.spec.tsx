@@ -6,8 +6,7 @@ import type { Testimonial } from "data/testimonials";
 const base: Testimonial = {
   id: "t1",
   quote: "A strong endorsement of the work.",
-  role: "Engineering",
-  company: "Acme Corp",
+  label: "Former engineering colleague · Acme Corp",
 };
 
 describe("TestimonialsQuote", () => {
@@ -16,38 +15,8 @@ describe("TestimonialsQuote", () => {
     expect(screen.getByText(base.quote)).toBeInTheDocument();
   });
 
-  it("renders role and company without an author name", () => {
+  it("renders the attribution label", () => {
     render(<TestimonialsQuote testimonial={base} />);
-    expect(screen.getByText(/Engineering/)).toBeInTheDocument();
-    expect(screen.getByText(/Acme Corp/)).toBeInTheDocument();
-    expect(screen.queryByText(/^Jane Doe$/)).not.toBeInTheDocument();
-  });
-
-  it("renders the author name when provided", () => {
-    render(
-      <TestimonialsQuote
-        testimonial={{
-          ...base,
-          author: "Jane Doe",
-        }}
-      />
-    );
-
-    expect(screen.getByText("Jane Doe")).toBeInTheDocument();
-    expect(screen.getByText(/Engineering · Acme Corp/)).toBeInTheDocument();
-  });
-
-  it("treats a whitespace-only author as absent", () => {
-    render(
-      <TestimonialsQuote
-        testimonial={{
-          ...base,
-          author: "   ",
-        }}
-      />
-    );
-
-    expect(screen.queryByText(/^Jane Doe$/)).not.toBeInTheDocument();
-    expect(screen.getByText(/Engineering/)).toBeInTheDocument();
+    expect(screen.getByText(base.label)).toBeInTheDocument();
   });
 });

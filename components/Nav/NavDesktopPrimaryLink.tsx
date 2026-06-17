@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { navLinkAriaCurrent } from "utils/navAriaCurrent";
 import { FOCUS_RING } from "utils/visual";
 
@@ -7,16 +8,16 @@ interface NavDesktopPrimaryLinkProps {
   label: string;
 }
 
-export function NavDesktopPrimaryLink({ pathname, href, label }: NavDesktopPrimaryLinkProps) {
+export const NavDesktopPrimaryLink = ({ pathname, href, label }: NavDesktopPrimaryLinkProps) => {
   return (
     <li>
-      <a
+      <Link
         href={href}
         aria-current={navLinkAriaCurrent(href, pathname)}
-        className={`nav-link-hover text-sm text-muted hover:text-foreground transition-colors duration-200 relative rounded-sm ${FOCUS_RING}`}
+        className={`nav-link-hover inline-flex min-h-11 items-center text-sm text-muted hover:text-foreground transition-colors duration-200 relative rounded-sm ${FOCUS_RING}`}
       >
         {label}
-      </a>
+      </Link>
     </li>
   );
-}
+};

@@ -8,13 +8,10 @@ import {
   buildPortfolioMetadata,
   buildWritingIndexMetadata,
 } from "utils/metadata";
-import {
-  ENGINEERING_PRINCIPLES_META_DESCRIPTION,
-  ENGINEERING_PRINCIPLES_PAGE_TITLE,
-} from "data/engineeringPrinciples";
+import { ENGINEERING_PRINCIPLES_META_DESCRIPTION } from "data/engineeringPrinciples";
 import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
 import { OPEN_SOURCE_META_DESCRIPTION, OPEN_SOURCE_META_TITLE } from "data/openSourcePage";
-import { PORTFOLIO_META_DESCRIPTION } from "data/portfolioFit";
+import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/projects";
 import { CANONICAL_URL } from "data/site";
 import { WRITING_INDEX_DESCRIPTION } from "data/writing";
 
@@ -24,6 +21,9 @@ describe("utils/metadata", () => {
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/writing`);
     expect(m.description).toBe(WRITING_INDEX_DESCRIPTION);
     expect(m.openGraph?.url).toBe(`${CANONICAL_URL}/writing`);
+    expect(m.title).toEqual({
+      absolute: "Writing on Product Engineering and Frontend Systems | Ali Pajand",
+    });
   });
 
   it("buildArticleMetadata sets article Open Graph and canonical", () => {
@@ -54,12 +54,13 @@ describe("utils/metadata", () => {
     const m = buildPortfolioMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/portfolio`);
     expect(m.description).toBe(PORTFOLIO_META_DESCRIPTION);
+    expect(m.title).toEqual({ absolute: PORTFOLIO_META_TITLE });
   });
 
   it("buildEngineeringPrinciplesMetadata sets canonical, title, and description", () => {
     const m = buildEngineeringPrinciplesMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/engineering-principles`);
-    expect(m.title).toBe(ENGINEERING_PRINCIPLES_PAGE_TITLE);
+    expect(m.title).toEqual({ absolute: "Engineering Principles | Ali Pajand" });
     expect(m.description).toBe(ENGINEERING_PRINCIPLES_META_DESCRIPTION);
     expect(m.openGraph?.url).toBe(`${CANONICAL_URL}/engineering-principles`);
   });
@@ -67,7 +68,7 @@ describe("utils/metadata", () => {
   it("buildNowMetadata sets canonical, title, and description", () => {
     const m = buildNowMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/now`);
-    expect(m.title).toBe(NOW_PAGE_TITLE);
+    expect(m.title).toEqual({ absolute: `${NOW_PAGE_TITLE} | Ali Pajand` });
     expect(m.description).toBe(NOW_META_DESCRIPTION);
     expect(m.openGraph?.url).toBe(`${CANONICAL_URL}/now`);
   });
@@ -75,7 +76,7 @@ describe("utils/metadata", () => {
   it("buildOpenSourceMetadata sets canonical, title, and description", () => {
     const m = buildOpenSourceMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/open-source`);
-    expect(m.title).toBe(OPEN_SOURCE_META_TITLE);
+    expect(m.title).toEqual({ absolute: OPEN_SOURCE_META_TITLE });
     expect(m.description).toBe(OPEN_SOURCE_META_DESCRIPTION);
     expect(m.openGraph?.url).toBe(`${CANONICAL_URL}/open-source`);
   });

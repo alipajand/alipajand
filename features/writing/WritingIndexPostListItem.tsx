@@ -8,7 +8,7 @@ interface WritingIndexPostListItemProps {
   post: WritingIndexPost;
 }
 
-export function WritingIndexPostListItem({ post }: WritingIndexPostListItemProps) {
+export const WritingIndexPostListItem = ({ post }: WritingIndexPostListItemProps) => {
   return (
     <li data-writ-item>
       <article>
@@ -47,4 +47,4 @@ export function WritingIndexPostListItem({ post }: WritingIndexPostListItemProps
       </article>
     </li>
   );
-}
+};

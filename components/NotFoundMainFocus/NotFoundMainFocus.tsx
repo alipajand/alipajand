@@ -2,11 +2,11 @@
 
 import { useEffect } from "react";
 
-export function NotFoundMainFocus() {
+export const NotFoundMainFocus = () => {
   useEffect(() => {
     const el = document.getElementById("main-content");
     el?.focus();
   }, []);
 
   return null;
-}
+};

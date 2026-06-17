@@ -21,14 +21,14 @@ type GsapMock = {
   registerGSAPPlugins: jest.Mock;
 };
 
-function getMock(): GsapMock {
+const getMock = (): GsapMock => {
   return jest.requireMock("utils/gsap") as GsapMock;
-}
+};
 
-function Harness({ value }: { value: string }) {
+const Harness = ({ value }: { value: string }) => {
   const { ref } = useCountUp(value);
   return <span ref={ref as React.RefObject<HTMLSpanElement>}>{value}</span>;
-}
+};
 
 describe("useCountUp", () => {
   beforeEach(() => {

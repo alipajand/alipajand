@@ -1,21 +1,24 @@
 "use client";
 
 import classNames from "classnames";
-import { usePathname } from "next/navigation";
 
 import { NavDesktopPrimaryLink } from "components/Nav/NavDesktopPrimaryLink";
 import { NavMobilePrimaryLink } from "components/Nav/NavMobilePrimaryLink";
 import { useNav } from "components/Nav/hooks/useNav";
-import { NAV_ARIA_PRIMARY, NAV_PRIMARY_LINKS } from "data/nav";
+import {
+  NAV_ARIA_PRIMARY,
+  NAV_MENU_CLOSE_LABEL,
+  NAV_MENU_OPEN_LABEL,
+  NAV_PRIMARY_LINKS,
+} from "data/nav";
 import { HERO_CTA_DOWNLOAD_RESUME, RESUME_URL, SITE_NAME } from "data/site";
 import { homeBrandAriaCurrent } from "utils/navAriaCurrent";
 import { FOCUS_RING } from "utils/visual";
 import Link from "next/link";
 
-export function Nav() {
-  const pathname = usePathname();
+export const Nav = () => {
   const {
-    selectors: { isScrolled, isMobileOpen, navLinksRef, mobileMenuRef, menuButtonRef },
+    selectors: { isScrolled, isMobileOpen, pathname, navLinksRef, mobileMenuRef, menuButtonRef },
     actions: { handleToggleMenu, handleCloseMenu },
   } = useNav();
 
@@ -28,7 +31,7 @@ export function Nav() {
     >
       <nav aria-label={NAV_ARIA_PRIMARY} className="relative">
         <div className="px-6 sm:px-10 lg:px-20">
-          <div className="max-w-5xl mx-auto w-full flex items-center justify-between gap-4 h-16">
+          <div className="max-w-5xl mx-auto w-full flex items-center justify-between gap-4 min-h-16">
             <Link
               href="/"
               aria-current={homeBrandAriaCurrent(pathname)}
@@ -38,7 +41,7 @@ export function Nav() {
             </Link>
             <ul
               ref={navLinksRef}
-              className="hidden sm:flex flex-1 items-center justify-end gap-6 min-w-0"
+              className="hidden md:flex flex-1 items-center justify-end gap-5 min-w-0"
             >
               {NAV_PRIMARY_LINKS.map((link) => (
                 <NavDesktopPrimaryLink
@@ -63,10 +66,10 @@ export function Nav() {
             <button
               ref={menuButtonRef}
               type="button"
-              aria-label={isMobileOpen ? "Close menu" : "Open menu"}
+              aria-label={isMobileOpen ? NAV_MENU_CLOSE_LABEL : NAV_MENU_OPEN_LABEL}
               aria-expanded={isMobileOpen}
               aria-controls="mobile-nav"
-              className={`sm:hidden inline-flex min-h-11 min-w-11 flex-col items-center justify-center gap-1.5 p-2 text-foreground transition-transform duration-200 rounded-sm ${FOCUS_RING}`}
+              className={`md:hidden inline-flex min-h-11 min-w-11 flex-col items-center justify-center gap-1.5 p-2 text-foreground transition-transform duration-200 rounded-sm ${FOCUS_RING}`}
               onClick={handleToggleMenu}
             >
               <span
@@ -98,7 +101,7 @@ export function Nav() {
           ref={mobileMenuRef}
           inert={!isMobileOpen}
           aria-hidden={!isMobileOpen}
-          className="sm:hidden absolute top-16 left-0 right-0 overflow-hidden bg-background border-b border-border"
+          className="md:hidden absolute top-16 left-0 right-0 overflow-hidden bg-background border-b border-border"
           style={{ height: 0, opacity: 0 }}
         >
           <div className="py-6 px-6 flex flex-col gap-1">
@@ -126,4 +129,4 @@ export function Nav() {
       </nav>
     </header>
   );
-}
+};

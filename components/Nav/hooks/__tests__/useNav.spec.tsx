@@ -101,10 +101,9 @@ describe("useNav", () => {
       default: { set: jest.Mock; to: jest.Mock; fromTo: jest.Mock };
     };
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useNav();
       const { navLinksRef } = selectors;
-
       return (
         <nav>
           <ul ref={navLinksRef}>
@@ -117,7 +116,7 @@ describe("useNav", () => {
           </ul>
         </nav>
       );
-    }
+    };
 
     render(<TestComponent />);
 
@@ -130,10 +129,9 @@ describe("useNav", () => {
       default: { fromTo: jest.Mock; to: jest.Mock };
     };
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors, actions } = useNav();
       const { mobileMenuRef } = selectors;
-
       return (
         <>
           <button type="button" onClick={actions.handleToggleMenu}>
@@ -144,7 +142,7 @@ describe("useNav", () => {
           </div>
         </>
       );
-    }
+    };
 
     const { getByText } = render(<TestComponent />);
 
@@ -195,7 +193,7 @@ describe("useNav", () => {
 
     prefersReducedMotion.mockImplementation(() => true);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors } = useNav();
       return (
         <ul ref={selectors.navLinksRef}>
@@ -204,7 +202,7 @@ describe("useNav", () => {
           </li>
         </ul>
       );
-    }
+    };
 
     render(<TestComponent />);
 
@@ -222,7 +220,7 @@ describe("useNav", () => {
 
     prefersReducedMotion.mockImplementation(() => true);
 
-    function TestComponent() {
+    const TestComponent = () => {
       const { selectors, actions } = useNav();
       return (
         <>
@@ -235,7 +233,7 @@ describe("useNav", () => {
           </div>
         </>
       );
-    }
+    };
 
     const { getByText } = render(<TestComponent />);
 
@@ -250,12 +248,12 @@ describe("useNav", () => {
     expect(gsap.default.fromTo).not.toHaveBeenCalled();
   });
 
-  it("wraps focus from the last mobile link to the first on Tab", () => {
-    function TestComponent() {
+  it("wraps focus from the last mobile link to the menu button on Tab", () => {
+    const TestComponent = () => {
       const { selectors, actions } = useNav();
       return (
         <>
-          <button type="button" onClick={actions.handleToggleMenu}>
+          <button type="button" ref={selectors.menuButtonRef} onClick={actions.handleToggleMenu}>
             Toggle
           </button>
           <div ref={selectors.mobileMenuRef}>
@@ -264,7 +262,7 @@ describe("useNav", () => {
           </div>
         </>
       );
-    }
+    };
 
     const { getByText } = render(<TestComponent />);
 
@@ -272,7 +270,7 @@ describe("useNav", () => {
       getByText("Toggle").click();
     });
 
-    const first = getByText("One");
+    const toggle = getByText("Toggle");
     const last = getByText("Two");
     last.focus();
 
@@ -280,19 +278,19 @@ describe("useNav", () => {
     const preventDefault = jest.spyOn(event, "preventDefault");
 
     act(() => {
-      last.dispatchEvent(event);
+      document.dispatchEvent(event);
     });
 
     expect(preventDefault).toHaveBeenCalled();
-    expect(document.activeElement).toBe(first);
+    expect(document.activeElement).toBe(toggle);
   });
 
-  it("wraps focus from the first mobile link to the last on Shift+Tab", () => {
-    function TestComponent() {
+  it("wraps focus from the menu button to the last mobile link on Shift+Tab", () => {
+    const TestComponent = () => {
       const { selectors, actions } = useNav();
       return (
         <>
-          <button type="button" onClick={actions.handleToggleMenu}>
+          <button type="button" ref={selectors.menuButtonRef} onClick={actions.handleToggleMenu}>
             Toggle
           </button>
           <div ref={selectors.mobileMenuRef}>
@@ -301,7 +299,7 @@ describe("useNav", () => {
           </div>
         </>
       );
-    }
+    };
 
     const { getByText } = render(<TestComponent />);
 
@@ -309,18 +307,54 @@ describe("useNav", () => {
       getByText("Toggle").click();
     });
 
-    const first = getByText("One");
+    const toggle = getByText("Toggle");
     const last = getByText("Two");
-    first.focus();
+    toggle.focus();
 
     const event = new KeyboardEvent("keydown", { key: "Tab", shiftKey: true, bubbles: true });
     const preventDefault = jest.spyOn(event, "preventDefault");
 
     act(() => {
-      first.dispatchEvent(event);
+      document.dispatchEvent(event);
     });
 
     expect(preventDefault).toHaveBeenCalled();
     expect(document.activeElement).toBe(last);
+  });
+
+  it("marks main content and footer inert while the mobile menu is open", () => {
+    const main = document.createElement("main");
+    main.id = "main-content";
+    const footer = document.createElement("footer");
+    document.body.append(main, footer);
+
+    const TestComponent = () => {
+      const { selectors, actions } = useNav();
+      return (
+        <button type="button" ref={selectors.menuButtonRef} onClick={actions.handleToggleMenu}>
+          Toggle
+        </button>
+      );
+    };
+
+    const { getByText, unmount } = render(<TestComponent />);
+
+    act(() => {
+      getByText("Toggle").click();
+    });
+
+    expect(main).toHaveAttribute("inert");
+    expect(footer).toHaveAttribute("inert");
+
+    act(() => {
+      getByText("Toggle").click();
+    });
+
+    expect(main).not.toHaveAttribute("inert");
+    expect(footer).not.toHaveAttribute("inert");
+
+    unmount();
+    main.remove();
+    footer.remove();
   });
 });

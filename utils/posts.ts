@@ -6,13 +6,13 @@ import { marked } from "marked";
 
 const POSTS_DIR = join(process.cwd(), "content", "posts");
 
-function toSafeSlug(value: string): string {
+const toSafeSlug = (value: string): string => {
   return value
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9-]+/g, "-")
     .replace(/^-+|-+$/g, "");
-}
+};
 
 export interface PostFrontmatter {
   title: string;
@@ -32,15 +32,15 @@ export interface Post {
   contentHtml: string;
 }
 
-function getPostSlugs(): string[] {
+const getPostSlugs = (): string[] => {
   if (!readdirSync(POSTS_DIR, { withFileTypes: true })) return [];
   return readdirSync(POSTS_DIR)
     .filter((f) => f.endsWith(".md") && f.toLowerCase() !== "readme.md")
     .map((f) => toSafeSlug(f.replace(/\.md$/, "")))
     .filter((slug) => slug.length > 0);
-}
+};
 
-export function getAllPosts(): Omit<Post, "contentHtml">[] {
+export const getAllPosts = (): Omit<Post, "contentHtml">[] => {
   const slugs = getPostSlugs();
   return slugs
     .map((slug) => {
@@ -58,9 +58,9 @@ export function getAllPosts(): Omit<Post, "contentHtml">[] {
       };
     })
     .sort((a, b) => b.date.localeCompare(a.date));
-}
+};
 
-export function getPostBySlug(slug: string): Post | null {
+export const getPostBySlug = (slug: string): Post | null => {
   try {
     const path = join(POSTS_DIR, `${slug}.md`);
     const raw = readFileSync(path, "utf-8");
@@ -79,16 +79,18 @@ export function getPostBySlug(slug: string): Post | null {
   } catch {
     return null;
   }
-}
+};
 
-export function getLatestPosts(count: number): Omit<Post, "contentHtml">[] {
+export const getLatestPosts = (count: number): Omit<Post, "contentHtml">[] => {
   return getAllPosts().slice(0, count);
-}
+};
 
-export function getPostsForWritingSection(recentCount: number): {
+export const getPostsForWritingSection = (
+  recentCount: number
+): {
   featured: Omit<Post, "contentHtml"> | null;
   recent: Omit<Post, "contentHtml">[];
-} {
+} => {
   const all = getAllPosts();
   const featured = all.find((p) => p.featured === true) ?? null;
   const withoutFeatured = featured ? all.filter((p) => p.slug !== featured.slug) : all;
@@ -96,4 +98,4 @@ export function getPostsForWritingSection(recentCount: number): {
     featured,
     recent: withoutFeatured.slice(0, recentCount),
   };
-}
+};

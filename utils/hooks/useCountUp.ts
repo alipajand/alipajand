@@ -5,7 +5,13 @@ import { useEffect, useRef } from "react";
 import { gsap, prefersReducedMotion, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
 import { DUR, EASE } from "utils/motion";
 
-function parseValue(value: string): { num: number; prefix: string; suffix: string } | null {
+const parseValue = (
+  value: string
+): {
+  num: number;
+  prefix: string;
+  suffix: string;
+} | null => {
   const match = value.match(/^([^0-9]*)(\d+)(.*)$/);
   if (!match || match[2] === undefined) return null;
   return {
@@ -13,9 +19,9 @@ function parseValue(value: string): { num: number; prefix: string; suffix: strin
     prefix: match[1] ?? "",
     suffix: match[3] ?? "",
   };
-}
+};
 
-export function useCountUp(value: string) {
+export const useCountUp = (value: string) => {
   const ref = useRef<HTMLElement>(null);
   const parsed = parseValue(value);
 
@@ -54,4 +60,4 @@ export function useCountUp(value: string) {
   }, [value]);
 
   return { ref, hasParsed: parsed !== null };
-}
+};

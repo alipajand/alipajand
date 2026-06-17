@@ -1,10 +1,23 @@
+export type OpenSourceProjectStatus =
+  | "Stable"
+  | "Active development"
+  | "Experimental"
+  | "Maintained"
+  | "Archived";
+
 export interface OpenSourceProject {
   title: string;
   repositoryUrl: string;
   summary: string;
-  checklistLabel: string;
-  checklistItems: string[];
+  status: OpenSourceProjectStatus;
+  format: string;
+  testedCapabilitiesLabel: string;
+  testedCapabilities: string[];
   contribution: string;
+  exampleCommand?: string;
+  exampleInput?: string;
+  exampleOutput?: string;
+  featured?: boolean;
 }
 
 export interface OpenSourcePrinciple {
@@ -12,31 +25,121 @@ export interface OpenSourcePrinciple {
   body: string;
 }
 
-export const OPEN_SOURCE_PAGE_TITLE = "Open Source";
-export const OPEN_SOURCE_META_TITLE = "Open Source — Ali Pajand";
+export const OPEN_SOURCE_META_TITLE = "Open-Source Engineering Tools | Ali Pajand";
 export const OPEN_SOURCE_META_DESCRIPTION =
-  "Open-source TypeScript tools by Ali Pajand for repository readiness, agent instruction quality, pull-request risk, and CI enforcement in AI-assisted software development.";
+  "Open-source tools and experiments for code review, agent context quality, frontend reliability, and developer experience.";
 
 export const OPEN_SOURCE_HEADER_OVERLINE = "Open source";
 export const OPEN_SOURCE_HEADER_HEADING =
   "Deterministic guardrails for AI-assisted software engineering";
 export const OPEN_SOURCE_HEADER_LEDE =
-  "A family of open-source TypeScript tools for making coding-agent workflows safer, more explainable, and easier to operate in real repositories.";
+  "I feature the two most complete tools first: one for risky pull-request review, and one for auditing agent instructions before code generation starts.";
 export const OPEN_SOURCE_HEADER_INTRO =
-  "The common problem is not whether coding agents can generate code. It is whether a repository gives them clear instructions, valid commands, safe boundaries, useful feedback, and reliable CI checks. These tools address that workflow from repository setup through pull-request review.";
+  "These repositories focus on concrete engineering controls: deterministic checks, repository-specific guidance, explainable output, and tested CLI behavior. They are presented with examples and capability boundaries rather than GitHub vanity metrics.";
 
-export const OPEN_SOURCE_TOOLKIT_HEADING = "The toolkit";
-export const OPEN_SOURCE_TOOLKIT_LEDE =
-  "Each project focuses on a different failure point in agent-assisted development while sharing the same design principles: deterministic checks, explainable output, CI-friendly behavior, and no hidden model judgment.";
+export const OPEN_SOURCE_FEATURED_HEADING = "Featured tools";
+export const OPEN_SOURCE_FEATURED_LEDE =
+  "These are the first two tools to evaluate because they address the most common failure points in coding-agent workflows: unsafe code review gaps and low-quality agent context.";
+
+export const OPEN_SOURCE_SUPPORTING_HEADING = "Supporting tools";
+export const OPEN_SOURCE_SUPPORTING_LEDE =
+  "These supporting repositories extend the same workflow into repository readiness and CI enforcement.";
+
+export const OPEN_SOURCE_STATUS_LABEL = "Status";
+export const OPEN_SOURCE_FORMAT_LABEL = "Format";
+export const OPEN_SOURCE_EXAMPLE_COMMAND_LABEL = "Command";
+export const OPEN_SOURCE_EXAMPLE_INPUT_LABEL = "Fixture input";
+export const OPEN_SOURCE_EXAMPLE_OUTPUT_LABEL = "CLI output";
+export const OPEN_SOURCE_EXAMPLE_DISCLAIMER =
+  "Simplified for readability; exact CLI output depends on configuration and repository state.";
+
+export const OPEN_SOURCE_CONTRIBUTION_LABEL = "Contribution";
+
+export const OPEN_SOURCE_REPOSITORY_LINK_LABEL = "Repository";
+
+export const openSourceRepositoryAriaLabel = (projectTitle: string): string =>
+  `Open ${projectTitle} repository on GitHub`;
 
 export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
+  {
+    title: "Agent PR Reviewer Lite",
+    repositoryUrl: "https://github.com/alipajand/agent-pr-reviewer-lite",
+    summary:
+      "Reviews pull requests and local Git diffs for risky agent-generated changes using deterministic rules instead of opaque AI review.",
+    status: "Active development",
+    format: "TypeScript CLI",
+    testedCapabilitiesLabel: "Tested capabilities",
+    testedCapabilities: [
+      "Inspects local diffs between two Git refs with deterministic risk rules",
+      "Flags auth, billing, security, migration, lockfile, env, and public-route changes",
+      "Detects deleted test files and newly added dependencies in package.json diffs",
+      "Emits text, JSON, or Markdown reports with configurable fail-on thresholds",
+    ],
+    contribution:
+      "Owned the risk model, CLI interface, diff analysis, output formats, test suite, CI behavior, and repository documentation.",
+    exampleCommand: "agent-pr-reviewer-lite --base HEAD~1 --head HEAD",
+    exampleInput: `prisma/migrations/20260615_add_billing_table.sql`,
+    exampleOutput: `Agent PR Risk: High
+Changed risky areas:
+- prisma/migrations/20260615_add_billing_table.sql — Database migration changed
+- prisma/migrations/20260615_add_billing_table.sql — Pricing or public copy changed
+Required human review:
+- database migration
+- pricing/public copy
+CI result:
+- fail-on: high
+- result: failed`,
+    featured: true,
+  },
+  {
+    title: "Agent Context Doctor",
+    repositoryUrl: "https://github.com/alipajand/agent-context-doctor",
+    summary:
+      "Audits AGENTS.md, CLAUDE.md, Cursor rules, Copilot instructions, and prompt documents for quality, safety, contradictions, stale commands, and generic placeholder content.",
+    status: "Active development",
+    format: "TypeScript CLI",
+    testedCapabilitiesLabel: "Tested capabilities",
+    testedCapabilities: [
+      "Checks AGENTS.md, CLAUDE.md, Cursor rules, and prompt documents",
+      "Flags risky instructions such as “skip tests” or “bypass auth”",
+      "Detects contradictory testing guidance and missing validation or final-report expectations",
+      "Supports JSON and Markdown reports with configurable fail-on thresholds",
+    ],
+    contribution:
+      "Designed deterministic rules, severity reporting, CLI UX, configuration, test coverage, documentation, and CI-friendly exit behavior.",
+    exampleCommand: "acd audit",
+    exampleInput: `- Run pnpm test before finishing
+- Skip tests if the change looks small
+- Never edit app/api/contact without approval`,
+    exampleOutput: `Agent Context Doctor
+──────────────────────────────────────────────────
+Repo:    /private/tmp/acd-fixture
+Files:   1
+Issues:  3 total — 1 high, 0 medium, 2 low
+Score:   74 / 100 — needs-work
+
+Context Files:
+  ✓ AGENTS.md (agents, 118B)
+
+Issues:
+  [high] AGENTS.md:2 — Risky instruction: "skip tests"
+    Recommendation: Remove language that lets agents bypass validation, security, or testing. Agents should never skip tests, bypass auth, or commit secrets.
+    Evidence: - Skip tests if the change looks small
+  [low] AGENTS.md — Instruction references package manager commands but no package.json was found
+    Recommendation: Ensure a package.json exists at the repo root so command references can be validated.
+  [low] AGENTS.md — No final reporting guidance found
+    Recommendation: Add instructions telling the agent what to include in its final report: files changed, commands run, test results, and known limitations.`,
+    featured: true,
+  },
   {
     title: "Agent Readiness Kit",
     repositoryUrl: "https://github.com/alipajand/agent-readiness-kit",
     summary:
       "Audits whether a repository is ready for coding agents such as Cursor, Codex, Claude Code, and GitHub Copilot.",
-    checklistLabel: "What it checks",
-    checklistItems: [
+    status: "Active development",
+    format: "TypeScript CLI",
+    testedCapabilitiesLabel: "What it checks",
+    testedCapabilities: [
       "Agent context and instruction files",
       "Documented validation commands",
       "Forbidden-change boundaries",
@@ -47,47 +150,14 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
       "Owned product definition, audit model, CLI behavior, TypeScript implementation, testing strategy, documentation, and release structure.",
   },
   {
-    title: "Agent Context Doctor",
-    repositoryUrl: "https://github.com/alipajand/agent-context-doctor",
-    summary:
-      "Audits AGENTS.md, CLAUDE.md, Cursor rules, Copilot instructions, and prompt documents for quality, safety, contradictions, and repository alignment.",
-    checklistLabel: "What it checks",
-    checklistItems: [
-      "Contradictory instructions",
-      "Generic placeholder sections",
-      "Missing or invalid commands",
-      "Unsafe skip-tests guidance",
-      "Overlong context files",
-      "Missing forbidden-change boundaries",
-      "Missing final-report requirements",
-    ],
-    contribution:
-      "Designed deterministic rules, severity reporting, CLI UX, configuration, test coverage, documentation, and CI-friendly exit behavior.",
-  },
-  {
-    title: "Agent PR Reviewer Lite",
-    repositoryUrl: "https://github.com/alipajand/agent-pr-reviewer-lite",
-    summary:
-      "Reviews pull requests and local Git diffs for risky agent-generated changes using deterministic rules instead of opaque AI review.",
-    checklistLabel: "What it checks",
-    checklistItems: [
-      "Authentication and authorization changes",
-      "Billing and pricing changes",
-      "Security-sensitive files",
-      "Database migrations",
-      "Routes, environment variables, and dependencies",
-      "Missing or weakened tests",
-    ],
-    contribution:
-      "Owned the risk model, CLI interface, diff analysis, output formats, test suite, CI behavior, and repository documentation.",
-  },
-  {
     title: "Agent Readiness Action",
     repositoryUrl: "https://github.com/alipajand/agent-readiness-action",
     summary:
       "Runs Agent Readiness Kit audits inside GitHub Actions so repository-readiness checks become part of normal CI.",
-    checklistLabel: "What it provides",
-    checklistItems: [
+    status: "Active development",
+    format: "GitHub Action",
+    testedCapabilitiesLabel: "What it provides",
+    testedCapabilities: [
       "Reusable GitHub Actions integration",
       "CI-native audit execution",
       "Configurable failure behavior",
@@ -138,8 +208,8 @@ export const OPEN_SOURCE_TECHNOLOGY_BADGES = [
 
 export const OPEN_SOURCE_CTA_HEADING = "Explore the repositories";
 export const OPEN_SOURCE_CTA_BODY =
-  "Each project includes documentation, examples, validation behavior, and implementation details for teams experimenting with AI-assisted development.";
-export const OPEN_SOURCE_CTA_PRIMARY_LABEL = "View GitHub profile";
+  "Use the repository links above for direct source access. The broader writing section covers the product and engineering ideas behind these tools without turning the page into a GitHub stats showcase.";
+export const OPEN_SOURCE_CTA_PRIMARY_LABEL = "Browse GitHub profile";
 export const OPEN_SOURCE_CTA_PRIMARY_HREF = "https://github.com/alipajand";
 export const OPEN_SOURCE_CTA_SECONDARY_LABEL = "Read my writing";
 export const OPEN_SOURCE_CTA_SECONDARY_HREF = "/writing";

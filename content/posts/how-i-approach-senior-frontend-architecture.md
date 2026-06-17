@@ -9,76 +9,100 @@ tags:
   - DX
 ---
 
-Senior frontend architecture is not about making the folder structure look clever. It is about making product UI easier to reason about as the product, team, and edge cases grow.
+Senior frontend architecture is not about making a folder tree look clever. It is about making product behavior easier to reason about as complexity, edge cases, and team surface area grow.
 
-The work usually starts with one question: **what does this interface need to guarantee?**
+I keep coming back to one question: what does this interface need to guarantee?
 
-A dashboard, onboarding flow, billing page, contract review screen, or AI-assisted workflow all have different failure modes. The architecture should make those failure modes visible instead of hiding them behind optimistic UI.
+A dashboard, onboarding flow, renewal-review screen, and AI-assisted workflow all fail in different ways. Good architecture makes those failure modes visible early instead of hiding them behind a polished happy path.
 
 ## Boundaries first
 
-I like to separate product surfaces by domain, not only by component type. A shared button belongs in the design system. A renewal-risk table, report builder, or account setup flow belongs closer to the feature that owns the behavior.
+Most frontend codebases become harder to change when shared UI and product behavior blur into each other.
 
-That separation keeps shared UI reusable without turning it into a dumping ground for business logic.
+I separate design-system primitives from domain-owned product components. A button, dialog shell, form field wrapper, or loading skeleton can be shared. A renewal-risk table, parcel recommendation panel, or report-export workflow should live with the feature that owns its rules and states.
 
-Good boundaries make it easier to answer:
+A concrete example is the difference between a shared combobox primitive and a domain-owned "property scenario selector." The combobox can own keyboard behavior, labeling hooks, and focus patterns. The scenario selector owns which scenarios are available, what happens when one is not supported, and how a recommendation card updates around it.
 
-- Where does this data come from?
-- Who owns this state?
-- What happens while it is loading?
-- What happens when it fails?
-- Which parts are reusable infrastructure, and which parts are product-specific?
-
-When those answers are obvious, the codebase feels smaller than it is.
+Pushing more product behavior down into the design system to "maximize reuse" usually backfires. Stricter boundaries create more components, but they keep the shared layer from turning into a business-logic landfill. Reuse is valuable only when it does not erase ownership.
 
 ## State should match the product model
 
-State management is not a library choice first. It is a product modeling problem.
+State management is not a library choice first. It is a modeling problem.
 
-Some state is server state and should be cached, invalidated, retried, and synchronized carefully. Some state is local interaction state. Some state is URL state because it represents shareable user intent. Some state belongs in a form because the user is drafting something that has not been committed yet.
+The easiest way to create frontend bugs is to store state somewhere more global or durable than the product behavior requires. I prefer explicit ownership:
 
-I prefer boring, explicit state boundaries over clever global stores. Most frontend bugs come from state living in the wrong place.
+- Server cache: fetched records, computed scenarios, or verification results that come from the backend and need refetch or invalidation rules.
+- URL state: filters, tabs, sort order, or selected IDs when the state represents shareable user intent.
+- Form state: draft values the user is editing but has not committed yet.
+- Local interaction state: open panels, row expansion, hover intent, inline disclosure state.
+- Persisted preference: things like density mode, dismissed hints, or table column preferences that should survive refreshes.
+
+In a workflow-heavy interface, imagine a contract review screen with a renewals table and a detail drawer. The table data belongs in server cache. The selected contract ID and current filter belong in the URL so a reviewer can share the exact view. Edits to a notice date belong in form state until saved. Whether the evidence sidebar is open belongs in local interaction state. The user's chosen compact-table preference belongs in persisted local storage or profile state.
+
+One app-wide store holding all of it "for convenience" is the pattern I avoid. Distributed state ownership requires more discipline about boundaries and naming, but it prevents stale copies, accidental coupling, and the "why did changing this modal break browser navigation?" class of bugs.
 
 ## API contracts are part of frontend architecture
 
 Frontend architecture gets weak when the UI has to guess what the backend meant.
 
-Typed API contracts, Zod schemas, OpenAPI definitions, and clear empty/error states make product behavior more predictable. They also improve collaboration: backend changes stop being surprises, and frontend work stops relying on undocumented response shapes.
+Typed API contracts, Zod validation, and explicit empty or error states are not backend polish. They shape what the UI can safely promise. This matters even more in AI-assisted products, where the frontend needs to know what is grounded, what is uncertain, and what can be edited without being mistaken for verified truth.
 
-This matters even more in AI-assisted products. If a model produces suggestions, summaries, or risk labels, the UI needs to know what is grounded, what is uncertain, what can be edited, and what should never be presented as fact.
+If the dashboard and export flow consume slightly different payload shapes, product drift starts quietly. I put a typed contract at the boundary and use it across the feature, including secondary surfaces like PDFs or exports.
+
+Mapping each surface independently and relying on integration knowledge in developers' heads is faster at first and more expensive later. Stricter contracts add maintenance when APIs evolve, but they make change visible at compile time instead of after a customer notices the PDF and UI disagree.
 
 ## Accessibility is architecture
 
-Accessibility is not a final checklist. It affects component APIs, focus management, semantics, keyboard behavior, motion, color contrast, error messaging, and how users recover when something goes wrong.
+Accessibility is not a finishing pass. It affects component APIs, focus order, semantics, motion, error recovery, and how users move through a workflow when something fails.
 
-If accessibility is handled late, the architecture usually fights it. If it is part of the system early, it improves the product for everyone.
+The architectural consequence is that reusable components should expose accessibility requirements as part of their interface contract. A modal primitive should define focus trapping and return behavior. A form field wrapper should make error and hint wiring easy instead of optional. A loading or error pattern should account for how state changes are announced, not only how they look.
+
+Postponing accessibility until QA usually means retrofitting semantics into components whose APIs were never designed to support them cleanly. Front-loading more design and implementation discipline pays off when accessibility stops being a special task and becomes part of how the system works by default.
 
 ## Performance is a product constraint
 
-Frontend performance is not only Lighthouse. It is how the product feels during real work.
+Performance work is not about chasing abstract scores. It is about protecting the parts of the product where users actually spend time.
 
-For complex interfaces, I care about:
+Consider a data-heavy interface with a large results table, map overlays, derived recommendation cards, and a detail drawer. The architecture needs to respect the fact that users are switching filters, scanning rows, and opening context quickly. That leads to decisions like:
 
-- avoiding unnecessary rendering
-- keeping expensive charts and motion bounded
-- splitting code where it maps to user intent
-- making loading states useful
-- measuring the paths users actually take
+- Keep server data fetching separate from ephemeral UI state so local interaction does not trigger unnecessary refetch behavior.
+- Defer expensive derived rendering until the user has narrowed the active dataset.
+- Split secondary features like export or advanced comparison panels by intent rather than loading them on first paint.
+- Be explicit about loading and empty states so the interface still explains itself while work is in progress.
 
-Performance work should protect the core experience, not become abstract optimization theater.
+A monolithic page component that recomputes everything on every filter change because it is "simpler" is the version I try not to ship. Performance-aware boundaries can make composition feel more deliberate, but data-heavy products need architecture that assumes real use, not demo use.
 
-## Tests and review habits keep the system honest
+## Tests should follow the same ownership model
 
-Senior frontend work is not finished when the UI looks right locally.
+Test strategy gets clearer when each layer owns different risks.
 
-I want fast feedback loops: typecheck in the editor, lint before review, unit tests for logic, integration tests for important flows, accessibility checks where practical, and production observability when something still slips through.
+For a workflow-heavy frontend, I usually want:
 
-The review conversation should focus on product behavior, naming, boundaries, and trade-offs — not avoidable formatting or type errors.
+- Unit tests for pure utilities, formatters, reducers, schema transforms, and state adapters.
+- Integration tests for feature components that coordinate fetching states, user interaction, and rendering decisions.
+- Accessibility-focused checks for shared primitives and important flows where keyboard, labeling, and error wiring are easy to regress.
+- End-to-end coverage for the high-value journeys where multiple boundaries have to cooperate: search, review, save, export, or submit.
+
+A recommendation panel might have unit tests for payload normalization, integration tests for how it renders valid versus partial responses, accessibility checks for disclosure and alert behavior, and end-to-end coverage for the full "analyze property -> view recommendation -> generate report" journey.
+
+Using end-to-end tests as a substitute for all other confidence tends to create slow, brittle suites that still do not explain where ownership lives when something breaks. Maintaining multiple test layers is more work, but failures localize faster and reviews can focus on product behavior instead of missing basic coverage.
+
+## Review habits keep the architecture honest
+
+Architecture is not preserved by diagrams alone. It is preserved by what code review treats as important.
+
+I want deterministic checks like typecheck, lint, and tests to run early so review time can focus on behavior, ownership, naming, failure handling, and trade-offs. If a feature introduces a new shared component, the review should ask whether it is actually shared infrastructure or product logic looking for a home. If a piece of state moved, the review should ask whether its new owner matches the product model.
+
+That is the part of senior frontend work I care about most. The code should not only render the right pixels. It should make the next decision easier and the next failure easier to explain.
 
 ## The goal
 
-Good frontend architecture makes a product easier to change.
+Good frontend architecture makes a product easier to change without making it easier to lie.
 
-It helps designers trust the system, backend engineers trust the contract, product managers trust the behavior, and users trust the interface.
+It helps designers trust the system, backend engineers trust the contract, product managers trust the behavior, and users trust what the interface is telling them. That is the standard I aim for: product UI that ships, explains itself, handles failure honestly, and stays maintainable after the first version.
 
-That is the standard I try to build toward: product UI that ships, explains itself, handles failure honestly, and stays maintainable after the first version.
+## Related reading
+
+- [Design systems that stick](/writing/design-systems-that-stick)
+- [Teaching MapBylaw to give honest AI recommendations](/writing/mapbylaw-ai-recommendations)
+- [The quiet failure mode in contract AI: when the UI believes the wrong row](/writing/ledgerguard-truth-between-extraction-and-finance)

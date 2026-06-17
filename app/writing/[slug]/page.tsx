@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 
 import { ArticleJsonLd } from "components/ArticleJsonLd/ArticleJsonLd";
+import { BreadcrumbJsonLd } from "components/BreadcrumbJsonLd/BreadcrumbJsonLd";
 import { WritingPostPageContent } from "features/writing/WritingPostPageContent";
+import { CANONICAL_URL } from "data/site";
 import { getAllPosts, getPostBySlug } from "utils/posts";
 import { splitHtmlAtFirstH2 } from "utils/splitHtmlAtFirstH2";
 import { buildArticleMetadata } from "utils/metadata";
@@ -38,6 +40,13 @@ export default async function PostPage({ params }: PageProps) {
   return (
     <>
       <ArticleJsonLd post={postForJsonLd} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: CANONICAL_URL },
+          { name: "Writing", url: `${CANONICAL_URL}/writing` },
+          { name: post.title, url: `${CANONICAL_URL}/writing/${post.slug}` },
+        ]}
+      />
       <WritingPostPageContent
         title={post.title}
         date={post.date}

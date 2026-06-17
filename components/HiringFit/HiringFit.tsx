@@ -1,30 +1,9 @@
-"use client";
-
-import Link from "next/link";
-
 import { HiringFitGridItem } from "components/HiringFit/HiringFitGridItem";
 import { useHiringFitReveal } from "components/HiringFit/hooks/useHiringFitReveal";
-import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
-import {
-  HIRING_FIT_CARDS,
-  HIRING_FIT_CTA_PRIMARY_HREF,
-  HIRING_FIT_CTA_PRIMARY_LABEL,
-  HIRING_FIT_CTA_SECONDARY_HREF,
-  HIRING_FIT_CTA_SECONDARY_LABEL,
-  HIRING_FIT_HEADING,
-  HIRING_FIT_LEDE,
-  HIRING_FIT_ROLE_STRIP,
-} from "data/hiringFit";
-import {
-  CTA_PRIMARY,
-  CTA_SECONDARY,
-  SECTION_INNER,
-  SECTION_LEDE_LG,
-  SECTION_SHELL,
-  SECTION_TITLE,
-} from "utils/visual";
+import { HIRING_FIT_CARDS, HIRING_FIT_HEADING } from "data/hiringFit";
+import { SECTION_INNER, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
-export function HiringFit() {
+export const HiringFit = () => {
   const {
     selectors: { sectionRef },
   } = useHiringFitReveal();
@@ -40,39 +19,13 @@ export function HiringFit() {
         <h2 id="hiring-fit-heading" data-hiring-heading className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
           {HIRING_FIT_HEADING}
         </h2>
-        <p data-hiring-lede className={`${SECTION_LEDE_LG} mb-6 sm:mb-8`}>
-          {HIRING_FIT_LEDE}
-        </p>
-
-        <ul aria-label="Role fit" className="mb-10 sm:mb-12 flex flex-wrap gap-2 list-none p-0 m-0">
-          {HIRING_FIT_ROLE_STRIP.map((role) => (
-            <ProjectCardBadge key={role} data-hiring-badge>
-              {role}
-            </ProjectCardBadge>
-          ))}
-        </ul>
 
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">
           {HIRING_FIT_CARDS.map((card) => (
             <HiringFitGridItem key={card.id} card={card} />
           ))}
         </ul>
-
-        <div
-          data-hiring-ctas
-          className="mt-10 sm:mt-12 flex flex-col sm:flex-row sm:flex-wrap gap-4"
-        >
-          <Link href={HIRING_FIT_CTA_PRIMARY_HREF} className={`${CTA_PRIMARY} w-full sm:w-auto`}>
-            {HIRING_FIT_CTA_PRIMARY_LABEL}
-          </Link>
-          <Link
-            href={HIRING_FIT_CTA_SECONDARY_HREF}
-            className={`${CTA_SECONDARY} w-full sm:w-auto`}
-          >
-            {HIRING_FIT_CTA_SECONDARY_LABEL}
-          </Link>
-        </div>
       </div>
     </section>
   );
-}
+};

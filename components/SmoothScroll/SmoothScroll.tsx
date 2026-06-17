@@ -6,13 +6,11 @@ import Lenis from "lenis";
 
 import { gsap, prefersReducedMotion, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
 
-export function SmoothScroll({ children }: { children: ReactNode }) {
+export const SmoothScroll = ({ children }: { children: ReactNode }) => {
   const lenisRef = useRef<InstanceType<typeof Lenis> | null>(null);
   const rafRef = useRef<(time: number) => void>(() => {});
-
   useEffect(() => {
     if (typeof window === "undefined" || prefersReducedMotion()) return;
-
     registerGSAPPlugins();
     const lenis = new Lenis({
       duration: 1.1,
@@ -24,7 +22,6 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     rafRef.current = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(rafRef.current);
     gsap.ticker.lagSmoothing(0);
-
     return () => {
       gsap.ticker.remove(rafRef.current);
       lenisRef.current?.destroy();
@@ -32,6 +29,5 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       gsap.ticker.lagSmoothing(1000, 500);
     };
   }, []);
-
   return <>{children}</>;
-}
+};

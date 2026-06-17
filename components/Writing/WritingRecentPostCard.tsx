@@ -9,7 +9,7 @@ interface WritingRecentPostCardProps {
   post: WritingPost;
 }
 
-export function WritingRecentPostCard({ post }: WritingRecentPostCardProps) {
+export const WritingRecentPostCard = ({ post }: WritingRecentPostCardProps) => {
   return (
     <article>
       <Link
@@ -27,4 +27,4 @@ export function WritingRecentPostCard({ post }: WritingRecentPostCardProps) {
       </Link>
     </article>
   );
-}
+};

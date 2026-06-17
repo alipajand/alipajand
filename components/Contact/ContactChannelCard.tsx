@@ -1,4 +1,5 @@
 import { trackContactLinkClick } from "components/Contact/trackContactLinkClick";
+import { EXTERNAL_LINK_NEW_TAB_HINT } from "data/pageChrome";
 import { CARD_SURFACE_HOVER } from "utils/visual";
 
 const ICON_SRC = {
@@ -19,7 +20,7 @@ interface ContactChannelCardProps {
   channel: ContactChannel;
 }
 
-export function ContactChannelCard({ channel }: ContactChannelCardProps) {
+export const ContactChannelCard = ({ channel }: ContactChannelCardProps) => {
   const isEmail = channel.label === "Email";
   const iconSrc = ICON_SRC[channel.label as IconLabel];
 
@@ -32,7 +33,7 @@ export function ContactChannelCard({ channel }: ContactChannelCardProps) {
         data-analytics-event={`contact_link_${channel.label.toLowerCase()}`}
         aria-label={
           channel.href.startsWith("http")
-            ? `${channel.label}: ${channel.value} (opens in new tab)`
+            ? `${channel.label}: ${channel.value}${EXTERNAL_LINK_NEW_TAB_HINT}`
             : `${channel.label}: ${channel.value}`
         }
         onClick={() => trackContactLinkClick(channel.label)}
@@ -71,9 +72,7 @@ export function ContactChannelCard({ channel }: ContactChannelCardProps) {
             {channel.label}
           </span>
           <span
-            className={`mt-0.5 block text-sm font-medium truncate ${
-              isEmail ? "text-background" : "text-foreground"
-            }`}
+            className={`mt-0.5 block text-sm font-medium truncate ${isEmail ? "text-background" : "text-foreground"}`}
           >
             {channel.value}
           </span>
@@ -81,4 +80,4 @@ export function ContactChannelCard({ channel }: ContactChannelCardProps) {
       </a>
     </li>
   );
-}
+};

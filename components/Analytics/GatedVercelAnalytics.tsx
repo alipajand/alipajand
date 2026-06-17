@@ -2,10 +2,10 @@
 
 import { Analytics } from "@vercel/analytics/next";
 
-export function GatedVercelAnalytics() {
+export const GatedVercelAnalytics = () => {
   if (process.env.NODE_ENV !== "production") {
     return null;
   }
 
   return <Analytics />;
-}
+};

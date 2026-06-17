@@ -1,7 +1,7 @@
 export const ENGINEERING_PRINCIPLES_META_DESCRIPTION =
-  "How I approach product engineering: systems first, reliability as product, AI trust boundaries, accessibility, fast feedback loops, and product thinking over ticket thinking.";
+  "Practical principles for designing maintainable frontend systems, reliable product workflows, accessible interfaces, and useful developer tooling.";
 
-export const ENGINEERING_PRINCIPLES_PAGE_TITLE = "Engineering principles";
+export const ENGINEERING_PRINCIPLES_PAGE_TITLE = "Engineering Principles";
 
 export const ENGINEERING_PRINCIPLES_HEADER_OVERLINE = "Philosophy";
 

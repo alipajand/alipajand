@@ -25,7 +25,9 @@ export const CONTACT_VALIDATION_MESSAGE_REQUIRED = "Add a short message";
 
 export const CONTACT_FORM_SUBMIT_IDLE = "Send message";
 export const CONTACT_FORM_SUBMIT_LOADING = "Sending…";
-export const CONTACT_FORM_SUCCESS_MESSAGE = "Message sent — thanks for reaching out.";
+export const CONTACT_FORM_SUCCESS_MESSAGE = "Message sent. Thanks for reaching out.";
 
 export const CONTACT_FORM_ERROR_GENERIC = "Something went wrong. Please try again.";
 export const CONTACT_FORM_ERROR_NETWORK = "Failed to send. Please try again or email directly.";
+
+export const CONTACT_FORM_ERROR_SUMMARY_HEADING = "Please fix the following before sending:";

@@ -12,13 +12,13 @@ jest.mock("utils/gsap", () => ({
   ScrollTrigger: { create: jest.fn(() => ({ kill: jest.fn() })) },
 }));
 
-function Wrapper({
+const Wrapper = ({
   children,
   options = {},
 }: {
   children?: ReactNode;
   options?: Parameters<typeof useScrollReveal>[0];
-}) {
+}) => {
   const { selectors } = useScrollReveal(options);
   return (
     <div ref={selectors.sectionRef as React.RefObject<HTMLDivElement>}>
@@ -27,7 +27,7 @@ function Wrapper({
       {children}
     </div>
   );
-}
+};
 
 describe("useScrollReveal", () => {
   beforeEach(() => {
@@ -104,10 +104,10 @@ describe("useScrollReveal", () => {
   });
 
   describe("no data-reveal children", () => {
-    function EmptyWrapper() {
+    const EmptyWrapper = () => {
       const { selectors } = useScrollReveal();
       return <div ref={selectors.sectionRef as React.RefObject<HTMLDivElement>}>no reveal</div>;
-    }
+    };
     it("does not call ScrollTrigger.create when section has no data-reveal", () => {
       jest.mocked(gsapUtils.ScrollTrigger.create).mockClear();
       render(<EmptyWrapper />);
@@ -117,7 +117,7 @@ describe("useScrollReveal", () => {
 
   describe("options handling", () => {
     it("should use custom trigger element", () => {
-      function CustomTriggerWrapper() {
+      const CustomTriggerWrapper = () => {
         const { selectors } = useScrollReveal();
         const triggerRef = React.useRef<HTMLDivElement>(null);
         return (
@@ -128,7 +128,7 @@ describe("useScrollReveal", () => {
             <div ref={triggerRef}>trigger</div>
           </>
         );
-      }
+      };
       render(<CustomTriggerWrapper />);
       expect(gsapUtils.ScrollTrigger.create).toHaveBeenCalled();
     });
@@ -180,14 +180,14 @@ describe("useScrollReveal", () => {
     });
 
     it("should not use stagger when only one child", () => {
-      function SingleChildWrapper() {
+      const SingleChildWrapper = () => {
         const { selectors } = useScrollReveal({ stagger: 0.08 });
         return (
           <div ref={selectors.sectionRef as React.RefObject<HTMLDivElement>}>
             <span data-reveal>one</span>
           </div>
         );
-      }
+      };
       render(<SingleChildWrapper />);
       const createCall = jest.mocked(gsapUtils.ScrollTrigger.create).mock.calls[0][0] as {
         onEnter?: () => void;

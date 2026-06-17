@@ -1,12 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
 import { Hero } from "components/Hero/Hero";
-import { HERO_CTA_DOWNLOAD_RESUME } from "data/site";
-
-jest.mock("data/site", () => ({
-  ...jest.requireActual("data/site"),
-  RESUME_URL: "/resume.pdf",
-}));
 
 jest.mock("components/Hero/HeroBackground", () => ({
   HeroBackground: () => null,
@@ -22,12 +16,10 @@ jest.mock("gsap", () => ({
   })),
 }));
 
-describe("Hero with a résumé URL", () => {
-  it("renders a downloadable résumé CTA when RESUME_URL is set", () => {
+describe("Hero", () => {
+  it("does not render a résumé CTA in the homepage hero", () => {
     render(<Hero />);
 
-    const resumeLink = screen.getByRole("link", { name: HERO_CTA_DOWNLOAD_RESUME });
-    expect(resumeLink).toHaveAttribute("href", "/resume.pdf");
-    expect(resumeLink).toHaveAttribute("download");
+    expect(screen.queryByRole("link", { name: /download résumé/i })).not.toBeInTheDocument();
   });
 });
