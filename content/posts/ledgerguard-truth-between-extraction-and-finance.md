@@ -22,7 +22,7 @@ If the interface simply reads "the commitment row" or "the latest write," it can
 
 The motivating constraint was straightforward: LedgerGuard needed clause-backed renewal and spend visibility, but the data behind those views was produced by a replayable pipeline with human intervention in the middle. That ruled out a naive "last row wins" design.
 
-## The decision was to separate proposal from truth
+## Separating proposal from truth
 
 The product is intentionally split into two layers.
 
@@ -30,9 +30,9 @@ The probabilistic layer extracts and proposes structure from documents. It is al
 
 The deterministic layer owns typed APIs, audit trails, tenant-scoped rules, persisted read models, and the logic that decides what the UI is allowed to claim. Workers talk back through internal authenticated routes. The API validates, reconciles, and persists.
 
-The obvious alternative was to let the extraction pipeline own the final portfolio rows directly and patch edge cases later. That would have been simpler to ship at first, but it would have made recovery logic implicit and trust hard to explain. Once the product has both extracted fields and synthesized commitments, you need an explicit truth policy anyway.
+Letting the extraction pipeline own the final portfolio rows directly and patching edge cases later would have been simpler to ship at first, but it would have made recovery logic implicit and trust hard to explain. Once the product has both extracted fields and synthesized commitments, you need an explicit truth policy anyway.
 
-The trade-off is more state. You now have to represent honest incomplete states instead of always displaying a clean result. For LedgerGuard, that was the right trade. Finance users need to know when the ledger is incomplete more than they need a tidy card.
+The cost is more state. You now have to represent honest incomplete states instead of always displaying a clean result. For LedgerGuard, that was the right trade. Finance users need to know when the ledger is incomplete more than they need a tidy card.
 
 ## What the lifecycle actually looks like
 
@@ -57,7 +57,7 @@ That lifecycle matters because each stage can succeed while a downstream stage f
 
 ## Truth precedence is the real feature
 
-The core decision was to treat truth precedence as a product feature rather than an implementation detail. The UI is only as honest as the precedence rules behind it.
+The core design choice was to treat truth precedence as a product feature rather than an implementation detail. The UI is only as honest as the precedence rules behind it.
 
 Here is the simplified policy:
 
@@ -96,7 +96,7 @@ The implementation follows from that principle: idempotent workers prevent dupli
 
 If you are building AI around money, legal obligations, or regulated workflows, the differentiator is often not the model. It is whether someone can trace the path from source document to displayed value without crossing a black box.
 
-The decision framework I keep coming back to is simple:
+The framework I keep coming back to is simple:
 
 - Separate probabilistic proposal from deterministic truth.
 - Decide precedence explicitly before you need it in production.

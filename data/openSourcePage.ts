@@ -1,11 +1,20 @@
+export type OpenSourceProjectStatus =
+  | "Stable"
+  | "Active development"
+  | "Experimental"
+  | "Maintained"
+  | "Archived";
+
 export interface OpenSourceProject {
   title: string;
   repositoryUrl: string;
   summary: string;
-  maturityLabel: string;
+  status: OpenSourceProjectStatus;
+  format: string;
   testedCapabilitiesLabel: string;
   testedCapabilities: string[];
   contribution: string;
+  exampleCommand?: string;
   exampleInput?: string;
   exampleOutput?: string;
   featured?: boolean;
@@ -36,58 +45,83 @@ export const OPEN_SOURCE_SUPPORTING_HEADING = "Supporting tools";
 export const OPEN_SOURCE_SUPPORTING_LEDE =
   "These supporting repositories extend the same workflow into repository readiness and CI enforcement.";
 
+export const OPEN_SOURCE_STATUS_LABEL = "Status";
+export const OPEN_SOURCE_FORMAT_LABEL = "Format";
+export const OPEN_SOURCE_EXAMPLE_COMMAND_LABEL = "Command";
+export const OPEN_SOURCE_EXAMPLE_INPUT_LABEL = "Fixture input";
+export const OPEN_SOURCE_EXAMPLE_OUTPUT_LABEL = "CLI output";
+export const OPEN_SOURCE_EXAMPLE_DISCLAIMER =
+  "Simplified for readability; exact CLI output depends on configuration and repository state.";
+
 export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
   {
     title: "Agent PR Reviewer Lite",
     repositoryUrl: "https://github.com/alipajand/agent-pr-reviewer-lite",
     summary:
       "Reviews pull requests and local Git diffs for risky agent-generated changes using deterministic rules instead of opaque AI review.",
-    maturityLabel: "Tested CLI · actively evolving rule set",
+    status: "Active development",
+    format: "TypeScript CLI",
     testedCapabilitiesLabel: "Tested capabilities",
     testedCapabilities: [
-      "Inspects local diffs and pull requests with deterministic risk rules",
-      "Flags route, environment, dependency, migration, and security-sensitive changes",
-      "Surfaces missing or weakened tests in high-risk areas with machine-readable output",
+      "Inspects local diffs between two Git refs with deterministic risk rules",
+      "Flags auth, billing, security, migration, lockfile, env, and public-route changes",
+      "Detects deleted test files and newly added dependencies in package.json diffs",
+      "Emits text, JSON, or Markdown reports with configurable fail-on thresholds",
     ],
     contribution:
       "Owned the risk model, CLI interface, diff analysis, output formats, test suite, CI behavior, and repository documentation.",
-    exampleInput: `git diff --name-only HEAD~1..HEAD
-app/api/contact/route.ts
-prisma/migrations/20260615_add_billing_table.sql
-package.json`,
-    exampleOutput: `Severity: high
-Findings:
-- API route changed in app/api/contact/route.ts
-- Database migration detected in prisma/migrations/20260615_add_billing_table.sql
-- Dependency manifest changed in package.json
-Recommendation: require human review and confirm test coverage for changed critical paths.`,
+    exampleCommand: "agent-pr-reviewer-lite --base HEAD~1 --head HEAD",
+    exampleInput: `prisma/migrations/20260615_add_billing_table.sql`,
+    exampleOutput: `Agent PR Risk: High
+Changed risky areas:
+- prisma/migrations/20260615_add_billing_table.sql — Database migration changed
+- prisma/migrations/20260615_add_billing_table.sql — Pricing or public copy changed
+Required human review:
+- database migration
+- pricing/public copy
+CI result:
+- fail-on: high
+- result: failed`,
     featured: true,
   },
   {
     title: "Agent Context Doctor",
     repositoryUrl: "https://github.com/alipajand/agent-context-doctor",
     summary:
-      "Audits AGENTS.md, CLAUDE.md, Cursor rules, Copilot instructions, and prompt documents for quality, safety, contradictions, and repository alignment.",
-    maturityLabel: "Tested CLI · repository-audit focused",
+      "Audits AGENTS.md, CLAUDE.md, Cursor rules, Copilot instructions, and prompt documents for quality, safety, contradictions, stale commands, and generic placeholder content.",
+    status: "Active development",
+    format: "TypeScript CLI",
     testedCapabilitiesLabel: "Tested capabilities",
     testedCapabilities: [
       "Checks AGENTS.md, CLAUDE.md, Cursor rules, and prompt documents",
-      "Finds contradictory instructions, unsafe guidance, and invalid commands",
-      "Reports missing boundaries, validation paths, and final-report expectations",
+      "Flags risky instructions such as “skip tests” or “bypass auth”",
+      "Detects contradictory testing guidance and missing validation or final-report expectations",
+      "Supports JSON and Markdown reports with configurable fail-on thresholds",
     ],
     contribution:
       "Designed deterministic rules, severity reporting, CLI UX, configuration, test coverage, documentation, and CI-friendly exit behavior.",
-    exampleInput: `AGENTS.md
-- Run pnpm test before finishing
+    exampleCommand: "acd audit",
+    exampleInput: `- Run pnpm test before finishing
 - Skip tests if the change looks small
-- Never edit app/api/contact without approval
-- Final report format not documented`,
-    exampleOutput: `Severity: medium
-Findings:
-- Contradictory testing guidance: both require and skip tests
-- Missing explicit final-report requirements
-- Protected area documented: app/api/contact
-Recommendation: remove contradictory instructions and define one validation policy.`,
+- Never edit app/api/contact without approval`,
+    exampleOutput: `Agent Context Doctor
+──────────────────────────────────────────────────
+Repo:    /private/tmp/acd-fixture
+Files:   1
+Issues:  3 total — 1 high, 0 medium, 2 low
+Score:   74 / 100 — needs-work
+
+Context Files:
+  ✓ AGENTS.md (agents, 118B)
+
+Issues:
+  [high] AGENTS.md:2 — Risky instruction: "skip tests"
+    Recommendation: Remove language that lets agents bypass validation, security, or testing. Agents should never skip tests, bypass auth, or commit secrets.
+    Evidence: - Skip tests if the change looks small
+  [low] AGENTS.md — Instruction references package manager commands but no package.json was found
+    Recommendation: Ensure a package.json exists at the repo root so command references can be validated.
+  [low] AGENTS.md — No final reporting guidance found
+    Recommendation: Add instructions telling the agent what to include in its final report: files changed, commands run, test results, and known limitations.`,
     featured: true,
   },
   {
@@ -95,7 +129,8 @@ Recommendation: remove contradictory instructions and define one validation poli
     repositoryUrl: "https://github.com/alipajand/agent-readiness-kit",
     summary:
       "Audits whether a repository is ready for coding agents such as Cursor, Codex, Claude Code, and GitHub Copilot.",
-    maturityLabel: "Repository audit CLI",
+    status: "Active development",
+    format: "TypeScript CLI",
     testedCapabilitiesLabel: "What it checks",
     testedCapabilities: [
       "Agent context and instruction files",
@@ -112,7 +147,8 @@ Recommendation: remove contradictory instructions and define one validation poli
     repositoryUrl: "https://github.com/alipajand/agent-readiness-action",
     summary:
       "Runs Agent Readiness Kit audits inside GitHub Actions so repository-readiness checks become part of normal CI.",
-    maturityLabel: "GitHub Actions integration",
+    status: "Active development",
+    format: "GitHub Action",
     testedCapabilitiesLabel: "What it provides",
     testedCapabilities: [
       "Reusable GitHub Actions integration",

@@ -9,7 +9,8 @@ type ProjectIllustrativeScreenProps = {
 const EmplifiIllustration = ({
   titleId,
   descId,
-}: Omit<ProjectIllustrativeScreenProps, "variant">) => {
+  bgGradientId,
+}: Omit<ProjectIllustrativeScreenProps, "variant"> & { bgGradientId: string }) => {
   return (
     <svg
       viewBox="0 0 1600 1035"
@@ -23,7 +24,7 @@ const EmplifiIllustration = ({
         Dense charts, segmented filters, and summary tiles arranged for legibility inside an
         embedded reporting surface.
       </desc>
-      <rect width="1600" height="1035" rx="36" fill="url(#emplifi-bg)" />
+      <rect width="1600" height="1035" rx="36" fill={`url(#${bgGradientId})`} />
       <rect x="52" y="56" width="1496" height="84" rx="20" fill="#10131A" opacity="0.86" />
       <rect x="90" y="86" width="260" height="20" rx="10" fill="#E6E2D3" opacity="0.84" />
       <rect x="1258" y="80" width="204" height="34" rx="17" fill="#5F7ADB" opacity="0.92" />
@@ -76,7 +77,7 @@ const EmplifiIllustration = ({
       />
       <defs>
         <linearGradient
-          id="emplifi-bg"
+          id={bgGradientId}
           x1="145"
           y1="92"
           x2="1486"
@@ -94,7 +95,8 @@ const EmplifiIllustration = ({
 const ControlTechIllustration = ({
   titleId,
   descId,
-}: Omit<ProjectIllustrativeScreenProps, "variant">) => {
+  bgGradientId,
+}: Omit<ProjectIllustrativeScreenProps, "variant"> & { bgGradientId: string }) => {
   return (
     <svg
       viewBox="0 0 1600 1035"
@@ -108,7 +110,7 @@ const ControlTechIllustration = ({
         Compact workflow dashboard with resilient loading panels, sidebar navigation, and
         offline-capable operational states for slow networks.
       </desc>
-      <rect width="1600" height="1035" rx="36" fill="url(#controltech-bg)" />
+      <rect width="1600" height="1035" rx="36" fill={`url(#${bgGradientId})`} />
       <rect x="54" y="54" width="312" height="926" rx="30" fill="#10171B" opacity="0.86" />
       <rect x="96" y="98" width="180" height="22" rx="11" fill="#EBE3D0" opacity="0.9" />
       <rect x="96" y="154" width="224" height="68" rx="18" fill="#163039" />
@@ -144,7 +146,7 @@ const ControlTechIllustration = ({
       />
       <defs>
         <linearGradient
-          id="controltech-bg"
+          id={bgGradientId}
           x1="170"
           y1="72"
           x2="1510"
@@ -164,8 +166,12 @@ export const ProjectIllustrativeScreen = ({
   descId,
   variant,
 }: ProjectIllustrativeScreenProps) => {
+  const bgGradientId = `${titleId}-bg`;
+
   if (variant === "controltech") {
-    return <ControlTechIllustration titleId={titleId} descId={descId} />;
+    return (
+      <ControlTechIllustration titleId={titleId} descId={descId} bgGradientId={bgGradientId} />
+    );
   }
-  return <EmplifiIllustration titleId={titleId} descId={descId} />;
+  return <EmplifiIllustration titleId={titleId} descId={descId} bgGradientId={bgGradientId} />;
 };

@@ -9,21 +9,21 @@ tags:
 
 A design system that looks polished in Figma but gets bypassed in product code is not established. It is decoration.
 
-The clearest adoption failure I have seen was not ideological resistance to consistency. It was delivery pressure meeting a shared system that did not yet make the right path easy enough.
+A common adoption failure is not ideological resistance to consistency. It is delivery pressure meeting a shared system that does not yet make the right path easy enough.
 
-## The failure was real product work bypassing the system
+## When product work bypasses the system
 
-In marketplace and authentication-heavy product work, teams were shipping flows with special states the shared components did not explain well yet: wallet loading, API-backed errors, empty commerce states, recovery messaging, and layout combinations that lived outside the original component examples.
+In marketplace and authentication-heavy interfaces, product teams often need states a young design system has not documented yet: wallet loading, API-backed errors, empty commerce states, recovery messaging, and layout combinations that sit outside the original component examples.
 
-The bypass was predictable. Engineers could assemble a one-off card, form section, or button group inside the feature faster than they could reverse-engineer whether the design system supported the state cleanly. Designers could point to a Figma frame, but that still did not tell implementation teams how accessibility, failure states, or responsive behavior were supposed to work.
+The bypass is predictable. Engineers can assemble a one-off card, form section, or button group inside the feature faster than they can reverse-engineer whether the design system supports the state cleanly. Designers can point to a Figma frame, but that still does not tell implementation teams how accessibility, failure states, or responsive behavior are supposed to work.
 
-That was the real constraint. Adoption was failing not because teams hated the system, but because the system's interface contract was incomplete where product work was busiest.
+That is the real constraint. Adoption fails not because teams hate the system, but because the system's interface contract is incomplete where product work is busiest.
 
-The rejected alternative was to lecture teams harder about consistency. That would have confused compliance with usability. If the fastest path to ship is bypassing the system, the system has a product problem.
+Lecturing teams harder about consistency does not fix that. It confuses compliance with usability. If the fastest path to ship is bypassing the system, the system has a product problem.
 
 ## Documentation first, but close to the code
 
-The fix started with documentation, but not in the vague "we should write better docs" sense.
+The fix starts with documentation, but not in the vague "we should write better docs" sense.
 
 Storybook was the primary discovery surface and interface contract, while code and versioned tokens remained the executable sources of truth.
 
@@ -36,7 +36,7 @@ The practical change was that each important shared component needed:
 - "Use this when / do not use this when" guidance so product teams knew what should remain domain-specific.
 - Examples of loading, empty, error, and recovery states where applicable.
 
-The decision was to document the states teams were already bypassing for. The trade-off was more Storybook and example maintenance, but that cost was lower than letting product code fork into inconsistent local patterns.
+I would rather document the states teams are already bypassing for than pretend the happy-path examples are enough. That means more Storybook and example maintenance, but that cost is lower than letting product code fork into inconsistent local patterns.
 
 ## The component contract had to change
 
@@ -52,7 +52,7 @@ The better response was to harden the contract:
 
 Escape hatches matter. A design system should not absorb every piece of product behavior. Domain-specific recommendation panels, wallet-connect logic, or contract-review controls should remain product-owned even if they are visually assembled from shared primitives.
 
-The trade-off is that stronger contracts take longer to design. The upside is that teams stop bypassing the system for problems it should have solved in the first place.
+Stronger contracts take longer to design. The upside is that teams stop bypassing the system for problems it should have solved in the first place.
 
 ## Adoption depends on migration, not just new rules
 
@@ -60,16 +60,14 @@ Once the contract changes, adoption still does not happen automatically.
 
 Existing one-off implementations need a migration path. That usually means identifying the duplicated patterns worth converging first, documenting the replacement, and making the new shared version at least as easy to use as the local workaround.
 
-The rejected alternative was an all-at-once rewrite. That tends to create a lot of churn and resentment while still leaving product-specific edge cases unresolved.
-
-The decision I prefer is incremental migration:
+An all-at-once rewrite tends to create a lot of churn and resentment while still leaving product-specific edge cases unresolved. I prefer incremental migration:
 
 - Converge the highest-traffic repeated patterns first.
 - Treat product teams as signal, not just consumers; if they bypassed a component, ask why.
 - Keep migration guidance near the component docs.
 - Avoid forcing a shared abstraction where the product behavior is still unsettled.
 
-The trade-off is living with a mixed system for a while. That is fine. A design system becomes real by improving product work over time, not by declaring purity.
+Living with a mixed system for a while is fine. A design system becomes real by improving product work over time, not by declaring purity.
 
 ## Lightweight governance keeps the system usable
 

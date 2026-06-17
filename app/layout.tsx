@@ -103,8 +103,6 @@ export const viewport = {
   themeColor: "#000000",
 };
 
-export const dynamic = "force-static";
-
 export default function RootLayout({ children }: PropsWithChildren) {
   const latestWritings = getLatestPosts(FOOTER_LATEST_WRITINGS_COUNT);
 

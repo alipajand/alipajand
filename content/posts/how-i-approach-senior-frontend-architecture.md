@@ -17,15 +17,13 @@ A dashboard, onboarding flow, renewal-review screen, and AI-assisted workflow al
 
 ## Boundaries first
 
-Context: most frontend codebases become harder to change when shared UI and product behavior blur into each other.
+Most frontend codebases become harder to change when shared UI and product behavior blur into each other.
 
-Decision: I separate design-system primitives from domain-owned product components. A button, dialog shell, form field wrapper, or loading skeleton can be shared. A renewal-risk table, parcel recommendation panel, or report-export workflow should live with the feature that owns its rules and states.
+I separate design-system primitives from domain-owned product components. A button, dialog shell, form field wrapper, or loading skeleton can be shared. A renewal-risk table, parcel recommendation panel, or report-export workflow should live with the feature that owns its rules and states.
 
 A concrete example is the difference between a shared combobox primitive and a domain-owned "property scenario selector." The combobox can own keyboard behavior, labeling hooks, and focus patterns. The scenario selector owns which scenarios are available, what happens when one is not supported, and how a recommendation card updates around it.
 
-Rejected alternative: pushing more product behavior down into the design system to "maximize reuse."
-
-Trade-off: stricter boundaries create more components, but they keep the shared layer from turning into a business-logic landfill. Reuse is valuable only when it does not erase ownership.
+Pushing more product behavior down into the design system to "maximize reuse" usually backfires. Stricter boundaries create more components, but they keep the shared layer from turning into a business-logic landfill. Reuse is valuable only when it does not erase ownership.
 
 ## State should match the product model
 
@@ -39,11 +37,9 @@ The easiest way to create frontend bugs is to store state somewhere more global 
 - Local interaction state: open panels, row expansion, hover intent, inline disclosure state.
 - Persisted preference: things like density mode, dismissed hints, or table column preferences that should survive refreshes.
 
-A concrete example from a workflow-heavy interface: imagine a contract review screen with a renewals table and a detail drawer. The table data belongs in server cache. The selected contract ID and current filter belong in the URL so a reviewer can share the exact view. Edits to a notice date belong in form state until saved. Whether the evidence sidebar is open belongs in local interaction state. The user's chosen compact-table preference belongs in persisted local storage or profile state.
+In a workflow-heavy interface, imagine a contract review screen with a renewals table and a detail drawer. The table data belongs in server cache. The selected contract ID and current filter belong in the URL so a reviewer can share the exact view. Edits to a notice date belong in form state until saved. Whether the evidence sidebar is open belongs in local interaction state. The user's chosen compact-table preference belongs in persisted local storage or profile state.
 
-Rejected alternative: one app-wide store holding all of it "for convenience."
-
-Trade-off: distributed state ownership requires more discipline about boundaries and naming, but it prevents stale copies, accidental coupling, and the "why did changing this modal break browser navigation?" class of bugs.
+One app-wide store holding all of it "for convenience" is the pattern I avoid. Distributed state ownership requires more discipline about boundaries and naming, but it prevents stale copies, accidental coupling, and the "why did changing this modal break browser navigation?" class of bugs.
 
 ## API contracts are part of frontend architecture
 
@@ -51,13 +47,9 @@ Frontend architecture gets weak when the UI has to guess what the backend meant.
 
 Typed API contracts, Zod validation, and explicit empty or error states are not backend polish. They shape what the UI can safely promise. This matters even more in AI-assisted products, where the frontend needs to know what is grounded, what is uncertain, and what can be edited without being mistaken for verified truth.
 
-Context: if the dashboard and export flow consume slightly different payload shapes, product drift starts quietly.
+If the dashboard and export flow consume slightly different payload shapes, product drift starts quietly. I put a typed contract at the boundary and use it across the feature, including secondary surfaces like PDFs or exports.
 
-Decision: put a typed contract at the boundary and use it across the feature, including secondary surfaces like PDFs or exports.
-
-Rejected alternative: mapping each surface independently and relying on integration knowledge in developers' heads.
-
-Trade-off: stricter contracts add maintenance when APIs evolve, but they make change visible at compile time instead of after a customer notices the PDF and UI disagree.
+Mapping each surface independently and relying on integration knowledge in developers' heads is faster at first and more expensive later. Stricter contracts add maintenance when APIs evolve, but they make change visible at compile time instead of after a customer notices the PDF and UI disagree.
 
 ## Accessibility is architecture
 
@@ -65,9 +57,7 @@ Accessibility is not a finishing pass. It affects component APIs, focus order, s
 
 The architectural consequence is that reusable components should expose accessibility requirements as part of their interface contract. A modal primitive should define focus trapping and return behavior. A form field wrapper should make error and hint wiring easy instead of optional. A loading or error pattern should account for how state changes are announced, not only how they look.
 
-The rejected alternative is postponing accessibility until QA. That usually means retrofitting semantics into components whose APIs were never designed to support them cleanly.
-
-The trade-off is front-loading more design and implementation discipline. The payoff is that accessibility stops being a special task and becomes part of how the system works by default.
+Postponing accessibility until QA usually means retrofitting semantics into components whose APIs were never designed to support them cleanly. Front-loading more design and implementation discipline pays off when accessibility stops being a special task and becomes part of how the system works by default.
 
 ## Performance is a product constraint
 
@@ -80,9 +70,7 @@ Consider a data-heavy interface with a large results table, map overlays, derive
 - Split secondary features like export or advanced comparison panels by intent rather than loading them on first paint.
 - Be explicit about loading and empty states so the interface still explains itself while work is in progress.
 
-Rejected alternative: one monolithic page component that recomputes everything on every filter change because it is "simpler."
-
-Trade-off: performance-aware boundaries can make composition feel more deliberate and less ad hoc, but that is a feature. Data-heavy products need architecture that assumes real use, not demo use.
+A monolithic page component that recomputes everything on every filter change because it is "simpler" is the version I try not to ship. Performance-aware boundaries can make composition feel more deliberate, but data-heavy products need architecture that assumes real use, not demo use.
 
 ## Tests should follow the same ownership model
 
@@ -95,11 +83,9 @@ For a workflow-heavy frontend, I usually want:
 - Accessibility-focused checks for shared primitives and important flows where keyboard, labeling, and error wiring are easy to regress.
 - End-to-end coverage for the high-value journeys where multiple boundaries have to cooperate: search, review, save, export, or submit.
 
-One concrete example: a recommendation panel might have unit tests for payload normalization, integration tests for how it renders valid versus partial responses, accessibility checks for disclosure and alert behavior, and end-to-end coverage for the full "analyze property -> view recommendation -> generate report" journey.
+A recommendation panel might have unit tests for payload normalization, integration tests for how it renders valid versus partial responses, accessibility checks for disclosure and alert behavior, and end-to-end coverage for the full "analyze property -> view recommendation -> generate report" journey.
 
-The rejected alternative is using end-to-end tests as a substitute for all other confidence. That tends to create slow, brittle suites that still do not explain where ownership lives when something breaks.
-
-The trade-off is maintaining multiple test layers. The benefit is that failures localize faster and reviews can focus on product behavior instead of missing basic coverage.
+Using end-to-end tests as a substitute for all other confidence tends to create slow, brittle suites that still do not explain where ownership lives when something breaks. Maintaining multiple test layers is more work, but failures localize faster and reviews can focus on product behavior instead of missing basic coverage.
 
 ## Review habits keep the architecture honest
 

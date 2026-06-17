@@ -21,7 +21,7 @@ A shell script is easy to write, but it still depends on the developer deciding 
 
 MCP was the right fit because it put the checks where the decision happens: inside the editor, attached to the files being changed, with structured results tooling can interpret instead of just printing.
 
-That is the key architectural decision. I did not primarily need "a thing that can run commands." I needed a thin tool boundary that lets the editor call allowed commands, return structured output, and keep feedback local to the code being edited.
+That is the key architectural choice. I did not primarily need "a thing that can run commands." I needed a thin tool boundary that lets the editor call allowed commands, return structured output, and keep feedback local to the code being edited.
 
 ## What structured tool output enables
 
@@ -36,9 +36,7 @@ Structured output enables:
 
 That matters because raw shell output is optimized for a terminal, not for a workflow. MCP lets the editor ask for a result and then decide how to present it.
 
-The rejected alternative was a lightweight editor task that shells out to existing scripts. That can be enough for solo work, but it does not provide the same tool contract for structured consumption or broader automation.
-
-The trade-off is that MCP requires one more layer to define and maintain. I think that is justified when you want the checks to behave like reliable tools rather than one-off commands.
+A lightweight editor task that shells out to existing scripts can be enough for solo work, but it does not provide the same tool contract for structured consumption or broader automation. MCP adds one more layer to define and maintain, and I think that is justified when you want the checks to behave like reliable tools rather than one-off commands.
 
 ## Guardrails: allowlists, timeouts, and output limits
 

@@ -1,5 +1,5 @@
 ---
-title: "Building tools that don't fight you"
+title: "Building tools that don’t fight you"
 date: "2026-02-26"
 excerpt: "A short framework for evaluating whether a design system, developer tool, or AI feature is actually helping the work instead of adding another layer around it."
 featured: true
@@ -37,7 +37,7 @@ And they are often easier to bypass than to use properly. That is the clearest f
 
 ## The same pattern in three different systems
 
-In [Design systems that stick](/writing/design-systems-that-stick), the adoption problem was that product teams were bypassing shared components when the contract did not cover the states they actually needed. The fix was not more evangelism. It was better component APIs, clearer documentation, migration paths, and explicit accessibility requirements.
+In [Design systems that stick](/writing/design-systems-that-stick), I write about a common adoption pattern: product teams bypass shared components when the contract does not cover the states they actually need. The fix is usually not more evangelism. It is better component APIs, clearer documentation, migration paths, and explicit accessibility requirements.
 
 In [Moving deterministic checks into the editor with MCP](/writing/why-i-automate-code-review-with-mcp), the issue was not whether lint, types, and tests existed. It was where they appeared and how usable their output was. Structured editor-local feedback beats making authors wait for CI to rediscover deterministic failures.
 

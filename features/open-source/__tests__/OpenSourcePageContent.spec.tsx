@@ -67,19 +67,26 @@ describe("OpenSourcePageContent", () => {
     expect(featuredTitles).toEqual(["Agent PR Reviewer Lite", "Agent Context Doctor"]);
   });
 
-  it("renders example input and output blocks for the featured tools", () => {
+  it("renders CLI example blocks for the featured tools", () => {
     render(<OpenSourcePageContent />);
 
-    expect(screen.getAllByText("Example input")).toHaveLength(2);
-    expect(screen.getAllByText("Example output")).toHaveLength(2);
-    expect(screen.getByText(/git diff --name-only HEAD~1..HEAD/)).toBeInTheDocument();
-    expect(screen.getByText(/Severity: medium/)).toBeInTheDocument();
+    expect(screen.getAllByText("Command")).toHaveLength(2);
+    expect(screen.getAllByText("Fixture input")).toHaveLength(2);
+    expect(screen.getAllByText("CLI output")).toHaveLength(2);
+    expect(
+      screen.getByText(/agent-pr-reviewer-lite --base HEAD~1 --head HEAD/)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/\[high\] AGENTS\.md:2 — Risky instruction: "skip tests"/)
+    ).toBeInTheDocument();
+    expect(screen.getAllByText(/Simplified for readability/)).toHaveLength(2);
   });
 
-  it("renders maturity and tested capability labels without GitHub stats copy", () => {
+  it("renders status and tested capability labels without GitHub stats copy", () => {
     render(<OpenSourcePageContent />);
 
-    expect(screen.getAllByText("Maturity").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Status").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Format").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Tested capabilities").length).toBeGreaterThan(0);
     expect(screen.queryByText(/stars|forks|followers/i)).not.toBeInTheDocument();
   });

@@ -1,7 +1,7 @@
 ---
 title: "Teaching MapBylaw to give honest AI recommendations"
 date: "2026-02-26"
-excerpt: "How we went from vague, ChatGPT-flavored suggestions to grounded, auditable AI recommendations inside a real zoning and feasibility product."
+excerpt: "How I moved from vague, ChatGPT-flavored suggestions to grounded, auditable AI recommendations inside a real zoning and feasibility product."
 tags:
   - Product engineering
   - AI
@@ -13,13 +13,13 @@ This is how I moved the feature from vague suggestions to recommendations that a
 
 ## Problem: vague advice with no contract
 
-The first failure was not bad writing. It was that the system let the model speak too freely.
+A typical first failure is not bad writing. It is letting the model speak too freely.
 
-Early recommendation experiments could produce generic lines like "consider adding more units" or "optimize density where possible." That language was not tied tightly enough to the parcel, zoning constraints, PUM 2050 sector, heritage or climate flags, or the scenario calculations already produced elsewhere in the product.
+Generic recommendation output can sound plausible without being tied tightly enough to the parcel, zoning constraints, PUM 2050 sector, heritage or climate flags, or the scenario calculations already produced elsewhere in the product.
 
 The architectural problem was just as important. The Fastify API, the React dashboard, and the React-PDF report did not yet share one obvious recommendation contract. That made it harder to prove what the model had seen, harder to validate what it returned, and harder to guarantee that the dashboard and PDF rendered the same thing.
 
-The rejected alternative was to keep the recommendations loosely typed and treat them as presentation copy. That would have been faster short term, but it would have created drift between API payloads, product UI, and report output at the exact point where users expect consistency.
+Keeping the recommendations loosely typed and treating them as presentation copy would have been faster short term, but it would have created drift between API payloads, product UI, and report output at the exact point where users expect consistency.
 
 ## Solution: narrow context and typed output
 
@@ -59,7 +59,7 @@ type StructuredRecommendation = {
 };
 ```
 
-The decision here was to trade breadth for grounding. Broader context can produce more expansive recommendations, but it also increases the chance that the model starts sounding authoritative about facts the product has not actually verified.
+I traded breadth for grounding. Broader context can produce more expansive recommendations, but it also increases the chance that the model starts sounding authoritative about facts the product has not actually verified.
 
 ## Validation is what makes the feature believable
 
@@ -117,7 +117,7 @@ The model is not allowed to:
 
 That boundary is why narrow context works. It keeps the model grounded in verified product knowledge, even though it limits recommendations to what the system already knows.
 
-The trade-off is real. A narrow context builder will not produce sweeping strategic commentary. It will also avoid pretending that a product with constrained verified inputs has a right to give sweeping strategic commentary.
+A narrow context builder will not produce sweeping strategic commentary. It will also avoid pretending that a product with constrained verified inputs has a right to give sweeping strategic commentary.
 
 ## End-to-end flow: from domain data to dashboard and PDF
 
@@ -133,13 +133,13 @@ Fourth, the accepted recommendation payload becomes part of the typed applicatio
 
 Fifth, if policy rules, incentive logic, or scenario rules change, the context builder and schema update with them. That keeps the recommendation layer moving with the verified domain model instead of becoming its own undocumented product.
 
-## Why this decision was appropriate
+## Why narrowing the contract was the right move
 
 MapBylaw already had strong constraints: no static or fake data, no region-hardcoded fallbacks pretending to be real, and consistency between app surfaces and reports.
 
-Given those constraints, the right decision was not "make the model smarter." It was "make the contract narrower and more enforceable."
+Given those constraints, the better move was not "make the model smarter." It was "make the contract narrower and more enforceable."
 
-The alternative would have been a more expressive but less governable AI layer. That might have looked impressive in isolated demos. It would have been harder to audit, harder to test, and more likely to drift away from the product's actual zoning and feasibility logic.
+A more expressive but less governable AI layer might have looked impressive in isolated demos. It would have been harder to audit, harder to test, and more likely to drift away from the product's actual zoning and feasibility logic.
 
 The implementation behaves better because it is stricter. Tests can reject malformed payloads early. Engineers can trace recommendations back to the scenario-level inputs that shaped them. Users get guidance that feels like part of MapBylaw, not a detached chatbot layered on top.
 

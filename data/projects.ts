@@ -254,7 +254,7 @@ export const PROJECTS: Project[] = [
           tradeOff:
             "Codifying the design system adds maintenance work and slows ad-hoc one-off UI work in the short term.",
           result:
-            "Shared components became the baseline for production surfaces, not just a reference set, and the same accessibility and responsive decisions propagated across flows.",
+            "Shared components became the baseline for production surfaces, and the same accessibility and responsive decisions could propagate across flows.",
         },
         {
           decision:
@@ -302,7 +302,7 @@ export const PROJECTS: Project[] = [
       outcome: [
         "A reusable component baseline shipped across marketplace and authentication surfaces instead of isolated screens.",
         "Accessibility and visual-regression checks were enforced in CI before shared component changes merged.",
-        "Marketplace and login workflows stayed stable in production with clearer handling for non-happy-path behavior.",
+        "Marketplace and login flows gained explicit loading, error, and recovery states instead of relying on happy-path-only UI.",
       ],
       nextImprovements: [
         "Expand product-level regression coverage around wallet-connect and purchase paths so shared-component changes expose workflow effects even earlier.",
@@ -572,7 +572,7 @@ export const PROJECTS: Project[] = [
           tradeOff:
             "Tests, pipelines, and shared patterns take time that could otherwise go into short-term feature output.",
           result:
-            "Release confidence improved and core flows stopped depending entirely on manual verification.",
+            "Automated tests and CI gates gave repeated delivery a clearer quality baseline than relying on manual verification alone.",
         },
         {
           decision:
@@ -581,7 +581,7 @@ export const PROJECTS: Project[] = [
           tradeOff:
             "Caching and offline behavior add invalidation complexity and require more careful coordination with release behavior.",
           result:
-            "Products became more usable on slow connections and better able to tolerate intermittent connectivity.",
+            "Route-level splitting, CDN delivery, and PWA caching patterns targeted first-load pain and intermittent connectivity constraints.",
         },
       ],
       workflow: [
@@ -609,8 +609,8 @@ export const PROJECTS: Project[] = [
         "Retry and recovery behavior mattered because release velocity and unstable connections amplify small regressions quickly.",
       ],
       outcome: [
-        "Reusable frontend patterns, automated tests, and release pipelines supported repeated startup delivery without depending solely on manual checks.",
-        "Performance work reduced first-load pain and improved resilience on unstable connections.",
+        "Automated tests and CI gates supported repeated startup delivery with a clearer baseline than manual checks alone.",
+        "Performance patterns targeted first-load pain and intermittent connectivity rather than desktop-only assumptions.",
         "Workflow-heavy interfaces were shaped directly in code under changing requirements and small-team constraints.",
       ],
       nextImprovements: [

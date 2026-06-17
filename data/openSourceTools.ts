@@ -22,7 +22,7 @@ export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
     capabilities: [
       "Inspects local diffs and pull requests with deterministic rules",
       "Flags risky route, env, dependency, migration, and security-sensitive changes",
-      "Surfaces missing or weakened tests in high-risk areas",
+      "Detects deleted test files and newly added dependencies in changed diffs",
     ],
   },
   {
@@ -32,7 +32,7 @@ export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
       "Audits agent instruction files for contradictions, stale guidance, and missing repository context.",
     capabilities: [
       "Checks AGENTS.md, CLAUDE.md, Cursor rules, and prompt documents",
-      "Finds contradictory instructions, unsafe guidance, and invalid commands",
+      "Flags risky instructions, contradictory guidance, and missing validation expectations",
       "Reports missing boundaries, validation paths, and final-report expectations",
     ],
   },
