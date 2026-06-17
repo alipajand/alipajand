@@ -37,11 +37,6 @@ export const Hero = () => {
         </p>
         <p className="mb-3 text-base sm:text-lg font-medium text-foreground">
           <span className="sr-only">{HOMEPAGE_HERO_NAME}</span>
-          <span aria-hidden ref={nameCharsRef} className="block text-foreground hero-lcp">
-            {HOMEPAGE_HERO_NAME.split("").map((char, i) => (
-              <HeroDisplayChar key={`${char}-${i}`} char={char} />
-            ))}
-          </span>
         </p>
         <h1
           ref={line2Ref}

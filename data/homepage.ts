@@ -58,30 +58,6 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
     },
   },
   {
-    id: "alwaysgeeky",
-    label: "Senior Frontend Engineer",
-    title: "Building shared product foundations without slowing delivery",
-    summary:
-      "Design-system, authentication, marketplace, and release-quality work across a growing product surface.",
-    tags: ["Design systems", "Frontend architecture", "DX"],
-    href: "/portfolio#project-design-system-marketplace-login-web3",
-    image: {
-      src: "/portfolio-media/alwaysgeeky-marketplace.png",
-      alt: "AlwaysGeeky marketplace screenshot showing shared product components and navigation.",
-      caption: "Real product screenshot",
-    },
-  },
-  {
-    id: "emplifi",
-    label: "Enterprise product engineering",
-    title: "Rendering high-frequency data in constrained interfaces",
-    summary:
-      "Interactive React, D3.js, and GSAP experiences designed for large datasets, embedded contexts, and mobile webviews.",
-    tags: ["Data visualization", "Performance", "React"],
-    href: "/portfolio#project-data-dashboards-emplifi",
-    illustrativeLabel: "Illustrative reconstruction",
-  },
-  {
     id: "mapbylaw",
     label: "Independent product",
     title: "Turning zoning evidence into explainable recommendations",
@@ -96,60 +72,5 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
     },
   },
 ];
-
-export const HOMEPAGE_CAPABILITIES_HEADING = "Core capabilities";
-export const HOMEPAGE_CAPABILITIES: HomepageCapability[] = [
-  {
-    id: "product-engineering",
-    title: "Product engineering",
-    body: "I turn incomplete requirements into clear workflows, implementation decisions, and production-ready interfaces.",
-  },
-  {
-    id: "frontend-architecture",
-    title: "Frontend architecture",
-    body: "I design typed React and Next.js systems that remain understandable as product states, data flows, and teams grow.",
-  },
-  {
-    id: "design-systems",
-    title: "Design systems",
-    body: "I build component foundations that align accessibility, visual consistency, responsive behaviour, and practical escape hatches.",
-  },
-  {
-    id: "developer-experience",
-    title: "Developer experience",
-    body: "I improve feedback loops through testing, CI, documentation, deterministic automation, and focused engineering tools.",
-  },
-];
-
-export const HOMEPAGE_OPEN_SOURCE_HEADING = "Open-source tools";
-export const HOMEPAGE_OPEN_SOURCE_LEDE =
-  "Two focused tools from my open-source work on safer, more explainable engineering workflows.";
-export const HOMEPAGE_OPEN_SOURCE_TOOLS: HomepageOpenSourceTool[] = [
-  {
-    name: "agent-pr-reviewer-lite",
-    repositoryUrl: "https://github.com/alipajand/agent-pr-reviewer-lite",
-    problem:
-      "Catches risky pull-request changes in security-sensitive and product-critical areas before human review starts.",
-    capabilities: [
-      "Inspects local diffs and pull requests with deterministic rules",
-      "Flags risky route, env, dependency, migration, and security-sensitive changes",
-      "Detects deleted test files and newly added dependencies in changed diffs",
-    ],
-  },
-  {
-    name: "agent-context-doctor",
-    repositoryUrl: "https://github.com/alipajand/agent-context-doctor",
-    problem:
-      "Audits agent instruction files for contradictions, stale guidance, and missing repository context.",
-    capabilities: [
-      "Checks AGENTS.md, CLAUDE.md, Cursor rules, and prompt documents",
-      "Flags risky instructions, contradictory guidance, and missing validation expectations",
-      "Reports missing boundaries, validation paths, and final-report expectations",
-    ],
-  },
-];
-
-export const HOMEPAGE_OPEN_SOURCE_CTA_LABEL = "Explore all open-source work";
-export const HOMEPAGE_OPEN_SOURCE_CTA_HREF = "/open-source";
 
 export const HOMEPAGE_WRITING_HEADING = "Featured writing";
