@@ -1,14 +1,21 @@
 import { act, render } from "@testing-library/react";
 
 import { RouteChangeFocus } from "components/RouteChangeFocus/RouteChangeFocus";
+import { scrollToTop } from "utils/scrollToTop";
 
 jest.mock("next/navigation", () => ({
   usePathname: jest.fn(),
 }));
 
+jest.mock("utils/scrollToTop", () => ({
+  scrollToTop: jest.fn(),
+}));
+
 const { usePathname } = jest.requireMock("next/navigation") as {
   usePathname: jest.Mock;
 };
+
+const scrollToTopMock = scrollToTop as jest.Mock;
 
 describe("RouteChangeFocus", () => {
   const requestAnimationFrameMock = jest
@@ -24,6 +31,7 @@ describe("RouteChangeFocus", () => {
 
   beforeEach(() => {
     usePathname.mockReturnValue("/");
+    scrollToTopMock.mockClear();
   });
 
   afterAll(() => {
@@ -44,13 +52,11 @@ describe("RouteChangeFocus", () => {
     document.body.removeChild(main);
   });
 
-  it("should focus main content without scrolling after a pathname change to /portfolio", () => {
+  it("should scroll to top and focus main content after a pathname change to /portfolio", () => {
     const main = document.createElement("main");
     main.id = "main-content";
     main.tabIndex = -1;
     document.body.appendChild(main);
-    const scrollIntoView = jest.fn();
-    main.scrollIntoView = scrollIntoView;
 
     const { rerender } = render(<RouteChangeFocus />);
 
@@ -60,8 +66,28 @@ describe("RouteChangeFocus", () => {
       rerender(<RouteChangeFocus />);
     });
 
+    expect(scrollToTopMock).toHaveBeenCalled();
     expect(document.activeElement).toBe(main);
-    expect(scrollIntoView).not.toHaveBeenCalled();
+
+    document.body.removeChild(main);
+  });
+
+  it("should scroll to top after a pathname change to a non-portfolio route", () => {
+    const main = document.createElement("main");
+    main.id = "main-content";
+    main.tabIndex = -1;
+    document.body.appendChild(main);
+
+    const { rerender } = render(<RouteChangeFocus />);
+
+    usePathname.mockReturnValue("/writing");
+
+    act(() => {
+      rerender(<RouteChangeFocus />);
+    });
+
+    expect(scrollToTopMock).toHaveBeenCalled();
+    expect(document.activeElement).toBe(main);
 
     document.body.removeChild(main);
   });
@@ -88,6 +114,7 @@ describe("RouteChangeFocus", () => {
       rerender(<RouteChangeFocus />);
     });
 
+    expect(scrollToTopMock).toHaveBeenCalled();
     expect(targetScrollIntoView).not.toHaveBeenCalled();
     expect(document.activeElement).toBe(main);
 
@@ -117,6 +144,7 @@ describe("RouteChangeFocus", () => {
       rerender(<RouteChangeFocus />);
     });
 
+    expect(scrollToTopMock).toHaveBeenCalled();
     expect(targetScrollIntoView).toHaveBeenCalledWith({ block: "start" });
     expect(document.activeElement).not.toBe(main);
 

@@ -4,10 +4,18 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 import { scrollToHashElement } from "utils/hashScroll";
+import { scrollToTop } from "utils/scrollToTop";
 
 export const RouteChangeFocus = () => {
   const pathname = usePathname();
   const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -19,6 +27,8 @@ export const RouteChangeFocus = () => {
     const isPortfolioIndex = pathname === "/portfolio";
 
     const handleRouteScroll = () => {
+      scrollToTop();
+
       const hash = window.location.hash;
       if (hash && !isPortfolioIndex) {
         cancelScroll = scrollToHashElement(hash);
@@ -27,9 +37,6 @@ export const RouteChangeFocus = () => {
 
       const main = document.getElementById("main-content");
       main?.focus({ preventScroll: true });
-      if (!isPortfolioIndex) {
-        main?.scrollIntoView({ block: "start" });
-      }
     };
 
     const frame = window.requestAnimationFrame(handleRouteScroll);
