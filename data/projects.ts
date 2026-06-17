@@ -1,5 +1,5 @@
 export interface ProjectFigure {
-  type: "image" | "illustration";
+  type: "image";
   src?: string;
   width: number;
   height: number;
@@ -7,7 +7,6 @@ export interface ProjectFigure {
   captionLead: string;
   captionBody: string;
   disclosureLabel?: string;
-  illustrationVariant?: "emplifi" | "controltech";
 }
 
 export interface ProjectDecision {
@@ -37,7 +36,7 @@ export interface ProjectCaseStudy {
   problem: string;
   decisions: ProjectDecision[];
   workflow: string[];
-  interfaceEvidence: ProjectFigure[];
+  interfaceEvidence?: ProjectFigure[];
   difficultStates: string[];
   outcome: string[];
   nextImprovements: string[];
@@ -52,7 +51,6 @@ export interface Project {
   role: string;
   timeframe?: string;
   capabilityTags: string[];
-  heroFigure: ProjectFigure;
   caseStudy: ProjectCaseStudy;
   relatedLinks: ProjectLink[];
 }
@@ -61,20 +59,6 @@ export const PORTFOLIO_PAGE_HEADER_TITLE = "Product engineering case studies";
 
 export const PORTFOLIO_PAGE_INTRO =
   "I work across product decisions, interface design, frontend architecture, design systems, and delivery. These case studies focus on the constraints, decisions, and implementation details behind the finished interfaces.";
-
-export const PORTFOLIO_CASE_STUDIES_HEADING = "Selected case studies";
-
-export const PORTFOLIO_CASE_STUDIES_LEDE =
-  "Commercial product work first: each entry starts with the problem, then the decisions, evidence, and delivery boundaries behind the shipped workflow.";
-
-export const PORTFOLIO_OTHER_WORK_HEADING = "Other selected product work";
-
-export const PORTFOLIO_OPEN_SOURCE_CALLOUT_HEADING = "Open-source engineering tools";
-
-export const PORTFOLIO_OPEN_SOURCE_CALLOUT_BODY =
-  "Developer tooling and AI workflow guardrails live separately from the commercial product case studies. Explore the open-source work on its own page.";
-
-export const PORTFOLIO_OPEN_SOURCE_CALLOUT_CTA = "View open-source work";
 
 export const PORTFOLIO_META_TITLE = "Product Engineering Case Studies | Ali Pajand";
 
@@ -100,16 +84,6 @@ export const PROJECTS: Project[] = [
       "Finance teams needed renewal risk they could trust, even when OCR, extraction, synthesis, and portfolio rows landed out of order or partially failed.",
     role: "Senior Product Engineer · LedgerGuard",
     capabilityTags: ["AI workflows", "Frontend architecture", "Product ownership"],
-    heroFigure: {
-      type: "image",
-      src: "/portfolio-media/ledgerguard.png",
-      width: 3456,
-      height: 2234,
-      alt: "LedgerGuard verification workspace showing extracted contract values alongside source evidence so finance reviewers can validate renewal-critical commitments before portfolio decisions are made.",
-      captionLead: "Verification workspace.",
-      captionBody:
-        "Extracted values stay connected to contract evidence, while incomplete or conflicting fields are separated for human review before they influence renewal risk.",
-    },
     caseStudy: {
       title: "Designing a trustworthy contract review and renewal workflow",
       overview:
@@ -205,16 +179,6 @@ export const PROJECTS: Project[] = [
       "Marketplace and login flows had to match design intent, survive real wallet and API failures, and stay accessible without becoming a collection of one-off UI fixes.",
     role: "Senior Frontend Engineer · Design systems · AlwaysGeeky Games",
     capabilityTags: ["Design systems", "Accessibility", "Frontend delivery"],
-    heroFigure: {
-      type: "image",
-      src: "/portfolio-media/alwaysgeeky-marketplace.png",
-      width: 3456,
-      height: 2234,
-      alt: "AlwaysGeeky marketplace interface showing a responsive product catalog and shared merchandising components so Web3 purchase flows stay consistent across the application.",
-      captionLead: "Marketplace catalog.",
-      captionBody:
-        "Shared component patterns keep merchandising, navigation, and action states consistent while the product scales across responsive breakpoints.",
-    },
     caseStudy: {
       title: "Shipping marketplace and authentication flows on a reusable design system",
       overview:
@@ -223,32 +187,31 @@ export const PROJECTS: Project[] = [
         "The product needed WCAG-conscious components, close design-to-code translation, and delivery speed without dropping error handling for wallet connections, API failures, or authentication edge cases. Storybook and CI had to reinforce the same patterns used in the shipped interfaces.",
       responsibility: {
         owned: [
-          "Built and evolved the shared component architecture, Storybook usage patterns, and frontend states used across marketplace and authentication flows.",
+          "Built and evolved the shared component architecture and frontend states used across marketplace and authentication flows.",
+          "Storybook served as the main documentation and component-discovery surface for the shared design system.",
           "Implemented marketplace and login interfaces with explicit loading, empty, error, and success states.",
-          "Added CI gates for visual and accessibility regressions before merge.",
+          "CI included linting, type checks, tests, and accessibility-oriented quality checks.",
         ],
         collaborative: [
           "The design system and product surfaces were built in close coordination with design, especially where Figma intent left practical interaction and responsive gaps to resolve in code.",
-          "Wallet, authentication, and API integrations depended on backend and platform boundaries that are referenced in the repository but not fully broken down by contributor.",
+          "Wallet, authentication, and API integrations depended on backend and platform boundaries outside the frontend scope described here.",
         ],
         outside: [
-          "The repository does not establish ownership for every backend integration, game-system decision, or commercial marketplace metric.",
+          "Backend integration, game-system, and commercial marketplace outcomes are not attributed in this case study.",
           "Brand strategy and product direction beyond the documented frontend and design-system work are not attributed here.",
         ],
-        factualReviewNote:
-          "The repository clearly establishes frontend, accessibility, Storybook, and CI ownership. It does not fully document the subsystem split for backend, wallet, or product-strategy work.",
       },
       problem:
         "Teams were shipping marketplace and authentication experiences that had to do more than look polished. They needed to reuse design-system primitives, handle real wallet and API failures, and avoid turning production Web3 behavior into a demo-only happy path.",
       decisions: [
         {
           decision:
-            "Drive the shared component system through Storybook and documented usage patterns instead of treating it as a loose visual library.",
+            "Use Storybook as the main documentation and component-discovery surface for the shared design system instead of treating it as a loose visual library.",
           why: "Marketplace and login flows needed the same primitives, states, and accessibility behavior to avoid drift as product surfaces multiplied.",
           tradeOff:
             "Codifying the design system adds maintenance work and slows ad-hoc one-off UI work in the short term.",
           result:
-            "Shared components became the baseline for production surfaces, and the same accessibility and responsive decisions could propagate across flows.",
+            "Storybook served as the main documentation and component-discovery surface for the shared design system, and shared components became the baseline for production surfaces.",
         },
         {
           decision:
@@ -262,9 +225,9 @@ export const PROJECTS: Project[] = [
       ],
       workflow: [
         "Design-system primitives and tokens define the shared visual and interaction baseline.",
-        "Storybook documents component states and usage patterns for implementation and review.",
+        "Storybook served as the main documentation and component-discovery surface for the shared design system.",
         "Marketplace and authentication flows reuse those components across responsive layouts.",
-        "CI gates catch visual and accessibility regressions before shared changes reach production surfaces.",
+        "CI included linting, type checks, tests, and accessibility-oriented quality checks.",
       ],
       interfaceEvidence: [
         {
@@ -295,7 +258,7 @@ export const PROJECTS: Project[] = [
       ],
       outcome: [
         "A reusable component baseline shipped across marketplace and authentication surfaces instead of isolated screens.",
-        "Accessibility and visual-regression checks were enforced in CI before shared component changes merged.",
+        "CI included linting, type checks, tests, and accessibility-oriented quality checks.",
         "Marketplace and login flows gained explicit loading, error, and recovery states instead of relying on happy-path-only UI.",
       ],
       nextImprovements: [
@@ -318,17 +281,6 @@ export const PROJECTS: Project[] = [
       "Data-heavy dashboards had to stay readable and responsive inside mobile webviews and embedded hosts where motion and rendering costs could become jank immediately.",
     role: "Senior Frontend Engineer · Dashboards & performance · Emplifi",
     capabilityTags: ["Data-heavy UI", "Performance", "Interaction design"],
-    heroFigure: {
-      type: "illustration",
-      width: 1600,
-      height: 1035,
-      alt: "Illustrative reconstruction of an embedded analytics dashboard showing dense charts and filters arranged to stay legible while preserving interaction performance in constrained hosts.",
-      captionLead: "Embedded analytics dashboard.",
-      captionBody:
-        "The layout emphasizes chart density, coordinated controls, and bounded motion so the interface stays usable inside embedded and mobile-webview contexts.",
-      disclosureLabel: "Illustrative reconstruction based on the production workflow.",
-      illustrationVariant: "emplifi",
-    },
     caseStudy: {
       title: "Keeping dense dashboards responsive in embedded and mobile webview contexts",
       overview:
@@ -337,20 +289,17 @@ export const PROJECTS: Project[] = [
         "The same dashboard patterns had to survive standalone use, embedded hosts, and mobile webviews. D3.js and GSAP enabled fidelity and motion, but they also demanded disciplined rendering budgets and careful profiling to avoid jitter, layout thrash, or unreadable small-screen density.",
       responsibility: {
         owned: [
+          "I owned the frontend implementation and interaction work, collaborating with product, design, analytics, and backend contributors.",
           "Built dashboard UI behavior with React, TypeScript, D3.js, and GSAP.",
           "Tuned rendering and interaction performance for embedded and mobile-webview contexts.",
           "Defined frontend patterns for handling dense data updates and chart interactions.",
         ],
         collaborative: [
-          "Dashboard definitions, metrics, and experimentation instrumentation depended on broader product and analytics collaboration that is referenced in the repository but not attributed subsystem by subsystem.",
           "Motion and data-density choices had to coordinate with the surrounding product surfaces and host environments rather than existing as isolated chart work.",
         ],
         outside: [
-          "The repository does not establish ownership for backend analytics pipelines, experimentation strategy, or commercial reporting outcomes.",
-          "Specific teammate ownership for charting infrastructure and product analytics beyond the documented frontend performance work needs factual confirmation.",
+          "Backend analytics pipelines, experimentation strategy, and commercial reporting outcomes are not established in this repository.",
         ],
-        factualReviewNote:
-          "Frontend dashboard implementation and performance ownership are established here. The exact split with analytics, product, and backend contributors is not fully documented.",
       },
       problem:
         "Dashboards that feel acceptable on a desktop can break down quickly in embedded or mobile-webview contexts. High-density charts, frequent UI updates, and motion-heavy interactions can overwhelm CPU and layout budgets, leaving users with sluggish or unreadable reporting surfaces.",
@@ -379,19 +328,6 @@ export const PROJECTS: Project[] = [
         "Performance tuning targets embedded and mobile-webview paths with tighter layout and CPU constraints.",
         "The resulting patterns inform readable high-density dashboard layouts across those hosts.",
       ],
-      interfaceEvidence: [
-        {
-          type: "illustration",
-          width: 1600,
-          height: 1035,
-          alt: "Illustrative reconstruction of a dense analytics dashboard with filters, comparison charts, and summary tiles arranged for legibility in an embedded host.",
-          captionLead: "Dashboard reconstruction.",
-          captionBody:
-            "Dense chart areas and summary rows are arranged to show how interaction performance and readability had to coexist in embedded reporting surfaces.",
-          disclosureLabel: "Illustrative reconstruction based on the production workflow.",
-          illustrationVariant: "emplifi",
-        },
-      ],
       difficultStates: [
         "Motion degrades gracefully when frame budgets are tight instead of assuming full-desktop rendering headroom.",
         "Dense data views are tuned for smaller or embedded hosts where layout space and CPU are limited.",
@@ -419,16 +355,6 @@ export const PROJECTS: Project[] = [
       "Web, admin, AI recommendations, and bilingual reports all needed to stay aligned to verified zoning and feasibility data instead of drifting into disconnected product states.",
     role: "Senior Product Engineer · Frontend architecture & product UI · MapBylaw",
     capabilityTags: ["Design systems", "AI workflows", "Typed contracts"],
-    heroFigure: {
-      type: "image",
-      src: "/portfolio-media/mapbylaw.png",
-      width: 3456,
-      height: 2234,
-      alt: "MapBylaw property analysis workspace showing map-led inputs, structured recommendations, and report-ready data so dashboard decisions remain aligned with typed zoning and feasibility rules.",
-      captionLead: "Property analysis workspace.",
-      captionBody:
-        "Shared typed inputs keep dashboard decisions and bilingual reports aligned to zoning and feasibility rules instead of free-form AI output.",
-    },
     caseStudy: {
       title: "Aligning typed product workflows, policy-aware AI, and bilingual reports",
       overview:
@@ -498,11 +424,11 @@ export const PROJECTS: Project[] = [
       outcome: [
         "A shared design language and typed contract system shipped across web, admin, and report workflows.",
         "AI recommendations stayed aligned to policy-aware scenario inputs instead of drifting into generic chatbot output.",
-        "Dashboard and PDF outputs remained consistent through shared types and audits rather than manual reconciliation.",
+        "The report pipeline supports bilingual output while sharing the same validated data model.",
       ],
       nextImprovements: [
         "Continue expanding audit coverage around policy changes so report, dashboard, and recommendation drift is caught even earlier.",
-        "Add more evidence around bilingual and premium-report edge states to make parity checks easier to review.",
+        "Add more evidence around bilingual and premium-report edge states.",
       ],
     },
     relatedLinks: [
@@ -521,17 +447,6 @@ export const PROJECTS: Project[] = [
       "Early-stage products needed to load quickly, survive flaky connections, and release repeatedly without breaking their primary workflows.",
     role: "Frontend Engineer · Startup product delivery · ControlTech Startup Studio",
     capabilityTags: ["PWAs", "Release reliability", "Frontend systems"],
-    heroFigure: {
-      type: "illustration",
-      width: 1600,
-      height: 1035,
-      alt: "Illustrative reconstruction of an operations dashboard with offline-capable navigation and resilient loading states, representing startup product workflows designed for slow networks and repeatable releases.",
-      captionLead: "Offline-capable product workflow.",
-      captionBody:
-        "The reconstruction focuses on quick route changes, resilient loading states, and release-safe interaction patterns for products shipping under startup constraints.",
-      disclosureLabel: "Illustrative reconstruction based on the production workflow.",
-      illustrationVariant: "controltech",
-    },
     caseStudy: {
       title:
         "Shipping startup product workflows that tolerate slow networks and fast release cycles",
@@ -541,20 +456,16 @@ export const PROJECTS: Project[] = [
         "The stack moved across Vue, Nuxt, React, and React Native, with PWA requirements where the product demanded offline-capable shells. Reusable patterns, automated tests, and release pipelines mattered because early adopters feel regressions immediately when teams ship fast.",
       responsibility: {
         owned: [
+          "I owned frontend delivery across multiple early-stage products, moving between product definition, implementation, testing, and release.",
           "Built startup product surfaces across Vue, Nuxt, React, and React Native.",
           "Set up route-level code splitting, CDN-backed delivery, PWA caching where needed, and CI test gates with Jest, Playwright, and GitHub Actions.",
-          "Refined responsive product states directly in code while moving between problem definition, implementation, and release follow-up.",
         ],
         collaborative: [
           "Product requirements and scope changed quickly across multiple early-stage efforts, so delivery depended on close iteration with small product and engineering teams.",
-          "The repository establishes broad frontend ownership but does not separate every product contribution by team member or product line.",
         ],
         outside: [
           "The repository does not establish ownership for every backend service, mobile-platform concern, or commercial startup outcome.",
-          "Precise subsystem boundaries across each early-stage product would need factual confirmation from the original teams.",
         ],
-        factualReviewNote:
-          "This repository supports the broad startup frontend, testing, and release-pipeline narrative. Exact product-by-product subsystem ownership is not fully documented.",
       },
       problem:
         "When products ship quickly on small teams, the primary failure mode is not a missing feature. It is a flow that becomes too heavy for slow connections, too brittle for repeated releases, or too fragile to tolerate intermittent network conditions.",
@@ -583,19 +494,6 @@ export const PROJECTS: Project[] = [
         "Product routes are optimized through splitting, CDN delivery, and PWA behavior where needed.",
         "Automated tests and GitHub Actions gates protect primary flows before release.",
         "The same foundations support rapid iteration across multiple early-stage products.",
-      ],
-      interfaceEvidence: [
-        {
-          type: "illustration",
-          width: 1600,
-          height: 1035,
-          alt: "Illustrative reconstruction of a startup operations dashboard with resilient loading panels, quick navigation, and offline-capable workflow affordances.",
-          captionLead: "Startup workflow reconstruction.",
-          captionBody:
-            "The layout highlights fast route changes, resilient async states, and the kind of compact workflow structure that benefits from repeatable release safeguards.",
-          disclosureLabel: "Illustrative reconstruction based on the production workflow.",
-          illustrationVariant: "controltech",
-        },
       ],
       difficultStates: [
         "Slow-network loading states had to remain usable rather than blocking core flows behind heavy initial loads.",

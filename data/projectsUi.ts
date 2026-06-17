@@ -1,5 +1,3 @@
-export const PROJECT_COLLECTION_ARIA_LABEL = "Primary case study collection";
-
 export const PROJECT_CARD_CAPABILITIES_LABEL = "Capabilities";
 
 export const PROJECT_CARD_READ_CASE_STUDY = "Read case study";

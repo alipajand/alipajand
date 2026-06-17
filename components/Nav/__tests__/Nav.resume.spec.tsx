@@ -13,7 +13,7 @@ jest.mock("data/site", () => ({
 }));
 
 describe("Nav with a résumé URL", () => {
-  it("renders desktop and mobile résumé download links", () => {
+  it("should render desktop and mobile résumé download links", () => {
     render(<Nav />);
 
     const desktopResume = screen.getByRole("link", { name: HERO_CTA_DOWNLOAD_RESUME });

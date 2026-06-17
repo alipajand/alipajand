@@ -13,7 +13,7 @@ describe("GridOutlinePath", () => {
     gridCols: 3,
   };
 
-  it("computes correct path coordinates and attributes for a cell", () => {
+  it("should compute correct path coordinates and attributes for a cell", () => {
     const { container } = render(
       <svg>
         <GridOutlinePath grid={baseGrid} rowIndex={1} colIndex={2} />
@@ -36,7 +36,7 @@ describe("GridOutlinePath", () => {
     expect(path).toHaveAttribute("stroke", `rgba(255, 255, 255, ${opacity})`);
   });
 
-  it("falls back to minimum opacity when grid has a single cell", () => {
+  it("should fall back to minimum opacity when grid has a single cell", () => {
     const singleCellGrid: HeroGridConfig = {
       ...baseGrid,
       gridRows: 1,

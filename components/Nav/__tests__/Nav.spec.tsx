@@ -37,7 +37,7 @@ describe("Nav", () => {
       expect(screen.getAllByRole("link", { name: /^contact$/i }).length).toBeGreaterThanOrEqual(1);
     });
 
-    it("sets aria-current=page on Writing when on a post route", () => {
+    it("should set aria-current=page on Writing when on a post route", () => {
       usePathname.mockReturnValue("/writing/some-post");
       render(<Nav />);
 
@@ -53,7 +53,7 @@ describe("Nav", () => {
       expect(screen.getByRole("button", { name: /open menu/i })).toBeInTheDocument();
     });
 
-    it("closes the mobile menu after a route change", () => {
+    it("should close the mobile menu after a route change", () => {
       const { rerender } = render(<Nav />);
 
       fireEvent.click(screen.getByRole("button", { name: /open menu/i }));

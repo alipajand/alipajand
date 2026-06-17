@@ -19,7 +19,7 @@ describe("utils/gsap", () => {
     jest.clearAllMocks();
   });
 
-  it("registerGSAPPlugins registers ScrollTrigger only once", () => {
+  it("should register ScrollTrigger only once for registerGSAPPlugins", () => {
     const mockGsap = gsap as unknown as { registerPlugin: jest.Mock };
 
     registerGSAPPlugins();
@@ -28,7 +28,7 @@ describe("utils/gsap", () => {
     expect(mockGsap.registerPlugin).toHaveBeenCalledTimes(1);
   });
 
-  it("registerGSAPPlugins no-ops when registerPlugin is not a function", async () => {
+  it("should no-op when registerPlugin is not a function in registerGSAPPlugins", async () => {
     await jest.isolateModulesAsync(async () => {
       jest.doMock("gsap", () => ({
         __esModule: true,
@@ -45,7 +45,7 @@ describe("utils/gsap", () => {
     });
   });
 
-  it("prefersReducedMotion returns false when matchMedia is not a function", () => {
+  it("should return false when matchMedia is not a function for prefersReducedMotion", () => {
     Object.defineProperty(window, "matchMedia", {
       value: undefined,
       writable: true,
@@ -56,7 +56,7 @@ describe("utils/gsap", () => {
     expect(result).toBe(false);
   });
 
-  it("prefersReducedMotion returns matchMedia result when available", () => {
+  it("should return matchMedia result when available for prefersReducedMotion", () => {
     Object.defineProperty(window, "matchMedia", {
       value: jest.fn().mockReturnValue({ matches: true } as MediaQueryList),
       writable: true,

@@ -10,7 +10,7 @@ describe("trackContactLinkClick", () => {
     jest.clearAllMocks();
   });
 
-  it("forwards the channel label to the analytics helper", () => {
+  it("should forward the channel label to the analytics helper", () => {
     trackContactLinkClick("LinkedIn");
     expect(trackGtagEvent).toHaveBeenCalledWith("contact_link_click", {
       link_label: "LinkedIn",

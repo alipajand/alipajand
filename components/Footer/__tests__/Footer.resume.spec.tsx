@@ -9,7 +9,7 @@ jest.mock("data/site", () => ({
 }));
 
 describe("Footer with a résumé URL", () => {
-  it("renders a downloadable résumé link when RESUME_URL is set", () => {
+  it("should render a downloadable résumé link when RESUME_URL is set", () => {
     render(<Footer latestWritings={[]} />);
 
     const resumeLink = screen.getByRole("link", {

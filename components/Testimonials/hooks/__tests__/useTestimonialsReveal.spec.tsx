@@ -23,7 +23,7 @@ jest.mock("utils/gsap", () => {
 });
 
 describe("useTestimonialsReveal", () => {
-  it("returns sectionRef and listRef", () => {
+  it("should return sectionRef and listRef", () => {
     const { result } = renderHook(() => useTestimonialsReveal());
     expect(result.current.selectors.sectionRef).toBeDefined();
     expect(result.current.selectors.listRef).toBeDefined();
@@ -31,7 +31,7 @@ describe("useTestimonialsReveal", () => {
     expect(result.current.selectors.listRef.current).toBeNull();
   });
 
-  it("sets elements directly when reduced motion is preferred", () => {
+  it("should set elements directly when reduced motion is preferred", () => {
     const { gsap, prefersReducedMotion, ScrollTrigger } = jest.requireMock("utils/gsap") as {
       gsap: { set: jest.Mock };
       prefersReducedMotion: jest.Mock;
@@ -61,7 +61,7 @@ describe("useTestimonialsReveal", () => {
     expect(ScrollTrigger.create).not.toHaveBeenCalled();
   });
 
-  it("creates ScrollTrigger and timeline when motion is allowed", () => {
+  it("should create ScrollTrigger and timeline when motion is allowed", () => {
     const { gsap, prefersReducedMotion, ScrollTrigger } = jest.requireMock("utils/gsap") as {
       gsap: { timeline: jest.Mock };
       prefersReducedMotion: jest.Mock;

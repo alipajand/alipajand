@@ -52,13 +52,13 @@ describe("useHiringFitReveal", () => {
     jest.clearAllMocks();
   });
 
-  it("returns a sectionRef", () => {
+  it("should return a sectionRef", () => {
     const { result } = renderHook(() => useHiringFitReveal());
     expect(result.current.selectors.sectionRef).toBeDefined();
     expect(result.current.selectors.sectionRef.current).toBeNull();
   });
 
-  it("sets all elements visible without a ScrollTrigger when reduced motion is preferred", () => {
+  it("should set all elements visible without a ScrollTrigger when reduced motion is preferred", () => {
     const mock = getMock();
     mock.prefersReducedMotion.mockReturnValueOnce(true);
 
@@ -68,7 +68,7 @@ describe("useHiringFitReveal", () => {
     expect(mock.ScrollTrigger.create).not.toHaveBeenCalled();
   });
 
-  it("animates heading, badges, cards, and ctas on enter when motion is allowed", () => {
+  it("should animate heading, badges, cards, and ctas on enter when motion is allowed", () => {
     const mock = getMock();
     mock.prefersReducedMotion.mockReturnValue(false);
 

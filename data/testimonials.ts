@@ -8,7 +8,10 @@ export interface Testimonial {
 export const TESTIMONIALS_HEADING = "Peer feedback";
 
 export const TESTIMONIALS_INTRO =
-  "Names remain withheld publicly unless permission has been granted.";
+  "Names are withheld for privacy. Quotes are lightly edited for length and clarity without changing their meaning.";
+
+export const TESTIMONIALS_FACTUAL_REVIEW_NOTE =
+  "Quote wording has not been personally re-confirmed against the original messages.";
 
 export const TESTIMONIALS: Testimonial[] = [
   {

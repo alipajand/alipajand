@@ -18,13 +18,13 @@ describe("GatedVercelSpeedInsights", () => {
     setNodeEnv(originalEnv as string);
   });
 
-  it("renders nothing outside production", () => {
+  it("should render nothing outside production", () => {
     setNodeEnv("test");
     const { container } = render(<GatedVercelSpeedInsights />);
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("renders the Speed Insights component in production", () => {
+  it("should render the Speed Insights component in production", () => {
     setNodeEnv("production");
     const { getByTestId } = render(<GatedVercelSpeedInsights />);
     expect(getByTestId("vercel-speed-insights")).toBeInTheDocument();

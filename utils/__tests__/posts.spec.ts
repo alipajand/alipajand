@@ -12,7 +12,7 @@ const POSTS_DIR = join(process.cwd(), "content", "posts");
 
 describe("utils/posts", () => {
   describe("getAllPosts", () => {
-    it("returns array of posts with slug, title, date, excerpt", () => {
+    it("should return array of posts with slug, title, date, excerpt", () => {
       const posts = getAllPosts();
       expect(Array.isArray(posts)).toBe(true);
       posts.forEach((post) => {
@@ -24,7 +24,7 @@ describe("utils/posts", () => {
       });
     });
 
-    it("sorts posts by date descending", () => {
+    it("should sort posts by date descending", () => {
       const posts = getAllPosts();
       if (posts.length < 2) return;
       for (let i = 0; i < posts.length - 1; i++) {
@@ -32,7 +32,7 @@ describe("utils/posts", () => {
       }
     });
 
-    it("excludes readme.md from slugs", () => {
+    it("should exclude readme.md from slugs", () => {
       const posts = getAllPosts();
       const slugs = posts.map((p) => p.slug);
       expect(slugs).not.toContain("readme");
@@ -41,7 +41,7 @@ describe("utils/posts", () => {
   });
 
   describe("getPostBySlug", () => {
-    it("returns full post with contentHtml for valid slug", () => {
+    it("should return full post with contentHtml for valid slug", () => {
       const slugs = readdirSync(POSTS_DIR)
         .filter((f) => f.endsWith(".md") && f.toLowerCase() !== "readme.md")
         .map((f) => f.replace(/\.md$/, ""));
@@ -56,18 +56,18 @@ describe("utils/posts", () => {
       expect(typeof (post as { contentHtml: string }).contentHtml).toBe("string");
     });
 
-    it("returns null for non-existent slug", () => {
+    it("should return null for non-existent slug", () => {
       expect(getPostBySlug("non-existent-slug-xyz")).toBeNull();
     });
   });
 
   describe("getLatestPosts", () => {
-    it("returns at most count posts", () => {
+    it("should return at most count posts", () => {
       const posts = getLatestPosts(1);
       expect(posts.length).toBeLessThanOrEqual(1);
     });
 
-    it("returns same order as getAllPosts slice", () => {
+    it("should return same order as getAllPosts slice", () => {
       const all = getAllPosts();
       const latest = getLatestPosts(2);
       expect(latest).toEqual(all.slice(0, 2));
@@ -75,7 +75,7 @@ describe("utils/posts", () => {
   });
 
   describe("getPostsForWritingSection", () => {
-    it("returns featured post when frontmatter marks one", () => {
+    it("should return featured post when frontmatter marks one", () => {
       const { featured, recent } = getPostsForWritingSection(2);
       const all = getAllPosts();
       const expectedFeatured = all.find((p) => p.featured === true);
@@ -85,7 +85,7 @@ describe("utils/posts", () => {
       }
     });
 
-    it("limits recent to recentCount excluding featured", () => {
+    it("should limit recent to recentCount excluding featured", () => {
       const { recent } = getPostsForWritingSection(2);
       expect(recent.length).toBeLessThanOrEqual(2);
     });

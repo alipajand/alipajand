@@ -34,7 +34,7 @@ jest.mock("lenis", () => {
 });
 
 describe("SmoothScroll", () => {
-  it("renders children", () => {
+  it("should render children", () => {
     render(
       <SmoothScroll>
         <div>Content</div>
@@ -44,7 +44,7 @@ describe("SmoothScroll", () => {
     expect(screen.getByText("Content")).toBeInTheDocument();
   });
 
-  it("skips initialization when reduced motion is preferred", () => {
+  it("should skip initialization when reduced motion is preferred", () => {
     const { prefersReducedMotion } = jest.requireMock("utils/gsap") as {
       prefersReducedMotion: jest.Mock;
     };

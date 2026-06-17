@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import { BreadcrumbJsonLd } from "components/BreadcrumbJsonLd/BreadcrumbJsonLd";
 
 describe("BreadcrumbJsonLd", () => {
-  it("renders breadcrumb list schema", () => {
+  it("should render breadcrumb list schema", () => {
     const { container } = render(
       <BreadcrumbJsonLd
         items={[

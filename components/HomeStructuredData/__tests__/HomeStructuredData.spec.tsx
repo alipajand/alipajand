@@ -15,13 +15,13 @@ import {
 } from "data/site";
 
 describe("HomeStructuredData", () => {
-  it("renders person and profile page schemas", () => {
+  it("should render person and profile page schemas", () => {
     const { container } = render(<HomeStructuredData />);
     const scripts = container.querySelectorAll('script[type="application/ld+json"]');
     expect(scripts).toHaveLength(2);
   });
 
-  it("includes the expected person schema", () => {
+  it("should include the expected person schema", () => {
     const { container } = render(<HomeStructuredData />);
     const scripts = container.querySelectorAll('script[type="application/ld+json"]');
     const schema = JSON.parse(scripts[0].textContent || "{}");
@@ -45,7 +45,7 @@ describe("HomeStructuredData", () => {
     );
   });
 
-  it("includes the expected profile page schema", () => {
+  it("should include the expected profile page schema", () => {
     const { container } = render(<HomeStructuredData />);
     const scripts = container.querySelectorAll('script[type="application/ld+json"]');
     const schema = JSON.parse(scripts[1].textContent || "{}");

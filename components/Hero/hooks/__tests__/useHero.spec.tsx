@@ -48,7 +48,7 @@ describe("useHero", () => {
   });
 
   describe("effect with mounted refs", () => {
-    it("calls gsap when refs are attached", () => {
+    it("should call gsap when refs are attached", () => {
       const HeroWrapper = () => {
         const { selectors } = useHero();
         return (
@@ -72,7 +72,7 @@ describe("useHero", () => {
       expect(gsap.to).toHaveBeenCalled();
     });
 
-    it("sets opacity 1 when prefersReducedMotion is true", () => {
+    it("should set opacity 1 when prefersReducedMotion is true", () => {
       jest.mocked(utilsGsap.prefersReducedMotion).mockReturnValue(true);
       const HeroWrapper = () => {
         const { selectors } = useHero();

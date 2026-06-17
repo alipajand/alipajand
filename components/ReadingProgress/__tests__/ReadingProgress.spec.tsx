@@ -28,13 +28,13 @@ describe("ReadingProgress", () => {
     jest.clearAllMocks();
   });
 
-  it("renders a decorative progress bar", () => {
+  it("should render a decorative progress bar", () => {
     const { container } = render(<ReadingProgress />);
     const bar = container.querySelector('div[aria-hidden="true"]');
     expect(bar).toBeInTheDocument();
   });
 
-  it("initializes the bar and updates its scale on scroll progress", () => {
+  it("should initialize the bar and update its scale on scroll progress", () => {
     const mock = getMock();
     render(<ReadingProgress />);
 

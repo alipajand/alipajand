@@ -34,9 +34,9 @@ Letting the extraction pipeline own the final portfolio rows directly and patchi
 
 The cost is more state. You now have to represent honest incomplete states instead of always displaying a clean result. For LedgerGuard, that was the right trade. Finance users need to know when the ledger is incomplete more than they need a tidy card.
 
-## What the lifecycle actually looks like
+## What the lifecycle is designed to handle
 
-The useful way to think about the system is not "upload a PDF and get a number." It is a lifecycle with several chances for disagreement:
+The useful way to think about the system is not "upload a PDF and get a number." It is a lifecycle with several chances for disagreement. The steps below describe the workflow the product was designed to support; not every branch may have surfaced in production.
 
 1. A contract is uploaded and queued for OCR and extraction.
 2. Extraction produces field-level proposals with source evidence.
@@ -53,13 +53,15 @@ upload -> extract fields -> persist provenance -> synthesize commitment
    -> UI reads deterministic truth state -> reconcile when aligned
 ```
 
-That lifecycle matters because each stage can succeed while a downstream stage fails. Extraction can be valid while synthesis is missing. A commitment can exist while its source provenance is no longer current. Human correction can be newer than the last synthesized output. Those are not rare exceptions in document-heavy systems. They are the product.
+That lifecycle matters because each stage can succeed while a downstream stage fails. Extraction can be valid while synthesis is missing. A commitment can exist while its source provenance is no longer current. Human correction can be newer than the last synthesized output. Those states are common in document-heavy systems and needed to be designed for even when not every branch had surfaced in production yet.
 
 ## Truth precedence is the real feature
 
 The core design choice was to treat truth precedence as a product feature rather than an implementation detail. The UI is only as honest as the precedence rules behind it.
 
 Here is the simplified policy:
+
+The following table summarizes the precedence rules used by the product; implementation details may vary by workflow state.
 
 | State                                        | Preferred source                                                                 | What the UI shows                                                                       |
 | -------------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |

@@ -63,13 +63,13 @@ describe("useScrollReveal", () => {
   });
 
   describe("effect with mounted element", () => {
-    it("calls gsap.set and ScrollTrigger.create when section has data-reveal children", () => {
+    it("should call gsap.set and ScrollTrigger.create when section has data-reveal children", () => {
       render(<Wrapper />);
       expect(gsapUtils.gsap.set).toHaveBeenCalled();
       expect(gsapUtils.ScrollTrigger.create).toHaveBeenCalled();
     });
 
-    it("calls cleanup on unmount", () => {
+    it("should call cleanup on unmount", () => {
       const killMock = jest.fn();
       jest
         .mocked(gsapUtils.ScrollTrigger.create)
@@ -81,7 +81,7 @@ describe("useScrollReveal", () => {
       expect(killMock).toHaveBeenCalled();
     });
 
-    it("uses stagger when multiple children have data-reveal", () => {
+    it("should use stagger when multiple children have data-reveal", () => {
       render(<Wrapper options={{ stagger: 0.08 }} />);
       const createCallArgs = jest.mocked(gsapUtils.ScrollTrigger.create).mock.calls[0];
       const createCall = createCallArgs[0] as { onEnter?: () => void };
@@ -95,7 +95,7 @@ describe("useScrollReveal", () => {
   });
 
   describe("prefersReducedMotion", () => {
-    it("sets opacity 1 and y 0 when prefersReducedMotion is true", () => {
+    it("should set opacity 1 and y 0 when prefersReducedMotion is true", () => {
       jest.mocked(gsapUtils.prefersReducedMotion).mockReturnValue(true);
       render(<Wrapper />);
       expect(gsapUtils.gsap.set).toHaveBeenCalledWith(expect.anything(), { opacity: 1, y: 0 });
@@ -108,7 +108,7 @@ describe("useScrollReveal", () => {
       const { selectors } = useScrollReveal();
       return <div ref={selectors.sectionRef as React.RefObject<HTMLDivElement>}>no reveal</div>;
     };
-    it("does not call ScrollTrigger.create when section has no data-reveal", () => {
+    it("should not call ScrollTrigger.create when section has no data-reveal", () => {
       jest.mocked(gsapUtils.ScrollTrigger.create).mockClear();
       render(<EmptyWrapper />);
       expect(gsapUtils.ScrollTrigger.create).not.toHaveBeenCalled();

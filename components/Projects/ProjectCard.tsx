@@ -13,9 +13,11 @@ export const ProjectCard = ({ project }: { project: Project }) => {
       className={`${CARD_SURFACE_HOVER} flex h-full flex-col overflow-hidden rounded-2xl`}
       data-project-card
     >
-      <div className="border-b border-border/70 bg-background/60 p-4 sm:p-5">
-        <ProjectFigure figure={project.heroFigure} compact />
-      </div>
+      {project.caseStudy.interfaceEvidence?.length ? (
+        <div className="border-b border-border/70 bg-background/60 p-4 sm:p-5">
+          <ProjectFigure figure={project.caseStudy.interfaceEvidence[0]} compact />
+        </div>
+      ) : null}
 
       <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
         <div className="space-y-2.5">

@@ -36,7 +36,7 @@ afterEach(() => {
 });
 
 describe("ContactForm", () => {
-  it("renders name, email, message fields and submit button", () => {
+  it("should render name, email, message fields and submit button", () => {
     render(<ContactForm />);
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
@@ -44,7 +44,7 @@ describe("ContactForm", () => {
     expect(screen.getByRole("button", { name: /send message/i })).toBeInTheDocument();
   });
 
-  it("shows validation error when name is empty on submit", async () => {
+  it("should show validation error when name is empty on submit", async () => {
     render(<ContactForm />);
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     await waitFor(() => {
@@ -53,7 +53,7 @@ describe("ContactForm", () => {
     expect(screen.getByText(CONTACT_FORM_ERROR_SUMMARY_HEADING)).toBeInTheDocument();
   });
 
-  it("shows validation error for invalid email", async () => {
+  it("should show validation error for invalid email", async () => {
     render(<ContactForm />);
     fillForm("Jane", "bad-email", "Hello");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
@@ -62,7 +62,7 @@ describe("ContactForm", () => {
     });
   });
 
-  it("focuses the validation summary when submit fails client-side validation", async () => {
+  it("should focus the validation summary when submit fails client-side validation", async () => {
     render(<ContactForm />);
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
 
@@ -75,7 +75,7 @@ describe("ContactForm", () => {
     });
   });
 
-  it("shows validation error when message is empty", async () => {
+  it("should show validation error when message is empty", async () => {
     render(<ContactForm />);
     fillForm("Jane", "jane@example.com", "");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
@@ -84,7 +84,7 @@ describe("ContactForm", () => {
     });
   });
 
-  it("shows success message on successful submit", async () => {
+  it("should succes message on successful submit for shows", async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve({}),
@@ -97,7 +97,7 @@ describe("ContactForm", () => {
     });
   });
 
-  it("shows error message when API returns not ok", async () => {
+  it("should show error message when API returns not ok", async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
       json: () => Promise.resolve({ error: "Server error" }),
@@ -110,7 +110,7 @@ describe("ContactForm", () => {
     });
   });
 
-  it("shows generic error when API returns not ok without body.error", async () => {
+  it("should show generic error when API returns not ok without body.error", async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
       json: () => Promise.resolve({}),
@@ -123,7 +123,7 @@ describe("ContactForm", () => {
     });
   });
 
-  it("shows error message when fetch throws", async () => {
+  it("should show error message when fetch throws", async () => {
     (global.fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
     render(<ContactForm />);
     fillForm("Jane", "jane@example.com", "Hello");
@@ -135,7 +135,7 @@ describe("ContactForm", () => {
     });
   });
 
-  it("shows Sending… while submitting", async () => {
+  it("should show Sending… while submitting", async () => {
     let resolve: () => void;
     const promise = new Promise<void>((r) => {
       resolve = r;

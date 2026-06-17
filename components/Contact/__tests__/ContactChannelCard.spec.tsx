@@ -12,7 +12,7 @@ describe("ContactChannelCard", () => {
     jest.clearAllMocks();
   });
 
-  it("renders an email channel with a mailto href and no target", () => {
+  it("should render an email channel with a mailto href and no target", () => {
     render(
       <ul>
         <ContactChannelCard
@@ -31,7 +31,7 @@ describe("ContactChannelCard", () => {
     expect(screen.getByText("alipajand@gmail.com")).toBeInTheDocument();
   });
 
-  it("renders an external channel with safe target and rel attributes", () => {
+  it("should render an external channel with safe target and rel attributes", () => {
     render(
       <ul>
         <ContactChannelCard
@@ -53,7 +53,7 @@ describe("ContactChannelCard", () => {
     );
   });
 
-  it("tracks a click with the channel label", () => {
+  it("should track a click with the channel label", () => {
     render(
       <ul>
         <ContactChannelCard

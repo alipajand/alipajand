@@ -54,13 +54,13 @@ describe("usePageHeader", () => {
     jest.clearAllMocks();
   });
 
-  it("returns a headerRef", () => {
+  it("should return a headerRef", () => {
     const { result } = renderHook(() => usePageHeader());
     expect(result.current.selectors.headerRef).toBeDefined();
     expect(result.current.selectors.headerRef.current).toBeNull();
   });
 
-  it("animates the header elements with a timeline when motion is allowed", () => {
+  it("should animate the header elements with a timeline when motion is allowed", () => {
     getReducedMotionMock().mockReturnValue(false);
     const gsap = getGsap();
 
@@ -70,7 +70,7 @@ describe("usePageHeader", () => {
     expect(gsap.timeline).toHaveBeenCalled();
   });
 
-  it("sets elements visible without a timeline when reduced motion is preferred", () => {
+  it("should set elements visible without a timeline when reduced motion is preferred", () => {
     getReducedMotionMock().mockReturnValue(true);
     const gsap = getGsap();
 
@@ -80,7 +80,7 @@ describe("usePageHeader", () => {
     expect(gsap.timeline).not.toHaveBeenCalled();
   });
 
-  it("does nothing when the header has no animatable elements", () => {
+  it("should do nothing when the header has no animatable elements", () => {
     getReducedMotionMock().mockReturnValue(false);
     const gsap = getGsap();
 

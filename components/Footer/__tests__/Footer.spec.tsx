@@ -26,19 +26,19 @@ const LATEST_WRITINGS = [
 ] as const;
 
 describe("Footer", () => {
-  it("renders the footer landmark with its aria label", () => {
+  it("should render the footer landmark with its aria label", () => {
     render(<Footer latestWritings={[...LATEST_WRITINGS]} />);
     expect(screen.getByRole("contentinfo", { name: FOOTER_ARIA_LABEL })).toBeInTheDocument();
   });
 
-  it("renders every footer navigation link", () => {
+  it("should render every footer navigation link", () => {
     render(<Footer latestWritings={[...LATEST_WRITINGS]} />);
     for (const link of getFooterNavLinksFlat()) {
       expect(screen.getByRole("link", { name: link.label })).toBeInTheDocument();
     }
   });
 
-  it("renders the writing archive link and latest writings", () => {
+  it("should render the writing archive link and latest writings", () => {
     render(<Footer latestWritings={[...LATEST_WRITINGS]} />);
 
     expect(screen.getByRole("link", { name: FOOTER_WRITING_ARCHIVE_LABEL })).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe("Footer", () => {
     }
   });
 
-  it("renders direct links with large icons and safe target/rel attributes", () => {
+  it("should render direct links with large icons and safe target/rel attributes", () => {
     render(<Footer latestWritings={[...LATEST_WRITINGS]} />);
     const external = LINKS.find((channel) => channel.href.startsWith("http"));
     const internal = LINKS.find((channel) => !channel.href.startsWith("http"));
@@ -67,7 +67,7 @@ describe("Footer", () => {
     expect(internalLink.querySelector("span[aria-hidden='true']")).toHaveClass("size-8");
   });
 
-  it("renders the current year in the copyright line", () => {
+  it("should render the current year in the copyright line", () => {
     render(<Footer latestWritings={[...LATEST_WRITINGS]} />);
     const year = new Date().getFullYear();
     expect(screen.getByText(footerCopyright(year))).toBeInTheDocument();

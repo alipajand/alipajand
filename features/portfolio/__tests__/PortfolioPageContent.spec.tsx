@@ -35,7 +35,7 @@ jest.mock("next/image", () => ({
 }));
 
 describe("PortfolioPageContent", () => {
-  it("renders the portfolio H1 and required introduction", () => {
+  it("should render the portfolio H1 and required introduction", () => {
     render(<PortfolioPageContent />);
 
     expect(
@@ -48,11 +48,10 @@ describe("PortfolioPageContent", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the homepage back link and portfolio case studies", () => {
+  it("should render the homepage back link and portfolio case studies", () => {
     render(<PortfolioPageContent />);
 
     expect(screen.getByRole("link", { name: "← Back to homepage" })).toHaveAttribute("href", "/");
-    expect(screen.getByRole("heading", { name: "Selected case studies" })).toBeInTheDocument();
-    expect(screen.getAllByRole("heading", { name: "LedgerGuard" }).length).toBeGreaterThan(0);
+    expect(screen.getByRole("heading", { level: 2, name: "LedgerGuard" })).toBeInTheDocument();
   });
 });

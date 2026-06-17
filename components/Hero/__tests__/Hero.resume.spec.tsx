@@ -17,7 +17,7 @@ jest.mock("gsap", () => ({
 }));
 
 describe("Hero", () => {
-  it("does not render a résumé CTA in the homepage hero", () => {
+  it("should not render a résumé CTA in the homepage hero", () => {
     render(<Hero />);
 
     expect(screen.queryByRole("link", { name: /download résumé/i })).not.toBeInTheDocument();

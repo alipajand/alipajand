@@ -10,12 +10,12 @@ const base: Testimonial = {
 };
 
 describe("TestimonialsQuote", () => {
-  it("renders the quote text", () => {
+  it("should render the quote text", () => {
     render(<TestimonialsQuote testimonial={base} />);
     expect(screen.getByText(base.quote)).toBeInTheDocument();
   });
 
-  it("renders the attribution label", () => {
+  it("should render the attribution label", () => {
     render(<TestimonialsQuote testimonial={base} />);
     expect(screen.getByText(base.label)).toBeInTheDocument();
   });

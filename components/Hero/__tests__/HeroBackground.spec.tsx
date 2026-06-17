@@ -37,7 +37,7 @@ jest.mock("components/Hero/GridOutlinePath", () => {
 });
 
 describe("HeroBackground", () => {
-  it("renders an svg with paths for each grid cell in snake order", () => {
+  it("should render an svg with paths for each grid cell in snake order", () => {
     const { container } = render(<HeroBackground />);
     const svg = container.querySelector("svg");
     expect(svg).not.toBeNull();
