@@ -7,8 +7,9 @@ describe("navAriaCurrent", () => {
     expect(navLinkAriaCurrent("/writing", "/")).toBeUndefined();
   });
 
-  it("should mark Portfolio only on /portfolio for navLinkAriaCurrent", () => {
+  it("should mark Portfolio on /portfolio and dedicated case-study routes", () => {
     expect(navLinkAriaCurrent("/portfolio", "/portfolio")).toBe("page");
+    expect(navLinkAriaCurrent("/portfolio", "/portfolio/ledgerguard")).toBe("page");
     expect(navLinkAriaCurrent("/portfolio", "/")).toBeUndefined();
   });
 

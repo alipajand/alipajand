@@ -44,8 +44,11 @@ export interface ProjectCaseStudy {
 
 export interface Project {
   id: string;
+  slug: string;
+  hasDedicatedCaseStudy: boolean;
   name: string;
   caseStudyTitle: string;
+  caseStudyMetaDescription: string;
   employerContext: string;
   cardProblem: string;
   role: string;
@@ -60,10 +63,10 @@ export const PORTFOLIO_PAGE_HEADER_TITLE = "Product engineering case studies";
 export const PORTFOLIO_PAGE_INTRO =
   "I work across product decisions, interface design, frontend architecture, design systems, and delivery. These case studies focus on the constraints, decisions, and implementation details behind the finished interfaces.";
 
-export const PORTFOLIO_META_TITLE = "Product Engineering Case Studies | Ali Pajand";
+export const PORTFOLIO_META_TITLE = "Product Engineering Case Studies — Ali Pajand";
 
 export const PORTFOLIO_META_DESCRIPTION =
-  "Evidence-led product engineering case studies covering frontend architecture, design systems, complex workflows, and delivery decisions.";
+  "Case studies covering product engineering, frontend architecture, design systems, complex workflows, and AI-assisted interfaces.";
 
 export const PORTFOLIO_CASE_STUDY_ORDER = [
   "ledgerguard-deterministic-commitments-ledger",
@@ -76,8 +79,12 @@ export const PORTFOLIO_CASE_STUDY_ORDER = [
 export const PROJECTS: Project[] = [
   {
     id: "ledgerguard-deterministic-commitments-ledger",
+    slug: "ledgerguard",
+    hasDedicatedCaseStudy: true,
     name: "LedgerGuard",
     caseStudyTitle: "Designing a trustworthy contract review and renewal workflow",
+    caseStudyMetaDescription:
+      "A product engineering case study about traceable AI-assisted contract review, human verification, renewal risk, and financial commitments.",
     employerContext:
       "AI contract intelligence SaaS for renewals, commitments, notice windows, and financial exposure.",
     cardProblem:
@@ -171,8 +178,12 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "design-system-marketplace-login-web3",
+    slug: "alwaysgeeky",
+    hasDedicatedCaseStudy: true,
     name: "AlwaysGeeky Games",
     caseStudyTitle: "Shipping marketplace and authentication flows on a reusable design system",
+    caseStudyMetaDescription:
+      "A product engineering case study about marketplace and authentication flows on a reusable design system with Web3 error handling and accessibility.",
     employerContext:
       "Marketplace, authentication, and Web3 product surfaces delivered with shared UI, Storybook documentation, and CI quality checks.",
     cardProblem:
@@ -273,8 +284,12 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "data-dashboards-emplifi",
+    slug: "emplifi",
+    hasDedicatedCaseStudy: true,
     name: "Emplifi",
     caseStudyTitle: "Keeping dense dashboards responsive in embedded and mobile webview contexts",
+    caseStudyMetaDescription:
+      "A product engineering case study about dense analytics dashboards, D3.js visualizations, GSAP motion, and performance in embedded mobile webview contexts.",
     employerContext:
       "Enterprise analytics dashboards built with React, TypeScript, D3.js, and GSAP under tight rendering budgets.",
     cardProblem:
@@ -347,8 +362,12 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "mapbylaw-platform-ui-ai-reports",
+    slug: "mapbylaw",
+    hasDedicatedCaseStudy: true,
     name: "MapBylaw",
     caseStudyTitle: "Aligning typed product workflows, policy-aware AI, and bilingual reports",
+    caseStudyMetaDescription:
+      "A product engineering case study about typed product workflows, policy-aware AI recommendations, and bilingual property reports.",
     employerContext:
       "Map-first property insights platform with shared UI, typed APIs, AI recommendations, and bilingual report generation.",
     cardProblem:
@@ -438,9 +457,13 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "pwa-performance-controltech",
+    slug: "controltech",
+    hasDedicatedCaseStudy: false,
     name: "ControlTech",
     caseStudyTitle:
       "Shipping startup product workflows that tolerate slow networks and fast release cycles",
+    caseStudyMetaDescription:
+      "A product engineering case study about startup delivery across PWAs, dashboards, and workflow-heavy interfaces under fast release cycles.",
     employerContext:
       "Startup product delivery across PWAs, dashboards, and workflow-heavy interfaces inside ControlTech Startup Studio.",
     cardProblem:

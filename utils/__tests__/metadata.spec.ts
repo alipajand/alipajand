@@ -5,6 +5,7 @@ import {
   buildEngineeringPrinciplesMetadata,
   buildNowMetadata,
   buildOpenSourceMetadata,
+  buildPortfolioCaseStudyMetadata,
   buildPortfolioMetadata,
   buildWritingIndexMetadata,
 } from "utils/metadata";
@@ -14,6 +15,7 @@ import { OPEN_SOURCE_META_DESCRIPTION, OPEN_SOURCE_META_TITLE } from "data/openS
 import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/projects";
 import { CANONICAL_URL } from "data/site";
 import { WRITING_INDEX_DESCRIPTION } from "data/writing";
+import { getProjectBySlug } from "utils/projects";
 
 describe("utils/metadata", () => {
   it("should set canonical and descriptions for buildWritingIndexMetadata", () => {
@@ -55,6 +57,14 @@ describe("utils/metadata", () => {
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/portfolio`);
     expect(m.description).toBe(PORTFOLIO_META_DESCRIPTION);
     expect(m.title).toEqual({ absolute: PORTFOLIO_META_TITLE });
+  });
+
+  it("should set canonical and case-study description for buildPortfolioCaseStudyMetadata", () => {
+    const project = getProjectBySlug("ledgerguard")!;
+    const m = buildPortfolioCaseStudyMetadata(project);
+    expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/portfolio/ledgerguard`);
+    expect(m.title).toEqual({ absolute: "LedgerGuard Case Study — Ali Pajand" });
+    expect(m.description).toBe(project.caseStudyMetaDescription);
   });
 
   it("should set canonical, title, and description for buildEngineeringPrinciplesMetadata", () => {
