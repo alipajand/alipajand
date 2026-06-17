@@ -35,35 +35,35 @@ describe("useCountUp", () => {
     jest.clearAllMocks();
   });
 
-  it("reports hasParsed=false for non-numeric values", () => {
+  it("should report hasParsed=false for non-numeric values", () => {
     const { result } = renderHook(() => useCountUp("Design systems"));
     expect(result.current.hasParsed).toBe(false);
   });
 
-  it("reports hasParsed=true for numeric values with prefix and suffix", () => {
+  it("should report hasParsed=true for numeric values with prefix and suffix", () => {
     const { result } = renderHook(() => useCountUp("$2M"));
     expect(result.current.hasParsed).toBe(true);
   });
 
-  it("parses plain numeric values without prefix or suffix", () => {
+  it("should parse plain numeric values without prefix or suffix", () => {
     const { result } = renderHook(() => useCountUp("42"));
     expect(result.current.hasParsed).toBe(true);
   });
 
-  it("does not create a ScrollTrigger for non-numeric values", () => {
+  it("should not create a ScrollTrigger for non-numeric values", () => {
     const mock = getMock();
     render(<Harness value="Accessibility" />);
     expect(mock.ScrollTrigger.create).not.toHaveBeenCalled();
   });
 
-  it("does not animate when reduced motion is preferred", () => {
+  it("should not animate when reduced motion is preferred", () => {
     const mock = getMock();
     mock.prefersReducedMotion.mockReturnValueOnce(true);
     render(<Harness value="9+" />);
     expect(mock.ScrollTrigger.create).not.toHaveBeenCalled();
   });
 
-  it("animates the counter and writes intermediate then final text on enter", () => {
+  it("should animate the counter and writes intermediate then final text on enter", () => {
     const mock = getMock();
     mock.prefersReducedMotion.mockReturnValue(false);
 

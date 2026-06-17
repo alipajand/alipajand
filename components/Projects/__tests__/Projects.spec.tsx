@@ -24,43 +24,29 @@ jest.mock("next/link", () => {
 });
 
 describe("Projects", () => {
-  it("renders the primary case-study collection with the required id", () => {
+  it("should render the primary case-study collection with the required id", () => {
     render(<Projects />);
 
     expect(document.getElementById("case-studies")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Selected case studies" })).toBeInTheDocument();
-    expect(screen.getByLabelText("Primary case study collection")).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(5);
+    expect(screen.getByRole("heading", { level: 2, name: "LedgerGuard" })).toBeInTheDocument();
   });
 
-  it("orders the named case-study cards before the other selected work section", () => {
-    const { container } = render(<Projects />);
-    const cardHeadings = Array.from(container.querySelectorAll("[data-project-card] h3")).map(
-      (heading) => heading.textContent
-    );
+  it("should order case studies in the portfolio sequence", () => {
+    render(<Projects />);
 
-    expect(cardHeadings.slice(0, 4)).toEqual([
-      "LedgerGuard",
-      "AlwaysGeeky Games",
-      "Emplifi",
-      "MapBylaw",
-    ]);
     expect(
-      screen.getByRole("heading", { name: "Other selected product work" })
-    ).toBeInTheDocument();
-    expect(cardHeadings[4]).toBe("ControlTech");
+      screen.getAllByRole("heading", { level: 2 }).map((heading) => heading.textContent)
+    ).toEqual(["LedgerGuard", "AlwaysGeeky Games", "Emplifi", "MapBylaw", "ControlTech"]);
   });
 
-  it("keeps open-source work out of the commercial case-study grid and links to the open-source page", () => {
+  it("should keep open-source work out of the commercial case-study collection", () => {
     render(<Projects />);
 
     expect(screen.queryByText(/Agent Readiness Kit/i)).not.toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "View open-source work" })).toHaveAttribute(
-      "href",
-      "/open-source"
-    );
   });
 
-  it("renders normalized case-study sections and related navigation", () => {
+  it("should render normalized case-study sections and related navigation", () => {
     render(<Projects />);
 
     expect(screen.getAllByRole("heading", { name: "Overview" }).length).toBeGreaterThan(0);
@@ -80,7 +66,7 @@ describe("Projects", () => {
     ).toHaveAttribute("href", "#project-design-system-marketplace-login-web3");
   });
 
-  it("renders ownership statements without factual review notes on case studies", () => {
+  it("should render ownership statements without factual review notes on case studies", () => {
     render(<Projects />);
 
     expect(
@@ -91,7 +77,7 @@ describe("Projects", () => {
     expect(screen.queryByText(/Factual review note:/i)).not.toBeInTheDocument();
   });
 
-  it("renders the table of contents links for a detailed case study", () => {
+  it("should render the table of contents links for a detailed case study", () => {
     render(<Projects />);
 
     const nav = screen

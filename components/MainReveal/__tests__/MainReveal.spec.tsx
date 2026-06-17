@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { MainReveal } from "components/MainReveal/MainReveal";
 
 describe("MainReveal", () => {
-  it("renders children", () => {
+  it("should render children", () => {
     render(
       <MainReveal>
         <span>Child content</span>
@@ -12,7 +12,7 @@ describe("MainReveal", () => {
     expect(screen.getByText("Child content")).toBeInTheDocument();
   });
 
-  it("renders wrapper with min-h-screen class", () => {
+  it("should render wrapper with min-h-screen class", () => {
     const { container } = render(
       <MainReveal>
         <div />
@@ -22,7 +22,7 @@ describe("MainReveal", () => {
     expect(wrapper).toHaveClass("min-h-screen");
   });
 
-  it("renders the shared main-content focus target", () => {
+  it("should render the shared main-content focus target", () => {
     const { container } = render(
       <MainReveal>
         <div />

@@ -20,7 +20,7 @@ jest.mock("utils/gsap", () => {
 });
 
 describe("useGridOutlineAnimation", () => {
-  it("exposes svgRef and snakeOrder selectors", () => {
+  it("should expose svgRef and snakeOrder selectors", () => {
     const { result } = renderHook(() => useGridOutlineAnimation());
 
     expect(result.current.selectors.svgRef.current).toBeNull();
@@ -28,7 +28,7 @@ describe("useGridOutlineAnimation", () => {
     expect(result.current.selectors.snakeOrder.length).toBeGreaterThan(0);
   });
 
-  it("animates grid outline paths when motion is allowed", async () => {
+  it("should animate grid outline paths when motion is allowed", async () => {
     const { gsap, prefersReducedMotion } = jest.requireMock("utils/gsap") as {
       gsap: { to: jest.Mock };
       prefersReducedMotion: jest.Mock;
@@ -63,7 +63,7 @@ describe("useGridOutlineAnimation", () => {
     expect(gsap.to).toHaveBeenCalled();
   });
 
-  it("skips animation when prefersReducedMotion is true", () => {
+  it("should skip animation when prefersReducedMotion is true", () => {
     const { prefersReducedMotion } = jest.requireMock("utils/gsap") as {
       prefersReducedMotion: jest.Mock;
     };

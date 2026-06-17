@@ -3,17 +3,17 @@ import { render, screen } from "@testing-library/react";
 import { Testimonials } from "components/Testimonials/Testimonials";
 
 describe("Testimonials", () => {
-  it("renders section with id testimonials", () => {
+  it("should render section with id testimonials", () => {
     render(<Testimonials />);
     expect(document.getElementById("testimonials")).toBeInTheDocument();
   });
 
-  it("renders Peer feedback heading", () => {
+  it("should render Peer feedback heading", () => {
     render(<Testimonials />);
     expect(screen.getByRole("heading", { name: /peer feedback/i })).toBeInTheDocument();
   });
 
-  it("renders attribution intro and factual review note", () => {
+  it("should render attribution intro and factual review note", () => {
     render(<Testimonials />);
     expect(
       screen.getByText(
@@ -27,12 +27,12 @@ describe("Testimonials", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders testimonial quotes", () => {
+  it("should render testimonial quotes", () => {
     render(<Testimonials />);
     expect(screen.getByText(/Ali built high-quality, accessible UIs/i)).toBeInTheDocument();
   });
 
-  it("renders at most two endorsements", () => {
+  it("should render at most two endorsements", () => {
     const { container } = render(<Testimonials />);
     expect(container.querySelectorAll("[data-testimonial-card]")).toHaveLength(2);
   });

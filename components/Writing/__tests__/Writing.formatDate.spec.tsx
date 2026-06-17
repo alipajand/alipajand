@@ -10,7 +10,7 @@ describe("Writing formatDate", () => {
     Date.prototype.toLocaleDateString = originalToLocaleDateString;
   });
 
-  it("falls back to original date string when formatting throws", () => {
+  it("should fall back to original date string when formatting throws", () => {
     Date.prototype.toLocaleDateString = function thrower() {
       throw new RangeError("Invalid time value");
     };

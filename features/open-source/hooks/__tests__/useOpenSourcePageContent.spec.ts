@@ -20,7 +20,7 @@ jest.mock("utils/hooks/useScrollReveal", () => ({
 }));
 
 describe("useOpenSourcePageContent", () => {
-  it("returns header, content refs, and split project collections", () => {
+  it("should return header, content refs, and split project collections", () => {
     const { result } = renderHook(() => useOpenSourcePageContent());
 
     expect(result.current.selectors.headerRef).toBeDefined();

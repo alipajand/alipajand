@@ -35,13 +35,13 @@ describe("GatedGoogleAnalytics", () => {
     }
   });
 
-  it("renders nothing when the measurement id is missing", async () => {
+  it("should render nothing when the measurement id is missing", async () => {
     const Component = await loadComponent(undefined);
     const { container } = render(<Component />);
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("renders the gtag scripts when a measurement id is set", async () => {
+  it("should render the gtag scripts when a measurement id is set", async () => {
     const Component = await loadComponent("G-TEST123");
     const { getByTestId } = render(<Component />);
 

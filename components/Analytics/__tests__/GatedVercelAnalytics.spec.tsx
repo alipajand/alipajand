@@ -18,13 +18,13 @@ describe("GatedVercelAnalytics", () => {
     setNodeEnv(originalEnv as string);
   });
 
-  it("renders nothing outside production", () => {
+  it("should render nothing outside production", () => {
     setNodeEnv("test");
     const { container } = render(<GatedVercelAnalytics />);
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("renders the Vercel Analytics component in production", () => {
+  it("should render the Vercel Analytics component in production", () => {
     setNodeEnv("production");
     const { getByTestId } = render(<GatedVercelAnalytics />);
     expect(getByTestId("vercel-analytics")).toBeInTheDocument();

@@ -3,7 +3,7 @@ import { ArticleJsonLd } from "components/ArticleJsonLd/ArticleJsonLd";
 import { CANONICAL_URL, PERSON_SCHEMA_ID, SITE_NAME } from "data/site";
 
 describe("ArticleJsonLd", () => {
-  it("renders article JSON-LD for writing posts", () => {
+  it("should render article JSON-LD for writing posts", () => {
     const { container } = render(
       <ArticleJsonLd
         post={{

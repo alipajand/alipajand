@@ -1,27 +1,27 @@
 import { homeBrandAriaCurrent, navLinkAriaCurrent } from "utils/navAriaCurrent";
 
 describe("navAriaCurrent", () => {
-  it("navLinkAriaCurrent marks Writing on /writing and post routes", () => {
+  it("should mark Writing on /writing and post routes for navLinkAriaCurrent", () => {
     expect(navLinkAriaCurrent("/writing", "/writing")).toBe("page");
     expect(navLinkAriaCurrent("/writing", "/writing/my-post")).toBe("page");
     expect(navLinkAriaCurrent("/writing", "/")).toBeUndefined();
   });
 
-  it("navLinkAriaCurrent marks Portfolio only on /portfolio", () => {
+  it("should mark Portfolio only on /portfolio for navLinkAriaCurrent", () => {
     expect(navLinkAriaCurrent("/portfolio", "/portfolio")).toBe("page");
     expect(navLinkAriaCurrent("/portfolio", "/")).toBeUndefined();
   });
 
-  it("navLinkAriaCurrent returns undefined for hash home links", () => {
+  it("should return undefined for hash home links for navLinkAriaCurrent", () => {
     expect(navLinkAriaCurrent("/#contact", "/")).toBeUndefined();
   });
 
-  it("homeBrandAriaCurrent is page only on /", () => {
+  it("should be page only on / for homeBrandAriaCurrent", () => {
     expect(homeBrandAriaCurrent("/")).toBe("page");
     expect(homeBrandAriaCurrent("/writing")).toBeUndefined();
   });
 
-  it("returns undefined when pathname is null", () => {
+  it("should return undefined when pathname is null", () => {
     expect(navLinkAriaCurrent("/writing", null)).toBeUndefined();
     expect(navLinkAriaCurrent("/portfolio", null)).toBeUndefined();
     expect(homeBrandAriaCurrent(null)).toBeUndefined();

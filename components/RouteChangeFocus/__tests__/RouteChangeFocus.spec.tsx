@@ -31,7 +31,7 @@ describe("RouteChangeFocus", () => {
     cancelAnimationFrameMock.mockRestore();
   });
 
-  it("does not focus main content on the initial render", () => {
+  it("should not focus main content on the initial render", () => {
     const main = document.createElement("main");
     main.id = "main-content";
     main.tabIndex = -1;
@@ -44,7 +44,7 @@ describe("RouteChangeFocus", () => {
     document.body.removeChild(main);
   });
 
-  it("focuses main content after a pathname change", () => {
+  it("should focus main content after a pathname change", () => {
     const main = document.createElement("main");
     main.id = "main-content";
     main.tabIndex = -1;
@@ -66,7 +66,7 @@ describe("RouteChangeFocus", () => {
     document.body.removeChild(main);
   });
 
-  it("scrolls to a hash target after a pathname change when the URL has a fragment", () => {
+  it("should scroll to a hash target after a pathname change when the URL has a fragment", () => {
     const main = document.createElement("main");
     main.id = "main-content";
     main.tabIndex = -1;
@@ -95,7 +95,7 @@ describe("RouteChangeFocus", () => {
     document.body.innerHTML = "";
   });
 
-  it("scrolls to a hash target when only the fragment changes", () => {
+  it("should scroll to a hash target when only the fragment changes", () => {
     const target = document.createElement("section");
     target.id = "project-demo-project";
     const targetScrollIntoView = jest.fn();

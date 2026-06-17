@@ -18,7 +18,7 @@ const caseStudy: HomepageCaseStudy = {
 };
 
 describe("SelectedWorkCard", () => {
-  it("renders the case study label, title, summary, and screenshot", () => {
+  it("should render the case study label, title, summary, and screenshot", () => {
     render(<SelectedWorkCard caseStudy={caseStudy} />);
     expect(screen.getByText(caseStudy.label)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: caseStudy.title })).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe("SelectedWorkCard", () => {
     expect(screen.getByAltText(caseStudy.image!.alt)).toBeInTheDocument();
   });
 
-  it("renders each theme badge", () => {
+  it("should render each theme badge", () => {
     render(<SelectedWorkCard caseStudy={caseStudy} />);
     const themesList = screen.getByRole("list", { name: `${caseStudy.title} tags` });
     for (const theme of caseStudy.tags) {
@@ -34,13 +34,13 @@ describe("SelectedWorkCard", () => {
     }
   });
 
-  it("links to the deep-linked case study on the portfolio page", () => {
+  it("should link to the deep-linked case study on the portfolio page", () => {
     render(<SelectedWorkCard caseStudy={caseStudy} />);
     const cta = screen.getByRole("link", { name: /read case study/i });
     expect(cta).toHaveAttribute("href", caseStudy.href);
   });
 
-  it("renders the illustrative reconstruction label when no screenshot is available", () => {
+  it("should render the illustrative reconstruction label when no screenshot is available", () => {
     render(
       <SelectedWorkCard
         caseStudy={{

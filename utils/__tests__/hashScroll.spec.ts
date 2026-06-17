@@ -17,7 +17,7 @@ describe("scrollToHashElement", () => {
     cancelAnimationFrameMock.mockRestore();
   });
 
-  it("scrolls to the matching element", () => {
+  it("should scroll to the matching element", () => {
     const target = document.createElement("section");
     target.id = "project-demo";
     const scrollIntoView = jest.fn();
@@ -31,7 +31,7 @@ describe("scrollToHashElement", () => {
     document.body.removeChild(target);
   });
 
-  it("retries until the target element exists", () => {
+  it("should retry until the target element exists", () => {
     const scrollIntoView = jest.fn();
     let frame = 0;
 
@@ -58,7 +58,7 @@ describe("scrollToHashElement", () => {
     });
   });
 
-  it("no-ops for empty hashes", () => {
+  it("should no-op for empty hashes", () => {
     scrollToHashElement("#");
     scrollToHashElement("");
   });

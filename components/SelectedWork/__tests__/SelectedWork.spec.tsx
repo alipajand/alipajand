@@ -9,12 +9,12 @@ import {
 import { SELECTED_WORK_SECTION_CTA_HREF, SELECTED_WORK_SECTION_CTA_LABEL } from "data/selectedWork";
 
 describe("SelectedWork", () => {
-  it("renders the section with the case-studies id", () => {
+  it("should render the section with the case-studies id", () => {
     render(<SelectedWork />);
     expect(document.getElementById("case-studies")).toBeInTheDocument();
   });
 
-  it("renders the heading and lede", () => {
+  it("should render the heading and lede", () => {
     render(<SelectedWork />);
     expect(
       screen.getByRole("heading", { name: HOMEPAGE_CASE_STUDIES_HEADING })
@@ -22,14 +22,14 @@ describe("SelectedWork", () => {
     expect(screen.getByText(HOMEPAGE_CASE_STUDIES_LEDE)).toBeInTheDocument();
   });
 
-  it("renders a card for every selected work item", () => {
+  it("should render a card for every selected work item", () => {
     render(<SelectedWork />);
     for (const project of HOMEPAGE_CASE_STUDIES) {
       expect(screen.getByRole("heading", { name: project.title })).toBeInTheDocument();
     }
   });
 
-  it("renders the section CTA pointing to the work page", () => {
+  it("should render the section CTA pointing to the work page", () => {
     render(<SelectedWork />);
     const cta = screen.getByRole("link", { name: SELECTED_WORK_SECTION_CTA_LABEL });
     expect(cta).toHaveAttribute("href", SELECTED_WORK_SECTION_CTA_HREF);

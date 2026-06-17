@@ -82,7 +82,7 @@ describe("useNav", () => {
     });
   });
 
-  it("updates isScrolled based on window scroll position", () => {
+  it("should update isScrolled based on window scroll position", () => {
     Object.defineProperty(window, "scrollY", { value: 0, writable: true });
     const { result } = renderHook(() => useNav());
 
@@ -96,7 +96,7 @@ describe("useNav", () => {
     expect(result.current.selectors.isScrolled).toBe(true);
   });
 
-  it("animates desktop nav links on mount when links are present", () => {
+  it("should animate desktop nav links on mount when links are present", () => {
     const gsap = jest.requireMock("gsap") as {
       default: { set: jest.Mock; to: jest.Mock; fromTo: jest.Mock };
     };
@@ -124,7 +124,7 @@ describe("useNav", () => {
     expect(gsap.default.to).toHaveBeenCalled();
   });
 
-  it("animates mobile menu when isMobileOpen changes", () => {
+  it("should animate mobile menu when isMobileOpen changes", () => {
     const gsap = jest.requireMock("gsap") as {
       default: { fromTo: jest.Mock; to: jest.Mock };
     };
@@ -154,7 +154,7 @@ describe("useNav", () => {
     expect(gsap.default.to).toHaveBeenCalled();
   });
 
-  it("closes the mobile menu when Escape is pressed", () => {
+  it("should close the mobile menu when Escape is pressed", () => {
     const { result } = renderHook(() => useNav());
 
     act(() => {
@@ -169,7 +169,7 @@ describe("useNav", () => {
     expect(result.current.selectors.isMobileOpen).toBe(false);
   });
 
-  it("locks body scroll while the mobile menu is open", () => {
+  it("should lock body scroll while the mobile menu is open", () => {
     const { result } = renderHook(() => useNav());
 
     act(() => {
@@ -183,7 +183,7 @@ describe("useNav", () => {
     expect(document.body.style.overflow).toBe("");
   });
 
-  it("sets desktop nav links visible without animation when reduced motion is preferred", () => {
+  it("should set desktop nav links visible without animation when reduced motion is preferred", () => {
     const { prefersReducedMotion } = jest.requireMock("utils/gsap") as {
       prefersReducedMotion: jest.Mock;
     };
@@ -210,7 +210,7 @@ describe("useNav", () => {
     expect(gsap.default.to).not.toHaveBeenCalled();
   });
 
-  it("sets the mobile menu visible without animation when reduced motion is preferred", () => {
+  it("should set the mobile menu visible without animation when reduced motion is preferred", () => {
     const { prefersReducedMotion } = jest.requireMock("utils/gsap") as {
       prefersReducedMotion: jest.Mock;
     };
@@ -248,7 +248,7 @@ describe("useNav", () => {
     expect(gsap.default.fromTo).not.toHaveBeenCalled();
   });
 
-  it("wraps focus from the last mobile link to the menu button on Tab", () => {
+  it("should wrap focus from the last mobile link to the menu button on Tab", () => {
     const TestComponent = () => {
       const { selectors, actions } = useNav();
       return (
@@ -285,7 +285,7 @@ describe("useNav", () => {
     expect(document.activeElement).toBe(toggle);
   });
 
-  it("wraps focus from the menu button to the last mobile link on Shift+Tab", () => {
+  it("should wrap focus from the menu button to the last mobile link on Shift+Tab", () => {
     const TestComponent = () => {
       const { selectors, actions } = useNav();
       return (
@@ -322,7 +322,7 @@ describe("useNav", () => {
     expect(document.activeElement).toBe(last);
   });
 
-  it("marks main content and footer inert while the mobile menu is open", () => {
+  it("should mark main content and footer inert while the mobile menu is open", () => {
     const main = document.createElement("main");
     main.id = "main-content";
     const footer = document.createElement("footer");

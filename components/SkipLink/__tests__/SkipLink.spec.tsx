@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { SkipLink } from "components/SkipLink/SkipLink";
 
 describe("SkipLink", () => {
-  it("focuses the main-content target when clicked", () => {
+  it("should focus the main-content target when clicked", () => {
     const requestAnimationFrameMock = jest
       .spyOn(window, "requestAnimationFrame")
       .mockImplementation((callback: FrameRequestCallback) => {

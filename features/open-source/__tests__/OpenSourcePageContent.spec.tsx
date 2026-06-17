@@ -26,13 +26,13 @@ jest.mock("features/open-source/hooks/useOpenSourcePageContent", () => ({
 }));
 
 describe("OpenSourcePageContent", () => {
-  it("renders the page heading", () => {
+  it("should render the page heading", () => {
     render(<OpenSourcePageContent />);
 
     expect(screen.getByRole("heading", { name: OPEN_SOURCE_HEADER_HEADING })).toBeInTheDocument();
   });
 
-  it("renders all four repository names", () => {
+  it("should render all four repository names", () => {
     render(<OpenSourcePageContent />);
 
     OPEN_SOURCE_PROJECTS.forEach((project) => {
@@ -40,7 +40,7 @@ describe("OpenSourcePageContent", () => {
     });
   });
 
-  it("renders all four repository links", () => {
+  it("should render all four repository links", () => {
     render(<OpenSourcePageContent />);
 
     OPEN_SOURCE_PROJECTS.forEach((project) => {
@@ -52,7 +52,7 @@ describe("OpenSourcePageContent", () => {
     });
   });
 
-  it("features agent-pr-reviewer-lite and agent-context-doctor first", () => {
+  it("should feature agent-pr-reviewer-lite and agent-context-doctor first", () => {
     const { container } = render(<OpenSourcePageContent />);
 
     expect(screen.getByRole("heading", { name: OPEN_SOURCE_FEATURED_HEADING })).toBeInTheDocument();
@@ -67,7 +67,7 @@ describe("OpenSourcePageContent", () => {
     expect(featuredTitles).toEqual(["Agent PR Reviewer Lite", "Agent Context Doctor"]);
   });
 
-  it("renders CLI example blocks for the featured tools", () => {
+  it("should render CLI example blocks for the featured tools", () => {
     render(<OpenSourcePageContent />);
 
     expect(screen.getAllByText("Command")).toHaveLength(2);
@@ -82,7 +82,7 @@ describe("OpenSourcePageContent", () => {
     expect(screen.getAllByText(/Simplified for readability/)).toHaveLength(2);
   });
 
-  it("renders status and tested capability labels without GitHub stats copy", () => {
+  it("should render status and tested capability labels without GitHub stats copy", () => {
     render(<OpenSourcePageContent />);
 
     expect(screen.getAllByText("Status").length).toBeGreaterThan(0);
@@ -91,7 +91,7 @@ describe("OpenSourcePageContent", () => {
     expect(screen.queryByText(/stars|forks|followers/i)).not.toBeInTheDocument();
   });
 
-  it("renders the shared principles heading", () => {
+  it("should render the shared principles heading", () => {
     render(<OpenSourcePageContent />);
 
     expect(
@@ -99,7 +99,7 @@ describe("OpenSourcePageContent", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders all four shared-principle cards", () => {
+  it("should render all four shared-principle cards", () => {
     const { container } = render(<OpenSourcePageContent />);
 
     OPEN_SOURCE_SHARED_PRINCIPLES.forEach((principle) => {
@@ -110,7 +110,7 @@ describe("OpenSourcePageContent", () => {
     expect(container.querySelectorAll("[data-open-source-principle]")).toHaveLength(4);
   });
 
-  it("renders the GitHub profile CTA", () => {
+  it("should render the GitHub profile CTA", () => {
     render(<OpenSourcePageContent />);
 
     expect(screen.getByRole("link", { name: OPEN_SOURCE_CTA_PRIMARY_LABEL })).toHaveAttribute(
@@ -119,7 +119,7 @@ describe("OpenSourcePageContent", () => {
     );
   });
 
-  it("renders the writing CTA", () => {
+  it("should render the writing CTA", () => {
     render(<OpenSourcePageContent />);
 
     expect(screen.getByRole("link", { name: OPEN_SOURCE_CTA_SECONDARY_LABEL })).toHaveAttribute(

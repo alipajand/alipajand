@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import { NotFoundMainFocus } from "components/NotFoundMainFocus/NotFoundMainFocus";
 
 describe("NotFoundMainFocus", () => {
-  it("focuses #main-content when present", () => {
+  it("should focus #main-content when present", () => {
     const main = document.createElement("main");
     main.id = "main-content";
     main.tabIndex = -1;

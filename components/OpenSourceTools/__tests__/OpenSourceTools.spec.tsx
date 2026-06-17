@@ -17,13 +17,13 @@ jest.mock("utils/hooks/useScrollReveal", () => ({
 }));
 
 describe("OpenSourceTools", () => {
-  it("renders the section heading", () => {
+  it("should render the section heading", () => {
     render(<OpenSourceTools />);
 
     expect(screen.getByRole("heading", { name: OPEN_SOURCE_TOOLS_HEADING })).toBeInTheDocument();
   });
 
-  it("renders the two featured tool names", () => {
+  it("should render the two featured tool names", () => {
     render(<OpenSourceTools />);
 
     OPEN_SOURCE_TOOLS.forEach((tool) => {
@@ -31,7 +31,7 @@ describe("OpenSourceTools", () => {
     });
   });
 
-  it("renders each repository link with the correct href", () => {
+  it("should render each repository link with the correct href", () => {
     render(<OpenSourceTools />);
 
     OPEN_SOURCE_TOOLS.forEach((tool) => {
@@ -43,14 +43,14 @@ describe("OpenSourceTools", () => {
     });
   });
 
-  it("renders the open-source page link inside each card", () => {
+  it("should render the open-source page link inside each card", () => {
     render(<OpenSourceTools />);
     expect(screen.getAllByRole("link", { name: /open source page/i })).toHaveLength(
       OPEN_SOURCE_TOOLS.length
     );
   });
 
-  it("renders the open-source CTA with the correct href", () => {
+  it("should render the open-source CTA with the correct href", () => {
     render(<OpenSourceTools />);
 
     expect(screen.getByRole("link", { name: OPEN_SOURCE_TOOLS_CTA_LABEL })).toHaveAttribute(
@@ -59,7 +59,7 @@ describe("OpenSourceTools", () => {
     );
   });
 
-  it("renders exactly two cards", () => {
+  it("should render exactly two cards", () => {
     const { container } = render(<OpenSourceTools />);
 
     expect(container.querySelectorAll("[data-open-source-tool-card]")).toHaveLength(2);
