@@ -9,7 +9,7 @@ const caseStudy: HomepageCaseStudy = {
   title: "Demo case study",
   summary: "A tight homepage summary.",
   tags: ["AI workflows", "Next.js", "DX"],
-  href: "/portfolio#project-demo-project",
+  href: "/portfolio/ledgerguard",
   image: {
     src: "/portfolio-media/ledgerguard.png",
     alt: "Demo screenshot alt",
@@ -34,7 +34,7 @@ describe("SelectedWorkCard", () => {
     }
   });
 
-  it("should link to the deep-linked case study on the portfolio page", () => {
+  it("should link to the dedicated case study route", () => {
     render(<SelectedWorkCard caseStudy={caseStudy} />);
     const cta = screen.getByRole("link", { name: /read case study/i });
     expect(cta).toHaveAttribute("href", caseStudy.href);

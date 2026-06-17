@@ -1,15 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef } from "react";
 
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import { McpWorkflowDiagram } from "components/diagrams/McpWorkflowDiagram";
 import { ReadingProgress } from "components/ReadingProgress/ReadingProgress";
-import {
-  WRITING_POST_BACK_HOME,
-  WRITING_POST_BACK_TO_ALL,
-  WRITING_POST_MCP_FIGCAPTION,
-} from "data/writing";
+import { writingPostBreadcrumbs } from "data/breadcrumbs";
+import { WRITING_POST_MCP_FIGCAPTION } from "data/writing";
 import { gsap, prefersReducedMotion, registerGSAPPlugins } from "utils/gsap";
 import { DUR, EASE } from "utils/motion";
 import { formatDate } from "utils/date";
@@ -63,6 +60,7 @@ export const WritingPostPageContent = ({
       <div className="min-h-screen bg-background text-foreground">
         <main id="main-content" tabIndex={-1} className={`outline-none ${PAGE_ARTICLE_SHELL}`}>
           <article className={SECTION_INNER}>
+            <Breadcrumbs items={writingPostBreadcrumbs(title)} className="mb-8" />
             <p ref={dateRef} className="text-muted text-sm font-medium tabular-nums">
               <time dateTime={date}>{formatDate(date)}</time>
             </p>
@@ -91,23 +89,6 @@ export const WritingPostPageContent = ({
                 <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
               )}
             </div>
-            <p className="mt-16 pt-8 border-t border-border gap-5 flex flex-wrap items-center">
-              <Link
-                href="/writing"
-                className="text-muted hover:text-foreground transition-colors text-sm font-medium inline-flex min-h-11 items-center rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              >
-                {WRITING_POST_BACK_TO_ALL}
-              </Link>
-              <span className="text-muted select-none" aria-hidden>
-                ·
-              </span>
-              <Link
-                href="/"
-                className="text-muted hover:text-foreground transition-colors text-sm font-medium inline-flex min-h-11 items-center rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              >
-                {WRITING_POST_BACK_HOME}
-              </Link>
-            </p>
           </article>
         </main>
       </div>

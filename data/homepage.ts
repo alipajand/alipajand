@@ -21,11 +21,9 @@ export const HOMEPAGE_HERO_TITLE = "I design and ship frontend systems for compl
 export const HOMEPAGE_HERO_BODY =
   "I work across product decisions, interface design, design systems, frontend architecture, and developer tooling, turning ambiguous requirements into accessible, reliable production workflows.";
 export const HOMEPAGE_HERO_PRIMARY_CTA_LABEL = "View case studies";
-export const HOMEPAGE_HERO_PRIMARY_CTA_HREF = "/portfolio#case-studies";
+export const HOMEPAGE_HERO_PRIMARY_CTA_HREF = "/portfolio";
 export const HOMEPAGE_HERO_SECONDARY_CTA_LABEL = "Read my engineering principles";
 export const HOMEPAGE_HERO_SECONDARY_CTA_HREF = "/engineering-principles";
-export const HOMEPAGE_HERO_AVAILABILITY =
-  "Open to senior product engineering, frontend architecture, design systems, and developer experience roles.";
 
 export const HOMEPAGE_CASE_STUDIES_HEADING = "Selected case studies";
 export const HOMEPAGE_CASE_STUDIES_LEDE =
@@ -38,7 +36,7 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
     summary:
       "A human-in-the-loop workflow for document extraction, source evidence, renewal risk, and financial commitments.",
     tags: ["Product ownership", "AI workflows", "Next.js"],
-    href: "/portfolio#project-ledgerguard-deterministic-commitments-ledger",
+    href: "/portfolio/ledgerguard",
     image: {
       src: "/portfolio-media/ledgerguard.png",
       alt: "LedgerGuard contract review workflow with source evidence and renewal risk states.",
@@ -52,7 +50,7 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
     summary:
       "A product workflow that keeps AI recommendations grounded in source evidence and explicit feasibility constraints.",
     tags: ["Product engineering", "AI reliability", "UX"],
-    href: "/portfolio#project-mapbylaw-platform-ui-ai-reports",
+    href: "/portfolio/mapbylaw",
     image: {
       src: "/portfolio-media/mapbylaw.png",
       alt: "MapBylaw property analysis workflow with feasibility details and recommendation context.",

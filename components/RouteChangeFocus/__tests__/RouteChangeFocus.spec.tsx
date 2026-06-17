@@ -44,7 +44,7 @@ describe("RouteChangeFocus", () => {
     document.body.removeChild(main);
   });
 
-  it("should focus main content after a pathname change", () => {
+  it("should focus main content without scrolling after a pathname change to /portfolio", () => {
     const main = document.createElement("main");
     main.id = "main-content";
     main.tabIndex = -1;
@@ -61,12 +61,12 @@ describe("RouteChangeFocus", () => {
     });
 
     expect(document.activeElement).toBe(main);
-    expect(scrollIntoView).toHaveBeenCalledWith({ block: "start" });
+    expect(scrollIntoView).not.toHaveBeenCalled();
 
     document.body.removeChild(main);
   });
 
-  it("should scroll to a hash target after a pathname change when the URL has a fragment", () => {
+  it("should not scroll to hash targets on the portfolio index", () => {
     const main = document.createElement("main");
     main.id = "main-content";
     main.tabIndex = -1;
@@ -88,6 +88,35 @@ describe("RouteChangeFocus", () => {
       rerender(<RouteChangeFocus />);
     });
 
+    expect(targetScrollIntoView).not.toHaveBeenCalled();
+    expect(document.activeElement).toBe(main);
+
+    window.history.replaceState(null, "", "/");
+    document.body.innerHTML = "";
+  });
+
+  it("should scroll to a hash target after a pathname change when the URL has a fragment", () => {
+    const main = document.createElement("main");
+    main.id = "main-content";
+    main.tabIndex = -1;
+    document.body.appendChild(main);
+
+    const target = document.createElement("section");
+    target.id = "writing-section";
+    const targetScrollIntoView = jest.fn();
+    target.scrollIntoView = targetScrollIntoView;
+    document.body.appendChild(target);
+
+    window.history.replaceState(null, "", "/writing#writing-section");
+
+    const { rerender } = render(<RouteChangeFocus />);
+
+    usePathname.mockReturnValue("/writing");
+
+    act(() => {
+      rerender(<RouteChangeFocus />);
+    });
+
     expect(targetScrollIntoView).toHaveBeenCalledWith({ block: "start" });
     expect(document.activeElement).not.toBe(main);
 
@@ -95,21 +124,44 @@ describe("RouteChangeFocus", () => {
     document.body.innerHTML = "";
   });
 
-  it("should scroll to a hash target when only the fragment changes", () => {
+  it("should scroll to a hash target when only the fragment changes outside /portfolio", () => {
+    const target = document.createElement("section");
+    target.id = "writing-section";
+    const targetScrollIntoView = jest.fn();
+    target.scrollIntoView = targetScrollIntoView;
+    document.body.appendChild(target);
+
+    window.history.replaceState(null, "", "/writing");
+
+    render(<RouteChangeFocus />);
+
+    act(() => {
+      window.history.replaceState(null, "", "/writing#writing-section");
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
+    });
+
+    expect(targetScrollIntoView).toHaveBeenCalledWith({ block: "start" });
+
+    window.history.replaceState(null, "", "/");
+    document.body.innerHTML = "";
+  });
+
+  it("should ignore hash changes on the portfolio index", () => {
     const target = document.createElement("section");
     target.id = "project-demo-project";
     const targetScrollIntoView = jest.fn();
     target.scrollIntoView = targetScrollIntoView;
     document.body.appendChild(target);
 
+    window.history.replaceState(null, "", "/portfolio#project-demo-project");
+
     render(<RouteChangeFocus />);
 
     act(() => {
-      window.history.replaceState(null, "", "/portfolio#project-demo-project");
       window.dispatchEvent(new HashChangeEvent("hashchange"));
     });
 
-    expect(targetScrollIntoView).toHaveBeenCalledWith({ block: "start" });
+    expect(targetScrollIntoView).not.toHaveBeenCalled();
 
     window.history.replaceState(null, "", "/");
     document.body.innerHTML = "";

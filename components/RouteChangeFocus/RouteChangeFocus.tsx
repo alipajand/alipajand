@@ -16,17 +16,20 @@ export const RouteChangeFocus = () => {
     }
 
     let cancelScroll: (() => void) | undefined;
+    const isPortfolioIndex = pathname === "/portfolio";
 
     const handleRouteScroll = () => {
       const hash = window.location.hash;
-      if (hash) {
+      if (hash && !isPortfolioIndex) {
         cancelScroll = scrollToHashElement(hash);
         return;
       }
 
       const main = document.getElementById("main-content");
       main?.focus({ preventScroll: true });
-      main?.scrollIntoView({ block: "start" });
+      if (!isPortfolioIndex) {
+        main?.scrollIntoView({ block: "start" });
+      }
     };
 
     const frame = window.requestAnimationFrame(handleRouteScroll);
@@ -42,7 +45,7 @@ export const RouteChangeFocus = () => {
     const onHashChange = () => {
       cancelScroll?.();
       const hash = window.location.hash;
-      if (!hash) return;
+      if (!hash || window.location.pathname === "/portfolio") return;
       cancelScroll = scrollToHashElement(hash);
     };
 

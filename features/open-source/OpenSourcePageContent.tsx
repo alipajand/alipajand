@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import { MainReveal } from "components/MainReveal/MainReveal";
 import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
 import { useOpenSourcePageContent } from "features/open-source/hooks/useOpenSourcePageContent";
-import { PAGE_LINK_BACK_TO_HOMEPAGE } from "data/pageChrome";
+import { openSourceBreadcrumbs } from "data/breadcrumbs";
 import {
   OPEN_SOURCE_CONTRIBUTION_LABEL,
   OPEN_SOURCE_CTA_BODY,
@@ -159,6 +160,7 @@ export const OpenSourcePageContent = () => {
     <MainReveal>
       <header ref={headerRef} className={PAGE_HEADER_SHELL}>
         <div className={SECTION_INNER}>
+          <Breadcrumbs items={openSourceBreadcrumbs()} className="mb-6" />
           <p data-header-overline className={`${LABEL_OVERLINE} mb-2`}>
             {OPEN_SOURCE_HEADER_OVERLINE}
           </p>
@@ -170,14 +172,6 @@ export const OpenSourcePageContent = () => {
           </p>
           <p className="mt-4 max-w-3xl text-[15px] sm:text-base text-foreground/85 leading-relaxed border-l-2 border-border pl-4 sm:pl-5">
             {OPEN_SOURCE_HEADER_INTRO}
-          </p>
-          <p data-header-back className="mt-8">
-            <Link
-              href="/"
-              className={`text-sm font-medium text-foreground underline-offset-4 hover:underline rounded-sm ${FOCUS_RING}`}
-            >
-              {PAGE_LINK_BACK_TO_HOMEPAGE}
-            </Link>
           </p>
         </div>
       </header>
