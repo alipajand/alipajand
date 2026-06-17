@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useHero } from "components/Hero/hooks/useHero";
-import { HeroDisplayChar } from "components/Hero/HeroDisplayChar";
 import { HERO_SCROLL_INDICATOR, HERO_SECTION_ARIA_LABEL } from "data/site";
 import {
   HOMEPAGE_HERO_AVAILABILITY,
@@ -20,7 +19,7 @@ import { CTA_PRIMARY, CTA_SECONDARY } from "utils/visual";
 
 export const Hero = () => {
   const {
-    selectors: { containerRef, nameCharsRef, line2Ref, subRef, ctaRef, scrollIndicatorRef },
+    selectors: { containerRef, line2Ref, subRef, ctaRef, scrollIndicatorRef },
   } = useHero();
 
   return (
