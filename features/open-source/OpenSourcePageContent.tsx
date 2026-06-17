@@ -7,6 +7,7 @@ import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
 import { useOpenSourcePageContent } from "features/open-source/hooks/useOpenSourcePageContent";
 import { PAGE_LINK_BACK_TO_HOMEPAGE } from "data/pageChrome";
 import {
+  OPEN_SOURCE_CONTRIBUTION_LABEL,
   OPEN_SOURCE_CTA_BODY,
   OPEN_SOURCE_CTA_HEADING,
   OPEN_SOURCE_CTA_PRIMARY_HREF,
@@ -24,6 +25,7 @@ import {
   OPEN_SOURCE_HEADER_INTRO,
   OPEN_SOURCE_HEADER_LEDE,
   OPEN_SOURCE_HEADER_OVERLINE,
+  OPEN_SOURCE_REPOSITORY_LINK_LABEL,
   OPEN_SOURCE_SHARED_PRINCIPLES,
   OPEN_SOURCE_SHARED_PRINCIPLES_HEADING,
   OPEN_SOURCE_STATUS_LABEL,
@@ -33,6 +35,7 @@ import {
   OPEN_SOURCE_TECHNOLOGY_HEADING,
   type OpenSourcePrinciple,
   type OpenSourceProject,
+  openSourceRepositoryAriaLabel,
 } from "data/openSourcePage";
 import {
   CARD_SURFACE_HOVER,
@@ -90,7 +93,7 @@ const OpenSourceProjectCard = ({ project }: { project: OpenSourceProject }) => {
       </div>
 
       <div className="space-y-2">
-        <p className={FIELD_LABEL}>Contribution</p>
+        <p className={FIELD_LABEL}>{OPEN_SOURCE_CONTRIBUTION_LABEL}</p>
         <p className={CARD_TEXT}>{project.contribution}</p>
       </div>
 
@@ -125,10 +128,10 @@ const OpenSourceProjectCard = ({ project }: { project: OpenSourceProject }) => {
       <div className="mt-auto pt-1">
         <Link
           href={project.repositoryUrl}
-          aria-label={`Open ${project.title} repository on GitHub`}
+          aria-label={openSourceRepositoryAriaLabel(project.title)}
           className={`inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 decoration-foreground/40 hover:decoration-foreground rounded-sm ${FOCUS_RING}`}
         >
-          <span>Repository</span>
+          <span>{OPEN_SOURCE_REPOSITORY_LINK_LABEL}</span>
           <span aria-hidden className="text-muted">
             ↗
           </span>

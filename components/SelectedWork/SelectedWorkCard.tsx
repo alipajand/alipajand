@@ -41,10 +41,11 @@ export const SelectedWorkCard = ({ caseStudy }: { caseStudy: HomepageCaseStudy }
               <span className="inline-flex rounded-full border border-border bg-background/70 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-foreground/80">
                 {caseStudy.illustrativeLabel}
               </span>
-              <p className="max-w-xs text-sm leading-relaxed text-foreground/80">
-                Emplifi dashboard surface reconstructed to represent the layout and performance
-                constraints described in the case study.
-              </p>
+              {caseStudy.illustrativeBody ? (
+                <p className="max-w-xs text-sm leading-relaxed text-foreground/80">
+                  {caseStudy.illustrativeBody}
+                </p>
+              ) : null}
             </div>
           </div>
           <figcaption className="text-xs text-muted">{caseStudy.illustrativeLabel}</figcaption>

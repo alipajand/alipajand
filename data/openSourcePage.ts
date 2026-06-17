@@ -25,7 +25,7 @@ export interface OpenSourcePrinciple {
   body: string;
 }
 
-export const OPEN_SOURCE_META_TITLE = "Open-Source Engineering Tools — Ali Pajand";
+export const OPEN_SOURCE_META_TITLE = "Open-Source Engineering Tools | Ali Pajand";
 export const OPEN_SOURCE_META_DESCRIPTION =
   "Open-source tools and experiments for code review, agent context quality, frontend reliability, and developer experience.";
 
@@ -52,6 +52,13 @@ export const OPEN_SOURCE_EXAMPLE_INPUT_LABEL = "Fixture input";
 export const OPEN_SOURCE_EXAMPLE_OUTPUT_LABEL = "CLI output";
 export const OPEN_SOURCE_EXAMPLE_DISCLAIMER =
   "Simplified for readability; exact CLI output depends on configuration and repository state.";
+
+export const OPEN_SOURCE_CONTRIBUTION_LABEL = "Contribution";
+
+export const OPEN_SOURCE_REPOSITORY_LINK_LABEL = "Repository";
+
+export const openSourceRepositoryAriaLabel = (projectTitle: string): string =>
+  `Open ${projectTitle} repository on GitHub`;
 
 export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
   {

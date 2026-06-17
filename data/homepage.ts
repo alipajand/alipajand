@@ -12,26 +12,14 @@ export interface HomepageCaseStudy {
     illustrative?: false;
   };
   illustrativeLabel?: string;
-}
-
-export interface HomepageCapability {
-  id: string;
-  title: string;
-  body: string;
-}
-
-export interface HomepageOpenSourceTool {
-  name: string;
-  repositoryUrl: string;
-  problem: string;
-  capabilities: [string, string, string];
+  illustrativeBody?: string;
 }
 
 export const HOMEPAGE_HERO_NAME = "Ali Pajand";
 export const HOMEPAGE_HERO_EYEBROW = "Senior Product Engineer · Montreal";
 export const HOMEPAGE_HERO_TITLE = "I design and ship frontend systems for complex products.";
 export const HOMEPAGE_HERO_BODY =
-  "I work across product decisions, interface design, design systems, frontend architecture, and developer tooling—turning ambiguous requirements into accessible, reliable production workflows.";
+  "I work across product decisions, interface design, design systems, frontend architecture, and developer tooling, turning ambiguous requirements into accessible, reliable production workflows.";
 export const HOMEPAGE_HERO_PRIMARY_CTA_LABEL = "View case studies";
 export const HOMEPAGE_HERO_PRIMARY_CTA_HREF = "/portfolio#case-studies";
 export const HOMEPAGE_HERO_SECONDARY_CTA_LABEL = "Read my engineering principles";
@@ -48,7 +36,7 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
     label: "Independent SaaS product",
     title: "Making AI-assisted contract review traceable and recoverable",
     summary:
-      "A human-in-the-loop workflow for document extraction, source evidence, validation, renewal risk, and financial commitments.",
+      "A human-in-the-loop workflow for document extraction, source evidence, renewal risk, and financial commitments.",
     tags: ["Product ownership", "AI workflows", "Next.js"],
     href: "/portfolio#project-ledgerguard-deterministic-commitments-ledger",
     image: {

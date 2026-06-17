@@ -47,9 +47,16 @@ describe("SelectedWorkCard", () => {
           ...caseStudy,
           image: undefined,
           illustrativeLabel: "Illustrative reconstruction",
+          illustrativeBody:
+            "Emplifi dashboard surface reconstructed to represent the layout and performance constraints described in the case study.",
         }}
       />
     );
     expect(screen.getAllByText("Illustrative reconstruction").length).toBeGreaterThan(0);
+    expect(
+      screen.getByText(
+        "Emplifi dashboard surface reconstructed to represent the layout and performance constraints described in the case study."
+      )
+    ).toBeInTheDocument();
   });
 });

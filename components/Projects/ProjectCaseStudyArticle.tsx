@@ -6,6 +6,18 @@ import { ProjectDecisionCard } from "components/Projects/ProjectDecisionCard";
 import { ProjectFigure } from "components/Projects/ProjectFigure";
 import type { Project } from "data/projects";
 import {
+  PROJECT_CASE_STUDY_FACTUAL_REVIEW_PREFIX,
+  PROJECT_CASE_STUDY_SECTION_CONTEXT,
+  PROJECT_CASE_STUDY_SECTION_DECISIONS,
+  PROJECT_CASE_STUDY_SECTION_EVIDENCE,
+  PROJECT_CASE_STUDY_SECTION_IMPROVE,
+  PROJECT_CASE_STUDY_SECTION_OUTCOME,
+  PROJECT_CASE_STUDY_SECTION_OVERVIEW,
+  PROJECT_CASE_STUDY_SECTION_PROBLEM,
+  PROJECT_CASE_STUDY_SECTION_STATES,
+  PROJECT_CASE_STUDY_SECTION_WORKFLOW,
+  PROJECT_CASE_STUDY_TOC_HEADING,
+  PROJECT_CASE_STUDY_TOC_ITEMS,
   PROJECT_RESPONSIBILITY_COLLABORATIVE,
   PROJECT_RESPONSIBILITY_HEADING,
   PROJECT_RESPONSIBILITY_OUTSIDE,
@@ -13,6 +25,7 @@ import {
   PROJECT_SECTION_LINK_BACK,
   PROJECT_SECTION_LINK_NEXT,
   PROJECT_SECTION_RELATED_HEADING,
+  projectCaseStudyTocAriaLabel,
 } from "data/projectsUi";
 import { FOCUS_RING, LABEL_OVERLINE } from "utils/visual";
 
@@ -42,19 +55,10 @@ const ResponsibilityList = ({ heading, items }: { heading: string; items: string
 };
 
 export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStudyArticleProps) => {
-  const tocItems: TocItem[] = [
-    { id: `${project.id}-overview`, label: "Overview" },
-    { id: `${project.id}-context`, label: "Context and constraints" },
-    { id: `${project.id}-responsibility`, label: "My responsibility" },
-    { id: `${project.id}-problem`, label: "The problem" },
-    { id: `${project.id}-decisions`, label: "Key decisions" },
-    { id: `${project.id}-workflow`, label: "Product workflow or system architecture" },
-    { id: `${project.id}-evidence`, label: "Interface evidence" },
-    { id: `${project.id}-states`, label: "Difficult states and edge cases" },
-    { id: `${project.id}-outcome`, label: "Outcome" },
-    { id: `${project.id}-improve`, label: "What I would improve next" },
-    { id: `${project.id}-related`, label: "Related work" },
-  ];
+  const tocItems: TocItem[] = PROJECT_CASE_STUDY_TOC_ITEMS.map((item) => ({
+    id: `${project.id}-${item.suffix}`,
+    label: item.label,
+  }));
   return (
     <article
       id={`project-${project.id}`}
@@ -95,7 +99,7 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
 
           <section id={`${project.id}-overview`} className="scroll-mt-28 space-y-3">
             <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-              Overview
+              {PROJECT_CASE_STUDY_SECTION_OVERVIEW}
             </h3>
             <p className="max-w-3xl text-[15px] leading-relaxed text-muted">
               {project.caseStudy.overview}
@@ -104,7 +108,7 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
 
           <section id={`${project.id}-context`} className="scroll-mt-28 space-y-3">
             <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-              Context and constraints
+              {PROJECT_CASE_STUDY_SECTION_CONTEXT}
             </h3>
             <p className="max-w-3xl text-[15px] leading-relaxed text-muted">
               {project.caseStudy.contextAndConstraints}
@@ -117,7 +121,8 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
             </h3>
             {project.caseStudy.responsibility.factualReviewNote ? (
               <p className="max-w-3xl rounded-xl border border-border/70 bg-card/50 px-4 py-3 text-sm leading-relaxed text-muted">
-                Factual review note: {project.caseStudy.responsibility.factualReviewNote}
+                {PROJECT_CASE_STUDY_FACTUAL_REVIEW_PREFIX}{" "}
+                {project.caseStudy.responsibility.factualReviewNote}
               </p>
             ) : null}
             <div className="grid gap-6 md:grid-cols-3">
@@ -138,7 +143,7 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
 
           <section id={`${project.id}-problem`} className="scroll-mt-28 space-y-3">
             <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-              The problem
+              {PROJECT_CASE_STUDY_SECTION_PROBLEM}
             </h3>
             <p className="max-w-3xl text-[15px] leading-relaxed text-muted">
               {project.caseStudy.problem}
@@ -147,7 +152,7 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
 
           <section id={`${project.id}-decisions`} className="scroll-mt-28 space-y-5">
             <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-              Key decisions
+              {PROJECT_CASE_STUDY_SECTION_DECISIONS}
             </h3>
             <div className="grid gap-4 lg:grid-cols-2">
               {project.caseStudy.decisions.map((decision) => (
@@ -158,7 +163,7 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
 
           <section id={`${project.id}-workflow`} className="scroll-mt-28 space-y-3">
             <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-              Product workflow or system architecture
+              {PROJECT_CASE_STUDY_SECTION_WORKFLOW}
             </h3>
             <ol className="space-y-3">
               {project.caseStudy.workflow.map((step, index) => (
@@ -174,7 +179,7 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
 
           <section id={`${project.id}-evidence`} className="scroll-mt-28 space-y-5">
             <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-              Interface evidence
+              {PROJECT_CASE_STUDY_SECTION_EVIDENCE}
             </h3>
             <div className="space-y-8">
               {project.caseStudy.interfaceEvidence.map((figure) => (
@@ -185,7 +190,7 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
 
           <section id={`${project.id}-states`} className="scroll-mt-28 space-y-3">
             <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-              Difficult states and edge cases
+              {PROJECT_CASE_STUDY_SECTION_STATES}
             </h3>
             <ul className="space-y-2">
               {project.caseStudy.difficultStates.map((item) => (
@@ -198,7 +203,7 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
 
           <section id={`${project.id}-outcome`} className="scroll-mt-28 space-y-3">
             <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-              Outcome
+              {PROJECT_CASE_STUDY_SECTION_OUTCOME}
             </h3>
             <ul className="space-y-2">
               {project.caseStudy.outcome.map((item) => (
@@ -211,7 +216,7 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
 
           <section id={`${project.id}-improve`} className="scroll-mt-28 space-y-3">
             <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-              What I would improve next
+              {PROJECT_CASE_STUDY_SECTION_IMPROVE}
             </h3>
             <ul className="space-y-2">
               {project.caseStudy.nextImprovements.map((item) => (
@@ -257,9 +262,9 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
         <aside className="hidden xl:block">
           <nav
             className="sticky top-28 rounded-2xl border border-border/70 bg-card/50 p-4"
-            aria-label={`Table of contents for ${project.name}`}
+            aria-label={projectCaseStudyTocAriaLabel(project.name)}
           >
-            <p className={`${LABEL_OVERLINE} mb-3`}>On this page</p>
+            <p className={`${LABEL_OVERLINE} mb-3`}>{PROJECT_CASE_STUDY_TOC_HEADING}</p>
             <ul className="space-y-2">
               {tocItems.map((item) => (
                 <li key={item.id}>

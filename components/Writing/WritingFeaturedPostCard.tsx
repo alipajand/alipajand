@@ -11,7 +11,7 @@ interface WritingFeaturedPostCardProps {
 
 export const WritingFeaturedPostCard = ({ post }: WritingFeaturedPostCardProps) => {
   return (
-    <article>
+    <article data-reveal>
       <Link
         href={`/writing/${encodeURIComponent(post.slug)}`}
         className={`group block rounded-2xl ${CARD_ACCENT_RAIL} p-6 sm:p-8 pl-5 sm:pl-7 ${FOCUS_RING}`}

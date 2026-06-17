@@ -1,4 +1,5 @@
 import { CANONICAL_URL, PERSON_SCHEMA_ID, SITE_NAME } from "data/site";
+import { WRITING_INDEX_COLLECTION_NAME } from "data/writing";
 import type { Post } from "utils/posts";
 
 interface ArticleJsonLdProps {
@@ -35,7 +36,7 @@ export const ArticleJsonLd = ({ post }: ArticleJsonLdProps) => {
     isPartOf: {
       "@type": "CollectionPage",
       "@id": `${CANONICAL_URL}/writing#archive`,
-      name: `Writing on Product Engineering and Frontend Systems — ${SITE_NAME}`,
+      name: `${WRITING_INDEX_COLLECTION_NAME} | ${SITE_NAME}`,
       url: `${CANONICAL_URL}/writing`,
     },
   };

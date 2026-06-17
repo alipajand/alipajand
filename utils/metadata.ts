@@ -26,7 +26,7 @@ const twitterExtras = (): Partial<NonNullable<Metadata["twitter"]>> => {
 
 export const buildWritingIndexMetadata = (): Metadata => {
   const url = `${CANONICAL_URL}/writing`;
-  const title = "Writing on Product Engineering and Frontend Systems — Ali Pajand";
+  const title = "Writing on Product Engineering and Frontend Systems | Ali Pajand";
   return {
     title: exactTitle(title),
     description: WRITING_INDEX_DESCRIPTION,
@@ -63,7 +63,7 @@ export const buildArticleMetadata = (post: Post): Metadata => {
     },
   ];
   return {
-    title: exactTitle(`${p.title} — ${SITE_NAME}`),
+    title: exactTitle(`${p.title} | ${SITE_NAME}`),
     description: p.excerpt,
     alternates: { canonical: url },
     authors: [{ name: SITE_NAME, url: CANONICAL_URL }],
@@ -118,7 +118,7 @@ export const buildPortfolioMetadata = (): Metadata => {
 
 export const buildEngineeringPrinciplesMetadata = (): Metadata => {
   const url = `${CANONICAL_URL}/engineering-principles`;
-  const title = "Engineering Principles — Ali Pajand";
+  const title = "Engineering Principles | Ali Pajand";
   const description = ENGINEERING_PRINCIPLES_META_DESCRIPTION;
   return {
     title: exactTitle(title),
@@ -148,7 +148,7 @@ export const buildNowMetadata = (): Metadata => {
   const title = NOW_PAGE_TITLE;
   const description = NOW_META_DESCRIPTION;
   return {
-    title: exactTitle(`${title} — ${SITE_NAME}`),
+    title: exactTitle(`${title} | ${SITE_NAME}`),
     description,
     alternates: { canonical: url },
     openGraph: {

@@ -1,6 +1,12 @@
 import Link from "next/link";
 
 import type { OpenSourceTool } from "data/openSourceTools";
+import {
+  OPEN_SOURCE_TOOL_PAGE_LINK_LABEL,
+  OPEN_SOURCE_TOOL_REPOSITORY_LINK_LABEL,
+  OPEN_SOURCE_TOOLS_CTA_HREF,
+  openSourceToolRepositoryAriaLabel,
+} from "data/openSourceTools";
 import { CARD_SURFACE_HOVER, FOCUS_RING } from "utils/visual";
 
 interface OpenSourceToolCardProps {
@@ -34,19 +40,19 @@ export const OpenSourceToolCard = ({ tool }: OpenSourceToolCardProps) => {
       <div className="mt-auto flex flex-wrap gap-4 pt-1">
         <Link
           href={tool.repositoryUrl}
-          aria-label={`Open ${tool.name} repository on GitHub`}
+          aria-label={openSourceToolRepositoryAriaLabel(tool.name)}
           className={`inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 decoration-foreground/40 hover:decoration-foreground ${FOCUS_RING} rounded-sm`}
         >
-          <span>Repository</span>
+          <span>{OPEN_SOURCE_TOOL_REPOSITORY_LINK_LABEL}</span>
           <span aria-hidden className="text-muted">
             ↗
           </span>
         </Link>
         <Link
-          href="/open-source"
+          href={OPEN_SOURCE_TOOLS_CTA_HREF}
           className={`inline-flex min-h-11 items-center text-sm font-semibold text-foreground underline underline-offset-4 decoration-foreground/40 hover:decoration-foreground ${FOCUS_RING} rounded-sm`}
         >
-          Open source page
+          {OPEN_SOURCE_TOOL_PAGE_LINK_LABEL}
         </Link>
       </div>
     </article>

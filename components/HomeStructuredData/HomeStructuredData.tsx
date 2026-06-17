@@ -37,7 +37,7 @@ export const HomeStructuredData = () => {
   const profilePageSchema = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    name: `${SITE_NAME} — ${TAGLINE}`,
+    name: `${SITE_NAME} | ${TAGLINE}`,
     url: CANONICAL_URL,
     description: SITE_META_DESCRIPTION,
     mainEntity: {

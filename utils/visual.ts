@@ -28,7 +28,7 @@ export const CARD_SURFACE =
 export const CARD_SURFACE_HOVER = `${CARD_SURFACE} hover:border-foreground/25 hover:bg-card/70`;
 
 export const CARD_ACCENT_RAIL =
-  "border border-border/70 bg-card/50 border-l-[3px] border-l-[var(--organic-orange)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] transition-colors duration-200 hover:border-foreground/25 hover:bg-card/70";
+  "border border-border/70 bg-card/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] transition-colors duration-200 hover:border-foreground/25 hover:bg-card/70";
 
 export const LABEL_OVERLINE = "text-[11px] font-semibold uppercase tracking-[0.12em] text-muted";
 

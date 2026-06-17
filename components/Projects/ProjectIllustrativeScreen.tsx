@@ -1,5 +1,7 @@
 "use client";
 
+import { PROJECT_ILLUSTRATION_COPY } from "data/projectIllustrations";
+
 type ProjectIllustrativeScreenProps = {
   titleId: string;
   descId: string;
@@ -19,11 +21,8 @@ const EmplifiIllustration = ({
       aria-describedby={descId}
       className="h-full w-full"
     >
-      <title id={titleId}>Illustrative embedded analytics dashboard</title>
-      <desc id={descId}>
-        Dense charts, segmented filters, and summary tiles arranged for legibility inside an
-        embedded reporting surface.
-      </desc>
+      <title id={titleId}>{PROJECT_ILLUSTRATION_COPY.emplifi.title}</title>
+      <desc id={descId}>{PROJECT_ILLUSTRATION_COPY.emplifi.description}</desc>
       <rect width="1600" height="1035" rx="36" fill={`url(#${bgGradientId})`} />
       <rect x="52" y="56" width="1496" height="84" rx="20" fill="#10131A" opacity="0.86" />
       <rect x="90" y="86" width="260" height="20" rx="10" fill="#E6E2D3" opacity="0.84" />
@@ -105,11 +104,8 @@ const ControlTechIllustration = ({
       aria-describedby={descId}
       className="h-full w-full"
     >
-      <title id={titleId}>Illustrative startup operations dashboard</title>
-      <desc id={descId}>
-        Compact workflow dashboard with resilient loading panels, sidebar navigation, and
-        offline-capable operational states for slow networks.
-      </desc>
+      <title id={titleId}>{PROJECT_ILLUSTRATION_COPY.controltech.title}</title>
+      <desc id={descId}>{PROJECT_ILLUSTRATION_COPY.controltech.description}</desc>
       <rect width="1600" height="1035" rx="36" fill={`url(#${bgGradientId})`} />
       <rect x="54" y="54" width="312" height="926" rx="30" fill="#10171B" opacity="0.86" />
       <rect x="96" y="98" width="180" height="22" rx="11" fill="#EBE3D0" opacity="0.9" />

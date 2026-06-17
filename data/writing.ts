@@ -25,3 +25,5 @@ export const WRITING_POST_BACK_HOME = "Back to Home";
 
 export const WRITING_POST_MCP_FIGCAPTION =
   "High-level MCP loop: the editor calls tools on the server; lint, types, and tests feed structured results back into the IDE.";
+
+export const WRITING_INDEX_COLLECTION_NAME = "Writing on Product Engineering and Frontend Systems";

@@ -17,12 +17,6 @@ export interface ProjectDecision {
   result: string;
 }
 
-export interface BeforeAfter {
-  label: string;
-  before: string;
-  after: string;
-}
-
 export interface ProjectLink {
   label: string;
   href: string;
@@ -82,7 +76,7 @@ export const PORTFOLIO_OPEN_SOURCE_CALLOUT_BODY =
 
 export const PORTFOLIO_OPEN_SOURCE_CALLOUT_CTA = "View open-source work";
 
-export const PORTFOLIO_META_TITLE = "Product Engineering Case Studies — Ali Pajand";
+export const PORTFOLIO_META_TITLE = "Product Engineering Case Studies | Ali Pajand";
 
 export const PORTFOLIO_META_DESCRIPTION =
   "Evidence-led product engineering case studies covering frontend architecture, design systems, complex workflows, and delivery decisions.";

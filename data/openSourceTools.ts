@@ -13,6 +13,13 @@ export const OPEN_SOURCE_TOOLS_LEDE =
 export const OPEN_SOURCE_TOOLS_CTA_LABEL = "Explore all open-source work";
 export const OPEN_SOURCE_TOOLS_CTA_HREF = "/open-source";
 
+export const OPEN_SOURCE_TOOL_REPOSITORY_LINK_LABEL = "Repository";
+
+export const OPEN_SOURCE_TOOL_PAGE_LINK_LABEL = "Open source page";
+
+export const openSourceToolRepositoryAriaLabel = (toolName: string): string =>
+  `Open ${toolName} repository on GitHub`;
+
 export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
   {
     name: "agent-pr-reviewer-lite",

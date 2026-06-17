@@ -44,11 +44,7 @@ export const Writing = ({ featured, posts, heading = WRITING_SECTION_HEADING }: 
         </header>
 
         <div className="space-y-6 sm:space-y-8">
-          {featured ? (
-            <div data-reveal>
-              <WritingFeaturedPostCard post={featured} />
-            </div>
-          ) : null}
+          {featured ? <WritingFeaturedPostCard post={featured} /> : null}
           {posts.length > 0 ? (
             <ul className="space-y-4 sm:space-y-5 list-none p-0 m-0" data-reveal>
               {posts.map((post) => (

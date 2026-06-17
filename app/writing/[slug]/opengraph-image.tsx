@@ -27,7 +27,7 @@ export default async function WritingPostOpenGraphImage({
   const title = post?.title ?? "Writing";
   const excerpt = post
     ? truncate(post.excerpt, 220)
-    : `${SITE_NAME} — notes on product engineering and DX.`;
+    : `${SITE_NAME}: notes on product engineering and DX.`;
   const label = post ? "Article" : "Writing";
 
   return new ImageResponse(

@@ -51,7 +51,7 @@ describe("HomeStructuredData", () => {
     const schema = JSON.parse(scripts[1].textContent || "{}");
 
     expect(schema["@type"]).toBe("ProfilePage");
-    expect(schema.name).toBe(`${SITE_NAME} — ${TAGLINE}`);
+    expect(schema.name).toBe(`${SITE_NAME} | ${TAGLINE}`);
     expect(schema.url).toBe(CANONICAL_URL);
     expect(schema.description).toBe(SITE_META_DESCRIPTION);
     expect(schema.mainEntity["@id"]).toBe(PERSON_SCHEMA_ID);
