@@ -9,11 +9,13 @@ tags:
 
 A design system that looks polished in Figma but gets bypassed in product code is not established. It is decoration.
 
+This article combines patterns I have encountered while working with shared component systems with the approach I now use when evolving them.
+
 A common adoption failure is not ideological resistance to consistency. It is delivery pressure meeting a shared system that does not yet make the right path easy enough.
 
 ## When product work bypasses the system
 
-In marketplace and authentication-heavy interfaces, product teams often need states a young design system has not documented yet: wallet loading, API-backed errors, empty commerce states, recovery messaging, and layout combinations that sit outside the original component examples.
+In marketplace and authentication-heavy interfaces, product teams often need states a young design system has not documented yet: asynchronous authentication, API-backed errors, empty commerce states, recovery messaging, and layout combinations that sit outside the original component examples.
 
 The bypass is predictable. Engineers can assemble a one-off card, form section, or button group inside the feature faster than they can reverse-engineer whether the design system supports the state cleanly. Designers can point to a Figma frame, but that still does not tell implementation teams how accessibility, failure states, or responsive behavior are supposed to work.
 
@@ -50,7 +52,7 @@ The better response was to harden the contract:
 - Support the state combinations product teams actually need, especially loading, disabled, error, and recovery paths.
 - Leave space for escape hatches when the product really is unique, but make that escape explicit rather than accidental.
 
-Escape hatches matter. A design system should not absorb every piece of product behavior. Domain-specific recommendation panels, wallet-connect logic, or contract-review controls should remain product-owned even if they are visually assembled from shared primitives.
+Escape hatches matter. A design system should not absorb every piece of product behavior. Domain-specific recommendation panels, authentication workflows, or contract-review controls should remain product-owned even if they are visually assembled from shared primitives.
 
 Stronger contracts take longer to design. The upside is that teams stop bypassing the system for problems it should have solved in the first place.
 
