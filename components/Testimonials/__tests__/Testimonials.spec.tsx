@@ -13,10 +13,17 @@ describe("Testimonials", () => {
     expect(screen.getByRole("heading", { name: /peer feedback/i })).toBeInTheDocument();
   });
 
-  it("renders attribution intro", () => {
+  it("renders attribution intro and factual review note", () => {
     render(<Testimonials />);
     expect(
-      screen.getByText(/Names remain withheld publicly unless permission has been granted/i)
+      screen.getByText(
+        /Names are withheld for privacy\. Quotes are lightly edited for length and clarity without changing their meaning\./i
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Quote wording has not been personally re-confirmed against the original messages/i
+      )
     ).toBeInTheDocument();
   });
 

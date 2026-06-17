@@ -80,13 +80,15 @@ describe("Projects", () => {
     ).toHaveAttribute("href", "#project-design-system-marketplace-login-web3");
   });
 
-  it("renders factual review notes where subsystem ownership is only partially documented", () => {
+  it("renders ownership statements without factual review notes on case studies", () => {
     render(<Projects />);
 
-    expect(screen.getAllByText(/Factual review note:/i).length).toBeGreaterThan(0);
     expect(
-      screen.getByText(/frontend, accessibility, Storybook, and CI ownership/i)
+      screen.getByText(
+        /I owned the frontend implementation and interaction work, collaborating with product, design, analytics, and backend contributors/i
+      )
     ).toBeInTheDocument();
+    expect(screen.queryByText(/Factual review note:/i)).not.toBeInTheDocument();
   });
 
   it("renders the table of contents links for a detailed case study", () => {

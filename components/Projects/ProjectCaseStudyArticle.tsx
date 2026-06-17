@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 import { ProjectDecisionCard } from "components/Projects/ProjectDecisionCard";
-import { ProjectFigure } from "components/Projects/ProjectFigure";
 import type { Project } from "data/projects";
 import {
   PROJECT_CASE_STUDY_FACTUAL_REVIEW_PREFIX,
@@ -28,6 +27,7 @@ import {
   projectCaseStudyTocAriaLabel,
 } from "data/projectsUi";
 import { FOCUS_RING, LABEL_OVERLINE } from "utils/visual";
+import { ProjectFigure } from "components/Projects/ProjectFigure";
 
 type ProjectCaseStudyArticleProps = {
   project: Project;
@@ -94,7 +94,6 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
                 ))}
               </ul>
             </div>
-            <ProjectFigure figure={project.heroFigure} />
           </header>
 
           <section id={`${project.id}-overview`} className="scroll-mt-28 space-y-3">
@@ -177,16 +176,18 @@ export const ProjectCaseStudyArticle = ({ project, nextProject }: ProjectCaseStu
             </ol>
           </section>
 
-          <section id={`${project.id}-evidence`} className="scroll-mt-28 space-y-5">
-            <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-              {PROJECT_CASE_STUDY_SECTION_EVIDENCE}
-            </h3>
-            <div className="space-y-8">
-              {project.caseStudy.interfaceEvidence.map((figure) => (
-                <ProjectFigure key={`${figure.alt}-${figure.captionLead}`} figure={figure} />
-              ))}
-            </div>
-          </section>
+          {project.caseStudy.interfaceEvidence?.length ? (
+            <section id={`${project.id}-evidence`} className="scroll-mt-28 space-y-5">
+              <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+                {PROJECT_CASE_STUDY_SECTION_EVIDENCE}
+              </h3>
+              <div className="space-y-8 empty:hidden">
+                {project.caseStudy.interfaceEvidence.map((figure) => (
+                  <ProjectFigure key={`${figure.alt}-${figure.captionLead}`} figure={figure} />
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <section id={`${project.id}-states`} className="scroll-mt-28 space-y-3">
             <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">

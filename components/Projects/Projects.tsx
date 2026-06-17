@@ -6,7 +6,7 @@ import { SECTION_INNER_WIDE, SECTION_RULE, SECTION_X, SECTION_Y } from "utils/vi
 
 export const Projects = () => {
   const {
-    selectors: { sectionRef, orderedProjects},
+    selectors: { sectionRef, orderedProjects },
   } = useProjectsReveal();
 
   return (

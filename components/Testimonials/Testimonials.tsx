@@ -2,7 +2,12 @@
 
 import { useTestimonialsReveal } from "components/Testimonials/hooks/useTestimonialsReveal";
 import { TestimonialsListItem } from "components/Testimonials/TestimonialsListItem";
-import { TESTIMONIALS, TESTIMONIALS_HEADING, TESTIMONIALS_INTRO } from "data/testimonials";
+import {
+  TESTIMONIALS,
+  TESTIMONIALS_FACTUAL_REVIEW_NOTE,
+  TESTIMONIALS_HEADING,
+  TESTIMONIALS_INTRO,
+} from "data/testimonials";
 import { SECTION_LEDE, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
 export const Testimonials = () => {
@@ -21,10 +26,16 @@ export const Testimonials = () => {
           {TESTIMONIALS_HEADING}
         </h2>
         <p
-          className={`${SECTION_LEDE} mb-14 sm:mb-16 border-l-2 border-border pl-4 sm:pl-5`}
+          className={`${SECTION_LEDE} mb-6 sm:mb-8 border-l-2 border-border pl-4 sm:pl-5`}
           data-reveal
         >
           {TESTIMONIALS_INTRO}
+        </p>
+        <p
+          className="mb-14 sm:mb-16 max-w-3xl rounded-xl border border-border/70 bg-card/50 px-4 py-3 text-sm leading-relaxed text-muted"
+          data-reveal
+        >
+          Factual review note: {TESTIMONIALS_FACTUAL_REVIEW_NOTE}
         </p>
 
         <ul ref={listRef} className="flex flex-col gap-12 sm:gap-14 list-none p-0 m-0">

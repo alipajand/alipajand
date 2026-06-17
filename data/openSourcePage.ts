@@ -136,7 +136,7 @@ Issues:
     repositoryUrl: "https://github.com/alipajand/agent-readiness-kit",
     summary:
       "Audits whether a repository is ready for coding agents such as Cursor, Codex, Claude Code, and GitHub Copilot.",
-    status: "Active development",
+    status: "Experimental",
     format: "TypeScript CLI",
     testedCapabilitiesLabel: "What it checks",
     testedCapabilities: [
@@ -154,7 +154,7 @@ Issues:
     repositoryUrl: "https://github.com/alipajand/agent-readiness-action",
     summary:
       "Runs Agent Readiness Kit audits inside GitHub Actions so repository-readiness checks become part of normal CI.",
-    status: "Active development",
+    status: "Experimental",
     format: "GitHub Action",
     testedCapabilitiesLabel: "What it provides",
     testedCapabilities: [

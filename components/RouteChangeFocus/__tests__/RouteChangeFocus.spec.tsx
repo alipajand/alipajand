@@ -65,4 +65,53 @@ describe("RouteChangeFocus", () => {
 
     document.body.removeChild(main);
   });
+
+  it("scrolls to a hash target after a pathname change when the URL has a fragment", () => {
+    const main = document.createElement("main");
+    main.id = "main-content";
+    main.tabIndex = -1;
+    document.body.appendChild(main);
+
+    const target = document.createElement("section");
+    target.id = "project-mapbylaw-platform-ui-ai-reports";
+    const targetScrollIntoView = jest.fn();
+    target.scrollIntoView = targetScrollIntoView;
+    document.body.appendChild(target);
+
+    window.history.replaceState(null, "", "/portfolio#project-mapbylaw-platform-ui-ai-reports");
+
+    const { rerender } = render(<RouteChangeFocus />);
+
+    usePathname.mockReturnValue("/portfolio");
+
+    act(() => {
+      rerender(<RouteChangeFocus />);
+    });
+
+    expect(targetScrollIntoView).toHaveBeenCalledWith({ block: "start" });
+    expect(document.activeElement).not.toBe(main);
+
+    window.history.replaceState(null, "", "/");
+    document.body.innerHTML = "";
+  });
+
+  it("scrolls to a hash target when only the fragment changes", () => {
+    const target = document.createElement("section");
+    target.id = "project-demo-project";
+    const targetScrollIntoView = jest.fn();
+    target.scrollIntoView = targetScrollIntoView;
+    document.body.appendChild(target);
+
+    render(<RouteChangeFocus />);
+
+    act(() => {
+      window.history.replaceState(null, "", "/portfolio#project-demo-project");
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
+    });
+
+    expect(targetScrollIntoView).toHaveBeenCalledWith({ block: "start" });
+
+    window.history.replaceState(null, "", "/");
+    document.body.innerHTML = "";
+  });
 });

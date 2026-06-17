@@ -37,15 +37,6 @@ const mockProject: Project = {
   cardProblem: "One-sentence problem",
   role: "Developer · Acme",
   capabilityTags: ["Typed APIs", "Design systems", "Delivery"],
-  heroFigure: {
-    type: "image",
-    src: "/test-image.jpg",
-    width: 1600,
-    height: 1035,
-    alt: "Representative product interface",
-    captionLead: "Representative interface.",
-    captionBody: "The interface highlights a workflow decision that matters.",
-  },
   caseStudy: {
     title: "A short case-study title",
     overview: "Overview",
