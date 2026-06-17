@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useHero } from "components/Hero/hooks/useHero";
 import { HERO_SCROLL_INDICATOR, HERO_SECTION_ARIA_LABEL } from "data/site";
 import {
-  HOMEPAGE_HERO_AVAILABILITY,
   HOMEPAGE_HERO_BODY,
   HOMEPAGE_HERO_EYEBROW,
   HOMEPAGE_HERO_NAME,
@@ -69,13 +68,6 @@ export const Hero = () => {
               {HOMEPAGE_HERO_SECONDARY_CTA_LABEL}
             </Link>
           </div>
-          <p
-            data-hero-animate="slide-up"
-            className="text-sm sm:text-base text-foreground/80 leading-relaxed"
-            data-hero-availability
-          >
-            {HOMEPAGE_HERO_AVAILABILITY}
-          </p>
         </div>
       </div>
       <div
