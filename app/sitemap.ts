@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { CANONICAL_URL } from "data/site";
+import { getDedicatedCaseStudySlugs } from "utils/projects";
 import { getAllPosts } from "utils/posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -10,6 +11,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: post.date ? new Date(post.date) : new Date(),
     changeFrequency: "monthly",
     priority: 0.7,
+  }));
+
+  const caseStudyEntries: MetadataRoute.Sitemap = getDedicatedCaseStudySlugs().map((slug) => ({
+    url: `${CANONICAL_URL}/portfolio/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.8,
   }));
 
   return [
@@ -50,5 +58,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.78,
     },
     ...postEntries,
+    ...caseStudyEntries,
   ];
 }

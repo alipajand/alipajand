@@ -4,6 +4,7 @@ import { ENGINEERING_PRINCIPLES_META_DESCRIPTION } from "data/engineeringPrincip
 import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
 import { OPEN_SOURCE_META_DESCRIPTION, OPEN_SOURCE_META_TITLE } from "data/openSourcePage";
 import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/projects";
+import type { Project } from "data/projects";
 import { WRITING_INDEX_DESCRIPTION } from "data/writing";
 import { CANONICAL_URL, SITE_NAME, TWITTER_HANDLE } from "data/site";
 import type { Post } from "utils/posts";
@@ -99,6 +100,33 @@ export const buildPortfolioMetadata = (): Metadata => {
     alternates: { canonical: url },
     openGraph: {
       type: "website",
+      url,
+      siteName: SITE_NAME,
+      title,
+      description,
+      locale: "en_US",
+      images: [{ ...defaultOgImage, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [defaultOgImage.url],
+      ...twitterExtras(),
+    },
+  };
+};
+
+export const buildPortfolioCaseStudyMetadata = (project: Project): Metadata => {
+  const url = `${CANONICAL_URL}/portfolio/${project.slug}`;
+  const title = `${project.name} Case Study — Ali Pajand`;
+  const description = project.caseStudyMetaDescription;
+  return {
+    title: exactTitle(title),
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
       url,
       siteName: SITE_NAME,
       title,

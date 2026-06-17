@@ -4,7 +4,7 @@ export const navLinkAriaCurrent = (href: string, pathname: string | null): "page
     return pathname === "/writing" || pathname.startsWith("/writing/") ? "page" : undefined;
   }
   if (href === "/portfolio") {
-    return pathname === "/portfolio" ? "page" : undefined;
+    return pathname === "/portfolio" || pathname.startsWith("/portfolio/") ? "page" : undefined;
   }
   return undefined;
 };

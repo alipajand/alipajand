@@ -2,12 +2,6 @@ import { render, screen } from "@testing-library/react";
 
 import { PortfolioPageContent } from "features/portfolio/PortfolioPageContent";
 
-jest.mock("utils/hooks/usePageHeader", () => ({
-  usePageHeader: () => ({
-    selectors: { headerRef: { current: null } },
-  }),
-}));
-
 jest.mock("next/link", () => {
   return function MockLink({
     href,
@@ -21,18 +15,6 @@ jest.mock("next/link", () => {
     );
   };
 });
-
-jest.mock("next/image", () => ({
-  __esModule: true,
-  default: ({
-    src,
-    alt,
-    ...props
-  }: React.ImgHTMLAttributes<HTMLImageElement> & { fill?: boolean; sizes?: string }) => {
-    const { fill: _fill, sizes: _sizes, ...imgProps } = props;
-    return <img src={src} alt={alt} {...imgProps} />;
-  },
-}));
 
 describe("PortfolioPageContent", () => {
   it("should render the portfolio H1 and required introduction", () => {
@@ -48,10 +30,13 @@ describe("PortfolioPageContent", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render the homepage back link and portfolio case studies", () => {
+  it("should render the text-first project index", () => {
     render(<PortfolioPageContent />);
 
-    expect(screen.getByRole("link", { name: "← Back to homepage" })).toHaveAttribute("href", "/");
+    expect(screen.getByRole("navigation", { name: "Breadcrumb" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "LedgerGuard" })).toBeInTheDocument();
+    expect(document.getElementById("case-studies")).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Overview" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 });

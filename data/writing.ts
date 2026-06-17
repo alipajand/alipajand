@@ -17,12 +17,6 @@ export const WRITING_READ_ARTICLE_CTA = "Read article →";
 
 export const WRITING_INDEX_EMPTY_MESSAGE = "No posts yet. Check back soon.";
 
-export const WRITING_INDEX_BACK_HOME = "← Back to home";
-
-export const WRITING_POST_BACK_TO_ALL = "← Back to All posts";
-
-export const WRITING_POST_BACK_HOME = "Back to Home";
-
 export const WRITING_POST_MCP_FIGCAPTION =
   "High-level MCP loop: the editor calls tools on the server; lint, types, and tests feed structured results back into the IDE.";
 

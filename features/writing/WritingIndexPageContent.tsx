@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef } from "react";
 
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import type { WritingIndexPost } from "features/writing/WritingIndexPost";
 import { WritingIndexPostListItem } from "features/writing/WritingIndexPostListItem";
+import { writingIndexBreadcrumbs } from "data/breadcrumbs";
 import {
-  WRITING_INDEX_BACK_HOME,
   WRITING_INDEX_EMPTY_MESSAGE,
   WRITING_SECTION_HEADING,
   WRITING_SECTION_LEDE,
@@ -59,6 +59,7 @@ export const WritingIndexPageContent = ({ posts }: WritingIndexPageContentProps)
     <div className="min-h-screen bg-background text-foreground">
       <main id="main-content" tabIndex={-1} className={`outline-none ${PAGE_MAIN_SHELL}`}>
         <div className={SECTION_INNER}>
+          <Breadcrumbs items={writingIndexBreadcrumbs()} className="mb-8" />
           <header ref={headerRef} className="mb-12 sm:mb-16">
             <h1
               data-writ-heading
@@ -86,15 +87,6 @@ export const WritingIndexPageContent = ({ posts }: WritingIndexPageContentProps)
               ))}
             </ul>
           )}
-
-          <p className="mt-16">
-            <Link
-              href="/"
-              className="text-muted hover:text-foreground transition-colors text-sm font-medium inline-flex min-h-11 items-center rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              {WRITING_INDEX_BACK_HOME}
-            </Link>
-          </p>
         </div>
       </main>
     </div>

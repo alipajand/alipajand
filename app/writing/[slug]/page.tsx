@@ -3,10 +3,12 @@ import { notFound } from "next/navigation";
 import { ArticleJsonLd } from "components/ArticleJsonLd/ArticleJsonLd";
 import { BreadcrumbJsonLd } from "components/BreadcrumbJsonLd/BreadcrumbJsonLd";
 import { WritingPostPageContent } from "features/writing/WritingPostPageContent";
+import { writingPostBreadcrumbs } from "data/breadcrumbs";
 import { CANONICAL_URL } from "data/site";
 import { getAllPosts, getPostBySlug } from "utils/posts";
 import { splitHtmlAtFirstH2 } from "utils/splitHtmlAtFirstH2";
 import { buildArticleMetadata } from "utils/metadata";
+import { toBreadcrumbJsonLdItems } from "utils/breadcrumbs";
 import type { Metadata } from "next";
 
 interface PageProps {
@@ -37,15 +39,13 @@ export default async function PostPage({ params }: PageProps) {
   const { contentHtml, ...postForJsonLd } = post;
   const { before: proseBeforeH2, fromH2: proseFromH2 } = splitHtmlAtFirstH2(contentHtml);
 
+  const postUrl = `${CANONICAL_URL}/writing/${post.slug}`;
+
   return (
     <>
       <ArticleJsonLd post={postForJsonLd} />
       <BreadcrumbJsonLd
-        items={[
-          { name: "Home", url: CANONICAL_URL },
-          { name: "Writing", url: `${CANONICAL_URL}/writing` },
-          { name: post.title, url: `${CANONICAL_URL}/writing/${post.slug}` },
-        ]}
+        items={toBreadcrumbJsonLdItems(writingPostBreadcrumbs(post.title), postUrl)}
       />
       <WritingPostPageContent
         title={post.title}

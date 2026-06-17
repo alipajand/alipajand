@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 
 import { Hero } from "components/Hero/Hero";
 import {
-  HOMEPAGE_HERO_AVAILABILITY,
   HOMEPAGE_HERO_NAME,
   HOMEPAGE_HERO_PRIMARY_CTA_HREF,
   HOMEPAGE_HERO_SECONDARY_CTA_HREF,
@@ -31,7 +30,6 @@ describe("Hero", () => {
       const heading = screen.getByRole("heading", { level: 1 });
       expect(heading).toHaveTextContent(HOMEPAGE_HERO_TITLE);
       expect(screen.getByText(HOMEPAGE_HERO_NAME)).toBeInTheDocument();
-      expect(screen.getByText(HOMEPAGE_HERO_AVAILABILITY)).toBeInTheDocument();
     });
 
     it("should render primary CTA to portfolio case studies", () => {

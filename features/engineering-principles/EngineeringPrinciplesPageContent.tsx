@@ -1,16 +1,15 @@
 "use client";
 
-import Link from "next/link";
-
+import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import { MainReveal } from "components/MainReveal/MainReveal";
 import { EngineeringPrinciplesSectionBlock } from "features/engineering-principles/EngineeringPrinciplesSectionBlock";
+import { engineeringPrinciplesBreadcrumbs } from "data/breadcrumbs";
 import {
   ENGINEERING_PRINCIPLES_HEADER_OVERLINE,
   ENGINEERING_PRINCIPLES_LEDE,
   ENGINEERING_PRINCIPLES_PAGE_TITLE,
   ENGINEERING_PRINCIPLES_SECTIONS,
 } from "data/engineeringPrinciples";
-import { PAGE_LINK_BACK_TO_HOMEPAGE } from "data/pageChrome";
 import { usePageHeader } from "utils/hooks/usePageHeader";
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import {
@@ -34,6 +33,7 @@ export const EngineeringPrinciplesPageContent = () => {
     <MainReveal>
       <header ref={headerRef} className={PAGE_HEADER_SHELL}>
         <div className={SECTION_INNER}>
+          <Breadcrumbs items={engineeringPrinciplesBreadcrumbs()} className="mb-6" />
           <p data-header-overline className={`${LABEL_OVERLINE} mb-2`}>
             {ENGINEERING_PRINCIPLES_HEADER_OVERLINE}
           </p>
@@ -45,14 +45,6 @@ export const EngineeringPrinciplesPageContent = () => {
           </h1>
           <p data-header-lede className={`${SECTION_LEDE} mt-4 max-w-2xl`}>
             {ENGINEERING_PRINCIPLES_LEDE}
-          </p>
-          <p data-header-back className="mt-8">
-            <Link
-              href="/"
-              className="text-sm font-medium text-foreground underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
-            >
-              {PAGE_LINK_BACK_TO_HOMEPAGE}
-            </Link>
           </p>
         </div>
       </header>

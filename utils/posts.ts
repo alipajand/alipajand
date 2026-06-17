@@ -2,7 +2,17 @@ import { readdirSync, readFileSync } from "fs";
 import { join } from "path";
 
 import matter from "gray-matter";
+import yaml from "js-yaml";
 import { marked } from "marked";
+
+const matterOptions = {
+  engines: {
+    yaml: {
+      parse: (src: string) => yaml.load(src) as Record<string, unknown>,
+      stringify: (data: object) => yaml.dump(data),
+    },
+  },
+};
 
 const POSTS_DIR = join(process.cwd(), "content", "posts");
 
@@ -46,7 +56,7 @@ export const getAllPosts = (): Omit<Post, "contentHtml">[] => {
     .map((slug) => {
       const path = join(POSTS_DIR, `${slug}.md`);
       const raw = readFileSync(path, "utf-8");
-      const { data } = matter(raw);
+      const { data } = matter(raw, matterOptions);
       const fm = data as PostFrontmatter;
       return {
         slug,
@@ -64,7 +74,7 @@ export const getPostBySlug = (slug: string): Post | null => {
   try {
     const path = join(POSTS_DIR, `${slug}.md`);
     const raw = readFileSync(path, "utf-8");
-    const { data, content } = matter(raw);
+    const { data, content } = matter(raw, matterOptions);
     const fm = data as PostFrontmatter;
     const contentHtml = marked.parse(content, { async: false }) as string;
     return {

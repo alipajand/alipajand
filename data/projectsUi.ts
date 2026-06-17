@@ -1,6 +1,6 @@
-export const PROJECT_CARD_CAPABILITIES_LABEL = "Capabilities";
-
 export const PROJECT_CARD_READ_CASE_STUDY = "Read case study";
+
+export const PORTFOLIO_ADDITIONAL_EXPERIENCE_HEADING = "Additional experience";
 
 export const PROJECT_RESPONSIBILITY_HEADING = "My responsibility";
 
