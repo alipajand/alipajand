@@ -38,7 +38,7 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
     tags: ["Product ownership", "AI workflows", "Next.js"],
     href: "/portfolio/ledgerguard",
     image: {
-      src: "/portfolio-media/ledgerguard.png",
+      src: "/portfolio-media/ledgerguard-dashboard.png",
       alt: "LedgerGuard contract review workflow with source evidence and renewal risk states.",
       caption: "Real product screenshot",
     },
@@ -52,7 +52,7 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
     tags: ["Product engineering", "AI reliability", "UX"],
     href: "/portfolio/mapbylaw",
     image: {
-      src: "/portfolio-media/mapbylaw.png",
+      src: "/portfolio-media/mapbylaw-dashboard.png",
       alt: "MapBylaw property analysis workflow with feasibility details and recommendation context.",
       caption: "Real product screenshot",
     },

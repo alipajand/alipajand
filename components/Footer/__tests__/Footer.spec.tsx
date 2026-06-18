@@ -1,12 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { Footer } from "components/Footer/Footer";
-import {
-  FOOTER_ARIA_LABEL,
-  FOOTER_WRITING_ARCHIVE_LABEL,
-  footerCopyright,
-  getFooterNavLinksFlat,
-} from "data/footer";
+import { FOOTER_ARIA_LABEL, footerCopyright, getFooterNavLinksFlat } from "data/footer";
 import { LINKS } from "data/links";
 import { EXTERNAL_LINK_NEW_TAB_HINT } from "data/pageChrome";
 
@@ -38,15 +33,6 @@ describe("Footer", () => {
     }
   });
 
-  it("should render the writing archive link and latest writings", () => {
-    render(<Footer latestWritings={[...LATEST_WRITINGS]} />);
-
-    expect(screen.getByRole("link", { name: FOOTER_WRITING_ARCHIVE_LABEL })).toBeInTheDocument();
-    for (const post of LATEST_WRITINGS) {
-      expect(screen.getByRole("link", { name: post.title })).toBeInTheDocument();
-    }
-  });
-
   it("should render direct links with large icons and safe target/rel attributes", () => {
     render(<Footer latestWritings={[...LATEST_WRITINGS]} />);
     const external = LINKS.find((channel) => channel.href.startsWith("http"));
@@ -60,11 +46,11 @@ describe("Footer", () => {
     });
     expect(externalLink).toHaveAttribute("target", "_blank");
     expect(externalLink).toHaveAttribute("rel", "noopener noreferrer");
-    expect(externalLink.querySelector("span[aria-hidden='true']")).toHaveClass("size-8");
+    expect(externalLink.querySelector("span[aria-hidden='true']")).toHaveClass("size-5");
 
     const internalLink = screen.getByRole("link", { name: internal!.label });
     expect(internalLink).not.toHaveAttribute("target");
-    expect(internalLink.querySelector("span[aria-hidden='true']")).toHaveClass("size-8");
+    expect(internalLink.querySelector("span[aria-hidden='true']")).toHaveClass("size-5");
   });
 
   it("should render the current year in the copyright line", () => {

@@ -28,19 +28,51 @@ export interface ProjectResponsibility {
   factualReviewNote?: string;
 }
 
-export interface ProjectCaseStudy {
+export interface ProjectOverviewMeta {
+  role: string;
+  stack: string;
+  scope: string;
+  status: string;
+  link: ProjectLink;
+}
+
+export interface ProjectTechnicalHighlight {
+  title: string;
+  description: string;
+}
+
+interface ProjectCaseStudyBase {
   title: string;
   overview: string;
+  problem: string;
+  interfaceEvidence?: ProjectFigure[];
+}
+
+export interface ProjectCaseStudyStandard extends ProjectCaseStudyBase {
+  variant?: "standard";
   contextAndConstraints: string;
   responsibility: ProjectResponsibility;
-  problem: string;
   decisions: ProjectDecision[];
   workflow: string[];
-  interfaceEvidence?: ProjectFigure[];
   difficultStates: string[];
   outcome: string[];
   nextImprovements: string[];
 }
+
+export interface ProjectCaseStudyFounderProduct extends ProjectCaseStudyBase {
+  variant: "founder-product";
+  overviewMeta: ProjectOverviewMeta;
+  productDecisions: string[];
+  whatIBuilt: string[];
+  technicalHighlights: ProjectTechnicalHighlight[];
+  result: string;
+}
+
+export type ProjectCaseStudy = ProjectCaseStudyStandard | ProjectCaseStudyFounderProduct;
+
+export const isFounderProductCaseStudy = (
+  caseStudy: ProjectCaseStudy
+): caseStudy is ProjectCaseStudyFounderProduct => caseStudy.variant === "founder-product";
 
 export interface Project {
   id: string;
@@ -70,13 +102,130 @@ export const PORTFOLIO_META_DESCRIPTION =
 
 export const PORTFOLIO_CASE_STUDY_ORDER = [
   "ledgerguard-deterministic-commitments-ledger",
+  "tallyfolio-privacy-first-personal-finance",
   "design-system-marketplace-login-web3",
-  "data-dashboards-emplifi",
   "mapbylaw-platform-ui-ai-reports",
+  "data-dashboards-emplifi",
   "pwa-performance-controltech",
 ] as const;
 
 export const PROJECTS: Project[] = [
+  {
+    id: "tallyfolio-privacy-first-personal-finance",
+    slug: "tallyfolio",
+    hasDedicatedCaseStudy: true,
+    name: "TallyFolio",
+    caseStudyTitle: "Privacy-first personal finance tracker",
+    caseStudyMetaDescription:
+      "A senior product engineering case study about building a privacy-first, manual-first personal finance PWA with deterministic calculations, import workflows, and production-grade auth.",
+    employerContext:
+      "Full-stack PWA for manual-first personal finance tracking, reporting, forecasting, and asset management.",
+    cardProblem:
+      "Most personal finance apps force users into bank aggregation or spreadsheets. TallyFolio needed modern product workflows without giving up privacy or manual control.",
+    role: "Founder · Product Engineer · Designer",
+    capabilityTags: ["Full-stack product", "Financial correctness", "Privacy boundaries"],
+    caseStudy: {
+      variant: "founder-product",
+      title: "Privacy-first personal finance tracker",
+      overview:
+        "A full-stack PWA for manual-first personal finance tracking, built with deterministic financial calculations, CSV import workflows, reports, forecasting, subscriptions, investments, and asset tracking.",
+      overviewMeta: {
+        role: "Founder, Product Engineer, Designer",
+        stack: "Next.js, TypeScript, Supabase, Postgres, RLS, Tailwind, shadcn/ui",
+        scope: "Product strategy, UX, frontend, backend, database, security, docs",
+        status: "Live",
+        link: { label: "tallyfolio.com", href: "https://tallyfolio.com" },
+      },
+      problem:
+        "Most personal finance apps force users into either bank aggregation or spreadsheets. I wanted a private, manual-first system that could still provide modern product workflows: import review, categorization, subscriptions, cash-flow forecasting, investment contributions, reports, and asset tracking.",
+      productDecisions: [
+        "Manual-first import flow instead of requiring bank aggregation",
+        "Server-first data loading with authenticated server actions",
+        "Financial values stored as integer minor units",
+        "Pure domain modules for budgets, forecasts, reports, subscriptions, investments, and assets",
+        "CSV/XLSX files parsed in memory and not persisted",
+        "User-owned export flow",
+        "Optional AI explanation constrained to restating already-computed figures",
+        "PWA/mobile-first improvements for everyday personal use",
+      ],
+      whatIBuilt: [
+        "Dashboard",
+        "CSV import review",
+        "Transaction management",
+        "Budgets",
+        "Reports",
+        "Subscriptions",
+        "Recurring schedules",
+        "Forecast",
+        "Investments",
+        "Assets register",
+        "Settings/export",
+        "Public landing/support pages",
+      ],
+      technicalHighlights: [
+        {
+          title: "Financial correctness",
+          description:
+            "Amounts are stored as integer minor units and calculated through pure domain modules for budgets, forecasts, reports, subscriptions, investments, and assets so totals stay deterministic and testable.",
+        },
+        {
+          title: "Import safety",
+          description:
+            "CSV and XLSX uploads are parsed in memory for review and categorization, then discarded rather than persisted as raw files on the server.",
+        },
+        {
+          title: "Privacy boundaries",
+          description:
+            "Manual-first tracking without requiring bank aggregation, with authenticated access and Postgres row-level security defining what each user can read or write.",
+        },
+        {
+          title: "Recurring transaction modeling",
+          description:
+            "Subscriptions and recurring schedules are modeled as first-class domain objects separate from one-off transactions, keeping cash-flow forecasting aligned to schedule truth.",
+        },
+        {
+          title: "Asset modeling",
+          description:
+            "An assets register tracks holdings alongside cash-flow workflows without conflating investment contributions with everyday spending categories.",
+        },
+        {
+          title: "Mobile/PWA execution",
+          description:
+            "Mobile-first layouts and PWA affordances support everyday personal finance use outside a desktop-only workflow assumption.",
+        },
+        {
+          title: "AI boundary design",
+          description:
+            "Optional AI explanations are constrained to restating already-computed figures rather than generating new financial advice or inferred numbers.",
+        },
+      ],
+      result:
+        "Result: shipped a live full-stack finance product with production-grade auth, privacy boundaries, deterministic financial calculations, mobile/PWA support, import workflows, and a documented architecture suitable for long-term extension.",
+      interfaceEvidence: [
+        {
+          type: "image",
+          src: "/portfolio-media/tallyfolio-landing.png",
+          width: 3456,
+          height: 2234,
+          alt: "TallyFolio landing page",
+          captionLead: "Landing page.",
+          captionBody:
+            "Public landing and support pages introduce the manual-first product positioning before authenticated finance workflows.",
+        },
+        {
+          type: "image",
+          src: "/portfolio-media/tallyfolio-dashboard.png",
+          width: 3454,
+          height: 1982,
+          alt: "TallyFolio dashboard showing manual-first finance summaries, recent activity, and navigation into budgets, reports, and import workflows.",
+          captionLead: "Dashboard.",
+          captionBody:
+            "The authenticated home surface orients everyday personal finance work around deterministic totals and clear paths into import review, budgets, and reporting.",
+        },
+      ],
+    },
+    relatedLinks: [{ label: "Live product", href: "https://tallyfolio.com" }],
+  },
   {
     id: "ledgerguard-deterministic-commitments-ledger",
     slug: "ledgerguard",
@@ -143,13 +292,33 @@ export const PROJECTS: Project[] = [
       interfaceEvidence: [
         {
           type: "image",
-          src: "/portfolio-media/ledgerguard.png",
+          src: "/portfolio-media/ledgerguard-landing.png",
           width: 3456,
           height: 2234,
-          alt: "LedgerGuard verification workspace showing commitment fields, extracted values, and linked source evidence so reviewers can confirm truth before renewal-risk calculations are trusted.",
-          captionLead: "Verification workspace.",
+          alt: "LedgerGuard landing page introducing contract intelligence for renewals, commitments, notice windows, and financial exposure.",
+          captionLead: "Landing page.",
           captionBody:
-            "Source-backed fields, warnings, and review controls stay in the same view so incomplete extraction does not turn into silent portfolio certainty.",
+            "The public entry point frames the product around traceable contract review rather than opaque AI summaries.",
+        },
+        {
+          type: "image",
+          src: "/portfolio-media/ledgerguard-login.png",
+          width: 3456,
+          height: 2234,
+          alt: "LedgerGuard sign-in interface establishing tenant access before contract upload, verification, and portfolio workflows.",
+          captionLead: "Authentication entry.",
+          captionBody:
+            "Production auth sits ahead of tenant-scoped contract workflows so portfolio and verification surfaces stay within explicit access boundaries.",
+        },
+        {
+          type: "image",
+          src: "/portfolio-media/ledgerguard-dashboard.png",
+          width: 3456,
+          height: 2234,
+          alt: "LedgerGuard portfolio dashboard showing renewal risk, commitment exposure, and contract status across reconciled ledger rows.",
+          captionLead: "Portfolio dashboard.",
+          captionBody:
+            "Renewal-risk and portfolio views read from the same reconciled truth model, keeping drift, skew, and incomplete ledger states visible before they influence spend-at-risk summaries.",
         },
       ],
       difficultStates: [
@@ -426,11 +595,21 @@ export const PROJECTS: Project[] = [
       interfaceEvidence: [
         {
           type: "image",
-          src: "/portfolio-media/mapbylaw.png",
+          src: "/portfolio-media/mapbylaw-landing.png",
           width: 3456,
           height: 2234,
-          alt: "MapBylaw analysis and reporting interface showing map-led property context, structured recommendation modules, and report-ready data aligned to typed contracts.",
-          captionLead: "Analysis and reporting surface.",
+          alt: "MapBylaw landing page introducing map-led property insights, zoning analysis, and feasibility reporting.",
+          captionLead: "Landing page.",
+          captionBody:
+            "The public surface sets expectations for evidence-backed property analysis before users enter typed dashboard and report workflows.",
+        },
+        {
+          type: "image",
+          src: "/portfolio-media/mapbylaw-dashboard.png",
+          width: 3452,
+          height: 1980,
+          alt: "MapBylaw analysis dashboard showing map-led property context, structured recommendation modules, and report-ready data aligned to typed contracts.",
+          captionLead: "Analysis dashboard.",
           captionBody:
             "The same structured inputs support product decisions, AI recommendations, and report generation so the interface does not drift from the underlying policy model.",
         },

@@ -34,6 +34,28 @@ export const PROJECT_CASE_STUDY_SECTION_OUTCOME = "Outcome";
 
 export const PROJECT_CASE_STUDY_SECTION_IMPROVE = "What I would improve next";
 
+export const PROJECT_CASE_STUDY_SECTION_PRODUCT_DECISIONS = "Product decisions";
+
+export const PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT = "What I built";
+
+export const PROJECT_CASE_STUDY_SECTION_TECHNICAL_HIGHLIGHTS = "Technical highlights";
+
+export const PROJECT_CASE_STUDY_SECTION_RESULT = "Result";
+
+export const PROJECT_CASE_STUDY_SECTION_SCREENSHOTS = "Screenshots";
+
+export const PROJECT_OVERVIEW_META_ROLE = "Role";
+
+export const PROJECT_OVERVIEW_META_STACK = "Stack";
+
+export const PROJECT_OVERVIEW_META_SCOPE = "Scope";
+
+export const PROJECT_OVERVIEW_META_STATUS = "Status";
+
+export const PROJECT_OVERVIEW_META_LINK = "Link";
+
+export const PROJECT_FIGURE_PLACEHOLDER_LABEL = "Screenshot forthcoming";
+
 export const PROJECT_CASE_STUDY_TOC_HEADING = "On this page";
 
 export const PROJECT_CASE_STUDY_FACTUAL_REVIEW_PREFIX = "Factual review note:";
@@ -62,6 +84,17 @@ export const PROJECT_CASE_STUDY_TOC_ITEMS: ProjectCaseStudyTocItem[] = [
   { suffix: "states", label: PROJECT_CASE_STUDY_SECTION_STATES },
   { suffix: "outcome", label: PROJECT_CASE_STUDY_SECTION_OUTCOME },
   { suffix: "improve", label: PROJECT_CASE_STUDY_SECTION_IMPROVE },
+  { suffix: "related", label: PROJECT_SECTION_RELATED_HEADING },
+];
+
+export const PROJECT_FOUNDER_CASE_STUDY_TOC_ITEMS: ProjectCaseStudyTocItem[] = [
+  { suffix: "overview", label: PROJECT_CASE_STUDY_SECTION_OVERVIEW },
+  { suffix: "problem", label: PROJECT_CASE_STUDY_SECTION_PROBLEM },
+  { suffix: "decisions", label: PROJECT_CASE_STUDY_SECTION_PRODUCT_DECISIONS },
+  { suffix: "built", label: PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT },
+  { suffix: "highlights", label: PROJECT_CASE_STUDY_SECTION_TECHNICAL_HIGHLIGHTS },
+  { suffix: "result", label: PROJECT_CASE_STUDY_SECTION_RESULT },
+  { suffix: "screenshots", label: PROJECT_CASE_STUDY_SECTION_SCREENSHOTS },
   { suffix: "related", label: PROJECT_SECTION_RELATED_HEADING },
 ];
 

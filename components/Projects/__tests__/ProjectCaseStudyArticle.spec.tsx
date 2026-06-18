@@ -25,7 +25,8 @@ jest.mock("next/link", () => {
 });
 
 describe("ProjectCaseStudyArticle", () => {
-  const [ledgerguard, alwaysgeeky] = getDedicatedCaseStudyProjects();
+  const dedicatedProjects = getDedicatedCaseStudyProjects();
+  const [ledgerguard, tallyfolio, alwaysgeeky] = dedicatedProjects;
 
   it("should use dedicated routes for next-project navigation on case-study pages", () => {
     render(
@@ -51,9 +52,29 @@ describe("ProjectCaseStudyArticle", () => {
   });
 
   it("should render the representative hero figure on dedicated pages", () => {
-    render(<ProjectCaseStudyArticle project={ledgerguard} isDedicatedPage />);
+    render(<ProjectCaseStudyArticle project={tallyfolio} isDedicatedPage />);
 
-    expect(screen.getByRole("img")).toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Interface evidence" })).not.toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "TallyFolio landing page" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Screenshots" })).toBeInTheDocument();
+  });
+
+  it("should render founder-product sections for TallyFolio", () => {
+    render(<ProjectCaseStudyArticle project={tallyfolio} isDedicatedPage />);
+
+    expect(screen.getByRole("heading", { level: 1, name: "TallyFolio" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Product decisions" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "What I built" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Technical highlights" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Result" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Screenshots" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "TallyFolio landing page" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: "TallyFolio dashboard showing manual-first finance summaries, recent activity, and navigation into budgets, reports, and import workflows.",
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { name: "Context and constraints" })
+    ).not.toBeInTheDocument();
   });
 });

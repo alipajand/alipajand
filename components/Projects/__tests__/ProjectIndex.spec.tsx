@@ -21,6 +21,7 @@ describe("ProjectIndex", () => {
     render(<ProjectIndex />);
 
     expect(document.getElementById("case-studies")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "TallyFolio" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "LedgerGuard" })).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { level: 2, name: "AlwaysGeeky Games" })
@@ -47,15 +48,19 @@ describe("ProjectIndex", () => {
         .map((link) => link.getAttribute("href"))
     ).toEqual([
       "/portfolio/ledgerguard",
+      "/portfolio/tallyfolio",
       "/portfolio/alwaysgeeky",
-      "/portfolio/emplifi",
       "/portfolio/mapbylaw",
+      "/portfolio/emplifi",
     ]);
   });
 
   it("should preserve legacy project anchor ids on index items", () => {
     render(<ProjectIndex />);
 
+    expect(
+      document.getElementById("project-tallyfolio-privacy-first-personal-finance")
+    ).toBeInTheDocument();
     expect(
       document.getElementById("project-ledgerguard-deterministic-commitments-ledger")
     ).toBeInTheDocument();

@@ -13,9 +13,10 @@ describe("utils/projects", () => {
   it("should return projects in portfolio order", () => {
     expect(getOrderedProjects().map((project) => project.slug)).toEqual([
       "ledgerguard",
+      "tallyfolio",
       "alwaysgeeky",
-      "emplifi",
       "mapbylaw",
+      "emplifi",
       "controltech",
     ]);
   });
@@ -29,9 +30,10 @@ describe("utils/projects", () => {
   it("should separate dedicated and index-only projects", () => {
     expect(getDedicatedCaseStudyProjects().map((project) => project.slug)).toEqual([
       "ledgerguard",
+      "tallyfolio",
       "alwaysgeeky",
-      "emplifi",
       "mapbylaw",
+      "emplifi",
     ]);
     expect(getIndexOnlyProjects().map((project) => project.slug)).toEqual(["controltech"]);
   });
@@ -39,15 +41,19 @@ describe("utils/projects", () => {
   it("should return dedicated case-study slugs for static generation", () => {
     expect(getDedicatedCaseStudySlugs()).toEqual([
       "ledgerguard",
+      "tallyfolio",
       "alwaysgeeky",
-      "emplifi",
       "mapbylaw",
+      "emplifi",
     ]);
   });
 
   it("should return the next dedicated case study in order", () => {
-    expect(getNextDedicatedCaseStudyProject("ledgerguard")?.slug).toBe("alwaysgeeky");
-    expect(getNextDedicatedCaseStudyProject("mapbylaw")).toBeUndefined();
+    expect(getNextDedicatedCaseStudyProject("ledgerguard")?.slug).toBe("tallyfolio");
+    expect(getNextDedicatedCaseStudyProject("tallyfolio")?.slug).toBe("alwaysgeeky");
+    expect(getNextDedicatedCaseStudyProject("alwaysgeeky")?.slug).toBe("mapbylaw");
+    expect(getNextDedicatedCaseStudyProject("mapbylaw")?.slug).toBe("emplifi");
+    expect(getNextDedicatedCaseStudyProject("emplifi")).toBeUndefined();
     expect(getNextDedicatedCaseStudyProject("controltech")).toBeUndefined();
   });
 });
