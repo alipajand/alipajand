@@ -81,4 +81,18 @@ describe("ProjectIndex", () => {
     const controlTechArticle = document.getElementById("project-pwa-performance-controltech");
     expect(controlTechArticle?.querySelector("a[href^='/portfolio/']")).toBeNull();
   });
+
+  it("should link to LinkedIn for more contributed projects after additional experience", () => {
+    render(<ProjectIndex />);
+
+    const linkedInLink = screen.getByRole("link", {
+      name: "More contributed projects on LinkedIn (opens in new tab)",
+    });
+    expect(linkedInLink).toHaveAttribute(
+      "href",
+      "https://www.linkedin.com/in/alipajand/details/projects/"
+    );
+    expect(linkedInLink).toHaveAttribute("target", "_blank");
+    expect(linkedInLink).toHaveAttribute("rel", "noopener noreferrer");
+  });
 });
