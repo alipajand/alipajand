@@ -7,7 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.6.2] - 2026-06-18
+
+### Added
+
+- Portfolio case-study index with dedicated `/portfolio/[slug]` routes, JSON-LD, and sitemap entries.
+- TallyFolio case study plus refreshed screenshots for LedgerGuard, MapBylaw, and AlwaysGeeky.
+- Breadcrumbs on inner pages with shared data helpers and tests.
+- Lenis-powered smooth scrolling and improved route-transition focus behavior.
+
+### Changed
+
+- Shortened contact heading and removed the hero availability line.
+- Simplified cross-page navigation; standardized test descriptions across the suite.
+
+### Fixed
+
+- Patched transitive `js-yaml` (CVE-2026-53550) and restored `gray-matter` compatibility.
+
+### Removed
+
+- Unused illustrative components; simplified project reveal logic and legacy project card markup.
+
+---
+
 ## [1.6.1] - 2026-06-16
+
+### Added
+
+- Homepage and site positioning refresh with stronger portfolio writing.
+- WCAG improvements for hero, links, and form copy; shared keyboard accessibility patterns.
+- Featured open-source tools prioritization on the tooling page.
+
+### Changed
+
+- Footer restructured with direct channel links and clearer nav columns.
+- Portfolio case studies normalized; title formatting standardized across metadata and content.
+- Component logic extracted into custom hooks; simplified styles and trimmed unused homepage content.
+- Post, component, and open-source copy refined for clarity; design systems article framing clarified.
+
+### Removed
+
+- Unused components, tests, and hooks across the project.
 
 ---
 

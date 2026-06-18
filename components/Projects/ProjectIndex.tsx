@@ -3,9 +3,14 @@
 import { useMemo } from "react";
 
 import { ProjectIndexItem } from "components/Projects/ProjectIndexItem";
-import { PORTFOLIO_ADDITIONAL_EXPERIENCE_HEADING } from "data/projectsUi";
+import {
+  PORTFOLIO_ADDITIONAL_EXPERIENCE_HEADING,
+  PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_HREF,
+  PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_LABEL,
+} from "data/projectsUi";
+import { EXTERNAL_LINK_NEW_TAB_HINT } from "data/pageChrome";
 import { getDedicatedCaseStudyProjects, getIndexOnlyProjects } from "utils/projects";
-import { SECTION_INNER_WIDE, SECTION_RULE, SECTION_X, SECTION_Y } from "utils/visual";
+import { FOCUS_RING, SECTION_INNER_WIDE, SECTION_RULE, SECTION_X, SECTION_Y } from "utils/visual";
 
 export const ProjectIndex = () => {
   const dedicatedProjects = useMemo(() => getDedicatedCaseStudyProjects(), []);
@@ -48,6 +53,17 @@ export const ProjectIndex = () => {
                 <ProjectIndexItem key={project.id} project={project} isFirst={index === 0} />
               ))}
             </div>
+            <p className="pt-8">
+              <a
+                href={PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_LABEL}${EXTERNAL_LINK_NEW_TAB_HINT}`}
+                className={`inline-flex min-h-11 items-center text-xl font-medium text-orange-200 underline-offset-4 hover:underline ${FOCUS_RING} rounded-sm`}
+              >
+                {PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_LABEL}...
+              </a>
+            </p>
           </div>
         </section>
       ) : null}

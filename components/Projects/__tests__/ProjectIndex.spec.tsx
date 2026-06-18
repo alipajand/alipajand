@@ -21,6 +21,7 @@ describe("ProjectIndex", () => {
     render(<ProjectIndex />);
 
     expect(document.getElementById("case-studies")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "TallyFolio" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "LedgerGuard" })).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { level: 2, name: "AlwaysGeeky Games" })
@@ -47,15 +48,19 @@ describe("ProjectIndex", () => {
         .map((link) => link.getAttribute("href"))
     ).toEqual([
       "/portfolio/ledgerguard",
+      "/portfolio/tallyfolio",
       "/portfolio/alwaysgeeky",
-      "/portfolio/emplifi",
       "/portfolio/mapbylaw",
+      "/portfolio/emplifi",
     ]);
   });
 
   it("should preserve legacy project anchor ids on index items", () => {
     render(<ProjectIndex />);
 
+    expect(
+      document.getElementById("project-tallyfolio-privacy-first-personal-finance")
+    ).toBeInTheDocument();
     expect(
       document.getElementById("project-ledgerguard-deterministic-commitments-ledger")
     ).toBeInTheDocument();
@@ -75,5 +80,19 @@ describe("ProjectIndex", () => {
 
     const controlTechArticle = document.getElementById("project-pwa-performance-controltech");
     expect(controlTechArticle?.querySelector("a[href^='/portfolio/']")).toBeNull();
+  });
+
+  it("should link to LinkedIn for more contributed projects after additional experience", () => {
+    render(<ProjectIndex />);
+
+    const linkedInLink = screen.getByRole("link", {
+      name: "More contributed projects on LinkedIn (opens in new tab)",
+    });
+    expect(linkedInLink).toHaveAttribute(
+      "href",
+      "https://www.linkedin.com/in/alipajand/details/projects/"
+    );
+    expect(linkedInLink).toHaveAttribute("target", "_blank");
+    expect(linkedInLink).toHaveAttribute("rel", "noopener noreferrer");
   });
 });

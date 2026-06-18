@@ -27,7 +27,7 @@ export const FooterDirectChannel = ({ label, href }: FooterDirectChannelProps) =
       aria-label={isExternal ? `${label}${EXTERNAL_LINK_NEW_TAB_HINT}` : label}
     >
       <span
-        className="inline-block size-8 shrink-0 bg-current transition-transform group-hover:scale-105"
+        className="inline-block size-5 shrink-0 bg-current transition-transform group-hover:scale-105"
         style={{
           maskImage: iconSrc ? `url(${iconSrc})` : undefined,
           maskSize: "contain",
@@ -40,7 +40,6 @@ export const FooterDirectChannel = ({ label, href }: FooterDirectChannelProps) =
         }}
         aria-hidden
       />
-      <span className="text-xs font-medium">{label}</span>
     </a>
   );
 };

@@ -31,13 +31,7 @@ export const FOOTER_NAV_LINKS: readonly FooterNavCategory[] = [
 
 export const FOOTER_WRITING_LABEL = "Writing";
 
-export const FOOTER_WRITING_ARCHIVE_LABEL = "All writing";
-
-export const FOOTER_WRITING_ARCHIVE_HREF = "/writing";
-
 export const FOOTER_LATEST_WRITINGS_COUNT = 4;
-
-export const FOOTER_DIRECT_LABEL = "Direct";
 
 export const FOOTER_RESUME_LABEL = "Résumé";
 
