@@ -32,7 +32,7 @@ describe("OpenSourcePageContent", () => {
     expect(screen.getByRole("heading", { name: OPEN_SOURCE_HEADER_HEADING })).toBeInTheDocument();
   });
 
-  it("should render all four repository names", () => {
+  it("should render all repository names", () => {
     render(<OpenSourcePageContent />);
 
     OPEN_SOURCE_PROJECTS.forEach((project) => {
@@ -40,7 +40,7 @@ describe("OpenSourcePageContent", () => {
     });
   });
 
-  it("should render all four repository links", () => {
+  it("should render all repository links", () => {
     render(<OpenSourcePageContent />);
 
     OPEN_SOURCE_PROJECTS.forEach((project) => {
@@ -52,7 +52,7 @@ describe("OpenSourcePageContent", () => {
     });
   });
 
-  it("should feature agent-pr-reviewer-lite and agent-context-doctor first", () => {
+  it("should feature the two marked featured projects first", () => {
     const { container } = render(<OpenSourcePageContent />);
 
     expect(screen.getByRole("heading", { name: OPEN_SOURCE_FEATURED_HEADING })).toBeInTheDocument();
@@ -64,30 +64,15 @@ describe("OpenSourcePageContent", () => {
       container.querySelectorAll("[data-open-source-project] h3")
     ).map((heading) => heading.textContent);
 
-    expect(featuredTitles).toEqual(["Agent PR Reviewer Lite", "Agent Context Doctor"]);
+    expect(featuredTitles).toEqual(["agent-context-doctor", "agent-pr-reviewer-lite"]);
   });
 
-  it("should render CLI example blocks for the featured tools", () => {
-    render(<OpenSourcePageContent />);
-
-    expect(screen.getAllByText("Command")).toHaveLength(2);
-    expect(screen.getAllByText("Fixture input")).toHaveLength(2);
-    expect(screen.getAllByText("CLI output")).toHaveLength(2);
-    expect(
-      screen.getByText(/agent-pr-reviewer-lite --base HEAD~1 --head HEAD/)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/\[high\] AGENTS\.md:2 — Risky instruction: "skip tests"/)
-    ).toBeInTheDocument();
-    expect(screen.getAllByText(/Simplified for readability/)).toHaveLength(2);
-  });
-
-  it("should render status and tested capability labels without GitHub stats copy", () => {
+  it("should render status and capability labels without GitHub stats copy", () => {
     render(<OpenSourcePageContent />);
 
     expect(screen.getAllByText("Status").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Format").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Tested capabilities").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Why it matters").length).toBeGreaterThan(0);
     expect(screen.queryByText(/stars|forks|followers/i)).not.toBeInTheDocument();
   });
 
@@ -99,7 +84,7 @@ describe("OpenSourcePageContent", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render all four shared-principle cards", () => {
+  it("should render all shared-principle cards", () => {
     const { container } = render(<OpenSourcePageContent />);
 
     OPEN_SOURCE_SHARED_PRINCIPLES.forEach((principle) => {
@@ -107,7 +92,9 @@ describe("OpenSourcePageContent", () => {
       expect(screen.getByText(principle.body)).toBeInTheDocument();
     });
 
-    expect(container.querySelectorAll("[data-open-source-principle]")).toHaveLength(4);
+    expect(container.querySelectorAll("[data-open-source-principle]")).toHaveLength(
+      OPEN_SOURCE_SHARED_PRINCIPLES.length
+    );
   });
 
   it("should render the GitHub profile CTA", () => {

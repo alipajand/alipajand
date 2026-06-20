@@ -15,28 +15,30 @@ export const FOOTER_NAV_LINKS: readonly FooterNavCategory[] = [
     label: "Work",
     links: [
       { href: "/portfolio", label: "Portfolio" },
-      { href: "/open-source", label: "Open source" },
+      { href: "/open-source", label: "Open Source" },
+      { href: "/writing", label: "Writing" },
     ],
   },
   {
     label: "About",
     links: [
-      { href: "/", label: "Home" },
-      { href: "/now", label: "Now" },
       { href: "/engineering-principles", label: "Principles" },
       { href: "/#contact", label: "Contact" },
     ],
   },
 ] as const;
 
-export const FOOTER_WRITING_LABEL = "Writing";
+export const FOOTER_WRITING_LABEL = "Latest writing";
 
 export const FOOTER_LATEST_WRITINGS_COUNT = 4;
 
-export const FOOTER_RESUME_LABEL = "Résumé";
+export const FOOTER_BRAND =
+  "Ali Pajand — Senior Frontend Engineer · Product Engineer · Design Systems";
+
+export const FOOTER_LOCATION = "Montreal, Canada · Open to remote";
 
 export const footerCopyright = (year: number): string => {
-  return `©${year} by Ali Pajand`;
+  return `©${year}`;
 };
 
 export const getFooterNavLinksFlat = (): FooterNavLink[] => {

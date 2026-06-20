@@ -7,13 +7,7 @@ export const PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_LABEL = "More contributed proj
 export const PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_HREF =
   "https://www.linkedin.com/in/alipajand/details/projects/";
 
-export const PROJECT_RESPONSIBILITY_HEADING = "My responsibility";
-
-export const PROJECT_RESPONSIBILITY_OWNED = "What I personally owned";
-
-export const PROJECT_RESPONSIBILITY_COLLABORATIVE = "What was collaborative";
-
-export const PROJECT_RESPONSIBILITY_OUTSIDE = "What was outside my responsibility";
+export const PROJECT_MY_ROLE_HEADING = "My role";
 
 export const PROJECT_SECTION_LINK_BACK = "Back to all case studies";
 
@@ -21,49 +15,23 @@ export const PROJECT_SECTION_LINK_NEXT = "Next case study";
 
 export const PROJECT_SECTION_RELATED_HEADING = "Related work";
 
-export const PROJECT_CASE_STUDY_SECTION_OVERVIEW = "Overview";
+export const PROJECT_CASE_STUDY_SECTION_CONTEXT = "Context";
 
-export const PROJECT_CASE_STUDY_SECTION_CONTEXT = "Context and constraints";
-
-export const PROJECT_CASE_STUDY_SECTION_PROBLEM = "The problem";
-
-export const PROJECT_CASE_STUDY_SECTION_DECISIONS = "Key decisions";
-
-export const PROJECT_CASE_STUDY_SECTION_WORKFLOW = "Product workflow or system architecture";
-
-export const PROJECT_CASE_STUDY_SECTION_EVIDENCE = "Interface evidence";
-
-export const PROJECT_CASE_STUDY_SECTION_STATES = "Difficult states and edge cases";
-
-export const PROJECT_CASE_STUDY_SECTION_OUTCOME = "Outcome";
-
-export const PROJECT_CASE_STUDY_SECTION_IMPROVE = "What I would improve next";
-
-export const PROJECT_CASE_STUDY_SECTION_PRODUCT_DECISIONS = "Product decisions";
+export const PROJECT_CASE_STUDY_SECTION_PROBLEM = "Problem";
 
 export const PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT = "What I built";
 
-export const PROJECT_CASE_STUDY_SECTION_TECHNICAL_HIGHLIGHTS = "Technical highlights";
+export const PROJECT_CASE_STUDY_SECTION_TECHNICAL_DECISIONS = "Technical decisions";
 
-export const PROJECT_CASE_STUDY_SECTION_RESULT = "Result";
+export const PROJECT_CASE_STUDY_SECTION_UX_DECISIONS = "UX and detail decisions";
 
-export const PROJECT_CASE_STUDY_SECTION_SCREENSHOTS = "Screenshots";
+export const PROJECT_CASE_STUDY_SECTION_OUTCOME = "Outcome";
 
-export const PROJECT_OVERVIEW_META_ROLE = "Role";
+export const PROJECT_CASE_STUDY_SECTION_IMPROVE = "What I would improve";
 
-export const PROJECT_OVERVIEW_META_STACK = "Stack";
-
-export const PROJECT_OVERVIEW_META_SCOPE = "Scope";
-
-export const PROJECT_OVERVIEW_META_STATUS = "Status";
-
-export const PROJECT_OVERVIEW_META_LINK = "Link";
-
-export const PROJECT_FIGURE_PLACEHOLDER_LABEL = "Screenshot forthcoming";
+export const PROJECT_CASE_STUDY_SECTION_EVIDENCE = "Interface evidence";
 
 export const PROJECT_CASE_STUDY_TOC_HEADING = "On this page";
-
-export const PROJECT_CASE_STUDY_FACTUAL_REVIEW_PREFIX = "Factual review note:";
 
 export const PROJECT_DECISION_LABEL = "Decision";
 
@@ -73,33 +41,23 @@ export const PROJECT_DECISION_TRADE_OFF_LABEL = "Trade-off";
 
 export const PROJECT_DECISION_RESULT_LABEL = "Result";
 
+export const PROJECT_FIGURE_PLACEHOLDER_LABEL = "Image not available";
+
 export interface ProjectCaseStudyTocItem {
   suffix: string;
   label: string;
 }
 
 export const PROJECT_CASE_STUDY_TOC_ITEMS: ProjectCaseStudyTocItem[] = [
-  { suffix: "overview", label: PROJECT_CASE_STUDY_SECTION_OVERVIEW },
   { suffix: "context", label: PROJECT_CASE_STUDY_SECTION_CONTEXT },
-  { suffix: "responsibility", label: PROJECT_RESPONSIBILITY_HEADING },
   { suffix: "problem", label: PROJECT_CASE_STUDY_SECTION_PROBLEM },
-  { suffix: "decisions", label: PROJECT_CASE_STUDY_SECTION_DECISIONS },
-  { suffix: "workflow", label: PROJECT_CASE_STUDY_SECTION_WORKFLOW },
+  { suffix: "role", label: PROJECT_MY_ROLE_HEADING },
+  { suffix: "built", label: PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT },
+  { suffix: "technical-decisions", label: PROJECT_CASE_STUDY_SECTION_TECHNICAL_DECISIONS },
+  { suffix: "ux-decisions", label: PROJECT_CASE_STUDY_SECTION_UX_DECISIONS },
   { suffix: "evidence", label: PROJECT_CASE_STUDY_SECTION_EVIDENCE },
-  { suffix: "states", label: PROJECT_CASE_STUDY_SECTION_STATES },
   { suffix: "outcome", label: PROJECT_CASE_STUDY_SECTION_OUTCOME },
   { suffix: "improve", label: PROJECT_CASE_STUDY_SECTION_IMPROVE },
-  { suffix: "related", label: PROJECT_SECTION_RELATED_HEADING },
-];
-
-export const PROJECT_FOUNDER_CASE_STUDY_TOC_ITEMS: ProjectCaseStudyTocItem[] = [
-  { suffix: "overview", label: PROJECT_CASE_STUDY_SECTION_OVERVIEW },
-  { suffix: "problem", label: PROJECT_CASE_STUDY_SECTION_PROBLEM },
-  { suffix: "decisions", label: PROJECT_CASE_STUDY_SECTION_PRODUCT_DECISIONS },
-  { suffix: "built", label: PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT },
-  { suffix: "highlights", label: PROJECT_CASE_STUDY_SECTION_TECHNICAL_HIGHLIGHTS },
-  { suffix: "result", label: PROJECT_CASE_STUDY_SECTION_RESULT },
-  { suffix: "screenshots", label: PROJECT_CASE_STUDY_SECTION_SCREENSHOTS },
   { suffix: "related", label: PROJECT_SECTION_RELATED_HEADING },
 ];
 

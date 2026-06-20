@@ -26,7 +26,7 @@ jest.mock("next/link", () => {
 
 describe("ProjectCaseStudyArticle", () => {
   const dedicatedProjects = getDedicatedCaseStudyProjects();
-  const [ledgerguard, tallyfolio, alwaysgeeky] = dedicatedProjects;
+  const [ledgerguard, alwaysgeeky, emplifi] = dedicatedProjects;
 
   it("should use dedicated routes for next-project navigation on case-study pages", () => {
     render(
@@ -52,29 +52,28 @@ describe("ProjectCaseStudyArticle", () => {
   });
 
   it("should render the representative hero figure on dedicated pages", () => {
-    render(<ProjectCaseStudyArticle project={tallyfolio} isDedicatedPage />);
+    render(<ProjectCaseStudyArticle project={ledgerguard} isDedicatedPage />);
 
-    expect(screen.getByRole("img", { name: "TallyFolio landing page" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Screenshots" })).toBeInTheDocument();
-  });
-
-  it("should render founder-product sections for TallyFolio", () => {
-    render(<ProjectCaseStudyArticle project={tallyfolio} isDedicatedPage />);
-
-    expect(screen.getByRole("heading", { level: 1, name: "TallyFolio" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Product decisions" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "What I built" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Technical highlights" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Result" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Screenshots" })).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: "TallyFolio landing page" })).toBeInTheDocument();
     expect(
       screen.getByRole("img", {
-        name: "TallyFolio dashboard showing manual-first finance summaries, recent activity, and navigation into budgets, reports, and import workflows.",
+        name: "LedgerGuard landing page introducing AI-assisted contract intelligence for renewals and commitments.",
       })
     ).toBeInTheDocument();
-    expect(
-      screen.queryByRole("heading", { name: "Context and constraints" })
-    ).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Interface evidence" })).toBeInTheDocument();
+  });
+
+  it("should render the requested case-study sections", () => {
+    render(<ProjectCaseStudyArticle project={emplifi} isDedicatedPage />);
+
+    expect(screen.getByRole("heading", { level: 1, name: "Emplifi" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Context" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Problem" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "My role" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "What I built" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Technical decisions" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "UX and detail decisions" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Outcome" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "What I would improve" })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Product decisions" })).not.toBeInTheDocument();
   });
 });

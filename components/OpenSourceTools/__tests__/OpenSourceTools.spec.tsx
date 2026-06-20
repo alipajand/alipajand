@@ -23,7 +23,7 @@ describe("OpenSourceTools", () => {
     expect(screen.getByRole("heading", { name: OPEN_SOURCE_TOOLS_HEADING })).toBeInTheDocument();
   });
 
-  it("should render the two featured tool names", () => {
+  it("should render every featured tool name", () => {
     render(<OpenSourceTools />);
 
     OPEN_SOURCE_TOOLS.forEach((tool) => {
@@ -59,9 +59,11 @@ describe("OpenSourceTools", () => {
     );
   });
 
-  it("should render exactly two cards", () => {
+  it("should render one card per tool", () => {
     const { container } = render(<OpenSourceTools />);
 
-    expect(container.querySelectorAll("[data-open-source-tool-card]")).toHaveLength(2);
+    expect(container.querySelectorAll("[data-open-source-tool-card]")).toHaveLength(
+      OPEN_SOURCE_TOOLS.length
+    );
   });
 });

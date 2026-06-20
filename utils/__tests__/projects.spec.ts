@@ -13,11 +13,11 @@ describe("utils/projects", () => {
   it("should return projects in portfolio order", () => {
     expect(getOrderedProjects().map((project) => project.slug)).toEqual([
       "ledgerguard",
-      "tallyfolio",
       "alwaysgeeky",
-      "mapbylaw",
       "emplifi",
       "controltech",
+      "agent-tooling",
+      "mapbylaw",
     ]);
   });
 
@@ -30,30 +30,32 @@ describe("utils/projects", () => {
   it("should separate dedicated and index-only projects", () => {
     expect(getDedicatedCaseStudyProjects().map((project) => project.slug)).toEqual([
       "ledgerguard",
-      "tallyfolio",
       "alwaysgeeky",
-      "mapbylaw",
       "emplifi",
+      "controltech",
+      "agent-tooling",
+      "mapbylaw",
     ]);
-    expect(getIndexOnlyProjects().map((project) => project.slug)).toEqual(["controltech"]);
+    expect(getIndexOnlyProjects().map((project) => project.slug)).toEqual([]);
   });
 
   it("should return dedicated case-study slugs for static generation", () => {
     expect(getDedicatedCaseStudySlugs()).toEqual([
       "ledgerguard",
-      "tallyfolio",
       "alwaysgeeky",
-      "mapbylaw",
       "emplifi",
+      "controltech",
+      "agent-tooling",
+      "mapbylaw",
     ]);
   });
 
   it("should return the next dedicated case study in order", () => {
-    expect(getNextDedicatedCaseStudyProject("ledgerguard")?.slug).toBe("tallyfolio");
-    expect(getNextDedicatedCaseStudyProject("tallyfolio")?.slug).toBe("alwaysgeeky");
-    expect(getNextDedicatedCaseStudyProject("alwaysgeeky")?.slug).toBe("mapbylaw");
-    expect(getNextDedicatedCaseStudyProject("mapbylaw")?.slug).toBe("emplifi");
-    expect(getNextDedicatedCaseStudyProject("emplifi")).toBeUndefined();
-    expect(getNextDedicatedCaseStudyProject("controltech")).toBeUndefined();
+    expect(getNextDedicatedCaseStudyProject("ledgerguard")?.slug).toBe("alwaysgeeky");
+    expect(getNextDedicatedCaseStudyProject("alwaysgeeky")?.slug).toBe("emplifi");
+    expect(getNextDedicatedCaseStudyProject("emplifi")?.slug).toBe("controltech");
+    expect(getNextDedicatedCaseStudyProject("controltech")?.slug).toBe("agent-tooling");
+    expect(getNextDedicatedCaseStudyProject("agent-tooling")?.slug).toBe("mapbylaw");
+    expect(getNextDedicatedCaseStudyProject("mapbylaw")).toBeUndefined();
   });
 });

@@ -11,16 +11,16 @@ describe("Contact", () => {
       expect(section).toBeInTheDocument();
     });
 
-    it("should render the Contact heading", () => {
+    it("should render the contact heading", () => {
       render(<Contact />);
 
-      expect(screen.getByRole("heading", { name: /let’s discuss\./i })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: /open to new work/i })).toBeInTheDocument();
     });
 
-    it("should render contact links for Email, LinkedIn, GitHub", () => {
+    it("should render contact links for Email, LinkedIn, and GitHub", () => {
       render(<Contact />);
 
-      expect(screen.getByText("alipajand[AT]gmail.com")).toBeInTheDocument();
+      expect(screen.getByText("alipajand@gmail.com")).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /email/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /linkedin/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /github/i })).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe("Contact", () => {
       render(<Contact />);
       expect(
         screen.getByText(
-          /I’m open to hearing from you, about the frontend architecture, design systems, and developer experience roles/i
+          /I’m open to senior frontend, product engineering, design system, and developer experience roles/i
         )
       ).toBeInTheDocument();
     });

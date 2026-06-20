@@ -4,27 +4,37 @@ export interface HiringFitCard {
   body: string;
 }
 
-export const HIRING_FIT_HEADING = "Core capabilities";
+export const HIRING_FIT_HEADING = "What I work with";
 
 export const HIRING_FIT_CARDS: HiringFitCard[] = [
   {
-    id: "product-engineering",
-    title: "Product engineering",
-    body: "I turn incomplete requirements into clear workflows, implementation decisions, and production-ready interfaces.",
-  },
-  {
     id: "frontend-architecture",
-    title: "Frontend architecture",
-    body: "I design typed React and Next.js systems that remain understandable as product states, data flows, and teams grow.",
+    title: "Frontend Architecture",
+    body: "React · Next.js App Router · Server Components · TypeScript · TanStack Query · Zustand · Redux",
   },
   {
-    id: "design-systems",
-    title: "Design systems",
-    body: "I build component foundations that align accessibility, visual consistency, responsive behaviour, and practical escape hatches.",
+    id: "design-systems-accessibility",
+    title: "Design Systems & Accessibility",
+    body: "Storybook · Design tokens · Component APIs · WCAG · Semantic HTML · Keyboard navigation",
   },
   {
-    id: "developer-experience",
-    title: "Developer experience",
-    body: "I improve feedback loops through testing, CI, documentation, deterministic automation, and focused engineering tools.",
+    id: "ai-product-ui",
+    title: "AI Product UI",
+    body: "Human-in-the-loop UX · Async extraction states · Confidence display · Deterministic vs. probabilistic boundaries",
+  },
+  {
+    id: "data-performance",
+    title: "Data & Performance",
+    body: "D3.js · GSAP · Rendering optimization · Code splitting · Caching · Sentry · Web Vitals",
+  },
+  {
+    id: "dx-quality",
+    title: "Developer Experience & Quality",
+    body: "Jest · Playwright · Cypress · React Testing Library · GitHub Actions · CI/CD · Cursor MCP · API contracts",
+  },
+  {
+    id: "additional",
+    title: "Additional",
+    body: "Tailwind CSS · Figma · SCSS · Node.js · REST · GraphQL · AWS Lambda · MongoDB · CircleCI · Grafana · Lighthouse",
   },
 ];
