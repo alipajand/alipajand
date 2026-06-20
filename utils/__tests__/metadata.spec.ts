@@ -14,7 +14,7 @@ import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
 import { OPEN_SOURCE_META_DESCRIPTION, OPEN_SOURCE_META_TITLE } from "data/openSourcePage";
 import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/projects";
 import { CANONICAL_URL } from "data/site";
-import { WRITING_INDEX_DESCRIPTION } from "data/writing";
+import { WRITING_INDEX_DESCRIPTION, WRITING_INDEX_TITLE } from "data/writing";
 import { getProjectBySlug } from "utils/projects";
 
 describe("utils/metadata", () => {
@@ -24,7 +24,7 @@ describe("utils/metadata", () => {
     expect(m.description).toBe(WRITING_INDEX_DESCRIPTION);
     expect(m.openGraph?.url).toBe(`${CANONICAL_URL}/writing`);
     expect(m.title).toEqual({
-      absolute: "Writing on Product Engineering and Frontend Systems | Ali Pajand",
+      absolute: WRITING_INDEX_TITLE,
     });
   });
 
@@ -63,14 +63,16 @@ describe("utils/metadata", () => {
     const project = getProjectBySlug("ledgerguard")!;
     const m = buildPortfolioCaseStudyMetadata(project);
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/portfolio/ledgerguard`);
-    expect(m.title).toEqual({ absolute: "LedgerGuard Case Study — Ali Pajand" });
+    expect(m.title).toEqual({ absolute: project.caseStudyMetaTitle });
     expect(m.description).toBe(project.caseStudyMetaDescription);
   });
 
   it("should set canonical, title, and description for buildEngineeringPrinciplesMetadata", () => {
     const m = buildEngineeringPrinciplesMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/engineering-principles`);
-    expect(m.title).toEqual({ absolute: "Engineering Principles | Ali Pajand" });
+    expect(m.title).toEqual({
+      absolute: "Engineering Principles — Ali Pajand · Senior Frontend Engineer",
+    });
     expect(m.description).toBe(ENGINEERING_PRINCIPLES_META_DESCRIPTION);
     expect(m.openGraph?.url).toBe(`${CANONICAL_URL}/engineering-principles`);
   });

@@ -1,12 +1,12 @@
 export const ENGINEERING_PRINCIPLES_META_DESCRIPTION =
-  "Practical principles for designing maintainable frontend systems, reliable product workflows, accessible interfaces, and useful developer tooling.";
+  "Working principles for frontend product engineering: honest interfaces, visible async states, reviewable AI output, component APIs, accessibility, typed contracts, and maintainability. Ali Pajand.";
 
 export const ENGINEERING_PRINCIPLES_PAGE_TITLE = "Engineering Principles";
 
-export const ENGINEERING_PRINCIPLES_HEADER_OVERLINE = "Philosophy";
+export const ENGINEERING_PRINCIPLES_HEADER_OVERLINE = "Principles";
 
 export const ENGINEERING_PRINCIPLES_LEDE =
-  "The engineering habits behind how I build product surfaces, design systems, AI workflows, and reliable software that stays understandable as it scales.";
+  "These are the working principles I return to across SaaS products, enterprise dashboards, AI-assisted workflows, and startup delivery.";
 
 export interface EngineeringPrinciplesSection {
   id: string;
@@ -16,51 +16,75 @@ export interface EngineeringPrinciplesSection {
 
 export const ENGINEERING_PRINCIPLES_SECTIONS: EngineeringPrinciplesSection[] = [
   {
-    id: "systems-first",
-    title: "Systems First",
+    id: "honest-interfaces",
+    title: "Build honest interfaces",
     paragraphs: [
-      "I start from boundaries, contracts, and failure modes, not from the trendiest framework. Structure follows what the product must guarantee: isolation between domains, clear ownership of data flow, and fewer clever shortcuts that only work on demo day.",
-      "That mindset scales teams: when the system model is honest, onboarding is faster and refactors stop feeling like archaeology.",
+      "The UI should make the state of the system legible instead of smoothing over uncertainty. When data is partial, stale, or inferred, the interface should say so plainly rather than borrowing confidence from the design.",
+      "That matters even more in workflow-heavy products where people make decisions from what the UI appears to confirm.",
     ],
   },
   {
-    id: "reliability-is-product",
-    title: "Reliability Is Product",
+    id: "visible-async",
+    title: "Make async states visible",
     paragraphs: [
-      "Users experience outages, flaky flows, and silent bugs as product failures, not infra tickets. Observability, rollback discipline, and CI that catches regressions early are how you earn trust at release cadence.",
-      "Velocity without reliability is theater; reliability without empathy for operators is brittle. I optimize for both sides of that balance.",
+      "Loading, retrying, recovering, partial success, and failure are part of the product, not temporary engineering details. If those states are invisible, users are forced to guess what the system is doing.",
+      "The result is avoidable confusion, duplicate actions, and fragile operator workflows.",
     ],
   },
   {
-    id: "ai-needs-trust-boundaries",
-    title: "AI Needs Trust Boundaries",
+    id: "reviewable-ai",
+    title: "Keep AI output reviewable",
     paragraphs: [
-      "Models are powerful and non-deterministic; products still need predictable outcomes. I separate probabilistic surfaces from deterministic cores, surface confidence where it matters, and keep humans in the loop when stakes are high.",
-      "Traceability wins over magic: show provenance, allow correction, and measure drift instead of guessing.",
+      "AI-assisted features need explicit boundaries between suggested output and confirmed truth. I prefer review flows that let people inspect source context, correct the result, and understand what remains uncertain.",
+      "That keeps probabilistic output from silently becoming product truth.",
     ],
   },
   {
-    id: "accessibility-is-non-negotiable",
-    title: "Accessibility Is Non-Negotiable",
+    id: "components-as-apis",
+    title: "Treat components as APIs",
     paragraphs: [
-      "Accessibility is architectural: semantics, focus order, motion preferences, and keyboard paths shape the same contracts your automated tests should enforce. Retrofitting after launch is expensive and exclusionary.",
-      "Inclusive defaults raise quality for everyone, not only screen reader users.",
+      "A shared component is only useful when its contract is clear about states, semantics, and escape hatches. I treat component APIs as product surfaces that other engineers rely on, not just as visual wrappers.",
+      "That mindset improves reuse and reduces the drift that usually breaks design systems over time.",
     ],
   },
   {
-    id: "fast-feedback-loops",
-    title: "Fast Feedback Loops",
+    id: "accessibility-quality",
+    title: "Accessibility is product quality",
     paragraphs: [
-      "Short loops beat big bets: typecheck and lint in the editor, tests in CI, previews for review, metrics after deploy. The goal is to catch wrong assumptions before they become tribal knowledge.",
-      "When feedback is slow, teams compensate with process weight. When it is fast, process can stay thin.",
+      "Semantic HTML, keyboard behavior, focus management, and motion preferences are not polish passes. They are part of whether the product works reliably for real people in real environments.",
+      "Teams that defer accessibility usually end up with weaker abstractions and more expensive rework.",
     ],
   },
   {
-    id: "product-thinking-over-ticket-thinking",
-    title: "Product Thinking Over Ticket Thinking",
+    id: "typed-contracts",
+    title: "Prefer typed contracts and deterministic boundaries",
     paragraphs: [
-      "Tickets describe tasks; products describe outcomes. I ask what behavior should change for users and operators, what risks we accept, and what we will measure when we ship.",
-      "That lens keeps architecture aligned with value instead of with backlog churn.",
+      "Typed API contracts reduce accidental ambiguity between frontend, backend, and tooling. I aim to keep deterministic logic explicit so the product remains testable even when the surrounding workflow includes probabilistic systems.",
+      "That separation makes failures easier to explain and easier to recover from.",
+    ],
+  },
+  {
+    id: "edge-cases-before-polish",
+    title: "Design for edge cases before polish",
+    paragraphs: [
+      "A workflow that only feels good on the happy path is not ready. I want to understand where validation, retries, long-running jobs, missing data, and role-specific confusion will surface before I spend time polishing the final layer.",
+      "That usually produces better product decisions earlier.",
+    ],
+  },
+  {
+    id: "short-feedback-loops",
+    title: "Use tooling to shorten feedback loops",
+    paragraphs: [
+      "Good tooling makes the next correct decision easier and the wrong decision harder to miss. Tests, linting, typed contracts, CI checks, and developer tooling all matter because they reduce the time between change and useful feedback.",
+      "I care about that loop because it shapes both code quality and team behavior.",
+    ],
+  },
+  {
+    id: "maintainability",
+    title: "Optimize for maintainability, not cleverness",
+    paragraphs: [
+      "I would rather leave behind a system that another engineer can reason about than one that looks impressive in isolation. Clear naming, bounded responsibilities, and predictable patterns usually outperform dense abstractions over time.",
+      "Maintainability is not the opposite of ambition. It is what lets ambitious products keep evolving.",
     ],
   },
 ];

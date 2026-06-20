@@ -21,7 +21,7 @@ describe("portfolio case-study routes", () => {
 
   it("should treat invalid slugs as missing projects", () => {
     expect(getProjectBySlug("invalid-slug")).toBeUndefined();
-    expect(getProjectBySlug("controltech")?.hasDedicatedCaseStudy).toBe(false);
+    expect(getProjectBySlug("controltech")?.hasDedicatedCaseStudy).toBe(true);
   });
 
   it("should generate unique metadata per case study", () => {
@@ -29,10 +29,10 @@ describe("portfolio case-study routes", () => {
     const alwaysgeeky = buildPortfolioCaseStudyMetadata(getProjectBySlug("alwaysgeeky")!);
 
     expect(ledgerguard.title).toEqual({
-      absolute: "LedgerGuard Case Study — Ali Pajand",
+      absolute: "LedgerGuard — AI Contract Intelligence SaaS · Ali Pajand",
     });
     expect(ledgerguard.description).toBe(
-      "A product engineering case study about traceable AI-assisted contract review, human verification, renewal risk, and financial commitments."
+      "Case study: Multi-tenant SaaS for AI contract intelligence. Next.js App Router, TypeScript, human-in-the-loop review UI, async AI extraction states, and document ingestion. Ali Pajand, Senior Product Engineer."
     );
     expect(ledgerguard.alternates?.canonical).toBe(`${CANONICAL_URL}/portfolio/ledgerguard`);
     expect(alwaysgeeky.title).not.toEqual(ledgerguard.title);

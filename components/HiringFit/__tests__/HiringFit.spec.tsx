@@ -9,7 +9,7 @@ describe("HiringFit", () => {
     expect(screen.getByRole("heading", { name: HIRING_FIT_HEADING })).toBeInTheDocument();
   });
 
-  it("should render all four card titles", () => {
+  it("should render all skill category titles", () => {
     render(<HiringFit />);
     for (const card of HIRING_FIT_CARDS) {
       expect(screen.getByRole("heading", { name: card.title, level: 3 })).toBeInTheDocument();

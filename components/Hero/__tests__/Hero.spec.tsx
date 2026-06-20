@@ -40,10 +40,10 @@ describe("Hero", () => {
       expect(link).toHaveAttribute("href", HOMEPAGE_HERO_PRIMARY_CTA_HREF);
     });
 
-    it("should render secondary CTA to engineering principles", () => {
+    it("should render secondary CTA to contact", () => {
       render(<Hero />);
 
-      const link = screen.getByRole("link", { name: /read my engineering principles/i });
+      const link = screen.getByRole("link", { name: /get in touch/i });
       expect(link).toHaveAttribute("href", HOMEPAGE_HERO_SECONDARY_CTA_HREF);
     });
   });

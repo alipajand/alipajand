@@ -15,10 +15,6 @@ import {
   OPEN_SOURCE_CTA_PRIMARY_LABEL,
   OPEN_SOURCE_CTA_SECONDARY_HREF,
   OPEN_SOURCE_CTA_SECONDARY_LABEL,
-  OPEN_SOURCE_EXAMPLE_COMMAND_LABEL,
-  OPEN_SOURCE_EXAMPLE_DISCLAIMER,
-  OPEN_SOURCE_EXAMPLE_INPUT_LABEL,
-  OPEN_SOURCE_EXAMPLE_OUTPUT_LABEL,
   OPEN_SOURCE_FEATURED_HEADING,
   OPEN_SOURCE_FEATURED_LEDE,
   OPEN_SOURCE_FORMAT_LABEL,
@@ -97,34 +93,6 @@ const OpenSourceProjectCard = ({ project }: { project: OpenSourceProject }) => {
         <p className={FIELD_LABEL}>{OPEN_SOURCE_CONTRIBUTION_LABEL}</p>
         <p className={CARD_TEXT}>{project.contribution}</p>
       </div>
-
-      {project.exampleOutput ? (
-        <div className="space-y-4 rounded-xl border border-border/70 bg-background/55 p-4">
-          {project.exampleCommand ? (
-            <div className="space-y-2">
-              <p className={FIELD_LABEL}>{OPEN_SOURCE_EXAMPLE_COMMAND_LABEL}</p>
-              <pre className="overflow-x-auto whitespace-pre-wrap break-words rounded-lg border border-border/70 bg-background px-3 py-3 text-xs leading-relaxed text-foreground/85">
-                <code>{project.exampleCommand}</code>
-              </pre>
-            </div>
-          ) : null}
-          {project.exampleInput ? (
-            <div className="space-y-2">
-              <p className={FIELD_LABEL}>{OPEN_SOURCE_EXAMPLE_INPUT_LABEL}</p>
-              <pre className="overflow-x-auto whitespace-pre-wrap break-words rounded-lg border border-border/70 bg-background px-3 py-3 text-xs leading-relaxed text-foreground/85">
-                <code>{project.exampleInput}</code>
-              </pre>
-            </div>
-          ) : null}
-          <div className="space-y-2">
-            <p className={FIELD_LABEL}>{OPEN_SOURCE_EXAMPLE_OUTPUT_LABEL}</p>
-            <pre className="overflow-x-auto whitespace-pre-wrap break-words rounded-lg border border-border/70 bg-background px-3 py-3 text-xs leading-relaxed text-foreground/85">
-              <code>{project.exampleOutput}</code>
-            </pre>
-          </div>
-          <p className="text-xs leading-relaxed text-muted">{OPEN_SOURCE_EXAMPLE_DISCLAIMER}</p>
-        </div>
-      ) : null}
 
       <div className="mt-auto pt-1">
         <Link

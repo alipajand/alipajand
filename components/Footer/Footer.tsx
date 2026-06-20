@@ -3,13 +3,13 @@ import Link from "next/link";
 import { FooterDirectChannel } from "components/Footer/FooterDirectChannel";
 import {
   FOOTER_ARIA_LABEL,
+  FOOTER_BRAND,
+  FOOTER_LOCATION,
   FOOTER_NAV_LINKS,
-  FOOTER_RESUME_LABEL,
   FOOTER_WRITING_LABEL,
   footerCopyright,
 } from "data/footer";
 import { LINKS } from "data/links";
-import { HERO_CTA_DOWNLOAD_RESUME, RESUME_URL } from "data/site";
 import type { WritingIndexPost } from "features/writing/WritingIndexPost";
 import { FOCUS_RING, SECTION_INNER, SECTION_X } from "utils/visual";
 
@@ -31,6 +31,11 @@ export const Footer = ({ latestWritings }: FooterProps) => {
       className={`${SECTION_X} border-t border-border bg-background py-12 sm:py-16`}
     >
       <div className={SECTION_INNER}>
+        <div className="mb-10 space-y-2">
+          <p className="font-display text-lg font-semibold text-foreground">{FOOTER_BRAND}</p>
+          <p className="text-sm text-muted">{FOOTER_LOCATION}</p>
+        </div>
+
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
           {FOOTER_NAV_LINKS.map((category) => (
             <nav key={category.label} aria-label={category.label}>
@@ -63,12 +68,6 @@ export const Footer = ({ latestWritings }: FooterProps) => {
 
         <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-border pt-5">
           <p className="flex-1 text-xs text-muted">{footerCopyright(year)}</p>
-          {RESUME_URL ? (
-            <a href={RESUME_URL} download className={LINK_CLASS}>
-              {HERO_CTA_DOWNLOAD_RESUME}
-              <span className="sr-only"> ({FOOTER_RESUME_LABEL})</span>
-            </a>
-          ) : null}
           <ul className="m-0 flex list-none gap-3 p-0">
             {LINKS.map((channel) => (
               <li key={channel.label}>

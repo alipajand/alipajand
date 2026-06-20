@@ -3,44 +3,26 @@
 import Link from "next/link";
 
 import { ProjectDecisionCard } from "components/Projects/ProjectDecisionCard";
-import { ProjectHighlightCard } from "components/Projects/ProjectHighlightCard";
+import { ProjectFigure } from "components/Projects/ProjectFigure";
 import type { Project } from "data/projects";
-import { isFounderProductCaseStudy } from "data/projects";
 import {
-  PROJECT_CASE_STUDY_FACTUAL_REVIEW_PREFIX,
   PROJECT_CASE_STUDY_SECTION_CONTEXT,
-  PROJECT_CASE_STUDY_SECTION_DECISIONS,
   PROJECT_CASE_STUDY_SECTION_EVIDENCE,
   PROJECT_CASE_STUDY_SECTION_IMPROVE,
   PROJECT_CASE_STUDY_SECTION_OUTCOME,
-  PROJECT_CASE_STUDY_SECTION_OVERVIEW,
   PROJECT_CASE_STUDY_SECTION_PROBLEM,
-  PROJECT_CASE_STUDY_SECTION_PRODUCT_DECISIONS,
-  PROJECT_CASE_STUDY_SECTION_RESULT,
-  PROJECT_CASE_STUDY_SECTION_SCREENSHOTS,
-  PROJECT_CASE_STUDY_SECTION_STATES,
-  PROJECT_CASE_STUDY_SECTION_TECHNICAL_HIGHLIGHTS,
+  PROJECT_CASE_STUDY_SECTION_TECHNICAL_DECISIONS,
+  PROJECT_CASE_STUDY_SECTION_UX_DECISIONS,
   PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT,
-  PROJECT_CASE_STUDY_SECTION_WORKFLOW,
   PROJECT_CASE_STUDY_TOC_HEADING,
   PROJECT_CASE_STUDY_TOC_ITEMS,
-  PROJECT_FOUNDER_CASE_STUDY_TOC_ITEMS,
-  PROJECT_OVERVIEW_META_LINK,
-  PROJECT_OVERVIEW_META_ROLE,
-  PROJECT_OVERVIEW_META_SCOPE,
-  PROJECT_OVERVIEW_META_STACK,
-  PROJECT_OVERVIEW_META_STATUS,
-  PROJECT_RESPONSIBILITY_COLLABORATIVE,
-  PROJECT_RESPONSIBILITY_HEADING,
-  PROJECT_RESPONSIBILITY_OUTSIDE,
-  PROJECT_RESPONSIBILITY_OWNED,
+  PROJECT_MY_ROLE_HEADING,
   PROJECT_SECTION_LINK_BACK,
   PROJECT_SECTION_LINK_NEXT,
   PROJECT_SECTION_RELATED_HEADING,
   projectCaseStudyTocAriaLabel,
 } from "data/projectsUi";
 import { FOCUS_RING, LABEL_OVERLINE } from "utils/visual";
-import { ProjectFigure } from "components/Projects/ProjectFigure";
 
 type ProjectCaseStudyArticleProps = {
   project: Project;
@@ -48,27 +30,7 @@ type ProjectCaseStudyArticleProps = {
   isDedicatedPage?: boolean;
 };
 
-type TocItem = {
-  id: string;
-  label: string;
-};
-
-const ResponsibilityList = ({ heading, items }: { heading: string; items: string[] }) => {
-  return (
-    <div className="space-y-2">
-      <h4 className="text-base font-semibold text-foreground">{heading}</h4>
-      <ul className="space-y-2">
-        {items.map((item) => (
-          <li key={item} className="text-[15px] leading-relaxed text-muted">
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-const CaseStudyBulletList = ({ items }: { items: string[] }) => {
+const BulletList = ({ items }: { items: string[] }) => {
   return (
     <ul className="space-y-2">
       {items.map((item) => (
@@ -91,9 +53,9 @@ const RelatedLinksSection = ({
 }) => {
   return (
     <section id={`${project.id}-related`} className="scroll-mt-28 space-y-3">
-      <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+      <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
         {PROJECT_SECTION_RELATED_HEADING}
-      </h3>
+      </h2>
       <div className="flex flex-wrap gap-3">
         {project.relatedLinks.map((link) => (
           <Link
@@ -128,15 +90,7 @@ export const ProjectCaseStudyArticle = ({
   nextProject,
   isDedicatedPage = false,
 }: ProjectCaseStudyArticleProps) => {
-  const founderCaseStudy = isFounderProductCaseStudy(project.caseStudy)
-    ? project.caseStudy
-    : undefined;
-  const standardCaseStudy = !isFounderProductCaseStudy(project.caseStudy)
-    ? project.caseStudy
-    : undefined;
-  const tocItems: TocItem[] = (
-    founderCaseStudy ? PROJECT_FOUNDER_CASE_STUDY_TOC_ITEMS : PROJECT_CASE_STUDY_TOC_ITEMS
-  ).map((item) => ({
+  const tocItems = PROJECT_CASE_STUDY_TOC_ITEMS.map((item) => ({
     id: `${project.id}-${item.suffix}`,
     label: item.label,
   }));
@@ -169,12 +123,15 @@ export const ProjectCaseStudyArticle = ({
               <p className="text-xl font-medium leading-snug text-foreground/90">
                 {project.caseStudyTitle}
               </p>
+              <p className="max-w-3xl text-[15px] leading-relaxed text-muted">
+                {project.caseStudy.overview}
+              </p>
               <div className="flex flex-wrap gap-x-3 gap-y-2 text-sm text-muted">
                 <span>{project.role}</span>
                 {project.timeframe ? <span>· {project.timeframe}</span> : null}
               </div>
               <ul className="flex flex-wrap gap-2" aria-label={`${project.name} capabilities`}>
-                {project.capabilityTags.slice(0, 3).map((tag) => (
+                {project.capabilityTags.slice(0, 5).map((tag) => (
                   <li
                     key={tag}
                     className="rounded-full border border-border bg-card/60 px-3 py-1.5 text-sm text-foreground/85"
@@ -191,250 +148,88 @@ export const ProjectCaseStudyArticle = ({
             ) : null}
           </header>
 
-          <section id={`${project.id}-overview`} className="scroll-mt-28 space-y-3">
-            <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-              {PROJECT_CASE_STUDY_SECTION_OVERVIEW}
-            </h3>
+          <section id={`${project.id}-context`} className="scroll-mt-28 space-y-3">
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+              {PROJECT_CASE_STUDY_SECTION_CONTEXT}
+            </h2>
             <p className="max-w-3xl text-[15px] leading-relaxed text-muted">
-              {project.caseStudy.overview}
+              {project.caseStudy.context}
             </p>
-            {founderCaseStudy ? (
-              <dl className="grid max-w-3xl gap-4 pt-2 sm:grid-cols-2">
-                <div>
-                  <dt className={LABEL_OVERLINE}>{PROJECT_OVERVIEW_META_ROLE}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-muted">
-                    {founderCaseStudy.overviewMeta.role}
-                  </dd>
-                </div>
-                <div>
-                  <dt className={LABEL_OVERLINE}>{PROJECT_OVERVIEW_META_STACK}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-muted">
-                    {founderCaseStudy.overviewMeta.stack}
-                  </dd>
-                </div>
-                <div>
-                  <dt className={LABEL_OVERLINE}>{PROJECT_OVERVIEW_META_SCOPE}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-muted">
-                    {founderCaseStudy.overviewMeta.scope}
-                  </dd>
-                </div>
-                <div>
-                  <dt className={LABEL_OVERLINE}>{PROJECT_OVERVIEW_META_STATUS}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-muted">
-                    {founderCaseStudy.overviewMeta.status}
-                  </dd>
-                </div>
-                <div className="sm:col-span-2">
-                  <dt className={LABEL_OVERLINE}>{PROJECT_OVERVIEW_META_LINK}</dt>
-                  <dd className="mt-1">
-                    <Link
-                      href={founderCaseStudy.overviewMeta.link.href}
-                      className={`text-[15px] font-medium text-foreground underline-offset-4 hover:underline ${FOCUS_RING} rounded-sm`}
-                    >
-                      {founderCaseStudy.overviewMeta.link.label}
-                    </Link>
-                  </dd>
-                </div>
-              </dl>
-            ) : null}
           </section>
 
-          {founderCaseStudy ? (
-            <>
-              <section id={`${project.id}-problem`} className="scroll-mt-28 space-y-3">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_PROBLEM}
-                </h3>
-                <p className="max-w-3xl text-[15px] leading-relaxed text-muted">
-                  {founderCaseStudy.problem}
-                </p>
-              </section>
+          <section id={`${project.id}-problem`} className="scroll-mt-28 space-y-3">
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+              {PROJECT_CASE_STUDY_SECTION_PROBLEM}
+            </h2>
+            <p className="max-w-3xl text-[15px] leading-relaxed text-muted">
+              {project.caseStudy.problem}
+            </p>
+          </section>
 
-              <section id={`${project.id}-decisions`} className="scroll-mt-28 space-y-3">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_PRODUCT_DECISIONS}
-                </h3>
-                <CaseStudyBulletList items={founderCaseStudy.productDecisions} />
-              </section>
+          <section id={`${project.id}-role`} className="scroll-mt-28 space-y-3">
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+              {PROJECT_MY_ROLE_HEADING}
+            </h2>
+            <BulletList items={project.caseStudy.myRole} />
+          </section>
 
-              <section id={`${project.id}-built`} className="scroll-mt-28 space-y-3">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT}
-                </h3>
-                <CaseStudyBulletList items={founderCaseStudy.whatIBuilt} />
-              </section>
+          <section id={`${project.id}-built`} className="scroll-mt-28 space-y-3">
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+              {PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT}
+            </h2>
+            <BulletList items={project.caseStudy.whatIBuilt} />
+          </section>
 
-              <section id={`${project.id}-highlights`} className="scroll-mt-28 space-y-5">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_TECHNICAL_HIGHLIGHTS}
-                </h3>
-                <div className="grid gap-4 lg:grid-cols-2">
-                  {founderCaseStudy.technicalHighlights.map((highlight) => (
-                    <ProjectHighlightCard key={highlight.title} highlight={highlight} />
-                  ))}
-                </div>
-              </section>
+          <section id={`${project.id}-technical-decisions`} className="scroll-mt-28 space-y-5">
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+              {PROJECT_CASE_STUDY_SECTION_TECHNICAL_DECISIONS}
+            </h2>
+            <div className="grid gap-4 lg:grid-cols-2">
+              {project.caseStudy.technicalDecisions.map((decision) => (
+                <ProjectDecisionCard key={decision.decision} decision={decision} />
+              ))}
+            </div>
+          </section>
 
-              <section id={`${project.id}-result`} className="scroll-mt-28 space-y-3">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_RESULT}
-                </h3>
-                <p className="max-w-3xl text-[15px] leading-relaxed text-muted">
-                  {founderCaseStudy.result}
-                </p>
-              </section>
+          <section id={`${project.id}-ux-decisions`} className="scroll-mt-28 space-y-3">
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+              {PROJECT_CASE_STUDY_SECTION_UX_DECISIONS}
+            </h2>
+            <BulletList items={project.caseStudy.uxDecisions} />
+          </section>
 
-              {evidenceFigures.length ? (
-                <section id={`${project.id}-screenshots`} className="scroll-mt-28 space-y-5">
-                  <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                    {PROJECT_CASE_STUDY_SECTION_SCREENSHOTS}
-                  </h3>
-                  <div className="space-y-8 empty:hidden">
-                    {evidenceFigures.map((figure) => (
-                      <ProjectFigure key={`${figure.alt}-${figure.captionLead}`} figure={figure} />
-                    ))}
-                  </div>
-                </section>
-              ) : null}
-
-              <RelatedLinksSection
-                project={project}
-                nextProject={nextProject}
-                isDedicatedPage={isDedicatedPage}
-              />
-            </>
-          ) : standardCaseStudy ? (
-            <>
-              <section id={`${project.id}-context`} className="scroll-mt-28 space-y-3">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_CONTEXT}
-                </h3>
-                <p className="max-w-3xl text-[15px] leading-relaxed text-muted">
-                  {standardCaseStudy.contextAndConstraints}
-                </p>
-              </section>
-
-              <section id={`${project.id}-responsibility`} className="scroll-mt-28 space-y-6">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_RESPONSIBILITY_HEADING}
-                </h3>
-                {standardCaseStudy.responsibility.factualReviewNote ? (
-                  <p className="max-w-3xl rounded-xl border border-border/70 bg-card/50 px-4 py-3 text-sm leading-relaxed text-muted">
-                    {PROJECT_CASE_STUDY_FACTUAL_REVIEW_PREFIX}{" "}
-                    {standardCaseStudy.responsibility.factualReviewNote}
-                  </p>
-                ) : null}
-                <div className="grid gap-6 md:grid-cols-3">
-                  <ResponsibilityList
-                    heading={PROJECT_RESPONSIBILITY_OWNED}
-                    items={standardCaseStudy.responsibility.owned}
-                  />
-                  <ResponsibilityList
-                    heading={PROJECT_RESPONSIBILITY_COLLABORATIVE}
-                    items={standardCaseStudy.responsibility.collaborative}
-                  />
-                  <ResponsibilityList
-                    heading={PROJECT_RESPONSIBILITY_OUTSIDE}
-                    items={standardCaseStudy.responsibility.outside}
-                  />
-                </div>
-              </section>
-
-              <section id={`${project.id}-problem`} className="scroll-mt-28 space-y-3">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_PROBLEM}
-                </h3>
-                <p className="max-w-3xl text-[15px] leading-relaxed text-muted">
-                  {standardCaseStudy.problem}
-                </p>
-              </section>
-
-              <section id={`${project.id}-decisions`} className="scroll-mt-28 space-y-5">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_DECISIONS}
-                </h3>
-                <div className="grid gap-4 lg:grid-cols-2">
-                  {standardCaseStudy.decisions.map((decision) => (
-                    <ProjectDecisionCard key={decision.decision} decision={decision} />
-                  ))}
-                </div>
-              </section>
-
-              <section id={`${project.id}-workflow`} className="scroll-mt-28 space-y-3">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_WORKFLOW}
-                </h3>
-                <ol className="space-y-3">
-                  {standardCaseStudy.workflow.map((step, index) => (
-                    <li key={step} className="flex gap-3">
-                      <span className="mt-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-full border border-border bg-card/60 text-sm font-medium text-foreground">
-                        {index + 1}
-                      </span>
-                      <p className="text-[15px] leading-relaxed text-muted">{step}</p>
-                    </li>
-                  ))}
-                </ol>
-              </section>
-
-              {evidenceFigures.length ? (
-                <section id={`${project.id}-evidence`} className="scroll-mt-28 space-y-5">
-                  <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                    {PROJECT_CASE_STUDY_SECTION_EVIDENCE}
-                  </h3>
-                  <div className="space-y-8 empty:hidden">
-                    {evidenceFigures.map((figure) => (
-                      <ProjectFigure key={`${figure.alt}-${figure.captionLead}`} figure={figure} />
-                    ))}
-                  </div>
-                </section>
-              ) : null}
-
-              <section id={`${project.id}-states`} className="scroll-mt-28 space-y-3">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_STATES}
-                </h3>
-                <ul className="space-y-2">
-                  {standardCaseStudy.difficultStates.map((item) => (
-                    <li key={item} className="text-[15px] leading-relaxed text-muted">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              <section id={`${project.id}-outcome`} className="scroll-mt-28 space-y-3">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_OUTCOME}
-                </h3>
-                <ul className="space-y-2">
-                  {standardCaseStudy.outcome.map((item) => (
-                    <li key={item} className="text-[15px] leading-relaxed text-muted">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              <section id={`${project.id}-improve`} className="scroll-mt-28 space-y-3">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-                  {PROJECT_CASE_STUDY_SECTION_IMPROVE}
-                </h3>
-                <ul className="space-y-2">
-                  {standardCaseStudy.nextImprovements.map((item) => (
-                    <li key={item} className="text-[15px] leading-relaxed text-muted">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              <RelatedLinksSection
-                project={project}
-                nextProject={nextProject}
-                isDedicatedPage={isDedicatedPage}
-              />
-            </>
+          {evidenceFigures.length ? (
+            <section id={`${project.id}-evidence`} className="scroll-mt-28 space-y-5">
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+                {PROJECT_CASE_STUDY_SECTION_EVIDENCE}
+              </h2>
+              <div className="space-y-8 empty:hidden">
+                {evidenceFigures.map((figure) => (
+                  <ProjectFigure key={`${figure.alt}-${figure.captionLead}`} figure={figure} />
+                ))}
+              </div>
+            </section>
           ) : null}
+
+          <section id={`${project.id}-outcome`} className="scroll-mt-28 space-y-3">
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+              {PROJECT_CASE_STUDY_SECTION_OUTCOME}
+            </h2>
+            <BulletList items={project.caseStudy.outcome} />
+          </section>
+
+          <section id={`${project.id}-improve`} className="scroll-mt-28 space-y-3">
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+              {PROJECT_CASE_STUDY_SECTION_IMPROVE}
+            </h2>
+            <BulletList items={project.caseStudy.nextImprovements} />
+          </section>
+
+          <RelatedLinksSection
+            project={project}
+            nextProject={nextProject}
+            isDedicatedPage={isDedicatedPage}
+          />
         </div>
 
         <aside className="hidden xl:block">

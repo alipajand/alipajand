@@ -5,10 +5,10 @@ export interface OpenSourceTool {
   capabilities: [string, string, string];
 }
 
-export const OPEN_SOURCE_TOOLS_HEADING = "Open-source tools";
+export const OPEN_SOURCE_TOOLS_HEADING = "Tooling & Open Source";
 
 export const OPEN_SOURCE_TOOLS_LEDE =
-  "Two focused tools from my open-source work on safer, more explainable engineering workflows.";
+  "I build small tooling projects to explore how frontend teams can work better with AI agents and automated review feedback.";
 
 export const OPEN_SOURCE_TOOLS_CTA_LABEL = "Explore all open-source work";
 export const OPEN_SOURCE_TOOLS_CTA_HREF = "/open-source";
@@ -22,25 +22,35 @@ export const openSourceToolRepositoryAriaLabel = (toolName: string): string =>
 
 export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
   {
-    name: "agent-pr-reviewer-lite",
-    repositoryUrl: "https://github.com/alipajand/agent-pr-reviewer-lite",
-    problem:
-      "Catches risky pull-request changes in security-sensitive and product-critical areas before human review starts.",
-    capabilities: [
-      "Inspects local diffs and pull requests with deterministic rules",
-      "Flags risky route, env, dependency, migration, and security-sensitive changes",
-      "Detects deleted test files and newly added dependencies in changed diffs",
-    ],
-  },
-  {
     name: "agent-context-doctor",
     repositoryUrl: "https://github.com/alipajand/agent-context-doctor",
     problem:
-      "Audits agent instruction files for contradictions, stale guidance, and missing repository context.",
+      "Checks whether an AI coding agent has enough context, constraints, and instructions before implementation.",
     capabilities: [
-      "Checks AGENTS.md, CLAUDE.md, Cursor rules, and prompt documents",
-      "Flags risky instructions, contradictory guidance, and missing validation expectations",
-      "Reports missing boundaries, validation paths, and final-report expectations",
+      "Audits instruction files for missing repository context and weak constraints",
+      "Flags contradictory guidance, risky instructions, and stale command references",
+      "Helps treat context quality as an engineering input instead of an afterthought",
+    ],
+  },
+  {
+    name: "agent-pr-reviewer-lite",
+    repositoryUrl: "https://github.com/alipajand/agent-pr-reviewer-lite",
+    problem: "Lightweight PR review assistant focused on structured feedback and risk detection.",
+    capabilities: [
+      "Reviews diffs with deterministic rules instead of generic summary feedback",
+      "Categorizes risky changes so reviewers can act on specific issues quickly",
+      "Explores code review as a system for actionable, structured feedback",
+    ],
+  },
+  {
+    name: "agent-readiness-kit",
+    repositoryUrl: "https://github.com/alipajand/agent-readiness-kit",
+    problem:
+      "Evaluates whether a frontend codebase or workflow is ready for agent-assisted development.",
+    capabilities: [
+      "Checks whether conventions, documentation, and tooling support agent-assisted work",
+      "Highlights missing boundaries, validation paths, and repository guidance",
+      "Frames developer experience as a product problem, not only a configuration task",
     ],
   },
 ];

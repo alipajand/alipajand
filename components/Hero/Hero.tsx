@@ -11,6 +11,7 @@ import {
   HOMEPAGE_HERO_PRIMARY_CTA_LABEL,
   HOMEPAGE_HERO_SECONDARY_CTA_HREF,
   HOMEPAGE_HERO_SECONDARY_CTA_LABEL,
+  HOMEPAGE_PROOF_POINTS,
   HOMEPAGE_HERO_TITLE,
 } from "data/homepage";
 import { HeroBackground } from "components/Hero/HeroBackground";
@@ -52,17 +53,18 @@ export const Hero = () => {
         </p>
 
         <div ref={ctaRef} className="mt-8 sm:mt-10 flex flex-col gap-4 sm:items-start">
-          <div className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+          <div
+            data-hero-animate="slide-up"
+            className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
+          >
             <Link
               href={HOMEPAGE_HERO_PRIMARY_CTA_HREF}
-              data-hero-animate="slide-up"
               className={`hover-scale ${CTA_PRIMARY} w-full sm:w-auto`}
             >
               {HOMEPAGE_HERO_PRIMARY_CTA_LABEL}
             </Link>
             <Link
               href={HOMEPAGE_HERO_SECONDARY_CTA_HREF}
-              data-hero-animate="slide-up"
               className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto`}
             >
               {HOMEPAGE_HERO_SECONDARY_CTA_LABEL}

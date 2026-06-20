@@ -5,7 +5,7 @@ import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
 import { OPEN_SOURCE_META_DESCRIPTION, OPEN_SOURCE_META_TITLE } from "data/openSourcePage";
 import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/projects";
 import type { Project } from "data/projects";
-import { WRITING_INDEX_DESCRIPTION } from "data/writing";
+import { WRITING_INDEX_DESCRIPTION, WRITING_INDEX_TITLE } from "data/writing";
 import { CANONICAL_URL, SITE_NAME, TWITTER_HANDLE } from "data/site";
 import type { Post } from "utils/posts";
 
@@ -27,7 +27,7 @@ const twitterExtras = (): Partial<NonNullable<Metadata["twitter"]>> => {
 
 export const buildWritingIndexMetadata = (): Metadata => {
   const url = `${CANONICAL_URL}/writing`;
-  const title = "Writing on Product Engineering and Frontend Systems | Ali Pajand";
+  const title = WRITING_INDEX_TITLE;
   return {
     title: exactTitle(title),
     description: WRITING_INDEX_DESCRIPTION,
@@ -119,7 +119,7 @@ export const buildPortfolioMetadata = (): Metadata => {
 
 export const buildPortfolioCaseStudyMetadata = (project: Project): Metadata => {
   const url = `${CANONICAL_URL}/portfolio/${project.slug}`;
-  const title = `${project.name} Case Study — Ali Pajand`;
+  const title = project.caseStudyMetaTitle;
   const description = project.caseStudyMetaDescription;
   return {
     title: exactTitle(title),
@@ -146,7 +146,7 @@ export const buildPortfolioCaseStudyMetadata = (project: Project): Metadata => {
 
 export const buildEngineeringPrinciplesMetadata = (): Metadata => {
   const url = `${CANONICAL_URL}/engineering-principles`;
-  const title = "Engineering Principles | Ali Pajand";
+  const title = "Engineering Principles — Ali Pajand · Senior Frontend Engineer";
   const description = ENGINEERING_PRINCIPLES_META_DESCRIPTION;
   return {
     title: exactTitle(title),

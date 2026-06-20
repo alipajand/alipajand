@@ -21,12 +21,15 @@ describe("ProjectIndex", () => {
     render(<ProjectIndex />);
 
     expect(document.getElementById("case-studies")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "TallyFolio" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "LedgerGuard" })).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { level: 2, name: "AlwaysGeeky Games" })
     ).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "Emplifi" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "ControlTech" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 2, name: "Agent Tooling & Open Source" })
+    ).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "MapBylaw" })).toBeInTheDocument();
   });
 
@@ -34,8 +37,8 @@ describe("ProjectIndex", () => {
     render(<ProjectIndex />);
 
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Overview" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Key decisions" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Context" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Technical decisions" })).not.toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "Interface evidence" })).not.toBeInTheDocument();
   });
 
@@ -48,51 +51,22 @@ describe("ProjectIndex", () => {
         .map((link) => link.getAttribute("href"))
     ).toEqual([
       "/portfolio/ledgerguard",
-      "/portfolio/tallyfolio",
       "/portfolio/alwaysgeeky",
-      "/portfolio/mapbylaw",
       "/portfolio/emplifi",
+      "/portfolio/controltech",
+      "/portfolio/agent-tooling",
+      "/portfolio/mapbylaw",
     ]);
   });
 
-  it("should preserve legacy project anchor ids on index items", () => {
+  it("should render anchor ids for every case-study item", () => {
     render(<ProjectIndex />);
 
-    expect(
-      document.getElementById("project-tallyfolio-privacy-first-personal-finance")
-    ).toBeInTheDocument();
-    expect(
-      document.getElementById("project-ledgerguard-deterministic-commitments-ledger")
-    ).toBeInTheDocument();
-    expect(
-      document.getElementById("project-design-system-marketplace-login-web3")
-    ).toBeInTheDocument();
-    expect(document.getElementById("project-data-dashboards-emplifi")).toBeInTheDocument();
-    expect(document.getElementById("project-mapbylaw-platform-ui-ai-reports")).toBeInTheDocument();
-  });
-
-  it("should render index-only projects in additional experience without a case-study link", () => {
-    render(<ProjectIndex />);
-
-    expect(screen.getByRole("heading", { name: "Additional experience" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "ControlTech" })).toBeInTheDocument();
-    expect(document.getElementById("project-pwa-performance-controltech")).toBeInTheDocument();
-
-    const controlTechArticle = document.getElementById("project-pwa-performance-controltech");
-    expect(controlTechArticle?.querySelector("a[href^='/portfolio/']")).toBeNull();
-  });
-
-  it("should link to LinkedIn for more contributed projects after additional experience", () => {
-    render(<ProjectIndex />);
-
-    const linkedInLink = screen.getByRole("link", {
-      name: "More contributed projects on LinkedIn (opens in new tab)",
-    });
-    expect(linkedInLink).toHaveAttribute(
-      "href",
-      "https://www.linkedin.com/in/alipajand/details/projects/"
-    );
-    expect(linkedInLink).toHaveAttribute("target", "_blank");
-    expect(linkedInLink).toHaveAttribute("rel", "noopener noreferrer");
+    expect(document.getElementById("project-ledgerguard")).toBeInTheDocument();
+    expect(document.getElementById("project-alwaysgeeky")).toBeInTheDocument();
+    expect(document.getElementById("project-emplifi")).toBeInTheDocument();
+    expect(document.getElementById("project-controltech")).toBeInTheDocument();
+    expect(document.getElementById("project-agent-tooling")).toBeInTheDocument();
+    expect(document.getElementById("project-mapbylaw")).toBeInTheDocument();
   });
 });
