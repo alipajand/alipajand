@@ -28,7 +28,9 @@ Blog posts are Markdown files in `content/`. They are loaded at build time by `u
 ---
 title: string # Post title (required)
 date: string # ISO date YYYY-MM-DD (required)
-description: string # One-line summary for listings and OG tags (required)
+excerpt: string # One-line summary for listings and article cards (required)
+seoTitle: string # Optional page/OG/Twitter title override
+seoDescription: string # Optional page/OG/Twitter description override
 tags: string[] # Topic tags (optional)
 ---
 ```
@@ -52,7 +54,9 @@ type Post = {
   slug: string;
   title: string;
   date: string;
-  description: string;
+  excerpt: string;
+  seoTitle?: string;
+  seoDescription?: string;
   tags?: string[];
 };
 ```

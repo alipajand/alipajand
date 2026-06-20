@@ -2,6 +2,8 @@
 title: "Design systems that stick"
 date: "2025-01-15"
 excerpt: "How to get adoption and keep a design system useful with better component contracts, practical documentation, and lightweight governance."
+seoTitle: "Design systems that stick — Ali Pajand"
+seoDescription: "How to get adoption and keep a design system useful with better component contracts, practical documentation, and lightweight governance."
 tags:
   - Design systems
   - Documentation

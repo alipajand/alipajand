@@ -52,6 +52,24 @@ describe("utils/metadata", () => {
     });
   });
 
+  it("should prefer post SEO overrides when provided", () => {
+    const m = buildArticleMetadata({
+      slug: "my-post",
+      title: "My post",
+      date: "2025-01-01",
+      excerpt: "Short excerpt for meta.",
+      seoTitle: "SEO Title Override",
+      seoDescription: "SEO description override.",
+      contentHtml: "<p>x</p>",
+    });
+    expect(m.title).toEqual({ absolute: "SEO Title Override" });
+    expect(m.description).toBe("SEO description override.");
+    expect(m.openGraph?.title).toBe("SEO Title Override");
+    expect(m.openGraph?.description).toBe("SEO description override.");
+    expect(m.twitter?.title).toBe("SEO Title Override");
+    expect(m.twitter?.description).toBe("SEO description override.");
+  });
+
   it("should set canonical and portfolio description for buildPortfolioMetadata", () => {
     const m = buildPortfolioMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/portfolio`);

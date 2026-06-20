@@ -28,6 +28,8 @@ export interface PostFrontmatter {
   title: string;
   date: string;
   excerpt: string;
+  seoTitle?: string;
+  seoDescription?: string;
   featured?: boolean;
   tags?: string[];
 }
@@ -37,6 +39,8 @@ export interface Post {
   title: string;
   date: string;
   excerpt: string;
+  seoTitle?: string;
+  seoDescription?: string;
   featured?: boolean;
   tags?: string[];
   contentHtml: string;
@@ -63,6 +67,12 @@ export const getAllPosts = (): Omit<Post, "contentHtml">[] => {
         title: fm.title ?? slug,
         date: fm.date ?? "",
         excerpt: fm.excerpt ?? "",
+        ...(typeof fm.seoTitle === "string" && fm.seoTitle.length > 0
+          ? { seoTitle: fm.seoTitle }
+          : {}),
+        ...(typeof fm.seoDescription === "string" && fm.seoDescription.length > 0
+          ? { seoDescription: fm.seoDescription }
+          : {}),
         ...(fm.featured === true ? { featured: true as const } : {}),
         ...(Array.isArray(fm.tags) && fm.tags.length > 0 ? { tags: fm.tags as string[] } : {}),
       };
@@ -82,6 +92,12 @@ export const getPostBySlug = (slug: string): Post | null => {
       title: fm.title ?? slug,
       date: fm.date ?? "",
       excerpt: fm.excerpt ?? "",
+      ...(typeof fm.seoTitle === "string" && fm.seoTitle.length > 0
+        ? { seoTitle: fm.seoTitle }
+        : {}),
+      ...(typeof fm.seoDescription === "string" && fm.seoDescription.length > 0
+        ? { seoDescription: fm.seoDescription }
+        : {}),
       ...(fm.featured === true ? { featured: true as const } : {}),
       ...(Array.isArray(fm.tags) && fm.tags.length > 0 ? { tags: fm.tags as string[] } : {}),
       contentHtml,

@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { ENGINEERING_PRINCIPLES_META_DESCRIPTION } from "data/engineeringPrinciples";
 import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
 import { OPEN_SOURCE_META_DESCRIPTION, OPEN_SOURCE_META_TITLE } from "data/openSourcePage";
-import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/projects";
 import type { Project } from "data/projects";
+import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/projects";
 import { WRITING_INDEX_DESCRIPTION, WRITING_INDEX_TITLE } from "data/writing";
 import { CANONICAL_URL, SITE_NAME, TWITTER_HANDLE } from "data/site";
 import type { Post } from "utils/posts";
@@ -55,6 +55,9 @@ export const buildArticleMetadata = (post: Post): Metadata => {
   const { contentHtml: _content, ...p } = post;
   void _content;
   const url = `${CANONICAL_URL}/writing/${p.slug}`;
+  const metaTitle = p.seoTitle ?? `${p.title} | ${SITE_NAME}`;
+  const socialTitle = p.seoTitle ?? p.title;
+  const metaDescription = p.seoDescription ?? p.excerpt;
   const images = [
     {
       url: `/writing/${p.slug}/opengraph-image` as const,
@@ -63,17 +66,18 @@ export const buildArticleMetadata = (post: Post): Metadata => {
       alt: p.title,
     },
   ];
+
   return {
-    title: exactTitle(`${p.title} | ${SITE_NAME}`),
-    description: p.excerpt,
+    title: exactTitle(metaTitle),
+    description: metaDescription,
     alternates: { canonical: url },
     authors: [{ name: SITE_NAME, url: CANONICAL_URL }],
     openGraph: {
       type: "article",
       url,
       siteName: SITE_NAME,
-      title: p.title,
-      description: p.excerpt,
+      title: socialTitle,
+      description: metaDescription,
       locale: "en_US",
       publishedTime: p.date,
       modifiedTime: p.date,
@@ -82,8 +86,8 @@ export const buildArticleMetadata = (post: Post): Metadata => {
     },
     twitter: {
       card: "summary_large_image",
-      title: p.title,
-      description: p.excerpt,
+      title: socialTitle,
+      description: metaDescription,
       images: [`/writing/${p.slug}/opengraph-image`],
       ...twitterExtras(),
     },
