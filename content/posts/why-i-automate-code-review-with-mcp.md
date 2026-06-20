@@ -11,7 +11,7 @@ tags:
 
 Code review should spend human attention on behavior, architecture, naming, and product risk. It should not spend that attention on whether someone forgot to run lint.
 
-That is why I moved deterministic checks into the editor with MCP. Not because lint, typecheck, and tests are "full code review," but because they are the wrong things to discover late.
+That is why I moved deterministic checks into the editor with [MCP](https://modelcontextprotocol.io/) — the Model Context Protocol, the open standard Anthropic introduced for connecting LLM applications to external tools and data sources. Not because lint, typecheck, and tests are "full code review," but because they are the wrong things to discover late.
 
 ## Why MCP instead of a shell script, hook, or CI-only loop
 
@@ -23,7 +23,7 @@ A shell script is easy to write, but it still depends on the developer deciding 
 
 MCP was the right fit because it put the checks where the decision happens: inside the editor, attached to the files being changed, with structured results tooling can interpret instead of just printing.
 
-That is the key architectural choice. I did not primarily need "a thing that can run commands." I needed a thin tool boundary that lets the editor call allowed commands, return structured output, and keep feedback local to the code being edited.
+That is the key architectural choice. I did not primarily need "a thing that can run commands." I needed a thin tool boundary that lets the editor call allowed commands, return structured output, and keep feedback local to the code being edited. The protocol's own [specification](https://modelcontextprotocol.io/specification/2025-06-18) describes this as separating "the concerns of providing context from the actual LLM interaction" — tools, resources, and prompts are exposed in a standardized shape so the client (the editor, in this case) decides how to use the result instead of the server assuming a terminal is on the other end.
 
 ## What structured tool output enables
 
@@ -44,7 +44,7 @@ A lightweight editor task that shells out to existing scripts can be enough for 
 
 The server should be narrow on purpose.
 
-For this kind of workflow, the important safety boundary is not "MCP is magic." It is that the exposed commands are allowlisted, predictable, and small in scope. If the tool is meant to run lint, typecheck, tests, or format checks, then those are the commands it should expose. Not arbitrary shell access.
+For this kind of workflow, the important safety boundary is not "MCP is magic." It is that the exposed commands are allowlisted, predictable, and small in scope. If the tool is meant to run lint, typecheck, tests, or format checks, then those are the commands it should expose. Not arbitrary shell access. This is also the boundary the MCP spec itself flags under its security guidance — a server should expose the minimum surface area it needs to do its job, since anything connected to an editor or agent is also a trust boundary, not just a convenience boundary.
 
 Timeouts and output limits matter for the same reason. Deterministic checks should fail clearly when they hang or produce too much output. A local tool that can wedge the editor or dump unbounded logs is not helping.
 
@@ -104,8 +104,18 @@ That is enough to move a lot of mechanical failure discovery earlier in the work
 
 The reusable lesson is broader than MCP itself. Deterministic checks should appear as close as possible to the moment an engineer makes the change. Human review should begin where deterministic checking stops.
 
+## Further reading
+
+If you are evaluating whether to build a server like this rather than taking my word for the shape of it, a few starting points are worth more than a blog post:
+
+- The [MCP specification](https://modelcontextprotocol.io/specification/2025-06-18) itself, particularly the Tools and Security & Trust sections, before writing any server code.
+- The official [TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) and [Python SDK](https://github.com/modelcontextprotocol/python-sdk), both maintained under the `modelcontextprotocol` organization.
+- The [MCP Inspector](https://github.com/modelcontextprotocol/inspector), a standalone tool for testing a server's tool calls and structured output without wiring it into an editor first — useful for exactly the allowlist and timeout testing described above.
+- Editor-side, both [Claude Code](https://docs.claude.com/en/docs/claude-code) and Cursor support connecting to MCP servers directly, which is the integration point this whole approach depends on.
+
 ## Related reading
 
 - [Building tools that don't fight you](/writing/building-tools-that-dont-fight-you)
 - [Design systems that stick](/writing/design-systems-that-stick)
+- [How I Use AI in My Frontend Engineering Workflow](/writing/how-i-use-ai-in-my-frontend-engineering-workflow)
 - [Agent PR Reviewer Lite](https://github.com/alipajand/agent-pr-reviewer-lite)

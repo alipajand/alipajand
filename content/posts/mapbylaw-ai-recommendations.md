@@ -63,6 +63,8 @@ type StructuredRecommendation = {
 
 I traded breadth for grounding. Broader context can produce more expansive recommendations, but it also increases the chance that the model starts sounding authoritative about facts the product has not actually verified.
 
+This is not a problem unique to MapBylaw, which is partly why the structured-output ecosystem around LLMs has matured the way it has. [Zod](https://zod.dev/) is what I use for the schema definition and parsing layer at the API boundary. Anthropic's [developer documentation](https://docs.claude.com/) covers tool use and structured output, and OpenAI's equivalent structured-outputs feature exists for the same reason — "ask the model nicely to return JSON" was never a reliable contract. Constraining the output shape at generation time, then validating again on receipt, is the pattern that actually holds in production.
+
 ## Validation is what makes the feature believable
 
 Once the context and output were explicit, validation became part of the feature instead of an afterthought.
@@ -131,7 +133,7 @@ Second, the recommendation orchestrator builds the narrow context payload from t
 
 Third, the model returns a structured payload that is validated through the same contract used by the API boundary. Malformed or unsupported responses are rejected before they reach presentation layers.
 
-Fourth, the accepted recommendation payload becomes part of the typed application state consumed by both the dashboard and the PDF builder. The same structured result powers the in-app recommendation card and the report section, so there is no copy-editing fork where one surface says something the other cannot defend.
+Fourth, the accepted recommendation payload becomes part of the typed application state consumed by both the dashboard and the PDF builder. The same structured result powers the in-app recommendation card and the report section, so there is no copy-editing fork where one surface says something the other cannot defend. This is the same "one typed payload, multiple surfaces" discipline I describe at the data-truth level in [the LedgerGuard writeup](/writing/ledgerguard-truth-between-extraction-and-finance) — different domain, same architectural instinct.
 
 Fifth, if policy rules, incentive logic, or scenario rules change, the context builder and schema update with them. That keeps the recommendation layer moving with the verified domain model instead of becoming its own undocumented product.
 
@@ -157,6 +159,12 @@ The lesson I would reuse is simple:
 - Reject unsupported answers instead of laundering them into something presentable.
 
 That costs flexibility. It buys honesty, which is the more important feature.
+
+## Further reading
+
+- [Zod](https://zod.dev/) — schema definition and runtime validation for exactly this kind of API and model-output boundary.
+- [Anthropic's developer documentation on tool use](https://docs.claude.com/) — for constraining model output shape at generation time rather than only validating after the fact.
+- [Pydantic](https://docs.pydantic.dev/) — the Python-side equivalent if your recommendation service sits behind a Python API instead of Fastify/Node.
 
 ## Related reading
 
