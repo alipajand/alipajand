@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.6.4] - 2026-06-20
+
+### Added
+
+- TallyFolio case study content across portfolio data, routes, screenshots, and coverage tests.
+
+### Changed
+
+- Refined Open Graph imagery styling with an updated background treatment.
+- Updated portfolio project references and internal-link coverage for the expanded case-study set.
+
+### Removed
+
+- Unused homepage copy and legacy decorative Open Graph icon markup.
+
+---
+
 ## [1.6.3] - 2026-06-19
 
 ### Added
