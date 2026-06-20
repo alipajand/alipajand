@@ -11,7 +11,6 @@ import {
   HOMEPAGE_HERO_PRIMARY_CTA_LABEL,
   HOMEPAGE_HERO_SECONDARY_CTA_HREF,
   HOMEPAGE_HERO_SECONDARY_CTA_LABEL,
-  HOMEPAGE_PROOF_POINTS,
   HOMEPAGE_HERO_TITLE,
 } from "data/homepage";
 import { HeroBackground } from "components/Hero/HeroBackground";

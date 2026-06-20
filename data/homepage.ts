@@ -31,25 +31,6 @@ export const HOMEPAGE_HERO_PRIMARY_CTA_HREF = "/portfolio";
 export const HOMEPAGE_HERO_SECONDARY_CTA_LABEL = "Get in touch";
 export const HOMEPAGE_HERO_SECONDARY_CTA_HREF = "/#contact";
 
-export const HOMEPAGE_PROOF_POINTS: HomepageProofPoint[] = [
-  {
-    title: "Frontend Architecture",
-    body: "React, Next.js App Router, TypeScript. Complex product workflows, state management, API contracts, and server/client component boundaries.",
-  },
-  {
-    title: "Design Systems",
-    body: "Shared component libraries with Storybook, design tokens, accessible component APIs, and consistent loading, error, and empty states across product surfaces.",
-  },
-  {
-    title: "AI Product UI",
-    body: "Human-in-the-loop review flows, async extraction states, and UI patterns that make the boundary between AI-suggested and user-confirmed data explicit.",
-  },
-  {
-    title: "Dashboards & Performance",
-    body: "D3.js data visualizations, rendering optimization, production error monitoring, and dashboard UX tuned for large datasets and embedded contexts.",
-  },
-];
-
 export const HOMEPAGE_CASE_STUDIES_HEADING = "Selected Work";
 export const HOMEPAGE_CASE_STUDIES_LEDE =
   "A recruiter-friendly preview of production work across AI-assisted workflows, design systems, enterprise dashboards, startup delivery, and developer tooling.";

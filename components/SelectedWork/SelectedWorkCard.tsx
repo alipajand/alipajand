@@ -26,6 +26,7 @@ export const SelectedWorkCard = ({ caseStudy }: { caseStudy: HomepageCaseStudy }
               src={caseStudy.image.src}
               alt={caseStudy.image.alt}
               fill
+              loading="eager"
               className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 50vw"
             />

@@ -14,6 +14,7 @@ describe("utils/projects", () => {
     expect(getOrderedProjects().map((project) => project.slug)).toEqual([
       "ledgerguard",
       "alwaysgeeky",
+      "tallyfolio",
       "emplifi",
       "controltech",
       "agent-tooling",
@@ -31,6 +32,7 @@ describe("utils/projects", () => {
     expect(getDedicatedCaseStudyProjects().map((project) => project.slug)).toEqual([
       "ledgerguard",
       "alwaysgeeky",
+      "tallyfolio",
       "emplifi",
       "controltech",
       "agent-tooling",
@@ -43,6 +45,7 @@ describe("utils/projects", () => {
     expect(getDedicatedCaseStudySlugs()).toEqual([
       "ledgerguard",
       "alwaysgeeky",
+      "tallyfolio",
       "emplifi",
       "controltech",
       "agent-tooling",
@@ -52,7 +55,8 @@ describe("utils/projects", () => {
 
   it("should return the next dedicated case study in order", () => {
     expect(getNextDedicatedCaseStudyProject("ledgerguard")?.slug).toBe("alwaysgeeky");
-    expect(getNextDedicatedCaseStudyProject("alwaysgeeky")?.slug).toBe("emplifi");
+    expect(getNextDedicatedCaseStudyProject("alwaysgeeky")?.slug).toBe("tallyfolio");
+    expect(getNextDedicatedCaseStudyProject("tallyfolio")?.slug).toBe("emplifi");
     expect(getNextDedicatedCaseStudyProject("emplifi")?.slug).toBe("controltech");
     expect(getNextDedicatedCaseStudyProject("controltech")?.slug).toBe("agent-tooling");
     expect(getNextDedicatedCaseStudyProject("agent-tooling")?.slug).toBe("mapbylaw");
