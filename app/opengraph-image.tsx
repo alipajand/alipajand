@@ -16,7 +16,7 @@ export default function OpenGraphImage() {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        background: "#000000",
+        background: "#111111",
         padding: 80,
         gap: 64,
       }}
@@ -61,24 +61,6 @@ export default function OpenGraphImage() {
         >
           <span>{metricsLine}</span>
         </div>
-      </div>
-      <div
-        style={{
-          width: 280,
-          height: 280,
-          borderRadius: "50%",
-          border: "1px solid #262626",
-          color: "#fafafa",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 108,
-          fontWeight: 800,
-          letterSpacing: "-0.06em",
-          flexShrink: 0,
-        }}
-      >
-        AP
       </div>
     </div>,
     { ...size }
