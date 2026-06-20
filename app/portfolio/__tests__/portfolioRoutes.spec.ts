@@ -26,7 +26,7 @@ describe("portfolio case-study routes", () => {
 
   it("should generate unique metadata per case study", () => {
     const ledgerguard = buildPortfolioCaseStudyMetadata(getProjectBySlug("ledgerguard")!);
-    const alwaysgeeky = buildPortfolioCaseStudyMetadata(getProjectBySlug("alwaysgeeky")!);
+    const tallyfolio = buildPortfolioCaseStudyMetadata(getProjectBySlug("tallyfolio")!);
 
     expect(ledgerguard.title).toEqual({
       absolute: "LedgerGuard — AI Contract Intelligence SaaS · Ali Pajand",
@@ -35,8 +35,10 @@ describe("portfolio case-study routes", () => {
       "Case study: Multi-tenant SaaS for AI contract intelligence. Next.js App Router, TypeScript, human-in-the-loop review UI, async AI extraction states, and document ingestion. Ali Pajand, Senior Product Engineer."
     );
     expect(ledgerguard.alternates?.canonical).toBe(`${CANONICAL_URL}/portfolio/ledgerguard`);
-    expect(alwaysgeeky.title).not.toEqual(ledgerguard.title);
-    expect(alwaysgeeky.description).not.toEqual(ledgerguard.description);
+    expect(tallyfolio.title).toEqual({
+      absolute: "TallyFolio — Privacy-first Personal Finance Tracker · Ali Pajand",
+    });
+    expect(tallyfolio.description).not.toEqual(ledgerguard.description);
   });
 
   it("should expose dedicated case-study URLs for sitemap generation", () => {

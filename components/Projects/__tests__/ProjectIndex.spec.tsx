@@ -25,6 +25,7 @@ describe("ProjectIndex", () => {
     expect(
       screen.getByRole("heading", { level: 2, name: "AlwaysGeeky Games" })
     ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "TallyFolio" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "Emplifi" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "ControlTech" })).toBeInTheDocument();
     expect(
@@ -52,6 +53,7 @@ describe("ProjectIndex", () => {
     ).toEqual([
       "/portfolio/ledgerguard",
       "/portfolio/alwaysgeeky",
+      "/portfolio/tallyfolio",
       "/portfolio/emplifi",
       "/portfolio/controltech",
       "/portfolio/agent-tooling",
@@ -64,6 +66,7 @@ describe("ProjectIndex", () => {
 
     expect(document.getElementById("project-ledgerguard")).toBeInTheDocument();
     expect(document.getElementById("project-alwaysgeeky")).toBeInTheDocument();
+    expect(document.getElementById("project-tallyfolio")).toBeInTheDocument();
     expect(document.getElementById("project-emplifi")).toBeInTheDocument();
     expect(document.getElementById("project-controltech")).toBeInTheDocument();
     expect(document.getElementById("project-agent-tooling")).toBeInTheDocument();

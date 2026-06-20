@@ -18,6 +18,7 @@ export const ProjectFigure = ({ figure }: ProjectFigureProps) => {
           alt={figure.alt}
           width={figure.width}
           height={figure.height}
+          loading="eager"
           className="h-auto w-full"
         />
       ) : figure.type === "image" ? (

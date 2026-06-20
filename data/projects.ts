@@ -69,6 +69,7 @@ export const PORTFOLIO_META_DESCRIPTION =
 export const PORTFOLIO_CASE_STUDY_ORDER = [
   "ledgerguard",
   "alwaysgeeky",
+  "tallyfolio",
   "emplifi",
   "controltech",
   "agent-tooling",
@@ -189,6 +190,110 @@ export const PROJECTS: Project[] = [
         href: "/writing/ledgerguard-truth-between-extraction-and-finance",
       },
     ],
+  },
+  {
+    id: "tallyfolio",
+    slug: "tallyfolio",
+    hasDedicatedCaseStudy: true,
+    name: "TallyFolio",
+    caseStudyTitle: "Privacy-first personal finance tracker",
+    caseStudyMetaTitle: "TallyFolio — Privacy-first Personal Finance Tracker · Ali Pajand",
+    caseStudyMetaDescription:
+      "Case study: Privacy-first personal finance tracker built as a manual-first PWA. Next.js, TypeScript, deterministic financial calculations, import review workflows, and production-grade auth. Ali Pajand.",
+    employerContext:
+      "Full-stack PWA for manual-first personal finance tracking, reporting, forecasting, and asset management.",
+    cardProblem:
+      "Most personal finance apps force users into bank aggregation or spreadsheets. TallyFolio needed modern product workflows without giving up privacy or manual control.",
+    role: "Founder · Product Engineer · Designer",
+    timeframe: "Independent",
+    capabilityTags: ["Full-stack product", "Financial correctness", "Privacy boundaries"],
+    caseStudy: {
+      overview:
+        "A full-stack PWA for manual-first personal finance tracking, built with deterministic financial calculations, CSV import workflows, reports, forecasting, subscriptions, investments, and asset tracking.",
+      context:
+        "TallyFolio is a manual-first personal finance product built around privacy, deterministic calculations, and everyday workflows that do not depend on bank aggregation. The product needed modern import, reporting, and forecasting UX without losing user control over the data model.",
+      problem:
+        "Most personal finance apps force users into either bank aggregation or spreadsheets. I wanted a private, manual-first system that could still provide modern product workflows: import review, categorization, subscriptions, cash-flow forecasting, investment contributions, reports, and asset tracking.",
+      myRole: [
+        "Defined the product strategy, UX, frontend architecture, backend shape, and data model.",
+        "Built the authenticated product workflows for imports, reporting, budgets, forecasting, subscriptions, investments, and assets.",
+        "Designed the system boundaries around deterministic finance logic, privacy, and optional AI explanations.",
+      ],
+      whatIBuilt: [
+        "Dashboard and authenticated home workflows.",
+        "CSV import review and transaction management.",
+        "Budgets, reports, subscriptions, recurring schedules, and forecast views.",
+        "Investments, asset register, and export/settings flows.",
+        "Public landing and support pages for the product.",
+      ],
+      technicalDecisions: [
+        {
+          decision:
+            "Store financial values as integer minor units and keep calculations in pure domain modules.",
+          why: "Budgets, forecasts, reports, subscriptions, investments, and assets all needed deterministic results that could be tested and explained.",
+          tradeOff:
+            "This adds domain-modeling overhead compared with scattering financial math across UI and persistence layers.",
+          result:
+            "Totals, forecasts, and finance workflows remain deterministic and easier to validate.",
+        },
+        {
+          decision:
+            "Make imports manual-first and parse CSV/XLSX files in memory for review rather than persisting raw files.",
+          why: "The product needed modern import workflows without giving up user control or widening the privacy surface unnecessarily.",
+          tradeOff:
+            "Manual review adds friction compared with fully automated ingestion and requires more explicit UI states.",
+          result:
+            "Import review stays privacy-conscious and gives users a clearer verification step before data becomes product state.",
+        },
+        {
+          decision:
+            "Keep AI usage optional and constrained to explaining already-computed figures rather than generating new financial advice.",
+          why: "Financial trust depends on the product staying explicit about what is deterministic system output versus optional interpretation.",
+          tradeOff:
+            "This keeps the AI surface narrower and less flashy than broader assistant-style features.",
+          result:
+            "The product can offer assistance without weakening the boundary around financial correctness.",
+        },
+      ],
+      uxDecisions: [
+        "Used a manual-first import flow instead of requiring bank aggregation so users stay in control of what enters the system.",
+        "Modeled subscriptions and recurring schedules as first-class workflows so forecasting stays aligned to schedule truth rather than transaction guesswork.",
+        "Kept the product mobile/PWA-friendly for everyday use instead of assuming a desktop-only finance workflow.",
+        "Separated asset tracking from everyday spending flows so investment and cash workflows do not blur together in the UI.",
+      ],
+      interfaceEvidence: [
+        {
+          type: "image",
+          src: "/portfolio-media/tallyfolio-landing.png",
+          width: 3456,
+          height: 2234,
+          alt: "TallyFolio landing page",
+          captionLead: "Landing page.",
+          captionBody:
+            "Public landing and support pages introduce the manual-first product positioning before authenticated finance workflows.",
+        },
+        {
+          type: "image",
+          src: "/portfolio-media/tallyfolio-dashboard.png",
+          width: 3454,
+          height: 1982,
+          alt: "TallyFolio dashboard showing manual-first finance summaries, recent activity, and navigation into budgets, reports, and import workflows.",
+          captionLead: "Dashboard.",
+          captionBody:
+            "The authenticated home surface orients everyday personal finance work around deterministic totals and clear paths into import review, budgets, and reporting.",
+        },
+      ],
+      outcome: [
+        "Shipped a live full-stack finance product with privacy-conscious workflows and production-grade auth.",
+        "Established deterministic finance logic across budgets, reports, forecasts, subscriptions, investments, and asset tracking.",
+        "Created modern import and review workflows without depending on bank aggregation as the product baseline.",
+      ],
+      nextImprovements: [
+        "Expand more product-level evidence around forecast edge cases, import recovery, and mobile-specific workflow detail.",
+        "Continue refining the boundary between deterministic finance output and optional AI explanations as the product grows.",
+      ],
+    },
+    relatedLinks: [{ label: "Live product", href: "https://tallyfolio.com" }],
   },
   {
     id: "alwaysgeeky",

@@ -26,7 +26,7 @@ jest.mock("next/link", () => {
 
 describe("ProjectCaseStudyArticle", () => {
   const dedicatedProjects = getDedicatedCaseStudyProjects();
-  const [ledgerguard, alwaysgeeky, emplifi] = dedicatedProjects;
+  const [ledgerguard, alwaysgeeky, tallyfolio, emplifi] = dedicatedProjects;
 
   it("should use dedicated routes for next-project navigation on case-study pages", () => {
     render(
@@ -75,5 +75,14 @@ describe("ProjectCaseStudyArticle", () => {
     expect(screen.getByRole("heading", { name: "Outcome" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "What I would improve" })).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "Product decisions" })).not.toBeInTheDocument();
+  });
+
+  it("should render tallyfolio as a standard dedicated case study", () => {
+    render(<ProjectCaseStudyArticle project={tallyfolio} isDedicatedPage />);
+
+    expect(screen.getByRole("heading", { level: 1, name: "TallyFolio" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Context" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Technical decisions" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Outcome" })).toBeInTheDocument();
   });
 });
