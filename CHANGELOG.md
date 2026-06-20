@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.6.3] - 2026-06-19
+
+### Added
+
+- Writing post: _How I Use AI in My Frontend Engineering Workflow_.
+- Optional `seoTitle` and `seoDescription` frontmatter support for writing posts.
+
+### Changed
+
+- Added explicit SEO metadata fields across the writing archive for consistent article metadata.
+- Added related-reading links to the AI workflow post.
+
+---
+
 ## [1.6.2] - 2026-06-18
 
 ### Added
