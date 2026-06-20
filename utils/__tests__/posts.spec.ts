@@ -59,6 +59,15 @@ describe("utils/posts", () => {
     it("should return null for non-existent slug", () => {
       expect(getPostBySlug("non-existent-slug-xyz")).toBeNull();
     });
+
+    it("should read optional SEO frontmatter when present", () => {
+      const post = getPostBySlug("how-i-use-ai-in-my-frontend-engineering-workflow");
+      expect(post).not.toBeNull();
+      expect(post?.seoTitle).toBe("How I Use AI in My Frontend Engineering Workflow — Ali Pajand");
+      expect(post?.seoDescription).toBe(
+        "How I use AI tools, Cursor, model testing, and coding leaderboards in day-to-day frontend engineering work across architecture, product UX, refactoring, testing, and code review."
+      );
+    });
   });
 
   describe("getLatestPosts", () => {

@@ -2,6 +2,8 @@
 title: "Building tools that don’t fight you"
 date: "2026-02-26"
 excerpt: "A short framework for evaluating whether a design system, developer tool, or AI feature is actually helping the work instead of adding another layer around it."
+seoTitle: "Building tools that don’t fight you — Ali Pajand"
+seoDescription: "A short framework for evaluating whether a design system, developer tool, or AI feature is actually helping the work instead of adding another layer around it."
 featured: true
 tags:
   - Design systems

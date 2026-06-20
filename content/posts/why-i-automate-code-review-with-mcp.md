@@ -2,6 +2,8 @@
 title: "Moving deterministic checks into the editor with MCP"
 date: "2026-01-15"
 excerpt: "Why I use MCP to run deterministic local checks in the editor, what that buys over scripts or hooks alone, and where human review still starts."
+seoTitle: "Moving deterministic checks into the editor with MCP — Ali Pajand"
+seoDescription: "Why I use MCP to run deterministic local checks in the editor, what that buys over scripts or hooks alone, and where human review still starts."
 tags:
   - DX
   - Tooling
