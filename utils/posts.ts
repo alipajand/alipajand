@@ -1,17 +1,26 @@
 import { readdirSync, readFileSync } from "fs";
 import { join } from "path";
 
-import matter from "gray-matter";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import { marked } from "marked";
 
-const matterOptions = {
-  engines: {
-    yaml: {
-      parse: (src: string) => yaml.load(src) as Record<string, unknown>,
-      stringify: (data: object) => yaml.dump(data),
-    },
-  },
+const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
+
+const parseFrontmatter = (raw: string): { data: Record<string, unknown>; content: string } => {
+  const match = raw.match(FRONTMATTER_RE);
+  if (!match) {
+    return { data: {}, content: raw };
+  }
+
+  const [, frontmatter, content] = match;
+  if (!frontmatter.trim()) {
+    return { data: {}, content };
+  }
+
+  return {
+    data: (load(frontmatter) ?? {}) as Record<string, unknown>,
+    content,
+  };
 };
 
 const POSTS_DIR = join(process.cwd(), "content", "posts");
@@ -60,8 +69,8 @@ export const getAllPosts = (): Omit<Post, "contentHtml">[] => {
     .map((slug) => {
       const path = join(POSTS_DIR, `${slug}.md`);
       const raw = readFileSync(path, "utf-8");
-      const { data } = matter(raw, matterOptions);
-      const fm = data as PostFrontmatter;
+      const { data } = parseFrontmatter(raw);
+      const fm = data as unknown as PostFrontmatter;
       return {
         slug,
         title: fm.title ?? slug,
@@ -84,8 +93,8 @@ export const getPostBySlug = (slug: string): Post | null => {
   try {
     const path = join(POSTS_DIR, `${slug}.md`);
     const raw = readFileSync(path, "utf-8");
-    const { data, content } = matter(raw, matterOptions);
-    const fm = data as PostFrontmatter;
+    const { data, content } = parseFrontmatter(raw);
+    const fm = data as unknown as PostFrontmatter;
     const contentHtml = marked.parse(content, { async: false }) as string;
     return {
       slug,

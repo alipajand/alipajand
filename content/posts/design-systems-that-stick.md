@@ -25,11 +25,13 @@ That is the real constraint. Adoption fails not because teams hate the system, b
 
 Lecturing teams harder about consistency does not fix that. It confuses compliance with usability. If the fastest path to ship is bypassing the system, the system has a product problem.
 
+This is not a new observation. The teams behind some of the most-cited public design systems have written about the same failure mode from the inside. GitHub's Primer team has been explicit that a design system is a product with users, not a style guide with enforcement power. Shopify's Polaris team has written about the same tension between coverage and adoption — a system only earns trust once it covers the states people actually hit in production, not the states that looked good in the first release.
+
 ## Documentation first, but close to the code
 
 The fix starts with documentation, but not in the vague "we should write better docs" sense.
 
-Storybook was the primary discovery surface and interface contract, while code and versioned tokens remained the executable sources of truth.
+[Storybook](https://storybook.js.org/) was the primary discovery surface and interface contract, while code and versioned tokens remained the executable sources of truth.
 
 That distinction matters. Storybook is where engineers and designers discover variants, read usage guidance, and compare states. Component code and token definitions are what the build and product actually execute.
 
@@ -41,6 +43,8 @@ The practical change was that each important shared component needed:
 - Examples of loading, empty, error, and recovery states where applicable.
 
 I would rather document the states teams are already bypassing for than pretend the happy-path examples are enough. That means more Storybook and example maintenance, but that cost is lower than letting product code fork into inconsistent local patterns.
+
+If your team is choosing a documentation surface for the first time, it is worth looking past Storybook too. [Zeroheight](https://zeroheight.com/) is built specifically for design-system documentation that designers and engineers share, and [Backstage](https://backstage.io/) (originally Spotify's internal platform, now a CNCF project) solves a related but different problem: discoverability across many systems and services, not just one component library. The right choice depends on whether your problem is "people can't find the contract" or "people don't trust the contract once they find it." Most teams I have seen have the second problem, which is a component API and content problem, not a tooling problem.
 
 ## The component contract had to change
 
@@ -57,6 +61,8 @@ The better response was to harden the contract:
 Escape hatches matter. A design system should not absorb every piece of product behavior. Domain-specific recommendation panels, authentication workflows, or contract-review controls should remain product-owned even if they are visually assembled from shared primitives.
 
 Stronger contracts take longer to design. The upside is that teams stop bypassing the system for problems it should have solved in the first place.
+
+If you want a public reference for what a hardened contract looks like in practice, [Radix Primitives](https://www.radix-ui.com/primitives) is a useful study even if you do not adopt it directly. It separates unstyled behavioral primitives — focus management, keyboard navigation, ARIA wiring — from visual styling, which is close to the boundary I am describing between "behavioral hooks" and "visual shell." [Adobe's React Aria](https://react-spectrum.adobe.com/react-aria/) takes the same separation further and documents the accessibility behavior each primitive guarantees, which is a good model for what "accessibility as part of the API" can look like as a written contract instead of a hope.
 
 ## Adoption depends on migration, not just new rules
 
@@ -88,6 +94,8 @@ Contribution criteria are especially important. A pattern belongs in the design 
 
 That avoids a common mistake: moving unstable product logic into shared infrastructure too early in the name of consistency.
 
+For teams that need to track design-token consistency across a larger surface area than a single Storybook can show clearly, [Knapsack](https://www.knapsack.cloud/) and [Supernova](https://www.supernova.io/) are worth knowing about — both focus on token governance and cross-platform sync rather than component documentation alone. I would not reach for either until the lightweight governance above is already working; they solve a scaling problem, not a trust problem.
+
 ## Deprecation, breaking changes, and accessibility
 
 The system also needs a clear strategy for change.
@@ -96,7 +104,7 @@ Deprecation should be explicit, documented, and time-bounded. If a component or 
 
 Breaking changes should be rare and intentional. When they do happen, they need migration notes and examples because design systems affect many product surfaces at once.
 
-Accessibility raises the bar for the contract. If a shared dialog, field, navigation pattern, or button group cannot define semantics, focus behavior, and recoverable error states clearly, it is not ready to be shared. Accessibility is not a documentation appendix. It is part of what makes the abstraction legitimate.
+Accessibility raises the bar for the contract. If a shared dialog, field, navigation pattern, or button group cannot define semantics, focus behavior, and recoverable error states clearly, it is not ready to be shared. Accessibility is not a documentation appendix. It is part of what makes the abstraction legitimate. The [WAI-ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/) is the reference I keep coming back to when defining what a shared interactive component is actually required to guarantee — it is more useful as a contract source than most internal accessibility checklists I have seen, because it documents expected keyboard behavior pattern by pattern.
 
 That is also why some things should remain product-specific. A domain workflow may still need custom orchestration even if it uses shared accessible primitives underneath. Reuse should happen at the right layer, not at the most convenient one.
 
@@ -113,6 +121,13 @@ That means:
 - discipline about what should stay product-specific
 
 If teams keep bypassing a system, assume the bypass is telling you something true. The answer is usually not more evangelism. It is a better interface.
+
+## Further reading
+
+- [GitHub Primer](https://primer.style/) — a public design system with documented contribution and deprecation processes worth studying directly.
+- [Shopify Polaris](https://polaris.shopify.com/) — strong example of "use this when / do not use this when" guidance at the component level.
+- [Radix Primitives](https://www.radix-ui.com/primitives) and [React Aria](https://react-spectrum.adobe.com/react-aria/) — for the behavioral-primitive vs. visual-shell separation discussed above.
+- [WAI-ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/) — the reference for what a shared interactive component should guarantee.
 
 ## Related reading
 
