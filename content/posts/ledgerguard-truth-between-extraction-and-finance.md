@@ -24,7 +24,7 @@ If the interface simply reads "the commitment row" or "the latest write," it can
 
 The motivating constraint was straightforward: LedgerGuard needed clause-backed renewal and spend visibility, but the data behind those views was produced by a replayable pipeline with human intervention in the middle. That ruled out a naive "last row wins" design.
 
-None of this is a new category of problem, which is worth saying plainly. It is the same family of issue distributed systems engineering has dealt with for decades under names like eventual consistency, idempotent message processing, and conflict resolution. Martin Kleppmann's _[Designing Data-Intensive Applications](https://dataintensive.net/)_ is the book I keep coming back to for the underlying vocabulary — particularly the chapters on replication lag and the difference between a system that is consistent and one that merely looks consistent on the happy path. I am not claiming LedgerGuard reinvented anything here; the contribution, if there is one, is taking those ideas seriously at the UI layer instead of assuming they stop at the database.
+None of this is a new category of problem, which is worth saying plainly. It is the same family of issue distributed systems engineering has dealt with for decades under names like eventual consistency, idempotent message processing, and conflict resolution. Martin Kleppmann's _[Designing Data-Intensive Applications](https://dataintensive.net/)_ is the book I keep coming back to for the underlying vocabulary, particularly the chapters on replication lag and the difference between a system that is consistent and one that merely looks consistent on the happy path. I am not claiming LedgerGuard reinvented anything here; the contribution, if there is one, is taking those ideas seriously at the UI layer instead of assuming they stop at the database.
 
 ## Separating proposal from truth
 
@@ -36,7 +36,7 @@ The deterministic layer owns typed APIs, audit trails, tenant-scoped rules, pers
 
 Letting the extraction pipeline own the final portfolio rows directly and patching edge cases later would have been simpler to ship at first, but it would have made recovery logic implicit and trust hard to explain. Once the product has both extracted fields and synthesized commitments, you need an explicit truth policy anyway.
 
-This split has a name in the broader architecture literature: it is close to the write-model/read-model separation in CQRS (Command Query Responsibility Segregation), and the "synthesis" step is functionally an event-sourced projection — a derived view rebuilt from an underlying log of facts, rather than the source of truth itself. Martin Fowler's writing on [CQRS](https://martinfowler.com/bliki/CQRS.html) and [event sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) is the clearest public explanation of why this separation earns its complexity once a system has more than one way to learn the truth about something. The cost is more state. You now have to represent honest incomplete states instead of always displaying a clean result. For LedgerGuard, that was the right trade. Finance users need to know when the ledger is incomplete more than they need a tidy card.
+This split has a name in the broader architecture literature: it is close to the write-model/read-model separation in CQRS (Command Query Responsibility Segregation), and the "synthesis" step is functionally an event-sourced projection: a derived view rebuilt from an underlying log of facts, rather than the source of truth itself. Martin Fowler's writing on [CQRS](https://martinfowler.com/bliki/CQRS.html) and [event sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) is the clearest public explanation of why this separation earns its complexity once a system has more than one way to learn the truth about something. The cost is more state. You now have to represent honest incomplete states instead of always displaying a clean result. For LedgerGuard, that was the right trade. Finance users need to know when the ledger is incomplete more than they need a tidy card.
 
 ## What the lifecycle is designed to handle
 
@@ -59,7 +59,7 @@ upload -> extract fields -> persist provenance -> synthesize commitment
 
 That lifecycle matters because each stage can succeed while a downstream stage fails. Extraction can be valid while synthesis is missing. A commitment can exist while its source provenance is no longer current. Human correction can be newer than the last synthesized output. Those states are common in document-heavy systems and needed to be designed for even when not every branch had surfaced in production yet.
 
-If you want a concrete worked example of "what does idempotent worker design actually look like," AWS's own architecture guidance on [building idempotent Lambda functions](https://docs.aws.amazon.com/lambda/latest/operatorguide/idempotency.html) and Stripe's public writing on [idempotent API requests](https://stripe.com/blog/idempotency) are both good references — Stripe's in particular, because payments has the same "a retry must never become a duplicate" requirement that a financial-document pipeline has.
+If you want a concrete worked example of "what does idempotent worker design actually look like," AWS's own architecture guidance on [building idempotent Lambda functions](https://docs.aws.amazon.com/lambda/latest/operatorguide/idempotency.html) and Stripe's public writing on [idempotent API requests](https://stripe.com/blog/idempotency) are both good references. Stripe's in particular, because payments has the same "a retry must never become a duplicate" requirement that a financial-document pipeline has.
 
 ## Truth precedence is the real feature
 
@@ -86,7 +86,7 @@ Once the precedence rules were explicit, the UI became easier to reason about.
 
 List and dashboard views are allowed to summarize only what the read model can defend. If commitment and field evidence align, the product can show a standard renewal state. If newer verified field data exists than the current synthesized commitment, the dashboard can still be useful, but it has to say that the summary is being realigned.
 
-Detail views can expose more nuance. They can show field evidence, provenance, verification status, and exactly where disagreement lives. That is the right place for a reviewer to understand whether the problem is extraction quality, synthesis lag, or a human correction that has not been incorporated yet. The frontend-side discipline this requires — typed contracts that distinguish grounded data from uncertain data — is the same one I describe more generally in [how I approach senior frontend architecture](/writing/how-i-approach-senior-frontend-architecture).
+Detail views can expose more nuance. They can show field evidence, provenance, verification status, and exactly where disagreement lives. That is the right place for a reviewer to understand whether the problem is extraction quality, synthesis lag, or a human correction that has not been incorporated yet. The frontend-side discipline this requires (typed contracts that distinguish grounded data from uncertain data) is the same one I describe more generally in [how I approach senior frontend architecture](/writing/how-i-approach-senior-frontend-architecture).
 
 Review workflows need the opposite bias from dashboard cards. A dashboard card wants a concise answer. A review surface needs to show why the answer is not yet clean. That is where source-backed fields, validation errors, partial extraction, and human correction all need to stay legible.
 
@@ -115,9 +115,9 @@ The moment you optimize for "always show a clean renewal card," you have already
 
 ## Further reading
 
-- _[Designing Data-Intensive Applications](https://dataintensive.net/)_ by Martin Kleppmann — the foundational reference for replication, consistency, and the trade-offs behind "which write wins."
-- [CQRS](https://martinfowler.com/bliki/CQRS.html) and [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html), both by Martin Fowler — the closest public vocabulary to the proposal/truth split described above.
-- [Stripe's writing on idempotent API requests](https://stripe.com/blog/idempotency) — a concrete, production-grade reference for the same "a retry must not duplicate" requirement workers in this pipeline depend on.
+- _[Designing Data-Intensive Applications](https://dataintensive.net/)_ by Martin Kleppmann: the foundational reference for replication, consistency, and the trade-offs behind "which write wins."
+- [CQRS](https://martinfowler.com/bliki/CQRS.html) and [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html), both by Martin Fowler: the closest public vocabulary to the proposal/truth split described above.
+- [Stripe's writing on idempotent API requests](https://stripe.com/blog/idempotency): a concrete, production-grade reference for the same "a retry must not duplicate" requirement workers in this pipeline depend on.
 
 ## Related reading
 

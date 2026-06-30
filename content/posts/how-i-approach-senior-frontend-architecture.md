@@ -39,7 +39,7 @@ The easiest way to create frontend bugs is to store state somewhere more global 
 - Local interaction state: open panels, row expansion, hover intent, inline disclosure state.
 - Persisted preference: things like density mode, dismissed hints, or table column preferences that should survive refreshes.
 
-In practice, this taxonomy maps closely to specific tools rather than staying abstract. Server cache is what [TanStack Query](https://tanstack.com/query) exists for — it explicitly does not try to be a general client-state manager, and its own documentation is worth reading on that boundary, because teams that reach for it as an everything-store usually end up fighting it. For state that genuinely needs to be global and synchronous — open panels shared across distant components, an auth user, a cart — [Zustand](https://zustand.docs.pmnd.rs/) is a small, low-ceremony option that avoids the provider and boilerplate overhead of older patterns. Form state has its own shape again; [React Hook Form](https://react-hook-form.com/) or TanStack Form fit that slot specifically because committed-vs-draft is a different lifecycle than server cache or global UI state. The mistake worth naming directly: picking one library and asking it to cover all five categories. That is usually where "why did changing this modal break browser navigation" bugs come from — state with the wrong scope reacting to changes it should not be subscribed to.
+In practice, this taxonomy maps closely to specific tools rather than staying abstract. Server cache is what [TanStack Query](https://tanstack.com/query) exists for. It explicitly does not try to be a general client-state manager, and its own documentation is worth reading on that boundary, because teams that reach for it as an everything-store usually end up fighting it. For state that genuinely needs to be global and synchronous (open panels shared across distant components, an auth user, a cart), [Zustand](https://zustand.docs.pmnd.rs/) is a small, low-ceremony option that avoids the provider and boilerplate overhead of older patterns. Form state has its own shape again; [React Hook Form](https://react-hook-form.com/) or TanStack Form fit that slot specifically because committed-vs-draft is a different lifecycle than server cache or global UI state. The mistake worth naming directly: picking one library and asking it to cover all five categories. That is usually where "why did changing this modal break browser navigation" bugs come from: state with the wrong scope reacting to changes it should not be subscribed to.
 
 In a workflow-heavy interface, imagine a contract review screen with a renewals table and a detail drawer. The table data belongs in server cache. The selected contract ID and current filter belong in the URL so a reviewer can share the exact view. Edits to a notice date belong in form state until saved. Whether the evidence sidebar is open belongs in local interaction state. The user's chosen compact-table preference belongs in persisted local storage or profile state.
 
@@ -49,7 +49,7 @@ One app-wide store holding all of it "for convenience" is the pattern I avoid. D
 
 Frontend architecture gets weak when the UI has to guess what the backend meant.
 
-Typed API contracts, [Zod](https://zod.dev/) validation, and explicit empty or error states are not backend polish. They shape what the UI can safely promise. This matters even more in AI-assisted products, where the frontend needs to know what is grounded, what is uncertain, and what can be edited without being mistaken for verified truth — the exact problem I describe at the product level in [the LedgerGuard truth-precedence writeup](/writing/ledgerguard-truth-between-extraction-and-finance).
+Typed API contracts, [Zod](https://zod.dev/) validation, and explicit empty or error states are not backend polish. They shape what the UI can safely promise. This matters even more in AI-assisted products, where the frontend needs to know what is grounded, what is uncertain, and what can be edited without being mistaken for verified truth. That is the exact problem I describe at the product level in [the LedgerGuard truth-precedence writeup](/writing/ledgerguard-truth-between-extraction-and-finance).
 
 Zod earns a specific mention here rather than "a validation library" in the abstract, because runtime validation at the API boundary is the piece a typed contract alone cannot give you: TypeScript types disappear at compile time, so a malformed or drifted payload still reaches your components unless something checks it at runtime. Parsing the response through a schema and deriving the TypeScript type from that schema, rather than hand-writing both, keeps the two from drifting apart as the API evolves.
 
@@ -97,7 +97,7 @@ Using end-to-end tests as a substitute for all other confidence tends to create 
 
 Architecture is not preserved by diagrams alone. It is preserved by what code review treats as important.
 
-I want deterministic checks like typecheck, lint, and tests to run early so review time can focus on behavior, ownership, naming, failure handling, and trade-offs — the same separation of concerns I describe in [Moving deterministic checks into the editor with MCP](/writing/why-i-automate-code-review-with-mcp). If a feature introduces a new shared component, the review should ask whether it is actually shared infrastructure or product logic looking for a home. If a piece of state moved, the review should ask whether its new owner matches the product model.
+I want deterministic checks like typecheck, lint, and tests to run early so review time can focus on behavior, ownership, naming, failure handling, and trade-offs. It is the same separation of concerns I describe in [Moving deterministic checks into the editor with MCP](/writing/why-i-automate-code-review-with-mcp). If a feature introduces a new shared component, the review should ask whether it is actually shared infrastructure or product logic looking for a home. If a piece of state moved, the review should ask whether its new owner matches the product model.
 
 That is the part of senior frontend work I care about most. The code should not only render the right pixels. It should make the next decision easier and the next failure easier to explain.
 
@@ -109,10 +109,10 @@ It helps designers trust the system, backend engineers trust the contract, produ
 
 ## Further reading
 
-- [TanStack Query docs](https://tanstack.com/query/latest/docs/framework/react/overview) — read the "does this replace a state manager" page specifically; it is the clearest public statement of the server-cache vs. client-state boundary I rely on above.
-- [Zustand](https://zustand.docs.pmnd.rs/) — for the minimal global-store slot in the taxonomy above.
-- [Zod](https://zod.dev/) — schema-first runtime validation at the API boundary.
-- [WAI-ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/) — pattern-by-pattern accessibility contracts for shared components.
+- [TanStack Query docs](https://tanstack.com/query/latest/docs/framework/react/overview): read the "does this replace a state manager" page specifically; it is the clearest public statement of the server-cache vs. client-state boundary I rely on above.
+- [Zustand](https://zustand.docs.pmnd.rs/): for the minimal global-store slot in the taxonomy above.
+- [Zod](https://zod.dev/): schema-first runtime validation at the API boundary.
+- [WAI-ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/): pattern-by-pattern accessibility contracts for shared components.
 
 ## Related reading
 
