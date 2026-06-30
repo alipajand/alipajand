@@ -76,7 +76,7 @@ A game product has several kinds of state, and each belongs somewhere different.
 
 - **Product data** ([TanStack Query](https://tanstack.com/query/latest/docs/framework/react/overview)) — profiles, match history, leaderboards, billing.
 - **Authoritative game state** (a socket-session store) — the current match; only changes when the server says so.
-- **Client preview state** — the optimistic board after a submitted-but-unconfirmed move, treated as *derived*: reconciled on confirm, rolled back on reject.
+- **Client preview state** — the optimistic board after a submitted-but-unconfirmed move, treated as _derived_: reconciled on confirm, rolled back on reject.
 - **Local interaction state** ([Zustand](https://zustand.docs.pmnd.rs/)) — selected checker, drag, replay cursor, UI panels.
 - **Form state** ([React Hook Form](https://react-hook-form.com/)) — settings, profile edits, tournament setup.
 - **Runtime validation** ([Zod](https://zod.dev/)) — socket payloads and API responses are runtime data, so I parse them before rendering anything product-critical.

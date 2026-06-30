@@ -1,8 +1,28 @@
 import { readdirSync, readFileSync } from "fs";
 import { join } from "path";
 
+import hljs from "highlight.js/lib/common";
 import { load } from "js-yaml";
 import { marked } from "marked";
+import { markedHighlight } from "marked-highlight";
+
+const LANG_ALIASES: Record<string, string> = {
+  tsx: "typescript",
+  jsx: "javascript",
+};
+
+const resolveLanguage = (lang: string): string => {
+  const normalized = LANG_ALIASES[lang] ?? lang;
+  return normalized && hljs.getLanguage(normalized) ? normalized : "plaintext";
+};
+
+marked.use(
+  markedHighlight({
+    emptyLangClass: "hljs",
+    langPrefix: "hljs language-",
+    highlight: (code, lang) => hljs.highlight(code, { language: resolveLanguage(lang) }).value,
+  })
+);
 
 const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
 

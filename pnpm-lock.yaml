@@ -27,6 +27,9 @@ importers:
       gsap:
         specifier: ^3.15.0
         version: 3.15.0
+      highlight.js:
+        specifier: ^11.11.1
+        version: 11.11.1
       js-yaml:
         specifier: ">=5.0.0"
         version: 5.0.0
@@ -36,6 +39,9 @@ importers:
       marked:
         specifier: ^18.0.5
         version: 18.0.5
+      marked-highlight:
+        specifier: ^2.2.4
+        version: 2.2.4(marked@18.0.5)
       next:
         specifier: ^16.2.7
         version: 16.2.9(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -3130,6 +3136,13 @@ packages:
         integrity: sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA==,
       }
 
+  highlight.js@11.11.1:
+    resolution:
+      {
+        integrity: sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==,
+      }
+    engines: { node: ">=12.0.0" }
+
   html-encoding-sniffer@4.0.0:
     resolution:
       {
@@ -4054,6 +4067,14 @@ packages:
       {
         integrity: sha512-JmqCvUhmt43madlpFzG4BQzG2Z3m6tvQDNKdClZnO3VbIudJYmxsT0FNJMeiB2+JTSlTQTSbU8QdesVmwJcmLg==,
       }
+
+  marked-highlight@2.2.4:
+    resolution:
+      {
+        integrity: sha512-PZxisNMJDduSjc0q6uvjsnqqHCXc9s0eyzxDO9sB1eNGJnd/H1/Fu+z6g/liC1dfJdFW4SftMwMlLvsBhUPrqQ==,
+      }
+    peerDependencies:
+      marked: ">=4 <19"
 
   marked@18.0.5:
     resolution:
@@ -7376,6 +7397,8 @@ snapshots:
     dependencies:
       hermes-estree: 0.25.1
 
+  highlight.js@11.11.1: {}
+
   html-encoding-sniffer@4.0.0:
     dependencies:
       whatwg-encoding: 3.1.1
@@ -8126,6 +8149,10 @@ snapshots:
   makeerror@1.0.12:
     dependencies:
       tmpl: 1.0.5
+
+  marked-highlight@2.2.4(marked@18.0.5):
+    dependencies:
+      marked: 18.0.5
 
   marked@18.0.5: {}
 
