@@ -5,7 +5,12 @@ import { getAllPosts, getLatestPosts, getPostBySlug, getPostsForWritingSection }
 jest.mock("marked", () => ({
   marked: {
     parse: (content: string) => `<p>${content}</p>`,
+    use: jest.fn(),
   },
+}));
+
+jest.mock("marked-highlight", () => ({
+  markedHighlight: jest.fn(() => ({})),
 }));
 
 const POSTS_DIR = join(process.cwd(), "content", "posts");

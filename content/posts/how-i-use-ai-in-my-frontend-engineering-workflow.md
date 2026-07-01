@@ -57,7 +57,7 @@ The key is giving the AI enough context. A vague prompt usually produces vague c
 
 I try to be very explicit about boundaries. If I want Cursor to update a component, I tell it whether it can change the API, whether it can touch styling, whether it should preserve behavior, and what files are off-limits.
 
-That makes the AI more useful and safer. It also keeps me in control of the architecture instead of letting the tool make product decisions by accident. For deterministic checks specifically — lint, typecheck, tests — I have moved those into the editor itself rather than relying on AI judgment or waiting for CI; I write about why in [Moving deterministic checks into the editor with MCP](/writing/why-i-automate-code-review-with-mcp).
+That makes the AI more useful and safer. It also keeps me in control of the architecture instead of letting the tool make product decisions by accident. For deterministic checks specifically (lint, typecheck, tests), I have moved those into the editor itself rather than relying on AI judgment or waiting for CI; I write about why in [Moving deterministic checks into the editor with MCP](/writing/why-i-automate-code-review-with-mcp).
 
 ## How I use AI for review and quality
 
@@ -93,7 +93,7 @@ The kinds of tasks I use for comparison include:
 - Improving accessibility in an existing component
 - Planning a feature with async and error states
 
-I also follow [LMArena's coding leaderboard](https://arena.ai/leaderboard/text) (the evaluation formerly run as a standalone WebDev Arena, now part of LMArena's Text Arena coding category), which compares models head-to-head on web development and agentic coding tasks through blind community voting. I treat that kind of leaderboard as a signal, not a source of truth — it tells you which model people preferred on a fairly narrow class of one-shot build tasks, not whether a model will hold up across a real multi-day feature with your actual constraints. I still test models against my own real frontend tasks before trusting them in my workflow, and for code review specifically I weight a model's ability to catch high-impact issues over its rank on a general build-quality board, since those are different skills the leaderboard does not separate cleanly.
+I also follow [LMArena's coding leaderboard](https://arena.ai/leaderboard/text) (the evaluation formerly run as a standalone WebDev Arena, now part of LMArena's Text Arena coding category), which compares models head-to-head on web development and agentic coding tasks through blind community voting. I treat that kind of leaderboard as a signal, not a source of truth. It tells you which model people preferred on a fairly narrow class of one-shot build tasks, not whether a model will hold up across a real multi-day feature with your actual constraints. I still test models against my own real frontend tasks before trusting them in my workflow, and for code review specifically I weight a model's ability to catch high-impact issues over its rank on a general build-quality board, since those are different skills the leaderboard does not separate cleanly.
 
 I care about whether a model follows constraints, respects existing patterns, handles multi-file changes, and produces code that survives review.
 
@@ -112,7 +112,7 @@ There are parts of the work I do not hand over blindly:
 
 AI can help generate options, but it cannot own the consequences. If I ship it, I am responsible for it.
 
-This is especially important in AI-assisted product interfaces. When the product itself uses AI, the interface has to make uncertainty visible. AI-suggested data and user-confirmed data should not look the same. Review flows, confidence states, source context, and error states need deliberate product decisions, not generic UI — this is the exact problem I worked through on a real product in [the LedgerGuard truth-precedence writeup](/writing/ledgerguard-truth-between-extraction-and-finance) and [the MapBylaw recommendations writeup](/writing/mapbylaw-ai-recommendations).
+This is especially important in AI-assisted product interfaces. When the product itself uses AI, the interface has to make uncertainty visible. AI-suggested data and user-confirmed data should not look the same. Review flows, confidence states, source context, and error states need deliberate product decisions, not generic UI. This is the exact problem I worked through on a real product in [the LedgerGuard truth-precedence writeup](/writing/ledgerguard-truth-between-extraction-and-finance) and [the MapBylaw recommendations writeup](/writing/mapbylaw-ai-recommendations).
 
 ## Why this matters for frontend teams
 
@@ -130,9 +130,9 @@ The engineers who get the most out of AI are not the ones who accept output the 
 
 ## Further reading
 
-- [LMArena](https://arena.ai/) — the leaderboard referenced above; worth checking periodically rather than trusting a single snapshot, since rankings move with each model release.
-- [Model Context Protocol](https://modelcontextprotocol.io/) — the open standard behind editor-integrated tool use; relevant background for anyone connecting AI tooling into an existing editor or CI workflow, covered in more depth in [my MCP writeup](/writing/why-i-automate-code-review-with-mcp).
-- [Cursor's documentation](https://docs.cursor.com/) — for the specifics of rules files, context windows, and multi-file edit behavior referenced above.
+- [LMArena](https://arena.ai/): the leaderboard referenced above; worth checking periodically rather than trusting a single snapshot, since rankings move with each model release.
+- [Model Context Protocol](https://modelcontextprotocol.io/): the open standard behind editor-integrated tool use; relevant background for anyone connecting AI tooling into an existing editor or CI workflow, covered in more depth in [my MCP writeup](/writing/why-i-automate-code-review-with-mcp).
+- [Cursor's documentation](https://docs.cursor.com/): for the specifics of rules files, context windows, and multi-file edit behavior referenced above.
 
 ## Related reading
 
