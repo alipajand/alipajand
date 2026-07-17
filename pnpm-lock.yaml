@@ -56,8 +56,8 @@ importers:
         specifier: ^7.81.0
         version: 7.81.0(react@19.2.7)
       resend:
-        specifier: ^6.16.0
-        version: 6.16.0
+        specifier: ^6.17.2
+        version: 6.17.2
     devDependencies:
       '@asamuzakjp/css-color':
         specifier: ^6.0.4
@@ -2822,8 +2822,8 @@ packages:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
 
-  resend@6.16.0:
-    resolution: {integrity: sha512-SaKISwHtxvAxneF84Njgnzg+zdngUu1vOT/paRU1De9QF+zXQR3GnwJHSh+mpJPjUhsGD4WxYi5CfKkXMkDqwg==}
+  resend@6.17.2:
+    resolution: {integrity: sha512-hbaXEORFIFfT2Bh03NsA/akTTTKkD1hiuJ88ke64c5dWVV6DyoLxzFve3OiZqVOQ+JKLJ5uVkPR6hlUslpJFoA==}
     engines: {node: '>=20'}
     peerDependencies:
       '@react-email/render': '*'
@@ -6287,7 +6287,7 @@ snapshots:
 
   require-directory@2.1.1: {}
 
-  resend@6.16.0:
+  resend@6.17.2:
     dependencies:
       postal-mime: 2.7.4
       standardwebhooks: 1.0.0
