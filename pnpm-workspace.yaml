@@ -3,6 +3,8 @@ allowBuilds:
   unrs-resolver: true
 
 overrides:
-  js-yaml: ">=5.0.0"
+  brace-expansion: 5.0.9
+  js-yaml: ">=5.2.2"
   minimatch: ">=9.0.7"
-  postcss: ">=8.5.10"
+  postcss: ">=8.5.23"
+  sharp@<0.35.0: 0.35.0
