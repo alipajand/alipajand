@@ -1,8 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { FooterDirectChannel } from "components/Footer/FooterDirectChannel";
 import { useHero } from "components/Hero/hooks/useHero";
-import { HERO_PROOF_ROW, HERO_SCROLL_INDICATOR, HERO_SECTION_ARIA_LABEL } from "data/site";
+import { LINKS } from "data/links";
+import {
+  HERO_PROOF_ROW,
+  HERO_SCROLL_INDICATOR,
+  HERO_SECTION_ARIA_LABEL,
+  HERO_SOCIAL_LINKS_ARIA_LABEL,
+} from "data/site";
 import {
   HOMEPAGE_HERO_BODY,
   HOMEPAGE_HERO_EYEBROW,
@@ -73,6 +80,15 @@ export const Hero = () => {
               {HOMEPAGE_HERO_SECONDARY_CTA_LABEL}
             </Link>
           </div>
+          <nav aria-label={HERO_SOCIAL_LINKS_ARIA_LABEL} data-hero-animate="slide-up">
+            <ul className="m-0 flex list-none gap-3 p-0">
+              {LINKS.map((channel) => (
+                <li key={channel.label}>
+                  <FooterDirectChannel label={channel.label} href={channel.href} />
+                </li>
+              ))}
+            </ul>
+          </nav>
           <dl className="mt-5 grid w-full grid-cols-1 gap-x-6 gap-y-4 pt-6 sm:grid-cols-2 lg:grid-cols-4">
             {HERO_PROOF_ROW.map((proof) => (
               <div key={proof.value} className="space-y-1">

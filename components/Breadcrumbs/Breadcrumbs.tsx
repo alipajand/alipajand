@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Fragment, forwardRef } from "react";
+import { forwardRef, Fragment } from "react";
 
 import type { BreadcrumbNavItem } from "data/breadcrumbs";
 import { FOCUS_RING } from "utils/visual";

@@ -48,6 +48,8 @@ export const HERO_SECTION_ARIA_LABEL = "Introduction";
 
 export const HERO_SCROLL_INDICATOR = "↓";
 
+export const HERO_SOCIAL_LINKS_ARIA_LABEL = "Social links";
+
 export const PERSON_SCHEMA_JOB_TITLE = "Full-Stack Web Developer and Product Engineer";
 
 export const PERSON_SCHEMA_ADDRESS_LOCALITY = "Montreal";

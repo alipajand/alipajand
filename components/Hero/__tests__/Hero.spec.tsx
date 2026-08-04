@@ -10,7 +10,8 @@ import {
   HOMEPAGE_HERO_SECONDARY_CTA_LABEL,
   HOMEPAGE_HERO_TITLE,
 } from "data/homepage";
-import { HERO_PROOF_ROW } from "data/site";
+import { LINKS } from "data/links";
+import { HERO_PROOF_ROW, HERO_SOCIAL_LINKS_ARIA_LABEL } from "data/site";
 
 jest.mock("components/Hero/HeroBackground", () => ({
   HeroBackground: () => null,
@@ -50,6 +51,20 @@ describe("Hero", () => {
 
       const link = screen.getByRole("link", { name: HOMEPAGE_HERO_SECONDARY_CTA_LABEL });
       expect(link).toHaveAttribute("href", HOMEPAGE_HERO_SECONDARY_CTA_HREF);
+    });
+
+    it("should render every direct channel from the shared links data", () => {
+      render(<Hero />);
+
+      expect(
+        screen.getByRole("navigation", { name: HERO_SOCIAL_LINKS_ARIA_LABEL })
+      ).toBeInTheDocument();
+      for (const channel of LINKS) {
+        expect(screen.getByRole("link", { name: new RegExp(`^${channel.label}`) })).toHaveAttribute(
+          "href",
+          channel.href
+        );
+      }
     });
 
     it("should render every proof-at-a-glance item", () => {

@@ -1,6 +1,6 @@
 import { CANONICAL_URL, PERSON_SCHEMA_ID, SITE_NAME } from "data/site";
-import { PORTFOLIO_PAGE_HEADER_TITLE } from "data/projects";
 import type { Project } from "data/projects";
+import { PORTFOLIO_PAGE_HEADER_TITLE } from "data/projects";
 
 interface ProjectCaseStudyJsonLdProps {
   project: Project;
