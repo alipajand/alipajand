@@ -6,11 +6,11 @@ This file gives Claude Code project-specific instructions for `alipajand/alipaja
 
 This repository powers Ali Pajand's personal portfolio site.
 
-Primary goal: make the site work as a senior-level hiring and credibility surface for a design-minded Senior Frontend / Product Engineer.
+Primary goal: make the site work as a senior-level hiring and credibility surface for a product-minded Full-Stack Web Developer / Product Engineer with deep frontend expertise.
 
 Core positioning:
 
-- Senior Product Engineer / Senior Frontend Engineer
+- Full-Stack Web Developer / Product Engineer
 - Frontend architecture, React, Next.js, TypeScript
 - Design systems, accessibility, visual polish, interaction quality
 - AI product workflows and developer experience
@@ -18,9 +18,9 @@ Core positioning:
 
 The site should help recruiters and hiring managers quickly understand:
 
-1. Ali is available for senior frontend/product engineering opportunities.
-2. Ali can own ambiguous product work from UX direction through production implementation.
-3. Ali has credible depth in React/Next.js/TypeScript, design systems, AI-assisted interfaces, dashboards, accessibility, and DX.
+1. Ali is available for full-stack, senior frontend, and product engineering opportunities.
+2. Ali can own ambiguous product work from product architecture and UX direction through production delivery.
+3. Ali has credible depth in React/Next.js/TypeScript, Node.js/Fastify APIs, PostgreSQL, background jobs, design systems, AI-assisted interfaces, dashboards, accessibility, and DX.
 4. Portfolio work is not just visual output; it shows product decisions, engineering tradeoffs, systems thinking, and shipped behavior.
 
 ## Current stack
@@ -69,8 +69,9 @@ Use `pnpm` only. Do not introduce npm, yarn, or bun lockfiles.
 
 The homepage should make Ali's positioning obvious in the first screen:
 
-- Senior frontend/product engineer
+- Full-stack product engineer with deep frontend expertise
 - React / Next.js / TypeScript
+- Node.js / Fastify / PostgreSQL / background jobs
 - Design systems
 - AI product workflows
 - Accessibility / performance / DX
@@ -94,9 +95,10 @@ Priority case studies:
 1. LedgerGuard
 2. AlwaysGeeky Games
 3. Emplifi
-4. ControlTech
-5. Agent Tooling / Open Source
-6. MapBylaw, if relevant and strong enough
+4. Agent Tooling / Open Source
+5. TallyFolio
+6. ControlTech
+7. MapBylaw, if relevant and strong enough
 
 Case studies should explain:
 
@@ -105,6 +107,7 @@ Case studies should explain:
 - Constraints
 - UX/product decisions
 - Frontend architecture decisions
+- Backend, API, data, and background-job decisions
 - Design system or component decisions
 - AI/data/async state handling where relevant
 - Accessibility, performance, testing, or DX work
@@ -255,9 +258,9 @@ When summarizing work, include:
 - Name: Ali Pajand
 - Location: Montreal, Canada
 - Site: alipajand.com
-- Positioning: Senior Product Engineer / Senior Frontend Engineer
+- Positioning: Full-Stack Web Developer / Product Engineer
 - Experience: 9+ years
-- Core technologies: React, Next.js, TypeScript, design systems, accessibility, dashboards, AI product workflows, developer experience
+- Core technologies: React, Next.js, TypeScript, Node.js, Fastify, PostgreSQL, design systems, accessibility, dashboards, AI product workflows, developer experience
 - Recent work includes LedgerGuard, AlwaysGeeky Games, Emplifi, ControlTech, and AI/DX open-source tooling
 
 Do not publish private personal details beyond what already appears in the public site or resume-style content.

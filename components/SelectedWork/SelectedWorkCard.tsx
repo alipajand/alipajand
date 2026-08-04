@@ -10,13 +10,18 @@ const FIELD_LABEL = "text-[11px] font-semibold uppercase tracking-[0.12em] text-
 
 export const SelectedWorkCard = ({ caseStudy }: { caseStudy: HomepageCaseStudy }) => {
   return (
-    <article className="group flex h-full flex-col gap-5 rounded-xl border border-border/70 bg-card/50 p-6 sm:p-8 transition-colors duration-200 hover:border-foreground/25 hover:bg-card/70">
+    <article className="group flex h-full flex-col gap-5 rounded-xl border border-border/70 bg-card p-6 sm:p-8 transition-colors duration-200 hover:border-foreground/25 hover:bg-card/70">
       <div className="space-y-3">
         <p className={FIELD_LABEL}>{caseStudy.label}</p>
         <h3 className="font-display font-semibold text-xl sm:text-2xl text-foreground leading-tight">
           {caseStudy.title}
         </h3>
         <p className="text-muted text-[15px] leading-relaxed">{caseStudy.summary}</p>
+        {caseStudy.supportingLine ? (
+          <p className="text-foreground/85 text-[15px] leading-relaxed">
+            {caseStudy.supportingLine}
+          </p>
+        ) : null}
       </div>
 
       {caseStudy.image ? (

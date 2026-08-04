@@ -3,6 +3,8 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import {
   CANONICAL_URL,
+  HOME_OPEN_GRAPH_DESCRIPTION,
+  HOME_OPEN_GRAPH_TITLE,
   HOME_TITLE,
   SITE_META_DESCRIPTION,
   SITE_NAME,
@@ -47,8 +49,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: CANONICAL_URL,
     siteName: SITE_NAME,
-    title: HOME_TITLE,
-    description: SITE_META_DESCRIPTION,
+    title: HOME_OPEN_GRAPH_TITLE,
+    description: HOME_OPEN_GRAPH_DESCRIPTION,
     images: [
       {
         url: "/opengraph-image",
@@ -60,8 +62,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: HOME_TITLE,
-    description: SITE_META_DESCRIPTION,
+    title: HOME_OPEN_GRAPH_TITLE,
+    description: HOME_OPEN_GRAPH_DESCRIPTION,
     images: ["/opengraph-image"],
     ...(TWITTER_HANDLE ? { creator: `@${TWITTER_HANDLE}`, site: `@${TWITTER_HANDLE}` } : {}),
   },

@@ -18,14 +18,14 @@ export interface OpenSourcePrinciple {
 }
 
 export const OPEN_SOURCE_META_TITLE =
-  "Open Source & Tooling — Ali Pajand · Frontend Developer Experience";
+  "Open Source & Tooling — Ali Pajand · Full-Stack Product Engineer";
 export const OPEN_SOURCE_META_DESCRIPTION =
-  "Open source tooling projects for AI coding agent readiness, PR review automation, and frontend developer experience. agent-context-doctor, agent-pr-reviewer-lite, agent-readiness-kit. Ali Pajand.";
+  "Deterministic, local-first tools for AI-agent readiness, missing-context detection, risky-change review, and developer experience. Built with TypeScript and human engineering review.";
 
 export const OPEN_SOURCE_HEADER_OVERLINE = "Open source";
 export const OPEN_SOURCE_HEADER_HEADING = "Open Source & Tooling";
 export const OPEN_SOURCE_HEADER_LEDE =
-  "I use small tooling projects to explore how frontend teams can work better with AI agents, automated review feedback, and developer experience improvements.";
+  "I use small, local-first tools to explore how engineering teams can work more reliably with AI agents, automated review feedback, and developer experience improvements.";
 export const OPEN_SOURCE_HEADER_INTRO =
   "These are focused tools built to close specific gaps I’ve noticed while working with AI-assisted workflows.";
 
@@ -83,7 +83,7 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
     title: "agent-readiness-kit",
     repositoryUrl: "https://github.com/alipajand/agent-readiness-kit",
     summary:
-      "Tooling for evaluating whether a frontend codebase or workflow is ready for agent-assisted development.",
+      "Tooling for evaluating whether a codebase or workflow is ready for agent-assisted development.",
     status: "Experimental",
     format: "TypeScript CLI",
     testedCapabilitiesLabel: "Why it matters",

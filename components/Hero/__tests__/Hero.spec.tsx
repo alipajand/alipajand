@@ -2,11 +2,15 @@ import { render, screen } from "@testing-library/react";
 
 import { Hero } from "components/Hero/Hero";
 import {
+  HOMEPAGE_HERO_LOCATION,
   HOMEPAGE_HERO_NAME,
   HOMEPAGE_HERO_PRIMARY_CTA_HREF,
+  HOMEPAGE_HERO_PRIMARY_CTA_LABEL,
   HOMEPAGE_HERO_SECONDARY_CTA_HREF,
+  HOMEPAGE_HERO_SECONDARY_CTA_LABEL,
   HOMEPAGE_HERO_TITLE,
 } from "data/homepage";
+import { HERO_PROOF_ROW } from "data/site";
 
 jest.mock("components/Hero/HeroBackground", () => ({
   HeroBackground: () => null,
@@ -24,18 +28,19 @@ jest.mock("gsap", () => ({
 
 describe("Hero", () => {
   describe("default rendering", () => {
-    it("should render the accessible name, hero heading, and availability copy", () => {
+    it("should render the accessible name, hero heading, and location copy", () => {
       render(<Hero />);
 
       const heading = screen.getByRole("heading", { level: 1 });
       expect(heading).toHaveTextContent(HOMEPAGE_HERO_TITLE);
       expect(screen.getByText(HOMEPAGE_HERO_NAME)).toBeInTheDocument();
+      expect(screen.getByText(HOMEPAGE_HERO_LOCATION)).toBeInTheDocument();
     });
 
     it("should render primary CTA to portfolio case studies", () => {
       render(<Hero />);
 
-      const link = screen.getByRole("link", { name: /view case studies/i });
+      const link = screen.getByRole("link", { name: HOMEPAGE_HERO_PRIMARY_CTA_LABEL });
       expect(link).toBeInTheDocument();
       expect(link).toHaveAttribute("href", HOMEPAGE_HERO_PRIMARY_CTA_HREF);
     });
@@ -43,8 +48,17 @@ describe("Hero", () => {
     it("should render secondary CTA to contact", () => {
       render(<Hero />);
 
-      const link = screen.getByRole("link", { name: /get in touch/i });
+      const link = screen.getByRole("link", { name: HOMEPAGE_HERO_SECONDARY_CTA_LABEL });
       expect(link).toHaveAttribute("href", HOMEPAGE_HERO_SECONDARY_CTA_HREF);
+    });
+
+    it("should render every proof-at-a-glance item", () => {
+      render(<Hero />);
+
+      for (const proof of HERO_PROOF_ROW) {
+        expect(screen.getByText(proof.value)).toBeInTheDocument();
+        expect(screen.getByText(proof.label)).toBeInTheDocument();
+      }
     });
   });
 });

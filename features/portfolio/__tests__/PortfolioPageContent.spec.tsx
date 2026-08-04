@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { PortfolioPageContent } from "features/portfolio/PortfolioPageContent";
+import { PORTFOLIO_PAGE_INTRO, PORTFOLIO_PROFILE_DETAILS } from "data/projects";
 
 jest.mock("next/link", () => {
   return function MockLink({
@@ -21,11 +22,10 @@ describe("PortfolioPageContent", () => {
     render(<PortfolioPageContent />);
 
     expect(screen.getByRole("heading", { level: 1, name: "Portfolio" })).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Case studies from production work across SaaS products, enterprise analytics, AI-assisted workflows, and design systems. Each one documents the problem, my role, the decisions I made, and the product or engineering outcome."
-      )
-    ).toBeInTheDocument();
+    for (const paragraph of PORTFOLIO_PAGE_INTRO) {
+      expect(screen.getByText(paragraph)).toBeInTheDocument();
+    }
+    expect(screen.getByText(PORTFOLIO_PROFILE_DETAILS)).toBeInTheDocument();
   });
 
   it("should render the text-first project index", () => {

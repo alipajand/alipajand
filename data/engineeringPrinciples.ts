@@ -1,5 +1,5 @@
 export const ENGINEERING_PRINCIPLES_META_DESCRIPTION =
-  "Working principles for frontend product engineering: honest interfaces, visible async states, reviewable AI output, component APIs, accessibility, typed contracts, and maintainability. Ali Pajand.";
+  "Working principles for full-stack product engineering: honest interfaces, visible async states, reviewable AI output, typed API contracts, accessibility, and maintainability. Ali Pajand.";
 
 export const ENGINEERING_PRINCIPLES_PAGE_TITLE = "Engineering Principles";
 

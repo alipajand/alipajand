@@ -8,6 +8,7 @@ const caseStudy: HomepageCaseStudy = {
   label: "Independent product",
   title: "Demo case study",
   summary: "A tight homepage summary.",
+  supportingLine: "A supporting proof line.",
   tags: ["AI workflows", "Next.js", "DX"],
   href: "/portfolio/ledgerguard",
   image: {
@@ -18,11 +19,12 @@ const caseStudy: HomepageCaseStudy = {
 };
 
 describe("SelectedWorkCard", () => {
-  it("should render the case study label, title, summary, and screenshot", () => {
+  it("should render the case study label, title, summary, supporting line, and screenshot", () => {
     render(<SelectedWorkCard caseStudy={caseStudy} />);
     expect(screen.getByText(caseStudy.label)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: caseStudy.title })).toBeInTheDocument();
     expect(screen.getByText(caseStudy.summary)).toBeInTheDocument();
+    expect(screen.getByText(caseStudy.supportingLine!)).toBeInTheDocument();
     expect(screen.getByAltText(caseStudy.image!.alt)).toBeInTheDocument();
   });
 

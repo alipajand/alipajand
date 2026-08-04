@@ -32,10 +32,9 @@ export const FOOTER_WRITING_LABEL = "Latest writing";
 
 export const FOOTER_LATEST_WRITINGS_COUNT = 4;
 
-export const FOOTER_BRAND =
-  "Ali Pajand — Senior Frontend Engineer · Product Engineer · Design Systems";
+export const FOOTER_BRAND = "Ali Pajand — Full-Stack Web Developer · Product Engineer";
 
-export const FOOTER_LOCATION = "Montreal, Canada · Open to remote";
+export const FOOTER_LOCATION = "Based in Montreal, Canada · Open to remote work within Canada";
 
 export const footerCopyright = (year: number): string => {
   return `©${year}`;

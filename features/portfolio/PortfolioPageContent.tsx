@@ -4,7 +4,11 @@ import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import { MainReveal } from "components/MainReveal/MainReveal";
 import { ProjectIndex } from "components/Projects/ProjectIndex";
 import { portfolioIndexBreadcrumbs } from "data/breadcrumbs";
-import { PORTFOLIO_PAGE_HEADER_TITLE, PORTFOLIO_PAGE_INTRO } from "data/projects";
+import {
+  PORTFOLIO_PAGE_HEADER_TITLE,
+  PORTFOLIO_PAGE_INTRO,
+  PORTFOLIO_PROFILE_DETAILS,
+} from "data/projects";
 import { PAGE_HEADER_SHELL, SECTION_INNER } from "utils/visual";
 
 export const PortfolioPageContent = () => {
@@ -19,12 +23,16 @@ export const PortfolioPageContent = () => {
           >
             {PORTFOLIO_PAGE_HEADER_TITLE}
           </h1>
-          <p
-            data-header-lede
-            className="mt-4 max-w-4xl text-[15px] leading-relaxed text-muted sm:text-base"
-          >
-            {PORTFOLIO_PAGE_INTRO}
-          </p>
+          <div data-header-lede className="mt-4 max-w-4xl space-y-4">
+            {PORTFOLIO_PAGE_INTRO.map((paragraph) => (
+              <p key={paragraph} className="text-[15px] leading-relaxed text-muted sm:text-base">
+                {paragraph}
+              </p>
+            ))}
+            <p className="text-[15px] font-medium leading-relaxed text-foreground/85 sm:text-base">
+              {PORTFOLIO_PROFILE_DETAILS}
+            </p>
+          </div>
         </div>
       </header>
       <ProjectIndex />

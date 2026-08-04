@@ -280,3 +280,7 @@ select:focus-visible {
 .prose .hljs-strong {
   font-weight: 600;
 }
+
+.bg-card {
+  background-color: #000;
+}

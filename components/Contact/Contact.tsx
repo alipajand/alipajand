@@ -3,6 +3,7 @@
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import { LINKS } from "data/links";
 import {
+  CONTACT_AVAILABILITY,
   CONTACT_DIRECT_LABEL,
   CONTACT_FORM_SECTION_HEADING,
   CONTACT_SECTION_BODY,
@@ -37,6 +38,12 @@ export const Contact = () => {
         </h2>
         <p className={`${SECTION_LEDE} mb-8 sm:mb-10`} data-reveal>
           {CONTACT_SECTION_BODY}
+        </p>
+        <p
+          className="-mt-5 mb-8 text-[15px] leading-relaxed text-foreground/85 sm:mb-10"
+          data-reveal
+        >
+          {CONTACT_AVAILABILITY}
         </p>
 
         <div className="mb-10" data-reveal>

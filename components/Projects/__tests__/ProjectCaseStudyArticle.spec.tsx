@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { ProjectCaseStudyArticle } from "components/Projects/ProjectCaseStudyArticle";
-import { getDedicatedCaseStudyProjects } from "utils/projects";
+import { getProjectBySlug } from "utils/projects";
 
 jest.mock("next/image", () => ({
   __esModule: true,
@@ -25,8 +25,10 @@ jest.mock("next/link", () => {
 });
 
 describe("ProjectCaseStudyArticle", () => {
-  const dedicatedProjects = getDedicatedCaseStudyProjects();
-  const [ledgerguard, alwaysgeeky, tallyfolio, emplifi] = dedicatedProjects;
+  const ledgerguard = getProjectBySlug("ledgerguard")!;
+  const alwaysgeeky = getProjectBySlug("alwaysgeeky")!;
+  const tallyfolio = getProjectBySlug("tallyfolio")!;
+  const emplifi = getProjectBySlug("emplifi")!;
 
   it("should use dedicated routes for next-project navigation on case-study pages", () => {
     render(

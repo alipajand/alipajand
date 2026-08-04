@@ -58,21 +58,27 @@ export interface Project {
 
 export const PORTFOLIO_PAGE_HEADER_TITLE = "Portfolio";
 
-export const PORTFOLIO_PAGE_INTRO =
-  "Case studies from production work across SaaS products, enterprise analytics, AI-assisted workflows, and design systems. Each one documents the problem, my role, the decisions I made, and the product or engineering outcome.";
+export const PORTFOLIO_PAGE_INTRO = [
+  "I'm a full-stack product engineer with 9+ years of experience building production web applications. My deepest specialization is frontend architecture: React, Next.js, TypeScript, design systems, accessibility, performance, and complex product workflows. I also build the backend systems those interfaces depend on, including Node.js APIs, PostgreSQL data models, authentication, background jobs, document-processing pipelines, and production delivery infrastructure.",
+  "At LedgerGuard, I designed and built a multi-tenant AI contract-intelligence product end to end. The system combines a Next.js application, Node.js/Fastify API, Supabase PostgreSQL/Auth/Storage, Redis/BullMQ orchestration, a Python processing worker, AWS Textract, and OpenAI extraction. Its central product principle is that AI suggestions must remain visibly separate from deterministic, user-confirmed data.",
+  "I use AI coding agents for implementation, testing, refactoring, investigation, and documentation. I retain ownership of architecture, business logic, security, performance, validation, and final review.",
+] as const;
 
-export const PORTFOLIO_META_TITLE = "Portfolio — Ali Pajand · Senior Frontend Engineer";
+export const PORTFOLIO_PROFILE_DETAILS =
+  "Based in Montreal, Canada. English: professional. French: intermediate.";
+
+export const PORTFOLIO_META_TITLE = "Portfolio — Ali Pajand · Full-Stack Product Engineer";
 
 export const PORTFOLIO_META_DESCRIPTION =
-  "Case studies from production work across AI product UI, design systems, enterprise dashboards, and SaaS. React, Next.js, TypeScript, D3.js, Storybook. Senior Frontend Engineer — Ali Pajand.";
+  "Full-stack product engineering case studies across SaaS, enterprise analytics, design systems, and AI-assisted engineering. React, Next.js, TypeScript, Node.js, PostgreSQL, and production delivery.";
 
 export const PORTFOLIO_CASE_STUDY_ORDER = [
   "ledgerguard",
   "alwaysgeeky",
-  "tallyfolio",
   "emplifi",
-  "controltech",
   "agent-tooling",
+  "tallyfolio",
+  "controltech",
   "mapbylaw",
 ] as const;
 
@@ -82,42 +88,54 @@ export const PROJECTS: Project[] = [
     slug: "ledgerguard",
     hasDedicatedCaseStudy: true,
     name: "LedgerGuard",
-    caseStudyTitle: "AI Contract Intelligence SaaS",
-    caseStudyMetaTitle: "LedgerGuard — AI Contract Intelligence SaaS · Ali Pajand",
+    caseStudyTitle: "Full-Stack AI Contract Intelligence",
+    caseStudyMetaTitle: "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
     caseStudyMetaDescription:
-      "Case study: Multi-tenant SaaS for AI contract intelligence. Next.js App Router, TypeScript, human-in-the-loop review UI, async AI extraction states, and document ingestion. Ali Pajand, Senior Product Engineer.",
+      "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
     employerContext:
       "AI contract intelligence SaaS for renewals, commitments, notice windows, and financial exposure.",
     cardProblem:
-      "AI-powered contract intelligence platform for tracking renewals, financial commitments, and notice windows. Built the frontend architecture solo, including document ingestion flows, async AI extraction states, and a review UI that separates AI-suggested values from confirmed user-reviewed data.",
+      "Designed and built a multi-tenant SaaS product across a Next.js frontend, Node.js/Fastify API, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD. AI extraction is separated from deterministic, user-confirmed contract data through evidence-based human review.",
     role: "Senior Product Engineer",
     timeframe: "2026–Present",
     capabilityTags: [
-      "Next.js App Router",
+      "Next.js",
       "TypeScript",
-      "Human-in-the-loop UX",
-      "Async AI extraction",
-      "Document review workflows",
+      "Node.js",
+      "Fastify",
+      "PostgreSQL",
+      "Redis/BullMQ",
+      "AI",
     ],
     caseStudy: {
       overview:
-        "LedgerGuard is an AI-powered contract intelligence product for tracking renewals, commitments, and notice windows. The frontend had to make long-running extraction work understandable while keeping the review surface trustworthy for product users.",
+        "LedgerGuard is a multi-tenant AI contract-intelligence product I designed and built end to end across the web application, API, data model, background processing, document extraction, billing, infrastructure, and delivery workflows.",
       context:
-        "The product combines document ingestion, async extraction, tenant-aware product flows, and review-heavy dashboard work. The interface needed to stay clear about what came from the system and what had been confirmed by a user.",
+        "The system combines a Next.js application, Node.js/Fastify API, Supabase PostgreSQL/Auth/Storage, Redis/BullMQ orchestration, a Python processing worker, AWS Textract, and OpenAI extraction. The product needed to stay clear about what came from AI and what had been confirmed by a user.",
       problem:
         "Contract extraction is not useful on its own if the UI makes uncertain output look final. The product needed a workflow that could show in-progress extraction, surface AI-suggested values safely, and support confirmation without collapsing everything into a single success state.",
       myRole: [
-        "Built the frontend architecture and product UI solo across landing, authentication, upload, review, and dashboard flows.",
-        "Designed the typed React and Next.js boundaries for async document ingestion and review states.",
-        "Defined how AI-suggested values and confirmed user-reviewed data should be presented distinctly in the interface.",
+        "Owned product strategy, architecture, implementation, testing, infrastructure, and delivery across the full stack.",
+        "Built the Next.js product, Node.js/Fastify API, PostgreSQL data model, authentication, background-job orchestration, and Python worker integration.",
+        "Defined how AI-suggested values and deterministic, user-confirmed data are stored and presented distinctly through evidence-based review.",
       ],
       whatIBuilt: [
         "Document ingestion and upload flows tied to async extraction states.",
         "Tenant-aware dashboard navigation and review surfaces for contract data.",
         "Verification UI that keeps AI-suggested values separate from confirmed user-reviewed data.",
         "Portfolio and renewal visibility screens that communicate incomplete or in-progress states.",
+        "API contracts, authentication, billing workflows, document-processing orchestration, Docker setup, and CI/CD delivery.",
       ],
       technicalDecisions: [
+        {
+          decision:
+            "Keep deterministic contract data and API rules in Node.js/Fastify while isolating probabilistic extraction in the Python worker behind explicit job contracts.",
+          why: "The product needed retryable document processing without allowing AI output to bypass authentication, tenant boundaries, or user confirmation.",
+          tradeOff:
+            "The separation adds Redis/BullMQ orchestration, worker lifecycle handling, and more API contracts to maintain.",
+          result:
+            "Background extraction can fail or retry independently while deterministic contract state remains controlled by the application and user review.",
+        },
         {
           decision:
             "Use a typed Next.js App Router frontend with explicit boundaries between server-rendered product surfaces and client-side review interactions.",
@@ -174,9 +192,9 @@ export const PROJECTS: Project[] = [
         },
       ],
       outcome: [
-        "Shipped a coherent frontend workflow for document ingestion, extraction review, and contract visibility.",
-        "Established reusable UI patterns for async AI extraction states and human review.",
-        "Kept the interface explicit about the difference between suggested output and confirmed data.",
+        "Shipped an end-to-end product workflow for document ingestion, extraction review, and contract visibility.",
+        "Reached 90% unit-test coverage for the LedgerGuard web application.",
+        "Kept AI suggestions explicitly separate from deterministic, user-confirmed contract data.",
       ],
       nextImprovements: [
         "Add more product-level evidence around exception handling so reviewers can prioritize the highest-risk contracts faster.",
@@ -305,23 +323,23 @@ export const PROJECTS: Project[] = [
     caseStudyMetaDescription:
       "Case study: Shared React component library with Storybook, accessibility improvements, CI quality checks, and marketplace workflows. Senior Frontend Engineer — Ali Pajand.",
     employerContext:
-      "Marketplace, authentication, and shared UI work for a consumer game marketplace.",
+      "Shared design-system ownership and product workflows across four product surfaces.",
     cardProblem:
-      "Shared React component library and Storybook documentation across a consumer game marketplace. Product and authentication workflows with consistent loading, error, empty, and session states, plus accessibility and CI quality improvements.",
+      "Built a shared React and TypeScript design system used across four product surfaces, while shipping marketplace, authentication, product, and account workflows in Next.js. Improved accessibility, responsive behavior, API integration, testing standards, and AI-assisted development workflows.",
     role: "Senior Frontend Engineer",
     timeframe: "2024–2026",
-    capabilityTags: ["React", "Next.js", "TypeScript", "Storybook", "Accessibility"],
+    capabilityTags: ["React", "Next.js", "TypeScript", "Storybook", "GraphQL", "Accessibility"],
     caseStudy: {
       overview:
-        "AlwaysGeeky Games needed product workflows that could move quickly without drifting away from a reusable design-system baseline. The work connected component architecture directly to marketplace and authentication surfaces.",
+        "AlwaysGeeky Games needed product workflows that could move quickly without drifting away from a reusable design-system baseline shared across four product surfaces. The work connected component architecture directly to marketplace, authentication, product, and account workflows.",
       context:
         "The product involved a shared React component library, Storybook-based documentation, and a marketplace experience with authentication and failure-prone workflow states. The goal was not only consistency, but clearer product behavior under real-world conditions.",
       problem:
         "Marketplace and account flows often drift into one-off implementations when teams prioritize speed over shared UI contracts. That makes accessibility, quality checks, and state handling harder to keep consistent as the product evolves.",
       myRole: [
-        "Built and maintained core UI patterns in the shared component system.",
+        "Shared ownership of the React and TypeScript design system used across four product surfaces.",
         "Helped evolve Storybook documentation so components were easier to discover and reuse.",
-        "Implemented marketplace and authentication workflows with consistent loading, empty, and error handling.",
+        "Implemented marketplace, authentication, product, and account workflows with consistent loading, empty, and error handling.",
       ],
       whatIBuilt: [
         "Shared React and TypeScript components used across marketplace and account surfaces.",
@@ -377,9 +395,9 @@ export const PROJECTS: Project[] = [
         },
       ],
       outcome: [
-        "Helped evolve a reusable component baseline across product workflows.",
+        "Helped evolve a reusable component baseline shared across four product surfaces.",
         "Improved consistency between Storybook documentation, shipped UI, and CI quality checks.",
-        "Made accessibility and state handling part of core product delivery instead of follow-up work.",
+        "Improved accessibility, responsive behavior, API integration, testing standards, and AI-assisted development workflows.",
       ],
       nextImprovements: [
         "Expand product-level regression coverage around key marketplace paths so system-level changes are easier to validate.",
@@ -396,16 +414,16 @@ export const PROJECTS: Project[] = [
     slug: "emplifi",
     hasDedicatedCaseStudy: true,
     name: "Emplifi",
-    caseStudyTitle: "Enterprise Analytics Dashboards",
-    caseStudyMetaTitle: "Emplifi — Enterprise Analytics Dashboards · Ali Pajand",
+    caseStudyTitle: "Enterprise Analytics",
+    caseStudyMetaTitle: "Emplifi — Enterprise Analytics · Ali Pajand",
     caseStudyMetaDescription:
-      "Case study: D3.js dashboard modules for enterprise analytics. Rendering optimization, mobile webview performance, Sentry and Hotjar production monitoring. Senior Frontend Engineer — Ali Pajand.",
+      "Case study: React, TypeScript, and D3.js enterprise analytics modules with an 80% reduction in unnecessary rendering and chart-update paint work. Senior Frontend Engineer — Ali Pajand.",
     employerContext: "Enterprise analytics dashboards with dense data views and embedded contexts.",
     cardProblem:
-      "Data-heavy dashboard modules for a social media analytics platform. D3.js visualizations, rendering improvements for desktop and embedded mobile webview contexts, and production UX monitoring through Sentry and Hotjar.",
+      "Built data-heavy React and TypeScript analytics modules with D3.js and optimized rendering across desktop and embedded mobile webviews. Reduced unnecessary re-renders and chart-update paint cost on lower-powered devices by 80%.",
     role: "Senior Frontend Engineer",
     timeframe: "2022–2023",
-    capabilityTags: ["React", "TypeScript", "D3.js", "GSAP", "Sentry"],
+    capabilityTags: ["React", "TypeScript", "D3.js", "GSAP", "Performance", "Sentry"],
     caseStudy: {
       overview:
         "Emplifi’s dashboard work focused on metric-heavy product views that had to remain usable under tight rendering budgets. The challenge was balancing chart fidelity, interaction detail, and responsiveness across multiple host environments.",
@@ -449,7 +467,7 @@ export const PROJECTS: Project[] = [
         "Made motion serve orientation and hierarchy rather than decorative movement.",
       ],
       outcome: [
-        "Shipped dashboard modules for enterprise analytics with more predictable rendering behavior across contexts.",
+        "Reduced unnecessary re-renders and chart-update paint cost on lower-powered devices by 80%.",
         "Established patterns for balancing chart interaction and UI readability in dense product surfaces.",
         "Kept performance work tied to the real product environments where the dashboards were used.",
       ],
@@ -533,25 +551,20 @@ export const PROJECTS: Project[] = [
     id: "agent-tooling",
     slug: "agent-tooling",
     hasDedicatedCaseStudy: true,
-    name: "Agent Tooling & Open Source",
-    caseStudyTitle: "Developer Experience Projects",
-    caseStudyMetaTitle: "Agent Tooling & Open Source — Developer Experience Projects · Ali Pajand",
+    name: "Agent Engineering Tools",
+    caseStudyTitle: "Deterministic AI-Agent Developer Tools",
+    caseStudyMetaTitle: "Agent Engineering Tools — Developer Experience Projects · Ali Pajand",
     caseStudyMetaDescription:
-      "Developer tooling projects: agent-context-doctor, agent-pr-reviewer-lite, and agent-readiness-kit. AI coding agent readiness, PR review automation, and frontend codebase evaluation. Ali Pajand.",
+      "Deterministic, local-first TypeScript tools for evaluating AI-agent readiness, detecting missing context, and reviewing risky code changes with human engineering review.",
     employerContext:
       "Independent tooling experiments for AI-assisted development and developer experience.",
     cardProblem:
-      "Small, focused tooling projects exploring how frontend teams can improve AI-assisted development through better context, automated review feedback, and agent-readiness evaluation.",
+      "Built deterministic, local-first tools for evaluating agent readiness, detecting missing context, and reviewing risky code changes.",
     role: "Independent / Ongoing",
-    capabilityTags: [
-      "Developer experience",
-      "AI agent tooling",
-      "PR review automation",
-      "Repository evaluation",
-    ],
+    capabilityTags: ["TypeScript", "CLI", "CI", "AI Agents", "Developer Experience"],
     caseStudy: {
       overview:
-        "These tooling projects explore how frontend teams can make AI-assisted development more reliable. The work stays intentionally small and focused on specific workflow problems instead of pretending to automate the entire development lifecycle.",
+        "These tooling projects explore how engineering teams can make AI-assisted development more reliable. The work stays intentionally small and focused on specific workflow problems instead of pretending to automate the entire development lifecycle.",
       context:
         "The projects emerged from practical friction points: weak agent context, generic review feedback, and teams adopting AI-assisted workflows before their conventions were ready for it. Each tool focuses on one gap and keeps the scope explicit.",
       problem:
@@ -593,11 +606,11 @@ export const PROJECTS: Project[] = [
       outcome: [
         "Built a set of small tooling projects that demonstrate practical DX thinking around AI-assisted workflows.",
         "Created examples of how structured feedback and context evaluation can improve engineering workflows.",
-        "Used the projects to sharpen positioning around frontend developer experience and product engineering.",
+        "Kept architecture, security, validation, and final decisions under human engineering review.",
       ],
       nextImprovements: [
         "Continue refining repository-specific evaluation rules so the tools produce more useful feedback in real teams.",
-        "Add more examples and integration paths that show how the tools fit into broader frontend workflows.",
+        "Add more examples and integration paths that show how the tools fit into broader engineering workflows.",
       ],
     },
     relatedLinks: [

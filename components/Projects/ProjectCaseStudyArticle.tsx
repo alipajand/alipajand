@@ -234,7 +234,7 @@ export const ProjectCaseStudyArticle = ({
 
         <aside className="hidden xl:block">
           <nav
-            className="sticky top-28 rounded-2xl border border-border/70 bg-card/50 p-4"
+            className="sticky top-28 rounded-2xl border border-border/70 bg-card p-4"
             aria-label={projectCaseStudyTocAriaLabel(project.name)}
           >
             <p className={`${LABEL_OVERLINE} mb-3`}>{PROJECT_CASE_STUDY_TOC_HEADING}</p>

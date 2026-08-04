@@ -32,7 +32,7 @@ export const Testimonials = () => {
           {TESTIMONIALS_INTRO}
         </p>
         <p
-          className="mb-14 sm:mb-16 max-w-3xl rounded-xl border border-border/70 bg-card/50 px-4 py-3 text-sm leading-relaxed text-muted"
+          className="mb-14 sm:mb-16 max-w-3xl rounded-xl border border-border/70 bg-card px-4 py-3 text-sm leading-relaxed text-muted"
           data-reveal
         >
           Factual review note: {TESTIMONIALS_FACTUAL_REVIEW_NOTE}

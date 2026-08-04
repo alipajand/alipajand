@@ -4,37 +4,32 @@ export interface HiringFitCard {
   body: string;
 }
 
-export const HIRING_FIT_HEADING = "What I work with";
+export const HIRING_FIT_HEADING = "Skills & Capabilities";
 
 export const HIRING_FIT_CARDS: HiringFitCard[] = [
   {
-    id: "frontend-architecture",
-    title: "Frontend Architecture",
-    body: "React · Next.js App Router · Server Components · TypeScript · TanStack Query · Zustand · Redux",
+    id: "full-stack-web",
+    title: "Full-Stack Web",
+    body: "React, Next.js, TypeScript, Node.js, Fastify, REST APIs, GraphQL, HTML, CSS, Tailwind CSS",
   },
   {
-    id: "design-systems-accessibility",
-    title: "Design Systems & Accessibility",
-    body: "Storybook · Design tokens · Component APIs · WCAG · Semantic HTML · Keyboard navigation",
+    id: "backend-data",
+    title: "Backend & Data",
+    body: "PostgreSQL, Supabase, Redis/BullMQ, authentication, background jobs, API contracts",
   },
   {
-    id: "ai-product-ui",
-    title: "AI Product UI",
-    body: "Human-in-the-loop UX · Async extraction states · Confidence display · Deterministic vs. probabilistic boundaries",
+    id: "ai-assisted-engineering",
+    title: "AI-Assisted Engineering",
+    body: "Cursor, Claude, Codex, custom MCP tooling, agent orchestration, OpenAI APIs",
   },
   {
-    id: "data-performance",
-    title: "Data & Performance",
-    body: "D3.js · GSAP · Rendering optimization · Code splitting · Caching · Sentry · Web Vitals",
+    id: "product-ui",
+    title: "Product UI",
+    body: "Storybook, design systems, Figma, WCAG, responsive design, SEO, D3.js, GSAP, Web Vitals",
   },
   {
-    id: "dx-quality",
-    title: "Developer Experience & Quality",
-    body: "Jest · Playwright · Cypress · React Testing Library · GitHub Actions · CI/CD · Cursor MCP · API contracts",
-  },
-  {
-    id: "additional",
-    title: "Additional",
-    body: "Tailwind CSS · Figma · SCSS · Node.js · REST · GraphQL · AWS Lambda · MongoDB · CircleCI · Grafana · Lighthouse",
+    id: "quality-delivery",
+    title: "Quality & Delivery",
+    body: "Jest, Playwright, Cypress, React Testing Library, Docker, AWS, GitHub Actions, CI/CD, Sentry",
   },
 ];

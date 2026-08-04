@@ -13,11 +13,28 @@ import { ENGINEERING_PRINCIPLES_META_DESCRIPTION } from "data/engineeringPrincip
 import { NOW_META_DESCRIPTION, NOW_PAGE_TITLE } from "data/now";
 import { OPEN_SOURCE_META_DESCRIPTION, OPEN_SOURCE_META_TITLE } from "data/openSourcePage";
 import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_META_TITLE } from "data/projects";
-import { CANONICAL_URL } from "data/site";
+import {
+  CANONICAL_URL,
+  HOME_OPEN_GRAPH_DESCRIPTION,
+  HOME_OPEN_GRAPH_TITLE,
+  HOME_TITLE,
+  SITE_META_DESCRIPTION,
+} from "data/site";
 import { WRITING_INDEX_DESCRIPTION, WRITING_INDEX_TITLE } from "data/writing";
 import { getProjectBySlug } from "utils/projects";
 
 describe("utils/metadata", () => {
+  it("should keep the homepage positioning metadata exact", () => {
+    expect(HOME_TITLE).toBe("Ali Pajand — Full-Stack Product Engineer | React, Next.js, Node.js");
+    expect(SITE_META_DESCRIPTION).toBe(
+      "Full-stack product engineer with 9+ years building React, Next.js, TypeScript, and Node.js products across SaaS, analytics, design systems, and trustworthy AI workflows."
+    );
+    expect(HOME_OPEN_GRAPH_TITLE).toBe("Ali Pajand — Full-Stack Web Developer · Product Engineer");
+    expect(HOME_OPEN_GRAPH_DESCRIPTION).toBe(
+      "I build complete web products across accessible interfaces, APIs, data workflows, AI-assisted systems, and reliable production delivery."
+    );
+  });
+
   it("should set canonical and descriptions for buildWritingIndexMetadata", () => {
     const m = buildWritingIndexMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/writing`);
@@ -89,7 +106,7 @@ describe("utils/metadata", () => {
     const m = buildEngineeringPrinciplesMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/engineering-principles`);
     expect(m.title).toEqual({
-      absolute: "Engineering Principles — Ali Pajand · Senior Frontend Engineer",
+      absolute: "Engineering Principles — Ali Pajand · Full-Stack Product Engineer",
     });
     expect(m.description).toBe(ENGINEERING_PRINCIPLES_META_DESCRIPTION);
     expect(m.openGraph?.url).toBe(`${CANONICAL_URL}/engineering-principles`);

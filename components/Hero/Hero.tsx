@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useHero } from "components/Hero/hooks/useHero";
-import { HERO_SCROLL_INDICATOR, HERO_SECTION_ARIA_LABEL } from "data/site";
+import { HERO_PROOF_ROW, HERO_SCROLL_INDICATOR, HERO_SECTION_ARIA_LABEL } from "data/site";
 import {
   HOMEPAGE_HERO_BODY,
   HOMEPAGE_HERO_EYEBROW,
+  HOMEPAGE_HERO_LOCATION,
   HOMEPAGE_HERO_NAME,
   HOMEPAGE_HERO_PRIMARY_CTA_HREF,
   HOMEPAGE_HERO_PRIMARY_CTA_LABEL,
@@ -18,7 +19,7 @@ import { CTA_PRIMARY, CTA_SECONDARY } from "utils/visual";
 
 export const Hero = () => {
   const {
-    selectors: { containerRef, line2Ref, subRef, ctaRef, scrollIndicatorRef },
+    selectors: { containerRef, line2Ref, subRef, ctaRef, locationRef, scrollIndicatorRef },
   } = useHero();
 
   return (
@@ -39,7 +40,7 @@ export const Hero = () => {
         <h1
           ref={line2Ref}
           data-hero-animate
-          className="max-w-4xl font-display font-bold text-4xl sm:text-5xl md:text-6xl leading-[1.05] text-foreground hero-lcp"
+          className="max-w-4xl font-display font-bold text-4xl sm:text-5xl md:text-5xl leading-[1.05] text-foreground hero-lcp"
         >
           {HOMEPAGE_HERO_TITLE}
         </h1>
@@ -49,6 +50,9 @@ export const Hero = () => {
           className="mt-6 sm:mt-7 max-w-3xl text-muted text-[15px] sm:text-lg leading-relaxed"
         >
           {HOMEPAGE_HERO_BODY}
+        </p>
+        <p ref={locationRef} className="mt-4 text-sm font-medium text-foreground/85">
+          {HOMEPAGE_HERO_LOCATION}
         </p>
 
         <div ref={ctaRef} className="mt-8 sm:mt-10 flex flex-col gap-4 sm:items-start">
@@ -69,6 +73,14 @@ export const Hero = () => {
               {HOMEPAGE_HERO_SECONDARY_CTA_LABEL}
             </Link>
           </div>
+          <dl className="mt-5 grid w-full grid-cols-1 gap-x-6 gap-y-4 pt-6 sm:grid-cols-2 lg:grid-cols-4">
+            {HERO_PROOF_ROW.map((proof) => (
+              <div key={proof.value} className="space-y-1">
+                <dt className="text-md font-semibold text-foreground">{proof.value}</dt>
+                <dd className="text-sm leading-relaxed text-muted">{proof.label}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
       <div

@@ -29,7 +29,7 @@ describe("ProjectIndex", () => {
     expect(screen.getByRole("heading", { level: 2, name: "Emplifi" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "ControlTech" })).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { level: 2, name: "Agent Tooling & Open Source" })
+      screen.getByRole("heading", { level: 2, name: "Agent Engineering Tools" })
     ).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "MapBylaw" })).toBeInTheDocument();
   });
@@ -53,10 +53,10 @@ describe("ProjectIndex", () => {
     ).toEqual([
       "/portfolio/ledgerguard",
       "/portfolio/alwaysgeeky",
-      "/portfolio/tallyfolio",
       "/portfolio/emplifi",
-      "/portfolio/controltech",
       "/portfolio/agent-tooling",
+      "/portfolio/tallyfolio",
+      "/portfolio/controltech",
       "/portfolio/mapbylaw",
     ]);
   });

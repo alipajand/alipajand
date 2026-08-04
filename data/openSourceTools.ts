@@ -8,7 +8,7 @@ export interface OpenSourceTool {
 export const OPEN_SOURCE_TOOLS_HEADING = "Tooling & Open Source";
 
 export const OPEN_SOURCE_TOOLS_LEDE =
-  "I build small tooling projects to explore how frontend teams can work better with AI agents and automated review feedback.";
+  "I build deterministic, local-first tools for evaluating agent readiness, detecting missing context, and reviewing risky code changes with human engineering review.";
 
 export const OPEN_SOURCE_TOOLS_CTA_LABEL = "Explore all open-source work";
 export const OPEN_SOURCE_TOOLS_CTA_HREF = "/open-source";
@@ -45,8 +45,7 @@ export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
   {
     name: "agent-readiness-kit",
     repositoryUrl: "https://github.com/alipajand/agent-readiness-kit",
-    problem:
-      "Evaluates whether a frontend codebase or workflow is ready for agent-assisted development.",
+    problem: "Evaluates whether a codebase or workflow is ready for agent-assisted development.",
     capabilities: [
       "Checks whether conventions, documentation, and tooling support agent-assisted work",
       "Highlights missing boundaries, validation paths, and repository guidance",

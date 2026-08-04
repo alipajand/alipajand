@@ -1,8 +1,8 @@
 # Hi, I'm Ali Pajand 👋
 
-Senior Product Engineer · Frontend Architecture · Design Systems · AI Product Workflows
+Full-Stack Web Developer · Product Engineer
 
-Senior Product Engineer in Montreal focused on frontend architecture, design systems, AI product workflows, accessibility, TypeScript/React, and developer experience.
+Full-stack product engineer in Montreal with 9+ years building React, Next.js, TypeScript, and Node.js products across SaaS, analytics, design systems, and trustworthy AI workflows.
 
 - **Site:** [alipajand.com](https://alipajand.com)
 - **LinkedIn:** [@alipajand](https://www.linkedin.com/in/alipajand/)

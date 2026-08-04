@@ -22,10 +22,10 @@ describe("portfolio internal links", () => {
     expect(getDedicatedCaseStudySlugs()).toEqual([
       "ledgerguard",
       "alwaysgeeky",
-      "tallyfolio",
       "emplifi",
-      "controltech",
       "agent-tooling",
+      "tallyfolio",
+      "controltech",
       "mapbylaw",
     ]);
   });

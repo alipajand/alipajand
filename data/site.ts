@@ -1,28 +1,31 @@
 export const SITE_NAME = "Ali Pajand";
 
-export const TAGLINE = "Senior Frontend Engineer · Product Engineer · Design Systems";
+export const TAGLINE = "Full-Stack Web Developer · Product Engineer";
 
-export const HOME_TITLE = "Ali Pajand — Senior Frontend Engineer · React, Next.js, TypeScript";
+export const HOME_TITLE = "Ali Pajand — Full-Stack Product Engineer | React, Next.js, Node.js";
+
+export const HOME_OPEN_GRAPH_TITLE = "Ali Pajand — Full-Stack Web Developer · Product Engineer";
+
+export const HOME_OPEN_GRAPH_DESCRIPTION =
+  "I build complete web products across accessible interfaces, APIs, data workflows, AI-assisted systems, and reliable production delivery.";
 
 export const KEYWORDS = [
-  SITE_NAME,
-  "Senior Frontend Engineer",
-  "Product Engineer",
-  "Design Systems",
   "React",
   "Next.js",
   "TypeScript",
-  "Frontend architecture",
+  "Node.js",
+  "Full-stack web development",
+  "Design systems",
+  "Web accessibility",
+  "Data visualization",
+  "AI-assisted software engineering",
   "Developer experience",
-  "AI product UI",
-  "Enterprise dashboards",
-  "Montreal",
 ];
 
 export const CANONICAL_URL = "https://alipajand.com";
 
 export const SITE_META_DESCRIPTION =
-  "Senior frontend engineer with 9+ years building React, Next.js, and TypeScript products. Design systems, AI product UI, enterprise dashboards, and complex product workflows. Montreal, Canada. Open to remote.";
+  "Full-stack product engineer with 9+ years building React, Next.js, TypeScript, and Node.js products across SaaS, analytics, design systems, and trustworthy AI workflows.";
 
 export const TWITTER_HANDLE: string | null = null;
 
@@ -30,22 +33,22 @@ export const PERSON_SCHEMA_ID = `${CANONICAL_URL}/#person`;
 
 export const WEBSITE_SCHEMA_ID = `${CANONICAL_URL}/#website`;
 
-export const CONTACT_FORM_LEDE = "Share the team, role, location, and what you need help building.";
+export const CONTACT_FORM_LEDE = "Share enough context to make the conversation useful.";
 
 export const HERO_PROOF_ROW = [
-  { value: "9+ years", label: "building product UI" },
-  { value: "React · Next.js · TypeScript", label: "core stack" },
-  { value: "Design systems · AI UI · Dashboards", label: "focus areas" },
-  { value: "Open to remote", label: "location flexibility" },
+  { value: "9+", label: "years shipping production web products" },
+  { value: "Full-stack", label: "frontend, APIs, data, and background jobs" },
+  { value: "AI-assisted", label: "agent workflows, automation, and human review" },
+  { value: "Product quality", label: "accessibility, performance, testing, and delivery" },
 ] as const;
 
-export const LOCATION = "Montreal, Canada";
+export const LOCATION = "Montreal, Quebec, Canada";
 
 export const HERO_SECTION_ARIA_LABEL = "Introduction";
 
 export const HERO_SCROLL_INDICATOR = "↓";
 
-export const PERSON_SCHEMA_JOB_TITLE = "Senior Frontend Engineer";
+export const PERSON_SCHEMA_JOB_TITLE = "Full-Stack Web Developer and Product Engineer";
 
 export const PERSON_SCHEMA_ADDRESS_LOCALITY = "Montreal";
 

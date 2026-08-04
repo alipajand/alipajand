@@ -23,12 +23,12 @@ export const SECTION_LEDE = "text-muted text-[15px] sm:text-base leading-relaxed
 export const SECTION_LEDE_LG = "text-muted text-base sm:text-lg leading-relaxed";
 
 export const CARD_SURFACE =
-  "rounded-xl border border-border/70 bg-card/50 transition-colors duration-200";
+  "rounded-xl border border-border/70 bg-card transition-colors duration-200";
 
 export const CARD_SURFACE_HOVER = `${CARD_SURFACE} hover:border-foreground/25 hover:bg-card/70`;
 
 export const CARD_ACCENT_RAIL =
-  "border border-border/70 bg-card/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] transition-colors duration-200 hover:border-foreground/25 hover:bg-card/70";
+  "border border-border/70 bg-card shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] transition-colors duration-200 hover:border-foreground/25 hover:bg-card/70";
 
 export const LABEL_OVERLINE = "text-[11px] font-semibold uppercase tracking-[0.12em] text-muted";
 
@@ -37,4 +37,4 @@ export const FOCUS_RING =
 
 export const CTA_PRIMARY = `inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 rounded-lg bg-foreground text-background text-sm font-semibold tracking-tight hover:bg-accent-muted hover:text-background transition-colors ${FOCUS_RING}`;
 
-export const CTA_SECONDARY = `inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-medium hover:border-foreground/35 hover:bg-card/50 transition-colors ${FOCUS_RING}`;
+export const CTA_SECONDARY = `inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-medium hover:border-foreground/35 hover:bg-card transition-colors ${FOCUS_RING}`;

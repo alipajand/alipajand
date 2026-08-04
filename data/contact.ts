@@ -5,4 +5,7 @@ export const CONTACT_DIRECT_LABEL = "Direct";
 export const CONTACT_FORM_SECTION_HEADING = "Send context";
 
 export const CONTACT_SECTION_BODY =
-  "I’m open to senior frontend, product engineering, design system, and developer experience roles where the work involves complex product UI, strong engineering standards, and close product collaboration.";
+  "Use this if you want to discuss a full-stack, senior frontend, or product engineering role, contract work, or a specific technical problem.";
+
+export const CONTACT_AVAILABILITY =
+  "Open to full-stack web, senior frontend, and product engineering opportunities in Montreal or remote within Canada.";

@@ -18,9 +18,9 @@ export const CONTACT_FIELD_COMPANY_PLACEHOLDER = "Company or team";
 
 export const CONTACT_FIELD_MESSAGE_LABEL = "Message";
 export const CONTACT_FIELD_MESSAGE_HINT =
-  "Role, team, location, compensation range, and what you need help building.";
+  "Role, team, location, working model, timeline, stack, or the problem you’re solving—short is fine.";
 export const CONTACT_FIELD_MESSAGE_PLACEHOLDER =
-  "e.g. Senior frontend, React/TS, hybrid in Montreal or remote…";
+  "e.g. Full-stack product role, remote within Canada, React and Node.js…";
 export const CONTACT_VALIDATION_MESSAGE_REQUIRED = "Add a short message";
 
 export const CONTACT_FORM_SUBMIT_IDLE = "Send message";
