@@ -430,13 +430,21 @@ export const PROJECTS: Project[] = [
     caseStudyTitle: "Enterprise Analytics",
     caseStudyMetaTitle: "Emplifi — Enterprise Analytics · Ali Pajand",
     caseStudyMetaDescription:
-      "Case study: React, TypeScript, and D3.js enterprise analytics modules with an 80% reduction in unnecessary rendering and chart-update paint work. Senior Frontend Engineer — Ali Pajand.",
+      "Case study: React, TypeScript, and D3.js enterprise analytics modules built on shared accessible components, with an 80% reduction in unnecessary rendering and chart-update paint work. Senior Frontend Engineer — Ali Pajand.",
     employerContext: "Enterprise analytics dashboards with dense data views and embedded contexts.",
     cardProblem:
-      "Data-heavy React and TypeScript analytics modules built on D3.js, running in both desktop browsers and embedded mobile webviews. Profiling the webview path led to an 80% reduction in unnecessary re-renders and chart-update paint cost on lower-powered devices.",
+      "Data-heavy React and TypeScript analytics modules built on D3.js, assembled from shared accessible components and their documentation, running in both desktop browsers and embedded mobile webviews. Profiling the webview path led to an 80% reduction in unnecessary re-renders and chart-update paint cost on lower-powered devices.",
     role: "Senior Frontend Engineer",
     timeframe: "2022–2023",
-    capabilityTags: ["React", "TypeScript", "D3.js", "GSAP", "Performance", "Sentry"],
+    capabilityTags: [
+      "React",
+      "TypeScript",
+      "D3.js",
+      "Design systems",
+      "Performance",
+      "Accessibility",
+      "Sentry",
+    ],
     caseStudy: {
       overview:
         "Enterprise social analytics: metric-heavy dashboards that had to stay readable and responsive while rendering a lot of data at once. Most of my work sat where chart behaviour, React composition, and the rendering budget meet.",
@@ -447,10 +455,12 @@ export const PROJECTS: Project[] = [
       myRole: [
         "Built dashboard modules in React, TypeScript, and D3.js.",
         "Profiled and reduced rendering cost in dense views, focusing on the embedded webview path where problems showed up first.",
+        "Built the reusable, accessible components the dashboard modules were assembled from, and wrote the documentation that let other engineers use them without asking.",
         "Used Sentry and Hotjar to understand how the dashboards behaved after release rather than only in local testing.",
       ],
       whatIBuilt: [
         "Metric-heavy dashboard modules with chart interactions and the UI around them.",
+        "Shared, accessible UI components and the usage documentation around them, so dashboard work started from an existing baseline instead of from scratch.",
         "Responsive behaviour tuned separately for desktop and embedded mobile webview contexts.",
         "GSAP motion used where it helped people keep their place in the data, not as decoration.",
       ],
@@ -481,6 +491,7 @@ export const PROJECTS: Project[] = [
       ],
       outcome: [
         "Cut unnecessary re-renders and chart-update paint cost on lower-powered devices by 80%.",
+        "Left behind reusable accessible components and documentation that colleagues credited with helping the team ship faster.",
         "Left behind patterns for balancing chart interaction against readability in dense product surfaces.",
         "Kept performance work anchored to the environments the dashboards actually ran in.",
       ],

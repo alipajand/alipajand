@@ -8,7 +8,6 @@ import { HiringFit } from "components/HiringFit/HiringFit";
 import { MainReveal } from "components/MainReveal/MainReveal";
 import { OpenSourceTools } from "components/OpenSourceTools/OpenSourceTools";
 import { SelectedWork } from "components/SelectedWork/SelectedWork";
-import { Testimonials } from "components/Testimonials/Testimonials";
 import { Writing } from "components/Writing/Writing";
 import { HOMEPAGE_WRITING_HEADING } from "data/homepage";
 
@@ -30,7 +29,6 @@ export const HomePageContent = ({ writingFeatured, writingRecent }: HomePageCont
         posts={writingRecent}
         heading={HOMEPAGE_WRITING_HEADING}
       />
-      <Testimonials />
       <Contact />
     </MainReveal>
   );

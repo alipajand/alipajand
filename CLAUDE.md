@@ -55,7 +55,7 @@ Use `pnpm` only. Do not introduce npm, yarn, or bun lockfiles.
 
 ## Branch and workflow
 
-- Work on `develop` unless explicitly told otherwise.
+- Work on `main` unless explicitly told otherwise. Branch off `main` for anything non-trivial.
 - Keep commits focused and easy to review.
 - Prefer small, precise changes over broad rewrites.
 - Do not rewrite unrelated pages or components while fixing one page.

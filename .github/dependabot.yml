@@ -1,12 +1,11 @@
-# Dependabot version updates – MapBylaw monorepo
+# Dependabot version updates – alipajand.com
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
 version: 2
 updates:
-  # Root + apps/* + packages/* (pnpm lockfile at root)
+  # Root pnpm lockfile. No target-branch, so PRs open against the default branch.
   - package-ecosystem: "npm"
     directory: "/"
-    target-branch: "develop"
     schedule:
       interval: "weekly"
       day: "monday"
