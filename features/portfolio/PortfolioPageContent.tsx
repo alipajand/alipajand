@@ -3,6 +3,8 @@
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import { MainReveal } from "components/MainReveal/MainReveal";
 import { ProjectIndex } from "components/Projects/ProjectIndex";
+import { PortfolioRoleFitStrip } from "features/portfolio/PortfolioRoleFitStrip";
+import { PortfolioWhatToLookFor } from "features/portfolio/PortfolioWhatToLookFor";
 import { portfolioIndexBreadcrumbs } from "data/breadcrumbs";
 import {
   PORTFOLIO_PAGE_HEADER_TITLE,
@@ -33,8 +35,10 @@ export const PortfolioPageContent = () => {
               {PORTFOLIO_PROFILE_DETAILS}
             </p>
           </div>
+          <PortfolioRoleFitStrip />
         </div>
       </header>
+      <PortfolioWhatToLookFor />
       <ProjectIndex />
     </MainReveal>
   );

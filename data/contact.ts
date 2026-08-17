@@ -5,7 +5,7 @@ export const CONTACT_DIRECT_LABEL = "Direct";
 export const CONTACT_FORM_SECTION_HEADING = "Send context";
 
 export const CONTACT_SECTION_BODY =
-  "Use this if you want to discuss a full-stack, senior frontend, or product engineering role, contract work, or a specific technical problem.";
+  "Use this for a role, contract work, or a specific technical problem you want a second opinion on. Hiring managers and technical interviewers: happy to go deep on any case study here.";
 
 export const CONTACT_AVAILABILITY =
-  "Open to full-stack web, senior frontend, and product engineering opportunities in Montreal or remote within Canada.";
+  "Open to lead frontend, senior frontend, and senior full-stack roles in Montreal or remote within Canada.";

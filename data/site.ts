@@ -1,31 +1,35 @@
 export const SITE_NAME = "Ali Pajand";
 
-export const TAGLINE = "Full-Stack Web Developer · Product Engineer";
+export const TAGLINE = "Senior Product Engineer · Frontend Architecture";
 
-export const HOME_TITLE = "Ali Pajand — Full-Stack Product Engineer | React, Next.js, Node.js";
+export const HOME_TITLE =
+  "Ali Pajand — Senior Product Engineer | Frontend Architecture & Full-Stack";
 
-export const HOME_OPEN_GRAPH_TITLE = "Ali Pajand — Full-Stack Web Developer · Product Engineer";
+export const HOME_OPEN_GRAPH_TITLE = "Ali Pajand — Senior Product Engineer · Frontend Architecture";
 
 export const HOME_OPEN_GRAPH_DESCRIPTION =
-  "I build complete web products across accessible interfaces, APIs, data workflows, AI-assisted systems, and reliable production delivery.";
+  "Frontend architecture, design systems, and engineering standards for complex products, plus the APIs, data, and background work behind them.";
 
 export const KEYWORDS = [
+  "Frontend architecture",
   "React",
   "Next.js",
   "TypeScript",
-  "Node.js",
-  "Full-stack web development",
   "Design systems",
+  "Senior Frontend Engineer",
+  "Lead Frontend Engineer",
+  "Full-Stack Engineer",
+  "Node.js",
   "Web accessibility",
   "Data visualization",
-  "AI-assisted software engineering",
   "Developer experience",
+  "AI-assisted software engineering",
 ];
 
 export const CANONICAL_URL = "https://alipajand.com";
 
 export const SITE_META_DESCRIPTION =
-  "Full-stack product engineer with 9+ years building React, Next.js, TypeScript, and Node.js products across SaaS, analytics, design systems, and trustworthy AI workflows.";
+  "Senior product engineer in Montreal with 9+ years in React, TypeScript, and Next.js. Frontend architecture and design systems for complex SaaS, with the Node.js APIs, data models, and async workflows behind them.";
 
 export const TWITTER_HANDLE: string | null = null;
 
@@ -36,10 +40,19 @@ export const WEBSITE_SCHEMA_ID = `${CANONICAL_URL}/#website`;
 export const CONTACT_FORM_LEDE = "Share enough context to make the conversation useful.";
 
 export const HERO_PROOF_ROW = [
-  { value: "9+", label: "years shipping production web products" },
-  { value: "Full-stack", label: "frontend, APIs, data, and background jobs" },
-  { value: "AI-assisted", label: "agent workflows, automation, and human review" },
-  { value: "Product quality", label: "accessibility, performance, testing, and delivery" },
+  { value: "9+ years", label: "React, TypeScript, and Next.js in production" },
+  {
+    value: "Frontend architecture",
+    label: "component APIs, design systems, accessibility, rendering performance",
+  },
+  {
+    value: "Technical leadership",
+    label: "standards, code review, CI quality gates, developer experience",
+  },
+  {
+    value: "End-to-end delivery",
+    label: "Node.js APIs, PostgreSQL, auth, background workers",
+  },
 ] as const;
 
 export const LOCATION = "Montreal, Quebec, Canada";
@@ -50,7 +63,7 @@ export const HERO_SCROLL_INDICATOR = "↓";
 
 export const HERO_SOCIAL_LINKS_ARIA_LABEL = "Social links";
 
-export const PERSON_SCHEMA_JOB_TITLE = "Full-Stack Web Developer and Product Engineer";
+export const PERSON_SCHEMA_JOB_TITLE = "Senior Product Engineer";
 
 export const PERSON_SCHEMA_ADDRESS_LOCALITY = "Montreal";
 

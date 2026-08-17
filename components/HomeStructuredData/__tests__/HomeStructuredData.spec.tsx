@@ -31,20 +31,23 @@ describe("HomeStructuredData", () => {
     expect(schema.name).toBe(SITE_NAME);
     expect(schema.url).toBe(CANONICAL_URL);
     expect(schema.jobTitle).toBe(PERSON_SCHEMA_JOB_TITLE);
-    expect(schema.jobTitle).toBe("Full-Stack Web Developer and Product Engineer");
+    expect(schema.jobTitle).toBe("Senior Product Engineer");
     expect(schema.description).toBe(SITE_META_DESCRIPTION);
     expect(schema.knowsAbout).toEqual(KEYWORDS);
     expect(schema.knowsAbout).toEqual([
+      "Frontend architecture",
       "React",
       "Next.js",
       "TypeScript",
-      "Node.js",
-      "Full-stack web development",
       "Design systems",
+      "Senior Frontend Engineer",
+      "Lead Frontend Engineer",
+      "Full-Stack Engineer",
+      "Node.js",
       "Web accessibility",
       "Data visualization",
-      "AI-assisted software engineering",
       "Developer experience",
+      "AI-assisted software engineering",
     ]);
     expect(schema.address.addressLocality).toBe(PERSON_SCHEMA_ADDRESS_LOCALITY);
     expect(schema.address.addressRegion).toBe(PERSON_SCHEMA_ADDRESS_REGION);

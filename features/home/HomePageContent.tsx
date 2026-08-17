@@ -1,6 +1,7 @@
 "use client";
 
 import type { WritingPost } from "components/Writing/WritingPost";
+import { About } from "components/About/About";
 import { Contact } from "components/Contact/Contact";
 import { Hero } from "components/Hero/Hero";
 import { HiringFit } from "components/HiringFit/HiringFit";
@@ -21,6 +22,7 @@ export const HomePageContent = ({ writingFeatured, writingRecent }: HomePageCont
     <MainReveal>
       <Hero />
       <SelectedWork />
+      <About />
       <HiringFit />
       <OpenSourceTools />
       <Writing

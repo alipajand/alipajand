@@ -18,7 +18,7 @@ export interface OpenSourcePrinciple {
 }
 
 export const OPEN_SOURCE_META_TITLE =
-  "Open Source & Tooling — Ali Pajand · Full-Stack Product Engineer";
+  "Open Source & Developer Tooling — Ali Pajand · Senior Product Engineer";
 export const OPEN_SOURCE_META_DESCRIPTION =
   "Deterministic, local-first tools for AI-agent readiness, missing-context detection, risky-change review, and developer experience. Built with TypeScript and human engineering review.";
 

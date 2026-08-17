@@ -5,7 +5,7 @@ import { HERO_PROOF_ROW, LOCATION, SITE_NAME, TAGLINE } from "data/site";
 export const size = { width: 1200, height: 630 };
 
 export default function OpenGraphImage() {
-  const metricsLine = `${HERO_PROOF_ROW[0].value} ${HERO_PROOF_ROW[0].label} · ${HERO_PROOF_ROW[1].value} · ${LOCATION}`;
+  const metricsLine = `${HERO_PROOF_ROW[0].value} · ${HERO_PROOF_ROW[1].value} · ${HERO_PROOF_ROW[3].value} · ${LOCATION}`;
 
   return new ImageResponse(
     <div

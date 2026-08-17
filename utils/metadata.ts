@@ -150,7 +150,7 @@ export const buildPortfolioCaseStudyMetadata = (project: Project): Metadata => {
 
 export const buildEngineeringPrinciplesMetadata = (): Metadata => {
   const url = `${CANONICAL_URL}/engineering-principles`;
-  const title = "Engineering Principles — Ali Pajand · Full-Stack Product Engineer";
+  const title = "Engineering Principles — Ali Pajand · Senior Product Engineer";
   const description = ENGINEERING_PRINCIPLES_META_DESCRIPTION;
   return {
     title: exactTitle(title),

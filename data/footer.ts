@@ -32,7 +32,7 @@ export const FOOTER_WRITING_LABEL = "Latest writing";
 
 export const FOOTER_LATEST_WRITINGS_COUNT = 4;
 
-export const FOOTER_BRAND = "Ali Pajand — Full-Stack Web Developer · Product Engineer";
+export const FOOTER_BRAND = "Ali Pajand — Senior Product Engineer · Frontend Architecture";
 
 export const FOOTER_LOCATION = "Based in Montreal, Canada · Open to remote work within Canada";
 

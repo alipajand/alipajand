@@ -1,12 +1,12 @@
 export const ENGINEERING_PRINCIPLES_META_DESCRIPTION =
-  "Working principles for full-stack product engineering: honest interfaces, visible async states, reviewable AI output, typed API contracts, accessibility, and maintainability. Ali Pajand.";
+  "How I make technical decisions: honest interfaces, visible async states, components as APIs, reviewable AI output, typed contracts, accessibility, and maintainability. Ali Pajand.";
 
 export const ENGINEERING_PRINCIPLES_PAGE_TITLE = "Engineering Principles";
 
 export const ENGINEERING_PRINCIPLES_HEADER_OVERLINE = "Principles";
 
 export const ENGINEERING_PRINCIPLES_LEDE =
-  "These are the working principles I return to across SaaS products, enterprise dashboards, AI-assisted workflows, and startup delivery.";
+  "The principles I keep coming back to across SaaS products, enterprise dashboards, AI-assisted workflows, and startup delivery. They're also a fair preview of what I'll argue for in a design review.";
 
 export interface EngineeringPrinciplesSection {
   id: string;

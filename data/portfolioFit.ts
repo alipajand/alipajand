@@ -1,25 +1,22 @@
-export const PORTFOLIO_POSITIONING_PARAGRAPH =
-  "I’m a full-stack product engineer with deep frontend expertise. My best work connects accessible interfaces, APIs, data workflows, background processing, and reliable production delivery while preserving strong design-system and developer-experience practices.";
-
 export const PORTFOLIO_ROLE_FIT_ARIA_LABEL = "Portfolio role fit";
 
 export const PORTFOLIO_ROLE_FIT_LABELS = [
-  "Full-Stack Product Engineer",
-  "Senior Frontend Engineer",
+  "Frontend architecture",
   "React / Next.js / TypeScript",
   "Design systems",
-  "Product UI",
-  "Dashboards",
-  "AI-assisted workflows",
+  "Engineering standards",
+  "Code review",
   "Accessibility",
-  "Performance",
+  "Rendering performance",
+  "Node.js APIs & PostgreSQL",
+  "Async & background workflows",
   "Developer experience",
 ] as const;
 
 export const PORTFOLIO_LOOK_FOR_HEADING = "What to look for";
 
 export const PORTFOLIO_LOOK_FOR_LEDE =
-  "The work below highlights how I think through product states, API and data boundaries, visual hierarchy, design-system reuse, accessibility, performance, and the engineering constraints that keep complete web products maintainable.";
+  "Four things run through every case study below. If you're hiring for frontend architecture, technical direction, or end-to-end ownership, these are the parts worth reading closely.";
 
 export interface PortfolioLookForCard {
   title: string;
@@ -28,19 +25,19 @@ export interface PortfolioLookForCard {
 
 export const PORTFOLIO_LOOK_FOR_CARDS: PortfolioLookForCard[] = [
   {
-    title: "Product UI from ambiguity",
-    body: "I work from incomplete requirements and turn them into clear workflows, information hierarchy, responsive layouts, and production-ready React interfaces.",
+    title: "Architecture decisions, with their costs",
+    body: "Each case study names the decision, why it was made, and what it cost. Component boundaries, client/server splits, deterministic versus probabilistic separation. The trade-offs are stated because that's the part worth interviewing me about.",
   },
   {
-    title: "Design systems that ship",
-    body: "I build reusable component foundations, visual states, Storybook documentation, accessibility patterns, and design-to-code workflows that help teams move faster without creating UI drift.",
+    title: "Systems other engineers build on",
+    body: "Shared component libraries, typed API contracts, Storybook documentation, and CI gates. The recurring theme is turning a pattern into something reusable and then keeping it honest as the product moves.",
   },
   {
     title: "Complex product states",
-    body: "I design and implement loading, empty, error, validation, confidence, partial-data, and review-required states across data-heavy interfaces and their supporting APIs.",
+    body: "Loading, empty, error, validation, partial data, low confidence, and review-required, designed as real states rather than afterthoughts. This is most of the work in data-heavy and AI-assisted interfaces.",
   },
   {
-    title: "End-to-end quality and ownership",
-    body: "I own work from problem definition through UX decisions, implementation, testing, release, production behavior, and iteration.",
+    title: "Ownership past the browser",
+    body: "Where the product needed it, I built the API, the schema, the auth, and the queue behind the interface. LedgerGuard is the clearest case; ControlTech is where the habit started.",
   },
 ];

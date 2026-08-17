@@ -33,8 +33,8 @@ describe("utils/projects", () => {
 
     expect(firstProject.slug).toBe("ledgerguard");
     expect(firstProject.caseStudyTitle).toBe("Full-Stack AI Contract Intelligence");
-    expect(firstProject.cardProblem).toContain("Node.js/Fastify API");
-    expect(firstProject.cardProblem).toContain("background workers");
+    expect(firstProject.cardProblem).toContain("Fastify API");
+    expect(firstProject.cardProblem).toContain("queue-backed document pipeline");
     expect(
       firstProject.caseStudy.technicalDecisions.some(
         (decision) =>

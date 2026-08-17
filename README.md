@@ -1,8 +1,8 @@
 # Hi, I'm Ali Pajand 👋
 
-Full-Stack Web Developer · Product Engineer
+Senior Product Engineer · Frontend Architecture
 
-Full-stack product engineer in Montreal with 9+ years building React, Next.js, TypeScript, and Node.js products across SaaS, analytics, design systems, and trustworthy AI workflows.
+Senior product engineer in Montreal with 9+ years in React, TypeScript, and Next.js. Frontend architecture and design systems for complex SaaS, with the Node.js APIs, data models, and async workflows behind them.
 
 - **Site:** [alipajand.com](https://alipajand.com)
 - **LinkedIn:** [@alipajand](https://www.linkedin.com/in/alipajand/)

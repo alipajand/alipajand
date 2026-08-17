@@ -59,18 +59,19 @@ export interface Project {
 export const PORTFOLIO_PAGE_HEADER_TITLE = "Portfolio";
 
 export const PORTFOLIO_PAGE_INTRO = [
-  "I'm a full-stack product engineer with 9+ years of experience building production web applications. My deepest specialization is frontend architecture: React, Next.js, TypeScript, design systems, accessibility, performance, and complex product workflows. I also build the backend systems those interfaces depend on, including Node.js APIs, PostgreSQL data models, authentication, background jobs, document-processing pipelines, and production delivery infrastructure.",
-  "At LedgerGuard, I designed and built a multi-tenant AI contract-intelligence product end to end. The system combines a Next.js application, Node.js/Fastify API, Supabase PostgreSQL/Auth/Storage, Redis/BullMQ orchestration, a Python processing worker, AWS Textract, and OpenAI extraction. Its central product principle is that AI suggestions must remain visibly separate from deterministic, user-confirmed data.",
-  "I use AI coding agents for implementation, testing, refactoring, investigation, and documentation. I retain ownership of architecture, business logic, security, performance, validation, and final review.",
+  "Nine-plus years of production web work, with frontend architecture as the specialization: React, Next.js, TypeScript, shared component systems, accessibility, and rendering performance in interfaces dense enough that those things decide whether the product is usable.",
+  "The case studies below are ordered by how much they show. LedgerGuard is a product I own end to end, from the Next.js App Router frontend through the Fastify API, PostgreSQL schema, and queue-backed document pipeline. AlwaysGeeky is the shared React and TypeScript library four product surfaces were built on, along with the conventions and CI gates that kept them consistent. Emplifi is dense D3 analytics and the rendering work that made it survive mobile webviews.",
+  "Each write-up covers the problem, what I owned, the decisions that mattered, and what I traded away to get there. I use AI coding agents for implementation, testing, and investigation, and keep architecture, security, and final review on my side of the line.",
 ] as const;
 
 export const PORTFOLIO_PROFILE_DETAILS =
   "Based in Montreal, Canada. English: professional. French: intermediate.";
 
-export const PORTFOLIO_META_TITLE = "Portfolio — Ali Pajand · Full-Stack Product Engineer";
+export const PORTFOLIO_META_TITLE =
+  "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems";
 
 export const PORTFOLIO_META_DESCRIPTION =
-  "Full-stack product engineering case studies across SaaS, enterprise analytics, design systems, and AI-assisted engineering. React, Next.js, TypeScript, Node.js, PostgreSQL, and production delivery.";
+  "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.";
 
 export const PORTFOLIO_CASE_STUDY_ORDER = [
   "ledgerguard",
@@ -95,7 +96,7 @@ export const PROJECTS: Project[] = [
     employerContext:
       "AI contract intelligence SaaS for renewals, commitments, notice windows, and financial exposure.",
     cardProblem:
-      "Designed and built a multi-tenant SaaS product across a Next.js frontend, Node.js/Fastify API, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD. AI extraction is separated from deterministic, user-confirmed contract data through evidence-based human review.",
+      "A multi-tenant contract-intelligence SaaS built alone across the Next.js App Router product, Fastify API, PostgreSQL schema, authentication, billing, and a queue-backed document pipeline. The design problem was keeping probabilistic extraction from becoming confirmed contract data without a human reviewing the evidence.",
     role: "Senior Product Engineer",
     timeframe: "2026–Present",
     capabilityTags: [
@@ -109,22 +110,22 @@ export const PROJECTS: Project[] = [
     ],
     caseStudy: {
       overview:
-        "LedgerGuard is a multi-tenant AI contract-intelligence product I designed and built end to end across the web application, API, data model, background processing, document extraction, billing, infrastructure, and delivery workflows.",
+        "LedgerGuard tracks contract renewals, commitments, notice windows, and financial exposure. I designed and built it alone: the product, the API, the data model, the document pipeline, billing, infrastructure, and delivery.",
       context:
-        "The system combines a Next.js application, Node.js/Fastify API, Supabase PostgreSQL/Auth/Storage, Redis/BullMQ orchestration, a Python processing worker, AWS Textract, and OpenAI extraction. The product needed to stay clear about what came from AI and what had been confirmed by a user.",
+        "A Next.js App Router application sits in front of a Node.js/Fastify API, Supabase PostgreSQL/Auth/Storage, Redis/BullMQ orchestration, and a Python worker running AWS Textract and OpenAI extraction. Every tenant boundary, job contract, and API surface in that list is one I had to define, because there was nobody else to define them.",
       problem:
-        "Contract extraction is not useful on its own if the UI makes uncertain output look final. The product needed a workflow that could show in-progress extraction, surface AI-suggested values safely, and support confirmation without collapsing everything into a single success state.",
+        "Extraction output is useless if the interface makes it look settled. Someone deciding whether to exercise a notice window needs to know whether a date came out of a model or out of a person confirming it against the document. The workflow had to carry that distinction from the database through to the screen, and stay legible while extraction was still running, partially done, or failed.",
       myRole: [
-        "Owned product strategy, architecture, implementation, testing, infrastructure, and delivery across the full stack.",
-        "Built the Next.js product, Node.js/Fastify API, PostgreSQL data model, authentication, background-job orchestration, and Python worker integration.",
-        "Defined how AI-suggested values and deterministic, user-confirmed data are stored and presented distinctly through evidence-based review.",
+        "Product direction, architecture, implementation, testing, infrastructure, and release, across the whole stack.",
+        "Built the Next.js App Router product, the Fastify API, the PostgreSQL data model, authentication and tenant scoping, background-job orchestration, and the Python worker integration.",
+        "Set the rule the rest of the product follows: suggested values and confirmed values are stored differently, rendered differently, and only cross the boundary through explicit review.",
       ],
       whatIBuilt: [
-        "Document ingestion and upload flows tied to async extraction states.",
-        "Tenant-aware dashboard navigation and review surfaces for contract data.",
-        "Verification UI that keeps AI-suggested values separate from confirmed user-reviewed data.",
-        "Portfolio and renewal visibility screens that communicate incomplete or in-progress states.",
-        "API contracts, authentication, billing workflows, document-processing orchestration, Docker setup, and CI/CD delivery.",
+        "Document ingestion and upload flows wired to async extraction state.",
+        "Tenant-aware dashboard navigation and the review surfaces for contract data.",
+        "A verification UI that keeps suggested values visually and structurally apart from confirmed ones, with source context attached.",
+        "Renewal and portfolio views that stay honest about which records are still incomplete.",
+        "API contracts, authentication, billing, job orchestration, Docker setup, and the CI/CD pipeline.",
       ],
       technicalDecisions: [
         {
@@ -138,12 +139,12 @@ export const PROJECTS: Project[] = [
         },
         {
           decision:
-            "Use a typed Next.js App Router frontend with explicit boundaries between server-rendered product surfaces and client-side review interactions.",
-          why: "The product needed predictable data flow and clear separation between page composition, mutations, and interactive review states.",
+            "Draw a hard line in the App Router between server-rendered product surfaces and the client components that handle review interactions.",
+          why: "Review is the only genuinely interactive part of the product. Everything else is composition and data fetching, and treating it that way keeps the client bundle and the state surface small.",
           tradeOff:
-            "This adds structure and coordination overhead compared with pushing all behavior into a single client-heavy dashboard.",
+            "It takes more up-front structure than pushing the whole dashboard into one client-heavy tree, and every new feature has to be placed on one side of the line deliberately.",
           result:
-            "The product kept route, data, and interaction concerns easier to reason about as the workflow expanded.",
+            "Route, data, and interaction concerns stayed separable as the workflow grew past the original two screens.",
         },
         {
           decision:
@@ -192,9 +193,9 @@ export const PROJECTS: Project[] = [
         },
       ],
       outcome: [
-        "Shipped an end-to-end product workflow for document ingestion, extraction review, and contract visibility.",
-        "Reached 90% unit-test coverage for the LedgerGuard web application.",
-        "Kept AI suggestions explicitly separate from deterministic, user-confirmed contract data.",
+        "Shipped a working end-to-end product: ingestion, extraction review, and contract visibility, live at ledgerguard.io.",
+        "Reached 90% unit-test coverage on the web application.",
+        "Held the boundary between suggested and confirmed contract data across the schema, the API, and the UI rather than only in the interface layer.",
       ],
       nextImprovements: [
         "Add more product-level evidence around exception handling so reviewers can prioritize the highest-risk contracts faster.",
@@ -221,7 +222,7 @@ export const PROJECTS: Project[] = [
     employerContext:
       "Full-stack PWA for manual-first personal finance tracking, reporting, forecasting, and asset management.",
     cardProblem:
-      "Most personal finance apps force users into bank aggregation or spreadsheets. TallyFolio needed modern product workflows without giving up privacy or manual control.",
+      "Most personal finance apps make you choose between bank aggregation and a spreadsheet. TallyFolio is the third option: a full-stack PWA with deterministic money math, CSV import review, forecasting, and production auth, built without handing over bank credentials.",
     role: "Founder · Product Engineer · Designer",
     timeframe: "Independent",
     capabilityTags: ["Full-stack product", "Financial correctness", "Privacy boundaries"],
@@ -318,53 +319,65 @@ export const PROJECTS: Project[] = [
     slug: "alwaysgeeky",
     hasDedicatedCaseStudy: true,
     name: "AlwaysGeeky Games",
-    caseStudyTitle: "Design System & Product Workflows",
-    caseStudyMetaTitle: "AlwaysGeeky Games — Design System & Product Workflows · Ali Pajand",
+    caseStudyTitle: "Shared Design System & Frontend Standards",
+    caseStudyMetaTitle:
+      "AlwaysGeeky Games — Shared Design System & Frontend Standards · Ali Pajand",
     caseStudyMetaDescription:
-      "Case study: Shared React component library with Storybook, accessibility improvements, CI quality checks, and marketplace workflows. Senior Frontend Engineer — Ali Pajand.",
+      "Case study: A shared React and TypeScript component library across four product surfaces, with Storybook, accessibility work, TypeScript and review conventions, and CI quality gates. Senior Frontend Engineer — Ali Pajand.",
     employerContext:
-      "Shared design-system ownership and product workflows across four product surfaces.",
+      "Shared component library, frontend conventions, and product workflows across four product surfaces.",
     cardProblem:
-      "Built a shared React and TypeScript design system used across four product surfaces, while shipping marketplace, authentication, product, and account workflows in Next.js. Improved accessibility, responsive behavior, API integration, testing standards, and AI-assisted development workflows.",
+      "Four product surfaces, one React and TypeScript component library. I helped build and maintain it, documented it in Storybook, and shipped marketplace, authentication, and account workflows on top of it. The lasting part was the conventions: component APIs, accessibility defaults, TypeScript and code-review rules, and CI gates that caught drift before it shipped.",
     role: "Senior Frontend Engineer",
     timeframe: "2024–2026",
     capabilityTags: ["React", "Next.js", "TypeScript", "Storybook", "GraphQL", "Accessibility"],
     caseStudy: {
       overview:
-        "AlwaysGeeky Games needed product workflows that could move quickly without drifting away from a reusable design-system baseline shared across four product surfaces. The work connected component architecture directly to marketplace, authentication, product, and account workflows.",
+        "Four product surfaces shared one React and TypeScript component library. I helped build and maintain it, and helped establish the conventions that decided how teams were expected to build against it: component APIs, accessibility defaults, TypeScript rules, and what a review was supposed to catch.",
       context:
-        "The product involved a shared React component library, Storybook-based documentation, and a marketplace experience with authentication and failure-prone workflow states. The goal was not only consistency, but clearer product behavior under real-world conditions.",
+        "The surfaces included a marketplace, authentication, product, and account experiences, all in Next.js on top of the shared library, documented in Storybook and integrated over GraphQL. Alongside the product work, we ran an AI-assisted development workflow using Cursor with MCP tooling, so the same lint, type, and test signals engineers saw in CI were available in the editor.",
       problem:
-        "Marketplace and account flows often drift into one-off implementations when teams prioritize speed over shared UI contracts. That makes accessibility, quality checks, and state handling harder to keep consistent as the product evolves.",
+        "Marketplace and account flows drift into one-off implementations the moment speed beats shared contracts. Four surfaces multiply that: the same empty state gets invented four times, accessibility gets handled well in one and forgotten in the others, and nobody notices until the library and the products disagree.",
       myRole: [
-        "Shared ownership of the React and TypeScript design system used across four product surfaces.",
-        "Helped evolve Storybook documentation so components were easier to discover and reuse.",
-        "Implemented marketplace, authentication, product, and account workflows with consistent loading, empty, and error handling.",
+        "Shared ownership of the React and TypeScript component library used across all four surfaces.",
+        "Helped establish the frontend conventions the surfaces were built to: component API shape, accessibility expectations, TypeScript rules, and what reviewers were expected to push back on.",
+        "Helped evolve the Storybook documentation so components were discoverable enough that reuse was the easier path.",
+        "Shipped marketplace, authentication, product, and account workflows with consistent loading, empty, and error handling.",
+        "Worked on the Cursor and MCP setup so editor feedback lined up with the checks CI already ran.",
       ],
       whatIBuilt: [
-        "Shared React and TypeScript components used across marketplace and account surfaces.",
-        "Storybook documentation for reusable patterns and component usage.",
+        "Shared React and TypeScript components used across the marketplace and account surfaces.",
+        "Storybook documentation covering component usage and the states each one is responsible for.",
         "Workflow UI for catalog browsing, login, and account-access states.",
-        "CI quality checks that reinforced the design-system baseline during delivery.",
+        "CI quality gates that held the library and the product surfaces to the same baseline.",
       ],
       technicalDecisions: [
         {
           decision:
-            "Use shared component APIs and Storybook documentation as the baseline for product delivery instead of treating them as side artifacts.",
-          why: "Marketplace and authentication work needed a stable system for reuse, review, and accessibility alignment.",
+            "Treat component APIs as the contract, and Storybook as where that contract is written down, rather than as documentation produced after the fact.",
+          why: "A component used on four surfaces is an interface other engineers depend on. If its states and escape hatches aren't explicit, each surface fills the gaps differently.",
           tradeOff:
-            "Codifying patterns early slows ad-hoc implementation in the short term and adds maintenance work.",
+            "Codifying a pattern is slower than writing the screen in front of you, and every component gains maintenance weight.",
           result:
-            "Shared components stayed closer to the real product surfaces they were meant to support.",
+            "The library stayed close to the surfaces it was meant to serve instead of becoming a parallel set of components nobody reached for.",
         },
         {
           decision:
-            "Treat CI quality checks as part of design-system delivery, not as a separate cleanup task.",
-          why: "A shared system only stays useful when changes are validated consistently as teams ship against it.",
+            "Put the design-system baseline behind CI gates instead of relying on reviewers to remember it.",
+          why: "Conventions that only live in people's heads decay as soon as the team is busy, and review attention is the scarcest thing on a small frontend team.",
           tradeOff:
-            "Quality gates add friction when teams want to move fast on individual screens.",
+            "Gates add friction on individual screens, and a gate that fires too often gets routed around.",
           result:
-            "The design-system work stayed connected to engineering standards rather than being only a visual layer.",
+            "Standards work stayed enforceable rather than aspirational, and review time went to design decisions instead of catching lint-level drift.",
+        },
+        {
+          decision:
+            "Wire the AI-assisted workflow through MCP tooling that runs the same lint, type, and test commands as CI.",
+          why: "Editor-level AI assistance is only useful if its feedback matches what will actually block the pull request.",
+          tradeOff:
+            "Maintaining the tooling is real work, and it only pays off if the underlying scripts stay the single source of truth.",
+          result:
+            "Assisted development stayed anchored to the project's real quality signals instead of to a model's guess about them.",
         },
       ],
       uxDecisions: [
@@ -395,9 +408,9 @@ export const PROJECTS: Project[] = [
         },
       ],
       outcome: [
-        "Helped evolve a reusable component baseline shared across four product surfaces.",
-        "Improved consistency between Storybook documentation, shipped UI, and CI quality checks.",
-        "Improved accessibility, responsive behavior, API integration, testing standards, and AI-assisted development workflows.",
+        "A component baseline four product surfaces were built on, with the conventions and gates that kept them aligned.",
+        "Closer agreement between Storybook documentation, shipped UI, and what CI actually enforced.",
+        "Better accessibility, responsive behaviour, API integration, and testing standards across the surfaces, plus an AI-assisted workflow tied to the project's real checks.",
       ],
       nextImprovements: [
         "Expand product-level regression coverage around key marketplace paths so system-level changes are easier to validate.",
@@ -420,26 +433,26 @@ export const PROJECTS: Project[] = [
       "Case study: React, TypeScript, and D3.js enterprise analytics modules with an 80% reduction in unnecessary rendering and chart-update paint work. Senior Frontend Engineer — Ali Pajand.",
     employerContext: "Enterprise analytics dashboards with dense data views and embedded contexts.",
     cardProblem:
-      "Built data-heavy React and TypeScript analytics modules with D3.js and optimized rendering across desktop and embedded mobile webviews. Reduced unnecessary re-renders and chart-update paint cost on lower-powered devices by 80%.",
+      "Data-heavy React and TypeScript analytics modules built on D3.js, running in both desktop browsers and embedded mobile webviews. Profiling the webview path led to an 80% reduction in unnecessary re-renders and chart-update paint cost on lower-powered devices.",
     role: "Senior Frontend Engineer",
     timeframe: "2022–2023",
     capabilityTags: ["React", "TypeScript", "D3.js", "GSAP", "Performance", "Sentry"],
     caseStudy: {
       overview:
-        "Emplifi’s dashboard work focused on metric-heavy product views that had to remain usable under tight rendering budgets. The challenge was balancing chart fidelity, interaction detail, and responsiveness across multiple host environments.",
+        "Enterprise social analytics: metric-heavy dashboards that had to stay readable and responsive while rendering a lot of data at once. Most of my work sat where chart behaviour, React composition, and the rendering budget meet.",
       context:
-        "The dashboards were built with React, TypeScript, D3.js, and GSAP, then used in both standard browser contexts and mobile webviews. Performance work had to account for dense interfaces, animation cost, and embedded constraints.",
+        "The dashboards were React, TypeScript, D3.js, and GSAP, shipped to standard browsers and to embedded mobile webviews. The webviews were the constraint that mattered: they surfaced animation and layout cost that desktop testing never showed.",
       problem:
-        "Data-heavy views can become sluggish or unreadable quickly when interaction cost, layout pressure, and host constraints stack up. The product needed dashboard modules that remained legible and responsive without oversimplifying the data.",
+        "Dense analytics degrade quietly. Interaction cost, layout pressure, and host constraints each look tolerable on their own, and then a customer opens the dashboard in a webview on a mid-range phone and the charts stop being usable. Cutting the data down would have solved the symptom and broken the product.",
       myRole: [
-        "Built dashboard modules with React, TypeScript, and D3.js.",
-        "Worked on rendering performance improvements for dense dashboard views.",
-        "Contributed to production monitoring and UX validation through Sentry and Hotjar.",
+        "Built dashboard modules in React, TypeScript, and D3.js.",
+        "Profiled and reduced rendering cost in dense views, focusing on the embedded webview path where problems showed up first.",
+        "Used Sentry and Hotjar to understand how the dashboards behaved after release rather than only in local testing.",
       ],
       whatIBuilt: [
-        "Metric-heavy dashboard modules with chart interactions and supporting UI.",
-        "Responsive behavior tuned for desktop and embedded mobile webview contexts.",
-        "Motion and interaction patterns using GSAP where it improved orientation without overloading the interface.",
+        "Metric-heavy dashboard modules with chart interactions and the UI around them.",
+        "Responsive behaviour tuned separately for desktop and embedded mobile webview contexts.",
+        "GSAP motion used where it helped people keep their place in the data, not as decoration.",
       ],
       technicalDecisions: [
         {
@@ -467,9 +480,9 @@ export const PROJECTS: Project[] = [
         "Made motion serve orientation and hierarchy rather than decorative movement.",
       ],
       outcome: [
-        "Reduced unnecessary re-renders and chart-update paint cost on lower-powered devices by 80%.",
-        "Established patterns for balancing chart interaction and UI readability in dense product surfaces.",
-        "Kept performance work tied to the real product environments where the dashboards were used.",
+        "Cut unnecessary re-renders and chart-update paint cost on lower-powered devices by 80%.",
+        "Left behind patterns for balancing chart interaction against readability in dense product surfaces.",
+        "Kept performance work anchored to the environments the dashboards actually ran in.",
       ],
       nextImprovements: [
         "Document clearer motion and rendering budgets so new modules inherit the same constraints more consistently.",
@@ -490,26 +503,27 @@ export const PROJECTS: Project[] = [
     employerContext:
       "Frontend delivery across early-stage SaaS products, dashboards, and workflow-heavy tools.",
     cardProblem:
-      "Multiple SaaS products and dashboards built from MVP through production. Workflow-heavy interfaces designed around multi-step processes, validation, async state, testing, and CI/CD.",
+      "Four years across multiple early-stage SaaS products, dashboards, and PWAs, taken from MVP to production. Workflow-heavy interfaces built around multi-step processes, validation, async state, API integration, and the Playwright, Cypress, and Jest coverage that made repeated releases survivable.",
     role: "Frontend Engineer",
     timeframe: "2018–2022",
     capabilityTags: ["React", "TypeScript", "PWA", "Testing", "CI/CD"],
     caseStudy: {
       overview:
-        "At ControlTech, the work spanned multiple early-stage products rather than a single flagship app. The recurring challenge was taking ambiguous product requirements and turning them into shippable, resilient frontend workflows under fast release cycles.",
+        "A startup studio, so the work spanned several early-stage products rather than one flagship app. This is where the habits came from: turning vague requirements into something shippable, and building it so the next product could reuse the parts.",
       context:
-        "The products varied in shape, but the common constraints were speed, evolving scope, and the need for interfaces that could tolerate slow networks, async workflows, and repeated iteration. Testing and delivery quality mattered because small regressions hit core flows quickly.",
+        "The products differed, but the constraints repeated: small teams, moving scope, unreliable networks in the field, and release cycles short enough that a regression in a core flow was expensive within days. I worked across the frontend/backend boundary where API integration required it.",
       problem:
-        "Early-stage products often accumulate fragile UI because the team is moving fast and the requirements keep shifting. Without reusable patterns and validation, workflow-heavy interfaces become harder to ship and harder to trust release after release.",
+        "Early-stage products accumulate fragile UI because everyone is moving fast and the requirements keep changing underneath them. Without reusable patterns and automated checks, workflow-heavy interfaces get harder to ship every release, and eventually nobody trusts a deploy without manually walking the flows.",
       myRole: [
-        "Worked across several products on frontend implementation, workflow design, and release quality.",
-        "Built PWAs, dashboards, and form-heavy product interfaces from MVP through production stages.",
-        "Contributed test automation and CI/CD quality checks for core workflows.",
+        "Frontend implementation, workflow design, and release quality across several products.",
+        "Built PWAs, dashboards, and form-heavy interfaces from MVP through production, often with little spec to start from.",
+        "Added the test automation and CI/CD checks that covered core workflows.",
       ],
       whatIBuilt: [
         "Workflow-heavy interfaces with validation, multi-step processes, and async state handling.",
-        "PWA-oriented frontend delivery where the product needed better resilience under unstable conditions.",
-        "Test automation across key product paths using tools such as Jest, Playwright, and Cypress.",
+        "PWAs for products that had to keep working on unreliable connections.",
+        "Automated coverage of the critical paths with Jest, React Testing Library, Playwright, and Cypress.",
+        "API integrations, and the reusable frontend patterns that carried between products.",
       ],
       technicalDecisions: [
         {
@@ -536,9 +550,9 @@ export const PROJECTS: Project[] = [
         "Prioritized predictable workflows over visually clever one-off implementations.",
       ],
       outcome: [
-        "Delivered frontend work across multiple early-stage products from MVP through production.",
-        "Established a stronger baseline for testing and release quality on workflow-heavy interfaces.",
-        "Kept startup delivery focused on resilient product behavior rather than only feature throughput.",
+        "Shipped frontend work across multiple early-stage products, MVP through production.",
+        "Raised the testing and release-quality baseline on workflow-heavy interfaces.",
+        "Built the breadth that later turned into end-to-end product ownership.",
       ],
       nextImprovements: [
         "Capture more project-specific examples so individual product engagements can be represented separately in the portfolio.",
@@ -559,7 +573,7 @@ export const PROJECTS: Project[] = [
     employerContext:
       "Independent tooling experiments for AI-assisted development and developer experience.",
     cardProblem:
-      "Built deterministic, local-first tools for evaluating agent readiness, detecting missing context, and reviewing risky code changes.",
+      "Three small TypeScript CLIs built out of the same frustration: teams adopt AI-assisted development before their conventions, documentation, and review process can carry it. The tools make context quality, review feedback, and repository readiness into things you can check rather than assume.",
     role: "Independent / Ongoing",
     capabilityTags: ["TypeScript", "CLI", "CI", "AI Agents", "Developer Experience"],
     caseStudy: {
@@ -575,9 +589,9 @@ export const PROJECTS: Project[] = [
         "Used the projects to explore developer experience as a product surface with explicit inputs and outputs.",
       ],
       whatIBuilt: [
-        "agent-context-doctor for evaluating context quality before coding-agent implementation.",
-        "agent-pr-reviewer-lite for structured pull-request feedback and risk detection.",
-        "agent-readiness-kit for evaluating whether a codebase or workflow is prepared for agent-assisted development.",
+        "agent-context-doctor, because most bad agent output traces back to weak instructions rather than a weak model, and nobody was checking the instructions.",
+        "agent-pr-reviewer-lite, because generic AI review comments get ignored, and feedback sorted by category and risk is something a reviewer can actually act on.",
+        "agent-readiness-kit, because a repository without clear conventions, boundaries, or validation paths will amplify agent mistakes instead of catching them.",
       ],
       technicalDecisions: [
         {
