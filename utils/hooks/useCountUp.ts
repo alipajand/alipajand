@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-import { gsap, prefersReducedMotion, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
+import { revealOnce } from "utils/cinematic";
+import { gsap, prefersReducedMotion } from "utils/gsap";
 import { DUR, EASE } from "utils/motion";
 
 const parseValue = (
@@ -29,16 +30,12 @@ export const useCountUp = (value: string) => {
     const el = ref.current;
     if (!el || !parsed || prefersReducedMotion()) return;
 
-    registerGSAPPlugins();
-
     const { num, prefix, suffix } = parsed;
     const counter = { val: 0 };
 
-    const st = ScrollTrigger.create({
-      trigger: el,
-      start: "top 88%",
-      once: true,
-      onEnter: () => {
+    return revealOnce(
+      [el],
+      () => {
         gsap.to(counter, {
           val: num,
           duration: DUR.xl,
@@ -53,9 +50,8 @@ export const useCountUp = (value: string) => {
           },
         });
       },
-    });
-
-    return () => st.kill();
+      { rootMargin: "0px 0px -12% 0px" }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 

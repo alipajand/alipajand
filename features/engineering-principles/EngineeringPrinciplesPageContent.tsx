@@ -27,7 +27,7 @@ export const EngineeringPrinciplesPageContent = () => {
 
   const {
     selectors: { sectionRef: sectionsRef },
-  } = useScrollReveal({ y: 36, stagger: 0.12, start: "top 90%" });
+  } = useScrollReveal({ y: 36, stagger: 0.12 });
 
   return (
     <MainReveal>

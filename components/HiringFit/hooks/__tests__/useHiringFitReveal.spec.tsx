@@ -12,18 +12,13 @@ jest.mock("utils/gsap", () => {
       set: jest.fn(),
       timeline,
     },
-    ScrollTrigger: {
-      create: jest.fn(() => ({ kill: jest.fn() })),
-    },
     prefersReducedMotion: jest.fn(() => false),
-    registerGSAPPlugins: jest.fn(),
   };
 });
 
 type GsapMock = {
   gsap: { set: jest.Mock; timeline: jest.Mock };
   prefersReducedMotion: jest.Mock;
-  ScrollTrigger: { create: jest.Mock };
 };
 
 const getMock = (): GsapMock => {
@@ -58,25 +53,25 @@ describe("useHiringFitReveal", () => {
     expect(result.current.selectors.sectionRef.current).toBeNull();
   });
 
-  it("should set all elements visible without a ScrollTrigger when reduced motion is preferred", () => {
+  it("should set all elements visible without a timeline when reduced motion is preferred", () => {
     const mock = getMock();
     mock.prefersReducedMotion.mockReturnValueOnce(true);
 
     render(<Harness />);
 
-    expect(mock.gsap.set).toHaveBeenCalled();
-    expect(mock.ScrollTrigger.create).not.toHaveBeenCalled();
+    expect(mock.gsap.set).toHaveBeenCalledWith(expect.anything(), {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+    });
+    expect(mock.gsap.timeline).not.toHaveBeenCalled();
   });
 
-  it("should animate heading, badges, cards, and ctas on enter when motion is allowed", () => {
+  it("should animate heading, badges, cards, and ctas once the section enters frame", () => {
     const mock = getMock();
     mock.prefersReducedMotion.mockReturnValue(false);
 
     render(<Harness />);
-
-    expect(mock.ScrollTrigger.create).toHaveBeenCalled();
-    const config = mock.ScrollTrigger.create.mock.calls[0][0];
-    config.onEnter();
 
     expect(mock.gsap.timeline).toHaveBeenCalled();
   });

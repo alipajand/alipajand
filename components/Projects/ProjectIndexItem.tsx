@@ -14,6 +14,7 @@ export const ProjectIndexItem = ({ project, isFirst = false }: ProjectIndexItemP
 
   return (
     <article
+      data-reveal
       id={`project-${project.id}`}
       className={`border-t border-border py-12 sm:py-16 ${isFirst ? "border-t-0 pt-0" : ""}`}
     >

@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import type React from "react";
 
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import { McpWorkflowDiagram } from "components/diagrams/McpWorkflowDiagram";
 import { ReadingProgress } from "components/ReadingProgress/ReadingProgress";
 import { writingPostBreadcrumbs } from "data/breadcrumbs";
 import { WRITING_POST_MCP_FIGCAPTION } from "data/writing";
-import { gsap, prefersReducedMotion, registerGSAPPlugins } from "utils/gsap";
-import { DUR, EASE } from "utils/motion";
+import { useAutoReveal } from "utils/hooks/useAutoReveal";
+import { usePageHeader } from "utils/hooks/usePageHeader";
 import { formatDate } from "utils/date";
 import { PAGE_ARTICLE_SHELL, SECTION_INNER } from "utils/visual";
 
@@ -29,30 +29,18 @@ export const WritingPostPageContent = ({
   proseBeforeH2,
   proseFromH2,
 }: WritingPostPageContentProps) => {
-  const dateRef = useRef<HTMLParagraphElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const bodyRef = useRef<HTMLDivElement>(null);
+  const {
+    selectors: { headerRef },
+  } = usePageHeader();
 
-  useEffect(() => {
-    registerGSAPPlugins();
-
-    const els = [dateRef.current, titleRef.current, bodyRef.current].filter(Boolean);
-    if (!els.length) return;
-
-    if (prefersReducedMotion()) {
-      gsap.set(els, { opacity: 1, y: 0 });
-      return;
-    }
-
-    gsap.set(els, { opacity: 0, y: 28 });
-
-    const tl = gsap.timeline({ delay: 0.05, defaults: { ease: EASE.smooth } });
-    tl.to(els, { opacity: 1, y: 0, duration: DUR.md, stagger: 0.1 });
-
-    return () => {
-      tl.kill();
-    };
-  }, []);
+  const {
+    selectors: { containerRef: bodyRef },
+  } = useAutoReveal({
+    selector: ":scope > div > *, :scope > figure",
+    y: 18,
+    duration: 0.6,
+    stagger: 0.05,
+  });
 
   return (
     <>
@@ -60,18 +48,20 @@ export const WritingPostPageContent = ({
       <div className="min-h-screen bg-background text-foreground">
         <main id="main-content" tabIndex={-1} className={`outline-none ${PAGE_ARTICLE_SHELL}`}>
           <article className={SECTION_INNER}>
-            <Breadcrumbs items={writingPostBreadcrumbs(title)} className="mb-8" />
-            <p ref={dateRef} className="text-muted text-sm font-medium tabular-nums">
-              <time dateTime={date}>{formatDate(date)}</time>
-            </p>
-            <h1
-              ref={titleRef}
-              className="font-display font-bold text-3xl sm:text-4xl text-foreground mt-2 mb-6"
-            >
-              {title}
-            </h1>
+            <header ref={headerRef as React.RefObject<HTMLElement>} className="mb-6">
+              <Breadcrumbs items={writingPostBreadcrumbs(title)} className="mb-8" />
+              <p data-header-meta className="text-muted text-sm font-medium tabular-nums">
+                <time dateTime={date}>{formatDate(date)}</time>
+              </p>
+              <h1
+                data-header-title
+                className="font-display font-bold text-3xl sm:text-4xl text-foreground mt-2"
+              >
+                {title}
+              </h1>
+            </header>
             <div
-              ref={bodyRef}
+              ref={bodyRef as React.RefObject<HTMLDivElement>}
               className="prose prose-invert prose-neutral max-w-none text-muted text-[15px] sm:text-base leading-relaxed [&_a]:break-words [&_a]:text-foreground [&_a]:underline [&_a:hover]:text-muted [&_a:focus-visible]:outline-none [&_a:focus-visible]:ring-2 [&_a:focus-visible]:ring-foreground [&_a:focus-visible]:ring-offset-2 [&_a:focus-visible]:ring-offset-background [&_a:focus-visible]:rounded-sm [&_code]:break-words [&_h2]:font-display [&_h2]:font-semibold [&_h2]:text-foreground [&_h2]:text-xl [&_h2]:mt-8 [&_h2]:mb-3 [&_p]:mb-4 [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_hr]:border-border [&_strong]:text-foreground"
             >
               {showMcpDiagram ? (

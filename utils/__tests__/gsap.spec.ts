@@ -1,4 +1,4 @@
-import { gsap, prefersReducedMotion, registerGSAPPlugins } from "utils/gsap";
+import { prefersReducedMotion } from "utils/gsap";
 
 jest.mock("gsap", () => ({
   __esModule: true,
@@ -17,32 +17,6 @@ describe("utils/gsap", () => {
       configurable: true,
     });
     jest.clearAllMocks();
-  });
-
-  it("should register ScrollTrigger only once for registerGSAPPlugins", () => {
-    const mockGsap = gsap as unknown as { registerPlugin: jest.Mock };
-
-    registerGSAPPlugins();
-    registerGSAPPlugins();
-
-    expect(mockGsap.registerPlugin).toHaveBeenCalledTimes(1);
-  });
-
-  it("should no-op when registerPlugin is not a function in registerGSAPPlugins", async () => {
-    await jest.isolateModulesAsync(async () => {
-      jest.doMock("gsap", () => ({
-        __esModule: true,
-        default: {},
-      }));
-      jest.doMock("gsap/ScrollTrigger", () => ({
-        __esModule: true,
-        ScrollTrigger: {},
-        default: {},
-      }));
-
-      const { registerGSAPPlugins } = await import("utils/gsap");
-      expect(() => registerGSAPPlugins()).not.toThrow();
-    });
   });
 
   it("should return false when matchMedia is not a function for prefersReducedMotion", () => {

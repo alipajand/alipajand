@@ -171,10 +171,11 @@ describe("Writing", () => {
   });
 
   describe("data-reveal attributes", () => {
-    it("should have data-reveal on heading block", () => {
+    it("should stage the heading as a cinematic title and the lede as a reveal", () => {
       render(<Writing featured={null} posts={mockPosts} />);
       const lede = screen.getByText(WRITING_SECTION_LEDE);
-      expect(lede.closest("header")).toHaveAttribute("data-reveal");
+      expect(lede).toHaveAttribute("data-reveal");
+      expect(screen.getByRole("heading", { level: 2 })).toHaveAttribute("data-cine-title");
     });
 
     it("should have data-reveal on posts list", () => {

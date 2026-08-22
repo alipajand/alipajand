@@ -10,7 +10,7 @@ interface WritingIndexPostListItemProps {
 
 export const WritingIndexPostListItem = ({ post }: WritingIndexPostListItemProps) => {
   return (
-    <li data-writ-item>
+    <li data-reveal>
       <article>
         <Link
           href={`/writing/${post.slug}`}

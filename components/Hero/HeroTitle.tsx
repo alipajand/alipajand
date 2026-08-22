@@ -9,10 +9,6 @@ interface HeroTitleProps {
   className?: string;
 }
 
-/**
- * Splits the headline into masked words so the intro can reveal them
- * from behind a clipped baseline, one beat after another.
- */
 export const HeroTitle = ({ headingRef, text, className }: HeroTitleProps) => {
   const words = text.split(" ").filter(Boolean);
 

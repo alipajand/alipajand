@@ -33,7 +33,7 @@ export const Contact = () => {
       className={SECTION_SHELL}
     >
       <div className={SECTION_INNER}>
-        <h2 id="contact-heading" className={`${SECTION_TITLE} mb-5 sm:mb-6`} data-reveal>
+        <h2 id="contact-heading" className={`${SECTION_TITLE} mb-5 sm:mb-6`} data-cine-title>
           {CONTACT_SECTION_HEADING}
         </h2>
         <p className={`${SECTION_LEDE} mb-8 sm:mb-10`} data-reveal>

@@ -10,6 +10,9 @@ import {
   OPEN_SOURCE_TOOLS_HEADING,
   OPEN_SOURCE_TOOLS_LEDE,
 } from "data/openSourceTools";
+import type React from "react";
+
+import { useCinematicCards } from "utils/hooks/useCinematicCards";
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import {
   CTA_SECONDARY,
@@ -23,6 +26,11 @@ export const OpenSourceTools = () => {
   const {
     selectors: { sectionRef },
   } = useScrollReveal({ y: 32, stagger: 0.08 });
+
+  const {
+    selectors: { containerRef: cardsRef },
+  } = useCinematicCards();
+
   return (
     <section
       id="open-source-tools"
@@ -31,14 +39,23 @@ export const OpenSourceTools = () => {
       className={SECTION_SHELL}
     >
       <div className={SECTION_INNER}>
-        <header className="mb-10 sm:mb-12" data-reveal>
-          <h2 id="open-source-tools-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
+        <header className="mb-10 sm:mb-12">
+          <h2
+            data-cine-title
+            id="open-source-tools-heading"
+            className={`${SECTION_TITLE} mb-4 sm:mb-5`}
+          >
             {OPEN_SOURCE_TOOLS_HEADING}
           </h2>
-          <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_TOOLS_LEDE}</p>
+          <p data-reveal className={SECTION_LEDE_LG}>
+            {OPEN_SOURCE_TOOLS_LEDE}
+          </p>
         </header>
 
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">
+        <ul
+          ref={cardsRef as React.RefObject<HTMLUListElement>}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0"
+        >
           {OPEN_SOURCE_TOOLS.map((tool) => (
             <OpenSourceToolGridItem key={tool.name} tool={tool} />
           ))}

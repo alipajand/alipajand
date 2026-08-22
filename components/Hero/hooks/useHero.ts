@@ -32,7 +32,6 @@ export const useHero = (): HeroHook => {
   const locationRef = useRef<HTMLParagraphElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
-  // Opening shot: camera push in, headline words rise out of their masks.
   useEffect(() => {
     const noMotion = prefersReducedMotion();
 
@@ -112,7 +111,6 @@ export const useHero = (): HeroHook => {
     tl.to(scrollIndicatorRef.current, { opacity: 1, duration: DUR.md }, "-=0.3");
   }, []);
 
-  // Scroll-driven camera pull: foreground drifts up and dims, layers separate.
   useEffect(() => {
     if (typeof window === "undefined" || prefersReducedMotion()) return;
 
@@ -167,7 +165,6 @@ export const useHero = (): HeroHook => {
     };
   }, []);
 
-  // Scroll cue keeps a slow, looping breath.
   useEffect(() => {
     if (!scrollIndicatorRef.current) return;
     if (prefersReducedMotion()) return;

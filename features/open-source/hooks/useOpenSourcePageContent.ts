@@ -22,7 +22,7 @@ export const useOpenSourcePageContent = (): {
 
   const {
     selectors: { sectionRef: contentRef },
-  } = useScrollReveal({ y: 36, stagger: 0.1, start: "top 90%" });
+  } = useScrollReveal({ y: 36, stagger: 0.1 });
 
   const featuredProjects = useMemo(
     () => OPEN_SOURCE_PROJECTS.filter((project) => project.featured),

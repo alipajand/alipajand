@@ -2,25 +2,26 @@
 
 import { useEffect, useRef } from "react";
 
-import { gsap, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
+import { onScrollFrame } from "utils/cinematic";
+import { gsap } from "utils/gsap";
 
 export const ReadingProgress = () => {
   const barRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    registerGSAPPlugins();
     const bar = barRef.current;
     if (!bar) return;
+
     gsap.set(bar, { scaleX: 0 });
-    const st = ScrollTrigger.create({
-      trigger: document.documentElement,
-      start: "top top",
-      end: "bottom bottom",
-      onUpdate: (self) => {
-        gsap.set(bar, { scaleX: self.progress, overwrite: true });
-      },
+
+    return onScrollFrame(() => {
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      gsap.set(bar, { scaleX: progress, overwrite: true });
     });
-    return () => st.kill();
   }, []);
+
   return (
     <div
       ref={barRef}

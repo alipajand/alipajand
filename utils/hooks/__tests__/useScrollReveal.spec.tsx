@@ -6,10 +6,9 @@ import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import * as gsapUtils from "utils/gsap";
 
 jest.mock("utils/gsap", () => ({
+  __esModule: true,
   gsap: { set: jest.fn(), to: jest.fn() },
   prefersReducedMotion: jest.fn(() => false),
-  registerGSAPPlugins: jest.fn(),
-  ScrollTrigger: { create: jest.fn(() => ({ kill: jest.fn() })) },
 }));
 
 const Wrapper = ({
@@ -33,7 +32,6 @@ describe("useScrollReveal", () => {
   beforeEach(() => {
     jest.mocked(gsapUtils.gsap.set).mockClear();
     jest.mocked(gsapUtils.gsap.to).mockClear();
-    jest.mocked(gsapUtils.ScrollTrigger.create).mockClear();
     jest.mocked(gsapUtils.prefersReducedMotion).mockReturnValue(false);
   });
 
@@ -41,174 +39,101 @@ describe("useScrollReveal", () => {
     it("should return selectors with sectionRef", () => {
       const { result } = renderHook(() => useScrollReveal());
 
-      expect(result.current.selectors).toBeDefined();
       expect(result.current.selectors.sectionRef).toBeDefined();
       expect(result.current.selectors.sectionRef.current).toBeNull();
-    });
-
-    it("should return sectionRef that is a ref object", () => {
-      const { result } = renderHook(() => useScrollReveal());
-
-      expect(result.current.selectors.sectionRef).toHaveProperty("current");
-      expect(typeof result.current.selectors.sectionRef).toBe("object");
-    });
-  });
-
-  describe("with options", () => {
-    it("should accept options object and still return correct shape", () => {
-      const { result } = renderHook(() => useScrollReveal({ y: 32, stagger: 0.08, once: true }));
-
-      expect(result.current.selectors.sectionRef).toBeDefined();
     });
   });
 
   describe("effect with mounted element", () => {
-    it("should call gsap.set and ScrollTrigger.create when section has data-reveal children", () => {
+    it("should hide then reveal every data-reveal child as it enters frame", () => {
       render(<Wrapper />);
-      expect(gsapUtils.gsap.set).toHaveBeenCalled();
-      expect(gsapUtils.ScrollTrigger.create).toHaveBeenCalled();
+
+      expect(gsapUtils.gsap.set).toHaveBeenCalledWith(
+        expect.arrayContaining([expect.any(HTMLElement)]),
+        expect.objectContaining({ opacity: 0 })
+      );
+      expect(gsapUtils.gsap.to).toHaveBeenCalledTimes(2);
+      expect(gsapUtils.gsap.to).toHaveBeenCalledWith(
+        expect.any(HTMLElement),
+        expect.objectContaining({ opacity: 1, y: 0, scale: 1 })
+      );
     });
 
-    it("should call cleanup on unmount", () => {
-      const killMock = jest.fn();
-      jest
-        .mocked(gsapUtils.ScrollTrigger.create)
-        .mockImplementation(
-          () => ({ kill: killMock }) as unknown as ReturnType<typeof gsapUtils.ScrollTrigger.create>
-        );
-      const { unmount } = render(<Wrapper />);
-      unmount();
-      expect(killMock).toHaveBeenCalled();
+    it("should stagger elements that enter frame in the same beat", () => {
+      render(<Wrapper options={{ stagger: 0.2 }} />);
+
+      const delays = jest
+        .mocked(gsapUtils.gsap.to)
+        .mock.calls.map((call) => (call[1] as { delay: number }).delay);
+
+      expect(delays).toEqual([0, 0.2]);
     });
 
-    it("should use stagger when multiple children have data-reveal", () => {
-      render(<Wrapper options={{ stagger: 0.08 }} />);
-      const createCallArgs = jest.mocked(gsapUtils.ScrollTrigger.create).mock.calls[0];
-      const createCall = createCallArgs[0] as { onEnter?: () => void };
-      expect(createCall.onEnter).toBeDefined();
-      createCall.onEnter?.();
+    it("should use the custom travel distance", () => {
+      render(<Wrapper options={{ y: 100 }} />);
+
+      expect(gsapUtils.gsap.set).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({ y: 100 })
+      );
+    });
+
+    it("should use the custom duration and delay", () => {
+      render(<Wrapper options={{ duration: 1.5, delay: 0.5 }} />);
+
       expect(gsapUtils.gsap.to).toHaveBeenCalledWith(
         expect.anything(),
-        expect.objectContaining({ stagger: 0.08 })
+        expect.objectContaining({ duration: 1.5, delay: 0.5 })
+      );
+    });
+
+    it("should reveal data-cine-title headings word by word", () => {
+      const TitleWrapper = () => {
+        const { selectors } = useScrollReveal();
+        return (
+          <div ref={selectors.sectionRef as React.RefObject<HTMLDivElement>}>
+            <h2 data-cine-title>Selected Work</h2>
+          </div>
+        );
+      };
+
+      const { container } = render(<TitleWrapper />);
+
+      expect(container.querySelectorAll("[data-cine-word]")).toHaveLength(2);
+      expect(container.querySelector("h2")).toHaveTextContent("Selected Work");
+      expect(gsapUtils.gsap.to).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({ yPercent: 0 })
       );
     });
   });
 
   describe("prefersReducedMotion", () => {
-    it("should set opacity 1 and y 0 when prefersReducedMotion is true", () => {
+    it("should show every child immediately without animating", () => {
       jest.mocked(gsapUtils.prefersReducedMotion).mockReturnValue(true);
+
       render(<Wrapper />);
-      expect(gsapUtils.gsap.set).toHaveBeenCalledWith(expect.anything(), { opacity: 1, y: 0 });
-      expect(gsapUtils.ScrollTrigger.create).not.toHaveBeenCalled();
+
+      expect(gsapUtils.gsap.set).toHaveBeenCalledWith(expect.anything(), {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+      });
+      expect(gsapUtils.gsap.to).not.toHaveBeenCalled();
     });
   });
 
   describe("no data-reveal children", () => {
-    const EmptyWrapper = () => {
-      const { selectors } = useScrollReveal();
-      return <div ref={selectors.sectionRef as React.RefObject<HTMLDivElement>}>no reveal</div>;
-    };
-    it("should not call ScrollTrigger.create when section has no data-reveal", () => {
-      jest.mocked(gsapUtils.ScrollTrigger.create).mockClear();
-      render(<EmptyWrapper />);
-      expect(gsapUtils.ScrollTrigger.create).not.toHaveBeenCalled();
-    });
-  });
-
-  describe("options handling", () => {
-    it("should use custom trigger element", () => {
-      const CustomTriggerWrapper = () => {
+    it("should do nothing when the section has no staged elements", () => {
+      const EmptyWrapper = () => {
         const { selectors } = useScrollReveal();
-        const triggerRef = React.useRef<HTMLDivElement>(null);
-        return (
-          <>
-            <div ref={selectors.sectionRef as React.RefObject<HTMLDivElement>}>
-              <span data-reveal>one</span>
-            </div>
-            <div ref={triggerRef}>trigger</div>
-          </>
-        );
+        return <div ref={selectors.sectionRef as React.RefObject<HTMLDivElement>}>no reveal</div>;
       };
-      render(<CustomTriggerWrapper />);
-      expect(gsapUtils.ScrollTrigger.create).toHaveBeenCalled();
-    });
 
-    it("should use custom start value", () => {
-      render(<Wrapper options={{ start: "top 50%" }} />);
-      const createCall = jest.mocked(gsapUtils.ScrollTrigger.create).mock.calls[0][0] as {
-        start?: string;
-      };
-      expect(createCall.start).toBe("top 50%");
-    });
+      render(<EmptyWrapper />);
 
-    it("should use custom y value", () => {
-      render(<Wrapper options={{ y: 100 }} />);
-      const setCalls = jest.mocked(gsapUtils.gsap.set).mock.calls;
-      expect(setCalls.some((call) => call[1]?.y === 100)).toBe(true);
-    });
-
-    it("should use custom duration", () => {
-      render(<Wrapper options={{ duration: 1.5 }} />);
-      const createCall = jest.mocked(gsapUtils.ScrollTrigger.create).mock.calls[0][0] as {
-        onEnter?: () => void;
-      };
-      createCall.onEnter?.();
-      expect(gsapUtils.gsap.to).toHaveBeenCalledWith(
-        expect.anything(),
-        expect.objectContaining({ duration: 1.5 })
-      );
-    });
-
-    it("should use custom delay", () => {
-      render(<Wrapper options={{ delay: 0.5 }} />);
-      const createCall = jest.mocked(gsapUtils.ScrollTrigger.create).mock.calls[0][0] as {
-        onEnter?: () => void;
-      };
-      createCall.onEnter?.();
-      expect(gsapUtils.gsap.to).toHaveBeenCalledWith(
-        expect.anything(),
-        expect.objectContaining({ delay: 0.5 })
-      );
-    });
-
-    it("should use once: false when specified", () => {
-      render(<Wrapper options={{ once: false }} />);
-      const createCall = jest.mocked(gsapUtils.ScrollTrigger.create).mock.calls[0][0] as {
-        once?: boolean;
-      };
-      expect(createCall.once).toBe(false);
-    });
-
-    it("should not use stagger when only one child", () => {
-      const SingleChildWrapper = () => {
-        const { selectors } = useScrollReveal({ stagger: 0.08 });
-        return (
-          <div ref={selectors.sectionRef as React.RefObject<HTMLDivElement>}>
-            <span data-reveal>one</span>
-          </div>
-        );
-      };
-      render(<SingleChildWrapper />);
-      const createCall = jest.mocked(gsapUtils.ScrollTrigger.create).mock.calls[0][0] as {
-        onEnter?: () => void;
-      };
-      createCall.onEnter?.();
-      expect(gsapUtils.gsap.to).toHaveBeenCalledWith(
-        expect.anything(),
-        expect.objectContaining({ stagger: 0 })
-      );
-    });
-  });
-
-  describe("effect dependencies", () => {
-    it("should recreate ScrollTrigger when options change", () => {
-      const { rerender } = render(<Wrapper options={{ y: 32 }} />);
-      const firstCallCount = jest.mocked(gsapUtils.ScrollTrigger.create).mock.calls.length;
-
-      rerender(<Wrapper options={{ y: 64 }} />);
-      const secondCallCount = jest.mocked(gsapUtils.ScrollTrigger.create).mock.calls.length;
-
-      expect(secondCallCount).toBeGreaterThan(firstCallCount);
+      expect(gsapUtils.gsap.set).not.toHaveBeenCalled();
+      expect(gsapUtils.gsap.to).not.toHaveBeenCalled();
     });
   });
 });

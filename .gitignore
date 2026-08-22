@@ -41,6 +41,8 @@ next-env.d.ts
 .vscode
 .cache
 .idea
+.claude
+.cursor
 
 # Sentry Auth Token
 .sentryclirc

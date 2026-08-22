@@ -1,12 +1,21 @@
+"use client";
+
+import type React from "react";
+
 import { HiringFitGridItem } from "components/HiringFit/HiringFitGridItem";
 import { useHiringFitReveal } from "components/HiringFit/hooks/useHiringFitReveal";
 import { HIRING_FIT_CARDS, HIRING_FIT_HEADING } from "data/hiringFit";
+import { useCinematicCards } from "utils/hooks/useCinematicCards";
 import { SECTION_INNER, SECTION_SHELL, SECTION_TITLE } from "utils/visual";
 
 export const HiringFit = () => {
   const {
     selectors: { sectionRef },
   } = useHiringFitReveal();
+
+  const {
+    selectors: { containerRef: cardsRef },
+  } = useCinematicCards();
 
   return (
     <section
@@ -20,7 +29,10 @@ export const HiringFit = () => {
           {HIRING_FIT_HEADING}
         </h2>
 
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">
+        <ul
+          ref={cardsRef as React.RefObject<HTMLUListElement>}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0"
+        >
           {HIRING_FIT_CARDS.map((card) => (
             <HiringFitGridItem key={card.id} card={card} />
           ))}

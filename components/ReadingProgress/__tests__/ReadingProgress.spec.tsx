@@ -1,4 +1,5 @@
 import { render } from "@testing-library/react";
+import { act } from "react";
 
 import { ReadingProgress } from "components/ReadingProgress/ReadingProgress";
 
@@ -7,47 +8,73 @@ jest.mock("utils/gsap", () => ({
   gsap: {
     set: jest.fn(),
   },
-  ScrollTrigger: {
-    create: jest.fn(() => ({ kill: jest.fn() })),
-  },
-  registerGSAPPlugins: jest.fn(),
 }));
 
-type GsapMock = {
-  gsap: { set: jest.Mock };
-  ScrollTrigger: { create: jest.Mock };
-  registerGSAPPlugins: jest.Mock;
-};
+type GsapMock = { gsap: { set: jest.Mock } };
 
-const getMock = (): GsapMock => {
-  return jest.requireMock("utils/gsap") as GsapMock;
+const getMock = (): GsapMock => jest.requireMock("utils/gsap") as GsapMock;
+
+const setScrollMetrics = ({ scrollY, scrollHeight }: { scrollY: number; scrollHeight: number }) => {
+  Object.defineProperty(window, "scrollY", { value: scrollY, writable: true, configurable: true });
+  Object.defineProperty(window, "innerHeight", { value: 800, writable: true, configurable: true });
+  Object.defineProperty(document.documentElement, "scrollHeight", {
+    value: scrollHeight,
+    writable: true,
+    configurable: true,
+  });
 };
 
 describe("ReadingProgress", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.spyOn(window, "requestAnimationFrame").mockImplementation((cb) => {
+      cb(0);
+      return 1;
+    });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it("should render a decorative progress bar", () => {
+    setScrollMetrics({ scrollY: 0, scrollHeight: 2400 });
     const { container } = render(<ReadingProgress />);
-    const bar = container.querySelector('div[aria-hidden="true"]');
-    expect(bar).toBeInTheDocument();
+    expect(container.querySelector('div[aria-hidden="true"]')).toBeInTheDocument();
   });
 
-  it("should initialize the bar and update its scale on scroll progress", () => {
+  it("should scale the bar to the share of the page already scrolled", () => {
+    setScrollMetrics({ scrollY: 800, scrollHeight: 2400 });
     const mock = getMock();
+
     render(<ReadingProgress />);
 
-    expect(mock.registerGSAPPlugins).toHaveBeenCalled();
     expect(mock.gsap.set).toHaveBeenCalledWith(expect.anything(), { scaleX: 0 });
-    expect(mock.ScrollTrigger.create).toHaveBeenCalled();
-
-    const config = mock.ScrollTrigger.create.mock.calls[0][0];
-    config.onUpdate({ progress: 0.5 });
-
     expect(mock.gsap.set).toHaveBeenCalledWith(expect.anything(), {
       scaleX: 0.5,
       overwrite: true,
     });
+  });
+
+  it("should keep the bar empty when the page does not scroll", () => {
+    setScrollMetrics({ scrollY: 0, scrollHeight: 800 });
+    const mock = getMock();
+
+    render(<ReadingProgress />);
+    act(() => {
+      window.dispatchEvent(new Event("scroll"));
+    });
+
+    expect(mock.gsap.set).toHaveBeenCalledWith(expect.anything(), { scaleX: 0, overwrite: true });
+  });
+
+  it("should stop listening to scroll once unmounted", () => {
+    setScrollMetrics({ scrollY: 0, scrollHeight: 2400 });
+    const removeListener = jest.spyOn(window, "removeEventListener");
+
+    const { unmount } = render(<ReadingProgress />);
+    unmount();
+
+    expect(removeListener).toHaveBeenCalledWith("scroll", expect.any(Function));
   });
 });

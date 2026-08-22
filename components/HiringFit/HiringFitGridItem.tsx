@@ -7,7 +7,7 @@ interface HiringFitGridItemProps {
 
 export const HiringFitGridItem = ({ card }: HiringFitGridItemProps) => {
   return (
-    <li data-hiring-card>
+    <li data-hiring-card className="h-full">
       <HiringFitCard card={card} />
     </li>
   );

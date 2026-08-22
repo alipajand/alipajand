@@ -22,10 +22,6 @@ export const STAGGER = {
   loose: 0.14,
 } as const;
 
-/**
- * Cinematic layer: slower, camera-like motion used by the homepage stage.
- * Kept separate from the base tokens so section motion stays snappy.
- */
 export const CINE = {
   ease: "power3.out",
   easeCamera: "power2.out",

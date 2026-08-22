@@ -3,7 +3,9 @@
 import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
 
-import { gsap, prefersReducedMotion, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
+import { revealOnce } from "utils/cinematic";
+import { gsap, prefersReducedMotion } from "utils/gsap";
+import { DUR, EASE, STAGGER } from "utils/motion";
 
 const CARD_SELECTOR = "[data-testimonial-card]";
 
@@ -17,41 +19,34 @@ export const useTestimonialsReveal = (): {
 } => {
   const sectionRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+
   useEffect(() => {
-    registerGSAPPlugins();
     const list = listRef.current;
     const section = sectionRef.current;
     if (!list || !section) return;
-    const cards = list.querySelectorAll<HTMLElement>(CARD_SELECTOR);
-    const headings = section.querySelectorAll<HTMLElement>("[data-reveal]");
+
+    const cards = Array.from(list.querySelectorAll<HTMLElement>(CARD_SELECTOR));
+    const headings = Array.from(section.querySelectorAll<HTMLElement>("[data-reveal]"));
+
     if (prefersReducedMotion()) {
       gsap.set([...cards, ...headings], { opacity: 1, x: 0, y: 0 });
       return;
     }
+
     gsap.set(cards, { opacity: 0, x: -24 });
-    headings.forEach((h) => gsap.set(h, { opacity: 0, y: 24 }));
-    const st = ScrollTrigger.create({
-      trigger: section,
-      start: "top 80%",
-      once: true,
-      onEnter: () => {
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-        tl.to(headings, { opacity: 1, y: 0, duration: 0.5, stagger: 0.06 });
-        tl.to(
-          cards,
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.6,
-            stagger: 0.15,
-            ease: "power3.out",
-          },
-          "-=0.25"
-        );
+    gsap.set(headings, { opacity: 0, y: 24 });
+
+    return revealOnce(
+      [section],
+      () => {
+        const tl = gsap.timeline({ defaults: { ease: EASE.smooth } });
+        tl.to(headings, { opacity: 1, y: 0, duration: DUR.sm, stagger: STAGGER.tight });
+        tl.to(cards, { opacity: 1, x: 0, duration: DUR.md, stagger: STAGGER.loose }, `-=${DUR.xs}`);
       },
-    });
-    return () => st.kill();
+      { rootMargin: "0px 0px -18% 0px" }
+    );
   }, []);
+
   return {
     selectors: { sectionRef, listRef },
   };

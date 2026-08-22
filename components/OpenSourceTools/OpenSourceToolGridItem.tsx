@@ -7,7 +7,7 @@ interface OpenSourceToolGridItemProps {
 
 export const OpenSourceToolGridItem = ({ tool }: OpenSourceToolGridItemProps) => {
   return (
-    <li data-open-source-tool-card data-reveal className="h-full">
+    <li data-open-source-tool-card data-reveal data-cine-card className="cine-card h-full">
       <OpenSourceToolCard tool={tool} />
     </li>
   );

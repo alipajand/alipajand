@@ -14,11 +14,7 @@ jest.mock("utils/gsap", () => {
     gsap: {
       ticker,
     },
-    ScrollTrigger: {
-      update: jest.fn(),
-    },
     prefersReducedMotion: jest.fn(() => false),
-    registerGSAPPlugins: jest.fn(),
   };
 });
 

@@ -14,11 +14,7 @@ jest.mock("utils/gsap", () => {
       set,
       timeline,
     },
-    ScrollTrigger: {
-      create: jest.fn(() => ({ kill: jest.fn() })),
-    },
     prefersReducedMotion: jest.fn(() => false),
-    registerGSAPPlugins: jest.fn(),
   };
 });
 
@@ -32,10 +28,9 @@ describe("useTestimonialsReveal", () => {
   });
 
   it("should set elements directly when reduced motion is preferred", () => {
-    const { gsap, prefersReducedMotion, ScrollTrigger } = jest.requireMock("utils/gsap") as {
-      gsap: { set: jest.Mock };
+    const { gsap, prefersReducedMotion } = jest.requireMock("utils/gsap") as {
+      gsap: { set: jest.Mock; timeline: jest.Mock };
       prefersReducedMotion: jest.Mock;
-      ScrollTrigger: { create: jest.Mock };
     };
 
     prefersReducedMotion.mockReturnValueOnce(true);
@@ -58,14 +53,13 @@ describe("useTestimonialsReveal", () => {
     render(<TestComponent />);
 
     expect(gsap.set).toHaveBeenCalled();
-    expect(ScrollTrigger.create).not.toHaveBeenCalled();
+    expect(gsap.timeline).not.toHaveBeenCalled();
   });
 
-  it("should create ScrollTrigger and timeline when motion is allowed", () => {
-    const { gsap, prefersReducedMotion, ScrollTrigger } = jest.requireMock("utils/gsap") as {
+  it("should run the reveal timeline once the section enters frame", () => {
+    const { gsap, prefersReducedMotion } = jest.requireMock("utils/gsap") as {
       gsap: { timeline: jest.Mock };
       prefersReducedMotion: jest.Mock;
-      ScrollTrigger: { create: jest.Mock };
     };
 
     prefersReducedMotion.mockReturnValue(false);
@@ -86,13 +80,6 @@ describe("useTestimonialsReveal", () => {
     };
 
     render(<TestComponent />);
-
-    expect(ScrollTrigger.create).toHaveBeenCalled();
-
-    const config = (ScrollTrigger.create as jest.Mock).mock.calls[0][0];
-    if (typeof config.onEnter === "function") {
-      config.onEnter();
-    }
 
     expect(gsap.timeline).toHaveBeenCalled();
   });

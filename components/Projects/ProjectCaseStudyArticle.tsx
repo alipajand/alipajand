@@ -52,7 +52,7 @@ const RelatedLinksSection = ({
   isDedicatedPage: boolean;
 }) => {
   return (
-    <section id={`${project.id}-related`} className="scroll-mt-28 space-y-3">
+    <section data-reveal id={`${project.id}-related`} className="scroll-mt-28 space-y-3">
       <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
         {PROJECT_SECTION_RELATED_HEADING}
       </h2>
@@ -111,7 +111,7 @@ export const ProjectCaseStudyArticle = ({
     >
       <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_15rem] xl:gap-12">
         <div className="min-w-0 space-y-12">
-          <header className="space-y-6">
+          <header data-reveal className="space-y-6">
             <div className="space-y-3">
               <p className={LABEL_OVERLINE}>{project.employerContext}</p>
               <TitleTag
@@ -148,7 +148,7 @@ export const ProjectCaseStudyArticle = ({
             ) : null}
           </header>
 
-          <section id={`${project.id}-context`} className="scroll-mt-28 space-y-3">
+          <section data-reveal id={`${project.id}-context`} className="scroll-mt-28 space-y-3">
             <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
               {PROJECT_CASE_STUDY_SECTION_CONTEXT}
             </h2>
@@ -157,7 +157,7 @@ export const ProjectCaseStudyArticle = ({
             </p>
           </section>
 
-          <section id={`${project.id}-problem`} className="scroll-mt-28 space-y-3">
+          <section data-reveal id={`${project.id}-problem`} className="scroll-mt-28 space-y-3">
             <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
               {PROJECT_CASE_STUDY_SECTION_PROBLEM}
             </h2>
@@ -166,21 +166,25 @@ export const ProjectCaseStudyArticle = ({
             </p>
           </section>
 
-          <section id={`${project.id}-role`} className="scroll-mt-28 space-y-3">
+          <section data-reveal id={`${project.id}-role`} className="scroll-mt-28 space-y-3">
             <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
               {PROJECT_MY_ROLE_HEADING}
             </h2>
             <BulletList items={project.caseStudy.myRole} />
           </section>
 
-          <section id={`${project.id}-built`} className="scroll-mt-28 space-y-3">
+          <section data-reveal id={`${project.id}-built`} className="scroll-mt-28 space-y-3">
             <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
               {PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT}
             </h2>
             <BulletList items={project.caseStudy.whatIBuilt} />
           </section>
 
-          <section id={`${project.id}-technical-decisions`} className="scroll-mt-28 space-y-5">
+          <section
+            data-reveal
+            id={`${project.id}-technical-decisions`}
+            className="scroll-mt-28 space-y-5"
+          >
             <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
               {PROJECT_CASE_STUDY_SECTION_TECHNICAL_DECISIONS}
             </h2>
@@ -191,7 +195,7 @@ export const ProjectCaseStudyArticle = ({
             </div>
           </section>
 
-          <section id={`${project.id}-ux-decisions`} className="scroll-mt-28 space-y-3">
+          <section data-reveal id={`${project.id}-ux-decisions`} className="scroll-mt-28 space-y-3">
             <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
               {PROJECT_CASE_STUDY_SECTION_UX_DECISIONS}
             </h2>
@@ -199,7 +203,7 @@ export const ProjectCaseStudyArticle = ({
           </section>
 
           {evidenceFigures.length ? (
-            <section id={`${project.id}-evidence`} className="scroll-mt-28 space-y-5">
+            <section data-reveal id={`${project.id}-evidence`} className="scroll-mt-28 space-y-5">
               <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
                 {PROJECT_CASE_STUDY_SECTION_EVIDENCE}
               </h2>
@@ -211,14 +215,14 @@ export const ProjectCaseStudyArticle = ({
             </section>
           ) : null}
 
-          <section id={`${project.id}-outcome`} className="scroll-mt-28 space-y-3">
+          <section data-reveal id={`${project.id}-outcome`} className="scroll-mt-28 space-y-3">
             <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
               {PROJECT_CASE_STUDY_SECTION_OUTCOME}
             </h2>
             <BulletList items={project.caseStudy.outcome} />
           </section>
 
-          <section id={`${project.id}-improve`} className="scroll-mt-28 space-y-3">
+          <section data-reveal id={`${project.id}-improve`} className="scroll-mt-28 space-y-3">
             <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
               {PROJECT_CASE_STUDY_SECTION_IMPROVE}
             </h2>
@@ -232,7 +236,7 @@ export const ProjectCaseStudyArticle = ({
           />
         </div>
 
-        <aside className="hidden xl:block">
+        <aside data-reveal className="hidden xl:block">
           <nav
             className="sticky top-28 rounded-2xl border border-border/70 bg-card p-4"
             aria-label={projectCaseStudyTocAriaLabel(project.name)}

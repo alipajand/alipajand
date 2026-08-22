@@ -15,7 +15,7 @@ import {
   NOT_FOUND_TITLE,
 } from "data/notFound";
 import { gsap, prefersReducedMotion } from "utils/gsap";
-import { DUR, EASE } from "utils/motion";
+import { CINE, DUR, EASE } from "utils/motion";
 
 const SCRAMBLE_CHARS = "!@#%^&*xX01?$";
 
@@ -57,6 +57,7 @@ export const NotFoundPageContent = () => {
   const descRef = useRef<HTMLParagraphElement>(null);
   const tipRef = useRef<HTMLParagraphElement>(null);
   const ctasRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const code = codeRef.current;
@@ -67,8 +68,18 @@ export const NotFoundPageContent = () => {
         Boolean
       );
       gsap.set(all, { opacity: 1, y: 0 });
+      gsap.set(stageRef.current, { opacity: 1, scale: 1, filter: "none" });
       return;
     }
+
+    gsap.set(stageRef.current, { opacity: 0, scale: 1.04, filter: "blur(12px)" });
+    gsap.to(stageRef.current, {
+      opacity: 1,
+      scale: 1,
+      filter: "blur(0px)",
+      duration: CINE.push.duration,
+      ease: CINE.easeCamera,
+    });
 
     const belowEls = [titleRef.current, descRef.current, tipRef.current, ctasRef.current].filter(
       Boolean
@@ -76,21 +87,21 @@ export const NotFoundPageContent = () => {
 
     gsap.set(belowEls, { opacity: 0, y: 20 });
 
+    gsap.to(belowEls, {
+      opacity: 1,
+      y: 0,
+      duration: DUR.md,
+      stagger: 0.09,
+      ease: EASE.smooth,
+      delay: 0.75,
+    });
+
     if (code) {
       const original = code.textContent ?? NOT_FOUND_CODE;
       code.textContent = SCRAMBLE_CHARS.slice(0, original.length);
 
       gsap.delayedCall(0.15, () => {
-        scrambleText(code, original, 0.9, () => {
-          gsap.to(belowEls, {
-            opacity: 1,
-            y: 0,
-            duration: DUR.md,
-            stagger: 0.09,
-            ease: EASE.smooth,
-            delay: 0.1,
-          });
-        });
+        scrambleText(code, original, 0.9);
       });
     }
   }, []);
@@ -105,9 +116,10 @@ export const NotFoundPageContent = () => {
           </div>
         </div>
         <main
+          ref={stageRef}
           id="main-content"
           tabIndex={-1}
-          className="flex flex-1 flex-col items-center justify-center px-6 py-16 text-center outline-none sm:py-24"
+          className="cine-stage flex flex-1 flex-col items-center justify-center px-6 py-16 text-center outline-none sm:py-24"
         >
           <p
             ref={codeRef}

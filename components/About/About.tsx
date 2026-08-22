@@ -12,7 +12,7 @@ export const About = () => {
   return (
     <section id="about" ref={sectionRef} aria-labelledby="about-heading" className={SECTION_SHELL}>
       <div className={SECTION_INNER}>
-        <h2 id="about-heading" className={`${SECTION_TITLE} mb-5 sm:mb-6`} data-reveal>
+        <h2 id="about-heading" className={`${SECTION_TITLE} mb-5 sm:mb-6`} data-cine-title>
           {ABOUT_HEADING}
         </h2>
         <div className="max-w-3xl space-y-4">

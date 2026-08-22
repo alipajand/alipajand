@@ -7,18 +7,12 @@ jest.mock("utils/gsap", () => ({
   gsap: {
     to: jest.fn(),
   },
-  ScrollTrigger: {
-    create: jest.fn(() => ({ kill: jest.fn() })),
-  },
   prefersReducedMotion: jest.fn(() => false),
-  registerGSAPPlugins: jest.fn(),
 }));
 
 type GsapMock = {
   gsap: { to: jest.Mock };
-  ScrollTrigger: { create: jest.Mock };
   prefersReducedMotion: jest.Mock;
-  registerGSAPPlugins: jest.Mock;
 };
 
 const getMock = (): GsapMock => {
@@ -50,32 +44,26 @@ describe("useCountUp", () => {
     expect(result.current.hasParsed).toBe(true);
   });
 
-  it("should not create a ScrollTrigger for non-numeric values", () => {
+  it("should not animate non-numeric values", () => {
     const mock = getMock();
     render(<Harness value="Accessibility" />);
-    expect(mock.ScrollTrigger.create).not.toHaveBeenCalled();
+    expect(mock.gsap.to).not.toHaveBeenCalled();
   });
 
   it("should not animate when reduced motion is preferred", () => {
     const mock = getMock();
     mock.prefersReducedMotion.mockReturnValueOnce(true);
     render(<Harness value="9+" />);
-    expect(mock.ScrollTrigger.create).not.toHaveBeenCalled();
+    expect(mock.gsap.to).not.toHaveBeenCalled();
   });
 
-  it("should animate the counter and writes intermediate then final text on enter", () => {
+  it("should animate the counter and write intermediate then final text on enter", () => {
     const mock = getMock();
     mock.prefersReducedMotion.mockReturnValue(false);
 
-    render(<Harness value="$9+" />);
+    const { container } = render(<Harness value="$9+" />);
+    const el = container.querySelector("span") as HTMLElement;
 
-    expect(mock.registerGSAPPlugins).toHaveBeenCalled();
-    expect(mock.ScrollTrigger.create).toHaveBeenCalled();
-
-    const triggerConfig = mock.ScrollTrigger.create.mock.calls[0][0];
-    const el = triggerConfig.trigger as HTMLElement;
-
-    triggerConfig.onEnter();
     expect(mock.gsap.to).toHaveBeenCalled();
 
     const tween = mock.gsap.to.mock.calls[0];

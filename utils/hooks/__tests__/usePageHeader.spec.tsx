@@ -2,19 +2,15 @@ import { render, renderHook } from "@testing-library/react";
 
 import { usePageHeader } from "utils/hooks/usePageHeader";
 
-jest.mock("gsap", () => {
-  const timeline = jest.fn(() => ({
-    to: jest.fn().mockReturnThis(),
-    kill: jest.fn(),
-  }));
-
-  const gsap = { set: jest.fn(), timeline };
-
-  return { __esModule: true, default: gsap, ...gsap };
-});
-
 jest.mock("utils/gsap", () => ({
   __esModule: true,
+  gsap: {
+    set: jest.fn(),
+    timeline: jest.fn(() => ({
+      to: jest.fn().mockReturnThis(),
+      kill: jest.fn(),
+    })),
+  },
   prefersReducedMotion: jest.fn(() => false),
 }));
 
@@ -24,7 +20,7 @@ type GsapMock = {
 };
 
 const getGsap = (): GsapMock => {
-  return jest.requireMock("gsap") as unknown as GsapMock;
+  return (jest.requireMock("utils/gsap") as { gsap: GsapMock }).gsap;
 };
 
 const getReducedMotionMock = (): jest.Mock => {
@@ -68,6 +64,25 @@ describe("usePageHeader", () => {
 
     expect(gsap.set).toHaveBeenCalled();
     expect(gsap.timeline).toHaveBeenCalled();
+  });
+
+  it("should split the title into masked words for the opening shot", () => {
+    getReducedMotionMock().mockReturnValue(false);
+
+    const { container } = render(<Harness />);
+
+    const title = container.querySelector("[data-header-title]") as HTMLElement;
+    expect(title.querySelectorAll("[data-cine-word]")).toHaveLength(1);
+    expect(title).toHaveTextContent("Title");
+    expect(container.querySelector("header")).toHaveClass("cine-stage");
+  });
+
+  it("should leave the title unsplit when reduced motion is preferred", () => {
+    getReducedMotionMock().mockReturnValue(true);
+
+    const { container } = render(<Harness />);
+
+    expect(container.querySelectorAll("[data-cine-word]")).toHaveLength(0);
   });
 
   it("should set elements visible without a timeline when reduced motion is preferred", () => {

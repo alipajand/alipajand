@@ -3,16 +3,15 @@
 import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
 
-import { gsap, prefersReducedMotion, registerGSAPPlugins, ScrollTrigger } from "utils/gsap";
+import { cinematicReveal, cinematicTitleReveal } from "utils/cinematic";
 
 export interface UseScrollRevealOptions {
-  trigger?: HTMLElement | null;
-  once?: boolean;
   y?: number;
+  scale?: number;
   duration?: number;
   stagger?: number;
   delay?: number;
-  start?: string;
+  rootMargin?: string;
 }
 
 export interface ScrollRevealSelectors {
@@ -23,55 +22,35 @@ export interface ScrollRevealHook {
   selectors: ScrollRevealSelectors;
 }
 
+const REVEAL_SELECTOR = "[data-reveal]";
+const TITLE_SELECTOR = "[data-cine-title]";
+
 export const useScrollReveal = (options: UseScrollRevealOptions = {}): ScrollRevealHook => {
   const sectionRef = useRef<HTMLElement>(null);
-  const {
-    trigger,
-    once = true,
-    y = 48,
-    duration = 0.7,
-    stagger = 0.1,
-    delay = 0,
-    start = "top 85%",
-  } = options;
+  const { y, scale, duration, stagger, delay, rootMargin } = options;
 
   useEffect(() => {
-    registerGSAPPlugins();
-
     const el = sectionRef.current;
     if (!el) return;
 
-    const children = el.querySelectorAll<HTMLElement>("[data-reveal]");
-    if (children.length === 0) return;
+    const children = Array.from(el.querySelectorAll<HTMLElement>(REVEAL_SELECTOR));
+    const titles = Array.from(el.querySelectorAll<HTMLElement>(TITLE_SELECTOR));
 
-    if (prefersReducedMotion()) {
-      gsap.set(children, { opacity: 1, y: 0 });
-      return;
-    }
-
-    gsap.set(children, { opacity: 0, y });
-
-    const triggerEl = trigger ?? el;
-    const st = ScrollTrigger.create({
-      trigger: triggerEl,
-      start,
-      once,
-      onEnter: () => {
-        gsap.to(children, {
-          opacity: 1,
-          y: 0,
-          duration,
-          delay,
-          stagger: children.length > 1 ? stagger : 0,
-          ease: "power3.out",
-        });
-      },
+    const stopReveal = cinematicReveal(children, {
+      y,
+      scale,
+      duration,
+      stagger,
+      delay,
+      rootMargin,
     });
+    const stopTitles = cinematicTitleReveal(titles, { rootMargin });
 
     return () => {
-      st.kill();
+      stopReveal();
+      stopTitles();
     };
-  }, [trigger, once, y, duration, stagger, delay, start]);
+  }, [y, scale, duration, stagger, delay, rootMargin]);
 
   return {
     selectors: { sectionRef },

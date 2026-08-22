@@ -5,6 +5,9 @@ import Link from "next/link";
 import type { WritingPost } from "components/Writing/WritingPost";
 import { WritingFeaturedPostCard } from "components/Writing/WritingFeaturedPostCard";
 import { WritingRecentPostListItem } from "components/Writing/WritingRecentPostListItem";
+import type React from "react";
+
+import { useCinematicCards } from "utils/hooks/useCinematicCards";
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import {
   WRITING_ALL_POSTS_CTA,
@@ -24,6 +27,11 @@ export const Writing = ({ featured, posts, heading = WRITING_SECTION_HEADING }: 
   const {
     selectors: { sectionRef },
   } = useScrollReveal({ y: 32, stagger: 0.08 });
+
+  const {
+    selectors: { containerRef: cardsRef },
+  } = useCinematicCards();
+
   if (!featured && posts.length === 0) return null;
   return (
     <section
@@ -33,17 +41,19 @@ export const Writing = ({ featured, posts, heading = WRITING_SECTION_HEADING }: 
       className={SECTION_SHELL}
     >
       <div className={SECTION_INNER}>
-        <header className="mb-10 sm:mb-12" data-reveal>
-          <h2 id="writing-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
+        <header className="mb-10 sm:mb-12">
+          <h2 data-cine-title id="writing-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
             {heading}
           </h2>
-          <p className={SECTION_LEDE_LG}>{WRITING_SECTION_LEDE}</p>
+          <p data-reveal className={SECTION_LEDE_LG}>
+            {WRITING_SECTION_LEDE}
+          </p>
           <p className="mt-4 text-[15px] sm:text-base text-foreground/85 leading-relaxed border-l-2 border-border pl-4 sm:pl-5">
             {WRITING_WHY_IT_MATTERS}
           </p>
         </header>
 
-        <div className="space-y-6 sm:space-y-8">
+        <div ref={cardsRef as React.RefObject<HTMLDivElement>} className="space-y-6 sm:space-y-8">
           {featured ? <WritingFeaturedPostCard post={featured} /> : null}
           {posts.length > 0 ? (
             <ul className="space-y-4 sm:space-y-5 list-none p-0 m-0" data-reveal>
