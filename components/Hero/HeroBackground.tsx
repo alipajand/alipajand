@@ -14,21 +14,28 @@ export const HeroBackground = () => {
   } = useGridOutlineAnimation();
 
   return (
-    <svg
-      ref={svgRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden="true"
-    >
-      {snakeOrder.map(([rowIndex, colIndex]) => (
-        <HeroGridOutlinePathCell
-          key={`${rowIndex}-${colIndex}`}
-          grid={HERO_GRID_CONFIG}
-          rowIndex={rowIndex}
-          colIndex={colIndex}
-        />
-      ))}
-    </svg>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <div data-hero-parallax="grid" className="absolute inset-0 will-change-transform">
+        <svg
+          ref={svgRef}
+          className="absolute inset-0 w-full h-full"
+          viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
+          preserveAspectRatio="xMidYMid meet"
+          aria-hidden="true"
+        >
+          {snakeOrder.map(([rowIndex, colIndex]) => (
+            <HeroGridOutlinePathCell
+              key={`${rowIndex}-${colIndex}`}
+              grid={HERO_GRID_CONFIG}
+              rowIndex={rowIndex}
+              colIndex={colIndex}
+            />
+          ))}
+        </svg>
+      </div>
+      <div data-hero-parallax="sweep" className="cine-sweep" />
+      <div data-hero-parallax="vignette" className="cine-vignette" />
+      <div className="cine-grain" />
+    </div>
   );
 };

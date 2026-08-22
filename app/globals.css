@@ -284,3 +284,110 @@ select:focus-visible {
 .bg-card {
   background-color: #000;
 }
+
+/* ---------- Cinematic stage ---------- */
+
+.cine-stage {
+  transform-origin: 50% 45%;
+  will-change: transform, opacity;
+}
+
+.cine-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.08em;
+}
+
+.cine-word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.cine-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 85% at 50% 40%,
+    transparent 35%,
+    rgba(0, 0, 0, 0.55) 78%,
+    #000 100%
+  );
+}
+
+.cine-sweep {
+  position: absolute;
+  inset: -20% -40%;
+  pointer-events: none;
+  opacity: 0.5;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.05) 47%,
+    rgba(234, 43, 43, 0.06) 50%,
+    rgba(255, 255, 255, 0.05) 53%,
+    transparent 62%
+  );
+  transform: translateX(-30%);
+  animation: cine-sweep-pan 14s ease-in-out infinite;
+}
+
+@keyframes cine-sweep-pan {
+  0%,
+  100% {
+    transform: translateX(-28%);
+  }
+  50% {
+    transform: translateX(28%);
+  }
+}
+
+.cine-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+  animation: cine-grain-shift 0.9s steps(3) infinite;
+}
+
+@keyframes cine-grain-shift {
+  0% {
+    background-position: 0 0;
+  }
+  33% {
+    background-position: -18px 12px;
+  }
+  66% {
+    background-position: 14px -16px;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-cine-section] {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cine-sweep,
+  .cine-grain {
+    animation: none;
+  }
+
+  .cine-sweep {
+    opacity: 0.25;
+    transform: none;
+  }
+
+  .cine-stage,
+  .cine-word {
+    will-change: auto;
+  }
+}

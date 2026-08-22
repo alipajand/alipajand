@@ -22,11 +22,21 @@ import {
   HOMEPAGE_HERO_TITLE,
 } from "data/homepage";
 import { HeroBackground } from "components/Hero/HeroBackground";
+import { HeroTitle } from "components/Hero/HeroTitle";
 import { CTA_PRIMARY, CTA_SECONDARY } from "utils/visual";
 
 export const Hero = () => {
   const {
-    selectors: { containerRef, line2Ref, subRef, ctaRef, locationRef, scrollIndicatorRef },
+    selectors: {
+      containerRef,
+      stageRef,
+      eyebrowRef,
+      line2Ref,
+      subRef,
+      ctaRef,
+      locationRef,
+      scrollIndicatorRef,
+    },
   } = useHero();
 
   return (
@@ -37,20 +47,21 @@ export const Hero = () => {
       className="relative min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-20 pt-24 pb-32 overflow-hidden bg-background"
     >
       <HeroBackground />
-      <div className="relative z-10 max-w-5xl mx-auto w-full">
-        <p className="mb-4 sm:mb-5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+      <div ref={stageRef} className="cine-stage relative z-10 max-w-5xl mx-auto w-full">
+        <p
+          ref={eyebrowRef}
+          className="mb-4 sm:mb-5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] text-muted"
+        >
           {HOMEPAGE_HERO_EYEBROW}
         </p>
         <p className="mb-3 text-base sm:text-lg font-medium text-foreground">
           <span className="sr-only">{HOMEPAGE_HERO_NAME}</span>
         </p>
-        <h1
-          ref={line2Ref}
-          data-hero-animate
+        <HeroTitle
+          headingRef={line2Ref}
+          text={HOMEPAGE_HERO_TITLE}
           className="max-w-4xl font-display font-bold text-4xl sm:text-5xl md:text-5xl leading-[1.05] text-foreground hero-lcp"
-        >
-          {HOMEPAGE_HERO_TITLE}
-        </h1>
+        />
         <p
           ref={subRef}
           data-hero-animate="slide-up"
@@ -102,7 +113,7 @@ export const Hero = () => {
       <div
         ref={scrollIndicatorRef}
         data-hero-animate
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted text-sm"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted text-sm z-10"
         aria-hidden
       >
         {HERO_SCROLL_INDICATOR}

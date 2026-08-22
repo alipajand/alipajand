@@ -2,6 +2,7 @@
 
 import type { WritingPost } from "components/Writing/WritingPost";
 import { About } from "components/About/About";
+import { CinematicSections } from "components/CinematicSections/CinematicSections";
 import { Contact } from "components/Contact/Contact";
 import { Hero } from "components/Hero/Hero";
 import { HiringFit } from "components/HiringFit/HiringFit";
@@ -20,16 +21,18 @@ export const HomePageContent = ({ writingFeatured, writingRecent }: HomePageCont
   return (
     <MainReveal>
       <Hero />
-      <SelectedWork />
-      <About />
-      <HiringFit />
-      <OpenSourceTools />
-      <Writing
-        featured={writingFeatured}
-        posts={writingRecent}
-        heading={HOMEPAGE_WRITING_HEADING}
-      />
-      <Contact />
+      <CinematicSections>
+        <SelectedWork />
+        <About />
+        <HiringFit />
+        <OpenSourceTools />
+        <Writing
+          featured={writingFeatured}
+          posts={writingRecent}
+          heading={HOMEPAGE_WRITING_HEADING}
+        />
+        <Contact />
+      </CinematicSections>
     </MainReveal>
   );
 };

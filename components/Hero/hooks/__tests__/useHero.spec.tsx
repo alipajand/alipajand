@@ -31,7 +31,8 @@ describe("useHero", () => {
 
       expect(result.current.selectors).toBeDefined();
       expect(result.current.selectors.containerRef).toBeDefined();
-      expect(result.current.selectors.nameCharsRef).toBeDefined();
+      expect(result.current.selectors.stageRef).toBeDefined();
+      expect(result.current.selectors.eyebrowRef).toBeDefined();
       expect(result.current.selectors.line2Ref).toBeDefined();
       expect(result.current.selectors.subRef).toBeDefined();
       expect(result.current.selectors.ctaRef).toBeDefined();
@@ -43,7 +44,7 @@ describe("useHero", () => {
       const { result } = renderHook(() => useHero());
 
       expect(result.current.selectors.containerRef.current).toBeNull();
-      expect(result.current.selectors.nameCharsRef.current).toBeNull();
+      expect(result.current.selectors.stageRef.current).toBeNull();
     });
   });
 
@@ -53,10 +54,12 @@ describe("useHero", () => {
         const { selectors } = useHero();
         return (
           <div ref={selectors.containerRef as React.RefObject<HTMLDivElement>}>
-            <span ref={selectors.nameCharsRef}>
-              <span data-char>A</span>
-            </span>
-            <span ref={selectors.line2Ref}>Tagline</span>
+            <div ref={selectors.stageRef}>
+              <p ref={selectors.eyebrowRef}>Eyebrow</p>
+              <h1 ref={selectors.line2Ref}>
+                <span data-cine-word>Tagline</span>
+              </h1>
+            </div>
             <p ref={selectors.subRef}>Sub</p>
             <div ref={selectors.ctaRef}>
               <a href="#a">Link</a>
@@ -78,10 +81,12 @@ describe("useHero", () => {
         const { selectors } = useHero();
         return (
           <div ref={selectors.containerRef as React.RefObject<HTMLDivElement>}>
-            <span ref={selectors.nameCharsRef}>
-              <span data-char>A</span>
-            </span>
-            <span ref={selectors.line2Ref}>Tagline</span>
+            <div ref={selectors.stageRef}>
+              <p ref={selectors.eyebrowRef}>Eyebrow</p>
+              <h1 ref={selectors.line2Ref}>
+                <span data-cine-word>Tagline</span>
+              </h1>
+            </div>
             <p ref={selectors.subRef}>Sub</p>
             <div ref={selectors.ctaRef} />
             <p ref={selectors.locationRef}>Location</p>
