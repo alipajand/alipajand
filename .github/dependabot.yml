@@ -9,6 +9,15 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
+    groups:
+      # React must move as a unit: react and react-dom assert identical
+      # versions at runtime, so splitting them across PRs breaks CI.
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
     ignore:
       # ESLint 10 breaks eslint-plugin-react until ecosystem catches up
       - dependency-name: "eslint"
