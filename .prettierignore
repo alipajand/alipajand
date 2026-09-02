@@ -4,3 +4,4 @@ build
 node_modules
 *.min.js
 package-lock.json
+pnpm-lock.yaml
