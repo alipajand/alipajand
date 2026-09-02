@@ -6,6 +6,77 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- Cinematic motion layer in `utils/cinematic.ts`: word-splitting text reveals, viewport-progress card parallax, once-only intersection reveals, and a shared scroll-frame scheduler.
+- `useAutoReveal`, `useCinematicCards`, and the `CinematicSections` component for section- and card-level entrance motion.
+- Hero title treatment, animated hero background, and a social links row in the hero.
+- Writing post: _How I structure a frontend that owns almost no truth_.
+- About section content block with matching coverage.
+- Dependabot grouping so `react`, `react-dom`, `@types/react`, and `@types/react-dom` move in a single PR (#151).
+
+### Changed
+
+- Positioning reworked to full-stack product engineer across taglines, keywords, hero proof row, hiring fit, portfolio fit, project roles, and page metadata.
+- Motion reworked on the homepage and every remaining route: writing index, writing post, portfolio, case study, now, open source, and 404.
+- `usePageHeader`, `useScrollReveal`, `useCountUp`, and the reveal hooks rebuilt on the shared cinematic helpers, keeping `prefers-reduced-motion` opt-outs.
+- Dependabot config retargeted from `develop` to the default branch and re-scoped to this repository.
+- README, web manifest, and Open Graph copy aligned with the updated positioning.
+- Dependency bumps: `prettier` (#133, #142), `lenis`, `next`, `react-hook-form` (#143, #157), `@types/node` (#138, #154), `resend` (#139, #155, #156), `marked` (#140), `@tailwindcss/postcss` (#141), `js-yaml` (#144, #148, #152), `eslint-config-next` (#145, #159), `@asamuzakjp/css-color` (#146), `highlight.js` (#153), `tailwindcss` (#158), `react` and `@types/react` (#151), and `react-dom` to 19.2.8.
+
+### Fixed
+
+- Dependabot and `pnpm audit` alerts cleared by raising `next`/`eslint-config-next` to 16.2.12, `js-yaml` to 5.2.3, and pinning patched `postcss`, `sharp`, and `brace-expansion` through pnpm overrides (#150).
+
+### Removed
+
+- Testimonials section from the homepage.
+- Legacy UI/UX audit and prompt documents under `docs/`.
+- `scripts/strip-comments-range.mjs`.
+- `.cursor/rules`; agent and editor directories are now gitignored.
+
+---
+
+## [1.6.6] - 2026-07-03
+
+### Added
+
+- Writing post: _How I would approach building a real-time backgammon platform_.
+- Syntax highlighting for post code blocks via `highlight.js` and `marked-highlight`, with `tsx`/`jsx` aliases and a `plaintext` fallback.
+- Themed `.prose` code and `pre` styles in `app/globals.css`.
+
+### Changed
+
+- Expanded posts with AI-assisted analysis, performance considerations, and product state handling; refined architecture, interaction design, and testing sections (#132).
+- Normalized typographic characters across the writing archive.
+- Dependency bumps for `prettier`, `tailwindcss`, `resend`, `@types/node`, and `@asamuzakjp/css-color`.
+
+---
+
+## [1.6.5] - 2026-06-23
+
+### Added
+
+- References, examples, and related-reading links across the writing archive.
+- `CLAUDE.md` project instructions for contributors and coding agents.
+
+### Changed
+
+- Replaced `gray-matter` with a small in-repo frontmatter parser built directly on `js-yaml` in `utils/posts.ts`.
+- Consolidated Dependabot updates for `js-yaml`, `react-hook-form`, `resend`, `@types/node`, and `@asamuzakjp/css-color` (#126).
+
+### Fixed
+
+- Aligned the `js-yaml` override in `pnpm-workspace.yaml` and `pnpm-lock.yaml` with `package.json`.
+
+### Removed
+
+- `gray-matter` and `@types/js-yaml` dependencies.
+
+---
+
 ## [1.6.4] - 2026-06-20
 
 ### Added
