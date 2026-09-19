@@ -3,6 +3,7 @@ import { FOCUS_RING } from "utils/visual";
 
 const ICON_SRC = {
   Email: "/icons/email.svg",
+  "Book a call": "/icons/calendar.svg",
   LinkedIn: "/icons/linkedin.svg",
   GitHub: "/icons/github.svg",
 } as const;

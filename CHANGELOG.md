@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Cinematic motion layer in `utils/cinematic.ts`: word-splitting text reveals, viewport-progress card parallax, once-only intersection reveals, and a shared scroll-frame scheduler.
 - `useAutoReveal`, `useCinematicCards`, and the `CinematicSections` component for section- and card-level entrance motion.
 - Hero title treatment, animated hero background, and a social links row in the hero.
+- "Book a call" channel linking to the Calendly intro event, shown in the hero, footer, and contact section through the shared `data/links.ts`.
 - Writing post: _How I structure a frontend that owns almost no truth_.
 - About section content block with matching coverage.
 - Dependabot grouping so `react`, `react-dom`, `@types/react`, and `@types/react-dom` move in a single PR (#151).

@@ -29,6 +29,15 @@ describe("Contact", () => {
       expect(screen.getByRole("link", { name: /github/i })).toBeInTheDocument();
     });
 
+    it("should render a booking link to the Calendly intro call", () => {
+      render(<Contact />);
+
+      expect(screen.getByRole("link", { name: /book a call/i })).toHaveAttribute(
+        "href",
+        "https://calendly.com/alipajand/intro"
+      );
+    });
+
     it("should render reasons list and form jump CTA", () => {
       render(<Contact />);
       expect(screen.getByRole("heading", { name: /send context/i })).toBeInTheDocument();

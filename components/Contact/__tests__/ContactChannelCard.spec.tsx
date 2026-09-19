@@ -53,6 +53,24 @@ describe("ContactChannelCard", () => {
     );
   });
 
+  it("should build an underscore-separated analytics event for a multi-word label", () => {
+    render(
+      <ul>
+        <ContactChannelCard
+          channel={{
+            label: "Book a call",
+            value: "calendly.com/alipajand/intro",
+            href: "https://calendly.com/alipajand/intro",
+          }}
+        />
+      </ul>
+    );
+
+    const link = screen.getByRole("link", { name: /book a call/i });
+    expect(link).toHaveAttribute("href", "https://calendly.com/alipajand/intro");
+    expect(link).toHaveAttribute("data-analytics-event", "contact_link_book_a_call");
+  });
+
   it("should track a click with the channel label", () => {
     render(
       <ul>

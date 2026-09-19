@@ -48,7 +48,7 @@ export const Contact = () => {
 
         <div className="mb-10" data-reveal>
           <p className={`${LABEL_OVERLINE} mb-3`}>{CONTACT_DIRECT_LABEL}</p>
-          <ul className="grid sm:grid-cols-3 gap-3 sm:gap-4 list-none p-0 m-0">
+          <ul className="grid sm:grid-cols-2 gap-3 sm:gap-4 list-none p-0 m-0">
             {LINKS.map((c) => (
               <ContactChannelCard key={c.label} channel={c} />
             ))}

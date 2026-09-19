@@ -4,6 +4,7 @@ import { CARD_SURFACE_HOVER } from "utils/visual";
 
 const ICON_SRC = {
   Email: "/icons/email.svg",
+  "Book a call": "/icons/calendar.svg",
   LinkedIn: "/icons/linkedin.svg",
   GitHub: "/icons/github.svg",
 } as const;
@@ -30,7 +31,7 @@ export const ContactChannelCard = ({ channel }: ContactChannelCardProps) => {
         href={channel.href}
         target={channel.href.startsWith("http") ? "_blank" : undefined}
         rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
-        data-analytics-event={`contact_link_${channel.label.toLowerCase()}`}
+        data-analytics-event={`contact_link_${channel.label.toLowerCase().replace(/\s+/g, "_")}`}
         aria-label={
           channel.href.startsWith("http")
             ? `${channel.label}: ${channel.value}${EXTERNAL_LINK_NEW_TAB_HINT}`
