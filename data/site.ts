@@ -1,11 +1,13 @@
 export const SITE_NAME = "Ali Pajand";
 
-export const TAGLINE = "Senior Product Engineer · Frontend Architecture";
+export const TAGLINE =
+  "Senior Product Engineer, frontend architecture, design systems, and full-stack product work";
 
 export const HOME_TITLE =
-  "Ali Pajand — Senior Product Engineer | Frontend Architecture & Full-Stack";
+  "Ali Pajand — Senior Product Engineer, frontend architecture, design systems, and full-stack product work";
 
-export const HOME_OPEN_GRAPH_TITLE = "Ali Pajand — Senior Product Engineer · Frontend Architecture";
+export const HOME_OPEN_GRAPH_TITLE =
+  "Ali Pajand — Senior Product Engineer, frontend architecture, design systems, and full-stack product work";
 
 export const HOME_OPEN_GRAPH_DESCRIPTION =
   "Frontend architecture, design systems, and engineering standards for complex products, plus the APIs, data, and background work behind them.";
