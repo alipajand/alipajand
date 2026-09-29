@@ -32,7 +32,9 @@ export const Footer = ({ latestWritings }: FooterProps) => {
     >
       <div className={SECTION_INNER}>
         <div className="mb-10 space-y-2">
-          <p className="font-display text-lg font-semibold text-foreground">{FOOTER_BRAND}</p>
+          <p className="font-display text-lg font-semibold text-balance text-foreground">
+            {FOOTER_BRAND}
+          </p>
           <p className="text-sm text-muted">{FOOTER_LOCATION}</p>
         </div>
 

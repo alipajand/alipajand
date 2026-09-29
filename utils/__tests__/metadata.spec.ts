@@ -26,13 +26,13 @@ import { getProjectBySlug } from "utils/projects";
 describe("utils/metadata", () => {
   it("should keep the homepage positioning metadata exact", () => {
     expect(HOME_TITLE).toBe(
-      "Ali Pajand — Senior Product Engineer | Frontend Architecture & Full-Stack"
+      "Ali Pajand — Senior Product Engineer, frontend architecture, design systems, and full-stack product work"
     );
     expect(SITE_META_DESCRIPTION).toBe(
       "Senior product engineer in Montreal with 9+ years in React, TypeScript, and Next.js. Frontend architecture and design systems for complex SaaS, with the Node.js APIs, data models, and async workflows behind them."
     );
     expect(HOME_OPEN_GRAPH_TITLE).toBe(
-      "Ali Pajand — Senior Product Engineer · Frontend Architecture"
+      "Ali Pajand — Senior Product Engineer, frontend architecture, design systems, and full-stack product work"
     );
     expect(HOME_OPEN_GRAPH_DESCRIPTION).toBe(
       "Frontend architecture, design systems, and engineering standards for complex products, plus the APIs, data, and background work behind them."

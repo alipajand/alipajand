@@ -284,8 +284,8 @@ export const PROJECTS: Project[] = [
         {
           type: "image",
           src: "/portfolio-media/tallyfolio-landing.png",
-          width: 3456,
-          height: 2234,
+          width: 3186,
+          height: 1768,
           alt: "TallyFolio landing page",
           captionLead: "Landing page.",
           captionBody:

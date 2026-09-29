@@ -6,11 +6,11 @@ This file gives Claude Code project-specific instructions for `alipajand/alipaja
 
 This repository powers Ali Pajand's personal portfolio site.
 
-Primary goal: make the site work as a senior-level hiring and credibility surface for a product-minded Full-Stack Web Developer / Product Engineer with deep frontend expertise.
+Primary goal: make the site work as a senior-level hiring and credibility surface for a Senior Product Engineer with deep frontend expertise.
 
 Core positioning:
 
-- Full-Stack Web Developer / Product Engineer
+- Senior Product Engineer, frontend architecture, design systems, and full-stack product work
 - Frontend architecture, React, Next.js, TypeScript
 - Design systems, accessibility, visual polish, interaction quality
 - AI product workflows and developer experience
@@ -258,7 +258,7 @@ When summarizing work, include:
 - Name: Ali Pajand
 - Location: Montreal, Canada
 - Site: alipajand.com
-- Positioning: Full-Stack Web Developer / Product Engineer
+- Positioning: Senior Product Engineer, frontend architecture, design systems, and full-stack product work
 - Experience: 9+ years
 - Core technologies: React, Next.js, TypeScript, Node.js, Fastify, PostgreSQL, design systems, accessibility, dashboards, AI product workflows, developer experience
 - Recent work includes LedgerGuard, AlwaysGeeky Games, Emplifi, ControlTech, and AI/DX open-source tooling
