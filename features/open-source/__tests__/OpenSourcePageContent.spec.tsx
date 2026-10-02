@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 
 import { OpenSourcePageContent } from "features/open-source/OpenSourcePageContent";
 import {
@@ -74,6 +74,20 @@ describe("OpenSourcePageContent", () => {
     expect(screen.getAllByText("Format").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Why it matters").length).toBeGreaterThan(0);
     expect(screen.queryByText(/stars|forks|followers/i)).not.toBeInTheDocument();
+  });
+
+  it("should link each project to its related writing", () => {
+    render(<OpenSourcePageContent />);
+
+    OPEN_SOURCE_PROJECTS.forEach((project) => {
+      const list = screen.getByRole("list", { name: `Writing about ${project.title}` });
+      project.articles?.forEach((article) => {
+        expect(within(list).getByRole("link", { name: article.title })).toHaveAttribute(
+          "href",
+          article.href
+        );
+      });
+    });
   });
 
   it("should render the shared principles heading", () => {

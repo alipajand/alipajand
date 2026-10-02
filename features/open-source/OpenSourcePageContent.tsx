@@ -8,6 +8,7 @@ import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
 import { useOpenSourcePageContent } from "features/open-source/hooks/useOpenSourcePageContent";
 import { openSourceBreadcrumbs } from "data/breadcrumbs";
 import {
+  OPEN_SOURCE_ARTICLES_LABEL,
   OPEN_SOURCE_CONTRIBUTION_LABEL,
   OPEN_SOURCE_CTA_BODY,
   OPEN_SOURCE_CTA_HEADING,
@@ -93,6 +94,27 @@ const OpenSourceProjectCard = ({ project }: { project: OpenSourceProject }) => {
         <p className={FIELD_LABEL}>{OPEN_SOURCE_CONTRIBUTION_LABEL}</p>
         <p className={CARD_TEXT}>{project.contribution}</p>
       </div>
+
+      {project.articles?.length ? (
+        <div className="space-y-2">
+          <p className={FIELD_LABEL}>{OPEN_SOURCE_ARTICLES_LABEL}</p>
+          <ul
+            className="flex flex-col gap-1 list-none p-0 m-0"
+            aria-label={`Writing about ${project.title}`}
+          >
+            {project.articles.map((article) => (
+              <li key={article.href}>
+                <Link
+                  href={article.href}
+                  className={`inline-block py-1 text-[15px] leading-relaxed text-foreground/85 underline underline-offset-4 decoration-foreground/30 hover:text-foreground hover:decoration-foreground rounded-sm ${FOCUS_RING}`}
+                >
+                  {article.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       <div className="mt-auto pt-1">
         <Link
