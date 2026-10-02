@@ -1,5 +1,10 @@
 export type OpenSourceProjectStatus = "Active development" | "Experimental";
 
+export interface OpenSourceArticle {
+  title: string;
+  href: string;
+}
+
 export interface OpenSourceProject {
   title: string;
   repositoryUrl: string;
@@ -9,6 +14,7 @@ export interface OpenSourceProject {
   testedCapabilitiesLabel: string;
   testedCapabilities: string[];
   contribution: string;
+  articles?: OpenSourceArticle[];
   featured?: boolean;
 }
 
@@ -44,6 +50,23 @@ export const OPEN_SOURCE_CONTRIBUTION_LABEL = "What it demonstrates";
 
 export const OPEN_SOURCE_REPOSITORY_LINK_LABEL = "Repository";
 
+export const OPEN_SOURCE_ARTICLES_LABEL = "Related writing";
+
+const ARTICLE_INSTRUCTION_FILES: OpenSourceArticle = {
+  title: "Agent instruction files are code. Lint them like code.",
+  href: "/writing/agent-instructions-are-code",
+};
+
+const ARTICLE_REVIEW_TRIAGE: OpenSourceArticle = {
+  title: "Which agent-written changes does a human need to read?",
+  href: "/writing/deterministic-review-triage-for-agent-prs",
+};
+
+const ARTICLE_UNTRUSTED_PRS: OpenSourceArticle = {
+  title: "Building CI tools for pull requests you don't trust",
+  href: "/writing/ci-tools-for-untrusted-pull-requests",
+};
+
 export const openSourceRepositoryAriaLabel = (projectTitle: string): string =>
   `Open ${projectTitle} repository on GitHub`;
 
@@ -61,6 +84,7 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
       "This tool makes the quality of that context easier to evaluate before the agent starts.",
     ],
     contribution: "I treat context quality as an engineering input, not an afterthought.",
+    articles: [ARTICLE_INSTRUCTION_FILES, ARTICLE_UNTRUSTED_PRS],
     featured: true,
   },
   {
@@ -77,6 +101,7 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
     ],
     contribution:
       "I think about code review as a system for producing actionable, categorized feedback.",
+    articles: [ARTICLE_REVIEW_TRIAGE, ARTICLE_UNTRUSTED_PRS],
     featured: true,
   },
   {
@@ -93,6 +118,7 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
     ],
     contribution:
       "I treat developer experience as a product problem, not just a configuration task.",
+    articles: [ARTICLE_UNTRUSTED_PRS],
   },
 ];
 
