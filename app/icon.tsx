@@ -1,31 +1,11 @@
-import { ImageResponse } from "next/og";
+import { renderMonogramIcon } from "utils/monogramIcon";
 
-export const size = { width: 32, height: 32 };
+// Google requires a square favicon that is a multiple of 48px; browsers
+// downscale it cleanly for tabs.
+export const size = { width: 192, height: 192 };
 
 export const contentType = "image/png";
 
 export default function Icon() {
-  return new ImageResponse(
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#000000",
-        borderRadius: 8,
-        fontSize: 14,
-        fontWeight: 800,
-        color: "#fafafa",
-        fontWidth: "bold",
-        fontFamily:
-          "system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif",
-        letterSpacing: "-0.05em",
-      }}
-    >
-      AP
-    </div>,
-    { ...size }
-  );
+  return renderMonogramIcon(size.width);
 }
