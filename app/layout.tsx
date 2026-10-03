@@ -81,10 +81,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: CANONICAL_URL,
   },
-  icons: {
-    icon: [{ url: "/favicon.ico" }, { url: "/icon", type: "image/png", sizes: "32x32" }],
-    apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
-  },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
