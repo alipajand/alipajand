@@ -26,13 +26,13 @@ import { getProjectBySlug } from "utils/projects";
 describe("utils/metadata", () => {
   it("should keep the homepage positioning metadata exact", () => {
     expect(HOME_TITLE).toBe(
-      "Ali Pajand — Senior Product Engineer, frontend architecture, design systems, and full-stack product work"
+      "Ali Pajand — Staff Frontend Engineer, frontend architecture, design systems, and full-stack product work"
     );
     expect(SITE_META_DESCRIPTION).toBe(
-      "Senior product engineer in Montreal with 9+ years in React, TypeScript, and Next.js. Frontend architecture and design systems for complex SaaS, with the Node.js APIs, data models, and async workflows behind them."
+      "Staff frontend engineer in Montreal with 9+ years in React, TypeScript, and Next.js. Frontend architecture and design systems for complex SaaS, with the Node.js APIs, data models, and async workflows behind them."
     );
     expect(HOME_OPEN_GRAPH_TITLE).toBe(
-      "Ali Pajand — Senior Product Engineer, frontend architecture, design systems, and full-stack product work"
+      "Ali Pajand — Staff Frontend Engineer, frontend architecture, design systems, and full-stack product work"
     );
     expect(HOME_OPEN_GRAPH_DESCRIPTION).toBe(
       "Frontend architecture, design systems, and engineering standards for complex products, plus the APIs, data, and background work behind them."
@@ -110,7 +110,7 @@ describe("utils/metadata", () => {
     const m = buildEngineeringPrinciplesMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/engineering-principles`);
     expect(m.title).toEqual({
-      absolute: "Engineering Principles — Ali Pajand · Senior Product Engineer",
+      absolute: "Engineering Principles — Ali Pajand · Staff Frontend Engineer",
     });
     expect(m.description).toBe(ENGINEERING_PRINCIPLES_META_DESCRIPTION);
     expect(m.openGraph?.url).toBe(`${CANONICAL_URL}/engineering-principles`);

@@ -1,13 +1,13 @@
 export const SITE_NAME = "Ali Pajand";
 
 export const TAGLINE =
-  "Senior Product Engineer, frontend architecture, design systems, and full-stack product work";
+  "Staff Frontend Engineer, frontend architecture, design systems, and full-stack product work";
 
 export const HOME_TITLE =
-  "Ali Pajand — Senior Product Engineer, frontend architecture, design systems, and full-stack product work";
+  "Ali Pajand — Staff Frontend Engineer, frontend architecture, design systems, and full-stack product work";
 
 export const HOME_OPEN_GRAPH_TITLE =
-  "Ali Pajand — Senior Product Engineer, frontend architecture, design systems, and full-stack product work";
+  "Ali Pajand — Staff Frontend Engineer, frontend architecture, design systems, and full-stack product work";
 
 export const HOME_OPEN_GRAPH_DESCRIPTION =
   "Frontend architecture, design systems, and engineering standards for complex products, plus the APIs, data, and background work behind them.";
@@ -18,6 +18,7 @@ export const KEYWORDS = [
   "Next.js",
   "TypeScript",
   "Design systems",
+  "Staff Frontend Engineer",
   "Senior Frontend Engineer",
   "Lead Frontend Engineer",
   "Full-Stack Engineer",
@@ -31,7 +32,7 @@ export const KEYWORDS = [
 export const CANONICAL_URL = "https://alipajand.com";
 
 export const SITE_META_DESCRIPTION =
-  "Senior product engineer in Montreal with 9+ years in React, TypeScript, and Next.js. Frontend architecture and design systems for complex SaaS, with the Node.js APIs, data models, and async workflows behind them.";
+  "Staff frontend engineer in Montreal with 9+ years in React, TypeScript, and Next.js. Frontend architecture and design systems for complex SaaS, with the Node.js APIs, data models, and async workflows behind them.";
 
 export const TWITTER_HANDLE: string | null = null;
 
@@ -49,7 +50,7 @@ export const HERO_PROOF_ROW = [
   },
   {
     value: "Technical leadership",
-    label: "standards, code review, CI quality gates, developer experience",
+    label: "design docs, mentoring, cross-team standards, CI quality gates",
   },
   {
     value: "End-to-end delivery",
@@ -65,7 +66,7 @@ export const HERO_SCROLL_INDICATOR = "↓";
 
 export const HERO_SOCIAL_LINKS_ARIA_LABEL = "Social links";
 
-export const PERSON_SCHEMA_JOB_TITLE = "Senior Product Engineer";
+export const PERSON_SCHEMA_JOB_TITLE = "Staff Frontend Engineer";
 
 export const PERSON_SCHEMA_ADDRESS_LOCALITY = "Montreal";
 

@@ -17,11 +17,11 @@ export interface HomepageCaseStudy {
 }
 
 export const HOMEPAGE_HERO_NAME = "Ali Pajand";
-export const HOMEPAGE_HERO_EYEBROW = "Senior Product Engineer";
+export const HOMEPAGE_HERO_EYEBROW = "Staff Frontend Engineer";
 export const HOMEPAGE_HERO_TITLE =
   "I build product systems from the interface down: frontend architecture, design systems, and the APIs behind them.";
 export const HOMEPAGE_HERO_BODY =
-  "Nine-plus years in React, TypeScript, and Next.js, mostly on SaaS, analytics, and marketplace products. I own frontend architecture and the standards around it: component APIs, accessibility, rendering performance, and review conventions. When a product needs more than the interface, I build the Node.js APIs, data models, auth, and background workers behind it.";
+  "Nine-plus years in React, TypeScript, and Next.js, mostly on SaaS, analytics, and marketplace products. I own frontend architecture and the standards around it: component APIs, accessibility, rendering performance, and review conventions, written up as design docs, taught through mentoring, and adopted across teams. When a product needs more than the interface, I build the Node.js APIs, data models, auth, and background workers behind it.";
 export const HOMEPAGE_HERO_LOCATION = "Based in Montreal, Quebec, Canada";
 export const HOMEPAGE_HERO_PRIMARY_CTA_LABEL = "View selected work";
 export const HOMEPAGE_HERO_PRIMARY_CTA_HREF = "/portfolio";
@@ -53,7 +53,7 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
     label: "Senior Frontend Engineer · 2024–2026",
     title: "AlwaysGeeky Games — Shared Design System & Frontend Standards",
     summary:
-      "Helped build and maintain the React and TypeScript component library four product surfaces were built on, documented in Storybook, while shipping marketplace, authentication, and account workflows in Next.js.",
+      "Built and owned the React and TypeScript component library four product surfaces were built on, documented in Storybook, while shipping marketplace, authentication, and account workflows in Next.js.",
     supportingLine:
       "Component APIs, accessibility, TypeScript and code-review conventions, and CI gates that kept the four surfaces from drifting apart.",
     tags: ["React", "Next.js", "TypeScript", "Storybook", "GraphQL", "Accessibility"],

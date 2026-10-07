@@ -327,21 +327,23 @@ export const PROJECTS: Project[] = [
     employerContext:
       "Shared component library, frontend conventions, and product workflows across four product surfaces.",
     cardProblem:
-      "Four product surfaces, one React and TypeScript component library. I helped build and maintain it, documented it in Storybook, and shipped marketplace, authentication, and account workflows on top of it. The lasting part was the conventions: component APIs, accessibility defaults, TypeScript and code-review rules, and CI gates that caught drift before it shipped.",
+      "Four product surfaces, one React and TypeScript component library. I built and owned it, documented it in Storybook, and shipped marketplace, authentication, and account workflows on top of it. The lasting part was the conventions: component APIs, accessibility defaults, TypeScript and code-review rules, and CI gates that caught drift before it shipped.",
     role: "Senior Frontend Engineer",
     timeframe: "2024–2026",
     capabilityTags: ["React", "Next.js", "TypeScript", "Storybook", "GraphQL", "Accessibility"],
     caseStudy: {
       overview:
-        "Four product surfaces shared one React and TypeScript component library. I helped build and maintain it, and helped establish the conventions that decided how teams were expected to build against it: component APIs, accessibility defaults, TypeScript rules, and what a review was supposed to catch.",
+        "Four product surfaces shared one React and TypeScript component library. I built and owned it, and established the conventions that decided how teams were expected to build against it: component APIs, accessibility defaults, TypeScript rules, and what a review was supposed to catch.",
       context:
         "The surfaces included a marketplace, authentication, product, and account experiences, all in Next.js on top of the shared library, documented in Storybook and integrated over GraphQL. Alongside the product work, we ran an AI-assisted development workflow using Cursor with MCP tooling, so the same lint, type, and test signals engineers saw in CI were available in the editor.",
       problem:
         "Marketplace and account flows drift into one-off implementations the moment speed beats shared contracts. Four surfaces multiply that: the same empty state gets invented four times, accessibility gets handled well in one and forgotten in the others, and nobody notices until the library and the products disagree.",
       myRole: [
-        "Shared ownership of the React and TypeScript component library used across all four surfaces.",
-        "Helped establish the frontend conventions the surfaces were built to: component API shape, accessibility expectations, TypeScript rules, and what reviewers were expected to push back on.",
-        "Helped evolve the Storybook documentation so components were discoverable enough that reuse was the easier path.",
+        "Owned the React and TypeScript component library used across all four surfaces.",
+        "Established the frontend conventions the surfaces were built to: component API shape, accessibility expectations, TypeScript rules, and what reviewers were expected to push back on.",
+        "Evolved the Storybook documentation so components were discoverable enough that reuse was the easier path.",
+        "Wrote the design docs for library and convention changes, and drove their adoption across the teams building the four surfaces.",
+        "Mentored engineers on component API design, accessibility, and TypeScript patterns through pairing and code review.",
         "Shipped marketplace, authentication, product, and account workflows with consistent loading, empty, and error handling.",
         "Worked on the Cursor and MCP setup so editor feedback lined up with the checks CI already ran.",
       ],
