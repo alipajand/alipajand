@@ -16,9 +16,10 @@ All routes use the Next.js 15 App Router. Pages are Server Components by default
 
 ## API routes
 
-| Route          | Method | File                       | Description                   |
-| -------------- | ------ | -------------------------- | ----------------------------- |
-| `/api/contact` | POST   | `app/api/contact/route.ts` | Contact form handler (Resend) |
+| Route                  | Method | File                               | Description                            |
+| ---------------------- | ------ | ---------------------------------- | -------------------------------------- |
+| `/api/contact`         | POST   | `app/api/contact/route.ts`         | Contact form handler (Resend)          |
+| `/api/webhooks/resend` | POST   | `app/api/webhooks/resend/route.ts` | Forwards inbound mail (Resend webhook) |
 
 ## Special files
 

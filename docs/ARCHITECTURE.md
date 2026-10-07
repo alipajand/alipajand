@@ -52,6 +52,7 @@ public/                 Static assets (images, fonts, OG images)
 data/*.ts  ──►  features/ / components/  ──►  app/page.tsx
 content/*.md ──► utils/posts.ts ──► app/writing/[slug]/page.tsx
 app/api/contact ──► Resend API  (server only, POST)
+Resend webhook ──► app/api/webhooks/resend ──► Resend API  (forward inbound mail)
 ```
 
 ## Rendering strategy
@@ -62,10 +63,11 @@ app/api/contact ──► Resend API  (server only, POST)
 
 ## Environment variables
 
-| Variable           | Purpose                   | Required |
-| ------------------ | ------------------------- | -------- |
-| `RESEND_API_KEY`   | Contact form email sender | Yes      |
-| `CONTACT_TO_EMAIL` | Recipient email address   | Yes      |
+| Variable                | Purpose                               | Required               |
+| ----------------------- | ------------------------------------- | ---------------------- |
+| `RESEND_API_KEY`        | Contact form email sender             | Yes                    |
+| `CONTACT_TO_EMAIL`      | Recipient email address               | Yes                    |
+| `RESEND_WEBHOOK_SECRET` | Verifies Resend inbound-mail webhooks | For inbound forwarding |
 
 See `.env.example` for the full list. Never commit real values.
 
