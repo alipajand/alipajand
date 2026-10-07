@@ -23,10 +23,11 @@ All site copy lives in `data/*.ts`. Edit there and run `pnpm test && pnpm build`
 
 ## Environment and secrets
 
-| Variable           | Purpose                   | Where to set     |
-| ------------------ | ------------------------- | ---------------- |
-| `RESEND_API_KEY`   | Contact form email sender | Vercel dashboard |
-| `CONTACT_TO_EMAIL` | Recipient email address   | Vercel dashboard |
+| Variable                | Purpose                               | Where to set     |
+| ----------------------- | ------------------------------------- | ---------------- |
+| `RESEND_API_KEY`        | Contact form email sender             | Vercel dashboard |
+| `CONTACT_TO_EMAIL`      | Recipient email address               | Vercel dashboard |
+| `RESEND_WEBHOOK_SECRET` | Verifies Resend inbound-mail webhooks | Vercel dashboard |
 
 **Security rules:**
 

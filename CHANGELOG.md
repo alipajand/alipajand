@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- `POST /api/webhooks/resend`: verifies Resend `email.received` webhooks and forwards inbound mail, attachments included, to `CONTACT_EMAIL` with reply-to set to the original sender. Resend helpers moved to `utils/resend.ts`.
 - Cinematic motion layer in `utils/cinematic.ts`: word-splitting text reveals, viewport-progress card parallax, once-only intersection reveals, and a shared scroll-frame scheduler.
 - `useAutoReveal`, `useCinematicCards`, and the `CinematicSections` component for section- and card-level entrance motion.
 - Hero title treatment, animated hero background, and a social links row in the hero.
