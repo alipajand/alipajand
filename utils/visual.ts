@@ -38,3 +38,15 @@ export const FOCUS_RING =
 export const CTA_PRIMARY = `inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 rounded-lg bg-foreground text-background text-sm font-semibold tracking-tight hover:bg-accent-muted hover:text-background transition-colors ${FOCUS_RING}`;
 
 export const CTA_SECONDARY = `inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-medium hover:border-foreground/35 hover:bg-card transition-colors ${FOCUS_RING}`;
+
+/** Long-form reading styles shared by writing posts and case studies. */
+export const ARTICLE_SECTION_TITLE =
+  "font-display text-[1.375rem] font-semibold leading-snug tracking-[-0.01em] text-foreground";
+
+export const ARTICLE_BODY_TEXT = "text-[15px] leading-[1.75] text-muted sm:text-base";
+
+export const ARTICLE_SECTION = "scroll-mt-24 border-t border-border pt-8";
+
+export const ARTICLE_TOC_GRID = "lg:grid lg:grid-cols-[minmax(0,1fr)_13.5rem] lg:gap-14";
+
+export const ARTICLE_TOC_ASIDE = "sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto pb-4";

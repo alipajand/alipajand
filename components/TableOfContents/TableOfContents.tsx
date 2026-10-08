@@ -12,6 +12,7 @@ import { FOCUS_RING, LABEL_OVERLINE } from "utils/visual";
 interface TableOfContentsProps {
   headings: PostHeading[];
   className?: string;
+  ariaLabel?: string;
 }
 
 const TocLinks = ({
@@ -50,7 +51,11 @@ const TocLinks = ({
 );
 
 /** Sticky outline for wide screens. */
-export const TableOfContents = ({ headings, className }: TableOfContentsProps) => {
+export const TableOfContents = ({
+  headings,
+  className,
+  ariaLabel = WRITING_TOC_ARIA_LABEL,
+}: TableOfContentsProps) => {
   const {
     selectors: { activeId },
     actions: { handleNavigate },
@@ -59,7 +64,7 @@ export const TableOfContents = ({ headings, className }: TableOfContentsProps) =
   if (headings.length < 2) return null;
 
   return (
-    <nav aria-label={WRITING_TOC_ARIA_LABEL} className={className}>
+    <nav aria-label={ariaLabel} className={className}>
       <p className={`${LABEL_OVERLINE} mb-3`}>{WRITING_TOC_HEADING}</p>
       <TocLinks headings={headings} activeId={activeId} onNavigate={handleNavigate} />
     </nav>
@@ -67,7 +72,11 @@ export const TableOfContents = ({ headings, className }: TableOfContentsProps) =
 };
 
 /** Collapsible outline for narrow screens. */
-export const TableOfContentsDisclosure = ({ headings, className }: TableOfContentsProps) => {
+export const TableOfContentsDisclosure = ({
+  headings,
+  className,
+  ariaLabel = WRITING_TOC_ARIA_LABEL,
+}: TableOfContentsProps) => {
   const detailsRef = useRef<HTMLDetailsElement>(null);
   const {
     selectors: { activeId },
@@ -77,7 +86,7 @@ export const TableOfContentsDisclosure = ({ headings, className }: TableOfConten
   if (headings.length < 2) return null;
 
   return (
-    <nav aria-label={WRITING_TOC_ARIA_LABEL} className={className}>
+    <nav aria-label={ariaLabel} className={className}>
       <details ref={detailsRef} className="group rounded-xl border border-border/70 bg-card">
         <summary
           className={`flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-4 text-sm font-medium text-foreground [&::-webkit-details-marker]:hidden ${FOCUS_RING}`}

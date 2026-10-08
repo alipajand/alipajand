@@ -16,7 +16,7 @@ export const ProjectIndexItem = ({ project, isFirst = false }: ProjectIndexItemP
     <article
       data-reveal
       id={`project-${project.id}`}
-      className={`border-t border-border py-12 sm:py-16 ${isFirst ? "border-t-0 pt-0" : ""}`}
+      className={`scroll-mt-24 border-t border-border py-12 sm:py-16 ${isFirst ? "border-t-0 pt-0" : ""}`}
     >
       <div className="max-w-3xl space-y-4">
         <p className={LABEL_OVERLINE}>{project.employerContext}</p>
