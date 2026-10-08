@@ -32,6 +32,26 @@ I use LLM reviewers. They are good at reading code and pointing at suspicious lo
 
 So the rules are plain TypeScript and regular expressions. It is meant to run _before_ or _alongside_ an LLM reviewer: a cheap, predictable first pass that decides where the expensive attention goes.
 
+```diagram
+type: compare
+title: Routing review attention with an LLM versus fixed rules
+caption: LLM reviewers are useful for reading code, but deciding where attention goes needs answers that are repeatable and inspectable.
+columns:
+  - label: LLM as the triage step
+    items:
+      - The same diff can get a different answer on a rerun
+      - A flag rests on a judgment call nobody can inspect
+      - Needs an API key and network access in CI
+      - Reads the diff as text, so the diff can talk to it
+  - label: Deterministic rules first
+    items:
+      - The same diff gets the same answer every time
+      - Every flag points to a rule anyone can read
+      - Runs on every push, offline, with no API key
+      - A path rule ignores what a comment says
+      - Runs before or alongside an LLM reviewer
+```
+
 ## What deserves a human, by default
 
 The built-in rules come from asking where a wrong change is expensive, irreversible, or quietly weakens the next review. Roughly three groups.
@@ -43,6 +63,21 @@ The built-in rules come from asking where a wrong change is expensive, irreversi
 **Changes to what the agent itself is allowed to do.** `.claude/settings.json`, Claude hooks, `.mcp.json`, and similar files decide which tools an agent may use without asking. A committed `settings.local.json` overrides the shared settings for everyone. A Claude command with an inline `` !`cmd` `` block runs shell before the model even reads the file. When those files change, the reason in the report names the risky keys the change adds, such as `bypassPermissions` or an unrestricted `Bash` rule.
 
 Medium severity covers what deserves a second look rather than a blocker: lockfiles, new dependencies, environment files, infrastructure config, public routes, pricing copy, git hooks, generated files, and agent instruction files.
+
+```diagram
+type: layers
+title: What the default rules route to a human
+caption: The rules group files by why a wrong change hurts, with medium severity reserved for changes that deserve a second look rather than a blocker.
+layers:
+  - label: Areas where bugs are expensive
+    detail: Auth and sessions, billing and payments, security policies, and database migrations. High severity, because failures mean takeover, financial loss, data exposure, or no rollback.
+  - label: Changes that weaken future checks
+    detail: Deleted tests, skipped or focused tests, new lint suppressions outside tests, CI workflow edits, and CODEOWNERS edits.
+  - label: Changes to what the agent may do
+    detail: Agent settings, hooks, MCP config, committed local overrides, and commands with inline shell. Reasons name risky keys such as bypassPermissions.
+  - label: Second look (medium severity)
+    detail: Lockfiles, new dependencies, environment and infrastructure config, public routes, pricing copy, git hooks, generated files, and agent instruction files.
+```
 
 The overall risk is simply the highest severity across findings. No weighted scoring. I tried to keep the mental model small enough that nobody needs to read the docs to understand why CI failed.
 
@@ -87,6 +122,23 @@ Required human review:
 ```
 
 `CODEOWNERS` is read from the base branch, not from the pull request. That is the copy GitHub enforces, and it means a PR that edits `CODEOWNERS` cannot change who reviews that same PR.
+
+```diagram
+type: flow
+title: From a twenty-file diff to a short review list
+caption: Each step is mechanical, so the output is a predictable list of files, severities, and people rather than a verdict on the code.
+steps:
+  - label: Read the diff
+    detail: Compare two git refs, checking renames against both the old and new path.
+  - label: Apply rules
+    detail: Built-in rules, presets, and your own product's risk areas match changed paths and diff lines.
+  - label: Take the max
+    detail: Overall risk is the highest severity across findings, with no weighted scoring.
+  - label: Find owners
+    detail: Each finding lists its CODEOWNERS, read from the base branch rather than the pull request.
+  - label: Require review
+    detail: The summary names which areas need human review and who should look.
+```
 
 ## What it does not do
 

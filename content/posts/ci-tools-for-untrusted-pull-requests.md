@@ -26,6 +26,25 @@ Nothing about that looked wrong in the workflow file. That is the problem.
 
 The fix was to stop resolving anything at run time. The action now bundles both engines from git submodules pinned to reviewed commits, compiles them into `dist/`, and makes no registry requests at all. CI fails if the committed `dist/` does not match the source, so the code that runs is the code that was reviewed.
 
+```diagram
+type: compare
+title: Resolving a package by name versus shipping reviewed code
+caption: A workflow that looks correct can still execute someone else's code if anything is resolved by name at run time.
+columns:
+  - label: Resolve at run time
+    items:
+      - "npx --yes agent-readiness-kit installs whatever owns that npm name"
+      - The name was never published by me and belonged to an unrelated author
+      - Ran with GITHUB_TOKEN in the environment when PR comments were enabled
+      - Nothing in the workflow file looked wrong
+  - label: Bundle pinned, reviewed code
+    items:
+      - Engines come from git submodules pinned to reviewed commits
+      - Compiled into a committed dist/ with no registry requests
+      - CI fails if dist/ does not match the source
+      - Install from a release tag, and pin the commit SHA for an exact version
+```
+
 The READMEs now say it plainly: the npm packages with these names are unrelated projects, install from a GitHub release tag, and pin the commit SHA if you want an exact version, because tags can be moved.
 
 **Lesson:** a package name is not an identity. If your tool is not published under a name, assume someone else owns it.
@@ -35,6 +54,21 @@ The READMEs now say it plainly: the npm packages with these names are unrelated 
 agent-pr-reviewer-lite runs `git diff` between a base and a head ref. The base can come from a config file in the repository under review. A base of `--output=/some/file` is not a ref. It is a git option.
 
 Every ref is validated before it reaches git: no leading `-`, no control characters, no null bytes. git also receives `--end-of-options` before the refs, so even a value that slipped past validation would be read as a ref. The validation exists to give a clear error; `--end-of-options` is the actual guarantee.
+
+```diagram
+type: flow
+title: How a ref from the repository reaches git safely
+caption: Validation gives a clear error, but the end-of-options marker is what guarantees a value is never read as an option.
+steps:
+  - label: Value from config
+    detail: The base ref can come from a config file in the repository under review, so it is untrusted input.
+  - label: Validate the ref
+    detail: Reject a leading dash, control characters, and null bytes with a clear error.
+  - label: End git options
+    detail: Pass --end-of-options before the refs, so anything that slipped past validation is still treated as a ref.
+  - label: Diff with -z
+    detail: Read changed paths null-separated, so spaces, quotes, newlines, and non-ASCII names match exactly.
+```
 
 The same instinct applies to file paths. Changed files are read with `git diff -z`, so a path with spaces, quotes, newlines, or non-ASCII characters is matched exactly, instead of in git's quoted form that a rule might not recognise.
 
@@ -49,6 +83,24 @@ Three changes closed that:
 - `CODEOWNERS` is read from the base branch too, so a PR that edits it cannot change who reviews that same PR.
 
 **Lesson:** for every input, ask which side of the trust boundary it is read from. If the answer is "the side being reviewed," it cannot be the side that decides.
+
+```diagram
+type: compare
+title: Which side of the trust boundary config is read from
+caption: Anything that decides how a pull request is reviewed has to come from the branch the PR cannot edit.
+columns:
+  - label: Read from the PR checkout
+    items:
+      - The PR author controls the config that reviews their own PR
+      - ignore patterns in the PR can hide the PR's own changes
+      - An edited CODEOWNERS could change who reviews that same PR
+  - label: Read from the base branch
+    items:
+      - "--config-ref origin/main reads config from the base branch"
+      - Any change to the reviewer config is always reported at high severity
+      - ignore and per-rule settings cannot hide or disable that finding
+      - CODEOWNERS also comes from the base branch
+```
 
 ## 4. File names are output, and output is a channel
 

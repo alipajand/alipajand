@@ -51,6 +51,24 @@ Monetization wraps the loop rather than living inside any one surface.
 
 The architectural consequence is the point: all five surfaces read from the same game model and the same event history. If replay, analysis, and live play each invented their own representation of a game, the product would rot from the inside. That single decision — one model serving many surfaces — is what makes the moat buildable: play, improve, compete, return.
 
+```diagram
+type: flow
+title: The play, improve, compete loop over one game model
+caption: Every surface in the loop reads the same game model and event history, so none of them can drift.
+steps:
+  - label: Live gameplay
+    detail: The real-time match produces the event history every other surface reads.
+  - label: Replay
+    detail: A trusted reconstruction of what actually happened, derived from that same history.
+  - label: Analysis
+    detail: Move quality, explanations, and learning moments attached to a finished game.
+  - label: Learning
+    detail: Drills, lessons, and practice positions that turn a mistake into something to work on.
+  - label: Competition
+    detail: Profiles, ratings, leaderboards, tournaments, and seasons that give players a reason to return.
+loop: Competition sends players back into live gameplay, and monetization wraps the loop rather than living inside one surface.
+```
+
 ## The stack and the boundaries
 
 For the web app I would use [Next.js](https://nextjs.org/docs), [React](https://react.dev/), and [TypeScript](https://www.typescriptlang.org/docs/). Next.js because the product needs public, SEO-driven pages such as profiles, leaderboards, lessons, and tournament pages alongside the authenticated game experience. TypeScript because game state, move events, timers, analysis results, and entitlements need contracts that are hard to misuse.
@@ -78,6 +96,24 @@ The server's response is where the contract lives
 
 That `version` lets the client detect drift after a reconnect or missed event. The `authoritativeState` on rejection is the snapshot the client rolls back to when its optimistic preview was wrong.
 
+```diagram
+type: flow
+title: Predict locally, let the server decide
+caption: The client can feel instant because the server, not the browser, owns the outcome of every move.
+steps:
+  - label: Local preview
+    detail: The client previews legal moves and animates checkers so the move feels immediate.
+  - label: Send intent
+    detail: The move goes to the server as intent, carrying an idempotency key.
+  - label: Server validates
+    detail: The server checks the move against the authoritative game state and rules.
+  - label: Confirm
+    detail: An accepted move returns with a monotonic version the client uses to detect drift.
+  - label: Reconcile
+    detail: On rejection, the client rolls back to the authoritative state instead of trusting its preview.
+loop: After a reconnect or missed event, a version mismatch triggers the resync path.
+```
+
 The transport itself matters less than the protocol. Whether the implementation uses the raw [WebSocket API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) with a typed wrapper or [Socket.IO](https://socket.io/docs/v4/client-api/) for built-in reconnect and rooms, the rules are the same:
 
 - Every client event carries an idempotency key.
@@ -98,6 +134,25 @@ A game product has several kinds of state, and each belongs somewhere different.
 - **Runtime validation** ([Zod](https://zod.dev/)): socket payloads and API responses are runtime data, so I would parse them before rendering anything product-critical.
 
 The frontend should know the difference between truth, preview, cache, and interaction. When those categories blur, realtime products become fragile.
+
+```diagram
+type: layers
+title: Kinds of state in a real-time game client
+caption: Truth, preview, cache, and interaction each get their own home instead of one app-wide store.
+layers:
+  - label: Authoritative game state
+    detail: The current match, which only changes when the server says so.
+  - label: Client preview state
+    detail: The optimistic board after a submitted but unconfirmed move, reconciled on confirmation and rolled back on reject.
+  - label: Product data
+    detail: Profiles, match history, leaderboards, billing, lessons, and tournament lists, held in the query cache.
+  - label: Local interaction state
+    detail: Selected checker, drag state, replay cursor, open panels, and hover or focus hints.
+  - label: Form state
+    detail: Settings, profile edits, tournament setup, and subscription forms.
+  - label: Runtime validation
+    detail: Socket payloads and API responses are parsed before anything product-critical renders.
+```
 
 ## Board rendering: SVG first
 
@@ -344,6 +399,25 @@ if (user.plan !== "pro_annual_2026") {
 ```
 
 That difference is what survives price changes, promotions, trials, team plans, and grandfathered users. Gating becomes a data change, not a code change across every surface.
+
+```diagram
+type: compare
+title: Gating on plan names versus gating on entitlements
+caption: Asking what a user can do, not which plan they bought, keeps billing out of every feature.
+columns:
+  - label: Checks against raw plan names
+    items:
+      - Each surface compares the user's plan to a specific plan id
+      - Price changes, promotions, and trials mean code changes everywhere
+      - Team plans and grandfathered users become special cases
+      - Billing complexity leaks into every feature
+  - label: Checks against entitlements
+    items:
+      - The UI asks a capability question such as unlimited analysis
+      - Gating becomes a data change, not a code change across surfaces
+      - Survives price changes, promotions, trials, and grandfathered users
+      - Subscriptions support the product loop without owning it
+```
 
 Example entitlements:
 

@@ -58,6 +58,21 @@ The obvious way to flag "skip tests" is a regex. The obvious bug is that the bes
 
 So risky-language matching is clause-aware. A negation (`never`, `do not`, `avoid`, `without`, `forbidden`) earlier in the same clause cancels the match. A clause break resets it, so "Don't worry about lint, just skip tests" is still flagged: the `just` starts a new clause and the negation does not carry over.
 
+```diagram
+type: flow
+title: How a risky phrase is matched inside one clause
+caption: Negation only cancels a match within its own clause, so good instructions are not punished and mixed sentences are still caught.
+steps:
+  - label: Find the phrase
+    detail: A risky pattern such as "skip tests" or "--no-verify" matches somewhere in the instruction text.
+  - label: Look for negation
+    detail: Words like never, do not, avoid, without, or forbidden earlier in the same clause cancel the match.
+  - label: Reset at clause breaks
+    detail: A clause break starts fresh, so a negation in one clause does not protect a risky phrase in the next.
+  - label: Report or drop
+    detail: Unnegated matches become findings. Negated ones are dropped, so "Never skip tests" stays clean.
+```
+
 It is still pattern matching. It does not understand meaning, and the README says so. But the false positives it avoids are the ones that would teach people to ignore the tool, which matters more than catching one extra phrasing.
 
 ## A risky line and a safer rewrite
@@ -75,9 +90,44 @@ say so in your summary and explain what you ran instead.
 
 The point is not "always run everything." It is that an agent should never be allowed to skip validation _silently_. If something cannot be run, the instructions should require the agent to report it. The same idea drives two of the structural checks: whether a primary instruction file tells the agent which validation commands to run, and whether it says what belongs in the final summary.
 
+```diagram
+type: compare
+title: Skipping validation versus reporting it
+caption: The safer instruction does not demand running everything; it forbids skipping validation silently.
+columns:
+  - label: Risky instruction
+    items:
+      - "Skip tests if they are slow."
+      - Reads like a shortcut to a human, but works as standing permission for an agent
+      - The agent decides on its own when validation is optional
+      - Nothing in the summary says what was skipped
+  - label: Safer rewrite
+    items:
+      - Run the smallest relevant test first
+      - If the full suite is too slow or broken, say so in the summary
+      - Explain what was run instead
+      - The primary instruction file names validation commands and what the summary must include
+```
+
 ## Rolling it out without blocking everyone
 
 A new check that fails every existing PR on day one gets disabled on day two. So adoption was a design requirement, not an afterthought.
+
+```diagram
+type: flow
+title: Adopting acd without failing every existing PR
+caption: Baselines, narrow suppressions, and familiar output let the check start strict on new issues without blocking on old ones.
+steps:
+  - label: Record a baseline
+    detail: Run the audit once and commit today's findings as a baseline file.
+  - label: Fail on new issues
+    detail: CI compares against the baseline by category, file, message, and evidence, not line number.
+  - label: Suppress narrowly
+    detail: Silence a confirmed false positive on one line instead of disabling the check; mistyped suppressions are reported.
+  - label: Report in the PR
+    detail: Output renders as text, JSON, Markdown, SARIF, or GitHub annotations on the diff.
+loop: A score ratchet against the base branch means you cannot make things worse, even before everything is fixed.
+```
 
 **Baselines.** Record today's findings once, commit the file, and fail only on new issues:
 

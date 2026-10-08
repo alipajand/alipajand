@@ -1,9 +1,9 @@
 import { CANONICAL_URL, PERSON_SCHEMA_ID, SITE_NAME } from "data/site";
 import { WRITING_INDEX_COLLECTION_NAME } from "data/writing";
-import type { Post } from "utils/posts";
+import type { PostSummary } from "utils/posts";
 
 interface ArticleJsonLdProps {
-  post: Omit<Post, "contentHtml">;
+  post: PostSummary;
 }
 
 export const ArticleJsonLd = ({ post }: ArticleJsonLdProps) => {
