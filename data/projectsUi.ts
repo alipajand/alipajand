@@ -31,8 +31,6 @@ export const PROJECT_CASE_STUDY_SECTION_IMPROVE = "What I would improve";
 
 export const PROJECT_CASE_STUDY_SECTION_EVIDENCE = "Interface evidence";
 
-export const PROJECT_CASE_STUDY_TOC_HEADING = "On this page";
-
 export const PROJECT_DECISION_LABEL = "Decision";
 
 export const PROJECT_DECISION_WHY_LABEL = "Why";
@@ -43,23 +41,7 @@ export const PROJECT_DECISION_RESULT_LABEL = "Result";
 
 export const PROJECT_FIGURE_PLACEHOLDER_LABEL = "Image not available";
 
-export interface ProjectCaseStudyTocItem {
-  suffix: string;
-  label: string;
-}
-
-export const PROJECT_CASE_STUDY_TOC_ITEMS: ProjectCaseStudyTocItem[] = [
-  { suffix: "context", label: PROJECT_CASE_STUDY_SECTION_CONTEXT },
-  { suffix: "problem", label: PROJECT_CASE_STUDY_SECTION_PROBLEM },
-  { suffix: "role", label: PROJECT_MY_ROLE_HEADING },
-  { suffix: "built", label: PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT },
-  { suffix: "technical-decisions", label: PROJECT_CASE_STUDY_SECTION_TECHNICAL_DECISIONS },
-  { suffix: "ux-decisions", label: PROJECT_CASE_STUDY_SECTION_UX_DECISIONS },
-  { suffix: "evidence", label: PROJECT_CASE_STUDY_SECTION_EVIDENCE },
-  { suffix: "outcome", label: PROJECT_CASE_STUDY_SECTION_OUTCOME },
-  { suffix: "improve", label: PROJECT_CASE_STUDY_SECTION_IMPROVE },
-  { suffix: "related", label: PROJECT_SECTION_RELATED_HEADING },
-];
-
 export const projectCaseStudyTocAriaLabel = (projectName: string): string =>
   `Table of contents for ${projectName}`;
+
+export const PORTFOLIO_CASE_STUDIES_TOC_ARIA_LABEL = "Case studies on this page";

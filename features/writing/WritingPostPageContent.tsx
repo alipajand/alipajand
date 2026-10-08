@@ -15,7 +15,12 @@ import type { PostHeading } from "utils/headings";
 import { useAutoReveal } from "utils/hooks/useAutoReveal";
 import { usePageHeader } from "utils/hooks/usePageHeader";
 import { formatDate } from "utils/date";
-import { PAGE_ARTICLE_SHELL, SECTION_INNER } from "utils/visual";
+import {
+  ARTICLE_TOC_ASIDE,
+  ARTICLE_TOC_GRID,
+  PAGE_ARTICLE_SHELL,
+  SECTION_INNER,
+} from "utils/visual";
 
 interface WritingPostPageContentProps {
   title: string;
@@ -65,7 +70,7 @@ export const WritingPostPageContent = ({
                 {title}
               </h1>
             </header>
-            <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_13.5rem] lg:gap-14">
+            <div className={ARTICLE_TOC_GRID}>
               <div className="min-w-0">
                 <TableOfContentsDisclosure headings={headings} className="mb-8 lg:hidden" />
                 <div
@@ -82,10 +87,7 @@ export const WritingPostPageContent = ({
                 </div>
               </div>
               <aside className="hidden lg:block">
-                <TableOfContents
-                  headings={headings}
-                  className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto pb-4"
-                />
+                <TableOfContents headings={headings} className={ARTICLE_TOC_ASIDE} />
               </aside>
             </div>
           </article>
