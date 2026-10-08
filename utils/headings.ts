@@ -33,6 +33,15 @@ export const headingText = (innerHtml: string): string =>
     .replace(/\s+/g, " ")
     .trim();
 
+/** Slugs are already `[a-z0-9-]`; escaping keeps the attribute safe if that ever changes. */
+const escapeAttribute = (value: string): string =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
 export const slugifyHeading = (text: string): string =>
   text
     .toLowerCase()
@@ -55,7 +64,7 @@ export const addHeadingIds = (html: string): { html: string; headings: PostHeadi
     seen.set(base, count + 1);
     const id = count === 0 ? base : `${base}-${count + 1}`;
     headings.push({ id, text, level: Number(level) as 2 | 3 });
-    return `<h${level} id="${id}">${inner}</h${level}>`;
+    return `<h${level} id="${escapeAttribute(id)}">${inner}</h${level}>`;
   });
 
   return { html: output, headings };
