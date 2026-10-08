@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 
 import { ProjectCaseStudyArticle } from "components/Projects/ProjectCaseStudyArticle";
 import type { Project } from "data/projects";
-import { projectCaseStudyTocAriaLabel } from "data/projectsUi";
+import { projectCaseStudyTocAriaLabel, projectLiveLinksAriaLabel } from "data/projectsUi";
 import { getProjectBySlug } from "utils/projects";
 
 jest.mock("next/image", () => ({
@@ -53,13 +53,31 @@ describe("ProjectCaseStudyArticle", () => {
 
     const relatedSection = document.getElementById("ledgerguard-related") as HTMLElement;
     const items = within(relatedSection).getAllByRole("listitem");
-    expect(items).toHaveLength(4);
+    expect(items).toHaveLength(3);
     expect(
       within(relatedSection).getByRole("link", { name: /The quiet failure mode in contract AI/ })
     ).toHaveAttribute("href", "/writing/ledgerguard-truth-between-extraction-and-finance");
     expect(
-      within(relatedSection).getByRole("link", { name: /Live product \(ledgerguard\.io\)/ })
+      within(relatedSection).queryByRole("link", { name: /Live product/ })
+    ).not.toBeInTheDocument();
+  });
+
+  it("should render live product links in the header, above the case study", () => {
+    render(<ProjectCaseStudyArticle project={ledgerguard} isDedicatedPage />);
+
+    const liveLinks = screen.getByRole("list", { name: projectLiveLinksAriaLabel("LedgerGuard") });
+    expect(liveLinks.closest("header")).not.toBeNull();
+    expect(
+      within(liveLinks).getByRole("link", { name: /Live product \(ledgerguard\.io\)/ })
     ).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
+  it("should omit the live links list when a project has none", () => {
+    render(
+      <ProjectCaseStudyArticle project={getProjectBySlug("agent-tooling")!} isDedicatedPage />
+    );
+
+    expect(screen.queryByRole("list", { name: /live links/ })).not.toBeInTheDocument();
   });
 
   it("should render a single H1 on dedicated case-study pages", () => {

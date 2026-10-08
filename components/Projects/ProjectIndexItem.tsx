@@ -13,6 +13,7 @@ type ProjectIndexItemProps = {
 export const ProjectIndexItem = ({ project, isFirst = false }: ProjectIndexItemProps) => {
   const tags = project.capabilityTags.slice(0, 3);
   const caseStudyHref = project.hasDedicatedCaseStudy ? `/portfolio/${project.slug}` : null;
+  const links = [...project.liveLinks, ...project.relatedLinks];
 
   return (
     <article
@@ -70,12 +71,12 @@ export const ProjectIndexItem = ({ project, isFirst = false }: ProjectIndexItemP
             </Link>
           </p>
         ) : null}
-        {project.relatedLinks.length > 0 ? (
+        {links.length > 0 ? (
           <ul
             aria-label={`${project.name} links`}
             className="flex flex-wrap gap-x-5 gap-y-1 text-sm"
           >
-            {project.relatedLinks.map((link) => (
+            {links.map((link) => (
               <li key={link.href}>
                 <ProjectLinkAnchor
                   href={link.href}

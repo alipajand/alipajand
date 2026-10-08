@@ -44,6 +44,9 @@ export const PROJECT_FIGURE_PLACEHOLDER_LABEL = "Image not available";
 export const projectCaseStudyTocAriaLabel = (projectName: string): string =>
   `Table of contents for ${projectName}`;
 
+export const projectLiveLinksAriaLabel = (projectName: string): string =>
+  `${projectName} live links`;
+
 export const PORTFOLIO_CASE_STUDIES_TOC_ARIA_LABEL = "Case studies on this page";
 
 export const projectReadCaseStudyLabel = (projectName: string): string =>

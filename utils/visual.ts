@@ -35,14 +35,12 @@ export const LABEL_OVERLINE = "text-[11px] font-semibold uppercase tracking-[0.1
 export const FOCUS_RING =
   "focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-/** Underlined text link matching long-form article links. */
 export const INLINE_LINK = `rounded-sm text-foreground underline decoration-foreground/35 underline-offset-[3px] transition-[text-decoration-color] duration-200 hover:decoration-[var(--organic-orange)] ${FOCUS_RING}`;
 
 export const CTA_PRIMARY = `inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 rounded-lg bg-foreground text-background text-sm font-semibold tracking-tight hover:bg-accent-muted hover:text-background transition-colors ${FOCUS_RING}`;
 
 export const CTA_SECONDARY = `inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-medium hover:border-foreground/35 hover:bg-card transition-colors ${FOCUS_RING}`;
 
-/** Long-form reading styles shared by writing posts and case studies. */
 export const ARTICLE_SECTION_TITLE =
   "font-display text-[1.375rem] font-semibold leading-snug tracking-[-0.01em] text-foreground";
 
