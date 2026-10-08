@@ -8,6 +8,7 @@ import { EngineeringPrinciplesSectionBlock } from "features/engineering-principl
 import {
   ENGINEERING_PRINCIPLES_PAGE_TITLE,
   ENGINEERING_PRINCIPLES_SECTIONS,
+  ENGINEERING_PRINCIPLES_TOC_ARIA_LABEL,
 } from "data/engineeringPrinciples";
 import { getDedicatedCaseStudySlugs } from "utils/projects";
 
@@ -33,6 +34,17 @@ describe("EngineeringPrinciplesPageContent", () => {
         );
       });
     });
+  });
+
+  it("should outline every principle in the on-this-page navigation", () => {
+    render(<EngineeringPrinciplesPageContent />);
+
+    const [outline] = screen.getAllByRole("navigation", {
+      name: ENGINEERING_PRINCIPLES_TOC_ARIA_LABEL,
+    });
+    const links = within(outline).getAllByRole("link");
+    expect(links).toHaveLength(ENGINEERING_PRINCIPLES_SECTIONS.length);
+    expect(links[0]).toHaveAttribute("href", `#${ENGINEERING_PRINCIPLES_SECTIONS[0].id}`);
   });
 
   it("should only link to case studies and posts that exist", () => {

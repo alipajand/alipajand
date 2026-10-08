@@ -10,6 +10,8 @@ export const ENGINEERING_PRINCIPLES_LEDE =
 
 export const ENGINEERING_PRINCIPLES_EVIDENCE_LABEL = "Where this shows up";
 
+export const ENGINEERING_PRINCIPLES_TOC_ARIA_LABEL = "Principles on this page";
+
 export interface EngineeringPrinciplesEvidenceLink {
   label: string;
   href: string;

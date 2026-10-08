@@ -9,13 +9,25 @@ import { FOCUS_RING, LABEL_OVERLINE } from "utils/visual";
 
 interface EngineeringPrinciplesSectionBlockProps {
   section: EngineeringPrinciplesSection;
+  number?: number;
 }
 
 export const EngineeringPrinciplesSectionBlock = ({
   section,
+  number,
 }: EngineeringPrinciplesSectionBlockProps) => {
   return (
-    <section data-reveal aria-labelledby={`${section.id}-heading`}>
+    <section
+      data-reveal
+      id={section.id}
+      aria-labelledby={`${section.id}-heading`}
+      className="scroll-mt-24"
+    >
+      {number ? (
+        <p aria-hidden="true" className={`${LABEL_OVERLINE} mb-2 tabular-nums`}>
+          {String(number).padStart(2, "0")}
+        </p>
+      ) : null}
       <h2
         id={`${section.id}-heading`}
         className="font-display font-semibold text-xl sm:text-2xl text-foreground tracking-tight"
