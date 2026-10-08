@@ -33,7 +33,7 @@ export default function OpenSourcePage() {
             codeRepository: project.repositoryUrl,
             programmingLanguage: "TypeScript",
             runtimePlatform: "Node.js",
-            creativeWorkStatus: project.status,
+            softwareVersion: project.version,
           },
         }))}
       />

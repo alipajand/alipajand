@@ -23,14 +23,17 @@ import {
   OPEN_SOURCE_HEADER_INTRO,
   OPEN_SOURCE_HEADER_LEDE,
   OPEN_SOURCE_HEADER_OVERLINE,
+  OPEN_SOURCE_INSTALL_LABEL,
+  OPEN_SOURCE_INSTALL_NOTE,
+  OPEN_SOURCE_RELEASE_LABEL,
   OPEN_SOURCE_REPOSITORY_LINK_LABEL,
   OPEN_SOURCE_SHARED_PRINCIPLES,
   OPEN_SOURCE_SHARED_PRINCIPLES_HEADING,
-  OPEN_SOURCE_STATUS_LABEL,
   OPEN_SOURCE_TECHNOLOGY_BADGES,
   OPEN_SOURCE_TECHNOLOGY_HEADING,
   type OpenSourcePrinciple,
   type OpenSourceProject,
+  openSourceReleaseLabel,
   openSourceRepositoryAriaLabel,
 } from "data/openSourcePage";
 import {
@@ -62,8 +65,10 @@ const OpenSourceProjectCard = ({ project }: { project: OpenSourceProject }) => {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <p className={FIELD_LABEL}>{OPEN_SOURCE_STATUS_LABEL}</p>
-          <p className="text-sm leading-relaxed text-foreground/85">{project.status}</p>
+          <p className={FIELD_LABEL}>{OPEN_SOURCE_RELEASE_LABEL}</p>
+          <p className="text-sm leading-relaxed text-foreground/85">
+            {openSourceReleaseLabel(project)}
+          </p>
         </div>
         <div className="space-y-2">
           <p className={FIELD_LABEL}>{OPEN_SOURCE_FORMAT_LABEL}</p>
@@ -86,6 +91,13 @@ const OpenSourceProjectCard = ({ project }: { project: OpenSourceProject }) => {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="space-y-2">
+        <p className={FIELD_LABEL}>{OPEN_SOURCE_INSTALL_LABEL}</p>
+        <pre className="whitespace-pre-wrap break-all rounded-md border border-border bg-background px-3 py-2 text-[13px] leading-relaxed text-foreground/85">
+          <code>{project.install}</code>
+        </pre>
       </div>
 
       <div className="space-y-2">
@@ -172,6 +184,9 @@ export const OpenSourcePageContent = () => {
                 {OPEN_SOURCE_PROJECTS_HEADING}
               </h2>
               <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_PROJECTS_LEDE}</p>
+              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted">
+                {OPEN_SOURCE_INSTALL_NOTE}
+              </p>
             </header>
 
             <ul className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">

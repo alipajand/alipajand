@@ -1054,29 +1054,37 @@ export const PROJECTS: Project[] = [
     caseStudyTitle: "Deterministic AI-Agent Developer Tools",
     caseStudyMetaTitle: "Agent Engineering Tools — Developer Experience Projects · Ali Pajand",
     caseStudyMetaDescription:
-      "Deterministic, local-first TypeScript tools for evaluating AI-agent readiness, detecting missing context, and reviewing risky code changes with human engineering review.",
+      "Three deterministic TypeScript CLIs and a GitHub Action for AI-agent readiness, agent instruction and settings audits, and risky pull-request triage. Local-first, no LLM calls, human review stays in charge.",
     employerContext:
       "Independent tooling experiments for AI-assisted development and developer experience.",
     cardProblem:
-      "Three small TypeScript CLIs built out of the same frustration: teams adopt AI-assisted development before their conventions, documentation, and review process can carry it. The tools make context quality, review feedback, and repository readiness into things you can check rather than assume.",
+      "Three TypeScript CLIs and a GitHub Action built out of the same frustration: teams adopt AI-assisted development before their conventions, agent settings, and review process can carry it. The tools make repository readiness, instruction and settings quality, and pull-request risk into things you can check in CI rather than assume. All four reached v1.0 in September 2026.",
     role: "Independent / Ongoing",
-    capabilityTags: ["TypeScript", "CLI", "CI", "AI Agents", "Developer Experience"],
+    capabilityTags: [
+      "TypeScript",
+      "CLI",
+      "GitHub Actions",
+      "AI Agents",
+      "Supply-chain safety",
+      "Developer Experience",
+    ],
     caseStudy: {
       overview:
         "These tooling projects explore how engineering teams can make AI-assisted development more reliable. The work stays intentionally small and focused on specific workflow problems instead of pretending to automate the entire development lifecycle.",
       context:
-        "The projects emerged from practical friction points: weak agent context, generic review feedback, and teams adopting AI-assisted workflows before their conventions were ready for it. Each tool focuses on one gap and keeps the scope explicit.",
+        "The projects emerged from practical friction points: weak agent instructions, risky agent settings committed to repositories, agent-written pull requests too large to review evenly, and teams adopting AI-assisted workflows before their conventions were ready for it. Each tool focuses on one gap and keeps the scope explicit.",
       problem:
         "AI-assisted development breaks down quickly when the repository context is vague, the review feedback is generic, or the workflow assumptions are unstable. Small tools can make those failure modes easier to detect before they become team habits.",
       myRole: [
-        "Designed and implemented the tooling concepts, TypeScript CLIs, and supporting documentation.",
+        "Designed and implemented the tooling concepts, the three TypeScript CLIs, the GitHub Action, and their documentation, through to tagged v1.0 releases.",
         "Defined the product scope and boundaries for each tool so the claims stayed smaller than the problem.",
         "Used the projects to explore developer experience as a product surface with explicit inputs and outputs.",
       ],
       whatIBuilt: [
-        "agent-context-doctor, because most bad agent output traces back to weak instructions rather than a weak model, and nobody was checking the instructions.",
-        "agent-pr-reviewer-lite, because generic AI review comments get ignored, and feedback sorted by category and risk is something a reviewer can actually act on.",
-        "agent-readiness-kit, because a repository without clear conventions, boundaries, or validation paths will amplify agent mistakes instead of catching them.",
+        "agent-context-doctor, because most bad agent output traces back to weak instructions rather than a weak model, and nobody was checking the instructions. It now also audits committed Claude Code and MCP settings, where a single bypassPermissions default or remote-script hook runs on every contributor's machine.",
+        "agent-pr-reviewer-lite, because agent-written pull requests touch many files and reviewers need to know which ones matter. It flags auth, billing, migration, CI, secret, and agent-permission changes from fixed rules, and names each file's CODEOWNERS from the base branch.",
+        "agent-readiness-kit, because a repository without clear conventions, boundaries, or validation paths will amplify agent mistakes instead of catching them. It scores 13 categories and scaffolds the missing files, including least-privilege Claude Code settings.",
+        "agent-readiness-action, so the readiness score and the instruction audit run on every pull request, with both engines bundled at pinned commits instead of installed from a registry.",
       ],
       technicalDecisions: [
         {
@@ -1096,14 +1104,24 @@ export const PROJECTS: Project[] = [
           result:
             "The tools demonstrate a product-minded approach to developer experience instead of a script-only mindset.",
         },
+        {
+          decision:
+            "Treat the repository under audit as untrusted input, because on a pull request it is written by whoever opened it.",
+          why: "These tools run in CI with a token in the environment. An early version of the action ran npx agent-readiness-kit, and that npm name belongs to an unrelated author, so every run downloaded and executed someone else's code.",
+          tradeOff:
+            "Bundling engines at pinned commits, reading config and CODEOWNERS from the base branch, and refusing to follow symlinks adds build and release work.",
+          result:
+            "Nothing is downloaded at run time, a pull request cannot change the rules that review it, and file names cannot inject workflow commands or redirect report writes.",
+        },
       ],
       uxDecisions: [
-        "Used structured, categorized feedback so the output is easier to evaluate than a generic AI summary.",
+        "Every finding carries a severity, the file, and the evidence, and the same input always produces the same output, so results are easier to trust than a generic AI summary.",
+        "Reports go where reviewers already look: terminal, Markdown, SARIF for code scanning, and inline pull-request annotations.",
         "Kept repository readiness and context quality visible as explicit engineering inputs.",
         "Avoided language that implies the tools fully automate review or readiness decisions when they are really evaluation aids.",
       ],
       outcome: [
-        "Built a set of small tooling projects that demonstrate practical DX thinking around AI-assisted workflows.",
+        "Shipped v1.0 of all four projects in September 2026: three CLIs installable from GitHub release tags and a GitHub Action referenced as alipajand/agent-readiness-action@v1.",
         "Created examples of how structured feedback and context evaluation can improve engineering workflows.",
         "Kept architecture, security, validation, and final decisions under human engineering review.",
       ],
@@ -1135,9 +1153,14 @@ export const PROJECTS: Project[] = [
                 detail: "The agent works inside a repository whose context has been checked.",
               },
               {
-                label: "Structured review",
+                label: "CI gate",
                 detail:
-                  "agent-pr-reviewer-lite sorts feedback by category and risk so a reviewer can act on it.",
+                  "agent-readiness-action runs the readiness score and the instruction audit on the pull request and fails it below a threshold.",
+              },
+              {
+                label: "Risk triage",
+                detail:
+                  "agent-pr-reviewer-lite flags the risk-sensitive files in the diff and names their owners, so a reviewer knows where to look first.",
               },
               {
                 label: "Human decision",
@@ -1168,7 +1191,7 @@ export const PROJECTS: Project[] = [
                 label: "Small deterministic tools",
                 items: [
                   "Deterministic checks and explicit heuristics",
-                  "Structured feedback sorted by category and risk",
+                  "Findings with severity, file, and evidence",
                   "Clear about what is reported and what still needs human review",
                   "CLI output, configuration, and documentation treated as product",
                 ],
