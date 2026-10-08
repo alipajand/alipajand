@@ -6,18 +6,30 @@ export interface PostHeading {
 
 const HEADING_RE = /<h([23])>([\s\S]*?)<\/h\1>/g;
 
-const ENTITIES: Record<string, string> = {
-  "&amp;": "&",
-  "&lt;": "<",
-  "&gt;": ">",
-  "&quot;": '"',
-  "&#39;": "'",
+const TAG_RE = /<[^<>]*>/g;
+
+const stripTags = (html: string): string => {
+  let previous: string;
+  let current = html;
+  do {
+    previous = current;
+    current = current.replace(TAG_RE, "");
+  } while (current !== previous);
+  return current;
 };
 
+/**
+ * Plain-text label for a heading's inner HTML. `&amp;` is decoded last so an
+ * escaped entity can't turn into markup, and any angle brackets left over are
+ * dropped because the outline only needs readable text.
+ */
 export const headingText = (innerHtml: string): string =>
-  innerHtml
-    .replace(/<[^>]+>/g, "")
-    .replace(/&(amp|lt|gt|quot|#39);/g, (entity) => ENTITIES[entity])
+  stripTags(innerHtml)
+    .replace(/&lt;|&gt;/g, "")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&")
+    .replace(/[<>]/g, "")
     .replace(/\s+/g, " ")
     .trim();
 

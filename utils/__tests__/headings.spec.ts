@@ -7,6 +7,11 @@ describe("headings", () => {
     );
   });
 
+  it("should not let nested or escaped markup survive as heading text", () => {
+    expect(headingText("<scr<script>ipt>alert(1)")).toBe("alert(1)");
+    expect(headingText("&lt;script&gt;x &amp;lt;b&amp;gt;")).toBe("scriptx &lt;b&gt;");
+  });
+
   it("should slugify heading text and fall back for symbols-only titles", () => {
     expect(slugifyHeading("What’s next? Tests & CI")).toBe("whats-next-tests-ci");
     expect(slugifyHeading("!!!")).toBe("section");
