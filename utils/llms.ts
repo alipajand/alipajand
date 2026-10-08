@@ -7,7 +7,12 @@ import {
 import { HOMEPAGE_HERO_BODY, HOMEPAGE_HERO_TITLE } from "data/homepage";
 import { LINKS } from "data/links";
 import { NOW_META_DESCRIPTION, NOW_SECTIONS } from "data/now";
-import { OPEN_SOURCE_META_DESCRIPTION, OPEN_SOURCE_PROJECTS } from "data/openSourcePage";
+import {
+  OPEN_SOURCE_INSTALL_NOTE,
+  OPEN_SOURCE_META_DESCRIPTION,
+  OPEN_SOURCE_PROJECTS,
+  openSourceReleaseLabel,
+} from "data/openSourcePage";
 import type { Project } from "data/projects";
 import { PORTFOLIO_META_DESCRIPTION, PORTFOLIO_PROFILE_DETAILS } from "data/projects";
 import {
@@ -174,8 +179,9 @@ export const buildLlmsFullTxt = ({
       `### ${project.title}`,
       "",
       `Repository: ${project.repositoryUrl}`,
-      `Status: ${project.status}`,
+      `Latest release: ${openSourceReleaseLabel(project)}`,
       `Format: ${project.format}`,
+      `Install: ${project.install}`,
       "",
       project.summary,
       "",
@@ -237,6 +243,8 @@ export const buildLlmsFullTxt = ({
     projects.map(caseStudySection).join("\n\n"),
     "",
     "## Open source",
+    "",
+    OPEN_SOURCE_INSTALL_NOTE,
     "",
     openSource,
     "",

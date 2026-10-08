@@ -23,7 +23,7 @@ I've spent 9+ years building production products in React, TypeScript, and Next.
 | [LedgerGuard](https://alipajand.com/portfolio/ledgerguard)       | Multi-tenant AI contract intelligence SaaS, built end to end: Next.js, Fastify, PostgreSQL, document pipeline |
 | [AlwaysGeeky Games](https://alipajand.com/portfolio/alwaysgeeky) | Shared React/TypeScript component library across four product surfaces, with CI gates and accessibility rules |
 | [Emplifi](https://alipajand.com/portfolio/emplifi)               | D3.js enterprise analytics, including an 80% cut in unnecessary re-renders and chart paint work in webviews   |
-| [Agent tooling](https://alipajand.com/portfolio/agent-tooling)   | Deterministic TypeScript CLIs for AI-assisted development                                                     |
+| [Agent tooling](https://alipajand.com/portfolio/agent-tooling)   | Deterministic TypeScript CLIs and a GitHub Action for AI-assisted development                                 |
 | [TallyFolio](https://alipajand.com/portfolio/tallyfolio)         | Privacy-first personal finance PWA with deterministic money math and CSV import review                        |
 | [ControlTech](https://alipajand.com/portfolio/controltech)       | Four years of taking early-stage SaaS products and PWAs from MVP to production                                |
 
@@ -31,9 +31,10 @@ I've spent 9+ years building production products in React, TypeScript, and Next.
 
 Local-first developer tools that make AI-assisted coding and review safer. No LLM in the loop.
 
-- [**agent-context-doctor**](https://github.com/alipajand/agent-context-doctor): audits `AGENTS.md`, `CLAUDE.md`, Cursor rules, and Copilot instructions for missing context, contradictions, and risky guidance
-- [**agent-pr-reviewer-lite**](https://github.com/alipajand/agent-pr-reviewer-lite): flags the files in a pull request that need human review before merge
-- [**agent-readiness-kit**](https://github.com/alipajand/agent-readiness-kit): checks whether a repository's conventions, docs, and tooling are ready for AI coding agents
+- [**agent-context-doctor**](https://github.com/alipajand/agent-context-doctor): audits `AGENTS.md`, `CLAUDE.md`, Cursor and Copilot rules, and committed Claude Code and MCP settings for contradictions, stale commands, secrets, and risky permissions
+- [**agent-pr-reviewer-lite**](https://github.com/alipajand/agent-pr-reviewer-lite): deterministic pre-screen that flags the files in a pull request that need human review before merge
+- [**agent-readiness-kit**](https://github.com/alipajand/agent-readiness-kit): scores how ready a repository is for AI coding agents across 13 categories and scaffolds the missing files
+- [**agent-readiness-action**](https://github.com/alipajand/agent-readiness-action): GitHub Action that runs agent-readiness-kit and agent-context-doctor on pull requests
 
 ## Writing
 

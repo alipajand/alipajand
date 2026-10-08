@@ -8,6 +8,7 @@ import {
   OPEN_SOURCE_CTA_SECONDARY_LABEL,
   OPEN_SOURCE_PROJECTS_HEADING,
   OPEN_SOURCE_HEADER_HEADING,
+  OPEN_SOURCE_INSTALL_NOTE,
   OPEN_SOURCE_PROJECTS,
   OPEN_SOURCE_SHARED_PRINCIPLES,
   OPEN_SOURCE_SHARED_PRINCIPLES_HEADING,
@@ -63,10 +64,14 @@ describe("OpenSourcePageContent", () => {
     expect(projectTitles).toEqual(OPEN_SOURCE_PROJECTS.map((project) => project.title));
   });
 
-  it("should render status and capability labels without GitHub stats copy", () => {
+  it("should render release, install, and capability labels without GitHub stats copy", () => {
     render(<OpenSourcePageContent />);
 
-    expect(screen.getAllByText("Status").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Latest release")).toHaveLength(OPEN_SOURCE_PROJECTS.length);
+    expect(screen.getAllByText("Install")).toHaveLength(OPEN_SOURCE_PROJECTS.length);
+    OPEN_SOURCE_PROJECTS.forEach((project) => {
+      expect(screen.getByText(project.install)).toBeInTheDocument();
+    });
     expect(screen.getAllByText("Format").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Why it matters").length).toBeGreaterThan(0);
     expect(screen.queryByText(/stars|forks|followers/i)).not.toBeInTheDocument();
@@ -84,6 +89,12 @@ describe("OpenSourcePageContent", () => {
         );
       });
     });
+  });
+
+  it("should warn that the tools are not installed from npm", () => {
+    render(<OpenSourcePageContent />);
+
+    expect(screen.getByText(OPEN_SOURCE_INSTALL_NOTE)).toBeInTheDocument();
   });
 
   it("should render the shared principles heading", () => {
