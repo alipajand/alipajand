@@ -24,6 +24,23 @@ This is a proposed architecture for that workflow. I am describing the design an
 
 The workflow is small enough to describe in one sentence: find a document, claim it, compare its extracted fields with the original, confirm or correct them, then approve or reject it.
 
+```diagram
+type: flow
+title: The document review loop
+caption: Every architectural boundary in this design exists to keep this loop trustworthy when the network, ownership, or revisions change underneath it.
+steps:
+  - label: Find a document
+    detail: Search, filter, and page through a server-bounded queue of contracts, invoices, and claims.
+  - label: Claim it
+    detail: Obtain exclusive ownership from the server; only one analyst can edit a document at a time.
+  - label: Compare with source
+    detail: Check each extracted field against the original PDF or page images.
+  - label: Confirm or correct
+    detail: Accept the extracted value or change it, and save every change to the server.
+  - label: Approve or reject
+    detail: Approval requires every field reviewed and saved. Rejection can happen earlier, with a reason.
+```
+
 Assume a queue containing tens of thousands of contracts, invoices, and claims, with 10 to 200 fields per document. The original is a PDF or a set of page images. Several analysts share the queue, but only one can edit a particular document at a time.
 
 I would make the product rules explicit early. For this design, approval requires every field to be reviewed and all changes saved. Rejection can happen earlier, with a reason. Finalized documents are read-only. Those are product assumptions, and the backend needs to enforce them.
@@ -81,6 +98,19 @@ Every mutation needs three checks, performed atomically with the write:
 
 The lease answers who may write. The revision answers which version their write is based on. Both matter, including when one analyst opens two tabs. An old token must remain invalid after a new lease is issued.
 
+```diagram
+type: layers
+title: The three checks on every mutation
+caption: Real-time notifications only hint that something changed; these server-side checks, performed atomically with the write, decide whether it is allowed.
+layers:
+  - label: "Lease: who may write"
+    detail: The lease token must identify the current, unexpired owner. An old token stays invalid once a new lease is issued.
+  - label: "Revision: which version"
+    detail: The expected revision must match the document being changed, which also protects one analyst working in two tabs.
+  - label: "Status: still reviewable"
+    detail: The document must still be in a reviewable state. Finalized documents are read-only.
+```
+
 Leaving the workspace can release ownership explicitly. Closing a tab must not be the only release mechanism; expiration handles the case where cleanup never reaches the server.
 
 If renewal fails, I would retain the draft, show that changes are being kept on this device, and block server writes and final decisions until ownership is verified. If another analyst has taken over, editing stops and the draft remains inspectable. The cost of whole-document ownership is reduced parallelism within a document. For this workflow, simpler recovery is worth that constraint.
@@ -134,6 +164,23 @@ The difficult case is a revision change:
 3. A reconnects with pending work based on revision 10.
 
 A's draft is valuable, but possession of it grants no ownership. The client must fetch current status and revision, establish a valid lease, and compare the baseline, local draft, and server state before sending anything.
+
+```diagram
+type: flow
+title: Recovering a draft without assuming ownership
+caption: A recovered draft is valuable evidence of work, but the client must re-establish status, revision, and ownership before it sends anything.
+steps:
+  - label: Find the draft
+    detail: Discover local recovery records by analyst and document, including drafts from closed tabs.
+  - label: Fetch current state
+    detail: Refetch the document's status and revision from the server.
+  - label: Claim a lease
+    detail: After a reload the old token is gone, so claim again; the analyst can inspect the draft while waiting.
+  - label: Compare three states
+    detail: Compare the draft's baseline, the local draft, and the current server state.
+  - label: Resume or reconcile
+    detail: Resume if the revision is unchanged; otherwise require explicit reconciliation. A finalized document leaves the draft view-only.
+```
 
 After a reload, the in-memory lease token is gone. Without an explicit backend contract for recovering that lease session, the client needs a fresh claim and may have to wait for the old lease to expire. I would let the analyst inspect the draft while waiting.
 

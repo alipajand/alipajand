@@ -5,6 +5,7 @@ export const formatDate = (dateStr: string): string => {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "UTC",
     });
   } catch {
     return dateStr;

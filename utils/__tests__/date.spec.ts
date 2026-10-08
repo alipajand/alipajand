@@ -21,6 +21,10 @@ describe("utils/date", () => {
     expect(result).toBe("bad-date");
   });
 
+  it("should keep the calendar day of a date-only string in any time zone", () => {
+    expect(formatDate("2026-09-17")).toBe("September 17, 2026");
+  });
+
   it("should handle another valid date string", () => {
     const result = formatDate("2025-12-31");
     expect(result).toMatch(/2025/);

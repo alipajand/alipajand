@@ -25,3 +25,20 @@ export const WRITING_POST_MCP_FIGCAPTION =
 
 export const WRITING_INDEX_COLLECTION_NAME =
   "Writing on Frontend Architecture and Product Engineering";
+
+export const WRITING_TOC_HEADING = "On this page";
+
+export const WRITING_TOC_ARIA_LABEL = "Table of contents";
+
+export const WRITING_DIAGRAM_OVERLINE = "Diagram";
+
+export const WRITING_DIAGRAM_PREV_LABEL = "Previous";
+
+export const WRITING_DIAGRAM_NEXT_LABEL = "Next";
+
+export const WRITING_DIAGRAM_FLOW_HINT = "Select a step to see what happens there.";
+
+export const WRITING_DIAGRAM_LAYERS_HINT = "Select a layer to see what it owns.";
+
+export const writingDiagramStepCounter = (current: number, total: number): string =>
+  `Step ${current} of ${total}`;

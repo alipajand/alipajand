@@ -27,6 +27,24 @@ A concrete example is the difference between a shared combobox primitive and a d
 
 Pushing more product behavior down into the design system to "maximize reuse" usually backfires. Stricter boundaries create more components, but they keep the shared layer from turning into a business-logic landfill. Reuse is valuable only when it does not erase ownership. I go into the documentation and contract side of this same boundary problem in [Design systems that stick](/writing/design-systems-that-stick).
 
+```diagram
+type: compare
+title: Maximizing reuse vs. keeping ownership boundaries
+caption: Stricter boundaries mean more components, but they keep business rules out of the shared layer and make ownership obvious.
+columns:
+  - label: Push product behavior into the design system
+    items:
+      - Shared components absorb feature-specific rules and states
+      - The shared layer turns into a business-logic landfill
+      - Reuse erases which feature owns a behavior
+  - label: Primitives shared, product logic owned by features
+    items:
+      - "Primitives own keyboard behavior, labeling hooks, and focus patterns"
+      - Domain components own available options, unsupported cases, and updates
+      - A combobox is shared; a property scenario selector lives with its feature
+      - More components, but clear ownership
+```
+
 ## State should match the product model
 
 State management is not a library choice first. It is a modeling problem.
@@ -43,6 +61,23 @@ In practice, this taxonomy maps closely to specific tools rather than staying ab
 
 In a workflow-heavy interface, imagine a contract review screen with a renewals table and a detail drawer. The table data belongs in server cache. The selected contract ID and current filter belong in the URL so a reviewer can share the exact view. Edits to a notice date belong in form state until saved. Whether the evidence sidebar is open belongs in local interaction state. The user's chosen compact-table preference belongs in persisted local storage or profile state.
 
+```diagram
+type: layers
+title: State ownership on a contract review screen
+caption: Each piece of state lives at the scope the product behavior requires, which prevents stale copies and accidental coupling.
+layers:
+  - label: Server cache
+    detail: The renewals table data, fetched from the backend with refetch and invalidation rules.
+  - label: URL state
+    detail: The selected contract ID and current filter, so a reviewer can share the exact view.
+  - label: Form state
+    detail: Edits to a notice date, held as a draft until the user saves.
+  - label: Local interaction state
+    detail: Whether the evidence sidebar is open.
+  - label: Persisted preference
+    detail: The compact-table setting, kept in local storage or profile state across refreshes.
+```
+
 One app-wide store holding all of it "for convenience" is the pattern I avoid. Distributed state ownership requires more discipline about boundaries and naming, but it prevents stale copies, accidental coupling, and the "why did changing this modal break browser navigation?" class of bugs.
 
 ## API contracts are part of frontend architecture
@@ -54,6 +89,21 @@ Typed API contracts, [Zod](https://zod.dev/) validation, and explicit empty or e
 Zod earns a specific mention here rather than "a validation library" in the abstract, because runtime validation at the API boundary is the piece a typed contract alone cannot give you: TypeScript types disappear at compile time, so a malformed or drifted payload still reaches your components unless something checks it at runtime. Parsing the response through a schema and deriving the TypeScript type from that schema, rather than hand-writing both, keeps the two from drifting apart as the API evolves.
 
 If the dashboard and export flow consume slightly different payload shapes, product drift starts quietly. I put a typed contract at the boundary and use it across the feature, including secondary surfaces like PDFs or exports.
+
+```diagram
+type: flow
+title: One validated contract from API boundary to every surface
+caption: Runtime validation plus a schema-derived type catches payload drift at the boundary instead of after a customer notices the PDF and UI disagree.
+steps:
+  - label: API response
+    detail: The backend returns a payload that may have drifted from what the frontend expects.
+  - label: Schema parse
+    detail: The response is parsed through a Zod schema at runtime, because TypeScript types disappear at compile time.
+  - label: Derived type
+    detail: The TypeScript type is derived from the schema rather than hand-written, so the two cannot drift apart.
+  - label: Every surface
+    detail: The dashboard, PDF, and export flow consume the same typed contract, with explicit empty and error states.
+```
 
 Mapping each surface independently and relying on integration knowledge in developers' heads is faster at first and more expensive later. Stricter contracts add maintenance when APIs evolve, but they make change visible at compile time instead of after a customer notices the PDF and UI disagree.
 
