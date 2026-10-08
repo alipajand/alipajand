@@ -26,6 +26,7 @@ import {
   PROJECT_SECTION_LINK_NEXT,
   PROJECT_SECTION_RELATED_HEADING,
   projectCaseStudyTocAriaLabel,
+  projectLiveLinksAriaLabel,
 } from "data/projectsUi";
 import type { PostHeading } from "utils/headings";
 import {
@@ -34,6 +35,7 @@ import {
   ARTICLE_SECTION_TITLE,
   ARTICLE_TOC_ASIDE,
   ARTICLE_TOC_GRID,
+  CTA_PRIMARY,
   INLINE_LINK,
   LABEL_OVERLINE,
 } from "utils/visual";
@@ -233,6 +235,20 @@ export const ProjectCaseStudyArticle = ({
               </li>
             ))}
           </ul>
+          {project.liveLinks.length > 0 ? (
+            <ul
+              aria-label={projectLiveLinksAriaLabel(project.name)}
+              className="flex flex-wrap gap-3 pt-2"
+            >
+              {project.liveLinks.map((link) => (
+                <li key={link.href}>
+                  <ProjectLinkAnchor href={link.href} label={link.label} className={CTA_PRIMARY}>
+                    {link.label}
+                  </ProjectLinkAnchor>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
         {isDedicatedPage && heroFigure ? (
           <div className="max-w-4xl">

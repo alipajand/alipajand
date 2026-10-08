@@ -73,6 +73,9 @@ export interface Project {
   timeframe?: string;
   capabilityTags: string[];
   caseStudy: ProjectCaseStudy;
+  /** The shipped product or company site, shown as actions in the case study header. */
+  liveLinks: ProjectLink[];
+  /** Writing and other pages about the same work, listed under "Related work". */
   relatedLinks: ProjectLink[];
 }
 
@@ -333,8 +336,8 @@ export const PROJECTS: Project[] = [
         },
       ],
     },
+    liveLinks: [{ label: "Live product", href: "https://ledgerguard.io/" }],
     relatedLinks: [
-      { label: "Live product", href: "https://ledgerguard.io/" },
       {
         label: "The quiet failure mode in contract AI: when the UI believes the wrong row",
         href: "/writing/ledgerguard-truth-between-extraction-and-finance",
@@ -542,7 +545,8 @@ export const PROJECTS: Project[] = [
         },
       ],
     },
-    relatedLinks: [{ label: "Live product", href: "https://tallyfolio.com" }],
+    liveLinks: [{ label: "Live product", href: "https://tallyfolio.com" }],
+    relatedLinks: [],
   },
   {
     id: "alwaysgeeky",
@@ -744,10 +748,11 @@ export const PROJECTS: Project[] = [
         },
       ],
     },
-    relatedLinks: [
+    liveLinks: [
       { label: "Marketplace", href: "https://market.voxies.io" },
       { label: "Login", href: "https://login.voxies.io/" },
     ],
+    relatedLinks: [],
   },
   {
     id: "emplifi",
@@ -917,7 +922,8 @@ export const PROJECTS: Project[] = [
         },
       ],
     },
-    relatedLinks: [{ label: "Company website", href: "https://emplifi.io" }],
+    liveLinks: [{ label: "Company website", href: "https://emplifi.io" }],
+    relatedLinks: [],
   },
   {
     id: "controltech",
@@ -1051,7 +1057,8 @@ export const PROJECTS: Project[] = [
         },
       ],
     },
-    relatedLinks: [{ label: "Company website", href: "https://ctrltech.org" }],
+    liveLinks: [{ label: "Company website", href: "https://ctrltech.org" }],
+    relatedLinks: [],
   },
   {
     id: "agent-tooling",
@@ -1208,6 +1215,7 @@ export const PROJECTS: Project[] = [
         },
       ],
     },
+    liveLinks: [],
     relatedLinks: [
       { label: "Open Source page", href: "/open-source" },
       { label: "GitHub profile", href: "https://github.com/alipajand" },
@@ -1375,8 +1383,8 @@ export const PROJECTS: Project[] = [
         },
       ],
     },
+    liveLinks: [{ label: "Live product", href: "https://mapbylaw.ca/" }],
     relatedLinks: [
-      { label: "Live product", href: "https://mapbylaw.ca/" },
       {
         label: "Teaching MapBylaw to give honest AI recommendations",
         href: "/writing/mapbylaw-ai-recommendations",
