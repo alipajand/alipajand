@@ -1,3 +1,5 @@
+import type { CompareDiagramSpec, FlowDiagramSpec, LayersDiagramSpec } from "utils/diagramBlocks";
+
 export interface ProjectFigure {
   type: "image";
   src?: string;
@@ -26,6 +28,23 @@ export interface ProjectLink {
   href: string;
 }
 
+export type CaseStudySectionKey =
+  | "context"
+  | "problem"
+  | "role"
+  | "built"
+  | "technical-decisions"
+  | "ux-decisions"
+  | "evidence"
+  | "outcome"
+  | "improve";
+
+/** An interactive diagram rendered at the end of one case study section. */
+export interface CaseStudyDiagram {
+  section: CaseStudySectionKey;
+  spec: FlowDiagramSpec | LayersDiagramSpec | CompareDiagramSpec;
+}
+
 export interface ProjectCaseStudy {
   overview: string;
   context: string;
@@ -37,6 +56,7 @@ export interface ProjectCaseStudy {
   outcome: string[];
   nextImprovements: string[];
   interfaceEvidence?: ProjectFigure[];
+  diagrams?: CaseStudyDiagram[];
 }
 
 export interface Project {
@@ -201,6 +221,109 @@ export const PROJECTS: Project[] = [
         "Add more product-level evidence around exception handling so reviewers can prioritize the highest-risk contracts faster.",
         "Continue refining summary views so incomplete extraction states are easier to scan across larger contract sets.",
       ],
+      diagrams: [
+        {
+          section: "context",
+          spec: {
+            type: "layers",
+            title: "LedgerGuard system layers",
+            caption:
+              "Probabilistic extraction sits at the bottom of the stack, behind job contracts, so it cannot bypass authentication, tenant boundaries, or review.",
+            layers: [
+              {
+                label: "Next.js App Router product",
+                detail:
+                  "Server-rendered product surfaces, with client components only where review interactions need them.",
+              },
+              {
+                label: "Node.js/Fastify API",
+                detail:
+                  "Owns deterministic contract data, API rules, authentication, and tenant scoping.",
+              },
+              {
+                label: "Supabase PostgreSQL, Auth, Storage",
+                detail:
+                  "The tenant-scoped data model, where suggested and confirmed values are stored differently.",
+              },
+              {
+                label: "Redis/BullMQ orchestration",
+                detail:
+                  "Explicit job contracts that let document processing retry or fail independently.",
+              },
+              {
+                label: "Python extraction worker",
+                detail:
+                  "AWS Textract and OpenAI extraction, isolated from deterministic contract state.",
+              },
+            ],
+          },
+        },
+        {
+          section: "problem",
+          spec: {
+            type: "compare",
+            title: "Extraction treated as settled vs kept reviewable",
+            caption:
+              "A notice-window decision depends on knowing whether a date was extracted or confirmed, so that distinction has to survive every layer.",
+            columns: [
+              {
+                label: "Extraction as final data",
+                items: [
+                  "Model output lands in the same place as confirmed contract data",
+                  "A single loading spinner hides started, partial, and failed extraction",
+                  "Users cannot tell whether a date came from a model or a person",
+                  "Any distinction lives only in the interface layer",
+                ],
+              },
+              {
+                label: "LedgerGuard review boundary",
+                items: [
+                  "Suggested and confirmed values are stored and rendered differently",
+                  "Values cross the boundary only through explicit review",
+                  "Source context stays attached to review decisions",
+                  "Partial, failed, and review-required are first-class product states",
+                  "The boundary holds across the schema, the API, and the UI",
+                ],
+              },
+            ],
+          },
+        },
+        {
+          section: "technical-decisions",
+          spec: {
+            type: "flow",
+            title: "From uploaded document to confirmed contract data",
+            caption:
+              "Each step has a visible state, so users can tell whether the product is waiting, recovering, or ready for confirmation.",
+            steps: [
+              {
+                label: "Upload",
+                detail: "Document ingestion is wired to async extraction state from the start.",
+              },
+              {
+                label: "Queue job",
+                detail:
+                  "Redis/BullMQ hands the document to the Python worker behind an explicit job contract.",
+              },
+              {
+                label: "Extract",
+                detail:
+                  "AWS Textract and OpenAI produce suggested values. The job can fail or retry without touching confirmed data.",
+              },
+              {
+                label: "Review",
+                detail:
+                  "The verification UI shows suggested values apart from confirmed ones, with source context attached.",
+              },
+              {
+                label: "Confirm",
+                detail: "Values become confirmed contract data only through explicit user review.",
+              },
+            ],
+            loop: "Failed or partial extraction stays visible as its own state and can be retried independently.",
+          },
+        },
+      ],
     },
     relatedLinks: [
       { label: "Live product", href: "https://ledgerguard.io/" },
@@ -311,6 +434,105 @@ export const PROJECTS: Project[] = [
         "Expand more product-level evidence around forecast edge cases, import recovery, and mobile-specific workflow detail.",
         "Continue refining the boundary between deterministic finance output and optional AI explanations as the product grows.",
       ],
+      diagrams: [
+        {
+          section: "context",
+          spec: {
+            type: "layers",
+            title: "Where deterministic finance logic ends and AI begins",
+            caption:
+              "AI only explains figures the domain layer has already computed, so financial correctness never depends on model output.",
+            layers: [
+              {
+                label: "PWA product workflows",
+                detail:
+                  "Dashboard, imports, budgets, reports, forecasts, subscriptions, investments, and assets, built for everyday mobile use.",
+              },
+              {
+                label: "Optional AI explanations",
+                detail:
+                  "Constrained to explaining already-computed figures, never generating new financial advice.",
+              },
+              {
+                label: "Pure finance domain modules",
+                detail:
+                  "Budgets, forecasts, reports, subscriptions, investments, and assets calculated deterministically and testably.",
+              },
+              {
+                label: "Integer minor-unit storage",
+                detail:
+                  "Financial values are stored as integer minor units rather than scattered across UI and persistence math.",
+              },
+            ],
+          },
+        },
+        {
+          section: "problem",
+          spec: {
+            type: "compare",
+            title: "Bank aggregation, spreadsheets, and a manual-first product",
+            caption:
+              "TallyFolio is the third option: manual-first and private, with modern product workflows built in.",
+            columns: [
+              {
+                label: "Bank aggregation",
+                items: [
+                  "Requires handing over bank credentials",
+                  "Product workflows depend on aggregation as the baseline",
+                ],
+              },
+              {
+                label: "Spreadsheets",
+                items: [
+                  "Manual and private, without bank aggregation",
+                  "Leaves out the modern product workflows people expect",
+                ],
+              },
+              {
+                label: "Manual-first TallyFolio",
+                items: [
+                  "No bank credentials required",
+                  "CSV import review before data becomes product state",
+                  "Subscriptions and recurring schedules drive the forecast",
+                  "Deterministic totals across budgets, reports, investments, and assets",
+                ],
+              },
+            ],
+          },
+        },
+        {
+          section: "technical-decisions",
+          spec: {
+            type: "flow",
+            title: "Manual-first import review",
+            caption:
+              "Raw files never persist and nothing enters the data model without an explicit review step, which keeps the privacy surface narrow.",
+            steps: [
+              {
+                label: "Choose file",
+                detail: "The user selects a CSV or XLSX export to import.",
+              },
+              {
+                label: "Parse in memory",
+                detail: "The file is parsed in memory for review. The raw file is not persisted.",
+              },
+              {
+                label: "Review",
+                detail: "The user verifies and categorizes transactions before anything is saved.",
+              },
+              {
+                label: "Save",
+                detail: "Reviewed transactions become product state.",
+              },
+              {
+                label: "Compute",
+                detail:
+                  "Budgets, reports, and forecasts recalculate in pure domain modules using integer minor units.",
+              },
+            ],
+          },
+        },
+      ],
     },
     relatedLinks: [{ label: "Live product", href: "https://tallyfolio.com" }],
   },
@@ -418,6 +640,101 @@ export const PROJECTS: Project[] = [
         "Expand product-level regression coverage around key marketplace paths so system-level changes are easier to validate.",
         "Document more workflow-specific usage guidance inside Storybook as the shared system grows.",
       ],
+      diagrams: [
+        {
+          section: "context",
+          spec: {
+            type: "layers",
+            title: "One library under four product surfaces",
+            caption:
+              "Each layer restates the same contract a level lower, so drift gets caught before it depends on a reviewer remembering.",
+            layers: [
+              {
+                label: "Four Next.js product surfaces",
+                detail:
+                  "Marketplace, authentication, product, and account experiences, integrated over GraphQL.",
+              },
+              {
+                label: "Shared React and TypeScript library",
+                detail:
+                  "Components with explicit states and escape hatches, used across every surface.",
+              },
+              {
+                label: "Storybook documentation",
+                detail:
+                  "Where each component's contract and the states it is responsible for are written down.",
+              },
+              {
+                label: "Frontend conventions",
+                detail:
+                  "Component API shape, accessibility defaults, TypeScript rules, and what reviewers push back on.",
+              },
+              {
+                label: "CI quality gates",
+                detail: "Hold the library and the product surfaces to the same baseline.",
+              },
+            ],
+          },
+        },
+        {
+          section: "problem",
+          spec: {
+            type: "compare",
+            title: "Per-surface one-offs vs a shared contract",
+            caption:
+              "Four surfaces multiply every inconsistency, so the shared contract has to be easier to use than writing a one-off.",
+            columns: [
+              {
+                label: "One-offs per surface",
+                items: [
+                  "The same empty state gets invented four times",
+                  "Accessibility handled well in one surface and forgotten in the others",
+                  "The library and the products disagree before anyone notices",
+                  "Conventions live only in reviewers' heads",
+                ],
+              },
+              {
+                label: "Shared library with gates",
+                items: [
+                  "Loading, empty, and error states defined once and reused",
+                  "Accessibility defaults built into shared components",
+                  "Storybook documents each component's states and API",
+                  "CI gates enforce the baseline instead of reviewer memory",
+                ],
+              },
+            ],
+          },
+        },
+        {
+          section: "technical-decisions",
+          spec: {
+            type: "flow",
+            title: "The same checks from editor to merge",
+            caption:
+              "Assisted development is only useful when its feedback matches what will actually block the pull request.",
+            steps: [
+              {
+                label: "Build in editor",
+                detail: "Engineers work against the shared library with Cursor and MCP tooling.",
+              },
+              {
+                label: "Editor checks",
+                detail: "MCP tooling runs the same lint, type, and test commands CI runs.",
+              },
+              {
+                label: "CI quality gates",
+                detail: "The same scripts block the pull request when the baseline breaks.",
+              },
+              {
+                label: "Code review",
+                detail:
+                  "With lint-level drift already caught, review time goes to design decisions.",
+              },
+            ],
+            loop: "The underlying scripts stay the single source of truth, so editor feedback and CI cannot drift apart.",
+          },
+        },
+      ],
     },
     relatedLinks: [
       { label: "Marketplace", href: "https://market.voxies.io" },
@@ -501,6 +818,96 @@ export const PROJECTS: Project[] = [
         "Document clearer motion and rendering budgets so new modules inherit the same constraints more consistently.",
         "Capture more product-specific evidence around embedded edge cases as part of the portfolio narrative.",
       ],
+      diagrams: [
+        {
+          section: "problem",
+          spec: {
+            type: "compare",
+            title: "Cutting the data vs cutting the rendering cost",
+            caption:
+              "Reducing what the dashboard shows would have fixed the symptom and broken the product, so the cost had to come out of rendering instead.",
+            columns: [
+              {
+                label: "Reduce what the dashboard shows",
+                items: [
+                  "Makes charts usable again on lower-powered devices",
+                  "Removes the dense data the product exists to show",
+                  "Leaves interaction and layout cost unexamined",
+                ],
+              },
+              {
+                label: "Reduce what rendering costs",
+                items: [
+                  "Keeps dense views intact",
+                  "Targets unnecessary re-renders and chart-update paint work",
+                  "Tunes desktop and embedded webview contexts separately",
+                  "Treats readability and interaction pacing as part of performance",
+                ],
+              },
+            ],
+          },
+        },
+        {
+          section: "built",
+          spec: {
+            type: "layers",
+            title: "How a dashboard module is composed",
+            caption:
+              "Splitting chart behavior from product composition let chart tuning happen without losing control of the surrounding dashboard UI.",
+            layers: [
+              {
+                label: "React product composition",
+                detail: "The dashboard UI, controls, and layout around each chart.",
+              },
+              {
+                label: "D3.js chart behavior",
+                detail:
+                  "Tailored data visualization and chart interactions, tuned on their own terms.",
+              },
+              {
+                label: "GSAP motion",
+                detail:
+                  "Used where it helps people keep their place in the data, not as decoration.",
+              },
+              {
+                label: "Shared accessible components",
+                detail:
+                  "The documented baseline dashboard modules were assembled from, instead of starting from scratch.",
+              },
+            ],
+          },
+        },
+        {
+          section: "technical-decisions",
+          spec: {
+            type: "flow",
+            title: "Performance work anchored to the webview path",
+            caption:
+              "Embedded mobile webviews surfaced animation and layout cost that desktop testing never showed, so that is where profiling started.",
+            steps: [
+              {
+                label: "Run in webview",
+                detail:
+                  "Test dashboard modules in embedded mobile webviews, not only desktop browsers.",
+              },
+              {
+                label: "Profile rendering",
+                detail: "Find unnecessary re-renders and chart-update paint work in dense views.",
+              },
+              {
+                label: "Reduce cost",
+                detail:
+                  "Cut unnecessary re-renders and chart-update paint cost on lower-powered devices by 80%.",
+              },
+              {
+                label: "Monitor release",
+                detail:
+                  "Use Sentry and Hotjar to see how dense dashboards behave after release, not only in local testing.",
+              },
+            ],
+          },
+        },
+      ],
     },
     relatedLinks: [{ label: "Company website", href: "https://emplifi.io" }],
   },
@@ -571,6 +978,70 @@ export const PROJECTS: Project[] = [
         "Capture more project-specific examples so individual product engagements can be represented separately in the portfolio.",
         "Extend the evidence set with more screenshots or implementation artifacts where public sharing is possible.",
       ],
+      diagrams: [
+        {
+          section: "problem",
+          spec: {
+            type: "compare",
+            title: "Shipping fast without guardrails vs building them early",
+            caption:
+              "Guardrails cost feature time up front, but without them every release of a workflow-heavy product gets harder to trust.",
+            columns: [
+              {
+                label: "Guardrails as later cleanup",
+                items: [
+                  "Fragile UI accumulates as requirements change underneath it",
+                  "Workflow-heavy interfaces get harder to ship every release",
+                  "Nobody trusts a deploy without manually walking the flows",
+                  "Each product rebuilds the same patterns",
+                ],
+              },
+              {
+                label: "Guardrails from the start",
+                items: [
+                  "Reusable patterns and validation invested in early",
+                  "Critical paths covered by Jest, React Testing Library, Playwright, and Cypress",
+                  "CI/CD checks around primary product paths",
+                  "Frontend patterns carried between products",
+                ],
+              },
+            ],
+          },
+        },
+        {
+          section: "technical-decisions",
+          spec: {
+            type: "flow",
+            title: "Release path for workflow-heavy products",
+            caption:
+              "Automated checks at each stage replaced ad-hoc final verification, which is what made repeated releases survivable.",
+            steps: [
+              {
+                label: "Reusable patterns",
+                detail:
+                  "Build workflows on shared validation, multi-step, and async-state patterns.",
+              },
+              {
+                label: "Component tests",
+                detail: "Jest and React Testing Library cover component and workflow behavior.",
+              },
+              {
+                label: "End-to-end tests",
+                detail: "Playwright and Cypress cover the critical paths through core workflows.",
+              },
+              {
+                label: "CI/CD checks",
+                detail:
+                  "Quality checks run in the pipeline instead of relying on manual verification.",
+              },
+              {
+                label: "Release",
+                detail: "Ship with consistent quality signals around primary product paths.",
+              },
+            ],
+          },
+        },
+      ],
     },
     relatedLinks: [{ label: "Company website", href: "https://ctrltech.org" }],
   },
@@ -638,6 +1109,72 @@ export const PROJECTS: Project[] = [
       nextImprovements: [
         "Continue refining repository-specific evaluation rules so the tools produce more useful feedback in real teams.",
         "Add more examples and integration paths that show how the tools fit into broader engineering workflows.",
+      ],
+      diagrams: [
+        {
+          section: "built",
+          spec: {
+            type: "flow",
+            title: "Where each tool checks an AI-assisted workflow",
+            caption:
+              "Each tool targets one gap in the workflow, and the final decision stays with a human reviewer.",
+            steps: [
+              {
+                label: "Repo readiness",
+                detail:
+                  "agent-readiness-kit checks for the conventions, boundaries, and validation paths that keep agent mistakes from being amplified.",
+              },
+              {
+                label: "Agent context",
+                detail:
+                  "agent-context-doctor checks the instructions, since most bad agent output traces back to weak context.",
+              },
+              {
+                label: "Agent change",
+                detail: "The agent works inside a repository whose context has been checked.",
+              },
+              {
+                label: "Structured review",
+                detail:
+                  "agent-pr-reviewer-lite sorts feedback by category and risk so a reviewer can act on it.",
+              },
+              {
+                label: "Human decision",
+                detail:
+                  "Architecture, security, validation, and final decisions stay under human engineering review.",
+              },
+            ],
+          },
+        },
+        {
+          section: "technical-decisions",
+          spec: {
+            type: "compare",
+            title: "Broad autonomous claims vs deterministic checks",
+            caption:
+              "Narrow, explicit checks make failure modes visible instead of hiding engineering judgment inside a black box.",
+            columns: [
+              {
+                label: "Broad autonomous tooling",
+                items: [
+                  "Generic AI review comments that get ignored",
+                  "Unclear about what was evaluated and what was not",
+                  "Implies review and readiness decisions are automated",
+                  "Output treated as an afterthought to the analysis",
+                ],
+              },
+              {
+                label: "Small deterministic tools",
+                items: [
+                  "Deterministic checks and explicit heuristics",
+                  "Structured feedback sorted by category and risk",
+                  "Clear about what is reported and what still needs human review",
+                  "CLI output, configuration, and documentation treated as product",
+                ],
+              },
+            ],
+          },
+        },
       ],
     },
     relatedLinks: [
@@ -731,6 +1268,61 @@ export const PROJECTS: Project[] = [
       nextImprovements: [
         "Continue exploring clearer task-based entry points for different property questions.",
         "Expand the evidence set carefully without implying official coverage or exhaustive zoning accuracy.",
+      ],
+      diagrams: [
+        {
+          section: "problem",
+          spec: {
+            type: "compare",
+            title: "A wall of bylaw detail vs a guided path",
+            caption:
+              "The value of the experiment depends on whether people can navigate the information, not on how much of it fits on one page.",
+            columns: [
+              {
+                label: "Undifferentiated detail",
+                items: [
+                  "Every detail presented at once",
+                  "Users translate bylaw language into answers themselves",
+                  "Organized around raw document structure",
+                  "Reads like an unstructured archive",
+                ],
+              },
+              {
+                label: "Task-oriented workflow",
+                items: [
+                  "A map-led overview comes first",
+                  "Filtering narrows to the information a question needs",
+                  "Progressive disclosure moves into lower-level detail later",
+                  "Framed as an experiment, not an official municipal reference",
+                ],
+              },
+            ],
+          },
+        },
+        {
+          section: "technical-decisions",
+          spec: {
+            type: "flow",
+            title: "From map overview to specific zoning detail",
+            caption:
+              "Detail appears later in the flow on purpose, so users reach it with enough context to understand it.",
+            steps: [
+              {
+                label: "Map overview",
+                detail: "Browse property context on a map-led product surface.",
+              },
+              {
+                label: "Filter",
+                detail: "Narrow zoning-related details down to what the current question needs.",
+              },
+              {
+                label: "Progressive detail",
+                detail:
+                  "Move from the overview into more specific information once the context is set.",
+              },
+            ],
+          },
+        },
       ],
     },
     relatedLinks: [

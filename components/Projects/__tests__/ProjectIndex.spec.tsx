@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 
 import { ProjectIndex } from "components/Projects/ProjectIndex";
+import { PORTFOLIO_CASE_STUDIES_TOC_ARIA_LABEL } from "data/projectsUi";
 
 jest.mock("next/link", () => {
   return function MockLink({
@@ -17,6 +18,21 @@ jest.mock("next/link", () => {
 });
 
 describe("ProjectIndex", () => {
+  it("should outline every case study with in-page links", () => {
+    render(<ProjectIndex />);
+
+    const [outline] = screen.getAllByRole("navigation", {
+      name: PORTFOLIO_CASE_STUDIES_TOC_ARIA_LABEL,
+    });
+    const links = within(outline).getAllByRole("link");
+    expect(links).toHaveLength(7);
+    expect(links[0]).toHaveAttribute("href", "#project-ledgerguard");
+    expect(within(outline).getByRole("link", { name: "MapBylaw" })).toHaveAttribute(
+      "href",
+      "#project-mapbylaw"
+    );
+  });
+
   it("should render the case-studies section with text-first index entries", () => {
     render(<ProjectIndex />);
 

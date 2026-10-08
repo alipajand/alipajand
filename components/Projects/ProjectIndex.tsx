@@ -5,18 +5,41 @@ import { useMemo } from "react";
 
 import { ProjectIndexItem } from "components/Projects/ProjectIndexItem";
 import {
+  TableOfContents,
+  TableOfContentsDisclosure,
+} from "components/TableOfContents/TableOfContents";
+import {
   PORTFOLIO_ADDITIONAL_EXPERIENCE_HEADING,
   PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_HREF,
   PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_LABEL,
+  PORTFOLIO_CASE_STUDIES_TOC_ARIA_LABEL,
 } from "data/projectsUi";
 import { EXTERNAL_LINK_NEW_TAB_HINT } from "data/pageChrome";
 import { getDedicatedCaseStudyProjects, getIndexOnlyProjects } from "utils/projects";
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
-import { FOCUS_RING, SECTION_INNER_WIDE, SECTION_RULE, SECTION_X, SECTION_Y } from "utils/visual";
+import type { PostHeading } from "utils/headings";
+import {
+  ARTICLE_TOC_ASIDE,
+  ARTICLE_TOC_GRID,
+  FOCUS_RING,
+  SECTION_INNER_WIDE,
+  SECTION_RULE,
+  SECTION_X,
+  SECTION_Y,
+} from "utils/visual";
 
 export const ProjectIndex = () => {
   const dedicatedProjects = useMemo(() => getDedicatedCaseStudyProjects(), []);
   const indexOnlyProjects = useMemo(() => getIndexOnlyProjects(), []);
+  const caseStudyHeadings = useMemo<PostHeading[]>(
+    () =>
+      dedicatedProjects.map((project) => ({
+        id: `project-${project.id}`,
+        text: project.name,
+        level: 2,
+      })),
+    [dedicatedProjects]
+  );
 
   const {
     selectors: { sectionRef },
@@ -38,10 +61,24 @@ export const ProjectIndex = () => {
           <h2 id="case-studies-heading" className="sr-only">
             Case studies
           </h2>
-          <div className="space-y-0">
-            {dedicatedProjects.map((project, index) => (
-              <ProjectIndexItem key={project.id} project={project} isFirst={index === 0} />
-            ))}
+          <div className={ARTICLE_TOC_GRID}>
+            <div className="min-w-0">
+              <TableOfContentsDisclosure
+                headings={caseStudyHeadings}
+                ariaLabel={PORTFOLIO_CASE_STUDIES_TOC_ARIA_LABEL}
+                className="mb-10 lg:hidden"
+              />
+              {dedicatedProjects.map((project, index) => (
+                <ProjectIndexItem key={project.id} project={project} isFirst={index === 0} />
+              ))}
+            </div>
+            <aside className="hidden lg:block">
+              <TableOfContents
+                headings={caseStudyHeadings}
+                ariaLabel={PORTFOLIO_CASE_STUDIES_TOC_ARIA_LABEL}
+                className={ARTICLE_TOC_ASIDE}
+              />
+            </aside>
           </div>
         </div>
       </section>
