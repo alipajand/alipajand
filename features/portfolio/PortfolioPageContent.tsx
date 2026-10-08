@@ -5,12 +5,15 @@ import type React from "react";
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import { MainReveal } from "components/MainReveal/MainReveal";
 import { ProjectIndex } from "components/Projects/ProjectIndex";
+import { PortfolioIntroParagraph } from "features/portfolio/PortfolioIntroParagraph";
+import { PortfolioProfileLinks } from "features/portfolio/PortfolioProfileLinks";
 import { PortfolioRoleFitStrip } from "features/portfolio/PortfolioRoleFitStrip";
 import { PortfolioWhatToLookFor } from "features/portfolio/PortfolioWhatToLookFor";
 import { portfolioIndexBreadcrumbs } from "data/breadcrumbs";
 import {
   PORTFOLIO_PAGE_HEADER_TITLE,
   PORTFOLIO_PAGE_INTRO,
+  PORTFOLIO_PAGE_INTRO_LINKS,
   PORTFOLIO_PROFILE_DETAILS,
 } from "data/projects";
 import { usePageHeader } from "utils/hooks/usePageHeader";
@@ -34,14 +37,18 @@ export const PortfolioPageContent = () => {
           </h1>
           <div data-header-lede className="mt-4 max-w-4xl space-y-4">
             {PORTFOLIO_PAGE_INTRO.map((paragraph) => (
-              <p key={paragraph} className="text-[15px] leading-relaxed text-muted sm:text-base">
-                {paragraph}
-              </p>
+              <PortfolioIntroParagraph
+                key={paragraph}
+                text={paragraph}
+                links={PORTFOLIO_PAGE_INTRO_LINKS}
+                className="text-[15px] leading-relaxed text-muted sm:text-base"
+              />
             ))}
             <p className="text-[15px] font-medium leading-relaxed text-foreground/85 sm:text-base">
               {PORTFOLIO_PROFILE_DETAILS}
             </p>
           </div>
+          <PortfolioProfileLinks />
           <PortfolioRoleFitStrip />
         </div>
       </header>

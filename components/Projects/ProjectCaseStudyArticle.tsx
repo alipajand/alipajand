@@ -6,6 +6,7 @@ import Link from "next/link";
 import { PostDiagram } from "components/diagrams/PostDiagram";
 import { ProjectDecisionCard } from "components/Projects/ProjectDecisionCard";
 import { ProjectFigure } from "components/Projects/ProjectFigure";
+import { ProjectLinkAnchor } from "components/Projects/ProjectLinkAnchor";
 import {
   TableOfContents,
   TableOfContentsDisclosure,
@@ -33,7 +34,7 @@ import {
   ARTICLE_SECTION_TITLE,
   ARTICLE_TOC_ASIDE,
   ARTICLE_TOC_GRID,
-  FOCUS_RING,
+  INLINE_LINK,
   LABEL_OVERLINE,
 } from "utils/visual";
 
@@ -51,8 +52,6 @@ interface CaseStudySection {
   body: ReactNode;
 }
 
-const RELATED_LINK = `inline-flex min-h-11 items-center rounded-lg border border-border bg-background/70 px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/35 hover:bg-card/70 ${FOCUS_RING}`;
-
 const Paragraph = ({ children }: { children: ReactNode }) => (
   <p className={`max-w-3xl ${ARTICLE_BODY_TEXT}`}>{children}</p>
 );
@@ -69,6 +68,16 @@ const BulletList = ({ items }: { items: string[] }) => (
       </li>
     ))}
   </ul>
+);
+
+const RelatedItem = ({ children }: { children: ReactNode }) => (
+  <li className={`flex gap-3 ${ARTICLE_BODY_TEXT}`}>
+    <span
+      aria-hidden="true"
+      className="mt-[0.7em] size-1.5 shrink-0 rounded-full bg-[var(--organic-orange)]"
+    />
+    <span>{children}</span>
+  </li>
 );
 
 export const caseStudySectionId = (projectId: string, key: SectionKey): string =>
@@ -147,29 +156,35 @@ export const ProjectCaseStudyArticle = ({
       key: "related",
       title: PROJECT_SECTION_RELATED_HEADING,
       body: (
-        <div className="flex flex-wrap gap-3">
+        <ul className="max-w-3xl space-y-2.5">
           {project.relatedLinks.map((link) => (
-            <Link key={link.href} href={link.href} className={RELATED_LINK}>
-              {link.label}
-            </Link>
+            <RelatedItem key={link.href}>
+              <ProjectLinkAnchor href={link.href} label={link.label} className={INLINE_LINK}>
+                {link.label}
+              </ProjectLinkAnchor>
+            </RelatedItem>
           ))}
           {nextProject ? (
-            <Link
-              href={
-                isDedicatedPage ? `/portfolio/${nextProject.slug}` : `#project-${nextProject.id}`
-              }
-              className={RELATED_LINK}
-            >
-              {PROJECT_SECTION_LINK_NEXT}: {nextProject.name}
-            </Link>
+            <RelatedItem>
+              <Link
+                href={
+                  isDedicatedPage ? `/portfolio/${nextProject.slug}` : `#project-${nextProject.id}`
+                }
+                className={INLINE_LINK}
+              >
+                {PROJECT_SECTION_LINK_NEXT}: {nextProject.name}
+              </Link>
+            </RelatedItem>
           ) : null}
-          <Link
-            href={isDedicatedPage ? "/portfolio#case-studies" : "#case-studies"}
-            className={RELATED_LINK}
-          >
-            {PROJECT_SECTION_LINK_BACK}
-          </Link>
-        </div>
+          <RelatedItem>
+            <Link
+              href={isDedicatedPage ? "/portfolio#case-studies" : "#case-studies"}
+              className={INLINE_LINK}
+            >
+              {PROJECT_SECTION_LINK_BACK}
+            </Link>
+          </RelatedItem>
+        </ul>
       ),
     },
   ];

@@ -1,8 +1,9 @@
 import Link from "next/link";
 
+import { ProjectLinkAnchor } from "components/Projects/ProjectLinkAnchor";
 import type { Project } from "data/projects";
-import { PROJECT_CARD_READ_CASE_STUDY } from "data/projectsUi";
-import { FOCUS_RING, LABEL_OVERLINE } from "utils/visual";
+import { projectReadCaseStudyLabel } from "data/projectsUi";
+import { FOCUS_RING, INLINE_LINK, LABEL_OVERLINE } from "utils/visual";
 
 type ProjectIndexItemProps = {
   project: Project;
@@ -11,6 +12,7 @@ type ProjectIndexItemProps = {
 
 export const ProjectIndexItem = ({ project, isFirst = false }: ProjectIndexItemProps) => {
   const tags = project.capabilityTags.slice(0, 3);
+  const caseStudyHref = project.hasDedicatedCaseStudy ? `/portfolio/${project.slug}` : null;
 
   return (
     <article
@@ -21,10 +23,29 @@ export const ProjectIndexItem = ({ project, isFirst = false }: ProjectIndexItemP
       <div className="max-w-3xl space-y-4">
         <p className={LABEL_OVERLINE}>{project.employerContext}</p>
         <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-          {project.name}
+          {caseStudyHref ? (
+            <Link
+              href={caseStudyHref}
+              className={`rounded-sm underline-offset-[6px] decoration-[var(--organic-orange)] hover:underline ${FOCUS_RING}`}
+            >
+              {project.name}
+            </Link>
+          ) : (
+            project.name
+          )}
         </h2>
         <p className="text-lg font-medium leading-snug text-foreground/90">
-          {project.caseStudyTitle}
+          {caseStudyHref ? (
+            <Link
+              href={caseStudyHref}
+              tabIndex={-1}
+              className="underline-offset-4 decoration-foreground/35 hover:underline"
+            >
+              {project.caseStudyTitle}
+            </Link>
+          ) : (
+            project.caseStudyTitle
+          )}
         </p>
         <p className="text-sm text-muted">{project.role}</p>
         <p className="text-[15px] leading-relaxed text-muted">{project.cardProblem}</p>
@@ -38,15 +59,34 @@ export const ProjectIndexItem = ({ project, isFirst = false }: ProjectIndexItemP
             </li>
           ))}
         </ul>
-        {project.hasDedicatedCaseStudy ? (
+        {caseStudyHref ? (
           <p className="pt-2">
             <Link
-              href={`/portfolio/${project.slug}`}
-              className={`inline-flex min-h-11 items-center text-sm font-medium text-foreground underline-offset-4 hover:underline ${FOCUS_RING} rounded-sm`}
+              href={caseStudyHref}
+              className={`inline-flex min-h-11 items-center gap-1.5 text-base font-medium ${INLINE_LINK}`}
             >
-              {PROJECT_CARD_READ_CASE_STUDY}
+              {projectReadCaseStudyLabel(project.name)}
+              <span aria-hidden>→</span>
             </Link>
           </p>
+        ) : null}
+        {project.relatedLinks.length > 0 ? (
+          <ul
+            aria-label={`${project.name} links`}
+            className="flex flex-wrap gap-x-5 gap-y-1 text-sm"
+          >
+            {project.relatedLinks.map((link) => (
+              <li key={link.href}>
+                <ProjectLinkAnchor
+                  href={link.href}
+                  label={link.label}
+                  className={`inline-flex min-h-11 items-center ${INLINE_LINK}`}
+                >
+                  {link.label}
+                </ProjectLinkAnchor>
+              </li>
+            ))}
+          </ul>
         ) : null}
       </div>
     </article>

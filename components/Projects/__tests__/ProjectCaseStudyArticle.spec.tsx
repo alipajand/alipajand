@@ -46,6 +46,22 @@ describe("ProjectCaseStudyArticle", () => {
     );
   });
 
+  it("should render related work as a list of text links", () => {
+    render(
+      <ProjectCaseStudyArticle project={ledgerguard} nextProject={alwaysgeeky} isDedicatedPage />
+    );
+
+    const relatedSection = document.getElementById("ledgerguard-related") as HTMLElement;
+    const items = within(relatedSection).getAllByRole("listitem");
+    expect(items).toHaveLength(4);
+    expect(
+      within(relatedSection).getByRole("link", { name: /The quiet failure mode in contract AI/ })
+    ).toHaveAttribute("href", "/writing/ledgerguard-truth-between-extraction-and-finance");
+    expect(
+      within(relatedSection).getByRole("link", { name: /Live product \(ledgerguard\.io\)/ })
+    ).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
   it("should render a single H1 on dedicated case-study pages", () => {
     render(<ProjectCaseStudyArticle project={ledgerguard} isDedicatedPage />);
 

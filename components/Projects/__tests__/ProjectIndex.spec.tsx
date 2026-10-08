@@ -64,7 +64,7 @@ describe("ProjectIndex", () => {
 
     expect(
       screen
-        .getAllByRole("link", { name: "Read case study" })
+        .getAllByRole("link", { name: /^Read the .+ case study/ })
         .map((link) => link.getAttribute("href"))
     ).toEqual([
       "/portfolio/ledgerguard",
@@ -75,6 +75,20 @@ describe("ProjectIndex", () => {
       "/portfolio/controltech",
       "/portfolio/mapbylaw",
     ]);
+  });
+
+  it("should link project titles and related links from the index", () => {
+    render(<ProjectIndex />);
+
+    const heading = screen.getByRole("heading", { level: 2, name: "LedgerGuard" });
+    expect(within(heading).getByRole("link", { name: "LedgerGuard" })).toHaveAttribute(
+      "href",
+      "/portfolio/ledgerguard"
+    );
+    const ledgerGuardLinks = screen.getByRole("list", { name: "LedgerGuard links" });
+    expect(
+      within(ledgerGuardLinks).getByRole("link", { name: /ledgerguard\.io.*opens in new tab/ })
+    ).toHaveAttribute("target", "_blank");
   });
 
   it("should render anchor ids for every case-study item", () => {

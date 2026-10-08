@@ -45,3 +45,10 @@ export const projectCaseStudyTocAriaLabel = (projectName: string): string =>
   `Table of contents for ${projectName}`;
 
 export const PORTFOLIO_CASE_STUDIES_TOC_ARIA_LABEL = "Case studies on this page";
+
+export const projectReadCaseStudyLabel = (projectName: string): string =>
+  `Read the ${projectName} case study`;
+
+export const PORTFOLIO_PROFILE_LINKS_ARIA_LABEL = "Profiles and booking";
+
+export const PORTFOLIO_PROFILE_LINK_LABELS = ["GitHub", "LinkedIn", "Book a call"] as const;
