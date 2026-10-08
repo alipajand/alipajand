@@ -1,6 +1,6 @@
 ---
 title: "Building CI tools for pull requests you don't trust"
-date: "2026-10-02"
+date: "2026-08-28"
 excerpt: "A CI check that runs on pull requests reads input written by whoever opened the PR. Lessons from hardening three small open-source tools: package names, git refs, file names, config, symlinks, and bot comments."
 seoTitle: "Building CI tools for pull requests you don't trust — Ali Pajand"
 seoDescription: "Practical security lessons for CI tools and GitHub Actions that run on untrusted pull requests: npm name squatting, option injection, workflow command injection, config from the base branch, symlinks, ReDoS, and PR comment ownership."

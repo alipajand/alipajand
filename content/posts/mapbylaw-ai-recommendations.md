@@ -1,6 +1,6 @@
 ---
 title: "Teaching MapBylaw to give honest AI recommendations"
-date: "2026-02-26"
+date: "2026-03-21"
 excerpt: "How I moved from vague, ChatGPT-flavored suggestions to grounded, auditable AI recommendations inside a real zoning and feasibility product."
 seoTitle: "Teaching MapBylaw to give honest AI recommendations — Ali Pajand"
 seoDescription: "How I moved from vague, ChatGPT-flavored suggestions to grounded, auditable AI recommendations inside a real zoning and feasibility product."

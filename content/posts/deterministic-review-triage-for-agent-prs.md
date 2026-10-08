@@ -1,6 +1,6 @@
 ---
 title: "Which agent-written changes does a human need to read?"
-date: "2026-09-29"
+date: "2026-08-08"
 excerpt: "Agent-generated pull requests touch more files than a reviewer can read with equal care. A deterministic pre-screen decides where human attention goes first, and why I kept an LLM out of that decision."
 seoTitle: "Which agent-written changes does a human need to read? — Ali Pajand"
 seoDescription: "A practical approach to triaging AI-generated pull requests with deterministic path and diff rules: auth, billing, migrations, CI, agent permissions, skipped tests, and code owners."

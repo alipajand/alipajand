@@ -1,6 +1,6 @@
 ---
 title: "The quiet failure mode in contract AI: when the UI believes the wrong row"
-date: "2026-04-21"
+date: "2026-04-10"
 excerpt: "On LedgerGuard, the hard problem is not 'can we extract dates from a PDF?' It is making renewal and spend readouts stay honest when queues, idempotent workers, and humans disagree."
 seoTitle: "The quiet failure mode in contract AI: when the UI believes the wrong row — Ali Pajand"
 seoDescription: "On LedgerGuard, the hard problem is not 'can we extract dates from a PDF?' It is making renewal and spend readouts stay honest when queues, idempotent workers, and humans disagree."

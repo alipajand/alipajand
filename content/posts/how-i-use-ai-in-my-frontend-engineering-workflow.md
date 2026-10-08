@@ -1,6 +1,6 @@
 ---
 title: "How I Use AI in My Frontend Engineering Workflow"
-date: "2026-06-19"
+date: "2026-05-20"
 excerpt: "A practical look at how I use AI in frontend engineering across planning, implementation, review, testing, and model evaluation without outsourcing engineering judgment."
 seoTitle: "How I Use AI in My Frontend Engineering Workflow — Ali Pajand"
 seoDescription: "How I use AI tools, Cursor, model testing, and coding leaderboards in day-to-day frontend engineering work across architecture, product UX, refactoring, testing, and code review."

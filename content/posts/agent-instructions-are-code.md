@@ -1,6 +1,6 @@
 ---
 title: "Agent instruction files are code. Lint them like code."
-date: "2026-09-26"
+date: "2026-07-19"
 excerpt: "AGENTS.md, CLAUDE.md, and Cursor rules steer every change an AI coding agent makes, but almost nobody reviews them. What goes wrong in those files, and the deterministic checks I built to catch it."
 seoTitle: "Agent instruction files are code. Lint them like code. — Ali Pajand"
 seoDescription: "Placeholders, risky directives, contradictions, stale commands, hidden Unicode, and risky agent settings: what goes wrong in AGENTS.md and CLAUDE.md files, and how to check them deterministically in CI."

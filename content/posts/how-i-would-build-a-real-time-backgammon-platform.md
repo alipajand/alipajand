@@ -1,6 +1,6 @@
 ---
 title: "How I would approach building a real-time backgammon platform"
-date: "2026-06-29"
+date: "2026-06-09"
 excerpt: "A practical frontend architecture approach for a chess.com-style backgammon product: real-time game state, SVG rendering, the play-improve-compete loop, accessibility, AI-assisted analysis, and the infrastructure that makes the UI trustworthy."
 seoTitle: "How I would build a real-time backgammon platform — Ali Pajand"
 seoDescription: "A senior frontend architecture approach to a chess.com-style backgammon platform: real-time gameplay, SVG rendering, WebSockets, typed state, replay, analysis, accessibility, performance, observability, and entitlements."

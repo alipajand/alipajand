@@ -1,6 +1,6 @@
 ---
 title: "How I structure a frontend that owns almost no truth"
-date: "2026-07-21"
+date: "2026-06-29"
 excerpt: "Frontend architecture is not a folder layout or a state library. It is deciding which kind of state each piece of data is, giving it exactly one owner, and making the second owner hard to create."
 seoTitle: "How I structure a frontend that owns almost no truth — Ali Pajand"
 seoDescription: "A senior approach to frontend structure in React and Next.js: single-owner state, URL as the home for shareable UI state, server and client boundaries, component tiers, props as contracts, and what those boundaries cost."

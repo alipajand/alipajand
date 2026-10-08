@@ -1,6 +1,6 @@
 ---
 title: "How I approach senior frontend architecture"
-date: "2026-06-03"
+date: "2026-04-30"
 excerpt: "A practical view of senior frontend architecture: boundaries, state, API contracts, accessibility, performance, test strategy, and the review habits that keep product UI maintainable."
 seoTitle: "How I approach senior frontend architecture — Ali Pajand"
 seoDescription: "A practical view of senior frontend architecture: boundaries, state, API contracts, accessibility, performance, test strategy, and the review habits that keep product UI maintainable."
