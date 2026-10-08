@@ -85,6 +85,13 @@ export const PORTFOLIO_PAGE_INTRO = [
   "Each write-up covers the problem, what I owned, the decisions that mattered, and what I traded away to get there. I use AI coding agents for implementation, testing, and investigation, and keep architecture, security, and final review on my side of the line.",
 ] as const;
 
+/** Phrases in PORTFOLIO_PAGE_INTRO that link to their case study (first match per paragraph). */
+export const PORTFOLIO_PAGE_INTRO_LINKS = [
+  { text: "LedgerGuard", href: "/portfolio/ledgerguard" },
+  { text: "AlwaysGeeky", href: "/portfolio/alwaysgeeky" },
+  { text: "Emplifi", href: "/portfolio/emplifi" },
+] as const;
+
 export const PORTFOLIO_PROFILE_DETAILS =
   "Based in Montreal, Canada. English: professional. French: intermediate.";
 
@@ -329,7 +336,7 @@ export const PROJECTS: Project[] = [
     relatedLinks: [
       { label: "Live product", href: "https://ledgerguard.io/" },
       {
-        label: "Related writing",
+        label: "The quiet failure mode in contract AI: when the UI believes the wrong row",
         href: "/writing/ledgerguard-truth-between-extraction-and-finance",
       },
     ],
@@ -1370,7 +1377,10 @@ export const PROJECTS: Project[] = [
     },
     relatedLinks: [
       { label: "Live product", href: "https://mapbylaw.ca/" },
-      { label: "Related writing", href: "/writing/mapbylaw-ai-recommendations" },
+      {
+        label: "Teaching MapBylaw to give honest AI recommendations",
+        href: "/writing/mapbylaw-ai-recommendations",
+      },
     ],
   },
 ];
