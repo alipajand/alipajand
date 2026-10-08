@@ -49,6 +49,11 @@ The starting stack would be React, TypeScript, Vite, React Router, TanStack Quer
 
 The useful boundaries are the queue, the review workspace, the document viewer, the field editor, and a typed API layer. The workspace coordinates ownership, drafts, selection, and completion. The viewer renders source evidence and reports selections. The editor displays values and reports edits. Neither child needs to implement the save protocol.
 
+<figure>
+  <img src="/portfolio-media/data-flow.png" alt="Architecture diagram. The review queue holds filters in the URL and opens the review workspace. The workspace owns the draft, the selected field, and the claim, and contains the document viewer and the field editor linked by one selected field ID. Every keystroke writes to draft storage, which is recovered on reload. Queue searches and debounced saves, claims, renewals, and final decisions go through the review API layer, which talks to the backend over HTTP and receives server-sent status events." width="1948" height="1476" loading="lazy" decoding="async" />
+  <figcaption>The workspace coordinates the viewer and editor; every request to the backend goes through one typed API layer.</figcaption>
+</figure>
+
 ## Give each kind of state an owner
 
 I would keep the confirmed server snapshot separate from the analyst's pending work. A background refresh should be able to update document status without replacing a half-typed correction.
