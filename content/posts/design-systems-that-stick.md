@@ -1,6 +1,6 @@
 ---
 title: "Design systems that stick"
-date: "2025-01-15"
+date: "2026-01-20"
 excerpt: "How to get adoption and keep a design system useful with better component contracts, practical documentation, and lightweight governance."
 seoTitle: "Design systems that stick — Ali Pajand"
 seoDescription: "How to get adoption and keep a design system useful with better component contracts, practical documentation, and lightweight governance."
@@ -24,6 +24,25 @@ The bypass is predictable. Engineers can assemble a one-off card, form section, 
 That is the real constraint. Adoption fails not because teams hate the system, but because the system's interface contract is incomplete where product work is busiest.
 
 Lecturing teams harder about consistency does not fix that. It confuses compliance with usability. If the fastest path to ship is bypassing the system, the system has a product problem.
+
+```diagram
+type: compare
+title: Why product teams bypass a shared system
+caption: Adoption improves when the shared path is faster than the workaround, not when compliance is enforced harder.
+columns:
+  - label: Compliance-first response
+    items:
+      - Lecture teams harder about consistency
+      - Point to a Figma frame as the spec
+      - Treat bypasses as a discipline problem
+      - Leave async, error, and recovery states undocumented
+  - label: Usability-first response
+    items:
+      - Treat the system as a product with users
+      - Cover the states product work actually hits
+      - Define accessibility, failure, and responsive behavior in the contract
+      - Read each bypass as a signal about a missing interface
+```
 
 This is not a new observation. The teams behind some of the most-cited public design systems have written about the same failure mode from the inside. GitHub's Primer team has been explicit that a design system is a product with users, not a style guide with enforcement power. Shopify's Polaris team has written about the same tension between coverage and adoption: a system only earns trust once it covers the states people actually hit in production, not the states that looked good in the first release.
 
@@ -60,6 +79,21 @@ The better response was to harden the contract:
 
 Escape hatches matter. A design system should not absorb every piece of product behavior. Domain-specific recommendation panels, authentication workflows, or contract-review controls should remain product-owned even if they are visually assembled from shared primitives.
 
+```diagram
+type: layers
+title: Where reuse belongs in a design system
+caption: Shared layers should own stable, accessible behavior, while volatile domain logic stays with the product.
+layers:
+  - label: Product-owned domain workflows
+    detail: Recommendation panels, authentication flows, and contract-review controls that orchestrate shared pieces but stay product-specific.
+  - label: Shared components with hardened contracts
+    detail: Components whose API includes accessibility, loading, disabled, error, and recovery states, plus explicit escape hatches.
+  - label: Accessible behavioral primitives
+    detail: Focus management, keyboard navigation, and semantics that every shared component can rely on.
+  - label: Versioned tokens
+    detail: Executable source of truth for visual decisions, changed with versioning and changelog discipline.
+```
+
 Stronger contracts take longer to design. The upside is that teams stop bypassing the system for problems it should have solved in the first place.
 
 If you want a public reference for what a hardened contract looks like in practice, [Radix Primitives](https://www.radix-ui.com/primitives) is a useful study even if you do not adopt it directly. It separates unstyled behavioral primitives (focus management, keyboard navigation, ARIA wiring) from visual styling, which is close to the boundary I am describing between "behavioral hooks" and "visual shell." [Adobe's React Aria](https://react-spectrum.adobe.com/react-aria/) takes the same separation further and documents the accessibility behavior each primitive guarantees, which is a good model for what "accessibility as part of the API" can look like as a written contract instead of a hope.
@@ -76,6 +110,23 @@ An all-at-once rewrite tends to create a lot of churn and resentment while still
 - Treat product teams as signal, not just consumers; if they bypassed a component, ask why.
 - Keep migration guidance near the component docs.
 - Avoid forcing a shared abstraction where the product behavior is still unsettled.
+
+```diagram
+type: flow
+title: Incremental migration away from one-off implementations
+caption: Migration works when the shared version becomes at least as easy as the local workaround, one pattern at a time.
+steps:
+  - label: Find repeated patterns
+    detail: Identify the duplicated, highest-traffic patterns worth converging first.
+  - label: Ask why they bypassed
+    detail: Treat product teams as signal. A bypass usually points to a missing state or a narrow API.
+  - label: Harden the component
+    detail: Make the shared version cover the real states and be at least as easy to use as the local workaround.
+  - label: Document the swap
+    detail: Keep migration guidance next to the component docs so the replacement is easy to find.
+  - label: Migrate incrementally
+    detail: Converge one pattern at a time and live with a mixed system instead of forcing an all-at-once rewrite.
+```
 
 Living with a mixed system for a while is fine. A design system becomes real by improving product work over time, not by declaring purity.
 

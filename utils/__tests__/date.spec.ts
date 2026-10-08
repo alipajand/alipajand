@@ -21,6 +21,15 @@ describe("utils/date", () => {
     expect(result).toBe("bad-date");
   });
 
+  it("should keep the calendar day of a date-only string in Eastern time", () => {
+    expect(formatDate("2026-09-17")).toBe("September 17, 2026");
+    expect(formatDate("2026-01-20")).toBe("January 20, 2026");
+  });
+
+  it("should show full timestamps on their Eastern calendar day", () => {
+    expect(formatDate("2026-09-18T02:00:00Z")).toBe("September 17, 2026");
+  });
+
   it("should handle another valid date string", () => {
     const result = formatDate("2025-12-31");
     expect(result).toMatch(/2025/);

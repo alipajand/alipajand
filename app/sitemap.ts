@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${CANONICAL_URL}/writing/${post.slug}`,
-    lastModified: post.date ? new Date(post.date) : new Date(),
+    lastModified: post.date || new Date(),
     changeFrequency: "monthly",
     priority: 0.7,
   }));

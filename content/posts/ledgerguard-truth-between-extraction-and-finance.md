@@ -1,6 +1,6 @@
 ---
 title: "The quiet failure mode in contract AI: when the UI believes the wrong row"
-date: "2026-04-21"
+date: "2026-04-10"
 excerpt: "On LedgerGuard, the hard problem is not 'can we extract dates from a PDF?' It is making renewal and spend readouts stay honest when queues, idempotent workers, and humans disagree."
 seoTitle: "The quiet failure mode in contract AI: when the UI believes the wrong row — Ali Pajand"
 seoDescription: "On LedgerGuard, the hard problem is not 'can we extract dates from a PDF?' It is making renewal and spend readouts stay honest when queues, idempotent workers, and humans disagree."
@@ -34,6 +34,21 @@ The probabilistic layer extracts and proposes structure from documents. It is al
 
 The deterministic layer owns typed APIs, audit trails, tenant-scoped rules, persisted read models, and the logic that decides what the UI is allowed to claim. Workers talk back through internal authenticated routes. The API validates, reconciles, and persists.
 
+```diagram
+type: layers
+title: Where proposal ends and truth begins
+caption: Extraction can be uncertain or fail without ever writing tenant truth, because only the deterministic layer decides what the UI may claim.
+layers:
+  - label: UI surfaces
+    detail: Dashboards, detail views, and review workflows read through the deterministic truth policy, never from whichever table updated last.
+  - label: Deterministic layer
+    detail: Owns typed APIs, audit trails, tenant-scoped rules, persisted read models, and the logic that decides what the UI is allowed to claim.
+  - label: Internal authenticated routes
+    detail: Workers report back through these routes so the API can validate, reconcile, and persist instead of accepting writes directly.
+  - label: Probabilistic layer
+    detail: OCR, layout parsing, and model-assisted field proposals. Allowed to be uncertain and to fail, but not to write tenant truth.
+```
+
 Letting the extraction pipeline own the final portfolio rows directly and patching edge cases later would have been simpler to ship at first, but it would have made recovery logic implicit and trust hard to explain. Once the product has both extracted fields and synthesized commitments, you need an explicit truth policy anyway.
 
 This split has a name in the broader architecture literature: it is close to the write-model/read-model separation in CQRS (Command Query Responsibility Segregation), and the "synthesis" step is functionally an event-sourced projection: a derived view rebuilt from an underlying log of facts, rather than the source of truth itself. Martin Fowler's writing on [CQRS](https://martinfowler.com/bliki/CQRS.html) and [event sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) is the clearest public explanation of why this separation earns its complexity once a system has more than one way to learn the truth about something. The cost is more state. You now have to represent honest incomplete states instead of always displaying a clean result. For LedgerGuard, that was the right trade. Finance users need to know when the ledger is incomplete more than they need a tidy card.
@@ -58,6 +73,26 @@ upload -> extract fields -> persist provenance -> synthesize commitment
 ```
 
 That lifecycle matters because each stage can succeed while a downstream stage fails. Extraction can be valid while synthesis is missing. A commitment can exist while its source provenance is no longer current. Human correction can be newer than the last synthesized output. Those states are common in document-heavy systems and needed to be designed for even when not every branch had surfaced in production yet.
+
+```diagram
+type: flow
+title: The contract lifecycle and its points of disagreement
+caption: Each stage can succeed while a downstream stage fails, so the UI has to read a reconciled truth state rather than the latest write.
+steps:
+  - label: Upload and extract
+    detail: A contract is queued for OCR and extraction, which produces field-level proposals with source evidence.
+  - label: Persist provenance
+    detail: The deterministic API stores the fields and records where each one came from.
+  - label: Synthesize
+    detail: Verified field combinations become a cleaner commitment row used by portfolio views. Replayed workers hit idempotent callbacks instead of duplicating work.
+  - label: Human review
+    detail: A reviewer verifies or corrects a field that is incomplete, wrong, or ambiguous.
+  - label: Resynthesize
+    detail: If a correction invalidates the synthesized commitment, the state is marked honestly as incomplete until resynthesis or reconciliation.
+  - label: UI reads truth
+    detail: Surfaces read through the deterministic truth policy and show a clean state only when field evidence and commitment align.
+loop: Corrections and replays send the contract back through synthesis and reconciliation instead of silently overwriting the displayed value.
+```
 
 If you want a concrete worked example of "what does idempotent worker design actually look like," AWS's own architecture guidance on [building idempotent Lambda functions](https://docs.aws.amazon.com/lambda/latest/operatorguide/idempotency.html) and Stripe's public writing on [idempotent API requests](https://stripe.com/blog/idempotency) are both good references. Stripe's in particular, because payments has the same "a retry must never become a duplicate" requirement that a financial-document pipeline has.
 
@@ -95,6 +130,25 @@ Review workflows need the opposite bias from dashboard cards. A dashboard card w
 The most important trade-off is also the least glamorous one: preferring honest incomplete states over always displaying a polished result.
 
 That means more visual states, more warning copy, and more engineering time spent on reconciliation instead of only on the happy path. It also means accepting that some portfolio views will show "not yet aligned" instead of a confidently filled card.
+
+```diagram
+type: compare
+title: Always-clean cards vs. honest incomplete states
+caption: Showing drift costs extra UI states and copy, but it keeps a stale or unsupported value from looking like settled financial truth.
+columns:
+  - label: Always show a clean renewal card
+    items:
+      - Reads the commitment row or the latest write
+      - Stale or partial values look as confident as verified ones
+      - Human corrections can disappear behind a stale synthesized row
+      - Pipeline failures stay invisible to the user
+  - label: Show only what the evidence supports
+    items:
+      - Reads through explicit truth precedence rules
+      - "Incomplete, stale, and conflicting states are labeled as such"
+      - Human-corrected fields stay authoritative until resynthesis
+      - Read models surface drift instead of flattening it away
+```
 
 If a model or worker pipeline is wrong, the failure should be visible. If a human has corrected a source field, that correction should not disappear behind a stale synthesized row. If the product cannot support a claim with current provenance, it should not present the claim as settled.
 

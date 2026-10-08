@@ -1,6 +1,6 @@
 ---
 title: "How I structure a frontend that owns almost no truth"
-date: "2026-07-21"
+date: "2026-06-29"
 excerpt: "Frontend architecture is not a folder layout or a state library. It is deciding which kind of state each piece of data is, giving it exactly one owner, and making the second owner hard to create."
 seoTitle: "How I structure a frontend that owns almost no truth — Ali Pajand"
 seoDescription: "A senior approach to frontend structure in React and Next.js: single-owner state, URL as the home for shareable UI state, server and client boundaries, component tiers, props as contracts, and what those boundaries cost."
@@ -29,6 +29,25 @@ The tempting fix is to sync: keep the state in `useState`, mirror it into the UR
 
 The fix was deletion, not addition. Filters are URL state. The URL is the only owner. Components read from search params and write by navigation. There is nothing to sync because there is nothing else holding the value.
 
+```diagram
+type: compare
+title: Syncing two owners versus one owner for filter state
+caption: The sync bugs disappear when the second owner is deleted rather than guarded.
+columns:
+  - label: Component state mirrored into the URL
+    items:
+      - useState holds the filters and an effect writes them to the URL
+      - Back navigation changes the URL but not the state, so it re-syncs
+      - URL writes feed back into state and need a guard flag
+      - Every fix adds another edge case
+  - label: URL as the only owner
+    items:
+      - Filters live in search params and nowhere else
+      - Components read from the URL and write by navigation
+      - Refresh, share, back button, and deep links work without extra code
+      - Nothing to sync because nothing else holds the value
+```
+
 That reframed the whole layer for me. Before adding state anywhere, the question is not "where is this convenient" but "what kind of state is this," and the kind determines the owner.
 
 ## Four kinds, four owners
@@ -42,6 +61,23 @@ That reframed the whole layer for me. Before adding state anywhere, the question
 **Ephemeral interaction state** is genuinely local: open menus, hover, drag position, which row is expanded, an optimistic pending flag. It lives in the component that owns the interaction and dies with it. Almost none of this deserves promotion to a shared store.
 
 The fifth category is the one that causes the most damage: **derived state, which is not state.** A filtered list, a computed total, a validity flag, a formatted label. Storing these means storing the same information twice and writing an effect to keep the copies in agreement. Compute them during render, or compute them before they reach the client. An effect whose only job is to keep two pieces of your own state consistent is a design error, not a synchronization problem.
+
+```diagram
+type: layers
+title: Each kind of state and its single owner
+caption: Deciding the kind of state first is what decides where it lives.
+layers:
+  - label: Server data
+    detail: Owned by the server and cached on the client, with a fetch, staleness, and invalidation story. Never copied into local state to edit in place.
+  - label: URL state
+    detail: Anything that should survive a refresh, a share, or a back button, such as filters, tabs, pagination, selection, and sort.
+  - label: Form state
+    detail: Owned by the form library from mount to submit. A half-typed field is not a fact about the system.
+  - label: Ephemeral interaction state
+    detail: Open menus, hover, drag position, expanded rows, optimistic pending flags. Lives and dies in the component that owns the interaction.
+  - label: Derived state (not state)
+    detail: Filtered lists, totals, validity flags, formatted labels. Computed during render or before reaching the client, never stored.
+```
 
 ## The server and client boundary needs enforcement, not etiquette
 
@@ -64,6 +100,19 @@ Components fall into three tiers, and the tier is decided by what the component 
 **Route compositions** know everything: they fetch, arrange, pass callbacks down, and own the page's structure.
 
 Dependencies point one way. Primitives never import domain components. Domain components never import route code. When someone reaches for a domain concept inside a primitive, that is the signal a new domain component is missing.
+
+```diagram
+type: layers
+title: Three component tiers with one dependency direction
+caption: A tier is defined by what a component is allowed to know, and imports only point downward.
+layers:
+  - label: Route compositions
+    detail: Know everything. They fetch, arrange, pass callbacks down, and own the page's structure.
+  - label: Domain components
+    detail: Know the shape of a domain object but not where it came from. Typed props in, callbacks out, no fetching or global state.
+  - label: Primitives
+    detail: Know nothing about the domain. Button, dialog, field, table shell, sheet, and the only place styling is expressed.
+```
 
 The test for which tier a component belongs to: could it be rendered in isolation with hand-written props? If not, it is a route composition wearing a smaller name.
 

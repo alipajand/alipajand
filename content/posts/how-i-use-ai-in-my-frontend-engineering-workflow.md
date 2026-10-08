@@ -1,6 +1,6 @@
 ---
 title: "How I Use AI in My Frontend Engineering Workflow"
-date: "2026-06-19"
+date: "2026-05-20"
 excerpt: "A practical look at how I use AI in frontend engineering across planning, implementation, review, testing, and model evaluation without outsourcing engineering judgment."
 seoTitle: "How I Use AI in My Frontend Engineering Workflow — Ali Pajand"
 seoDescription: "How I use AI tools, Cursor, model testing, and coding leaderboards in day-to-day frontend engineering work across architecture, product UX, refactoring, testing, and code review."
@@ -22,6 +22,24 @@ The best results come when I use AI in structured stages: understanding the prob
 My main use case is not asking AI to build the whole feature. I get much better results when I treat it like a collaborator that needs context, constraints, and clear acceptance criteria.
 
 For frontend work, that means I use AI to think through product flows, async states, loading and error behavior, component boundaries, API contract assumptions, and accessibility risks before implementation starts. This is especially useful for workflow-heavy products where the happy path is only a small part of the real product.
+
+```diagram
+type: flow
+title: Using AI in structured stages, not one big prompt
+caption: Each stage gives the AI narrower context and gives me a checkpoint before the next one.
+steps:
+  - label: Understand
+    detail: Frame the problem first, including user states, async behavior, API assumptions, and accessibility risks.
+  - label: Explore tradeoffs
+    detail: Ask for alternative approaches and compare them against my own plan instead of accepting the first answer.
+  - label: Generate options
+    detail: Use AI for implementation options and structured changes, with explicit boundaries on what it can touch.
+  - label: Review edge cases
+    detail: Ask it to look for missing states, fragile assumptions, test gaps, and changes broader than intended.
+  - label: Validate
+    detail: Confirm the result with tests, type checks, accessibility checks, CI, and my own review.
+loop: Validation failures send the work back to an earlier stage with better context.
+```
 
 AI helps me move faster, but it does not remove the responsibility to understand the system. I still need to know what should be built, why it matters, what can go wrong, and how the result should behave in production.
 
@@ -56,6 +74,25 @@ The key is giving the AI enough context. A vague prompt usually produces vague c
 - The tests or checks that should pass
 
 I try to be very explicit about boundaries. If I want Cursor to update a component, I tell it whether it can change the API, whether it can touch styling, whether it should preserve behavior, and what files are off-limits.
+
+```diagram
+type: compare
+title: A vague prompt versus a scoped implementation task
+caption: The quality of AI-generated code tracks the quality of the boundaries it is given.
+columns:
+  - label: Vague prompt
+    items:
+      - States the goal and little else
+      - Leaves the tool to guess which files and APIs it can change
+      - No acceptance criteria, so done is whatever it produces
+      - Product and architecture decisions get made by accident
+  - label: Scoped task
+    items:
+      - Goal, files involved, and constraints stated up front
+      - Explicit about what not to change and which files are off-limits
+      - Points at the existing patterns to follow
+      - Names the tests and checks that should pass
+```
 
 That makes the AI more useful and safer. It also keeps me in control of the architecture instead of letting the tool make product decisions by accident. For deterministic checks specifically (lint, typecheck, tests), I have moved those into the editor itself rather than relying on AI judgment or waiting for CI; I write about why in [Moving deterministic checks into the editor with MCP](/writing/why-i-automate-code-review-with-mcp).
 
@@ -111,6 +148,25 @@ There are parts of the work I do not hand over blindly:
 - User-facing claims or metrics
 
 AI can help generate options, but it cannot own the consequences. If I ship it, I am responsible for it.
+
+```diagram
+type: compare
+title: Where AI helps and where I keep ownership
+caption: AI can widen the options, but the decisions with consequences stay with the engineer who ships them.
+columns:
+  - label: AI can help with
+    items:
+      - Generating alternative approaches to compare against my plan
+      - Refactors, component extraction, and test scaffolding
+      - Pre-review passes for edge cases, test gaps, and unclear APIs
+      - Multi-file changes that follow an existing pattern
+  - label: I keep ownership of
+    items:
+      - Product judgment and architecture direction
+      - Accessibility, security-sensitive, and data model decisions
+      - Final code review and production release judgment
+      - User-facing claims or metrics
+```
 
 This is especially important in AI-assisted product interfaces. When the product itself uses AI, the interface has to make uncertainty visible. AI-suggested data and user-confirmed data should not look the same. Review flows, confidence states, source context, and error states need deliberate product decisions, not generic UI. This is the exact problem I worked through on a real product in [the LedgerGuard truth-precedence writeup](/writing/ledgerguard-truth-between-extraction-and-finance) and [the MapBylaw recommendations writeup](/writing/mapbylaw-ai-recommendations).
 

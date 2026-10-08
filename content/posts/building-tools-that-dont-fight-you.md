@@ -1,6 +1,6 @@
 ---
 title: "Building tools that don't fight you"
-date: "2026-02-26"
+date: "2026-03-01"
 excerpt: "A short framework for evaluating whether a design system, developer tool, or AI feature is actually helping the work instead of adding another layer around it."
 seoTitle: "Building tools that don't fight you — Ali Pajand"
 seoDescription: "A short framework for evaluating whether a design system, developer tool, or AI feature is actually helping the work instead of adding another layer around it."
@@ -26,6 +26,23 @@ I use a simple framework to tell whether a tool is helping or just adding ceremo
 
 If several answers are no, the tool is probably fighting its users, no matter how polished the implementation looks.
 
+```diagram
+type: flow
+title: The adoption test for any tool
+caption: A tool earns adoption only when it passes these checks, whatever kind of tool it is.
+steps:
+  - label: At the decision
+    detail: The tool appears where the decision happens, not in a wiki or a late CI run.
+  - label: Explicit contract
+    detail: Its rules and boundaries are stated, not discovered by trial and error.
+  - label: Visible failure
+    detail: When something fails, the tool says what failed and why.
+  - label: Safe override
+    detail: Users have a controlled way to handle cases the shared path does not cover yet.
+  - label: Easier than bypass
+    detail: The preferred path is the path of least resistance, like a golden path or paved road.
+```
+
 That fifth question is not a phrase I invented. It is close to what platform engineering teams call a "golden path," a term Spotify popularized internally (borrowed, by their own account, from the Frank Herbert novel) and that Netflix calls a "paved road." The idea in both cases is the same: the supported way to do something should be the path of least resistance, not a rule enforced after the fact. A platform team that builds the correct path and then has to police people away from the workaround has usually built the wrong path. I am applying the same test to design systems, editor tooling, and AI features, but the underlying mechanism is identical to what platform engineering has been calling out for years at infrastructure scale.
 
 ## How tools fight their users
@@ -37,6 +54,23 @@ They live in the wrong place. The design system hides in a wiki nobody checks du
 They also hide too much. A component looks reusable until a real accessibility or failure state appears. A local tool runs commands but does not explain what failed. A recommendation engine gives advice without showing its limits.
 
 And they are often easier to bypass than to use properly. That is the clearest failure signal. When a one-off component, a skipped check, or a generic prompt is the path of least resistance, the system has an adoption problem, not just a documentation problem. This is exactly the failure mode platform engineering literature flags when it talks about "rumor-driven development": the state where the documented process exists, but nobody follows it because tribal knowledge and workarounds are faster, so the org ends up running on whatever the most senior person in the room remembers from last time.
+
+```diagram
+type: compare
+title: Tools that fight users versus tools that support them
+caption: The same three failure modes show up across design systems, editor tooling, and AI features.
+columns:
+  - label: Tool that fights its users
+    items:
+      - Lives in the wrong place, like a wiki or a late CI run
+      - Hides rules, failure states, and limits
+      - Workaround is faster than the supported path
+  - label: Tool that supports the work
+    items:
+      - Appears at the moment of decision
+      - Shows its contract, its failures, and its limits
+      - Supported path is easier, with a controlled way to deviate
+```
 
 ## The same pattern in three different systems
 

@@ -56,6 +56,8 @@ describe("utils/metadata", () => {
       date: "2025-01-01",
       excerpt: "Short excerpt for meta.",
       contentHtml: "<p>x</p>",
+      headings: [],
+      diagrams: [],
     });
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/writing/my-post`);
     const articleOg = m.openGraph as {
@@ -82,6 +84,8 @@ describe("utils/metadata", () => {
       seoTitle: "SEO Title Override",
       seoDescription: "SEO description override.",
       contentHtml: "<p>x</p>",
+      headings: [],
+      diagrams: [],
     });
     expect(m.title).toEqual({ absolute: "SEO Title Override" });
     expect(m.description).toBe("SEO description override.");

@@ -6,6 +6,9 @@ import { load } from "js-yaml";
 import { marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 
+import { extractDiagramBlocks, type DiagramSpec } from "utils/diagramBlocks";
+import { addHeadingIds, type PostHeading } from "utils/headings";
+
 const LANG_ALIASES: Record<string, string> = {
   tsx: "typescript",
   jsx: "javascript",
@@ -73,7 +76,11 @@ export interface Post {
   featured?: boolean;
   tags?: string[];
   contentHtml: string;
+  headings: PostHeading[];
+  diagrams: DiagramSpec[];
 }
+
+export type PostSummary = Omit<Post, "contentHtml" | "headings" | "diagrams">;
 
 const getPostSlugs = (): string[] => {
   if (!readdirSync(POSTS_DIR, { withFileTypes: true })) return [];
@@ -83,7 +90,7 @@ const getPostSlugs = (): string[] => {
     .filter((slug) => slug.length > 0);
 };
 
-export const getAllPosts = (): Omit<Post, "contentHtml">[] => {
+export const getAllPosts = (): PostSummary[] => {
   const slugs = getPostSlugs();
   return slugs
     .map((slug) => {
@@ -109,42 +116,50 @@ export const getAllPosts = (): Omit<Post, "contentHtml">[] => {
     .sort((a, b) => b.date.localeCompare(a.date));
 };
 
-export const getPostBySlug = (slug: string): Post | null => {
+const readPostFile = (slug: string): string | null => {
   try {
-    const path = join(POSTS_DIR, `${slug}.md`);
-    const raw = readFileSync(path, "utf-8");
-    const { data, content } = parseFrontmatter(raw);
-    const fm = data as unknown as PostFrontmatter;
-    const contentHtml = marked.parse(content, { async: false }) as string;
-    return {
-      slug,
-      title: fm.title ?? slug,
-      date: fm.date ?? "",
-      excerpt: fm.excerpt ?? "",
-      ...(typeof fm.seoTitle === "string" && fm.seoTitle.length > 0
-        ? { seoTitle: fm.seoTitle }
-        : {}),
-      ...(typeof fm.seoDescription === "string" && fm.seoDescription.length > 0
-        ? { seoDescription: fm.seoDescription }
-        : {}),
-      ...(fm.featured === true ? { featured: true as const } : {}),
-      ...(Array.isArray(fm.tags) && fm.tags.length > 0 ? { tags: fm.tags as string[] } : {}),
-      contentHtml,
-    };
+    return readFileSync(join(POSTS_DIR, `${slug}.md`), "utf-8");
   } catch {
     return null;
   }
 };
 
-export const getLatestPosts = (count: number): Omit<Post, "contentHtml">[] => {
+export const getPostBySlug = (slug: string): Post | null => {
+  const raw = readPostFile(slug);
+  if (raw === null) return null;
+
+  const { data, content } = parseFrontmatter(raw);
+  const fm = data as unknown as PostFrontmatter;
+  const { markdown, diagrams } = extractDiagramBlocks(content);
+  const { html: contentHtml, headings } = addHeadingIds(
+    marked.parse(markdown, { async: false }) as string
+  );
+  return {
+    slug,
+    title: fm.title ?? slug,
+    date: fm.date ?? "",
+    excerpt: fm.excerpt ?? "",
+    ...(typeof fm.seoTitle === "string" && fm.seoTitle.length > 0 ? { seoTitle: fm.seoTitle } : {}),
+    ...(typeof fm.seoDescription === "string" && fm.seoDescription.length > 0
+      ? { seoDescription: fm.seoDescription }
+      : {}),
+    ...(fm.featured === true ? { featured: true as const } : {}),
+    ...(Array.isArray(fm.tags) && fm.tags.length > 0 ? { tags: fm.tags as string[] } : {}),
+    contentHtml,
+    headings,
+    diagrams,
+  };
+};
+
+export const getLatestPosts = (count: number): PostSummary[] => {
   return getAllPosts().slice(0, count);
 };
 
 export const getPostsForWritingSection = (
   recentCount: number
 ): {
-  featured: Omit<Post, "contentHtml"> | null;
-  recent: Omit<Post, "contentHtml">[];
+  featured: PostSummary | null;
+  recent: PostSummary[];
 } => {
   const all = getAllPosts();
   const featured = all.find((p) => p.featured === true) ?? null;

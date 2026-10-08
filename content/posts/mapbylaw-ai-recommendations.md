@@ -1,6 +1,6 @@
 ---
 title: "Teaching MapBylaw to give honest AI recommendations"
-date: "2026-02-26"
+date: "2026-03-21"
 excerpt: "How I moved from vague, ChatGPT-flavored suggestions to grounded, auditable AI recommendations inside a real zoning and feasibility product."
 seoTitle: "Teaching MapBylaw to give honest AI recommendations — Ali Pajand"
 seoDescription: "How I moved from vague, ChatGPT-flavored suggestions to grounded, auditable AI recommendations inside a real zoning and feasibility product."
@@ -22,6 +22,25 @@ Generic recommendation output can sound plausible without being tied tightly eno
 The architectural problem was just as important. The Fastify API, the React dashboard, and the React-PDF report did not yet share one obvious recommendation contract. That made it harder to prove what the model had seen, harder to validate what it returned, and harder to guarantee that the dashboard and PDF rendered the same thing.
 
 Keeping the recommendations loosely typed and treating them as presentation copy would have been faster short term, but it would have created drift between API payloads, product UI, and report output at the exact point where users expect consistency.
+
+```diagram
+type: compare
+title: Recommendations as copy vs. recommendations as a contract
+caption: Treating recommendations as presentation copy is faster at first, but only a shared contract keeps the API, dashboard, and PDF saying the same defensible thing.
+columns:
+  - label: Loosely typed presentation copy
+    items:
+      - Model speaks freely, loosely tied to parcel, zoning, and scenario data
+      - Hard to prove what the model actually saw
+      - Hard to validate what it returned
+      - API payloads, dashboard, and PDF drift apart
+  - label: Typed recommendation service
+    items:
+      - Narrow context built only from verified product inputs
+      - Constrained output schema with known scenarios and allowed types
+      - Malformed or unsupported responses rejected at the API boundary
+      - One typed payload rendered by both dashboard and PDF
+```
 
 ## Solution: narrow context and typed output
 
@@ -126,6 +145,24 @@ A narrow context builder will not produce sweeping strategic commentary. It will
 ## End-to-end flow: from domain data to dashboard and PDF
 
 The full flow matters more than the prompt.
+
+```diagram
+type: flow
+title: From verified domain data to dashboard and PDF
+caption: The model sits in the middle of a typed pipeline, so every recommendation traces back to inputs the product already trusts.
+steps:
+  - label: Verified inputs
+    detail: The property analysis pipeline produces zoning data, PUM 2050 sector, heritage and climate flags, feasibility signals, and computed scenarios.
+  - label: Narrow context
+    detail: The recommendation orchestrator builds the context payload from those verified fields only, with instructions aligned to the report content policy.
+  - label: Structured output
+    detail: The model returns a structured recommendation tied to a known scenario, an allowed recommendation type, and cited inputs.
+  - label: Schema validation
+    detail: The payload is validated through the same contract used at the API boundary. Malformed or unsupported responses are rejected, not cleaned up.
+  - label: Shared payload
+    detail: The accepted result becomes typed application state that powers both the in-app recommendation card and the PDF report section.
+loop: When policy, incentive, or scenario rules change, the context builder and schema update with them.
+```
 
 First, the property analysis pipeline produces verified domain inputs: zoning data, PUM 2050 sector, heritage and climate flags, feasibility signals, and scenario outputs. Those inputs already exist because the rest of the product depends on them.
 

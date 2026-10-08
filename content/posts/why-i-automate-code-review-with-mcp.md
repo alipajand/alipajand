@@ -1,6 +1,6 @@
 ---
 title: "Moving deterministic checks into the editor with MCP"
-date: "2026-01-15"
+date: "2026-02-09"
 excerpt: "Why I use MCP to run deterministic local checks in the editor, what that buys over scripts or hooks alone, and where human review still starts."
 seoTitle: "Moving deterministic checks into the editor with MCP — Ali Pajand"
 seoDescription: "Why I use MCP to run deterministic local checks in the editor, what that buys over scripts or hooks alone, and where human review still starts."
@@ -13,6 +13,10 @@ Code review should spend human attention on behavior, architecture, naming, and 
 
 That is why I moved deterministic checks into the editor with [MCP](https://modelcontextprotocol.io/), the Model Context Protocol, the open standard Anthropic introduced for connecting LLM applications to external tools and data sources. Not because lint, typecheck, and tests are "full code review," but because they are the wrong things to discover late.
 
+```diagram
+type: mcp-workflow
+```
+
 ## Why MCP instead of a shell script, hook, or CI-only loop
 
 Shell scripts, Git hooks, and CI all have value. I still use local scripts and I still trust CI as the authoritative merge gate.
@@ -20,6 +24,28 @@ Shell scripts, Git hooks, and CI all have value. I still use local scripts and I
 The question was where deterministic feedback should appear first.
 
 A shell script is easy to write, but it still depends on the developer deciding when to run it and then parsing terminal output manually. A Git hook runs automatically, but usually at a fixed moment like pre-commit or pre-push, which is later than I want and less flexible. CI is essential, but it is the slowest place to learn about a broken type or test.
+
+```diagram
+type: compare
+title: Where deterministic feedback shows up first
+caption: The same checks are more useful when they surface in the editor, at the moment the code changes.
+columns:
+  - label: Shell script
+    items:
+      - Developer decides when to run it
+      - Terminal output parsed by hand
+      - Easy to write, easy to skip
+  - label: Git hook or CI only
+    items:
+      - Runs automatically, but at a fixed moment
+      - Hooks fire at pre-commit or pre-push, later than ideal
+      - CI is authoritative but the slowest loop for the author
+  - label: MCP in the editor
+    items:
+      - Runs where the decision happens, attached to changed files
+      - Returns structured results tooling can interpret
+      - Allowlisted commands with timeouts and output limits
+```
 
 MCP was the right fit because it put the checks where the decision happens: inside the editor, attached to the files being changed, with structured results tooling can interpret instead of just printing.
 
@@ -57,6 +83,21 @@ The point is to make the local loop fast and safe, not to pretend the local loop
 This is where the distinction matters most.
 
 Local MCP-driven checks are for early feedback. CI is still the authoritative shared environment. It is the merge gate, the branch-level record, and the place where the full repository runs in a standardized context.
+
+```diagram
+type: flow
+title: From local edit to human review
+caption: Each stage answers a different question, so review time can start where deterministic checking stops.
+steps:
+  - label: Edit code
+    detail: The engineer changes a feature in the editor.
+  - label: Local MCP checks
+    detail: Allowlisted lint, typecheck, and test commands surface obvious breakage early, with structured, file-aware results.
+  - label: CI gate
+    detail: The full project runs in the shared environment the team trusts for integration and merging.
+  - label: Human review
+    detail: Reviewers judge the problem, ownership boundaries, naming, failure handling, and product, security, or accessibility trade-offs.
+```
 
 The local loop answers: "Did I just break something obvious while editing this feature?"
 
