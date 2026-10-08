@@ -151,6 +151,13 @@ export const getPostBySlug = (slug: string): Post | null => {
   };
 };
 
+/** Post body as authored Markdown, without frontmatter. Used for plain-text exports. */
+export const getPostMarkdown = (slug: string): string | null => {
+  const raw = readPostFile(slug);
+  if (raw === null) return null;
+  return parseFrontmatter(raw).content.trim();
+};
+
 export const getLatestPosts = (count: number): PostSummary[] => {
   return getAllPosts().slice(0, count);
 };

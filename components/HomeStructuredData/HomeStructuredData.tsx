@@ -22,6 +22,7 @@ export const HomeStructuredData = () => {
     jobTitle: PERSON_SCHEMA_JOB_TITLE,
     description: SITE_META_DESCRIPTION,
     knowsAbout: KEYWORDS,
+    knowsLanguage: ["English", "French"],
     address: {
       "@type": "PostalAddress",
       addressLocality: PERSON_SCHEMA_ADDRESS_LOCALITY,

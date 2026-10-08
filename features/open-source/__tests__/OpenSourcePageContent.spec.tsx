@@ -6,12 +6,11 @@ import {
   OPEN_SOURCE_CTA_PRIMARY_LABEL,
   OPEN_SOURCE_CTA_SECONDARY_HREF,
   OPEN_SOURCE_CTA_SECONDARY_LABEL,
-  OPEN_SOURCE_FEATURED_HEADING,
+  OPEN_SOURCE_PROJECTS_HEADING,
   OPEN_SOURCE_HEADER_HEADING,
   OPEN_SOURCE_PROJECTS,
   OPEN_SOURCE_SHARED_PRINCIPLES,
   OPEN_SOURCE_SHARED_PRINCIPLES_HEADING,
-  OPEN_SOURCE_SUPPORTING_HEADING,
 } from "data/openSourcePage";
 
 jest.mock("features/open-source/hooks/useOpenSourcePageContent", () => ({
@@ -19,8 +18,7 @@ jest.mock("features/open-source/hooks/useOpenSourcePageContent", () => ({
     selectors: {
       headerRef: { current: null },
       contentRef: { current: null },
-      featuredProjects: OPEN_SOURCE_PROJECTS.filter((project) => project.featured),
-      supportingProjects: OPEN_SOURCE_PROJECTS.filter((project) => !project.featured),
+      projects: OPEN_SOURCE_PROJECTS,
     },
   })),
 }));
@@ -52,19 +50,17 @@ describe("OpenSourcePageContent", () => {
     });
   });
 
-  it("should feature the two marked featured projects first", () => {
+  it("should list every project in a single Projects section", () => {
     const { container } = render(<OpenSourcePageContent />);
 
-    expect(screen.getByRole("heading", { name: OPEN_SOURCE_FEATURED_HEADING })).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: OPEN_SOURCE_SUPPORTING_HEADING })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: OPEN_SOURCE_PROJECTS_HEADING })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "More tooling" })).not.toBeInTheDocument();
 
-    const featuredTitles = Array.from(
+    const projectTitles = Array.from(
       container.querySelectorAll("[data-open-source-project] h3")
     ).map((heading) => heading.textContent);
 
-    expect(featuredTitles).toEqual(["agent-context-doctor", "agent-pr-reviewer-lite"]);
+    expect(projectTitles).toEqual(OPEN_SOURCE_PROJECTS.map((project) => project.title));
   });
 
   it("should render status and capability labels without GitHub stats copy", () => {

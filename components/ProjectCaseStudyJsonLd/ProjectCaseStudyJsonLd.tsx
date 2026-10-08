@@ -15,6 +15,14 @@ export const ProjectCaseStudyJsonLd = ({ project }: ProjectCaseStudyJsonLdProps)
     name: `${project.name} Case Study`,
     description: project.caseStudyMetaDescription,
     url,
+    inLanguage: "en",
+    image: [`${CANONICAL_URL}/opengraph-image`],
+    keywords: project.capabilityTags.join(", "),
+    about: {
+      "@type": "CreativeWork",
+      name: project.name,
+      description: project.cardProblem,
+    },
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": url,
