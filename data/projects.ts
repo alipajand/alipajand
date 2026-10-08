@@ -80,6 +80,7 @@ export const PORTFOLIO_PAGE_HEADER_TITLE = "Portfolio";
 
 export const PORTFOLIO_PAGE_INTRO = [
   "Nine-plus years of production web work, with frontend architecture as the specialization: React, Next.js, TypeScript, shared component systems, accessibility, and rendering performance in interfaces dense enough that those things decide whether the product is usable.",
+  "The staff-level part is leverage, not a title: my roles were Senior, and the evidence is specific. At AlwaysGeeky I owned the shared design system four product surfaces were built on, wrote the design docs for its library and convention changes, drove adoption with the engineers building those surfaces, and mentored through pairing and code review. The standards were enforced in CI rather than by memory.",
   "The case studies below are ordered by how much they show. LedgerGuard is a product I own end to end, from the Next.js App Router frontend through the Fastify API, PostgreSQL schema, and queue-backed document pipeline. AlwaysGeeky is the shared React and TypeScript library four product surfaces were built on, along with the conventions and CI gates that kept them consistent. Emplifi is dense D3 analytics and the rendering work that made it survive mobile webviews.",
   "Each write-up covers the problem, what I owned, the decisions that mattered, and what I traded away to get there. I use AI coding agents for implementation, testing, and investigation, and keep architecture, security, and final review on my side of the line.",
 ] as const;
@@ -1187,18 +1188,25 @@ export const PROJECTS: Project[] = [
     slug: "mapbylaw",
     hasDedicatedCaseStudy: true,
     name: "MapBylaw",
-    caseStudyTitle: "Product Experiment",
-    caseStudyMetaTitle: "MapBylaw — Product Experiment · Ali Pajand",
+    caseStudyTitle: "AI-Assisted Zoning Exploration",
+    caseStudyMetaTitle: "MapBylaw — AI-Assisted Zoning Exploration · Ali Pajand",
     caseStudyMetaDescription:
-      "Product experiment for navigating zoning and bylaw information through a clearer frontend workflow. Information architecture, filtering UI, and progressive disclosure. Ali Pajand.",
-    employerContext: "Independent product experiment around zoning and bylaw navigation.",
+      "Case study: An independent, experimental zoning and property-feasibility product for Montreal. Map-led information architecture, plus AI recommendations built as a typed contract shared by a Fastify API, React dashboard, and React-PDF report. Ali Pajand.",
+    employerContext:
+      "Independent, experimental zoning and property-feasibility product for Montreal.",
     cardProblem:
-      "Product experiment for exploring zoning and bylaw information through a clearer, more navigable frontend experience. Included to show product thinking and workflow design outside of a team context.",
+      "An independent zoning and property-feasibility experiment for Montreal. Beyond the map-led exploration UI, the hard part was AI recommendations: one typed contract shared by the Fastify API, the React dashboard, and the React-PDF report, fed only inputs the product had already verified, with out-of-schema output rejected instead of cleaned up.",
     role: "Independent / Product experiment",
-    capabilityTags: ["Information architecture", "Filtering UI", "Workflow UX", "Product design"],
+    capabilityTags: [
+      "AI product UI",
+      "Typed API contracts",
+      "Information architecture",
+      "Filtering UI",
+      "React-PDF",
+    ],
     caseStudy: {
       overview:
-        "MapBylaw is a product experiment around making zoning and bylaw information easier to explore through a clearer frontend workflow. The work emphasizes navigation, filtering, and product framing rather than claims about complete municipal coverage.",
+        "MapBylaw is an independent experiment in making zoning and property-feasibility information easier to explore, with AI recommendations that have to stay grounded in the same verified data as the rest of the product. The work emphasizes navigation, filtering, and an honest recommendation contract rather than claims about complete municipal coverage or planning authority.",
       context:
         "Zoning information is dense, technical, and easy to present in ways that overwhelm people quickly. The experiment focused on information architecture, progressive disclosure, and a more legible path through property-related questions.",
       problem:
@@ -1206,12 +1214,14 @@ export const PROJECTS: Project[] = [
       myRole: [
         "Designed the frontend product direction and information architecture for the experiment.",
         "Built navigation and filtering patterns aimed at making property workflows easier to follow.",
-        "Used the project to explore product thinking and workflow design outside of a larger team context.",
+        "Designed the AI recommendation contract and the boundaries on what the model is allowed to claim.",
+        "Worked across the Fastify API, the React dashboard, and the React-PDF report so all three render the same recommendation payload.",
       ],
       whatIBuilt: [
         "A map-led product surface for browsing property context and zoning-related details.",
         "Filtering and progressive-disclosure patterns for moving from overview into more specific information.",
         "Workflow framing that treats complex bylaw information as a navigable product problem.",
+        "A recommendation service with a narrow context builder over verified inputs (zoning, sector, policy flags, feasibility signals, and computed scenarios) and Zod-validated structured output.",
       ],
       technicalDecisions: [
         {
@@ -1232,11 +1242,21 @@ export const PROJECTS: Project[] = [
           result:
             "The interface makes exploration feel more intentional and less like reading an unstructured archive.",
         },
+        {
+          decision:
+            "Treat AI recommendations as a typed product service with one contract across the API, the dashboard, and the PDF report, instead of as presentation copy.",
+          why: "Loosely typed recommendations make it hard to prove what the model saw, validate what it returned, or guarantee the dashboard and PDF say the same thing.",
+          tradeOff:
+            "A narrow context trades breadth for grounding: recommendations are less expansive, and output that steps outside the schema is rejected rather than cleaned up.",
+          result:
+            "Each recommendation references a computed scenario and the verified inputs it relied on, and the dashboard and PDF render the same payload.",
+        },
       ],
       uxDecisions: [
         "Framed the work clearly as a product experiment rather than as a definitive municipal reference.",
         "Used filtering and disclosure patterns to reduce cognitive load before users reach lower-level detail.",
         "Kept the interface oriented around navigation and understanding instead of raw data density.",
+        "Recommendations show their cited inputs and limitations instead of hiding missing data behind confident-sounding prose.",
       ],
       interfaceEvidence: [
         {
@@ -1263,7 +1283,7 @@ export const PROJECTS: Project[] = [
       outcome: [
         "Created a product experiment that demonstrates information architecture and workflow thinking on a complex domain.",
         "Showed how filtering and progressive disclosure can make dense zoning information more approachable.",
-        "Added a portfolio piece that reflects product design instincts outside of a team or client context.",
+        "Turned AI recommendations from free-form suggestions into specific, auditable output tied to verified inputs and computed scenarios.",
       ],
       nextImprovements: [
         "Continue exploring clearer task-based entry points for different property questions.",
