@@ -1,6 +1,6 @@
 ---
 title: "How I would design a document review workspace"
-date: "2026-09-17"
+date: "2026-10-08"
 excerpt: "A practical frontend design for reviewing AI-extracted documents: bounded queues, PDF-field selection, server-enforced leases, recoverable drafts, and accessible review workflows."
 seoTitle: "Designing a document review frontend — Ali Pajand"
 seoDescription: "How I would design a React document review workspace with server pagination, PDF-field selection, document leases, draft recovery, and keyboard accessibility."

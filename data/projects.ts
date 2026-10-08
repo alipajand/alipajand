@@ -73,9 +73,7 @@ export interface Project {
   timeframe?: string;
   capabilityTags: string[];
   caseStudy: ProjectCaseStudy;
-  /** The shipped product or company site, shown as actions in the case study header. */
   liveLinks: ProjectLink[];
-  /** Writing and other pages about the same work, listed under "Related work". */
   relatedLinks: ProjectLink[];
 }
 
@@ -88,7 +86,6 @@ export const PORTFOLIO_PAGE_INTRO = [
   "Each write-up covers the problem, what I owned, the decisions that mattered, and what I traded away to get there. I use AI coding agents for implementation, testing, and investigation, and keep architecture, security, and final review on my side of the line.",
 ] as const;
 
-/** Phrases in PORTFOLIO_PAGE_INTRO that link to their case study (first match per paragraph). */
 export const PORTFOLIO_PAGE_INTRO_LINKS = [
   { text: "LedgerGuard", href: "/portfolio/ledgerguard" },
   { text: "AlwaysGeeky", href: "/portfolio/alwaysgeeky" },
