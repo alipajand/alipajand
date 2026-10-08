@@ -2,10 +2,11 @@ export const PORTFOLIO_ROLE_FIT_ARIA_LABEL = "Portfolio role fit";
 
 export const PORTFOLIO_ROLE_FIT_LABELS = [
   "Frontend architecture",
+  "Technical direction",
   "React / Next.js / TypeScript",
   "Design systems",
-  "Engineering standards",
-  "Code review",
+  "Cross-team standards",
+  "Mentoring",
   "Accessibility",
   "Rendering performance",
   "Node.js APIs & PostgreSQL",
@@ -30,7 +31,7 @@ export const PORTFOLIO_LOOK_FOR_CARDS: PortfolioLookForCard[] = [
   },
   {
     title: "Systems other engineers build on",
-    body: "Shared component libraries, typed API contracts, Storybook documentation, and CI gates. The recurring theme is turning a pattern into something reusable and then keeping it honest as the product moves.",
+    body: "Shared component libraries, typed API contracts, Storybook documentation, and CI gates, plus the part that makes them stick: design docs, migration paths with deprecation instead of abrupt removal, and working directly with the engineers adopting them. The influence came from making change safe, not from authority.",
   },
   {
     title: "Complex product states",
