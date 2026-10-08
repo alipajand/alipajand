@@ -16,8 +16,8 @@ import {
   OPEN_SOURCE_CTA_PRIMARY_LABEL,
   OPEN_SOURCE_CTA_SECONDARY_HREF,
   OPEN_SOURCE_CTA_SECONDARY_LABEL,
-  OPEN_SOURCE_FEATURED_HEADING,
-  OPEN_SOURCE_FEATURED_LEDE,
+  OPEN_SOURCE_PROJECTS_HEADING,
+  OPEN_SOURCE_PROJECTS_LEDE,
   OPEN_SOURCE_FORMAT_LABEL,
   OPEN_SOURCE_HEADER_HEADING,
   OPEN_SOURCE_HEADER_INTRO,
@@ -27,8 +27,6 @@ import {
   OPEN_SOURCE_SHARED_PRINCIPLES,
   OPEN_SOURCE_SHARED_PRINCIPLES_HEADING,
   OPEN_SOURCE_STATUS_LABEL,
-  OPEN_SOURCE_SUPPORTING_HEADING,
-  OPEN_SOURCE_SUPPORTING_LEDE,
   OPEN_SOURCE_TECHNOLOGY_BADGES,
   OPEN_SOURCE_TECHNOLOGY_HEADING,
   type OpenSourcePrinciple,
@@ -143,7 +141,7 @@ const OpenSourcePrincipleCard = ({ principle }: { principle: OpenSourcePrinciple
 
 export const OpenSourcePageContent = () => {
   const {
-    selectors: { headerRef, contentRef, featuredProjects, supportingProjects },
+    selectors: { headerRef, contentRef, projects },
   } = useOpenSourcePageContent();
 
   return (
@@ -167,42 +165,18 @@ export const OpenSourcePageContent = () => {
       </header>
 
       <div ref={contentRef as React.Ref<HTMLDivElement>}>
-        <section aria-labelledby="open-source-featured-heading" className={SECTION_BLOCK}>
+        <section aria-labelledby="open-source-projects-heading" className={SECTION_BLOCK}>
           <div className={SECTION_INNER}>
             <header className="mb-10 sm:mb-12" data-reveal>
-              <h2 id="open-source-featured-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
-                {OPEN_SOURCE_FEATURED_HEADING}
+              <h2 id="open-source-projects-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
+                {OPEN_SOURCE_PROJECTS_HEADING}
               </h2>
-              <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_FEATURED_LEDE}</p>
+              <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_PROJECTS_LEDE}</p>
             </header>
 
             <ul className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">
-              {featuredProjects.map((project) => (
+              {projects.map((project) => (
                 <li key={project.title} data-reveal data-open-source-project className="h-full">
-                  <OpenSourceProjectCard project={project} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section aria-labelledby="open-source-supporting-heading" className={SECTION_BLOCK}>
-          <div className={SECTION_INNER}>
-            <header className="mb-10 sm:mb-12" data-reveal>
-              <h2 id="open-source-supporting-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
-                {OPEN_SOURCE_SUPPORTING_HEADING}
-              </h2>
-              <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_SUPPORTING_LEDE}</p>
-            </header>
-
-            <ul className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">
-              {supportingProjects.map((project) => (
-                <li
-                  key={project.title}
-                  data-reveal
-                  data-open-source-supporting-project
-                  className="h-full"
-                >
                   <OpenSourceProjectCard project={project} />
                 </li>
               ))}

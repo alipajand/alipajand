@@ -11,6 +11,11 @@ import {
   SITE_NAME,
   TAGLINE,
 } from "data/site";
+import { PROFILE_IMAGE_VARIANTS, profileImagePath } from "data/profileImage";
+
+const profileImageUrls = (
+  Object.keys(PROFILE_IMAGE_VARIANTS) as (keyof typeof PROFILE_IMAGE_VARIANTS)[]
+).map((variant) => `${CANONICAL_URL}${profileImagePath(variant)}`);
 
 export const HomeStructuredData = () => {
   const personSchema = {
@@ -21,7 +26,9 @@ export const HomeStructuredData = () => {
     url: CANONICAL_URL,
     jobTitle: PERSON_SCHEMA_JOB_TITLE,
     description: SITE_META_DESCRIPTION,
+    image: profileImageUrls,
     knowsAbout: KEYWORDS,
+    knowsLanguage: ["English", "French"],
     address: {
       "@type": "PostalAddress",
       addressLocality: PERSON_SCHEMA_ADDRESS_LOCALITY,
@@ -42,6 +49,14 @@ export const HomeStructuredData = () => {
     description: SITE_META_DESCRIPTION,
     mainEntity: {
       "@id": PERSON_SCHEMA_ID,
+    },
+    image: profileImageUrls,
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: `${CANONICAL_URL}${profileImagePath("1x1")}`,
+      width: PROFILE_IMAGE_VARIANTS["1x1"].width,
+      height: PROFILE_IMAGE_VARIANTS["1x1"].height,
+      caption: `${SITE_NAME} | ${TAGLINE}`,
     },
   };
 

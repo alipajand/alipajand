@@ -15,7 +15,6 @@ export interface OpenSourceProject {
   testedCapabilities: string[];
   contribution: string;
   articles?: OpenSourceArticle[];
-  featured?: boolean;
 }
 
 export interface OpenSourcePrinciple {
@@ -35,13 +34,9 @@ export const OPEN_SOURCE_HEADER_LEDE =
 export const OPEN_SOURCE_HEADER_INTRO =
   "These are focused tools built to close specific gaps I’ve noticed while working with AI-assisted workflows.";
 
-export const OPEN_SOURCE_FEATURED_HEADING = "Projects";
-export const OPEN_SOURCE_FEATURED_LEDE =
+export const OPEN_SOURCE_PROJECTS_HEADING = "Projects";
+export const OPEN_SOURCE_PROJECTS_LEDE =
   "Focused tools for better context quality, review feedback, and agent-readiness evaluation.";
-
-export const OPEN_SOURCE_SUPPORTING_HEADING = "More tooling";
-export const OPEN_SOURCE_SUPPORTING_LEDE =
-  "Additional experiments in the same space, kept intentionally small and practical.";
 
 export const OPEN_SOURCE_STATUS_LABEL = "Status";
 export const OPEN_SOURCE_FORMAT_LABEL = "Format";
@@ -85,7 +80,6 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
     ],
     contribution: "I treat context quality as an engineering input, not an afterthought.",
     articles: [ARTICLE_INSTRUCTION_FILES, ARTICLE_UNTRUSTED_PRS],
-    featured: true,
   },
   {
     title: "agent-pr-reviewer-lite",
@@ -102,7 +96,6 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
     contribution:
       "I think about code review as a system for producing actionable, categorized feedback.",
     articles: [ARTICLE_REVIEW_TRIAGE, ARTICLE_UNTRUSTED_PRS],
-    featured: true,
   },
   {
     title: "agent-readiness-kit",

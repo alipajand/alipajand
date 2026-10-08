@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import {
@@ -24,6 +24,8 @@ import { GatedVercelAnalytics } from "components/Analytics/GatedVercelAnalytics"
 import { GatedVercelSpeedInsights } from "components/Analytics/GatedVercelSpeedInsights";
 import { RouteChangeFocus } from "components/RouteChangeFocus/RouteChangeFocus";
 import { SkipLink } from "components/SkipLink/SkipLink";
+import { FEED_PATH } from "utils/feed";
+import { LLMS_TXT_PATH } from "utils/llms";
 
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_URL),
@@ -78,27 +80,21 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  alternates: {
-    canonical: CANONICAL_URL,
-  },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: SITE_NAME,
   },
-  other: {
-    "theme-color": "#000000",
-    "color-scheme": "dark",
-  },
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
   themeColor: "#000000",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
@@ -111,6 +107,18 @@ export default function RootLayout({ children }: PropsWithChildren) {
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.classList.add("js")`,
           }}
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${SITE_NAME} — Writing`}
+          href={`${CANONICAL_URL}${FEED_PATH}`}
+        />
+        <link
+          rel="alternate"
+          type="text/plain"
+          title={`${SITE_NAME} — summary for language models`}
+          href={`${CANONICAL_URL}${LLMS_TXT_PATH}`}
         />
       </head>
       <body

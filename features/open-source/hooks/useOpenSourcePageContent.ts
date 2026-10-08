@@ -1,7 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
-
 import { OPEN_SOURCE_PROJECTS, type OpenSourceProject } from "data/openSourcePage";
 import { usePageHeader } from "utils/hooks/usePageHeader";
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
@@ -9,8 +7,7 @@ import { useScrollReveal } from "utils/hooks/useScrollReveal";
 export interface OpenSourcePageContentSelectors {
   headerRef: ReturnType<typeof usePageHeader>["selectors"]["headerRef"];
   contentRef: ReturnType<typeof useScrollReveal>["selectors"]["sectionRef"];
-  featuredProjects: OpenSourceProject[];
-  supportingProjects: OpenSourceProject[];
+  projects: OpenSourceProject[];
 }
 
 export const useOpenSourcePageContent = (): {
@@ -24,22 +21,11 @@ export const useOpenSourcePageContent = (): {
     selectors: { sectionRef: contentRef },
   } = useScrollReveal({ y: 36, stagger: 0.1 });
 
-  const featuredProjects = useMemo(
-    () => OPEN_SOURCE_PROJECTS.filter((project) => project.featured),
-    []
-  );
-
-  const supportingProjects = useMemo(
-    () => OPEN_SOURCE_PROJECTS.filter((project) => !project.featured),
-    []
-  );
-
   return {
     selectors: {
       headerRef,
       contentRef,
-      featuredProjects,
-      supportingProjects,
+      projects: OPEN_SOURCE_PROJECTS,
     },
   };
 };

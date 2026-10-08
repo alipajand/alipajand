@@ -73,4 +73,23 @@ describe("HomeStructuredData", () => {
     expect(schema.description).toBe(SITE_META_DESCRIPTION);
     expect(schema.mainEntity["@id"]).toBe(PERSON_SCHEMA_ID);
   });
+
+  it("should point search engines at the designed profile images", () => {
+    const { container } = render(<HomeStructuredData />);
+    const scripts = container.querySelectorAll('script[type="application/ld+json"]');
+    const person = JSON.parse(scripts[0].textContent || "{}");
+    const profilePage = JSON.parse(scripts[1].textContent || "{}");
+    const expected = ["1x1", "4x3", "16x9"].map(
+      (variant) => `${CANONICAL_URL}/images/profile-${variant}.png`
+    );
+
+    expect(person.image).toEqual(expected);
+    expect(profilePage.image).toEqual(expected);
+    expect(profilePage.primaryImageOfPage).toMatchObject({
+      "@type": "ImageObject",
+      url: `${CANONICAL_URL}/images/profile-1x1.png`,
+      width: 1200,
+      height: 1200,
+    });
+  });
 });
