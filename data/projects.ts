@@ -1065,11 +1065,11 @@ export const PROJECTS: Project[] = [
     caseStudyTitle: "Deterministic AI-Agent Developer Tools",
     caseStudyMetaTitle: "Agent Engineering Tools — Developer Experience Projects · Ali Pajand",
     caseStudyMetaDescription:
-      "Three deterministic TypeScript CLIs and a GitHub Action for AI-agent readiness, agent instruction and settings audits, and risky pull-request triage. Local-first, no LLM calls, human review stays in charge.",
+      "Deterministic repository audits through TypeScript CLIs, GitHub Actions, MCP, and editor skills and plugins, with human review in charge.",
     employerContext:
       "Independent tooling experiments for AI-assisted development and developer experience.",
     cardProblem:
-      "Three TypeScript CLIs and a GitHub Action built out of the same frustration: teams adopt AI-assisted development before their conventions, agent settings, and review process can carry it. The tools make repository readiness, instruction and settings quality, and pull-request risk into things you can check in CI rather than assume. All four reached v1.0 in September 2026.",
+      "Three TypeScript CLIs and a GitHub Action built out of the same frustration: teams adopt AI-assisted development before their conventions, agent settings, and review process can carry it. The tools make repository readiness, instruction and settings quality, and pull-request risk into things you can check in CI rather than assume. The work now includes Action v1.2.0 and integrations v0.1.2: an MCP server, a portable skill, and editor plugins.",
     role: "Independent / Ongoing",
     capabilityTags: [
       "TypeScript",
@@ -1087,7 +1087,7 @@ export const PROJECTS: Project[] = [
       problem:
         "AI-assisted development breaks down quickly when the repository context is vague, the review feedback is generic, or the workflow assumptions are unstable. Small tools can make those failure modes easier to detect before they become team habits.",
       myRole: [
-        "Designed and implemented the tooling concepts, the three TypeScript CLIs, the GitHub Action, and their documentation, through to tagged v1.0 releases.",
+        "Designed and implemented three TypeScript CLIs, the GitHub Action, and MCP, skill, and plugin integrations, with release and verification documentation.",
         "Defined the product scope and boundaries for each tool so the claims stayed smaller than the problem.",
         "Used the projects to explore developer experience as a product surface with explicit inputs and outputs.",
       ],
@@ -1096,6 +1096,7 @@ export const PROJECTS: Project[] = [
         "agent-pr-reviewer-lite, because agent-written pull requests touch many files and reviewers need to know which ones matter. It flags auth, billing, migration, CI, secret, and agent-permission changes from fixed rules, and names each file's CODEOWNERS from the base branch.",
         "agent-readiness-kit, because a repository without clear conventions, boundaries, or validation paths will amplify agent mistakes instead of catching them. It scores 13 categories and scaffolds the missing files, including least-privilege Claude Code settings.",
         "agent-readiness-action, so the readiness score and the instruction audit run on every pull request, with both engines bundled at pinned commits instead of installed from a registry.",
+        "Agent Readiness integrations: a published MCP server, a portable skill, and Claude Code and Cursor plugins that share the same read-only, offline scanner. Host clients may send reports and files they read to their model provider.",
       ],
       technicalDecisions: [
         {
@@ -1133,7 +1134,7 @@ export const PROJECTS: Project[] = [
       ],
       outcome: [
         "Shipped v1.0 of all four projects in September 2026: three CLIs installable from GitHub release tags and a GitHub Action referenced as alipajand/agent-readiness-action@v1.",
-        "Created examples of how structured feedback and context evaluation can improve engineering workflows.",
+        "Released Action v1.2.0 and integrations v0.1.2 in October 2026. The MCP package is published on npm and in the official MCP Registry; the skill and Claude Code plugin install from GitHub. The local Cursor plugin passed acceptance tests, while directory submissions remain under review in the October 14 record.",
         "Kept architecture, security, validation, and final decisions under human engineering review.",
       ],
       nextImprovements: [

@@ -25,6 +25,18 @@ jest.mock("features/open-source/hooks/useOpenSourcePageContent", () => ({
 }));
 
 describe("OpenSourcePageContent", () => {
+  it("should show the bot listing date without inventing a release version", () => {
+    render(<OpenSourcePageContent />);
+
+    expect(screen.getByText("Added to the Library · October 12, 2026")).toBeInTheDocument();
+    expect(screen.getByText("v1.2.0 · October 12, 2026")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: "Keeping repository instructions useful with Agent Readiness Doctor",
+      })
+    ).toHaveAttribute("href", "/writing/agent-readiness-doctor");
+  });
+
   it("should render the page heading", () => {
     render(<OpenSourcePageContent />);
 
@@ -70,7 +82,7 @@ describe("OpenSourcePageContent", () => {
     expect(screen.getAllByText("Latest release")).toHaveLength(OPEN_SOURCE_PROJECTS.length);
     expect(screen.getAllByText("Install")).toHaveLength(OPEN_SOURCE_PROJECTS.length);
     OPEN_SOURCE_PROJECTS.forEach((project) => {
-      expect(screen.getByText(project.install)).toBeInTheDocument();
+      expect(screen.getByText(project.install, { normalizer: (text) => text })).toBeInTheDocument();
     });
     expect(screen.getAllByText("Format").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Why it matters").length).toBeGreaterThan(0);
