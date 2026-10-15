@@ -1,6 +1,6 @@
 ---
 title: "Designing a small library for logs too big to hold in memory"
-date: "2026-09-20"
+date: "2026-09-15"
 excerpt: "A take-home brief asked for one function that classifies sensors from a log file. How I approached it as a library: reading the spec for ambiguity, streaming with fixed state, failing loudly, making new sensor types cheap, and the memory bug I only found after submitting."
 seoTitle: "Designing a small library for logs too big to hold in memory — Ali Pajand"
 seoDescription: "A senior approach to a small TypeScript library: spec ambiguity, streaming parsing with fixed per-sensor state, Welford's algorithm, chunk-boundary tests, fail-fast errors, extensible rules, V8 sliced-string memory retention, and how AI fit into the work."
