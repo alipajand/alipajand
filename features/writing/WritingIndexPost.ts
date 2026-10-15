@@ -4,5 +4,6 @@ export interface WritingIndexPost {
   date: string;
   excerpt: string;
   featured?: boolean;
+  upcoming?: boolean;
   tags?: string[];
 }

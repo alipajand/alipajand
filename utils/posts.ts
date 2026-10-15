@@ -6,6 +6,8 @@ import { load } from "js-yaml";
 import { marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 
+import { isPostPublished } from "utils/date";
+
 import { extractDiagramBlocks, type DiagramSpec } from "utils/diagramBlocks";
 import { addHeadingIds, type PostHeading } from "utils/headings";
 
@@ -158,17 +160,21 @@ export const getPostMarkdown = (slug: string): string | null => {
   return parseFrontmatter(raw).content.trim();
 };
 
-export const getLatestPosts = (count: number): PostSummary[] => {
-  return getAllPosts().slice(0, count);
+export const getPublishedPosts = (now = new Date()): PostSummary[] =>
+  getAllPosts().filter((post) => isPostPublished(post.date, now));
+
+export const getLatestPosts = (count: number, now = new Date()): PostSummary[] => {
+  return getPublishedPosts(now).slice(0, count);
 };
 
 export const getPostsForWritingSection = (
-  recentCount: number
+  recentCount: number,
+  now = new Date()
 ): {
   featured: PostSummary | null;
   recent: PostSummary[];
 } => {
-  const all = getAllPosts();
+  const all = getPublishedPosts(now);
   const featured = all.find((p) => p.featured === true) ?? null;
   const withoutFeatured = featured ? all.filter((p) => p.slug !== featured.slug) : all;
   return {

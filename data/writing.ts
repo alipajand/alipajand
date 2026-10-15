@@ -42,3 +42,6 @@ export const WRITING_DIAGRAM_LAYERS_HINT = "Select a layer to see what it owns."
 
 export const writingDiagramStepCounter = (current: number, total: number): string =>
   `Step ${current} of ${total}`;
+
+export const WRITING_UPCOMING_LABEL = "Upcoming";
+export const WRITING_PREVIEW_ARTICLE_CTA = "Preview article →";

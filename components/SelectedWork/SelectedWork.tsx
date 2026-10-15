@@ -14,7 +14,7 @@ import type React from "react";
 import { useCinematicCards } from "utils/hooks/useCinematicCards";
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import {
-  CTA_SECONDARY,
+  CTA_PRIMARY,
   SECTION_INNER,
   SECTION_LEDE_LG,
   SECTION_SHELL,
@@ -63,10 +63,7 @@ export const SelectedWork = () => {
         </ul>
 
         <div className="mt-10 sm:mt-12" data-reveal>
-          <Link
-            href={SELECTED_WORK_SECTION_CTA_HREF}
-            className={`${CTA_SECONDARY} w-full sm:w-auto`}
-          >
+          <Link href={SELECTED_WORK_SECTION_CTA_HREF} className={`${CTA_PRIMARY} w-full sm:w-auto`}>
             {SELECTED_WORK_SECTION_CTA_LABEL}
           </Link>
         </div>

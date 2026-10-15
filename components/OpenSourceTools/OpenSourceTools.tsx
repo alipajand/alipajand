@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { OpenSourceToolGridItem } from "components/OpenSourceTools/OpenSourceToolGridItem";
 import {
-  OPEN_SOURCE_TOOLS,
+  HOME_OPEN_SOURCE_TOOLS,
   OPEN_SOURCE_TOOLS_CTA_HREF,
   OPEN_SOURCE_TOOLS_CTA_LABEL,
   OPEN_SOURCE_TOOLS_HEADING,
@@ -15,7 +15,7 @@ import type React from "react";
 import { useCinematicCards } from "utils/hooks/useCinematicCards";
 import { useScrollReveal } from "utils/hooks/useScrollReveal";
 import {
-  CTA_SECONDARY,
+  CTA_PRIMARY,
   SECTION_INNER,
   SECTION_LEDE_LG,
   SECTION_SHELL,
@@ -56,13 +56,13 @@ export const OpenSourceTools = () => {
           ref={cardsRef as React.RefObject<HTMLUListElement>}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0"
         >
-          {OPEN_SOURCE_TOOLS.map((tool) => (
+          {HOME_OPEN_SOURCE_TOOLS.map((tool) => (
             <OpenSourceToolGridItem key={tool.name} tool={tool} />
           ))}
         </ul>
 
         <div className="mt-10 sm:mt-12" data-reveal>
-          <Link href={OPEN_SOURCE_TOOLS_CTA_HREF} className={`${CTA_SECONDARY} w-full sm:w-auto`}>
+          <Link href={OPEN_SOURCE_TOOLS_CTA_HREF} className={`${CTA_PRIMARY} w-full sm:w-auto`}>
             {OPEN_SOURCE_TOOLS_CTA_LABEL}
           </Link>
         </div>
