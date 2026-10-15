@@ -8,7 +8,7 @@ export interface OpenSourceTool {
 export const OPEN_SOURCE_TOOLS_HEADING = "Tooling & Open Source";
 
 export const OPEN_SOURCE_TOOLS_LEDE =
-  "Deterministic, local-first tools for AI-assisted development: three CLIs and a GitHub Action that check agent readiness, agent instructions and settings, and risky pull requests, with the final call left to a human reviewer.";
+  "Repository audits across CLIs, CI, MCP, and editor skills and plugins, alongside my Agent Readiness Doctor contribution to the GitBot Library. The audit engines use deterministic rules; host clients have their own data handling.";
 
 export const OPEN_SOURCE_TOOLS_CTA_LABEL = "Explore all open-source work";
 export const OPEN_SOURCE_TOOLS_CTA_HREF = "/open-source";
@@ -21,6 +21,40 @@ export const openSourceToolRepositoryAriaLabel = (toolName: string): string =>
   `Open ${toolName} repository on GitHub`;
 
 export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
+  {
+    name: "Agent Readiness MCP",
+    repositoryUrl:
+      "https://github.com/alipajand/agent-readiness-action/tree/main/integrations/mcp-package",
+    problem:
+      "Repository readiness and context audits through a local MCP server, published as @alipajand/agent-readiness-mcp 0.1.2.",
+    capabilities: [
+      "Published on npm and in the official MCP Registry",
+      "Three tools for readiness, context findings, and paginated reports; requires Node.js 22.13+ (23.5+ on Node.js 23)",
+      "Read-only, offline scanner with no repository script execution; host clients may send reports to their model provider",
+    ],
+  },
+  {
+    name: "Agent Readiness skill and plugins",
+    repositoryUrl:
+      "https://github.com/alipajand/agent-readiness-action/tree/main/plugins/agent-readiness",
+    problem:
+      "Integration release 0.1.2 brings the audit engines to a portable skill and Claude Code and Cursor plugins.",
+    capabilities: [
+      "Skill and Claude Code plugin install directly from GitHub; requires Node.js 22.12+",
+      "Named audit commands tested in headless Claude Code and the local Cursor plugin, including denied execution",
+      "Official plugin directory and Cursor Marketplace submissions remain under review in the October 14 publishing record",
+    ],
+  },
+  {
+    name: "GitBot Agent Readiness Doctor",
+    repositoryUrl: "https://github.com/gitbot-hq/Library/tree/main/bots/agent-readiness-doctor",
+    problem: "A GitBot Library contribution for keeping repository instructions useful.",
+    capabilities: [
+      "Available through GitBot’s in-app Marketplace",
+      "Connects instruction audits to a reviewable maintenance workflow",
+      "Published as open source under the MIT license",
+    ],
+  },
   {
     name: "agent-context-doctor",
     repositoryUrl: "https://github.com/alipajand/agent-context-doctor",
@@ -58,7 +92,7 @@ export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
     name: "agent-readiness-action",
     repositoryUrl: "https://github.com/alipajand/agent-readiness-action",
     problem:
-      "GitHub Action that runs agent-readiness-kit and agent-context-doctor on every pull request.",
+      "GitHub Action v1.2.0 runs agent-readiness-kit and agent-context-doctor on pull requests; published in the Actions Marketplace with the v1 tag.",
     capabilities: [
       "Fails below a minimum score or when a pull request lowers the score from the base branch",
       "Bundles both engines at pinned commits, so nothing is downloaded from a registry at run time",

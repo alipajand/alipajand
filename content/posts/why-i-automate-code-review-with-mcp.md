@@ -154,6 +154,10 @@ If you are evaluating whether to build a server like this rather than taking my 
 - The [MCP Inspector](https://github.com/modelcontextprotocol/inspector), a standalone tool for testing a server's tool calls and structured output without wiring it into an editor first: useful for exactly the allowlist and timeout testing described above.
 - Editor-side, both [Claude Code](https://docs.claude.com/en/docs/claude-code) and Cursor support connecting to MCP servers directly, which is the integration point this whole approach depends on.
 
+## October 2026 update: repository audits over MCP
+
+My [Agent Readiness MCP server](https://www.npmjs.com/package/@alipajand/agent-readiness-mcp) now exposes readiness and instruction audits through `audit_repository`, `audit_agent_context`, and `get_audit_report`. Version 0.1.2 is published on npm and in the official MCP Registry. It scans repository guidance with deterministic engines; it does not execute project validation scripts. The scanner is read-only and offline, while the host client has its own data handling. See [the open-source page](/open-source) for installation, requirements, and verification limits.
+
 ## Related reading
 
 - [Building tools that don't fight you](/writing/building-tools-that-dont-fight-you)

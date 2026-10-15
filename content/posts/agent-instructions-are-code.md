@@ -144,6 +144,16 @@ Findings are matched on category, file, message, and evidence, not line number, 
 
 If you also want a repository-level view, [agent-readiness-action](https://github.com/alipajand/agent-readiness-action) runs `acd` alongside a readiness score in one step, and can fail a pull request that lowers the score compared to the base branch. A ratchet like that is easier to adopt than an absolute threshold: you do not have to fix everything first, you just cannot make it worse.
 
+## October 2026 update: the same audits in the editor
+
+The Action is now at v1.2.0, and the separate integrations release is v0.1.2. The [Agent Readiness MCP package](https://www.npmjs.com/package/@alipajand/agent-readiness-mcp) is published on npm and in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.alipajand/agent-readiness). It exposes `audit_repository`, `audit_agent_context`, and `get_audit_report` through local stdio.
+
+The [portable skill and editor plugins](https://github.com/alipajand/agent-readiness-action/blob/main/docs/integrations/PLUGINS.md) use the same bundled scanner. The skill and Claude Code plugin install directly from GitHub. The local Cursor plugin was tested; its Marketplace submission is still awaiting review in the October 14 publishing record.
+
+The integration scanner writes nothing, runs no repository scripts, and makes no network requests. That describes the scanner, not the entire editor session: the host client may send reports or files it reads to its model provider. Credential masking is pattern-based and only covers scanner output. MCP requires Node.js 22.13+ (23.5+ on Node.js 23); the skill and plugins require 22.12+.
+
+See the [open-source page](/open-source) for installation commands and the [publishing matrix](https://github.com/alipajand/agent-readiness-action/blob/main/docs/PUBLISHING-MATRIX.md) for dated distribution status.
+
 ## What this does not do
 
 `acd` checks how instructions are _written_. It does not check whether an agent will follow them, and it says nothing about whether the resulting code is correct. A clean audit means the steering is specific, consistent, and not obviously unsafe. It does not replace reading the diff.

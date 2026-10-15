@@ -7,11 +7,9 @@ export interface OpenSourceProject {
   title: string;
   repositoryUrl: string;
   summary: string;
-  /** Latest tagged release, without the leading "v". */
-  version: string;
+  version?: string;
   releasedOn: string;
   format: string;
-  /** Install command or workflow line for the latest release. */
   install: string;
   testedCapabilitiesLabel: string;
   testedCapabilities: string[];
@@ -27,25 +25,25 @@ export interface OpenSourcePrinciple {
 export const OPEN_SOURCE_META_TITLE =
   "Open Source & Developer Tooling — Ali Pajand · Staff Frontend Engineer";
 export const OPEN_SOURCE_META_DESCRIPTION =
-  "Deterministic, local-first TypeScript tools and a GitHub Action for AI-agent readiness, agent instruction and settings audits, and risky pull-request triage. No LLM calls.";
+  "Open-source CLIs, a GitHub Action, MCP server, skill, plugins, and a GitBot contribution for repository readiness, instruction audits, and pull-request review.";
 
 export const OPEN_SOURCE_HEADER_OVERLINE = "Open source";
 export const OPEN_SOURCE_HEADER_HEADING = "Open Source & Tooling";
 export const OPEN_SOURCE_HEADER_LEDE =
-  "I build small, deterministic tools that make AI-assisted coding and review safer: they check the context agents read, the settings agents run with, and the pull requests agents open.";
+  "I build open-source tools for repository readiness and code review, and contributed Agent Readiness Doctor to the GitBot Library.";
 export const OPEN_SOURCE_HEADER_INTRO =
-  "They run locally or in CI, make no LLM calls, and are built to complement human review, not replace it.";
+  "The audit engines use deterministic checks without LLM scoring. The integration scanner is read-only and offline; a host client may send reports or files it reads to its model provider. The GitBot contribution adds a review workflow for instruction maintenance.";
 
 export const OPEN_SOURCE_PROJECTS_HEADING = "Projects";
 export const OPEN_SOURCE_PROJECTS_LEDE =
-  "Three CLIs and the GitHub Action that runs two of them in CI. Each one checks a single gap in an AI-assisted workflow and leaves the decision with a human reviewer.";
+  "Three CLIs, a GitHub Action, an MCP server, a portable skill and plugins, plus a contribution to the GitBot Library. The same readiness and context engines serve CI and editor workflows.";
 
 export const OPEN_SOURCE_RELEASE_LABEL = "Latest release";
 
 export const OPEN_SOURCE_INSTALL_LABEL = "Install";
 
 export const OPEN_SOURCE_INSTALL_NOTE =
-  "None of these tools are published to npm, and the npm packages that share their names belong to unrelated projects. Install from the GitHub release tags shown on each card.";
+  "Install the three standalone CLIs from their GitHub release tags; unscoped npm packages sharing their names are unrelated. The MCP server is published as @alipajand/agent-readiness-mcp. The skill and Claude Code plugin install from GitHub; the GitBot bot installs through its Marketplace. Release and directory status follows the October 14, 2026 publishing record.";
 export const OPEN_SOURCE_FORMAT_LABEL = "Format";
 
 export const OPEN_SOURCE_CONTRIBUTION_LABEL = "What it demonstrates";
@@ -57,6 +55,11 @@ export const OPEN_SOURCE_ARTICLES_LABEL = "Related writing";
 const ARTICLE_INSTRUCTION_FILES: OpenSourceArticle = {
   title: "Agent instruction files are code. Lint them like code.",
   href: "/writing/agent-instructions-are-code",
+};
+
+const ARTICLE_DIRECTORY_PREPARATION: OpenSourceArticle = {
+  title: "How to prepare integrations for the Anthropic and Cursor directories",
+  href: "/writing/preparing-integrations-for-anthropic-and-cursor-directories",
 };
 
 const ARTICLE_REVIEW_TRIAGE: OpenSourceArticle = {
@@ -73,9 +76,76 @@ export const openSourceRepositoryAriaLabel = (projectTitle: string): string =>
   `Open ${projectTitle} repository on GitHub`;
 
 export const openSourceReleaseLabel = (project: OpenSourceProject): string =>
-  `v${project.version} · ${project.releasedOn}`;
+  project.version ? `v${project.version} · ${project.releasedOn}` : project.releasedOn;
 
 export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
+  {
+    title: "Agent Readiness MCP",
+    repositoryUrl:
+      "https://github.com/alipajand/agent-readiness-action/tree/main/integrations/mcp-package",
+    summary:
+      "A local stdio MCP server that exposes repository readiness and agent-context audits to an editor or other MCP host. Published on npm and in the official MCP Registry.",
+    version: "0.1.2",
+    releasedOn: "October 13, 2026 · integrations release",
+    format: "MCP server · Node.js 22.13+ (23.5+ on Node.js 23)",
+    install: "npx -y @alipajand/agent-readiness-mcp@0.1.2 --root /path/to/projects",
+    testedCapabilitiesLabel: "Why it matters",
+    testedCapabilities: [
+      "Exposes audit_repository, audit_agent_context, and get_audit_report, with structured findings, engine commits, and paginated reports.",
+      "The scanner writes nothing, runs no repository scripts, and makes no network requests. Workers have read access confined to the selected directory and their own script.",
+      "Credential masking is pattern-based and applies to scanner output only; paths remain visible. The host client may send results and files it reads to its model provider.",
+      "Verified with the MCP SDK, Inspector, and signed-in headless Claude Code. MCP in Cursor and Windows remain untested.",
+      "The October 14 publishing record also lists mcpserver.dev and MCPRush; MCPRush auto-indexed the package and its ownership claim awaits review. Glama remains submitted, awaiting review.",
+    ],
+    contribution:
+      "I made the same pinned audit engines available through MCP, with bounded workers and structured reports instead of model-generated scores.",
+    articles: [ARTICLE_DIRECTORY_PREPARATION, ARTICLE_INSTRUCTION_FILES, ARTICLE_UNTRUSTED_PRS],
+  },
+  {
+    title: "Agent Readiness skill and plugins",
+    repositoryUrl:
+      "https://github.com/alipajand/agent-readiness-action/tree/main/plugins/agent-readiness",
+    summary:
+      "A portable agent-readiness-audit skill and plugins for Claude Code and Cursor, using the same bundled audit engines as the MCP server.",
+    version: "0.1.2",
+    releasedOn: "October 13, 2026 · integrations release",
+    format: "Agent Skill · Claude Code and Cursor plugins · Node.js 22.12+",
+    install:
+      "npx skills add alipajand/agent-readiness-action --skill agent-readiness-audit\n\nclaude plugin marketplace add alipajand/agent-readiness-action\nclaude plugin install agent-readiness@agent-readiness",
+    testedCapabilitiesLabel: "Why it matters",
+    testedCapabilities: [
+      "The skill and Claude Code plugin install directly from the public repository. The plugin adds no hooks, MCP servers, or executables to PATH.",
+      "Invoke /agent-readiness:audit in Claude Code or the agent-readiness-audit command in Cursor. Named invocation is the tested path; plain-language discovery is not verified as reliable.",
+      "Signed-in headless Claude Code and the local Cursor plugin were tested, including denied execution. If the scanner cannot run, the loaded command must report that no audit ran and give no scores.",
+      "As recorded October 14, the official plugin directory submission is scanning and the Cursor Marketplace submission awaits review. Local Cursor installation is tested; marketplace approval is not claimed.",
+    ],
+    contribution:
+      "I packaged deterministic audits for existing editor workflows while keeping scanner behavior separate from the host client's data handling.",
+    articles: [ARTICLE_DIRECTORY_PREPARATION, ARTICLE_INSTRUCTION_FILES, ARTICLE_UNTRUSTED_PRS],
+  },
+  {
+    title: "Agent Readiness Doctor",
+    repositoryUrl: "https://github.com/gitbot-hq/Library/tree/main/bots/agent-readiness-doctor",
+    summary:
+      "My open-source contribution to the GitBot Library, available in its in-app Marketplace.",
+    releasedOn: "Added to the Library · October 12, 2026",
+    format: "GitBot bot · MIT license",
+    install: "GitBot → Marketplace → Agent Readiness Doctor → Install",
+    testedCapabilitiesLabel: "Why it matters",
+    testedCapabilities: [
+      "Checks repository instructions against the code.",
+      "Proposes fixes for review before editing.",
+      "Uses agent-context-doctor and agent-readiness-kit when available.",
+    ],
+    contribution:
+      "I contributed a repeatable workflow for maintaining the instructions developers rely on between refactors.",
+    articles: [
+      {
+        title: "Keeping repository instructions useful with Agent Readiness Doctor",
+        href: "/writing/agent-readiness-doctor",
+      },
+    ],
+  },
   {
     title: "agent-context-doctor",
     repositoryUrl: "https://github.com/alipajand/agent-context-doctor",
@@ -140,14 +210,14 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
     repositoryUrl: "https://github.com/alipajand/agent-readiness-action",
     summary:
       "A GitHub Action that runs agent-readiness-kit and agent-context-doctor in CI. It scores the repository, checks its instruction files and agent settings, and reports the result on pull requests.",
-    version: "1.0.1",
-    releasedOn: "September 2026",
+    version: "1.2.0",
+    releasedOn: "October 12, 2026",
     format: "GitHub Action",
     install: "uses: alipajand/agent-readiness-action@v1",
     testedCapabilitiesLabel: "Why it matters",
     testedCapabilities: [
       "Fails the build below a minimum score or when a pull request lowers the score from the base branch, writes a Markdown report, and can post a summary comment.",
-      "Both engines are bundled at pinned commits, so nothing is downloaded from a package registry at run time. No telemetry and no LLM calls.",
+      "Published in the GitHub Actions Marketplace as v1.2.0, with the v1 tag pointing to it. Both engines are bundled at pinned commits; no registry downloads at run time or LLM scoring.",
       "Built for pull requests you don’t trust: file names cannot inject workflow commands, reports are never written through symlinks, and only the action’s own comment is ever updated.",
     ],
     contribution:
@@ -179,6 +249,9 @@ export const OPEN_SOURCE_TECHNOLOGY_BADGES = [
   "TypeScript",
   "Node.js",
   "CLI design",
+  "MCP server",
+  "Agent Skills",
+  "Editor plugins",
   "GitHub Actions",
   "SARIF / code scanning",
   "Claude Code & MCP settings",
