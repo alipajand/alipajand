@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 
 import { OpenSourceTools } from "components/OpenSourceTools/OpenSourceTools";
 import {
-  OPEN_SOURCE_TOOLS,
+  HOME_OPEN_SOURCE_TOOLS,
   OPEN_SOURCE_TOOLS_CTA_HREF,
   OPEN_SOURCE_TOOLS_CTA_LABEL,
   OPEN_SOURCE_TOOLS_HEADING,
@@ -17,6 +17,17 @@ jest.mock("utils/hooks/useScrollReveal", () => ({
 }));
 
 describe("OpenSourceTools", () => {
+  it("should show the latest four releases and omit older CLIs", () => {
+    render(<OpenSourceTools />);
+    expect(HOME_OPEN_SOURCE_TOOLS.map((tool) => tool.name)).toEqual([
+      "Agent Readiness MCP",
+      "Agent Readiness skill and plugins",
+      "GitBot Agent Readiness Doctor",
+      "agent-readiness-action",
+    ]);
+    expect(screen.queryByText("agent-context-doctor")).not.toBeInTheDocument();
+  });
+
   it("should render the section heading", () => {
     render(<OpenSourceTools />);
 
@@ -26,7 +37,7 @@ describe("OpenSourceTools", () => {
   it("should render every featured tool name", () => {
     render(<OpenSourceTools />);
 
-    OPEN_SOURCE_TOOLS.forEach((tool) => {
+    HOME_OPEN_SOURCE_TOOLS.forEach((tool) => {
       expect(screen.getByText(tool.name)).toBeInTheDocument();
     });
   });
@@ -34,7 +45,7 @@ describe("OpenSourceTools", () => {
   it("should render each repository link with the correct href", () => {
     render(<OpenSourceTools />);
 
-    OPEN_SOURCE_TOOLS.forEach((tool) => {
+    HOME_OPEN_SOURCE_TOOLS.forEach((tool) => {
       expect(
         screen.getByRole("link", {
           name: `Open ${tool.name} repository on GitHub`,
@@ -45,9 +56,7 @@ describe("OpenSourceTools", () => {
 
   it("should render the open-source page link inside each card", () => {
     render(<OpenSourceTools />);
-    expect(screen.getAllByRole("link", { name: /open source page/i })).toHaveLength(
-      OPEN_SOURCE_TOOLS.length
-    );
+    expect(screen.getAllByRole("link", { name: /open source page/i })).toHaveLength(4);
   });
 
   it("should render the open-source CTA with the correct href", () => {
@@ -62,8 +71,6 @@ describe("OpenSourceTools", () => {
   it("should render one card per tool", () => {
     const { container } = render(<OpenSourceTools />);
 
-    expect(container.querySelectorAll("[data-open-source-tool-card]")).toHaveLength(
-      OPEN_SOURCE_TOOLS.length
-    );
+    expect(container.querySelectorAll("[data-open-source-tool-card]")).toHaveLength(4);
   });
 });

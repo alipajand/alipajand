@@ -1,3 +1,5 @@
+import * as fs from "fs";
+import { isPostPublished } from "utils/date";
 import { readdirSync } from "fs";
 import { join } from "path";
 import { getAllPosts, getLatestPosts, getPostBySlug, getPostsForWritingSection } from "utils/posts";
@@ -13,9 +15,28 @@ jest.mock("marked-highlight", () => ({
   markedHighlight: jest.fn(() => ({})),
 }));
 
+jest.mock("fs", () => {
+  const actual = jest.requireActual("fs");
+  return {
+    ...actual,
+    readFileSync: jest.fn(actual.readFileSync),
+    readdirSync: jest.fn(actual.readdirSync),
+  };
+});
+
 const POSTS_DIR = join(process.cwd(), "content", "posts");
 
 describe("utils/posts", () => {
+  beforeEach(() => {
+    jest.useFakeTimers().setSystemTime(new Date("2026-10-15T16:00:00Z"));
+  });
+  afterEach(() => {
+    jest.useRealTimers();
+    jest.mocked(fs.readFileSync).mockImplementation(jest.requireActual("fs").readFileSync);
+    jest.mocked(fs.readdirSync).mockImplementation(jest.requireActual("fs").readdirSync);
+    jest.restoreAllMocks();
+  });
+
   describe("getAllPosts", () => {
     it("should return array of posts with slug, title, date, excerpt", () => {
       const posts = getAllPosts();
@@ -84,15 +105,34 @@ describe("utils/posts", () => {
     it("should return same order as getAllPosts slice", () => {
       const all = getAllPosts();
       const latest = getLatestPosts(2);
-      expect(latest).toEqual(all.slice(0, 2));
+      expect(latest).toEqual(all.filter((post) => isPostPublished(post.date)).slice(0, 2));
     });
   });
 
   describe("getPostsForWritingSection", () => {
+    it("excludes future featured and recent posts until Eastern midnight", () => {
+      jest.mocked(fs.readdirSync).mockReturnValue(["older.md", "scheduled.md"] as never);
+      jest
+        .spyOn(fs, "readFileSync")
+        .mockImplementation((path) =>
+          String(path).endsWith("scheduled.md")
+            ? '---\ntitle: Scheduled\ndate: "2026-10-28"\nfeatured: true\n---\nDraft'
+            : '---\ntitle: Older\ndate: "2026-10-01"\n---\nPublished'
+        );
+      const before = new Date("2026-10-28T03:59:59Z");
+      expect(getPostsForWritingSection(4, before).featured).toBeNull();
+      expect(getPostsForWritingSection(4, before).recent.map((p) => p.slug)).toEqual(["older"]);
+      expect(getLatestPosts(4, before).map((p) => p.slug)).toEqual(["older"]);
+      const after = new Date("2026-10-28T04:00:00Z");
+      expect(getPostsForWritingSection(4, after).featured?.slug).toBe("scheduled");
+      expect(getPostsForWritingSection(4, after).recent.map((p) => p.slug)).toEqual(["older"]);
+      expect(getLatestPosts(1, after)[0].slug).toBe("scheduled");
+    });
+
     it("should return featured post when frontmatter marks one", () => {
       const { featured, recent } = getPostsForWritingSection(2);
       const all = getAllPosts();
-      const expectedFeatured = all.find((p) => p.featured === true);
+      const expectedFeatured = all.find((p) => p.featured === true && isPostPublished(p.date));
       expect(featured).toEqual(expectedFeatured ?? null);
       if (featured) {
         expect(recent.some((p) => p.slug === featured.slug)).toBe(false);

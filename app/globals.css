@@ -592,3 +592,20 @@ select:focus-visible {
     transition: none;
   }
 }
+
+.article-prose .article-launch-poster {
+  width: 100%;
+  margin: 2.5rem auto 0;
+}
+
+.article-prose .article-launch-poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 1024px) {
+  .article-prose .article-launch-poster {
+    width: 50%;
+  }
+}

@@ -5,6 +5,8 @@ import { HomePageContent } from "features/home/HomePageContent";
 import { CANONICAL_URL } from "data/site";
 import { getPostsForWritingSection } from "utils/posts";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   alternates: { canonical: CANONICAL_URL },
 };

@@ -1,6 +1,7 @@
 export interface OpenSourceTool {
   name: string;
   repositoryUrl: string;
+  releasedOn: string;
   problem: string;
   capabilities: [string, string, string];
 }
@@ -23,6 +24,7 @@ export const openSourceToolRepositoryAriaLabel = (toolName: string): string =>
 export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
   {
     name: "Agent Readiness MCP",
+    releasedOn: "2026-10-13",
     repositoryUrl:
       "https://github.com/alipajand/agent-readiness-action/tree/main/integrations/mcp-package",
     problem:
@@ -35,6 +37,7 @@ export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
   },
   {
     name: "Agent Readiness skill and plugins",
+    releasedOn: "2026-10-13",
     repositoryUrl:
       "https://github.com/alipajand/agent-readiness-action/tree/main/plugins/agent-readiness",
     problem:
@@ -47,6 +50,7 @@ export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
   },
   {
     name: "GitBot Agent Readiness Doctor",
+    releasedOn: "2026-10-12",
     repositoryUrl: "https://github.com/gitbot-hq/Library/tree/main/bots/agent-readiness-doctor",
     problem: "A GitBot Library contribution for keeping repository instructions useful.",
     capabilities: [
@@ -57,6 +61,7 @@ export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
   },
   {
     name: "agent-context-doctor",
+    releasedOn: "2026-09",
     repositoryUrl: "https://github.com/alipajand/agent-context-doctor",
     problem:
       "Audits agent instruction files and committed Claude Code and MCP settings for quality and safety problems.",
@@ -68,6 +73,7 @@ export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
   },
   {
     name: "agent-pr-reviewer-lite",
+    releasedOn: "2026-09",
     repositoryUrl: "https://github.com/alipajand/agent-pr-reviewer-lite",
     problem:
       "Deterministic risk pre-screen that flags the files in a pull request that need human review before merge.",
@@ -79,6 +85,7 @@ export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
   },
   {
     name: "agent-readiness-kit",
+    releasedOn: "2026-09",
     repositoryUrl: "https://github.com/alipajand/agent-readiness-kit",
     problem:
       "Scores how ready a repository is for AI coding agents across 13 categories, from 0 to 100.",
@@ -90,6 +97,7 @@ export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
   },
   {
     name: "agent-readiness-action",
+    releasedOn: "2026-10-12",
     repositoryUrl: "https://github.com/alipajand/agent-readiness-action",
     problem:
       "GitHub Action v1.2.0 runs agent-readiness-kit and agent-context-doctor on pull requests; published in the Actions Marketplace with the v1 tag.",
@@ -100,3 +108,7 @@ export const OPEN_SOURCE_TOOLS: OpenSourceTool[] = [
     ],
   },
 ];
+
+export const HOME_OPEN_SOURCE_TOOLS = [...OPEN_SOURCE_TOOLS]
+  .sort((a, b) => b.releasedOn.localeCompare(a.releasedOn))
+  .slice(0, 4);

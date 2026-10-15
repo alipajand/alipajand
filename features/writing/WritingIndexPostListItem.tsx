@@ -2,7 +2,12 @@ import Link from "next/link";
 
 import type { WritingIndexPost } from "features/writing/WritingIndexPost";
 import { formatDate } from "utils/date";
-import { WRITING_FEATURED_LABEL, WRITING_READ_ARTICLE_CTA } from "data/writing";
+import {
+  WRITING_FEATURED_LABEL,
+  WRITING_READ_ARTICLE_CTA,
+  WRITING_UPCOMING_LABEL,
+  WRITING_PREVIEW_ARTICLE_CTA,
+} from "data/writing";
 
 interface WritingIndexPostListItemProps {
   post: WritingIndexPost;
@@ -14,9 +19,14 @@ export const WritingIndexPostListItem = ({ post }: WritingIndexPostListItemProps
       <article>
         <Link
           href={`/writing/${post.slug}`}
-          className="group block rounded-xl border border-border bg-card/40 p-5 sm:p-6 transition-colors hover:border-foreground/20 hover:bg-card/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className={`group block rounded-xl border p-5 sm:p-6 transition-colors hover:border-foreground/20 hover:bg-card/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background ${post.upcoming ? "border-dashed border-border bg-background" : "border-border bg-card/40"}`}
         >
-          {post.featured ? (
+          {post.upcoming ? (
+            <p className="mb-3 inline-flex rounded-full border border-border bg-card px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-foreground/80">
+              {WRITING_UPCOMING_LABEL}
+            </p>
+          ) : null}
+          {post.featured && !post.upcoming ? (
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted mb-2">
               {WRITING_FEATURED_LABEL}
             </p>
@@ -41,7 +51,7 @@ export const WritingIndexPostListItem = ({ post }: WritingIndexPostListItemProps
           </div>
           <p className="text-muted text-[15px] sm:text-base mt-3 leading-relaxed">{post.excerpt}</p>
           <span className="inline-flex mt-4 text-sm font-medium text-foreground/90 underline-offset-4 group-hover:underline group-focus-visible:underline">
-            {WRITING_READ_ARTICLE_CTA}
+            {post.upcoming ? WRITING_PREVIEW_ARTICLE_CTA : WRITING_READ_ARTICLE_CTA}
           </span>
         </Link>
       </article>

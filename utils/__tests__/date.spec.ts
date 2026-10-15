@@ -1,4 +1,4 @@
-import { formatDate } from "utils/date";
+import { formatDate, isPostPublished } from "utils/date";
 
 describe("utils/date", () => {
   const originalToLocaleDateString = Date.prototype.toLocaleDateString;
@@ -33,5 +33,21 @@ describe("utils/date", () => {
   it("should handle another valid date string", () => {
     const result = formatDate("2025-12-31");
     expect(result).toMatch(/2025/);
+  });
+});
+
+describe("isPostPublished", () => {
+  it.each([
+    ["2026-10-28", "2026-10-28T03:59:59Z", false],
+    ["2026-10-28", "2026-10-28T04:00:00Z", true],
+    ["2026-01-20", "2026-01-20T04:59:59Z", false],
+    ["2026-01-20", "2026-01-20T05:00:00Z", true],
+    ["2026-11-02", "2026-11-02T04:59:59Z", false],
+    ["2026-11-02", "2026-11-02T05:00:00Z", true],
+    ["2026-10-28T12:00:00Z", "2026-10-28T11:59:59Z", false],
+    ["2026-10-28T12:00:00Z", "2026-10-28T12:00:00Z", true],
+    ["", "2026-10-28T12:00:00Z", false],
+  ])("checks %s at %s", (date, now, expected) => {
+    expect(isPostPublished(date, new Date(now))).toBe(expected);
   });
 });
