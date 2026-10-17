@@ -17,7 +17,7 @@ export interface HomepageCaseStudy {
 }
 
 export const HOMEPAGE_HERO_NAME = "Ali Pajand";
-export const HOMEPAGE_HERO_EYEBROW = "Staff Frontend Engineer";
+export const HOMEPAGE_HERO_EYEBROW = "Senior Software Engineer";
 export const HOMEPAGE_HERO_TITLE =
   "I build product systems from the interface down: frontend architecture, design systems, and the APIs behind them.";
 export const HOMEPAGE_HERO_BODY =

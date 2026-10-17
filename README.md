@@ -1,6 +1,6 @@
 # Ali Pajand
 
-Staff Frontend Engineer, frontend architecture, design systems, and full-stack product work
+Senior Software Engineer · frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js
 
 I've spent 9+ years building production products in React, TypeScript, and Next.js. I focus on frontend architecture, design systems, and complex SaaS workflows, and I also build the Node.js/Fastify APIs, PostgreSQL models, and background jobs behind them.
 
