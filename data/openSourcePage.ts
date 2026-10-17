@@ -23,7 +23,7 @@ export interface OpenSourcePrinciple {
 }
 
 export const OPEN_SOURCE_META_TITLE =
-  "Open Source & Developer Tooling — Ali Pajand · Staff Frontend Engineer";
+  "Open Source & Developer Tooling — Ali Pajand · Senior Software Engineer";
 export const OPEN_SOURCE_META_DESCRIPTION =
   "Open-source CLIs, a GitHub Action, MCP server, skill, plugins, and a GitBot contribution for repository readiness, instruction audits, and pull-request review.";
 

@@ -33,7 +33,7 @@ export const FOOTER_WRITING_LABEL = "Latest writing";
 export const FOOTER_LATEST_WRITINGS_COUNT = 4;
 
 export const FOOTER_BRAND =
-  "Ali Pajand — Staff Frontend Engineer, frontend architecture, design systems, and full-stack product work";
+  "Ali Pajand — Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js";
 
 export const FOOTER_LOCATION = "Based in Montreal, Canada · Open to remote work within Canada";
 
