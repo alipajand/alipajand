@@ -2,6 +2,20 @@ import { NextResponse } from "next/server";
 import type { Attachment, WebhookEventPayload } from "resend";
 import { getFromEmail, getResend, getToEmail } from "utils/resend";
 
+/** Only mail addressed to this domain is forwarded; the Resend account also receives for other domains. */
+const FORWARD_DOMAIN = "alipajand.com";
+
+function isForForwardDomain(address: string): boolean {
+  const at = address.lastIndexOf("@");
+  if (at === -1) return false;
+  const domain = address
+    .slice(at + 1)
+    .replace(/>\s*$/, "")
+    .trim()
+    .toLowerCase();
+  return domain === FORWARD_DOMAIN;
+}
+
 /**
  * Receives Resend webhooks and forwards inbound mail (e.g. info@alipajand.com)
  * to the personal inbox. Replies go straight to the original sender.
@@ -35,6 +49,13 @@ export async function POST(request: Request) {
 
   if (event.type !== "email.received") {
     return NextResponse.json({ ignored: event.type });
+  }
+
+  const receivedFor = event.data.received_for ?? [];
+  const recipients =
+    receivedFor.length > 0 ? receivedFor : [...(event.data.to ?? []), ...(event.data.cc ?? [])];
+  if (!recipients.some(isForForwardDomain)) {
+    return NextResponse.json({ ignored: "recipient-domain" });
   }
 
   const emailId = event.data.email_id;
