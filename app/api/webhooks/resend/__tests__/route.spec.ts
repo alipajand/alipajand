@@ -22,7 +22,12 @@ import { POST } from "../route";
 const receivedEvent = {
   type: "email.received",
   created_at: "2026-10-07T12:16:32.000Z",
-  data: { email_id: "inbound-1" },
+  data: {
+    email_id: "inbound-1",
+    to: ["info@alipajand.com"],
+    cc: [],
+    received_for: ["info@alipajand.com"],
+  },
 };
 
 const inboundEmail = {
@@ -90,6 +95,60 @@ describe("POST /api/webhooks/resend", () => {
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ ignored: "email.delivered" });
     expect(send).not.toHaveBeenCalled();
+  });
+
+  it("should ignore inbound mail that is not addressed to alipajand.com", async () => {
+    verify.mockReturnValue({
+      ...receivedEvent,
+      data: {
+        ...receivedEvent.data,
+        to: ["security@ledgerguard.io"],
+        received_for: ["security@ledgerguard.io"],
+      },
+    });
+    const res = await POST(makeRequest());
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ ignored: "recipient-domain" });
+    expect(getInbound).not.toHaveBeenCalled();
+    expect(send).not.toHaveBeenCalled();
+  });
+
+  it("should not match lookalike domains", async () => {
+    verify.mockReturnValue({
+      ...receivedEvent,
+      data: { ...receivedEvent.data, received_for: ["info@mail.alipajand.com.evil.io"] },
+    });
+    const res = await POST(makeRequest());
+    expect(await res.json()).toEqual({ ignored: "recipient-domain" });
+    expect(send).not.toHaveBeenCalled();
+  });
+
+  it("should forward when an alipajand.com address is among several recipients", async () => {
+    verify.mockReturnValue({
+      ...receivedEvent,
+      data: {
+        ...receivedEvent.data,
+        received_for: ["security@ledgerguard.io", "Info@AliPajand.com"],
+      },
+    });
+    const res = await POST(makeRequest());
+    expect(res.status).toBe(200);
+    expect(send).toHaveBeenCalledTimes(1);
+  });
+
+  it("should fall back to To and Cc headers when received_for is empty", async () => {
+    verify.mockReturnValue({
+      ...receivedEvent,
+      data: {
+        ...receivedEvent.data,
+        to: ["someone@example.com"],
+        cc: ["Ali <hello@alipajand.com>"],
+        received_for: [],
+      },
+    });
+    const res = await POST(makeRequest());
+    expect(res.status).toBe(200);
+    expect(send).toHaveBeenCalledTimes(1);
   });
 
   it("should forward inbound mail with reply-to set to the original sender", async () => {
