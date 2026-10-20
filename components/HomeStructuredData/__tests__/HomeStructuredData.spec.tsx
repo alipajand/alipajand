@@ -41,8 +41,6 @@ describe("HomeStructuredData", () => {
       "TypeScript",
       "Design systems",
       "Senior Software Engineer",
-      "Staff Frontend Engineer",
-      "Senior Frontend Engineer",
       "Lead Frontend Engineer",
       "Full-Stack Engineer",
       "Node.js",

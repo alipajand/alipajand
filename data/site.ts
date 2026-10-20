@@ -1,13 +1,13 @@
 export const SITE_NAME = "Ali Pajand";
 
 export const TAGLINE =
-  "Senior Software Engineer · frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js";
+  "Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js";
 
 export const HOME_TITLE =
-  "Ali Pajand — Senior Software Engineer · frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js";
+  "Ali Pajand — Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js";
 
 export const HOME_OPEN_GRAPH_TITLE =
-  "Ali Pajand — Senior Software Engineer · frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js";
+  "Ali Pajand — Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js";
 
 export const HOME_OPEN_GRAPH_DESCRIPTION =
   "Frontend architecture, design systems, and engineering standards for complex products, plus the APIs, data, and background work behind them.";
@@ -19,8 +19,6 @@ export const KEYWORDS = [
   "TypeScript",
   "Design systems",
   "Senior Software Engineer",
-  "Staff Frontend Engineer",
-  "Senior Frontend Engineer",
   "Lead Frontend Engineer",
   "Full-Stack Engineer",
   "Node.js",
