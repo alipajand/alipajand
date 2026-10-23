@@ -167,6 +167,12 @@ const WS_STATES = [
 const PROTO = "Design prototype · fictional data";
 const media = (name) =>
   `src="media/${name}-1600.webp" srcset="media/${name}-960.webp 960w, media/${name}-1600.webp 1600w"`;
+// The project story and the case-page hero share one image across the view transition:
+// the dashboard prototype's typical state. NEW copy, for owner approval.
+const DB_HERO_ALT =
+  "Design prototype of the LedgerGuard dashboard with fictional data: deadlines grouped by notice window, verified and provisional totals kept apart.";
+const DB_HERO_CAPTION =
+  "The dashboard's typical state: deadlines grouped by notice window, with verified and provisional totals kept apart.";
 const wsAlt = (st) =>
   `Design prototype of the LedgerGuard Document Intelligence Workspace with fictional data, ${st.label.toLowerCase()}: ${st.count}. Extracted terms on the left, the contract on the right.`;
 const wsImgs = (sizes, alt) =>
@@ -329,9 +335,9 @@ function indexPage() {
       <h2 id="story-h" class="story__name"><span class="story__cut" aria-hidden="true"></span>${esc(lg.name)}</h2>
       <p class="story__title">${esc(lg.caseStudyTitle)}</p>
     </header>
-    <figure class="story__shot">
-      <img src="media/ledgerguard-dashboard-1600.webp" srcset="media/ledgerguard-dashboard-960.webp 960w, media/ledgerguard-dashboard-1600.webp 1600w" sizes="(min-width: 1100px) 760px, calc(100vw - 32px)" width="1600" height="1034" alt="${esc(cs.interfaceEvidence[2].alt)}" loading="lazy" decoding="async">
-      <figcaption><b>Screenshot.</b> ${esc(cs.interfaceEvidence[2].captionBody)}</figcaption>
+    <figure class="story__shot story__shot--proto">
+      <img ${media("proto-dashboard-typical")} sizes="(min-width: 1100px) 760px, calc(100vw - 32px)" width="1600" height="1000" alt="${DB_HERO_ALT}" loading="lazy" decoding="async">
+      <figcaption><b>${PROTO}.</b> ${DB_HERO_CAPTION}</figcaption>
     </figure>
     <div class="story__body">
       <p class="story__lede">${esc(lg.cardProblem)}</p>
@@ -460,9 +466,9 @@ function casePage() {
       <div><dt>Writing</dt><dd><a href="${SITE}${lg.relatedLinks[0].href}">${esc(lg.relatedLinks[0].label)}</a></dd></div>
     </dl>
   </header>
-  <figure class="cs__hero">
-    <img src="media/ledgerguard-dashboard-1600.webp" srcset="media/ledgerguard-dashboard-960.webp 960w, media/ledgerguard-dashboard-1600.webp 1600w" sizes="(min-width: 1100px) 1040px, calc(100vw - 32px)" width="1600" height="1034" alt="${esc(cs.interfaceEvidence[2].alt)}" decoding="async">
-    <figcaption><b>Screenshot · Dashboard.</b> ${esc(cs.interfaceEvidence[2].captionBody)}</figcaption>
+  <figure class="cs__hero cs__hero--proto">
+    <img ${media("proto-dashboard-typical")} sizes="(min-width: 1100px) 1040px, calc(100vw - 32px)" width="1600" height="1000" alt="${DB_HERO_ALT}" decoding="async">
+    <figcaption><b>${PROTO} · Dashboard.</b> ${DB_HERO_CAPTION}</figcaption>
   </figure>
   <div class="cs__grid">
     <nav class="cs__toc" aria-label="Sections"><ol>${sections.map(([id, label]) => `<li><a href="#${id}">${label}</a></li>`).join("")}</ol></nav>

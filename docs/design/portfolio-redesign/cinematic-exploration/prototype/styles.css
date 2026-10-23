@@ -1460,6 +1460,11 @@ a {
   view-transition-name: lg-shot;
 }
 
+.story__shot--proto img,
+.cs__hero--proto img {
+  border: 1.5px dashed var(--ink);
+}
+
 .story__shot figcaption,
 .cs__hero figcaption,
 .cs__shot figcaption {

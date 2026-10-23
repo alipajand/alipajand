@@ -92,4 +92,5 @@ Everything on the pages comes from `data/projects.ts`, the public site and the L
 - Sequence note: "Five layers under one shipped product. Scroll down through them, or jump to a layer."
 - Boundary lead: "In the product, the line runs through the Document Intelligence Workspace. Terms on the left, the contract on the right: a person confirms, corrects, or flags each extracted term, and only then does it count."
 - The shipped-versus-proposed note under it, condensed from the workspace prototype's design notes.
+- Story figure and case-study hero caption: "The dashboard's typical state: deadlines grouped by notice window, with verified and provisional totals kept apart."
 - Case-study intro to the design prototypes: "Two of LedgerGuard's interactive design prototypes. They show designed states with fictional data, not screenshots of the shipped product. The workspace prototype's design notes separate shipped behaviour from proposals."
