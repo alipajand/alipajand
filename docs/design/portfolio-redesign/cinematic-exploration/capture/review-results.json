@@ -1,0 +1,182 @@
+[
+  {
+    "name": "axe /index.html full",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "console /index.html full",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "axe /index.html reduce",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "console /index.html reduce",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "axe /ledgerguard.html full",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "console /ledgerguard.html full",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "axe /ledgerguard.html reduce",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "console /ledgerguard.html reduce",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "keyboard: first Tab is the skip link",
+    "pass": true,
+    "detail": "Skip the sequence"
+  },
+  {
+    "name": "keyboard: skip link visible with focus ring",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "keyboard: skip link lands on the project",
+    "pass": true,
+    "detail": "{\"top\":0,\"hash\":\"#project-ledgerguard\"}"
+  },
+  {
+    "name": "keyboard: 11 tab stops on screen with focus ring",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "layer index marks #layer-api current",
+    "pass": true,
+    "detail": "#layer-api"
+  },
+  {
+    "name": "layer index marks #layer-data current",
+    "pass": true,
+    "detail": "#layer-data"
+  },
+  {
+    "name": "layer index marks #layer-jobs current",
+    "pass": true,
+    "detail": "#layer-jobs"
+  },
+  {
+    "name": "layer index marks #layer-boundary current",
+    "pass": true,
+    "detail": "#layer-boundary"
+  },
+  {
+    "name": "demo full: confirm updates row, chip and live region",
+    "pass": true,
+    "detail": "Confirmed: notice window. 2 still suggested."
+  },
+  {
+    "name": "demo full: focus stays on the confirmed row",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "demo full: reset returns to suggested",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "demo reduce: confirm updates row, chip and live region",
+    "pass": true,
+    "detail": "Confirmed: notice window. 2 still suggested."
+  },
+  {
+    "name": "demo reduce: focus stays on the confirmed row",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "demo reduce: reset returns to suggested",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "Back restores the scroll position",
+    "pass": true,
+    "detail": "10243 → 10243"
+  },
+  {
+    "name": "Back skips the arrival animation",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "return link lands on the project anchor",
+    "pass": true,
+    "detail": "{\"hash\":\"#project-ledgerguard\",\"top\":0}"
+  },
+  {
+    "name": "reduced motion: sequence not pinned",
+    "pass": true,
+    "detail": "{\"live\":false,\"motion\":\"reduce\",\"anims\":0,\"anatomy\":true}"
+  },
+  {
+    "name": "reduced motion: no running animations",
+    "pass": true,
+    "detail": "0"
+  },
+  {
+    "name": "reduced motion: static anatomy drawing shown",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "motion toggle turns the sequence off",
+    "pass": true,
+    "detail": "{\"live\":false,\"pressed\":\"false\"}"
+  },
+  {
+    "name": "motion choice persists across reload",
+    "pass": true,
+    "detail": "reduce"
+  },
+  {
+    "name": "no horizontal overflow /index.html @1440",
+    "pass": true,
+    "detail": "scrollWidth 1440"
+  },
+  {
+    "name": "no horizontal overflow /ledgerguard.html @1440",
+    "pass": true,
+    "detail": "scrollWidth 1440"
+  },
+  {
+    "name": "no horizontal overflow /index.html @768",
+    "pass": true,
+    "detail": "scrollWidth 768"
+  },
+  {
+    "name": "no horizontal overflow /ledgerguard.html @768",
+    "pass": true,
+    "detail": "scrollWidth 768"
+  },
+  {
+    "name": "no horizontal overflow /index.html @390",
+    "pass": true,
+    "detail": "scrollWidth 390"
+  },
+  {
+    "name": "no horizontal overflow /ledgerguard.html @390",
+    "pass": true,
+    "detail": "scrollWidth 390"
+  }
+]
