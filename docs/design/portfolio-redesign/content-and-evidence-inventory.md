@@ -133,11 +133,18 @@ Dimension mismatch: `tallyfolio-dashboard.png` is 3456×2234 on disk, but `data/
 4. **Repeated claims:** "four product surfaces" appears in the portfolio intro, homepage, engineering principles, AlwaysGeeky case study, and README; "80%" appears five times. Any correction must be made everywhere at once.
 5. **Diagrams are the most reusable design asset.** Every case study has 2–3 interactive diagrams (`components/diagrams/`). They are accessible (buttons with `aria-expanded`/`aria-pressed`, `aria-live` panel) and could anchor a more expressive visual system without new claims.
 
-## Questions for Ali
+## Owner decisions (2026-10-23)
 
-1. AlwaysGeeky marketplace link: relabel as "Marketplace (closed July 2026)", remove, or replace with an archived capture?
-2. ControlTech: is `ctrltech.org` permanently gone? Is there a replacement URL or should the link be removed?
-3. Can a LedgerGuard review-UI screenshot (with demo data) be captured and added?
-4. Emplifi 80%: can the measurement method be stated in one sentence (tool, metric, device class)?
-5. Confirm tiers: Featured (LedgerGuard, AlwaysGeeky, Emplifi), Supporting (Agent tooling, TallyFolio, ControlTech), Experiment (MapBylaw).
-6. LedgerGuard role label: "Senior Product Engineer" or "Founder / Independent"?
+Full record in `owner-decisions.md`.
+
+- **Tiers approved:** Featured (LedgerGuard, AlwaysGeeky, Emplifi), Supporting (Agent tooling, TallyFolio, ControlTech), Experiment (MapBylaw).
+- **Voxies Marketplace:** historical work, explicitly marked closed; no live-product CTA.
+- **ControlTech:** website link omitted until a working destination is verified.
+- **LedgerGuard review screenshot:** desirable, not a design-phase blocker.
+- **Emplifi 80% and LedgerGuard 90%:** not featured prominently until their sources are established. Emplifi stays featured, using real diagrams and evidence-based visualisations.
+
+## Still open
+
+1. Provenance for the Emplifi 80% figure (tool, metric, device class) and the LedgerGuard 90% coverage figure.
+2. LedgerGuard role label: "Senior Product Engineer" or "Founder / Independent"? Not covered by the 2026-10-23 decisions; the current published label stays until Ali decides.
+3. Whether a replacement destination exists for ControlTech.

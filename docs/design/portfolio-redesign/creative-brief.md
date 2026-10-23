@@ -1,6 +1,6 @@
 # Creative brief: portfolio redesign
 
-Date: 2026-10-23. Status: **draft for Ali's review.** Not approved for implementation.
+Date: 2026-10-23. Status: **accepted as the P0 baseline with owner revisions** (see `owner-decisions.md`). P1 design exploration is authorised; production implementation is not.
 
 Scope: `/portfolio` and `/portfolio/[slug]`. Shared chrome (nav, footer) only where the portfolio needs it. The homepage is out of scope but should inherit the visual system later.
 
@@ -82,7 +82,8 @@ Ambitions, not specifications. Each must pass §7.
 - **Index as an instrument.** A tiered index where featured projects get large typographic entries with a short outcome line and optional cover media, and supporting/experiment projects are compact rows. Hover/focus reveals a preview (cover crop or diagram) without moving layout.
 - **Diagrams as the visual language.** Restyle the existing Flow/Layers/Compare diagrams as the signature element: consistent line weights, a restrained accent colour, and motion that explains state changes (e.g. a step lighting up as the flow advances).
 - **Page transitions.** Index → case study transition that carries the project name into the case-study H1 (shared-element style), with an instant fallback under reduced motion or unsupported browsers.
-- **One choreographed moment per page.** A short title entrance on load, then quiet reading. No scroll-jacking, no motion gating content.
+- **One choreographed moment per page.** A short title entrance on load, then quiet reading. No scroll-jacking, no motion gating content. Longer, explanatory motion belongs in interactions the visitor starts (diagrams, transitions), within the motion constraints in §7.
+- **Evidence without screenshots.** Emplifi stays featured with no interface images. Its treatment should come from its real architecture and performance story (the existing compare, layers, and flow diagrams; typography; evidence-based visualisations), never from an invented dashboard.
 - **Colour.** Keep the dark base, define one accent with a clear meaning (e.g. "confirmed / decision") instead of the current misnamed red, and give cards a real surface colour (F-24).
 - **Detail polish.** Cursor-independent hover states, focus states designed as carefully as hover, tabular numerals for dates and metrics, consistent caption styling.
 
@@ -90,7 +91,7 @@ Ambitions, not specifications. Each must pass §7.
 
 ### Accessibility (must)
 
-- WCAG 2.2 AA on every page. Lighthouse Accessibility 100 on `/portfolio` and all case studies; no axe violations.
+- WCAG 2.2 AA on every page. A Lighthouse accessibility score of 100 is a floor, not proof of conformance: verification also requires axe with no violations, a full keyboard walk-through, a screen-reader pass, and manual review (contrast, focus, reading order, target size, reduced motion).
 - Contrast ≥ 4.5:1 for body and metadata text on every surface, including text inside buttons (F-07).
 - Every interaction available by keyboard and touch; visible focus on everything focusable; outline before content in tab order (F-14).
 - One primary link per project (F-15); correct heading levels (F-16).
@@ -99,11 +100,17 @@ Ambitions, not specifications. Each must pass §7.
 - Content is readable with JavaScript disabled, without scrolling, and with images off (F-03).
 - Screen-reader pass on VoiceOver (macOS + iOS) before launch; this was not done in the audit.
 
-### Performance (must, numbers pending Ali's approval; DC-6)
+### Performance (must; approved, DC-6 as revised)
 
 - Mobile lab: LCP ≤ 2.5 s, TBT ≤ 200 ms, CLS ≤ 0.1, Lighthouse Performance ≥ 90 on the index and every case study.
 - Field (Speed Insights, p75): LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.1.
-- Images: correct `sizes`, only the LCP image prioritised, everything else lazy (F-10). Index cover media ≤ 300 KB total on first load.
+- Images: correct `sizes`, only the LCP image prioritised, everything else lazy (F-10). Index cover media ≤ 300 KB total on first load. Budgets apply to what visitors receive; there is no fixed size limit on committed source files when the delivery pipeline is configured correctly.
+
+### Motion (must)
+
+- No animation may gate content, interfere with native navigation (scrolling, keyboard scrolling, anchors, Back/Forward), or remove information.
+- 600 ms is the default entrance budget, not a universal limit. Explanatory interactions may run longer when the duration serves comprehension.
+- Motion uses composited properties (transform, opacity) where possible; no blur on text.
 - No new heavy dependencies without approval. GSAP and Lenis are already installed; prefer them or CSS over adding WebGL/3D libraries. Any WebGL must be optional, lazy, and off under reduced motion.
 - Keep content in server components; motion in thin client wrappers (F-12).
 
@@ -111,8 +118,9 @@ Ambitions, not specifications. Each must pass §7.
 
 - No new metrics, employers, titles, dates, team sizes, or customers.
 - Screenshots only of real products. Recreated or illustrative visuals must be labelled.
-- Dead or closed links resolved before launch (F-01).
-- Positioning paragraph decision made (F-08).
+- Voxies Marketplace is shown as historical work, explicitly marked closed, with no live-product CTA. The ControlTech website link is omitted until a working destination is verified (F-01).
+- No staff-level title comparison. Show the actual Senior roles and let engineering evidence show influence (F-08).
+- The Emplifi 80% and LedgerGuard 90% figures are not featured prominently until their sources are established (F-09).
 
 ### Technical (must)
 
@@ -151,20 +159,22 @@ Ambitions, not specifications. Each must pass §7.
 | "Additional experience" dead path, `ProjectHighlightCard` | Remove or repurpose deliberately                                                                           | F-26         |
 | Default OG image for every case study                     | Per-project OG image in the new identity                                                                   | F-25         |
 
-## 10. Open questions for Ali
+## 10. Owner decisions
 
-1. Approve the two-layer design rule and the motion/performance budgets (DC-4, DC-5, DC-6)?
-2. Confirm tiers: Featured (LedgerGuard, AlwaysGeeky, Emplifi), Supporting (Agent tooling, TallyFolio, ControlTech), Experiment (MapBylaw)?
-3. Keep, soften, or remove the "staff-level" intro paragraph (F-08)?
-4. Voxies marketplace and ctrltech.org links: relabel, archive, or remove (F-01)?
-5. Can you provide a LedgerGuard review-UI capture with demo data and one-line provenance for the 80% and 90% figures (F-09)?
-6. Should `/portfolio#case-studies` scroll to the list again, or was disabling portfolio hash scrolling in `8624118` intentional (F-04)?
-7. Is the redesign allowed to add a display or monospace typeface (font weight and licensing to be checked)?
-8. Is an Awwwards submission a firm goal (it affects whether page transitions and a motion toggle are in scope for v1)?
+All eight open questions were answered on 2026-10-23; the full record is in `owner-decisions.md`. In short:
+
+1. Two-layer design rule approved; motion and performance budgets mandatory, as revised in §7.
+2. Tiers approved: Featured (LedgerGuard, AlwaysGeeky, Emplifi), Supporting (Agent tooling, TallyFolio, ControlTech), Experiment (MapBylaw).
+3. Staff-level framing removed.
+4. Voxies Marketplace marked closed with no live CTA; ControlTech link omitted until verified.
+5. LedgerGuard review screenshot desirable, not a design blocker; 80% and 90% not prominent until sourced.
+6. Back restores scroll position; return links go to the relevant project anchor; focus management preserved.
+7. Display and monospace typefaces permitted for exploration; final choice depends on licensing and performance.
+8. Awwwards submission is a firm goal; recruiter usability is non-negotiable.
 
 ## 11. Suggested sequencing (for planning only)
 
-1. Decisions above; doc updates from `documentation-conflicts.md`.
+1. P1 design exploration (authorised). Apply the `documentation-conflicts.md` changes to guidance files in a separate, approved change.
 2. Content fixes that are independent of design: F-01, F-07, F-19, F-11.
 3. Behaviour fixes with tests: F-04, F-03, F-14 (protects the baseline before visual change).
 4. Data model extension (tier, cover, link status, provenance).

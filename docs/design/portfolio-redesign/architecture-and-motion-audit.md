@@ -137,7 +137,8 @@ Tokens: `utils/motion.ts` defines `EASE`, `DUR` (0.2–1.4 s), `STAGGER`, `CINE`
 ### 4.3 Motion principles for the redesign (proposal)
 
 - Content must be visible without JavaScript and without scrolling. Use CSS-first entrance effects that start from a visible state, or animate only decorative layers.
-- Motion budget per viewport: one choreographed moment (e.g. the page title), then quiet. Entrance ≤ 600 ms; stagger ≤ 60 ms; no blur filters on text.
+- Motion budget per viewport: one choreographed moment (e.g. the page title), then quiet. Entrances default to ≤ 600 ms with stagger ≤ 60 ms; explanatory interactions may run longer when the duration serves comprehension (owner decision, 2026-10-23). No blur filters on text.
+- No animation may gate content, interfere with native navigation, or remove information.
 - Expressive motion belongs in places that do not block reading: the index hover/focus state, diagram transitions, page transitions (the browser View Transitions API; Next.js/React support should be checked against the installed version before relying on it), and cover media.
 - Respect `prefers-reduced-motion` live (listen for changes), and also offer an on-page toggle if the redesign adds significant motion.
 - Keep native scrolling. If smooth scrolling stays, it must preserve keyboard scrolling, anchor offsets, and back/forward restoration.

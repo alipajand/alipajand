@@ -4,6 +4,8 @@ Audit date: 2026-10-23. Repository state: `6f43749` on `main` (worktree branch `
 
 This file records where the repository's guidance documents disagree with the code, with each other, or with the new redesign goal (senior recruitment **and** Awwwards-level design and interaction quality). Nothing here has been applied. Each item ends with a proposed change for review.
 
+**Update 2026-10-23:** Ali decided DC-4, DC-5, DC-6, DC-7, and DC-11 (see `owner-decisions.md`). The proposals below have been revised to match those decisions. They are still not applied to the guidance files; that needs a separate, approved change.
+
 Files reviewed: `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, `README.md`, `CHANGELOG.md`, `docs/ARCHITECTURE.md`, `docs/SITE_STRUCTURE.md`, `docs/ROUTES.md`, `package.json`, `next.config.ts`.
 
 ---
@@ -63,7 +65,7 @@ Files reviewed: `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, `README.md`, `CHANGELO
 
 **Proposed change:** add the missing routes. Extend "Slug stability" to case-study slugs defined in `data/projects.ts` (`slug` field), and note that the sitemap and `CollectionPage` JSON-LD read from the same source.
 
-## DC-4 · Portfolio design constraints vs the Awwwards goal (decision needed)
+## DC-4 · Portfolio design constraints vs the Awwwards goal (decided)
 
 **Current guidance (CLAUDE.md):**
 
@@ -83,7 +85,7 @@ The two goals are not actually opposed. What the rules protect is **scan speed a
 
 > The `/portfolio` index must remain fully understandable as text: every project's name, role, timeframe, one-line problem, and case-study link must be readable without images, motion, or JavaScript. On top of that baseline, the page may use expressive typography, layout, imagery, and motion, provided each one passes the motion and performance budgets below and none of it delays the first readable content.
 
-This needs Ali's sign-off because it changes the public design direction.
+**Decision (2026-10-23):** approved. Complete, accessible content first; expressive visual design on top.
 
 ## DC-5 · Motion guidance
 
@@ -101,8 +103,8 @@ This needs Ali's sign-off because it changes the public design direction.
 
 **Proposed change (not applied):** add a "Motion" section to `CLAUDE.md`:
 
-> - Motion must never gate reading. Content is visible in server HTML and stays visible if JavaScript, IntersectionObserver, or GSAP fails.
-> - Entrance motion is limited to transform and opacity, ≤ 600 ms per element, and no more than one staggered sequence in view at a time.
+> - Motion must never gate reading, interfere with native navigation (scrolling, keyboard scrolling, anchors, Back/Forward), or remove information. Content is visible in server HTML and stays visible if JavaScript, IntersectionObserver, or GSAP fails.
+> - Entrance motion uses transform and opacity where possible, with a default budget of 600 ms per element and no more than one staggered sequence in view at a time. The 600 ms default is not a universal limit: explanatory interactions may run longer when the duration serves comprehension.
 > - `prefers-reduced-motion: reduce` removes all non-essential motion, including smooth scrolling, parallax, and word splitting. Changes to the preference while the page is open must be respected.
 > - Scroll-linked effects must not hijack native scrolling, keyboard scrolling, or in-page anchor navigation.
 > - Every motion pattern gets a named owner in `utils/motion.ts` / `utils/cinematic.ts`, so no component invents its own timing.
@@ -116,11 +118,12 @@ This needs Ali's sign-off because it changes the public design direction.
 **Proposed change (not applied):** add a budget section to `CLAUDE.md`, measured on mobile emulation against production:
 
 > - LCP ≤ 2.5 s, CLS ≤ 0.1, INP ≤ 200 ms (field, p75, from Vercel Speed Insights where available).
-> - Lighthouse mobile Performance ≥ 90 and Accessibility = 100 on `/portfolio` and every case study.
+> - Lighthouse mobile Performance ≥ 90 on `/portfolio` and every case study.
+> - Accessibility is verified with axe (no violations), a keyboard walk-through, a screen-reader pass, and manual review. A Lighthouse accessibility score of 100 is necessary but not sufficient.
 > - Index page: no image above the fold may be larger than its rendered size × 2 DPR; total image transfer on first load ≤ 300 KB.
-> - Source screenshots committed to `public/` must be ≤ 1 MB each (AVIF/WebP preferred, PNG only for exceptions).
+> - Budgets apply to what visitors receive. There is no fixed size limit on committed source images when the delivery pipeline (`next/image`, correct `sizes`, lazy loading) is configured correctly.
 
-The numbers are proposals; Ali should confirm them.
+**Decision (2026-10-23):** approved with these revisions; the fixed 1 MB source-image limit from the first draft was dropped.
 
 ## DC-7 · Case-study hierarchy
 
@@ -134,7 +137,7 @@ The numbers are proposals; Ali should confirm them.
 2. "MapBylaw, if relevant and strong enough" leaves the decision open, while the code ships it as a full case study.
 3. `PORTFOLIO_PAGE_INTRO` says "The case studies below are ordered by how much they show" and names only the top three, which already implies tiers the page does not show.
 
-**Proposed change (not applied):** replace the flat list with tiers, e.g. _Featured_ (LedgerGuard, AlwaysGeeky, Emplifi), _Supporting_ (Agent tooling, TallyFolio, ControlTech), _Experiments_ (MapBylaw). Ali needs to confirm the tier for MapBylaw and Agent tooling.
+**Proposed change (not applied):** replace the flat list with tiers, e.g. _Featured_ (LedgerGuard, AlwaysGeeky, Emplifi), _Supporting_ (Agent tooling, TallyFolio, ControlTech), _Experiments_ (MapBylaw). **Decision (2026-10-23):** tiers approved as listed.
 
 ## DC-8 · Production approval rules
 
@@ -182,8 +185,8 @@ The numbers are proposals; Ali should confirm them.
 - `data/projects.ts:84` (live `/portfolio` intro, second paragraph): "The staff-level part is leverage, not a title: my roles were Senior…". This line came from commits `961d424` / `402de90` ("Staff Frontend Engineer positioning", "staff-level framing").
 - `data/portfolioFit.ts` role-fit strip includes "Technical direction", "Cross-team standards", and "Mentoring".
 
-**Conflict:** the portfolio intro still argues a staff-level case that the rest of the site moved away from. This is a positioning decision, not a doc fix, so it is recorded here rather than resolved. **Ask Ali:** keep, soften, or remove the staff-level paragraph.
+**Conflict:** the portfolio intro still argues a staff-level case that the rest of the site moved away from. This is a positioning decision, not a doc fix, so it is recorded here rather than resolved. **Decision (2026-10-23):** remove the staff-level framing; present the actual Senior roles and show influence through engineering evidence.
 
 ## DC-12 · README case-study table
 
-`README.md` lists six case studies; MapBylaw has a live dedicated case study at `/portfolio/mapbylaw` but is missing from the table. **Proposed change:** add it, or leave it out deliberately if it moves to an "experiments" tier (DC-7).
+`README.md` lists six case studies; MapBylaw has a live dedicated case study at `/portfolio/mapbylaw` but is missing from the table. **Proposed change:** add it under an "Experiment" label, matching the tier decided in DC-7.

@@ -2,6 +2,8 @@
 
 Audit date: 2026-10-23. Each finding has an ID, priority, evidence type, source evidence, and a proposed correction. Nothing has been fixed. Corrections are proposals for a later, approved implementation pass.
 
+**Update 2026-10-23:** Ali accepted this register as the P0 baseline and decided F-01, F-02, F-04, F-06, F-08, and F-09 (full record in `owner-decisions.md`). Each affected finding now ends with a **Decision** line.
+
 **Priority**
 
 - **P0**: blocks the redesign or misrepresents Ali to an employer. Resolve before any redesign work ships.
@@ -54,12 +56,14 @@ Detailed evidence lives in `baseline-audit.md` (B§), `architecture-and-motion-a
 - **Evidence (M):** On 2026-10-23, `https://market.voxies.io` (AlwaysGeeky "Marketplace" button, `data/projects.ts:749`) redirected to `/closed`, whose page reads that the Voxies Marketplace has shut down and dates the closure to July 17, 2026. `https://ctrltech.org` (ControlTech "Company website", `:1057`) failed DNS resolution (`curl: Could not resolve host`). Both links appear on the index and the case studies, and the Voxies one is styled as a primary button.
 - **Why P0:** a hiring manager who clicks either sees a dead end on the employer-facing page. This is a factual-accuracy issue, not a design one.
 - **Proposed correction:** Ali decides per link: relabel ("Marketplace — closed July 2026"), replace with an archived capture, or remove. Add a `status: "live" | "archived"` field to `ProjectLink` so the UI can show archived links differently. Add a scheduled link check (outside this audit's scope). Recheck ctrltech.org from another network before removing it, since this was one observation.
+- **Decision (2026-10-23):** Voxies Marketplace is presented as historical work, explicitly marked closed, and its live-product CTA is removed. The ControlTech website link is omitted until a working destination is verified.
 
 ### F-02 · Design rules forbid the Awwwards goal; no motion or performance budget
 
 - **Evidence (C, D):** `CLAUDE.md` requires `/portfolio` to be "not a heavy visual gallery", to "avoid visual complexity on recruiter-facing index pages" and "excessive animation", with no definition. No file defines motion or performance budgets. `ProjectIndex.spec.tsx` encodes "should not render project figures" as a test. Details: DC-4, DC-5, DC-6.
 - **Why P0:** any redesign either breaks the written rules or stays inside them and cannot meet the Awwwards goal. This must be decided first.
 - **Proposed correction:** adopt the two-layer rule in DC-4 (text-complete baseline + expressive layer within budgets), the motion rules in DC-5, and the budget in DC-6, after Ali approves them. Update the test to assert the text baseline rather than the absence of figures.
+- **Decision (2026-10-23):** two-layer rule approved; motion and performance budgets mandatory, with revisions: the 600 ms entrance budget is a default, not a universal limit; no fixed size limit on source images; Lighthouse accessibility 100 must be backed by axe, keyboard, screen-reader, and manual checks.
 
 ## P1
 
@@ -73,7 +77,8 @@ Detailed evidence lives in `baseline-audit.md` (B§), `architecture-and-motion-a
 
 - **Evidence (M):** "Back to all case studies" (`/portfolio#case-studies`) landed at `scrollY 0` while `#case-studies` is at 1,607 px. Browser Back from a case study after scrolling to 2,400 px returned to 0 (B§4). Cause: `RouteChangeFocus.tsx:15-17` sets `history.scrollRestoration = "manual"`, and lines 27-35 call `scrollToTop()` and skip hash handling when the path is `/portfolio`.
 - **Why P1:** index → case study → back is the core recruiter loop. Each return drops them at the intro prose.
-- **Proposed correction:** restore scroll on history navigation (keep native or Next.js restoration for `popstate`), honour `#case-studies` and `#project-*` hashes on `/portfolio`, and keep the focus-to-`main` behaviour only for forward navigation. History: commit `8624118` ("add breadcrumbs and simplify cross-page navigation") deliberately disabled portfolio hash scrolling, with no reason given in the message, while `ProjectCaseStudyArticle.tsx:183` still links to `/portfolio#case-studies`. The two decisions now contradict each other; ask Ali which behaviour was intended before changing either.
+- **Proposed correction:** restore scroll on history navigation (keep native or Next.js restoration for `popstate`), honour `#case-studies` and `#project-*` hashes on `/portfolio`, and keep the focus-to-`main` behaviour only for forward navigation. History: commit `8624118` ("add breadcrumbs and simplify cross-page navigation") deliberately disabled portfolio hash scrolling, with no reason given in the message, while `ProjectCaseStudyArticle.tsx:183` still links to `/portfolio#case-studies`. The two decisions now contradict each other.
+- **Decision (2026-10-23):** browser Back restores the previous scroll position; explicit return links go to the relevant project anchor (e.g. `/portfolio#project-ledgerguard`); keyboard focus management is preserved.
 
 ### F-05 · No project is visible in the first viewport
 
@@ -83,7 +88,8 @@ Detailed evidence lives in `baseline-audit.md` (B§), `architecture-and-motion-a
 ### F-06 · Seven case studies at identical visual weight
 
 - **Evidence (O, C):** every `ProjectIndexItem` has the same layout and type scale (`portfolio-1440-full.jpg`). `PORTFOLIO_PAGE_INTRO` says the list is "ordered by how much they show", but no visual signal marks tiers. `Project` has no tier field (A§2).
-- **Proposed correction:** add `tier` to the data model and design three distinct treatments: Featured (LedgerGuard, AlwaysGeeky, Emplifi), Supporting (Agent tooling, TallyFolio, ControlTech), Experiment (MapBylaw). Tier assignment needs Ali's confirmation (CI, DC-7).
+- **Proposed correction:** add `tier` to the data model and design three distinct treatments: Featured (LedgerGuard, AlwaysGeeky, Emplifi), Supporting (Agent tooling, TallyFolio, ControlTech), Experiment (MapBylaw).
+- **Decision (2026-10-23):** tiers approved as listed.
 
 ### F-07 · Live-link host hint fails contrast
 
@@ -94,18 +100,20 @@ Detailed evidence lives in `baseline-audit.md` (B§), `architecture-and-motion-a
 
 - **Evidence (C, D):** `data/projects.ts:84` opens with "The staff-level part is leverage, not a title". `CLAUDE.md` and commit `ba8081b` set the public title to Senior Software Engineer. DC-11.
 - **Proposed correction:** Ali decides: keep, soften (e.g. lead with the AlwaysGeeky evidence without the staff framing), or remove. Not a design decision.
+- **Decision (2026-10-23):** remove the staff-level framing. Present the actual Senior roles and show influence through engineering evidence.
 
 ### F-09 · Headline claims lack provenance; key UI is not shown
 
 - **Evidence (C, D):** the Emplifi "80%" appears five times on the site without method; LedgerGuard "90% unit-test coverage" has no supporting artefact; LedgerGuard has no screenshot of the review UI the case study is about; Emplifi and ControlTech have no interface evidence at all (CI).
 - **Proposed correction:** Ali supplies one-line provenance for each metric (tool, metric, scope) and, where shareable, a review-UI capture with demo data. The redesign must not invent illustrative UI; any recreated visual must be labelled as illustrative.
+- **Decision (2026-10-23):** a LedgerGuard review screenshot is desirable but not a design-phase blocker. The 80% and 90% figures are not featured prominently until their sources are established. Emplifi stays featured, using real architecture diagrams and evidence-based visualisations instead of an invented interface.
 
 ## P2
 
 ### F-10 · Images download 3840 px at every viewport; LCP image not prioritised
 
 - **Evidence (M, C):** at 390 px, LedgerGuard figures rendered at 342×221 but requested `w=3840` (B§7). `ProjectFigure.tsx` passes intrinsic 3456 px width, no `sizes`, `loading="eager"` for every figure, and no `priority`/`fetchPriority`. Lighthouse: "Properly size images" savings 162–260 KiB; `lcp-discovery-insight` flags missing `fetchpriority=high`. LedgerGuard mobile LCP 5.3 s in one run.
-- **Proposed correction:** set `sizes` from the layout (e.g. `(min-width: 1024px) 896px, 100vw`), `priority` on the hero figure only, `loading="lazy"` for evidence figures. Re-encode source PNGs (18 MB) to reasonable dimensions. This must be fixed before adding index cover images.
+- **Proposed correction:** set `sizes` from the layout (e.g. `(min-width: 1024px) 896px, 100vw`), `priority` on the hero figure only, `loading="lazy"` for evidence figures. Re-encoding the 18 MB of source PNGs is optional: the owner set no fixed source-size limit, and the budget applies to what visitors receive. This must be fixed before adding index cover images.
 
 ### F-11 · TallyFolio dashboard dimensions mismatch
 
