@@ -1,0 +1,5139 @@
+{
+  "capturedAt": "2026-10-23T19:26:02.535Z",
+  "runs": [
+    {
+      "page": "portfolio",
+      "route": "/portfolio",
+      "viewport": "desktop",
+      "width": 1440,
+      "motion": "no-preference",
+      "wallMs": 11687,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 6346,
+        "viewportWidth": 1440,
+        "horizontalOverflow": false,
+        "scrollWidth": 1440,
+        "overflowers": [],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 13,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"LedgerGuard\" 95x21",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"Emplifi\" 50x21",
+          "a \"Full-Stack AI Contract Intelligence\" 287x23",
+          "a \"Shared Design System & Frontend Standard\" 374x23",
+          "a \"Enterprise Analytics\" 167x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 328x23",
+          "a \"Privacy-first personal finance tracker\" 310x23",
+          "a \"Startup Studio Frontend Delivery\" 273x23",
+          "a \"AI-Assisted Zoning Exploration\" 255x23"
+        ],
+        "transferKB": 378,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 247,
+          "css": 3,
+          "other": 3,
+          "fetch": 43,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 77,
+        "domContentLoaded": 320,
+        "load": 481,
+        "imageResources": [],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 328,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 328,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 6346,
+        "viewportWidth": 1440,
+        "horizontalOverflow": false,
+        "scrollWidth": 1440,
+        "overflowers": [],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 0,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"LedgerGuard\" 95x21",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"Emplifi\" 50x21",
+          "a \"Full-Stack AI Contract Intelligence\" 290x23",
+          "a \"Shared Design System & Frontend Standard\" 378x23",
+          "a \"Enterprise Analytics\" 168x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 331x23",
+          "a \"Privacy-first personal finance tracker\" 313x23",
+          "a \"Startup Studio Frontend Delivery\" 276x23",
+          "a \"AI-Assisted Zoning Exploration\" 258x23"
+        ],
+        "transferKB": 470,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 260,
+          "css": 3,
+          "other": 3,
+          "fetch": 123,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 77,
+        "domContentLoaded": 320,
+        "load": 481,
+        "imageResources": [],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 328,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 328,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "focus": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "href": "#main-content",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Ali Pajand",
+          "href": "/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Portfolio",
+          "href": "/portfolio",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Open Source",
+          "href": "/open-source",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Writing",
+          "href": "/writing",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Principles",
+          "href": "/engineering-principles",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Contact",
+          "href": "/#contact",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Home",
+          "href": "/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "AlwaysGeeky",
+          "href": "/portfolio/alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "LedgerGuard",
+          "href": "/portfolio/ledgerguard",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "AlwaysGeeky",
+          "href": "/portfolio/alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Emplifi",
+          "href": "/portfolio/emplifi",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "GitHub: github.com/alipajand (opens in new tab)",
+          "href": "https://github.com/alipajand",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "LinkedIn: linkedin.com/in/alipajand (opens in new tab)",
+          "href": "https://linkedin.com/in/alipajand",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Book a call: calendly.com/alipajand/intro (opens in new tab)",
+          "href": "https://calendly.com/alipajand/intro",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "LedgerGuard",
+          "href": "/portfolio/ledgerguard",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the LedgerGuard case study→",
+          "href": "/portfolio/ledgerguard",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Live product (ledgerguard.io) (opens in new tab)",
+          "href": "https://ledgerguard.io/",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "The quiet failure mode in contract AI: when the UI believes the wrong ",
+          "href": "/writing/ledgerguard-truth-between-extraction-and-finance",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "AlwaysGeeky Games",
+          "href": "/portfolio/alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the AlwaysGeeky Games case study→",
+          "href": "/portfolio/alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Marketplace (market.voxies.io) (opens in new tab)",
+          "href": "https://market.voxies.io",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Login (login.voxies.io) (opens in new tab)",
+          "href": "https://login.voxies.io/",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Emplifi",
+          "href": "/portfolio/emplifi",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the Emplifi case study→",
+          "href": "/portfolio/emplifi",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Company website (emplifi.io) (opens in new tab)",
+          "href": "https://emplifi.io",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Agent Engineering Tools",
+          "href": "/portfolio/agent-tooling",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the Agent Engineering Tools case study→",
+          "href": "/portfolio/agent-tooling",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Open Source page",
+          "href": "/open-source",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "GitHub profile (github.com) (opens in new tab)",
+          "href": "https://github.com/alipajand",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "TallyFolio",
+          "href": "/portfolio/tallyfolio",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the TallyFolio case study→",
+          "href": "/portfolio/tallyfolio",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Live product (tallyfolio.com) (opens in new tab)",
+          "href": "https://tallyfolio.com",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "ControlTech",
+          "href": "/portfolio/controltech",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the ControlTech case study→",
+          "href": "/portfolio/controltech",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Company website (ctrltech.org) (opens in new tab)",
+          "href": "https://ctrltech.org",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "MapBylaw",
+          "href": "/portfolio/mapbylaw",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the MapBylaw case study→",
+          "href": "/portfolio/mapbylaw",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Live product (mapbylaw.ca) (opens in new tab)",
+          "href": "https://mapbylaw.ca/",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Teaching MapBylaw to give honest AI recommendations",
+          "href": "/writing/mapbylaw-ai-recommendations",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "LedgerGuard",
+          "href": "#project-ledgerguard",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "AlwaysGeeky Games",
+          "href": "#project-alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Emplifi",
+          "href": "#project-emplifi",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Agent Engineering Tools",
+          "href": "#project-agent-tooling",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "TallyFolio",
+          "href": "#project-tallyfolio",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        }
+      ],
+      "unscrolledShot": "portfolio-1440-full-unscrolled.jpg"
+    },
+    {
+      "page": "ledgerguard",
+      "route": "/portfolio/ledgerguard",
+      "viewport": "desktop",
+      "width": 1440,
+      "motion": "no-preference",
+      "wallMs": 12258,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 8100,
+        "viewportWidth": 1440,
+        "horizontalOverflow": false,
+        "scrollWidth": 1440,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "896x579",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "744x481",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "744x481",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 10,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"The quiet failure mode in contract AI: w\" 528x21",
+          "a \"Next case study: AlwaysGeeky Games\" 277x21",
+          "a \"Back to all case studies\" 172x21"
+        ],
+        "transferKB": 192,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "fetch": 18,
+          "other": 0
+        },
+        "documentTransferKB": 18,
+        "ttfb": 8,
+        "domContentLoaded": 122,
+        "load": 1196,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 1332,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 308,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 8100,
+        "viewportWidth": 1440,
+        "horizontalOverflow": false,
+        "scrollWidth": 1440,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "896x579",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "752x486",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "752x486",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"The quiet failure mode in contract AI: w\" 534x21",
+          "a \"Next case study: AlwaysGeeky Games\" 280x21",
+          "a \"Back to all case studies\" 174x21"
+        ],
+        "transferKB": 244,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "fetch": 70,
+          "other": 0
+        },
+        "documentTransferKB": 18,
+        "ttfb": 8,
+        "domContentLoaded": 122,
+        "load": 1196,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 1332,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 308,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "focus": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "href": "#main-content",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Ali Pajand",
+          "href": "/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Portfolio",
+          "href": "/portfolio",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Open Source",
+          "href": "/open-source",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Writing",
+          "href": "/writing",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Principles",
+          "href": "/engineering-principles",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Contact",
+          "href": "/#contact",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Home",
+          "href": "/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Case studies",
+          "href": "/portfolio",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Live product (ledgerguard.io) (opens in new tab)",
+          "href": "https://ledgerguard.io/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Next.js App Router product▾",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Node.js/Fastify API▾",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Supabase PostgreSQL, Auth, Storage▾",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Redis/BullMQ orchestration▾",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Python extraction worker▾",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "1Upload",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Next →",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "The quiet failure mode in contract AI: when the UI believes the wrong ",
+          "href": "/writing/ledgerguard-truth-between-extraction-and-finance",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Next case study: AlwaysGeeky Games",
+          "href": "/portfolio/alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Back to all case studies",
+          "href": "/portfolio#case-studies",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Context",
+          "href": "#ledgerguard-context",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Problem",
+          "href": "#ledgerguard-problem",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "My role",
+          "href": "#ledgerguard-role",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "What I built",
+          "href": "#ledgerguard-built",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Technical decisions",
+          "href": "#ledgerguard-technical-decisions",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "UX and detail decisions",
+          "href": "#ledgerguard-ux-decisions",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Interface evidence",
+          "href": "#ledgerguard-evidence",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Outcome",
+          "href": "#ledgerguard-outcome",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "What I would improve",
+          "href": "#ledgerguard-improve",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Related work",
+          "href": "#ledgerguard-related",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Portfolio",
+          "href": "/portfolio",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Open Source",
+          "href": "/open-source",
+          "visibleIndicator": true,
+          "inViewport": false,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Writing",
+          "href": "/writing",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Principles",
+          "href": "/engineering-principles",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Contact",
+          "href": "/#contact",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        }
+      ],
+      "unscrolledShot": "ledgerguard-1440-full-unscrolled.jpg"
+    },
+    {
+      "page": "alwaysgeeky",
+      "route": "/portfolio/alwaysgeeky",
+      "viewport": "desktop",
+      "width": 1440,
+      "motion": "no-preference",
+      "wallMs": 6884,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "AlwaysGeeky Games — Shared Design System & Frontend Standards · Ali Pajand",
+        "metaDescription": "Case study: A shared React and TypeScript component library across four product surfaces, with Storybook, accessibility work, TypeScript and review conventions, and CI quality gates. Senior Frontend Engineer — Ali Pajand.",
+        "canonical": "https://alipajand.com/portfolio/alwaysgeeky",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 7444,
+        "viewportWidth": 1440,
+        "horizontalOverflow": false,
+        "scrollWidth": 1440,
+        "overflowers": [],
+        "headings": [
+          "H1: AlwaysGeeky Games",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "section#alwaysgeeky-context",
+          "section#alwaysgeeky-problem",
+          "section#alwaysgeeky-role",
+          "section#alwaysgeeky-built",
+          "section#alwaysgeeky-technical-decisions",
+          "section#alwaysgeeky-ux-decisions",
+          "section#alwaysgeeky-evidence",
+          "section#alwaysgeeky-outcome",
+          "section#alwaysgeeky-improve",
+          "section#alwaysgeeky-related",
+          "aside",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#alwaysgeeky-context ×2",
+          "#alwaysgeeky-problem ×2",
+          "#alwaysgeeky-role ×2",
+          "#alwaysgeeky-built ×2",
+          "#alwaysgeeky-technical-decisions ×2",
+          "#alwaysgeeky-ux-decisions ×2",
+          "#alwaysgeeky-evidence ×2",
+          "#alwaysgeeky-outcome ×2",
+          "#alwaysgeeky-improve ×2",
+          "#alwaysgeeky-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games marketplace interface using shared design-",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "896x579",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games login flow using shared form and recovery ",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "744x481",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 10,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"Next case study: Emplifi\" 175x21",
+          "a \"Back to all case studies\" 172x21"
+        ],
+        "transferKB": 289,
+        "transferByTypeKB": {
+          "link": 270,
+          "script": 0,
+          "css": 1,
+          "fetch": 18,
+          "other": 0
+        },
+        "documentTransferKB": 17,
+        "ttfb": 7,
+        "domContentLoaded": 87,
+        "load": 223,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 202,
+            "decodedKB": 202
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 68,
+            "decodedKB": 68
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 380,
+          "lcpEl": "img \"AlwaysGeeky Games marketplace interface using shared design-\"",
+          "cls": 0,
+          "fcp": 136,
+          "longTasks": 1,
+          "tbt": 51
+        }
+      },
+      "afterScroll": {
+        "title": "AlwaysGeeky Games — Shared Design System & Frontend Standards · Ali Pajand",
+        "metaDescription": "Case study: A shared React and TypeScript component library across four product surfaces, with Storybook, accessibility work, TypeScript and review conventions, and CI quality gates. Senior Frontend Engineer — Ali Pajand.",
+        "canonical": "https://alipajand.com/portfolio/alwaysgeeky",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 7444,
+        "viewportWidth": 1440,
+        "horizontalOverflow": false,
+        "scrollWidth": 1440,
+        "overflowers": [],
+        "headings": [
+          "H1: AlwaysGeeky Games",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "section#alwaysgeeky-context",
+          "section#alwaysgeeky-problem",
+          "section#alwaysgeeky-role",
+          "section#alwaysgeeky-built",
+          "section#alwaysgeeky-technical-decisions",
+          "section#alwaysgeeky-ux-decisions",
+          "section#alwaysgeeky-evidence",
+          "section#alwaysgeeky-outcome",
+          "section#alwaysgeeky-improve",
+          "section#alwaysgeeky-related",
+          "aside",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#alwaysgeeky-context ×2",
+          "#alwaysgeeky-problem ×2",
+          "#alwaysgeeky-role ×2",
+          "#alwaysgeeky-built ×2",
+          "#alwaysgeeky-technical-decisions ×2",
+          "#alwaysgeeky-ux-decisions ×2",
+          "#alwaysgeeky-evidence ×2",
+          "#alwaysgeeky-outcome ×2",
+          "#alwaysgeeky-improve ×2",
+          "#alwaysgeeky-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games marketplace interface using shared design-",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "896x579",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games login flow using shared form and recovery ",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "752x486",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"Next case study: Emplifi\" 177x21",
+          "a \"Back to all case studies\" 174x21"
+        ],
+        "transferKB": 335,
+        "transferByTypeKB": {
+          "link": 270,
+          "script": 0,
+          "css": 1,
+          "fetch": 63,
+          "other": 0
+        },
+        "documentTransferKB": 17,
+        "ttfb": 7,
+        "domContentLoaded": 87,
+        "load": 223,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 202,
+            "decodedKB": 202
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 68,
+            "decodedKB": 68
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 380,
+          "lcpEl": "img \"AlwaysGeeky Games marketplace interface using shared design-\"",
+          "cls": 0,
+          "fcp": 136,
+          "longTasks": 1,
+          "tbt": 51
+        }
+      },
+      "focus": null,
+      "unscrolledShot": null
+    },
+    {
+      "page": "portfolio",
+      "route": "/portfolio",
+      "viewport": "desktop",
+      "width": 1440,
+      "motion": "reduce",
+      "wallMs": 10962,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 6343,
+        "viewportWidth": 1440,
+        "horizontalOverflow": false,
+        "scrollWidth": 1440,
+        "overflowers": [],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 0,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"LedgerGuard\" 95x21",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"Emplifi\" 50x21",
+          "a \"Full-Stack AI Contract Intelligence\" 290x23",
+          "a \"Shared Design System & Frontend Standard\" 378x23",
+          "a \"Enterprise Analytics\" 168x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 331x23",
+          "a \"Privacy-first personal finance tracker\" 313x23",
+          "a \"Startup Studio Frontend Delivery\" 276x23",
+          "a \"AI-Assisted Zoning Exploration\" 258x23"
+        ],
+        "transferKB": 379,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 247,
+          "css": 3,
+          "other": 3,
+          "fetch": 44,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 71,
+        "domContentLoaded": 105,
+        "load": 147,
+        "imageResources": [],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 128,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 128,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 6343,
+        "viewportWidth": 1440,
+        "horizontalOverflow": false,
+        "scrollWidth": 1440,
+        "overflowers": [],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 0,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"LedgerGuard\" 95x21",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"Emplifi\" 50x21",
+          "a \"Full-Stack AI Contract Intelligence\" 290x23",
+          "a \"Shared Design System & Frontend Standard\" 378x23",
+          "a \"Enterprise Analytics\" 168x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 331x23",
+          "a \"Privacy-first personal finance tracker\" 313x23",
+          "a \"Startup Studio Frontend Delivery\" 276x23",
+          "a \"AI-Assisted Zoning Exploration\" 258x23"
+        ],
+        "transferKB": 471,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 260,
+          "css": 3,
+          "other": 3,
+          "fetch": 123,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 71,
+        "domContentLoaded": 105,
+        "load": 147,
+        "imageResources": [],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 128,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 128,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "focus": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "href": "#main-content",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Ali Pajand",
+          "href": "/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Portfolio",
+          "href": "/portfolio",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Open Source",
+          "href": "/open-source",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Writing",
+          "href": "/writing",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Principles",
+          "href": "/engineering-principles",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Contact",
+          "href": "/#contact",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Home",
+          "href": "/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "AlwaysGeeky",
+          "href": "/portfolio/alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "LedgerGuard",
+          "href": "/portfolio/ledgerguard",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "AlwaysGeeky",
+          "href": "/portfolio/alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Emplifi",
+          "href": "/portfolio/emplifi",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "GitHub: github.com/alipajand (opens in new tab)",
+          "href": "https://github.com/alipajand",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "LinkedIn: linkedin.com/in/alipajand (opens in new tab)",
+          "href": "https://linkedin.com/in/alipajand",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Book a call: calendly.com/alipajand/intro (opens in new tab)",
+          "href": "https://calendly.com/alipajand/intro",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "LedgerGuard",
+          "href": "/portfolio/ledgerguard",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the LedgerGuard case study→",
+          "href": "/portfolio/ledgerguard",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Live product (ledgerguard.io) (opens in new tab)",
+          "href": "https://ledgerguard.io/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "The quiet failure mode in contract AI: when the UI believes the wrong ",
+          "href": "/writing/ledgerguard-truth-between-extraction-and-finance",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "AlwaysGeeky Games",
+          "href": "/portfolio/alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the AlwaysGeeky Games case study→",
+          "href": "/portfolio/alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Marketplace (market.voxies.io) (opens in new tab)",
+          "href": "https://market.voxies.io",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Login (login.voxies.io) (opens in new tab)",
+          "href": "https://login.voxies.io/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Emplifi",
+          "href": "/portfolio/emplifi",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the Emplifi case study→",
+          "href": "/portfolio/emplifi",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Company website (emplifi.io) (opens in new tab)",
+          "href": "https://emplifi.io",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Agent Engineering Tools",
+          "href": "/portfolio/agent-tooling",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the Agent Engineering Tools case study→",
+          "href": "/portfolio/agent-tooling",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Open Source page",
+          "href": "/open-source",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "GitHub profile (github.com) (opens in new tab)",
+          "href": "https://github.com/alipajand",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "TallyFolio",
+          "href": "/portfolio/tallyfolio",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the TallyFolio case study→",
+          "href": "/portfolio/tallyfolio",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Live product (tallyfolio.com) (opens in new tab)",
+          "href": "https://tallyfolio.com",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "ControlTech",
+          "href": "/portfolio/controltech",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the ControlTech case study→",
+          "href": "/portfolio/controltech",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Company website (ctrltech.org) (opens in new tab)",
+          "href": "https://ctrltech.org",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "MapBylaw",
+          "href": "/portfolio/mapbylaw",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Read the MapBylaw case study→",
+          "href": "/portfolio/mapbylaw",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Live product (mapbylaw.ca) (opens in new tab)",
+          "href": "https://mapbylaw.ca/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Teaching MapBylaw to give honest AI recommendations",
+          "href": "/writing/mapbylaw-ai-recommendations",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "LedgerGuard",
+          "href": "#project-ledgerguard",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "AlwaysGeeky Games",
+          "href": "#project-alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Emplifi",
+          "href": "#project-emplifi",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Agent Engineering Tools",
+          "href": "#project-agent-tooling",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "TallyFolio",
+          "href": "#project-tallyfolio",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        }
+      ],
+      "unscrolledShot": null
+    },
+    {
+      "page": "ledgerguard",
+      "route": "/portfolio/ledgerguard",
+      "viewport": "desktop",
+      "width": 1440,
+      "motion": "reduce",
+      "wallMs": 10759,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 8100,
+        "viewportWidth": 1440,
+        "horizontalOverflow": false,
+        "scrollWidth": 1440,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "896x579",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "752x486",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "752x486",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"The quiet failure mode in contract AI: w\" 534x21",
+          "a \"Next case study: AlwaysGeeky Games\" 280x21",
+          "a \"Back to all case studies\" 174x21"
+        ],
+        "transferKB": 192,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "fetch": 18,
+          "other": 0,
+          "img": 0
+        },
+        "documentTransferKB": 18,
+        "ttfb": 9,
+        "domContentLoaded": 40,
+        "load": 128,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          }
+        ],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 160,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 160,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 8100,
+        "viewportWidth": 1440,
+        "horizontalOverflow": false,
+        "scrollWidth": 1440,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "896x579",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "752x486",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "752x486",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"The quiet failure mode in contract AI: w\" 534x21",
+          "a \"Next case study: AlwaysGeeky Games\" 280x21",
+          "a \"Back to all case studies\" 174x21"
+        ],
+        "transferKB": 244,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "fetch": 70,
+          "other": 0,
+          "img": 0
+        },
+        "documentTransferKB": 18,
+        "ttfb": 9,
+        "domContentLoaded": 40,
+        "load": 128,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          }
+        ],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 160,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 160,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "focus": [
+        {
+          "tag": "a",
+          "text": "Skip to content",
+          "href": "#main-content",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Ali Pajand",
+          "href": "/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Portfolio",
+          "href": "/portfolio",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Open Source",
+          "href": "/open-source",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Writing",
+          "href": "/writing",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Principles",
+          "href": "/engineering-principles",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Contact",
+          "href": "/#contact",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Home",
+          "href": "/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Case studies",
+          "href": "/portfolio",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Live product (ledgerguard.io) (opens in new tab)",
+          "href": "https://ledgerguard.io/",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Next.js App Router product▾",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Node.js/Fastify API▾",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Supabase PostgreSQL, Auth, Storage▾",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Redis/BullMQ orchestration▾",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Python extraction worker▾",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "1Upload",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "button",
+          "text": "Next →",
+          "href": null,
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "The quiet failure mode in contract AI: when the UI believes the wrong ",
+          "href": "/writing/ledgerguard-truth-between-extraction-and-finance",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Next case study: AlwaysGeeky Games",
+          "href": "/portfolio/alwaysgeeky",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Back to all case studies",
+          "href": "/portfolio#case-studies",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Context",
+          "href": "#ledgerguard-context",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Problem",
+          "href": "#ledgerguard-problem",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "My role",
+          "href": "#ledgerguard-role",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "What I built",
+          "href": "#ledgerguard-built",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Technical decisions",
+          "href": "#ledgerguard-technical-decisions",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "UX and detail decisions",
+          "href": "#ledgerguard-ux-decisions",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Interface evidence",
+          "href": "#ledgerguard-evidence",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Outcome",
+          "href": "#ledgerguard-outcome",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "What I would improve",
+          "href": "#ledgerguard-improve",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Related work",
+          "href": "#ledgerguard-related",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Portfolio",
+          "href": "/portfolio",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Open Source",
+          "href": "/open-source",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Writing",
+          "href": "/writing",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Principles",
+          "href": "/engineering-principles",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        },
+        {
+          "tag": "a",
+          "text": "Contact",
+          "href": "/#contact",
+          "visibleIndicator": true,
+          "inViewport": true,
+          "opacity": "1"
+        }
+      ],
+      "unscrolledShot": null
+    },
+    {
+      "page": "portfolio",
+      "route": "/portfolio",
+      "viewport": "tablet",
+      "width": 768,
+      "motion": "no-preference",
+      "wallMs": 6397,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 6794,
+        "viewportWidth": 768,
+        "horizontalOverflow": false,
+        "scrollWidth": 768,
+        "overflowers": [],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 13,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"LedgerGuard\" 95x21",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"Emplifi\" 50x21",
+          "a \"Full-Stack AI Contract Intelligence\" 287x23",
+          "a \"Shared Design System & Frontend Standard\" 374x23",
+          "a \"Enterprise Analytics\" 167x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 328x23",
+          "a \"Privacy-first personal finance tracker\" 310x23",
+          "a \"Startup Studio Frontend Delivery\" 273x23",
+          "a \"AI-Assisted Zoning Exploration\" 255x23"
+        ],
+        "transferKB": 377,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 247,
+          "css": 3,
+          "other": 3,
+          "fetch": 43,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 40,
+        "domContentLoaded": 71,
+        "load": 128,
+        "imageResources": [],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 120,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 120,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 6794,
+        "viewportWidth": 768,
+        "horizontalOverflow": false,
+        "scrollWidth": 768,
+        "overflowers": [],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 0,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"LedgerGuard\" 95x21",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"Emplifi\" 50x21",
+          "a \"Full-Stack AI Contract Intelligence\" 290x23",
+          "a \"Shared Design System & Frontend Standard\" 378x23",
+          "a \"Enterprise Analytics\" 168x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 331x23",
+          "a \"Privacy-first personal finance tracker\" 313x23",
+          "a \"Startup Studio Frontend Delivery\" 276x23",
+          "a \"AI-Assisted Zoning Exploration\" 258x23"
+        ],
+        "transferKB": 469,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 260,
+          "css": 3,
+          "other": 3,
+          "fetch": 122,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 40,
+        "domContentLoaded": 71,
+        "load": 128,
+        "imageResources": [],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 120,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 120,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "focus": null,
+      "unscrolledShot": null
+    },
+    {
+      "page": "ledgerguard",
+      "route": "/portfolio/ledgerguard",
+      "viewport": "tablet",
+      "width": 768,
+      "motion": "no-preference",
+      "wallMs": 6671,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 8246,
+        "viewportWidth": 768,
+        "horizontalOverflow": false,
+        "scrollWidth": 768,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "681x440",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "681x440",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 10,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"The quiet failure mode in contract AI: w\" 528x21",
+          "a \"Next case study: AlwaysGeeky Games\" 277x21",
+          "a \"Back to all case studies\" 172x21"
+        ],
+        "transferKB": 192,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "other": 0,
+          "fetch": 18
+        },
+        "documentTransferKB": 18,
+        "ttfb": 6,
+        "domContentLoaded": 136,
+        "load": 202,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 208,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 188,
+          "longTasks": 1,
+          "tbt": 29
+        }
+      },
+      "afterScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 8246,
+        "viewportWidth": 768,
+        "horizontalOverflow": false,
+        "scrollWidth": 768,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"The quiet failure mode in contract AI: w\" 534x21",
+          "a \"Next case study: AlwaysGeeky Games\" 280x21",
+          "a \"Back to all case studies\" 174x21"
+        ],
+        "transferKB": 244,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "other": 0,
+          "fetch": 70
+        },
+        "documentTransferKB": 18,
+        "ttfb": 6,
+        "domContentLoaded": 136,
+        "load": 202,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 208,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 188,
+          "longTasks": 1,
+          "tbt": 29
+        }
+      },
+      "focus": null,
+      "unscrolledShot": null
+    },
+    {
+      "page": "alwaysgeeky",
+      "route": "/portfolio/alwaysgeeky",
+      "viewport": "tablet",
+      "width": 768,
+      "motion": "no-preference",
+      "wallMs": 6458,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "AlwaysGeeky Games — Shared Design System & Frontend Standards · Ali Pajand",
+        "metaDescription": "Case study: A shared React and TypeScript component library across four product surfaces, with Storybook, accessibility work, TypeScript and review conventions, and CI quality gates. Senior Frontend Engineer — Ali Pajand.",
+        "canonical": "https://alipajand.com/portfolio/alwaysgeeky",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 7816,
+        "viewportWidth": 768,
+        "horizontalOverflow": false,
+        "scrollWidth": 768,
+        "overflowers": [],
+        "headings": [
+          "H1: AlwaysGeeky Games",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "section#alwaysgeeky-context",
+          "section#alwaysgeeky-problem",
+          "section#alwaysgeeky-role",
+          "section#alwaysgeeky-built",
+          "section#alwaysgeeky-technical-decisions",
+          "section#alwaysgeeky-ux-decisions",
+          "section#alwaysgeeky-evidence",
+          "section#alwaysgeeky-outcome",
+          "section#alwaysgeeky-improve",
+          "section#alwaysgeeky-related",
+          "aside",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#alwaysgeeky-context ×2",
+          "#alwaysgeeky-problem ×2",
+          "#alwaysgeeky-role ×2",
+          "#alwaysgeeky-built ×2",
+          "#alwaysgeeky-technical-decisions ×2",
+          "#alwaysgeeky-ux-decisions ×2",
+          "#alwaysgeeky-evidence ×2",
+          "#alwaysgeeky-outcome ×2",
+          "#alwaysgeeky-improve ×2",
+          "#alwaysgeeky-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games marketplace interface using shared design-",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games login flow using shared form and recovery ",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "681x440",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 10,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"Next case study: Emplifi\" 175x21",
+          "a \"Back to all case studies\" 172x21"
+        ],
+        "transferKB": 289,
+        "transferByTypeKB": {
+          "link": 270,
+          "script": 0,
+          "css": 1,
+          "other": 0,
+          "fetch": 18
+        },
+        "documentTransferKB": 17,
+        "ttfb": 6,
+        "domContentLoaded": 23,
+        "load": 81,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 68,
+            "decodedKB": 68
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 202,
+            "decodedKB": 202
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 144,
+          "lcpEl": "img \"AlwaysGeeky Games marketplace interface using shared design-\"",
+          "cls": 0,
+          "fcp": 76,
+          "longTasks": 1,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "AlwaysGeeky Games — Shared Design System & Frontend Standards · Ali Pajand",
+        "metaDescription": "Case study: A shared React and TypeScript component library across four product surfaces, with Storybook, accessibility work, TypeScript and review conventions, and CI quality gates. Senior Frontend Engineer — Ali Pajand.",
+        "canonical": "https://alipajand.com/portfolio/alwaysgeeky",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 7816,
+        "viewportWidth": 768,
+        "horizontalOverflow": false,
+        "scrollWidth": 768,
+        "overflowers": [],
+        "headings": [
+          "H1: AlwaysGeeky Games",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "section#alwaysgeeky-context",
+          "section#alwaysgeeky-problem",
+          "section#alwaysgeeky-role",
+          "section#alwaysgeeky-built",
+          "section#alwaysgeeky-technical-decisions",
+          "section#alwaysgeeky-ux-decisions",
+          "section#alwaysgeeky-evidence",
+          "section#alwaysgeeky-outcome",
+          "section#alwaysgeeky-improve",
+          "section#alwaysgeeky-related",
+          "aside",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#alwaysgeeky-context ×2",
+          "#alwaysgeeky-problem ×2",
+          "#alwaysgeeky-role ×2",
+          "#alwaysgeeky-built ×2",
+          "#alwaysgeeky-technical-decisions ×2",
+          "#alwaysgeeky-ux-decisions ×2",
+          "#alwaysgeeky-evidence ×2",
+          "#alwaysgeeky-outcome ×2",
+          "#alwaysgeeky-improve ×2",
+          "#alwaysgeeky-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games marketplace interface using shared design-",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games login flow using shared form and recovery ",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"Next case study: Emplifi\" 177x21",
+          "a \"Back to all case studies\" 174x21"
+        ],
+        "transferKB": 333,
+        "transferByTypeKB": {
+          "link": 270,
+          "script": 0,
+          "css": 1,
+          "other": 0,
+          "fetch": 62
+        },
+        "documentTransferKB": 17,
+        "ttfb": 6,
+        "domContentLoaded": 23,
+        "load": 81,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 68,
+            "decodedKB": 68
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 202,
+            "decodedKB": 202
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 144,
+          "lcpEl": "img \"AlwaysGeeky Games marketplace interface using shared design-\"",
+          "cls": 0,
+          "fcp": 76,
+          "longTasks": 1,
+          "tbt": 0
+        }
+      },
+      "focus": null,
+      "unscrolledShot": null
+    },
+    {
+      "page": "portfolio",
+      "route": "/portfolio",
+      "viewport": "tablet",
+      "width": 768,
+      "motion": "reduce",
+      "wallMs": 6296,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 6791,
+        "viewportWidth": 768,
+        "horizontalOverflow": false,
+        "scrollWidth": 768,
+        "overflowers": [],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 0,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"LedgerGuard\" 95x21",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"Emplifi\" 50x21",
+          "a \"Full-Stack AI Contract Intelligence\" 290x23",
+          "a \"Shared Design System & Frontend Standard\" 378x23",
+          "a \"Enterprise Analytics\" 168x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 331x23",
+          "a \"Privacy-first personal finance tracker\" 313x23",
+          "a \"Startup Studio Frontend Delivery\" 276x23",
+          "a \"AI-Assisted Zoning Exploration\" 258x23"
+        ],
+        "transferKB": 379,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 247,
+          "css": 3,
+          "other": 3,
+          "fetch": 44,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 42,
+        "domContentLoaded": 81,
+        "load": 133,
+        "imageResources": [],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 120,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 120,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 6791,
+        "viewportWidth": 768,
+        "horizontalOverflow": false,
+        "scrollWidth": 768,
+        "overflowers": [],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 0,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"LedgerGuard\" 95x21",
+          "a \"AlwaysGeeky\" 98x21",
+          "a \"Emplifi\" 50x21",
+          "a \"Full-Stack AI Contract Intelligence\" 290x23",
+          "a \"Shared Design System & Frontend Standard\" 378x23",
+          "a \"Enterprise Analytics\" 168x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 331x23",
+          "a \"Privacy-first personal finance tracker\" 313x23",
+          "a \"Startup Studio Frontend Delivery\" 276x23",
+          "a \"AI-Assisted Zoning Exploration\" 258x23"
+        ],
+        "transferKB": 471,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 260,
+          "css": 3,
+          "other": 3,
+          "fetch": 123,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 42,
+        "domContentLoaded": 81,
+        "load": 133,
+        "imageResources": [],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 120,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 120,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "focus": null,
+      "unscrolledShot": null
+    },
+    {
+      "page": "ledgerguard",
+      "route": "/portfolio/ledgerguard",
+      "viewport": "tablet",
+      "width": 768,
+      "motion": "reduce",
+      "wallMs": 6542,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 8246,
+        "viewportWidth": 768,
+        "horizontalOverflow": false,
+        "scrollWidth": 768,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"The quiet failure mode in contract AI: w\" 534x21",
+          "a \"Next case study: AlwaysGeeky Games\" 280x21",
+          "a \"Back to all case studies\" 174x21"
+        ],
+        "transferKB": 192,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "fetch": 18,
+          "other": 0
+        },
+        "documentTransferKB": 18,
+        "ttfb": 5,
+        "domContentLoaded": 27,
+        "load": 100,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          }
+        ],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 76,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 76,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 8246,
+        "viewportWidth": 768,
+        "horizontalOverflow": false,
+        "scrollWidth": 768,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "688x445",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"The quiet failure mode in contract AI: w\" 534x21",
+          "a \"Next case study: AlwaysGeeky Games\" 280x21",
+          "a \"Back to all case studies\" 174x21"
+        ],
+        "transferKB": 246,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "fetch": 72,
+          "other": 0
+        },
+        "documentTransferKB": 18,
+        "ttfb": 5,
+        "domContentLoaded": 27,
+        "load": 100,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          }
+        ],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 76,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 76,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "focus": null,
+      "unscrolledShot": null
+    },
+    {
+      "page": "portfolio",
+      "route": "/portfolio",
+      "viewport": "mobile",
+      "width": 390,
+      "motion": "no-preference",
+      "wallMs": 7028,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 8933,
+        "viewportWidth": 390,
+        "horizontalOverflow": false,
+        "scrollWidth": 390,
+        "overflowers": [
+          "nav.relative right=396",
+          "div.px-6 sm:px-10 lg:px-20 right=396",
+          "div.md:hidden absolute top-16 left-0 right-0 overflow-hidden bg- right=396"
+        ],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 13,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 92x19",
+          "a \"LedgerGuard\" 89x19",
+          "a \"AlwaysGeeky\" 92x19",
+          "a \"Emplifi\" 47x19",
+          "a \"Full-Stack AI Contract Intelligence\" 287x23",
+          "a \"Enterprise Analytics\" 167x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 328x23",
+          "a \"Privacy-first personal finance tracker\" 310x23",
+          "a \"Startup Studio Frontend Delivery\" 273x23",
+          "a \"AI-Assisted Zoning Exploration\" 255x23"
+        ],
+        "transferKB": 350,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 231,
+          "css": 3,
+          "other": 3,
+          "fetch": 31,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 46,
+        "domContentLoaded": 85,
+        "load": 136,
+        "imageResources": [],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 128,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 128,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 8933,
+        "viewportWidth": 390,
+        "horizontalOverflow": false,
+        "scrollWidth": 390,
+        "overflowers": [],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 0,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 92x19",
+          "a \"LedgerGuard\" 89x19",
+          "a \"AlwaysGeeky\" 92x19",
+          "a \"Emplifi\" 47x19",
+          "a \"Full-Stack AI Contract Intelligence\" 290x23",
+          "a \"Enterprise Analytics\" 168x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 331x23",
+          "a \"Privacy-first personal finance tracker\" 313x23",
+          "a \"Startup Studio Frontend Delivery\" 276x23",
+          "a \"AI-Assisted Zoning Exploration\" 258x23"
+        ],
+        "transferKB": 471,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 260,
+          "css": 3,
+          "other": 3,
+          "fetch": 123,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 46,
+        "domContentLoaded": 85,
+        "load": 136,
+        "imageResources": [],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 128,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 128,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "focus": null,
+      "unscrolledShot": null
+    },
+    {
+      "page": "ledgerguard",
+      "route": "/portfolio/ledgerguard",
+      "viewport": "mobile",
+      "width": 390,
+      "motion": "no-preference",
+      "wallMs": 7390,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 9774,
+        "viewportWidth": 390,
+        "horizontalOverflow": false,
+        "scrollWidth": 390,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "339x219",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "339x219",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 10,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"Next case study: AlwaysGeeky Games\" 260x19",
+          "a \"Back to all case studies\" 161x19"
+        ],
+        "transferKB": 183,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "fetch": 9,
+          "other": 0
+        },
+        "documentTransferKB": 18,
+        "ttfb": 5,
+        "domContentLoaded": 34,
+        "load": 217,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 228,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 76,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 9774,
+        "viewportWidth": 390,
+        "horizontalOverflow": false,
+        "scrollWidth": 390,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"Next case study: AlwaysGeeky Games\" 262x19",
+          "a \"Back to all case studies\" 163x19"
+        ],
+        "transferKB": 244,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "fetch": 70,
+          "other": 0
+        },
+        "documentTransferKB": 18,
+        "ttfb": 5,
+        "domContentLoaded": 34,
+        "load": 217,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 228,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 76,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "focus": null,
+      "unscrolledShot": null
+    },
+    {
+      "page": "alwaysgeeky",
+      "route": "/portfolio/alwaysgeeky",
+      "viewport": "mobile",
+      "width": 390,
+      "motion": "no-preference",
+      "wallMs": 7243,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "AlwaysGeeky Games — Shared Design System & Frontend Standards · Ali Pajand",
+        "metaDescription": "Case study: A shared React and TypeScript component library across four product surfaces, with Storybook, accessibility work, TypeScript and review conventions, and CI quality gates. Senior Frontend Engineer — Ali Pajand.",
+        "canonical": "https://alipajand.com/portfolio/alwaysgeeky",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 9509,
+        "viewportWidth": 390,
+        "horizontalOverflow": false,
+        "scrollWidth": 390,
+        "overflowers": [],
+        "headings": [
+          "H1: AlwaysGeeky Games",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "section#alwaysgeeky-context",
+          "section#alwaysgeeky-problem",
+          "section#alwaysgeeky-role",
+          "section#alwaysgeeky-built",
+          "section#alwaysgeeky-technical-decisions",
+          "section#alwaysgeeky-ux-decisions",
+          "section#alwaysgeeky-evidence",
+          "section#alwaysgeeky-outcome",
+          "section#alwaysgeeky-improve",
+          "section#alwaysgeeky-related",
+          "aside",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#alwaysgeeky-context ×2",
+          "#alwaysgeeky-problem ×2",
+          "#alwaysgeeky-role ×2",
+          "#alwaysgeeky-built ×2",
+          "#alwaysgeeky-technical-decisions ×2",
+          "#alwaysgeeky-ux-decisions ×2",
+          "#alwaysgeeky-evidence ×2",
+          "#alwaysgeeky-outcome ×2",
+          "#alwaysgeeky-improve ×2",
+          "#alwaysgeeky-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games marketplace interface using shared design-",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games login flow using shared form and recovery ",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "339x219",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 10,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"Next case study: Emplifi\" 164x19",
+          "a \"Back to all case studies\" 161x19"
+        ],
+        "transferKB": 280,
+        "transferByTypeKB": {
+          "link": 270,
+          "script": 0,
+          "css": 1,
+          "fetch": 9,
+          "other": 0
+        },
+        "documentTransferKB": 17,
+        "ttfb": 29,
+        "domContentLoaded": 82,
+        "load": 195,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 202,
+            "decodedKB": 202
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 68,
+            "decodedKB": 68
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 148,
+          "lcpEl": "p \"Four product surfaces shared one React and TypeScript compon\"",
+          "cls": 0,
+          "fcp": 148,
+          "longTasks": 1,
+          "tbt": 69
+        }
+      },
+      "afterScroll": {
+        "title": "AlwaysGeeky Games — Shared Design System & Frontend Standards · Ali Pajand",
+        "metaDescription": "Case study: A shared React and TypeScript component library across four product surfaces, with Storybook, accessibility work, TypeScript and review conventions, and CI quality gates. Senior Frontend Engineer — Ali Pajand.",
+        "canonical": "https://alipajand.com/portfolio/alwaysgeeky",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 9509,
+        "viewportWidth": 390,
+        "horizontalOverflow": false,
+        "scrollWidth": 390,
+        "overflowers": [],
+        "headings": [
+          "H1: AlwaysGeeky Games",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "section#alwaysgeeky-context",
+          "section#alwaysgeeky-problem",
+          "section#alwaysgeeky-role",
+          "section#alwaysgeeky-built",
+          "section#alwaysgeeky-technical-decisions",
+          "section#alwaysgeeky-ux-decisions",
+          "section#alwaysgeeky-evidence",
+          "section#alwaysgeeky-outcome",
+          "section#alwaysgeeky-improve",
+          "section#alwaysgeeky-related",
+          "aside",
+          "nav[Table of contents for AlwaysGeeky Games]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#alwaysgeeky-context ×2",
+          "#alwaysgeeky-problem ×2",
+          "#alwaysgeeky-role ×2",
+          "#alwaysgeeky-built ×2",
+          "#alwaysgeeky-technical-decisions ×2",
+          "#alwaysgeeky-ux-decisions ×2",
+          "#alwaysgeeky-evidence ×2",
+          "#alwaysgeeky-outcome ×2",
+          "#alwaysgeeky-improve ×2",
+          "#alwaysgeeky-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games marketplace interface using shared design-",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "AlwaysGeeky Games login flow using shared form and recovery ",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"Next case study: Emplifi\" 165x19",
+          "a \"Back to all case studies\" 163x19"
+        ],
+        "transferKB": 333,
+        "transferByTypeKB": {
+          "link": 270,
+          "script": 0,
+          "css": 1,
+          "fetch": 62,
+          "other": 0
+        },
+        "documentTransferKB": 17,
+        "ttfb": 29,
+        "domContentLoaded": 82,
+        "load": 195,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 202,
+            "decodedKB": 202
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 68,
+            "decodedKB": 68
+          }
+        ],
+        "lenisActive": true,
+        "vitals": {
+          "lcp": 148,
+          "lcpEl": "p \"Four product surfaces shared one React and TypeScript compon\"",
+          "cls": 0,
+          "fcp": 148,
+          "longTasks": 1,
+          "tbt": 69
+        }
+      },
+      "focus": null,
+      "unscrolledShot": null
+    },
+    {
+      "page": "portfolio",
+      "route": "/portfolio",
+      "viewport": "mobile",
+      "width": 390,
+      "motion": "reduce",
+      "wallMs": 7175,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 8930,
+        "viewportWidth": 390,
+        "horizontalOverflow": false,
+        "scrollWidth": 390,
+        "overflowers": [],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 0,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 92x19",
+          "a \"LedgerGuard\" 89x19",
+          "a \"AlwaysGeeky\" 92x19",
+          "a \"Emplifi\" 47x19",
+          "a \"Full-Stack AI Contract Intelligence\" 290x23",
+          "a \"Enterprise Analytics\" 168x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 331x23",
+          "a \"Privacy-first personal finance tracker\" 313x23",
+          "a \"Startup Studio Frontend Delivery\" 276x23",
+          "a \"AI-Assisted Zoning Exploration\" 258x23"
+        ],
+        "transferKB": 350,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 231,
+          "css": 3,
+          "other": 3,
+          "fetch": 31,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 41,
+        "domContentLoaded": 78,
+        "load": 279,
+        "imageResources": [],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 120,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 120,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems",
+        "metaDescription": "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.",
+        "canonical": "https://alipajand.com/portfolio",
+        "jsonLdTypes": ["WebSite", "CollectionPage", "BreadcrumbList"],
+        "docHeight": 8930,
+        "viewportWidth": 390,
+        "horizontalOverflow": false,
+        "scrollWidth": 390,
+        "overflowers": [],
+        "headings": [
+          "H1: Portfolio",
+          "H2: What to look for",
+          "H3: Architecture decisions, with their costs",
+          "H3: Systems other engineers build on",
+          "H3: Complex product states",
+          "H3: Ownership past the browser",
+          "H2(sr-only): Case studies",
+          "H2: LedgerGuard",
+          "H2: AlwaysGeeky Games",
+          "H2: Emplifi",
+          "H2: Agent Engineering Tools",
+          "H2: TallyFolio",
+          "H2: ControlTech",
+          "H2: MapBylaw"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "header",
+          "nav[Breadcrumb]",
+          "section",
+          "section#case-studies",
+          "nav[Case studies on this page]",
+          "aside",
+          "nav[Case studies on this page]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 54,
+        "dupHrefs": [
+          "/portfolio/alwaysgeeky ×5",
+          "/portfolio/ledgerguard ×4",
+          "/portfolio/emplifi ×4",
+          "https://github.com/alipajand ×2",
+          "#project-ledgerguard ×2",
+          "#project-alwaysgeeky ×2",
+          "#project-emplifi ×2",
+          "#project-agent-tooling ×2",
+          "#project-tallyfolio ×2",
+          "#project-controltech ×2",
+          "#project-mapbylaw ×2",
+          "/portfolio/agent-tooling ×3",
+          "/portfolio/tallyfolio ×3",
+          "/portfolio/controltech ×3",
+          "/portfolio/mapbylaw ×3"
+        ],
+        "imgs": [],
+        "hiddenRevealCount": 0,
+        "revealTotal": 13,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"AlwaysGeeky\" 92x19",
+          "a \"LedgerGuard\" 89x19",
+          "a \"AlwaysGeeky\" 92x19",
+          "a \"Emplifi\" 47x19",
+          "a \"Full-Stack AI Contract Intelligence\" 290x23",
+          "a \"Enterprise Analytics\" 168x23",
+          "a \"Deterministic AI-Agent Developer Tools\" 331x23",
+          "a \"Privacy-first personal finance tracker\" 313x23",
+          "a \"Startup Studio Frontend Delivery\" 276x23",
+          "a \"AI-Assisted Zoning Exploration\" 258x23"
+        ],
+        "transferKB": 471,
+        "transferByTypeKB": {
+          "link": 82,
+          "script": 260,
+          "css": 3,
+          "other": 3,
+          "fetch": 123,
+          "beacon": 0,
+          "img": 0
+        },
+        "documentTransferKB": 14,
+        "ttfb": 41,
+        "domContentLoaded": 78,
+        "load": 279,
+        "imageResources": [],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 120,
+          "lcpEl": "p \"The case studies below are ordered by how much they show. Le\"",
+          "cls": 0,
+          "fcp": 120,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "focus": null,
+      "unscrolledShot": null
+    },
+    {
+      "page": "ledgerguard",
+      "route": "/portfolio/ledgerguard",
+      "viewport": "mobile",
+      "width": 390,
+      "motion": "reduce",
+      "wallMs": 7225,
+      "consoleErrors": [],
+      "beforeScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 9774,
+        "viewportWidth": 390,
+        "horizontalOverflow": false,
+        "scrollWidth": 390,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"Next case study: AlwaysGeeky Games\" 262x19",
+          "a \"Back to all case studies\" 163x19"
+        ],
+        "transferKB": 183,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "other": 0,
+          "fetch": 9
+        },
+        "documentTransferKB": 18,
+        "ttfb": 6,
+        "domContentLoaded": 19,
+        "load": 87,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          }
+        ],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 72,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 72,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "afterScroll": {
+        "title": "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+        "metaDescription": "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+        "canonical": "https://alipajand.com/portfolio/ledgerguard",
+        "jsonLdTypes": ["WebSite", "Article", "BreadcrumbList"],
+        "docHeight": 9774,
+        "viewportWidth": 390,
+        "horizontalOverflow": false,
+        "scrollWidth": 390,
+        "overflowers": [],
+        "headings": [
+          "H1: LedgerGuard",
+          "H2: Context",
+          "H2: Problem",
+          "H2: My role",
+          "H2: What I built",
+          "H2: Technical decisions",
+          "H2: UX and detail decisions",
+          "H2: Interface evidence",
+          "H2: Outcome",
+          "H2: What I would improve",
+          "H2: Related work"
+        ],
+        "landmarks": [
+          "header",
+          "nav[Primary]",
+          "main#main-content",
+          "nav[Breadcrumb]",
+          "header",
+          "nav[Table of contents for LedgerGuard]",
+          "section#ledgerguard-context",
+          "section#ledgerguard-problem",
+          "section#ledgerguard-role",
+          "section#ledgerguard-built",
+          "section#ledgerguard-technical-decisions",
+          "section#ledgerguard-ux-decisions",
+          "section#ledgerguard-evidence",
+          "section#ledgerguard-outcome",
+          "section#ledgerguard-improve",
+          "section#ledgerguard-related",
+          "aside",
+          "nav[Table of contents for LedgerGuard]",
+          "footer[Site footer]",
+          "nav[Work]",
+          "nav[About]",
+          "nav[Latest writing]"
+        ],
+        "mainLinkCount": 26,
+        "dupHrefs": [
+          "#ledgerguard-context ×2",
+          "#ledgerguard-problem ×2",
+          "#ledgerguard-role ×2",
+          "#ledgerguard-built ×2",
+          "#ledgerguard-technical-decisions ×2",
+          "#ledgerguard-ux-decisions ×2",
+          "#ledgerguard-evidence ×2",
+          "#ledgerguard-outcome ×2",
+          "#ledgerguard-improve ×2",
+          "#ledgerguard-related ×2"
+        ],
+        "imgs": [
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard landing page introducing AI-assisted contract in",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard sign-in screen for tenant-aware contract workflo",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          },
+          {
+            "src": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "alt": "LedgerGuard dashboard showing contract status, renewal visib",
+            "loading": "eager",
+            "fetchpriority": null,
+            "natural": "3456x2234",
+            "rendered": "342x221",
+            "sizes": null
+          }
+        ],
+        "hiddenRevealCount": 0,
+        "revealTotal": 11,
+        "tinyTargets": [
+          "a \"Home\" 38x18",
+          "a \"Case studies\" 82x18",
+          "a \"Next case study: AlwaysGeeky Games\" 262x19",
+          "a \"Back to all case studies\" 163x19"
+        ],
+        "transferKB": 244,
+        "transferByTypeKB": {
+          "link": 172,
+          "script": 0,
+          "css": 1,
+          "other": 0,
+          "fetch": 70
+        },
+        "documentTransferKB": 18,
+        "ttfb": 6,
+        "domContentLoaded": 19,
+        "load": 87,
+        "imageResources": [
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 22,
+            "decodedKB": 22
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 66,
+            "decodedKB": 65
+          },
+          {
+            "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+            "transferKB": 85,
+            "decodedKB": 85
+          }
+        ],
+        "lenisActive": false,
+        "vitals": {
+          "lcp": 72,
+          "lcpEl": "img \"LedgerGuard landing page introducing AI-assisted contract in\"",
+          "cls": 0,
+          "fcp": 72,
+          "longTasks": 0,
+          "tbt": 0
+        }
+      },
+      "focus": null,
+      "unscrolledShot": null
+    }
+  ],
+  "behaviour": {
+    "skipLink": {
+      "firstFocus": "Skip to content",
+      "afterEnter": "main-content"
+    },
+    "afterOpenCaseStudy": {
+      "url": "/portfolio/ledgerguard",
+      "scrollY": 0,
+      "focused": "main-content"
+    },
+    "backToCaseStudies": {
+      "url": "/portfolio#case-studies",
+      "scrollY": 0,
+      "caseStudiesTop": 1607,
+      "focused": "main-content"
+    },
+    "historyBackRestoresScroll": {
+      "yBefore": 2400,
+      "yAfter": 0
+    },
+    "indexTocLinks": 14,
+    "mobileToc": {
+      "openedOnTap": true,
+      "afterTapOutcome": {
+        "hash": "#ledgerguard-outcome",
+        "targetTop": 54,
+        "detailsOpen": false
+      }
+    },
+    "mobileMenuButton": 1,
+    "mobileMenu": {
+      "expanded": "true",
+      "focused": "Portfolio",
+      "bodyOverflow": "hidden"
+    },
+    "imageResponses": [
+      {
+        "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+        "status": 200,
+        "type": "image/avif",
+        "lengthKB": 65,
+        "cache": "HIT"
+      },
+      {
+        "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+        "status": 200,
+        "type": "image/avif",
+        "lengthKB": 85,
+        "cache": "HIT"
+      },
+      {
+        "url": "/_next/image?url=%2Fportfolio-media%2Fledgerguard-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+        "status": 200,
+        "type": "image/avif",
+        "lengthKB": 22,
+        "cache": "HIT"
+      },
+      {
+        "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-marketplace.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+        "status": 200,
+        "type": "image/avif",
+        "lengthKB": 202,
+        "cache": "HIT"
+      },
+      {
+        "url": "/_next/image?url=%2Fportfolio-media%2Falwaysgeeky-login.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+        "status": 200,
+        "type": "image/avif",
+        "lengthKB": 68,
+        "cache": "HIT"
+      },
+      {
+        "url": "/_next/image?url=%2Fportfolio-media%2Fmapbylaw-dashboard.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+        "status": 200,
+        "type": "image/avif",
+        "lengthKB": 70,
+        "cache": "HIT"
+      },
+      {
+        "url": "/_next/image?url=%2Fportfolio-media%2Fmapbylaw-landing.png&w=3840&q=75&dpl=dpl_6Y4U4bdXcGbRHUgbGKxzKgCu3H6H",
+        "status": 200,
+        "type": "image/avif",
+        "lengthKB": 238,
+        "cache": "HIT"
+      }
+    ]
+  }
+}

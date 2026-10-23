@@ -1,0 +1,481 @@
+{
+  "portfolio-alwaysgeeky-desktop": {
+    "url": "https://alipajand.com/portfolio/alwaysgeeky",
+    "fetchTime": "2026-10-23T19:31:16.319Z",
+    "lighthouse": "12.8.2",
+    "formFactor": "desktop",
+    "throttling": "simulate",
+    "scores": {
+      "performance": 100,
+      "accessibility": 96,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": "0.3 s",
+      "largest-contentful-paint": "0.5 s",
+      "total-blocking-time": "0 ms",
+      "cumulative-layout-shift": "0",
+      "speed-index": "0.3 s",
+      "interactive": "0.6 s",
+      "total-byte-weight": "Total size was 824 KiB"
+    },
+    "failing": [
+      {
+        "id": "errors-in-console",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "color-contrast",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "uses-long-cache-ttl",
+        "score": 0.5,
+        "value": "2 resources found"
+      },
+      {
+        "id": "unused-javascript",
+        "score": 0,
+        "value": "Est savings of 118 KiB"
+      },
+      {
+        "id": "uses-responsive-images",
+        "score": 0,
+        "value": "Est savings of 252 KiB"
+      },
+      {
+        "id": "legacy-javascript",
+        "score": 0.5,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "image-delivery-insight",
+        "score": 0.5,
+        "value": "Est savings of 188 KiB"
+      },
+      {
+        "id": "lcp-discovery-insight",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "legacy-javascript-insight",
+        "score": 0.5,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "render-blocking-insight",
+        "score": 0.5,
+        "value": null
+      }
+    ]
+  },
+  "portfolio-alwaysgeeky-mobile": {
+    "url": "https://alipajand.com/portfolio/alwaysgeeky",
+    "fetchTime": "2026-10-23T19:31:04.525Z",
+    "lighthouse": "12.8.2",
+    "formFactor": "mobile",
+    "throttling": "simulate",
+    "scores": {
+      "performance": 99,
+      "accessibility": 96,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": "1.0 s",
+      "largest-contentful-paint": "2.1 s",
+      "total-blocking-time": "50 ms",
+      "cumulative-layout-shift": "0",
+      "speed-index": "1.3 s",
+      "interactive": "4.7 s",
+      "total-byte-weight": "Total size was 801 KiB"
+    },
+    "failing": [
+      {
+        "id": "errors-in-console",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "interactive",
+        "score": 0.8,
+        "value": "4.7 s"
+      },
+      {
+        "id": "color-contrast",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "uses-long-cache-ttl",
+        "score": 0.5,
+        "value": "2 resources found"
+      },
+      {
+        "id": "unused-javascript",
+        "score": 0.5,
+        "value": "Est savings of 118 KiB"
+      },
+      {
+        "id": "uses-responsive-images",
+        "score": 0.5,
+        "value": "Est savings of 260 KiB"
+      },
+      {
+        "id": "legacy-javascript",
+        "score": 0.5,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "image-delivery-insight",
+        "score": 0.5,
+        "value": "Est savings of 266 KiB"
+      },
+      {
+        "id": "legacy-javascript-insight",
+        "score": 0.5,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "render-blocking-insight",
+        "score": 0.5,
+        "value": null
+      }
+    ]
+  },
+  "portfolio-desktop": {
+    "url": "https://alipajand.com/portfolio",
+    "fetchTime": "2026-10-23T19:30:19.315Z",
+    "lighthouse": "12.8.2",
+    "formFactor": "desktop",
+    "throttling": "simulate",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": "0.3 s",
+      "largest-contentful-paint": "0.4 s",
+      "total-blocking-time": "0 ms",
+      "cumulative-layout-shift": "0",
+      "speed-index": "0.5 s",
+      "interactive": "0.4 s",
+      "total-byte-weight": "Total size was 577 KiB"
+    },
+    "failing": [
+      {
+        "id": "errors-in-console",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "label-content-name-mismatch",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "uses-long-cache-ttl",
+        "score": 0.5,
+        "value": "2 resources found"
+      },
+      {
+        "id": "unused-javascript",
+        "score": 0.5,
+        "value": "Est savings of 97 KiB"
+      },
+      {
+        "id": "legacy-javascript",
+        "score": 0.5,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "legacy-javascript-insight",
+        "score": 0.5,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "render-blocking-insight",
+        "score": 0.5,
+        "value": null
+      }
+    ]
+  },
+  "portfolio-ledgerguard-desktop": {
+    "url": "https://alipajand.com/portfolio/ledgerguard",
+    "fetchTime": "2026-10-23T19:30:49.374Z",
+    "lighthouse": "12.8.2",
+    "formFactor": "desktop",
+    "throttling": "simulate",
+    "scores": {
+      "performance": 100,
+      "accessibility": 96,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": "0.3 s",
+      "largest-contentful-paint": "0.6 s",
+      "total-blocking-time": "0 ms",
+      "cumulative-layout-shift": "0",
+      "speed-index": "0.3 s",
+      "interactive": "0.6 s",
+      "total-byte-weight": "Total size was 730 KiB"
+    },
+    "failing": [
+      {
+        "id": "errors-in-console",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "color-contrast",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "uses-long-cache-ttl",
+        "score": 0.5,
+        "value": "2 resources found"
+      },
+      {
+        "id": "unused-javascript",
+        "score": 0,
+        "value": "Est savings of 118 KiB"
+      },
+      {
+        "id": "uses-responsive-images",
+        "score": 0,
+        "value": "Est savings of 162 KiB"
+      },
+      {
+        "id": "legacy-javascript",
+        "score": 0,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "image-delivery-insight",
+        "score": 0,
+        "value": "Est savings of 61 KiB"
+      },
+      {
+        "id": "lcp-discovery-insight",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "legacy-javascript-insight",
+        "score": 0,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "render-blocking-insight",
+        "score": 0.5,
+        "value": null
+      }
+    ]
+  },
+  "portfolio-ledgerguard-mobile": {
+    "url": "https://alipajand.com/portfolio/ledgerguard",
+    "fetchTime": "2026-10-23T19:30:33.526Z",
+    "lighthouse": "12.8.2",
+    "formFactor": "mobile",
+    "throttling": "simulate",
+    "scores": {
+      "performance": 75,
+      "accessibility": 96,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": "2.7 s",
+      "largest-contentful-paint": "5.3 s",
+      "total-blocking-time": "80 ms",
+      "cumulative-layout-shift": "0",
+      "speed-index": "3.3 s",
+      "interactive": "5.3 s",
+      "total-byte-weight": "Total size was 704 KiB"
+    },
+    "failing": [
+      {
+        "id": "first-contentful-paint",
+        "score": 0.6,
+        "value": "2.7 s"
+      },
+      {
+        "id": "largest-contentful-paint",
+        "score": 0.22,
+        "value": "5.3 s"
+      },
+      {
+        "id": "errors-in-console",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "interactive",
+        "score": 0.73,
+        "value": "5.3 s"
+      },
+      {
+        "id": "uses-rel-preconnect",
+        "score": 0,
+        "value": "Est savings of 230 ms"
+      },
+      {
+        "id": "largest-contentful-paint-element",
+        "score": 0,
+        "value": "5,300 ms"
+      },
+      {
+        "id": "color-contrast",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "uses-long-cache-ttl",
+        "score": 0.5,
+        "value": "2 resources found"
+      },
+      {
+        "id": "unused-javascript",
+        "score": 0,
+        "value": "Est savings of 118 KiB"
+      },
+      {
+        "id": "uses-responsive-images",
+        "score": 0,
+        "value": "Est savings of 166 KiB"
+      },
+      {
+        "id": "legacy-javascript",
+        "score": 0,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "image-delivery-insight",
+        "score": 0,
+        "value": "Est savings of 170 KiB"
+      },
+      {
+        "id": "lcp-discovery-insight",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "legacy-javascript-insight",
+        "score": 0.5,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "render-blocking-insight",
+        "score": 0.5,
+        "value": null
+      }
+    ]
+  },
+  "portfolio-mobile": {
+    "url": "https://alipajand.com/portfolio",
+    "fetchTime": "2026-10-23T19:30:05.305Z",
+    "lighthouse": "12.8.2",
+    "formFactor": "mobile",
+    "throttling": "simulate",
+    "scores": {
+      "performance": 98,
+      "accessibility": 100,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": "0.9 s",
+      "largest-contentful-paint": "2.1 s",
+      "total-blocking-time": "110 ms",
+      "cumulative-layout-shift": "0",
+      "speed-index": "1.5 s",
+      "interactive": "3.8 s",
+      "total-byte-weight": "Total size was 550 KiB"
+    },
+    "failing": [
+      {
+        "id": "errors-in-console",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "interactive",
+        "score": 0.89,
+        "value": "3.8 s"
+      },
+      {
+        "id": "label-content-name-mismatch",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "uses-long-cache-ttl",
+        "score": 0.5,
+        "value": "2 resources found"
+      },
+      {
+        "id": "render-blocking-resources",
+        "score": 0.5,
+        "value": "Est savings of 0 ms"
+      },
+      {
+        "id": "unused-javascript",
+        "score": 0,
+        "value": "Est savings of 97 KiB"
+      },
+      {
+        "id": "legacy-javascript",
+        "score": 0,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "legacy-javascript-insight",
+        "score": 0,
+        "value": "Est savings of 14 KiB"
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "score": 0,
+        "value": null
+      },
+      {
+        "id": "render-blocking-insight",
+        "score": 0,
+        "value": "Est savings of 70 ms"
+      }
+    ]
+  }
+}
