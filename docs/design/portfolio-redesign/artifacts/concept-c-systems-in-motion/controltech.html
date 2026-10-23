@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>ControlTech · Systems in Motion</title>
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <meta
+      name="description"
+      content="Case study: Multi-product frontend delivery across early-stage SaaS products. PWAs, workflow-heavy interfaces, Playwright/Cypress/Jest test automation, CI/CD. Frontend Engineer — Ali Pajand."
+    />
+    <meta name="color-scheme" content="dark" />
+    <script>
+      (function () {
+        var r = document.documentElement,
+          s = null;
+        try {
+          s = localStorage.getItem("p1-motion");
+        } catch (e) {}
+        r.dataset.motion =
+          s || (matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduce" : "full");
+        r.classList.add("js");
+        var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site">
+      <div class="site__inner">
+        <a class="site__brand" href="index.html">Ali Pajand</a>
+        <nav class="site__nav" aria-label="Primary">
+          <ul>
+            <li><a href="index.html" aria-current="page">Portfolio</a></li>
+            <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+            <li><a href="https://alipajand.com/writing">Writing</a></li>
+            <li><a href="https://alipajand.com/principles">Principles</a></li>
+            <li><a href="https://alipajand.com/contact">Contact</a></li>
+          </ul>
+        </nav>
+        <details class="site__menu">
+          <summary>Menu</summary>
+          <nav aria-label="Primary (compact)">
+            <ul>
+              <li><a href="index.html" aria-current="page">Portfolio</a></li>
+              <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+              <li><a href="https://alipajand.com/writing">Writing</a></li>
+              <li><a href="https://alipajand.com/principles">Principles</a></li>
+              <li><a href="https://alipajand.com/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <div class="wrap case">
+        <header class="case__head">
+          <a class="case__back" href="index.html#project-controltech"
+            ><span aria-hidden="true">←</span> All case studies</a
+          >
+          <p class="case__kicker">Supporting · 2018–2022 · Frontend Engineer</p>
+          <h1 class="case__title">
+            <span style="view-transition-name: name-controltech">ControlTech</span>
+          </h1>
+          <p class="case__sub">Startup Studio Frontend Delivery</p>
+          <p class="case__lede">
+            A startup studio, so the work spanned several early-stage products rather than one
+            flagship app. This is where the habits came from: turning vague requirements into
+            something shippable, and building it so the next product could reuse the parts.
+          </p>
+          <p class="case__stack">
+            <span>React</span><span>TypeScript</span><span>PWA</span><span>Testing</span
+            ><span>CI/CD</span>
+          </p>
+
+          <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="true">
+            <span class="motion-toggle__dot" aria-hidden="true"></span
+            ><span data-motion-label>Motion on</span>
+          </button>
+        </header>
+        <aside class="rail" aria-label="ControlTech system flow">
+          <figure class="dg dg--flow" data-flow data-tempo="1800" aria-labelledby="dg-2-t">
+            <figcaption class="dg__head">
+              <span class="dg__kind">Flow</span>
+              <strong class="dg__title" id="dg-2-t"
+                >Release path for workflow-heavy products</strong
+              >
+            </figcaption>
+            <ol class="dg__steps">
+              <li class="dg__step" data-step="0" style="--i: 0">
+                <span class="dg__n" aria-hidden="true">1</span
+                ><span class="dg__label">Reusable patterns</span
+                ><span class="dg__detail"
+                  >Build workflows on shared validation, multi-step, and async-state patterns.</span
+                >
+              </li>
+              <li class="dg__step" data-step="1" style="--i: 1">
+                <span class="dg__n" aria-hidden="true">2</span
+                ><span class="dg__label">Component tests</span
+                ><span class="dg__detail"
+                  >Jest and React Testing Library cover component and workflow behavior.</span
+                >
+              </li>
+              <li class="dg__step" data-step="2" style="--i: 2">
+                <span class="dg__n" aria-hidden="true">3</span
+                ><span class="dg__label">End-to-end tests</span
+                ><span class="dg__detail"
+                  >Playwright and Cypress cover the critical paths through core workflows.</span
+                >
+              </li>
+              <li class="dg__step" data-step="3" style="--i: 3">
+                <span class="dg__n" aria-hidden="true">4</span
+                ><span class="dg__label">CI/CD checks</span
+                ><span class="dg__detail"
+                  >Quality checks run in the pipeline instead of relying on manual
+                  verification.</span
+                >
+              </li>
+              <li class="dg__step" data-step="4" style="--i: 4">
+                <span class="dg__n" aria-hidden="true">5</span><span class="dg__label">Release</span
+                ><span class="dg__detail"
+                  >Ship with consistent quality signals around primary product paths.</span
+                >
+              </li>
+            </ol>
+            <p class="dg__caption">
+              Automated checks at each stage replaced ad-hoc final verification, which is what made
+              repeated releases survivable.
+            </p>
+          </figure>
+          <p class="rail__note">
+            From the Technical decisions section. Step through it with the buttons, or read the
+            steps as a list.
+          </p>
+        </aside>
+        <nav class="chips" aria-label="Sections in the ControlTech case study" data-outline>
+          <ol>
+            <li><a href="#context">Context</a></li>
+            <li><a href="#problem">Problem</a></li>
+            <li><a href="#role">My role</a></li>
+            <li><a href="#built">What I built</a></li>
+            <li><a href="#technical-decisions">Technical decisions</a></li>
+            <li><a href="#ux-decisions">UX and detail decisions</a></li>
+            <li><a href="#outcome">Outcome</a></li>
+            <li><a href="#improve">What I would improve</a></li>
+          </ol>
+        </nav>
+        <article class="case__body" aria-label="ControlTech case study">
+          <section class="cs-sec" id="context" aria-labelledby="context-h">
+            <h2 class="cs-sec__h" id="context-h">Context</h2>
+            <div class="cs-sec__body">
+              <p>
+                The products differed, but the constraints repeated: small teams, moving scope,
+                unreliable networks in the field, and release cycles short enough that a regression
+                in a core flow was expensive within days. I worked across the frontend/backend
+                boundary where API integration required it.
+              </p>
+            </div>
+          </section>
+          <section class="cs-sec" id="problem" aria-labelledby="problem-h">
+            <h2 class="cs-sec__h" id="problem-h">Problem</h2>
+            <div class="cs-sec__body">
+              <p>
+                Early-stage products accumulate fragile UI because everyone is moving fast and the
+                requirements keep changing underneath them. Without reusable patterns and automated
+                checks, workflow-heavy interfaces get harder to ship every release, and eventually
+                nobody trusts a deploy without manually walking the flows.
+              </p>
+              <figure class="dg dg--compare" aria-labelledby="dg-1-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 1 · Comparison</span>
+                  <strong class="dg__title" id="dg-1-t"
+                    >Shipping fast without guardrails vs building them early</strong
+                  >
+                </figcaption>
+                <div class="dg__cols">
+                  <div class="dg__col dg__col--rejected">
+                    <p class="dg__collabel">Guardrails as later cleanup</p>
+                    <ul>
+                      <li>Fragile UI accumulates as requirements change underneath it</li>
+                      <li>Workflow-heavy interfaces get harder to ship every release</li>
+                      <li>Nobody trusts a deploy without manually walking the flows</li>
+                      <li>Each product rebuilds the same patterns</li>
+                    </ul>
+                  </div>
+                  <div class="dg__col dg__col--chosen">
+                    <p class="dg__collabel">
+                      <span class="dg__taken">Approach taken</span> Guardrails from the start
+                    </p>
+                    <ul>
+                      <li>Reusable patterns and validation invested in early</li>
+                      <li>
+                        Critical paths covered by Jest, React Testing Library, Playwright, and
+                        Cypress
+                      </li>
+                      <li>CI/CD checks around primary product paths</li>
+                      <li>Frontend patterns carried between products</li>
+                    </ul>
+                  </div>
+                </div>
+                <p class="dg__caption">
+                  Guardrails cost feature time up front, but without them every release of a
+                  workflow-heavy product gets harder to trust.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="role" aria-labelledby="role-h">
+            <h2 class="cs-sec__h" id="role-h">My role</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Frontend implementation, workflow design, and release quality across several
+                  products.
+                </li>
+                <li>
+                  Built PWAs, dashboards, and form-heavy interfaces from MVP through production,
+                  often with little spec to start from.
+                </li>
+                <li>Added the test automation and CI/CD checks that covered core workflows.</li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="built" aria-labelledby="built-h">
+            <h2 class="cs-sec__h" id="built-h">What I built</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Workflow-heavy interfaces with validation, multi-step processes, and async state
+                  handling.
+                </li>
+                <li>PWAs for products that had to keep working on unreliable connections.</li>
+                <li>
+                  Automated coverage of the critical paths with Jest, React Testing Library,
+                  Playwright, and Cypress.
+                </li>
+                <li>
+                  API integrations, and the reusable frontend patterns that carried between
+                  products.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="technical-decisions" aria-labelledby="technical-decisions-h">
+            <h2 class="cs-sec__h" id="technical-decisions-h">Technical decisions</h2>
+            <div class="cs-sec__body">
+              <article class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__n">Decision 1</span> Invest in reusable patterns and
+                  validation early instead of treating them as cleanup for later startup phases.
+                </h3>
+                <ol class="decision__chain">
+                  <li>
+                    <span class="decision__k">Why</span> Fast-moving products need guardrails before
+                    the complexity compounds across multiple releases.
+                  </li>
+                  <li>
+                    <span class="decision__k">Trade-off</span> Building those foundations takes time
+                    away from short-term feature work.
+                  </li>
+                  <li>
+                    <span class="decision__k">Result</span> Core workflows stayed easier to ship
+                    repeatedly without depending only on manual verification.
+                  </li>
+                </ol>
+              </article>
+              <article class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__n">Decision 2</span> Use CI/CD quality checks to support
+                  release cadence instead of relying on ad-hoc final verification.
+                </h3>
+                <ol class="decision__chain">
+                  <li>
+                    <span class="decision__k">Why</span> Workflow regressions are expensive when
+                    multiple products are shipping under small-team conditions.
+                  </li>
+                  <li>
+                    <span class="decision__k">Trade-off</span> Automation setup adds maintenance and
+                    sometimes slows down rapid iteration in the short term.
+                  </li>
+                  <li>
+                    <span class="decision__k">Result</span> The delivery process had more consistent
+                    quality signals around primary product paths.
+                  </li>
+                </ol>
+              </article>
+            </div>
+          </section>
+          <section class="cs-sec" id="ux-decisions" aria-labelledby="ux-decisions-h">
+            <h2 class="cs-sec__h" id="ux-decisions-h">UX and detail decisions</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Treated validation, retries, and async state handling as core interaction design
+                  concerns.
+                </li>
+                <li>
+                  Designed flows that remain readable under slow-network or unstable conditions
+                  instead of assuming ideal connectivity.
+                </li>
+                <li>
+                  Prioritized predictable workflows over visually clever one-off implementations.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="outcome" aria-labelledby="outcome-h">
+            <h2 class="cs-sec__h" id="outcome-h">Outcome</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Shipped frontend work across multiple early-stage products, MVP through
+                  production.
+                </li>
+                <li>
+                  Raised the testing and release-quality baseline on workflow-heavy interfaces.
+                </li>
+                <li>Built the breadth that later turned into end-to-end product ownership.</li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="improve" aria-labelledby="improve-h">
+            <h2 class="cs-sec__h" id="improve-h">What I would improve</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Capture more project-specific examples so individual product engagements can be
+                  represented separately in the portfolio.
+                </li>
+                <li>
+                  Extend the evidence set with more screenshots or implementation artifacts where
+                  public sharing is possible.
+                </li>
+              </ul>
+            </div>
+          </section>
+        </article>
+        <nav class="casenav" aria-label="Case study navigation">
+          <a class="casenav__back" href="index.html#project-controltech"
+            >Back to all case studies</a
+          >
+          <a class="casenav__next" href="mapbylaw.html"
+            ><span class="casenav__k">Next case study</span>
+            <span class="casenav__name">MapBylaw</span></a
+          >
+        </nav>
+      </div>
+    </main>
+    <footer class="proto">
+      <p>
+        <strong>Concept C · Systems in Motion</strong> is a P1 design prototype for
+        alipajand.com/portfolio. Project text is generated from <code>data/projects.ts</code>;
+        screenshots are the real ones in <code>public/portfolio-media</code>, resized. Items marked
+        “Source pending” carry figures whose provenance is not yet established.
+      </p>
+    </footer>
+    <script src="../shared/behaviour.js" defer></script>
+    <script src="concept.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Agent Engineering Tools · Engineering Editorial</title>
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <meta
+      name="description"
+      content="Deterministic repository audits through TypeScript CLIs, GitHub Actions, MCP, and editor skills and plugins, with human review in charge."
+    />
+    <meta name="color-scheme" content="dark" />
+    <script>
+      (function () {
+        var r = document.documentElement,
+          s = null;
+        try {
+          s = localStorage.getItem("p1-motion");
+        } catch (e) {}
+        r.dataset.motion =
+          s || (matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduce" : "full");
+        r.classList.add("js");
+        var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site">
+      <div class="site__inner">
+        <a class="site__brand" href="index.html">Ali Pajand</a>
+        <nav class="site__nav" aria-label="Primary">
+          <ul>
+            <li><a href="index.html" aria-current="page">Portfolio</a></li>
+            <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+            <li><a href="https://alipajand.com/writing">Writing</a></li>
+            <li><a href="https://alipajand.com/principles">Principles</a></li>
+            <li><a href="https://alipajand.com/contact">Contact</a></li>
+          </ul>
+        </nav>
+        <details class="site__menu">
+          <summary>Menu</summary>
+          <nav aria-label="Primary (compact)">
+            <ul>
+              <li><a href="index.html" aria-current="page">Portfolio</a></li>
+              <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+              <li><a href="https://alipajand.com/writing">Writing</a></li>
+              <li><a href="https://alipajand.com/principles">Principles</a></li>
+              <li><a href="https://alipajand.com/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <div class="wrap case">
+        <header class="case__head">
+          <a class="case__back" href="index.html#project-agent-tooling"
+            ><span aria-hidden="true">←</span> All case studies</a
+          >
+          <p class="case__kicker">Supporting case study</p>
+          <h1 class="case__title">
+            <span style="view-transition-name: name-agent-tooling">Agent Engineering Tools</span>
+          </h1>
+          <p class="case__sub">Deterministic AI-Agent Developer Tools</p>
+          <p class="case__lede">
+            These tooling projects explore how engineering teams can make AI-assisted development
+            more reliable. The work stays intentionally small and focused on specific workflow
+            problems instead of pretending to automate the entire development lifecycle.
+          </p>
+          <dl class="facts">
+            <div>
+              <dt>Role</dt>
+              <dd>Independent / Ongoing</dd>
+            </div>
+
+            <div>
+              <dt>Stack and focus</dt>
+              <dd>
+                TypeScript, CLI, GitHub Actions, AI Agents, Supply-chain safety, Developer
+                Experience
+              </dd>
+            </div>
+          </dl>
+        </header>
+        <details class="outline" data-open-wide>
+          <summary class="outline__h">On this page</summary>
+          <nav aria-label="Sections in the Agent Engineering Tools case study" data-outline>
+            <ol>
+              <li><a href="#context">Context</a></li>
+              <li><a href="#problem">Problem</a></li>
+              <li><a href="#role">My role</a></li>
+              <li><a href="#built">What I built</a></li>
+              <li><a href="#technical-decisions">Technical decisions</a></li>
+              <li><a href="#ux-decisions">UX and detail decisions</a></li>
+              <li><a href="#outcome">Outcome</a></li>
+              <li><a href="#improve">What I would improve</a></li>
+              <li><a href="#related">Related work</a></li>
+            </ol>
+          </nav>
+        </details>
+        <article class="case__body" aria-label="Agent Engineering Tools case study">
+          <section class="cs-sec" id="context" aria-labelledby="context-h">
+            <h2 class="cs-sec__h" id="context-h">Context</h2>
+            <div class="cs-sec__body">
+              <p>
+                The projects emerged from practical friction points: weak agent instructions, risky
+                agent settings committed to repositories, agent-written pull requests too large to
+                review evenly, and teams adopting AI-assisted workflows before their conventions
+                were ready for it. Each tool focuses on one gap and keeps the scope explicit.
+              </p>
+            </div>
+          </section>
+          <section class="cs-sec" id="problem" aria-labelledby="problem-h">
+            <h2 class="cs-sec__h" id="problem-h">Problem</h2>
+            <div class="cs-sec__body">
+              <p>
+                AI-assisted development breaks down quickly when the repository context is vague,
+                the review feedback is generic, or the workflow assumptions are unstable. Small
+                tools can make those failure modes easier to detect before they become team habits.
+              </p>
+            </div>
+          </section>
+          <section class="cs-sec" id="role" aria-labelledby="role-h">
+            <h2 class="cs-sec__h" id="role-h">My role</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Designed and implemented three TypeScript CLIs, the GitHub Action, and MCP, skill,
+                  and plugin integrations, with release and verification documentation.
+                </li>
+                <li>
+                  Defined the product scope and boundaries for each tool so the claims stayed
+                  smaller than the problem.
+                </li>
+                <li>
+                  Used the projects to explore developer experience as a product surface with
+                  explicit inputs and outputs.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="built" aria-labelledby="built-h">
+            <h2 class="cs-sec__h" id="built-h">What I built</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  agent-context-doctor, because most bad agent output traces back to weak
+                  instructions rather than a weak model, and nobody was checking the instructions.
+                  It now also audits committed Claude Code and MCP settings, where a single
+                  bypassPermissions default or remote-script hook runs on every contributor's
+                  machine.
+                </li>
+                <li>
+                  agent-pr-reviewer-lite, because agent-written pull requests touch many files and
+                  reviewers need to know which ones matter. It flags auth, billing, migration, CI,
+                  secret, and agent-permission changes from fixed rules, and names each file's
+                  CODEOWNERS from the base branch.
+                </li>
+                <li>
+                  agent-readiness-kit, because a repository without clear conventions, boundaries,
+                  or validation paths will amplify agent mistakes instead of catching them. It
+                  scores 13 categories and scaffolds the missing files, including least-privilege
+                  Claude Code settings.
+                </li>
+                <li>
+                  agent-readiness-action, so the readiness score and the instruction audit run on
+                  every pull request, with both engines bundled at pinned commits instead of
+                  installed from a registry.
+                </li>
+                <li>
+                  Agent Readiness integrations: a published MCP server, a portable skill, and Claude
+                  Code and Cursor plugins that share the same read-only, offline scanner. Host
+                  clients may send reports and files they read to their model provider.
+                </li>
+              </ul>
+              <figure class="dg dg--flow" data-flow aria-labelledby="dg-1-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 1 · Flow</span>
+                  <strong class="dg__title" id="dg-1-t"
+                    >Where each tool checks an AI-assisted workflow</strong
+                  >
+                </figcaption>
+                <ol class="dg__steps">
+                  <li class="dg__step" data-step="0" style="--i: 0">
+                    <span class="dg__n" aria-hidden="true">1</span
+                    ><span class="dg__label">Repo readiness</span
+                    ><span class="dg__detail"
+                      >agent-readiness-kit checks for the conventions, boundaries, and validation
+                      paths that keep agent mistakes from being amplified.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="1" style="--i: 1">
+                    <span class="dg__n" aria-hidden="true">2</span
+                    ><span class="dg__label">Agent context</span
+                    ><span class="dg__detail"
+                      >agent-context-doctor checks the instructions, since most bad agent output
+                      traces back to weak context.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="2" style="--i: 2">
+                    <span class="dg__n" aria-hidden="true">3</span
+                    ><span class="dg__label">Agent change</span
+                    ><span class="dg__detail"
+                      >The agent works inside a repository whose context has been checked.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="3" style="--i: 3">
+                    <span class="dg__n" aria-hidden="true">4</span
+                    ><span class="dg__label">CI gate</span
+                    ><span class="dg__detail"
+                      >agent-readiness-action runs the readiness score and the instruction audit on
+                      the pull request and fails it below a threshold.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="4" style="--i: 4">
+                    <span class="dg__n" aria-hidden="true">5</span
+                    ><span class="dg__label">Risk triage</span
+                    ><span class="dg__detail"
+                      >agent-pr-reviewer-lite flags the risk-sensitive files in the diff and names
+                      their owners, so a reviewer knows where to look first.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="5" style="--i: 5">
+                    <span class="dg__n" aria-hidden="true">6</span
+                    ><span class="dg__label">Human decision</span
+                    ><span class="dg__detail"
+                      >Architecture, security, validation, and final decisions stay under human
+                      engineering review.</span
+                    >
+                  </li>
+                </ol>
+                <p class="dg__caption">
+                  Each tool targets one gap in the workflow, and the final decision stays with a
+                  human reviewer.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="technical-decisions" aria-labelledby="technical-decisions-h">
+            <h2 class="cs-sec__h" id="technical-decisions-h">Technical decisions</h2>
+            <div class="cs-sec__body">
+              <article class="decision">
+                <p class="decision__n">Decision 1</p>
+                <h3 class="decision__title">
+                  Keep the tools focused on deterministic checks and explicit heuristics instead of
+                  over-claiming broad autonomous intelligence.
+                </h3>
+                <dl class="decision__dl">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      The goal was to make failure modes visible and actionable, not to replace
+                      engineering judgment with a black box.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      A smaller scope means the tools solve narrower problems and require more human
+                      interpretation.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      The projects stay clearer about what they evaluate, what they report, and what
+                      still requires human review.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <article class="decision">
+                <p class="decision__n">Decision 2</p>
+                <h3 class="decision__title">
+                  Treat CLI output, configuration, and documentation as part of the product instead
+                  of as afterthoughts.
+                </h3>
+                <dl class="decision__dl">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      Developer tooling only helps when the feedback is understandable and easy to
+                      integrate into existing workflows.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      Improving DX details takes time that could otherwise go into more features.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      The tools demonstrate a product-minded approach to developer experience
+                      instead of a script-only mindset.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <article class="decision">
+                <p class="decision__n">Decision 3</p>
+                <h3 class="decision__title">
+                  Treat the repository under audit as untrusted input, because on a pull request it
+                  is written by whoever opened it.
+                </h3>
+                <dl class="decision__dl">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      These tools run in CI with a token in the environment. An early version of the
+                      action ran npx agent-readiness-kit, and that npm name belongs to an unrelated
+                      author, so every run downloaded and executed someone else's code.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      Bundling engines at pinned commits, reading config and CODEOWNERS from the
+                      base branch, and refusing to follow symlinks adds build and release work.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      Nothing is downloaded at run time, a pull request cannot change the rules that
+                      review it, and file names cannot inject workflow commands or redirect report
+                      writes.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <figure class="dg dg--compare" aria-labelledby="dg-2-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 2 · Comparison</span>
+                  <strong class="dg__title" id="dg-2-t"
+                    >Broad autonomous claims vs deterministic checks</strong
+                  >
+                </figcaption>
+                <div class="dg__cols">
+                  <div class="dg__col dg__col--rejected">
+                    <p class="dg__collabel">Broad autonomous tooling</p>
+                    <ul>
+                      <li>Generic AI review comments that get ignored</li>
+                      <li>Unclear about what was evaluated and what was not</li>
+                      <li>Implies review and readiness decisions are automated</li>
+                      <li>Output treated as an afterthought to the analysis</li>
+                    </ul>
+                  </div>
+                  <div class="dg__col dg__col--chosen">
+                    <p class="dg__collabel">
+                      <span class="dg__taken">Approach taken</span> Small deterministic tools
+                    </p>
+                    <ul>
+                      <li>Deterministic checks and explicit heuristics</li>
+                      <li>Findings with severity, file, and evidence</li>
+                      <li>Clear about what is reported and what still needs human review</li>
+                      <li>CLI output, configuration, and documentation treated as product</li>
+                    </ul>
+                  </div>
+                </div>
+                <p class="dg__caption">
+                  Narrow, explicit checks make failure modes visible instead of hiding engineering
+                  judgment inside a black box.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="ux-decisions" aria-labelledby="ux-decisions-h">
+            <h2 class="cs-sec__h" id="ux-decisions-h">UX and detail decisions</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Every finding carries a severity, the file, and the evidence, and the same input
+                  always produces the same output, so results are easier to trust than a generic AI
+                  summary.
+                </li>
+                <li>
+                  Reports go where reviewers already look: terminal, Markdown, SARIF for code
+                  scanning, and inline pull-request annotations.
+                </li>
+                <li>
+                  Kept repository readiness and context quality visible as explicit engineering
+                  inputs.
+                </li>
+                <li>
+                  Avoided language that implies the tools fully automate review or readiness
+                  decisions when they are really evaluation aids.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="outcome" aria-labelledby="outcome-h">
+            <h2 class="cs-sec__h" id="outcome-h">Outcome</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Shipped v1.0 of all four projects in September 2026: three CLIs installable from
+                  GitHub release tags and a GitHub Action referenced as
+                  alipajand/agent-readiness-action@v1.
+                </li>
+                <li>
+                  Released Action v1.2.0 and integrations v0.1.2 in October 2026. The MCP package is
+                  published on npm and in the official MCP Registry; the skill and Claude Code
+                  plugin install from GitHub. The local Cursor plugin passed acceptance tests, while
+                  directory submissions remain under review in the October 14 record.
+                </li>
+                <li>
+                  Kept architecture, security, validation, and final decisions under human
+                  engineering review.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="improve" aria-labelledby="improve-h">
+            <h2 class="cs-sec__h" id="improve-h">What I would improve</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Continue refining repository-specific evaluation rules so the tools produce more
+                  useful feedback in real teams.
+                </li>
+                <li>
+                  Add more examples and integration paths that show how the tools fit into broader
+                  engineering workflows.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="related" aria-labelledby="related-h">
+            <h2 class="cs-sec__h" id="related-h">Related work</h2>
+            <div class="cs-sec__body">
+              <ul class="related">
+                <li>
+                  <a href="https://alipajand.com/open-source" target="_blank" rel="noopener"
+                    >Open Source page<span class="sr-only"> (opens in new tab)</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://github.com/alipajand" target="_blank" rel="noopener"
+                    >GitHub profile<span class="sr-only"> (opens in new tab)</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </section>
+        </article>
+        <nav class="casenav" aria-label="Case study navigation">
+          <a class="casenav__back" href="index.html#project-agent-tooling"
+            >Back to all case studies</a
+          >
+          <a class="casenav__next" href="tallyfolio.html"
+            ><span class="casenav__k">Next case study</span>
+            <span class="casenav__name">TallyFolio</span></a
+          >
+        </nav>
+      </div>
+    </main>
+    <footer class="proto">
+      <p>
+        <strong>Concept A · Engineering Editorial</strong> is a P1 design prototype for
+        alipajand.com/portfolio. Project text is generated from <code>data/projects.ts</code>;
+        screenshots are the real ones in <code>public/portfolio-media</code>, resized. Items marked
+        “Source pending” carry figures whose provenance is not yet established.
+      </p>
+    </footer>
+    <script src="../shared/behaviour.js" defer></script>
+    <script src="concept.js" defer></script>
+  </body>
+</html>

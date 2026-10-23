@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>LedgerGuard · Interface Atlas</title>
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <meta
+      name="description"
+      content="Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD."
+    />
+    <meta name="color-scheme" content="dark" />
+    <script>
+      (function () {
+        var r = document.documentElement,
+          s = null;
+        try {
+          s = localStorage.getItem("p1-motion");
+        } catch (e) {}
+        r.dataset.motion =
+          s || (matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduce" : "full");
+        r.classList.add("js");
+        var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site">
+      <div class="site__inner">
+        <a class="site__brand" href="index.html">Ali Pajand</a>
+        <nav class="site__nav" aria-label="Primary">
+          <ul>
+            <li><a href="index.html" aria-current="page">Portfolio</a></li>
+            <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+            <li><a href="https://alipajand.com/writing">Writing</a></li>
+            <li><a href="https://alipajand.com/principles">Principles</a></li>
+            <li><a href="https://alipajand.com/contact">Contact</a></li>
+          </ul>
+        </nav>
+        <details class="site__menu">
+          <summary>Menu</summary>
+          <nav aria-label="Primary (compact)">
+            <ul>
+              <li><a href="index.html" aria-current="page">Portfolio</a></li>
+              <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+              <li><a href="https://alipajand.com/writing">Writing</a></li>
+              <li><a href="https://alipajand.com/principles">Principles</a></li>
+              <li><a href="https://alipajand.com/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <div class="wrap case">
+        <header class="spec">
+          <div class="spec__id">
+            <a class="spec__back" href="index.html#project-ledgerguard"
+              ><span aria-hidden="true">←</span> Atlas index</a
+            >
+            <p class="spec__ref"><span>F1</span> Featured case study</p>
+            <h1 class="spec__h">
+              <span style="view-transition-name: name-ledgerguard">LedgerGuard</span>
+            </h1>
+            <p class="spec__sub">Full-Stack AI Contract Intelligence</p>
+            <p class="spec__lede">
+              LedgerGuard tracks contract renewals, commitments, notice windows, and financial
+              exposure. I designed and built it alone: the product, the API, the data model, the
+              document pipeline, billing, infrastructure, and delivery.
+            </p>
+          </div>
+          <dl class="spec__sheet">
+            <div>
+              <dt>Role</dt>
+              <dd>Senior Product Engineer</dd>
+            </div>
+            <div>
+              <dt>Timeframe</dt>
+              <dd>2026–Present</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Next.js · TypeScript · Node.js · Fastify · PostgreSQL · Redis/BullMQ · AI</dd>
+            </div>
+            <div>
+              <dt>On this sheet</dt>
+              <dd>3 decisions · 3 diagrams · 3 screenshots</dd>
+            </div>
+            <div class="spec__links">
+              <dt>Links</dt>
+              <dd>
+                <ul class="plinks" aria-label="LedgerGuard links">
+                  <li class="plinks__item">
+                    <a href="https://ledgerguard.io/" target="_blank" rel="noopener"
+                      ><span class="plinks__label">Live product</span>
+                      <span class="plinks__host">ledgerguard.io</span
+                      ><span class="sr-only"> (opens in new tab)</span></a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </header>
+        <nav class="tabs" aria-label="Sections in the LedgerGuard case study" data-outline>
+          <ol>
+            <li>
+              <a href="#context"><span aria-hidden="true">01</span> Context</a>
+            </li>
+            <li>
+              <a href="#problem"><span aria-hidden="true">02</span> Problem</a>
+            </li>
+            <li>
+              <a href="#role"><span aria-hidden="true">03</span> My role</a>
+            </li>
+            <li>
+              <a href="#built"><span aria-hidden="true">04</span> What I built</a>
+            </li>
+            <li>
+              <a href="#technical-decisions"
+                ><span aria-hidden="true">05</span> Technical decisions</a
+              >
+            </li>
+            <li>
+              <a href="#ux-decisions"><span aria-hidden="true">06</span> UX and detail decisions</a>
+            </li>
+            <li>
+              <a href="#evidence"><span aria-hidden="true">07</span> Interface evidence</a>
+            </li>
+            <li>
+              <a href="#outcome"><span aria-hidden="true">08</span> Outcome</a>
+            </li>
+            <li>
+              <a href="#improve"><span aria-hidden="true">09</span> What I would improve</a>
+            </li>
+            <li>
+              <a href="#related"><span aria-hidden="true">10</span> Related work</a>
+            </li>
+          </ol>
+        </nav>
+        <article class="case__body" aria-label="LedgerGuard case study">
+          <section class="cs-sec" id="context" aria-labelledby="context-h">
+            <h2 class="cs-sec__h" id="context-h">Context</h2>
+            <div class="cs-sec__body">
+              <p>
+                A Next.js App Router application sits in front of a Node.js/Fastify API, Supabase
+                PostgreSQL/Auth/Storage, Redis/BullMQ orchestration, and a Python worker running AWS
+                Textract and OpenAI extraction. Every tenant boundary, job contract, and API surface
+                in that list is one I had to define, because there was nobody else to define them.
+              </p>
+              <figure class="dg dg--layers" aria-labelledby="dg-1-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 1 · System layers</span>
+                  <strong class="dg__title" id="dg-1-t">LedgerGuard system layers</strong>
+                </figcaption>
+                <ol class="dg__layers">
+                  <li class="dg__layer" style="--i: 0">
+                    <span class="dg__label">Next.js App Router product</span
+                    ><span class="dg__detail"
+                      >Server-rendered product surfaces, with client components only where review
+                      interactions need them.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 1">
+                    <span class="dg__label">Node.js/Fastify API</span
+                    ><span class="dg__detail"
+                      >Owns deterministic contract data, API rules, authentication, and tenant
+                      scoping.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 2">
+                    <span class="dg__label">Supabase PostgreSQL, Auth, Storage</span
+                    ><span class="dg__detail"
+                      >The tenant-scoped data model, where suggested and confirmed values are stored
+                      differently.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 3">
+                    <span class="dg__label">Redis/BullMQ orchestration</span
+                    ><span class="dg__detail"
+                      >Explicit job contracts that let document processing retry or fail
+                      independently.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 4">
+                    <span class="dg__label">Python extraction worker</span
+                    ><span class="dg__detail"
+                      >AWS Textract and OpenAI extraction, isolated from deterministic contract
+                      state.</span
+                    >
+                  </li>
+                </ol>
+                <p class="dg__caption">
+                  Probabilistic extraction sits at the bottom of the stack, behind job contracts, so
+                  it cannot bypass authentication, tenant boundaries, or review.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="problem" aria-labelledby="problem-h">
+            <h2 class="cs-sec__h" id="problem-h">Problem</h2>
+            <div class="cs-sec__body">
+              <p>
+                Extraction output is useless if the interface makes it look settled. Someone
+                deciding whether to exercise a notice window needs to know whether a date came out
+                of a model or out of a person confirming it against the document. The workflow had
+                to carry that distinction from the database through to the screen, and stay legible
+                while extraction was still running, partially done, or failed.
+              </p>
+              <figure class="dg dg--compare" aria-labelledby="dg-2-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 2 · Comparison</span>
+                  <strong class="dg__title" id="dg-2-t"
+                    >Extraction treated as settled vs kept reviewable</strong
+                  >
+                </figcaption>
+                <div class="dg__cols">
+                  <div class="dg__col dg__col--rejected">
+                    <p class="dg__collabel">Extraction as final data</p>
+                    <ul>
+                      <li>Model output lands in the same place as confirmed contract data</li>
+                      <li>
+                        A single loading spinner hides started, partial, and failed extraction
+                      </li>
+                      <li>Users cannot tell whether a date came from a model or a person</li>
+                      <li>Any distinction lives only in the interface layer</li>
+                    </ul>
+                  </div>
+                  <div class="dg__col dg__col--chosen">
+                    <p class="dg__collabel">
+                      <span class="dg__taken">Approach taken</span> LedgerGuard review boundary
+                    </p>
+                    <ul>
+                      <li>Suggested and confirmed values are stored and rendered differently</li>
+                      <li>Values cross the boundary only through explicit review</li>
+                      <li>Source context stays attached to review decisions</li>
+                      <li>Partial, failed, and review-required are first-class product states</li>
+                      <li>The boundary holds across the schema, the API, and the UI</li>
+                    </ul>
+                  </div>
+                </div>
+                <p class="dg__caption">
+                  A notice-window decision depends on knowing whether a date was extracted or
+                  confirmed, so that distinction has to survive every layer.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="role" aria-labelledby="role-h">
+            <h2 class="cs-sec__h" id="role-h">My role</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Product direction, architecture, implementation, testing, infrastructure, and
+                  release, across the whole stack.
+                </li>
+                <li>
+                  Built the Next.js App Router product, the Fastify API, the PostgreSQL data model,
+                  authentication and tenant scoping, background-job orchestration, and the Python
+                  worker integration.
+                </li>
+                <li>
+                  Set the rule the rest of the product follows: suggested values and confirmed
+                  values are stored differently, rendered differently, and only cross the boundary
+                  through explicit review.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="built" aria-labelledby="built-h">
+            <h2 class="cs-sec__h" id="built-h">What I built</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>Document ingestion and upload flows wired to async extraction state.</li>
+                <li>
+                  Tenant-aware dashboard navigation and the review surfaces for contract data.
+                </li>
+                <li>
+                  A verification UI that keeps suggested values visually and structurally apart from
+                  confirmed ones, with source context attached.
+                </li>
+                <li>
+                  Renewal and portfolio views that stay honest about which records are still
+                  incomplete.
+                </li>
+                <li>
+                  API contracts, authentication, billing, job orchestration, Docker setup, and the
+                  CI/CD pipeline.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="technical-decisions" aria-labelledby="technical-decisions-h">
+            <h2 class="cs-sec__h" id="technical-decisions-h">Technical decisions</h2>
+            <div class="cs-sec__body">
+              <article class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__n">D1</span> Keep deterministic contract data and API rules
+                  in Node.js/Fastify while isolating probabilistic extraction in the Python worker
+                  behind explicit job contracts.
+                </h3>
+                <dl class="decision__grid">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      The product needed retryable document processing without allowing AI output to
+                      bypass authentication, tenant boundaries, or user confirmation.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      The separation adds Redis/BullMQ orchestration, worker lifecycle handling, and
+                      more API contracts to maintain.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      Background extraction can fail or retry independently while deterministic
+                      contract state remains controlled by the application and user review.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <article class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__n">D2</span> Draw a hard line in the App Router between
+                  server-rendered product surfaces and the client components that handle review
+                  interactions.
+                </h3>
+                <dl class="decision__grid">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      Review is the only genuinely interactive part of the product. Everything else
+                      is composition and data fetching, and treating it that way keeps the client
+                      bundle and the state surface small.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      It takes more up-front structure than pushing the whole dashboard into one
+                      client-heavy tree, and every new feature has to be placed on one side of the
+                      line deliberately.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      Route, data, and interaction concerns stayed separable as the workflow grew
+                      past the original two screens.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <article class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__n">D3</span> Model extraction as an async workflow with
+                  visible intermediate states instead of hiding processing behind a single loading
+                  spinner.
+                </h3>
+                <dl class="decision__grid">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      Document review depends on whether extraction has started, partially
+                      completed, failed, or produced values that still need review.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      More UI states mean more implementation and copy work across the review flow.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      Users can tell whether the product is waiting, recovering, or ready for
+                      confirmation instead of guessing from a generic pending state.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <figure class="dg dg--flow" data-flow aria-labelledby="dg-3-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 3 · Flow</span>
+                  <strong class="dg__title" id="dg-3-t"
+                    >From uploaded document to confirmed contract data</strong
+                  >
+                </figcaption>
+                <ol class="dg__steps">
+                  <li class="dg__step" data-step="0" style="--i: 0">
+                    <span class="dg__n" aria-hidden="true">1</span
+                    ><span class="dg__label">Upload</span
+                    ><span class="dg__detail"
+                      >Document ingestion is wired to async extraction state from the start.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="1" style="--i: 1">
+                    <span class="dg__n" aria-hidden="true">2</span
+                    ><span class="dg__label">Queue job</span
+                    ><span class="dg__detail"
+                      >Redis/BullMQ hands the document to the Python worker behind an explicit job
+                      contract.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="2" style="--i: 2">
+                    <span class="dg__n" aria-hidden="true">3</span
+                    ><span class="dg__label">Extract</span
+                    ><span class="dg__detail"
+                      >AWS Textract and OpenAI produce suggested values. The job can fail or retry
+                      without touching confirmed data.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="3" style="--i: 3">
+                    <span class="dg__n" aria-hidden="true">4</span
+                    ><span class="dg__label">Review</span
+                    ><span class="dg__detail"
+                      >The verification UI shows suggested values apart from confirmed ones, with
+                      source context attached.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="4" style="--i: 4">
+                    <span class="dg__n" aria-hidden="true">5</span
+                    ><span class="dg__label">Confirm</span
+                    ><span class="dg__detail"
+                      >Values become confirmed contract data only through explicit user
+                      review.</span
+                    >
+                  </li>
+                </ol>
+                <p class="dg__loop">
+                  <span>Loop</span> Failed or partial extraction stays visible as its own state and
+                  can be retried independently.
+                </p>
+                <p class="dg__caption">
+                  Each step has a visible state, so users can tell whether the product is waiting,
+                  recovering, or ready for confirmation.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="ux-decisions" aria-labelledby="ux-decisions-h">
+            <h2 class="cs-sec__h" id="ux-decisions-h">UX and detail decisions</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Used language that distinguishes AI-suggested values from confirmed user-reviewed
+                  data throughout the workflow.
+                </li>
+                <li>
+                  Kept source context visible where available so review decisions stay tied to the
+                  contract rather than to a generic summary.
+                </li>
+                <li>
+                  Treated incomplete extraction and review-required states as first-class product
+                  states rather than edge-case modals.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="evidence" aria-labelledby="evidence-h">
+            <h2 class="cs-sec__h" id="evidence-h">Interface evidence</h2>
+            <div class="cs-sec__body">
+              <figure class="shot">
+                <img
+                  src="../shared/media/ledgerguard-landing-640.webp"
+                  srcset="
+                    ../shared/media/ledgerguard-landing-640.webp   640w,
+                    ../shared/media/ledgerguard-landing-1280.webp 1280w
+                  "
+                  sizes="(min-width: 1024px) 760px, calc(100vw - 32px)"
+                  width="1280"
+                  height="827"
+                  loading="lazy"
+                  decoding="async"
+                  alt="LedgerGuard landing page introducing AI-assisted contract intelligence for renewals and commitments."
+                />
+                <figcaption>
+                  <strong>Landing page.</strong> The public positioning frames the product around
+                  contract workflows rather than opaque AI output.
+                  <a class="shot__open" href="../shared/media/ledgerguard-landing-1280.webp"
+                    >Open larger image<span class="sr-only">: Landing page.</span></a
+                  >
+                </figcaption>
+              </figure>
+              <figure class="shot">
+                <img
+                  src="../shared/media/ledgerguard-login-640.webp"
+                  srcset="
+                    ../shared/media/ledgerguard-login-640.webp   640w,
+                    ../shared/media/ledgerguard-login-1280.webp 1280w
+                  "
+                  sizes="(min-width: 1024px) 760px, calc(100vw - 32px)"
+                  width="1280"
+                  height="827"
+                  loading="lazy"
+                  decoding="async"
+                  alt="LedgerGuard sign-in screen for tenant-aware contract workflows."
+                />
+                <figcaption>
+                  <strong>Authentication.</strong> The sign-in flow sits in front of tenant-aware
+                  document and dashboard work without over-claiming access controls beyond what is
+                  visible here.
+                  <a class="shot__open" href="../shared/media/ledgerguard-login-1280.webp"
+                    >Open larger image<span class="sr-only">: Authentication.</span></a
+                  >
+                </figcaption>
+              </figure>
+              <figure class="shot">
+                <img
+                  src="../shared/media/ledgerguard-dashboard-640.webp"
+                  srcset="
+                    ../shared/media/ledgerguard-dashboard-640.webp   640w,
+                    ../shared/media/ledgerguard-dashboard-1280.webp 1280w
+                  "
+                  sizes="(min-width: 1024px) 760px, calc(100vw - 32px)"
+                  width="1280"
+                  height="827"
+                  loading="lazy"
+                  decoding="async"
+                  alt="LedgerGuard dashboard showing contract status, renewal visibility, and review workflows."
+                />
+                <figcaption>
+                  <strong>Dashboard.</strong> The dashboard keeps review state, contract visibility,
+                  and renewal workflows legible without treating extraction output as final by
+                  default.
+                  <a class="shot__open" href="../shared/media/ledgerguard-dashboard-1280.webp"
+                    >Open larger image<span class="sr-only">: Dashboard.</span></a
+                  >
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="outcome" aria-labelledby="outcome-h">
+            <h2 class="cs-sec__h" id="outcome-h">Outcome</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Shipped a working end-to-end product: ingestion, extraction review, and contract
+                  visibility, live at ledgerguard.io.
+                </li>
+                <li>
+                  <span class="pending"
+                    >Reached 90% unit-test coverage on the web application.</span
+                  >
+                  <span class="proto-flag">Source pending</span>
+                </li>
+                <li>
+                  Held the boundary between suggested and confirmed contract data across the schema,
+                  the API, and the UI rather than only in the interface layer.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="improve" aria-labelledby="improve-h">
+            <h2 class="cs-sec__h" id="improve-h">What I would improve</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Add more product-level evidence around exception handling so reviewers can
+                  prioritize the highest-risk contracts faster.
+                </li>
+                <li>
+                  Continue refining summary views so incomplete extraction states are easier to scan
+                  across larger contract sets.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="related" aria-labelledby="related-h">
+            <h2 class="cs-sec__h" id="related-h">Related work</h2>
+            <div class="cs-sec__body">
+              <ul class="related">
+                <li>
+                  <a
+                    href="https://alipajand.com/writing/ledgerguard-truth-between-extraction-and-finance"
+                    target="_blank"
+                    rel="noopener"
+                    >The quiet failure mode in contract AI: when the UI believes the wrong row<span
+                      class="sr-only"
+                    >
+                      (opens in new tab)</span
+                    ></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </section>
+        </article>
+        <nav class="casenav" aria-label="Case study navigation">
+          <a class="casenav__back" href="index.html#project-ledgerguard"
+            >Back to all case studies</a
+          >
+          <a class="casenav__next" href="alwaysgeeky.html"
+            ><span class="casenav__k">Next case study</span>
+            <span class="casenav__name">AlwaysGeeky Games</span></a
+          >
+        </nav>
+      </div>
+    </main>
+    <footer class="proto">
+      <p>
+        <strong>Concept B · Interface Atlas</strong> is a P1 design prototype for
+        alipajand.com/portfolio. Project text is generated from <code>data/projects.ts</code>;
+        screenshots are the real ones in <code>public/portfolio-media</code>, resized. Items marked
+        “Source pending” carry figures whose provenance is not yet established.
+      </p>
+    </footer>
+    <script src="../shared/behaviour.js" defer></script>
+    <script src="concept.js" defer></script>
+  </body>
+</html>

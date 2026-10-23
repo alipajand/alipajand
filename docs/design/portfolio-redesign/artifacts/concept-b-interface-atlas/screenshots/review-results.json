@@ -1,0 +1,672 @@
+{
+  "concept": "concept-b-interface-atlas",
+  "capturedAt": "2026-10-23T20:22:02.832Z",
+  "viewports": {
+    "desktop": {
+      "fontsLoaded": ["IBM Plex Mono", "IBM Plex Sans", "IBM Plex Sans Condensed"],
+      "index": {
+        "horizontalOverflow": false,
+        "scrollHeight": 1794,
+        "featured": {
+          "ledgerguard": {
+            "found": true,
+            "nameTop": 437,
+            "nameBottom": 499,
+            "inFirstViewport": true
+          },
+          "alwaysgeeky": {
+            "found": true,
+            "nameTop": 627,
+            "nameBottom": 689,
+            "inFirstViewport": true
+          },
+          "emplifi": {
+            "found": true,
+            "nameTop": 818,
+            "nameBottom": 880,
+            "inFirstViewport": true
+          }
+        },
+        "linksInMain": 10,
+        "caseStudyLinks": 7,
+        "hiddenTextAtRest": 0,
+        "motion": "full"
+      },
+      "indexAxe": [],
+      "indexTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [141, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [71, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Portfolio",
+          "visibleRing": true,
+          "size": [76, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Open Source",
+          "visibleRing": true,
+          "size": [92, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Writing",
+          "visibleRing": true,
+          "size": [59, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Principles",
+          "visibleRing": true,
+          "size": [84, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Contact",
+          "visibleRing": true,
+          "size": [59, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Book a call calendly.com/alipajand/intro (opens in new tab)",
+          "visibleRing": true,
+          "size": [100, 44]
+        },
+        {
+          "tag": "a",
+          "name": "GitHub github.com/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [76, 44]
+        },
+        {
+          "tag": "a",
+          "name": "LinkedIn linkedin.com/in/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [87, 44]
+        },
+        {
+          "tag": "button",
+          "name": "Frontend architecture",
+          "visibleRing": true,
+          "size": [172, 32]
+        },
+        {
+          "tag": "button",
+          "name": "Design systems",
+          "visibleRing": true,
+          "size": [122, 32]
+        },
+        {
+          "tag": "button",
+          "name": "APIs and data",
+          "visibleRing": true,
+          "size": [115, 32]
+        },
+        {
+          "tag": "button",
+          "name": "AI review boundaries",
+          "visibleRing": true,
+          "size": [165, 32]
+        },
+        {
+          "tag": "button",
+          "name": "Rendering performance",
+          "visibleRing": true,
+          "size": [172, 32]
+        },
+        {
+          "tag": "button",
+          "name": "Testing and DX",
+          "visibleRing": true,
+          "size": [122, 32]
+        }
+      ],
+      "back": {
+        "scrolledTo": 736,
+        "afterBack": 736,
+        "linkTopBefore": 436,
+        "linkTopAfterBack": 436,
+        "restored": true
+      },
+      "case": {
+        "horizontalOverflow": false,
+        "h1": "LedgerGuard",
+        "outlineBeforeContent": true,
+        "headings": "H1H2H2H2H2H2H3H3H3H2H2H2H2H2",
+        "imagesRequested": []
+      },
+      "caseAxe": [],
+      "caseTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [141, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [71, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Portfolio",
+          "visibleRing": true,
+          "size": [76, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Open Source",
+          "visibleRing": true,
+          "size": [92, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Writing",
+          "visibleRing": true,
+          "size": [59, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Principles",
+          "visibleRing": true,
+          "size": [84, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Contact",
+          "visibleRing": true,
+          "size": [59, 44]
+        },
+        {
+          "tag": "a",
+          "name": "← Atlas index",
+          "visibleRing": true,
+          "size": [107, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Live product ledgerguard.io (opens in new tab)",
+          "visibleRing": true,
+          "size": [185, 24]
+        },
+        {
+          "tag": "a",
+          "name": "01 Context",
+          "visibleRing": true,
+          "size": [99, 44]
+        },
+        {
+          "tag": "a",
+          "name": "02 Problem",
+          "visibleRing": true,
+          "size": [99, 44]
+        },
+        {
+          "tag": "a",
+          "name": "03 My role",
+          "visibleRing": true,
+          "size": [99, 44]
+        }
+      ],
+      "flowStatus": "Step 2 of 5: Queue job",
+      "returnLink": {
+        "hash": "#project-ledgerguard",
+        "targetTop": 16,
+        "scrollY": 411
+      },
+      "errors": ["Failed to load resource: the server responded with a status of 404 (Not Found)"],
+      "reducedMotion": {
+        "motion": "reduce",
+        "runningAnimations": 0
+      }
+    },
+    "tablet": {
+      "fontsLoaded": ["IBM Plex Mono", "IBM Plex Sans", "IBM Plex Sans Condensed"],
+      "index": {
+        "horizontalOverflow": false,
+        "scrollHeight": 2600,
+        "featured": {
+          "ledgerguard": {
+            "found": true,
+            "nameTop": 520,
+            "nameBottom": 568,
+            "inFirstViewport": true
+          },
+          "alwaysgeeky": {
+            "found": true,
+            "nameTop": 902,
+            "nameBottom": 950,
+            "inFirstViewport": true
+          },
+          "emplifi": {
+            "found": true,
+            "nameTop": 1284,
+            "nameBottom": 1332,
+            "inFirstViewport": false
+          }
+        },
+        "linksInMain": 10,
+        "caseStudyLinks": 7,
+        "hiddenTextAtRest": 0,
+        "motion": "full"
+      },
+      "indexAxe": [],
+      "indexTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [141, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [71, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Portfolio",
+          "visibleRing": true,
+          "size": [76, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Open Source",
+          "visibleRing": true,
+          "size": [92, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Writing",
+          "visibleRing": true,
+          "size": [59, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Principles",
+          "visibleRing": true,
+          "size": [84, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Contact",
+          "visibleRing": true,
+          "size": [59, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Book a call calendly.com/alipajand/intro (opens in new tab)",
+          "visibleRing": true,
+          "size": [100, 44]
+        },
+        {
+          "tag": "a",
+          "name": "GitHub github.com/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [76, 44]
+        },
+        {
+          "tag": "a",
+          "name": "LinkedIn linkedin.com/in/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [87, 44]
+        },
+        {
+          "tag": "button",
+          "name": "Frontend architecture",
+          "visibleRing": true,
+          "size": [172, 32]
+        },
+        {
+          "tag": "button",
+          "name": "Design systems",
+          "visibleRing": true,
+          "size": [122, 32]
+        },
+        {
+          "tag": "button",
+          "name": "APIs and data",
+          "visibleRing": true,
+          "size": [115, 32]
+        },
+        {
+          "tag": "button",
+          "name": "AI review boundaries",
+          "visibleRing": true,
+          "size": [165, 32]
+        },
+        {
+          "tag": "button",
+          "name": "Rendering performance",
+          "visibleRing": true,
+          "size": [172, 32]
+        },
+        {
+          "tag": "button",
+          "name": "Testing and DX",
+          "visibleRing": true,
+          "size": [122, 32]
+        }
+      ],
+      "back": {
+        "scrolledTo": 1356,
+        "afterBack": 1356,
+        "linkTopBefore": 498,
+        "linkTopAfterBack": 498,
+        "restored": true
+      },
+      "case": {
+        "horizontalOverflow": false,
+        "h1": "LedgerGuard",
+        "outlineBeforeContent": true,
+        "headings": "H1H2H2H2H2H2H3H3H3H2H2H2H2H2",
+        "imagesRequested": []
+      },
+      "caseAxe": [],
+      "caseTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [141, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [71, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Portfolio",
+          "visibleRing": true,
+          "size": [76, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Open Source",
+          "visibleRing": true,
+          "size": [92, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Writing",
+          "visibleRing": true,
+          "size": [59, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Principles",
+          "visibleRing": true,
+          "size": [84, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Contact",
+          "visibleRing": true,
+          "size": [59, 44]
+        },
+        {
+          "tag": "a",
+          "name": "← Atlas index",
+          "visibleRing": true,
+          "size": [107, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Live product ledgerguard.io (opens in new tab)",
+          "visibleRing": true,
+          "size": [185, 24]
+        },
+        {
+          "tag": "a",
+          "name": "01 Context",
+          "visibleRing": true,
+          "size": [99, 44]
+        },
+        {
+          "tag": "a",
+          "name": "02 Problem",
+          "visibleRing": true,
+          "size": [99, 44]
+        },
+        {
+          "tag": "a",
+          "name": "03 My role",
+          "visibleRing": true,
+          "size": [99, 44]
+        }
+      ],
+      "flowStatus": "Step 2 of 5: Queue job",
+      "returnLink": {
+        "hash": "#project-ledgerguard",
+        "targetTop": 16,
+        "scrollY": 493
+      },
+      "errors": [],
+      "reducedMotion": {
+        "motion": "reduce",
+        "runningAnimations": 0
+      }
+    },
+    "mobile": {
+      "fontsLoaded": ["IBM Plex Mono", "IBM Plex Sans", "IBM Plex Sans Condensed"],
+      "index": {
+        "horizontalOverflow": false,
+        "scrollHeight": 2643,
+        "featured": {
+          "ledgerguard": {
+            "found": true,
+            "nameTop": 613,
+            "nameBottom": 655,
+            "inFirstViewport": true
+          },
+          "alwaysgeeky": {
+            "found": true,
+            "nameTop": 903,
+            "nameBottom": 945,
+            "inFirstViewport": false
+          },
+          "emplifi": {
+            "found": true,
+            "nameTop": 1186,
+            "nameBottom": 1228,
+            "inFirstViewport": false
+          }
+        },
+        "linksInMain": 10,
+        "caseStudyLinks": 7,
+        "hiddenTextAtRest": 0,
+        "motion": "full"
+      },
+      "indexAxe": [],
+      "indexTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [141, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [71, 44]
+        },
+        {
+          "tag": "summary",
+          "name": "Menu",
+          "visibleRing": true,
+          "size": [64, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Book a call calendly.com/alipajand/intro (opens in new tab)",
+          "visibleRing": true,
+          "size": [100, 44]
+        },
+        {
+          "tag": "a",
+          "name": "GitHub github.com/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [76, 44]
+        },
+        {
+          "tag": "a",
+          "name": "LinkedIn linkedin.com/in/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [87, 44]
+        },
+        {
+          "tag": "button",
+          "name": "Frontend architecture",
+          "visibleRing": true,
+          "size": [172, 40]
+        },
+        {
+          "tag": "button",
+          "name": "Design systems",
+          "visibleRing": true,
+          "size": [122, 40]
+        },
+        {
+          "tag": "button",
+          "name": "APIs and data",
+          "visibleRing": true,
+          "size": [115, 40]
+        },
+        {
+          "tag": "button",
+          "name": "AI review boundaries",
+          "visibleRing": true,
+          "size": [165, 40]
+        },
+        {
+          "tag": "button",
+          "name": "Rendering performance",
+          "visibleRing": true,
+          "size": [172, 40]
+        },
+        {
+          "tag": "button",
+          "name": "Testing and DX",
+          "visibleRing": true,
+          "size": [122, 40]
+        }
+      ],
+      "back": {
+        "scrolledTo": 1276,
+        "afterBack": 1276,
+        "linkTopBefore": 408,
+        "linkTopAfterBack": 408,
+        "restored": true
+      },
+      "case": {
+        "horizontalOverflow": false,
+        "h1": "LedgerGuard",
+        "outlineBeforeContent": true,
+        "headings": "H1H2H2H2H2H2H3H3H3H2H2H2H2H2",
+        "imagesRequested": []
+      },
+      "caseAxe": [],
+      "caseTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [141, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [71, 44]
+        },
+        {
+          "tag": "summary",
+          "name": "Menu",
+          "visibleRing": true,
+          "size": [64, 44]
+        },
+        {
+          "tag": "a",
+          "name": "← Atlas index",
+          "visibleRing": true,
+          "size": [107, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Live product ledgerguard.io (opens in new tab)",
+          "visibleRing": true,
+          "size": [185, 24]
+        },
+        {
+          "tag": "a",
+          "name": "01 Context",
+          "visibleRing": true,
+          "size": [99, 44]
+        },
+        {
+          "tag": "a",
+          "name": "02 Problem",
+          "visibleRing": true,
+          "size": [99, 44]
+        },
+        {
+          "tag": "a",
+          "name": "03 My role",
+          "visibleRing": true,
+          "size": [99, 44]
+        },
+        {
+          "tag": "a",
+          "name": "04 What I built",
+          "visibleRing": true,
+          "size": [135, 44]
+        },
+        {
+          "tag": "a",
+          "name": "05 Technical decisions",
+          "visibleRing": true,
+          "size": [186, 44]
+        },
+        {
+          "tag": "a",
+          "name": "06 UX and detail decisions",
+          "visibleRing": true,
+          "size": [215, 44]
+        },
+        {
+          "tag": "a",
+          "name": "07 Interface evidence",
+          "visibleRing": true,
+          "size": [179, 44]
+        }
+      ],
+      "flowStatus": "Step 2 of 5: Queue job",
+      "returnLink": {
+        "hash": "#project-ledgerguard",
+        "targetTop": 16,
+        "scrollY": 585
+      },
+      "errors": [],
+      "reducedMotion": {
+        "motion": "reduce",
+        "runningAnimations": 0
+      }
+    }
+  }
+}

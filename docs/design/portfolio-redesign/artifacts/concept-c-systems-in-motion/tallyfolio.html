@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>TallyFolio · Systems in Motion</title>
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <meta
+      name="description"
+      content="Case study: Privacy-first personal finance tracker built as a manual-first PWA. Next.js, TypeScript, deterministic financial calculations, import review workflows, and production-grade auth. Ali Pajand."
+    />
+    <meta name="color-scheme" content="dark" />
+    <script>
+      (function () {
+        var r = document.documentElement,
+          s = null;
+        try {
+          s = localStorage.getItem("p1-motion");
+        } catch (e) {}
+        r.dataset.motion =
+          s || (matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduce" : "full");
+        r.classList.add("js");
+        var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site">
+      <div class="site__inner">
+        <a class="site__brand" href="index.html">Ali Pajand</a>
+        <nav class="site__nav" aria-label="Primary">
+          <ul>
+            <li><a href="index.html" aria-current="page">Portfolio</a></li>
+            <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+            <li><a href="https://alipajand.com/writing">Writing</a></li>
+            <li><a href="https://alipajand.com/principles">Principles</a></li>
+            <li><a href="https://alipajand.com/contact">Contact</a></li>
+          </ul>
+        </nav>
+        <details class="site__menu">
+          <summary>Menu</summary>
+          <nav aria-label="Primary (compact)">
+            <ul>
+              <li><a href="index.html" aria-current="page">Portfolio</a></li>
+              <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+              <li><a href="https://alipajand.com/writing">Writing</a></li>
+              <li><a href="https://alipajand.com/principles">Principles</a></li>
+              <li><a href="https://alipajand.com/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <div class="wrap case">
+        <header class="case__head">
+          <a class="case__back" href="index.html#project-tallyfolio"
+            ><span aria-hidden="true">←</span> All case studies</a
+          >
+          <p class="case__kicker">
+            Supporting · Independent · Founder · Product Engineer · Designer
+          </p>
+          <h1 class="case__title">
+            <span style="view-transition-name: name-tallyfolio">TallyFolio</span>
+          </h1>
+          <p class="case__sub">Privacy-first personal finance tracker</p>
+          <p class="case__lede">
+            A full-stack PWA for manual-first personal finance tracking, built with deterministic
+            financial calculations, CSV import workflows, reports, forecasting, subscriptions,
+            investments, and asset tracking.
+          </p>
+          <p class="case__stack">
+            <span>Full-stack product</span><span>Financial correctness</span
+            ><span>Privacy boundaries</span>
+          </p>
+          <ul class="plinks" aria-label="TallyFolio links">
+            <li class="plinks__item">
+              <a href="https://tallyfolio.com" target="_blank" rel="noopener"
+                ><span class="plinks__label">Live product</span>
+                <span class="plinks__host">tallyfolio.com</span
+                ><span class="sr-only"> (opens in new tab)</span></a
+              >
+            </li>
+          </ul>
+          <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="true">
+            <span class="motion-toggle__dot" aria-hidden="true"></span
+            ><span data-motion-label>Motion on</span>
+          </button>
+        </header>
+        <aside class="rail" aria-label="TallyFolio system flow">
+          <figure class="dg dg--flow" data-flow data-tempo="1800" aria-labelledby="dg-3-t">
+            <figcaption class="dg__head">
+              <span class="dg__kind">Flow</span>
+              <strong class="dg__title" id="dg-3-t">Manual-first import review</strong>
+            </figcaption>
+            <ol class="dg__steps">
+              <li class="dg__step" data-step="0" style="--i: 0">
+                <span class="dg__n" aria-hidden="true">1</span
+                ><span class="dg__label">Choose file</span
+                ><span class="dg__detail">The user selects a CSV or XLSX export to import.</span>
+              </li>
+              <li class="dg__step" data-step="1" style="--i: 1">
+                <span class="dg__n" aria-hidden="true">2</span
+                ><span class="dg__label">Parse in memory</span
+                ><span class="dg__detail"
+                  >The file is parsed in memory for review. The raw file is not persisted.</span
+                >
+              </li>
+              <li class="dg__step" data-step="2" style="--i: 2">
+                <span class="dg__n" aria-hidden="true">3</span><span class="dg__label">Review</span
+                ><span class="dg__detail"
+                  >The user verifies and categorizes transactions before anything is saved.</span
+                >
+              </li>
+              <li class="dg__step" data-step="3" style="--i: 3">
+                <span class="dg__n" aria-hidden="true">4</span><span class="dg__label">Save</span
+                ><span class="dg__detail">Reviewed transactions become product state.</span>
+              </li>
+              <li class="dg__step" data-step="4" style="--i: 4">
+                <span class="dg__n" aria-hidden="true">5</span><span class="dg__label">Compute</span
+                ><span class="dg__detail"
+                  >Budgets, reports, and forecasts recalculate in pure domain modules using integer
+                  minor units.</span
+                >
+              </li>
+            </ol>
+            <p class="dg__caption">
+              Raw files never persist and nothing enters the data model without an explicit review
+              step, which keeps the privacy surface narrow.
+            </p>
+          </figure>
+          <p class="rail__note">
+            From the Technical decisions section. Step through it with the buttons, or read the
+            steps as a list.
+          </p>
+        </aside>
+        <nav class="chips" aria-label="Sections in the TallyFolio case study" data-outline>
+          <ol>
+            <li><a href="#context">Context</a></li>
+            <li><a href="#problem">Problem</a></li>
+            <li><a href="#role">My role</a></li>
+            <li><a href="#built">What I built</a></li>
+            <li><a href="#technical-decisions">Technical decisions</a></li>
+            <li><a href="#ux-decisions">UX and detail decisions</a></li>
+            <li><a href="#evidence">Interface evidence</a></li>
+            <li><a href="#outcome">Outcome</a></li>
+            <li><a href="#improve">What I would improve</a></li>
+          </ol>
+        </nav>
+        <article class="case__body" aria-label="TallyFolio case study">
+          <section class="cs-sec" id="context" aria-labelledby="context-h">
+            <h2 class="cs-sec__h" id="context-h">Context</h2>
+            <div class="cs-sec__body">
+              <p>
+                TallyFolio is a manual-first personal finance product built around privacy,
+                deterministic calculations, and everyday workflows that do not depend on bank
+                aggregation. The product needed modern import, reporting, and forecasting UX without
+                losing user control over the data model.
+              </p>
+              <figure class="dg dg--layers" aria-labelledby="dg-1-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 1 · System layers</span>
+                  <strong class="dg__title" id="dg-1-t"
+                    >Where deterministic finance logic ends and AI begins</strong
+                  >
+                </figcaption>
+                <ol class="dg__layers">
+                  <li class="dg__layer" style="--i: 0">
+                    <span class="dg__label">PWA product workflows</span
+                    ><span class="dg__detail"
+                      >Dashboard, imports, budgets, reports, forecasts, subscriptions, investments,
+                      and assets, built for everyday mobile use.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 1">
+                    <span class="dg__label">Optional AI explanations</span
+                    ><span class="dg__detail"
+                      >Constrained to explaining already-computed figures, never generating new
+                      financial advice.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 2">
+                    <span class="dg__label">Pure finance domain modules</span
+                    ><span class="dg__detail"
+                      >Budgets, forecasts, reports, subscriptions, investments, and assets
+                      calculated deterministically and testably.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 3">
+                    <span class="dg__label">Integer minor-unit storage</span
+                    ><span class="dg__detail"
+                      >Financial values are stored as integer minor units rather than scattered
+                      across UI and persistence math.</span
+                    >
+                  </li>
+                </ol>
+                <p class="dg__caption">
+                  AI only explains figures the domain layer has already computed, so financial
+                  correctness never depends on model output.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="problem" aria-labelledby="problem-h">
+            <h2 class="cs-sec__h" id="problem-h">Problem</h2>
+            <div class="cs-sec__body">
+              <p>
+                Most personal finance apps force users into either bank aggregation or spreadsheets.
+                I wanted a private, manual-first system that could still provide modern product
+                workflows: import review, categorization, subscriptions, cash-flow forecasting,
+                investment contributions, reports, and asset tracking.
+              </p>
+              <figure class="dg dg--compare" aria-labelledby="dg-2-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 2 · Comparison</span>
+                  <strong class="dg__title" id="dg-2-t"
+                    >Bank aggregation, spreadsheets, and a manual-first product</strong
+                  >
+                </figcaption>
+                <div class="dg__cols">
+                  <div class="dg__col dg__col--rejected">
+                    <p class="dg__collabel">Bank aggregation</p>
+                    <ul>
+                      <li>Requires handing over bank credentials</li>
+                      <li>Product workflows depend on aggregation as the baseline</li>
+                    </ul>
+                  </div>
+                  <div class="dg__col dg__col--rejected">
+                    <p class="dg__collabel">Spreadsheets</p>
+                    <ul>
+                      <li>Manual and private, without bank aggregation</li>
+                      <li>Leaves out the modern product workflows people expect</li>
+                    </ul>
+                  </div>
+                  <div class="dg__col dg__col--chosen">
+                    <p class="dg__collabel">
+                      <span class="dg__taken">Approach taken</span> Manual-first TallyFolio
+                    </p>
+                    <ul>
+                      <li>No bank credentials required</li>
+                      <li>CSV import review before data becomes product state</li>
+                      <li>Subscriptions and recurring schedules drive the forecast</li>
+                      <li>Deterministic totals across budgets, reports, investments, and assets</li>
+                    </ul>
+                  </div>
+                </div>
+                <p class="dg__caption">
+                  TallyFolio is the third option: manual-first and private, with modern product
+                  workflows built in.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="role" aria-labelledby="role-h">
+            <h2 class="cs-sec__h" id="role-h">My role</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Defined the product strategy, UX, frontend architecture, backend shape, and data
+                  model.
+                </li>
+                <li>
+                  Built the authenticated product workflows for imports, reporting, budgets,
+                  forecasting, subscriptions, investments, and assets.
+                </li>
+                <li>
+                  Designed the system boundaries around deterministic finance logic, privacy, and
+                  optional AI explanations.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="built" aria-labelledby="built-h">
+            <h2 class="cs-sec__h" id="built-h">What I built</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>Dashboard and authenticated home workflows.</li>
+                <li>CSV import review and transaction management.</li>
+                <li>Budgets, reports, subscriptions, recurring schedules, and forecast views.</li>
+                <li>Investments, asset register, and export/settings flows.</li>
+                <li>Public landing and support pages for the product.</li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="technical-decisions" aria-labelledby="technical-decisions-h">
+            <h2 class="cs-sec__h" id="technical-decisions-h">Technical decisions</h2>
+            <div class="cs-sec__body">
+              <article class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__n">Decision 1</span> Store financial values as integer
+                  minor units and keep calculations in pure domain modules.
+                </h3>
+                <ol class="decision__chain">
+                  <li>
+                    <span class="decision__k">Why</span> Budgets, forecasts, reports, subscriptions,
+                    investments, and assets all needed deterministic results that could be tested
+                    and explained.
+                  </li>
+                  <li>
+                    <span class="decision__k">Trade-off</span> This adds domain-modeling overhead
+                    compared with scattering financial math across UI and persistence layers.
+                  </li>
+                  <li>
+                    <span class="decision__k">Result</span> Totals, forecasts, and finance workflows
+                    remain deterministic and easier to validate.
+                  </li>
+                </ol>
+              </article>
+              <article class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__n">Decision 2</span> Make imports manual-first and parse
+                  CSV/XLSX files in memory for review rather than persisting raw files.
+                </h3>
+                <ol class="decision__chain">
+                  <li>
+                    <span class="decision__k">Why</span> The product needed modern import workflows
+                    without giving up user control or widening the privacy surface unnecessarily.
+                  </li>
+                  <li>
+                    <span class="decision__k">Trade-off</span> Manual review adds friction compared
+                    with fully automated ingestion and requires more explicit UI states.
+                  </li>
+                  <li>
+                    <span class="decision__k">Result</span> Import review stays privacy-conscious
+                    and gives users a clearer verification step before data becomes product state.
+                  </li>
+                </ol>
+              </article>
+              <article class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__n">Decision 3</span> Keep AI usage optional and constrained
+                  to explaining already-computed figures rather than generating new financial
+                  advice.
+                </h3>
+                <ol class="decision__chain">
+                  <li>
+                    <span class="decision__k">Why</span> Financial trust depends on the product
+                    staying explicit about what is deterministic system output versus optional
+                    interpretation.
+                  </li>
+                  <li>
+                    <span class="decision__k">Trade-off</span> This keeps the AI surface narrower
+                    and less flashy than broader assistant-style features.
+                  </li>
+                  <li>
+                    <span class="decision__k">Result</span> The product can offer assistance without
+                    weakening the boundary around financial correctness.
+                  </li>
+                </ol>
+              </article>
+            </div>
+          </section>
+          <section class="cs-sec" id="ux-decisions" aria-labelledby="ux-decisions-h">
+            <h2 class="cs-sec__h" id="ux-decisions-h">UX and detail decisions</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Used a manual-first import flow instead of requiring bank aggregation so users
+                  stay in control of what enters the system.
+                </li>
+                <li>
+                  Modeled subscriptions and recurring schedules as first-class workflows so
+                  forecasting stays aligned to schedule truth rather than transaction guesswork.
+                </li>
+                <li>
+                  Kept the product mobile/PWA-friendly for everyday use instead of assuming a
+                  desktop-only finance workflow.
+                </li>
+                <li>
+                  Separated asset tracking from everyday spending flows so investment and cash
+                  workflows do not blur together in the UI.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="evidence" aria-labelledby="evidence-h">
+            <h2 class="cs-sec__h" id="evidence-h">Interface evidence</h2>
+            <div class="cs-sec__body">
+              <figure class="shot">
+                <img
+                  src="../shared/media/tallyfolio-landing-640.webp"
+                  srcset="
+                    ../shared/media/tallyfolio-landing-640.webp   640w,
+                    ../shared/media/tallyfolio-landing-1280.webp 1280w
+                  "
+                  sizes="(min-width: 1200px) 672px, calc(100vw - 32px)"
+                  width="1280"
+                  height="710"
+                  loading="lazy"
+                  decoding="async"
+                  alt="TallyFolio landing page"
+                />
+                <figcaption>
+                  <strong>Landing page.</strong> Public landing and support pages introduce the
+                  manual-first product positioning before authenticated finance workflows.
+                  <a class="shot__open" href="../shared/media/tallyfolio-landing-1280.webp"
+                    >Open larger image<span class="sr-only">: Landing page.</span></a
+                  >
+                </figcaption>
+              </figure>
+              <figure class="shot">
+                <img
+                  src="../shared/media/tallyfolio-dashboard-640.webp"
+                  srcset="
+                    ../shared/media/tallyfolio-dashboard-640.webp   640w,
+                    ../shared/media/tallyfolio-dashboard-1280.webp 1280w
+                  "
+                  sizes="(min-width: 1200px) 672px, calc(100vw - 32px)"
+                  width="1280"
+                  height="827"
+                  loading="lazy"
+                  decoding="async"
+                  alt="TallyFolio dashboard showing manual-first finance summaries, recent activity, and navigation into budgets, reports, and import workflows."
+                />
+                <figcaption>
+                  <strong>Dashboard.</strong> The authenticated home surface orients everyday
+                  personal finance work around deterministic totals and clear paths into import
+                  review, budgets, and reporting.
+                  <a class="shot__open" href="../shared/media/tallyfolio-dashboard-1280.webp"
+                    >Open larger image<span class="sr-only">: Dashboard.</span></a
+                  >
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="outcome" aria-labelledby="outcome-h">
+            <h2 class="cs-sec__h" id="outcome-h">Outcome</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Shipped a live full-stack finance product with privacy-conscious workflows and
+                  production-grade auth.
+                </li>
+                <li>
+                  Established deterministic finance logic across budgets, reports, forecasts,
+                  subscriptions, investments, and asset tracking.
+                </li>
+                <li>
+                  Created modern import and review workflows without depending on bank aggregation
+                  as the product baseline.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="improve" aria-labelledby="improve-h">
+            <h2 class="cs-sec__h" id="improve-h">What I would improve</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Expand more product-level evidence around forecast edge cases, import recovery,
+                  and mobile-specific workflow detail.
+                </li>
+                <li>
+                  Continue refining the boundary between deterministic finance output and optional
+                  AI explanations as the product grows.
+                </li>
+              </ul>
+            </div>
+          </section>
+        </article>
+        <nav class="casenav" aria-label="Case study navigation">
+          <a class="casenav__back" href="index.html#project-tallyfolio">Back to all case studies</a>
+          <a class="casenav__next" href="controltech.html"
+            ><span class="casenav__k">Next case study</span>
+            <span class="casenav__name">ControlTech</span></a
+          >
+        </nav>
+      </div>
+    </main>
+    <footer class="proto">
+      <p>
+        <strong>Concept C · Systems in Motion</strong> is a P1 design prototype for
+        alipajand.com/portfolio. Project text is generated from <code>data/projects.ts</code>;
+        screenshots are the real ones in <code>public/portfolio-media</code>, resized. Items marked
+        “Source pending” carry figures whose provenance is not yet established.
+      </p>
+    </footer>
+    <script src="../shared/behaviour.js" defer></script>
+    <script src="concept.js" defer></script>
+  </body>
+</html>

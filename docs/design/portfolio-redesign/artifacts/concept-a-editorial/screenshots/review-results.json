@@ -1,0 +1,672 @@
+{
+  "concept": "concept-a-editorial",
+  "capturedAt": "2026-10-23T20:21:38.689Z",
+  "viewports": {
+    "desktop": {
+      "fontsLoaded": ["Geist", "Geist Mono", "Newsreader"],
+      "index": {
+        "horizontalOverflow": false,
+        "scrollHeight": 1805,
+        "featured": {
+          "ledgerguard": {
+            "found": true,
+            "nameTop": 204,
+            "nameBottom": 268,
+            "inFirstViewport": true
+          },
+          "alwaysgeeky": {
+            "found": true,
+            "nameTop": 476,
+            "nameBottom": 604,
+            "inFirstViewport": true
+          },
+          "emplifi": {
+            "found": true,
+            "nameTop": 786,
+            "nameBottom": 850,
+            "inFirstViewport": true
+          }
+        },
+        "linksInMain": 10,
+        "caseStudyLinks": 7,
+        "hiddenTextAtRest": 0,
+        "motion": "full"
+      },
+      "indexAxe": [],
+      "indexTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [146, 45]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [75, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Portfolio",
+          "visibleRing": true,
+          "size": [54, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Open Source",
+          "visibleRing": true,
+          "size": [83, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Writing",
+          "visibleRing": true,
+          "size": [46, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Principles",
+          "visibleRing": true,
+          "size": [63, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Contact",
+          "visibleRing": true,
+          "size": [51, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Book a call calendly.com/alipajand/intro (opens in new tab)",
+          "visibleRing": true,
+          "size": [105, 45]
+        },
+        {
+          "tag": "a",
+          "name": "GitHub github.com/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [75, 45]
+        },
+        {
+          "tag": "a",
+          "name": "LinkedIn linkedin.com/in/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [85, 45]
+        },
+        {
+          "tag": "a",
+          "name": "LedgerGuard case study",
+          "visibleRing": true,
+          "size": [366, 64]
+        },
+        {
+          "tag": "a",
+          "name": "AlwaysGeeky Games case study",
+          "visibleRing": true,
+          "size": [373, 128]
+        },
+        {
+          "tag": "a",
+          "name": "Emplifi case study",
+          "visibleRing": true,
+          "size": [208, 64]
+        },
+        {
+          "tag": "a",
+          "name": "Agent Engineering Tools case study",
+          "visibleRing": true,
+          "size": [189, 52]
+        },
+        {
+          "tag": "a",
+          "name": "TallyFolio case study",
+          "visibleRing": true,
+          "size": [100, 24]
+        },
+        {
+          "tag": "a",
+          "name": "ControlTech case study",
+          "visibleRing": true,
+          "size": [127, 24]
+        }
+      ],
+      "back": {
+        "scrolledTo": 756,
+        "afterBack": 756,
+        "linkTopBefore": 438,
+        "linkTopAfterBack": 438,
+        "restored": true
+      },
+      "case": {
+        "horizontalOverflow": false,
+        "h1": "LedgerGuard",
+        "outlineBeforeContent": true,
+        "headings": "H1H2H2H2H2H2H3H3H3H2H2H2H2H2",
+        "imagesRequested": []
+      },
+      "caseAxe": [],
+      "caseTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [146, 45]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [75, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Portfolio",
+          "visibleRing": true,
+          "size": [54, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Open Source",
+          "visibleRing": true,
+          "size": [83, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Writing",
+          "visibleRing": true,
+          "size": [46, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Principles",
+          "visibleRing": true,
+          "size": [63, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Contact",
+          "visibleRing": true,
+          "size": [51, 44]
+        },
+        {
+          "tag": "a",
+          "name": "← All case studies",
+          "visibleRing": true,
+          "size": [149, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Live product ledgerguard.io (opens in new tab)",
+          "visibleRing": true,
+          "size": [217, 45]
+        },
+        {
+          "tag": "summary",
+          "name": "On this page",
+          "visibleRing": true,
+          "size": [208, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Context",
+          "visibleRing": true,
+          "size": [208, 32]
+        },
+        {
+          "tag": "a",
+          "name": "Problem",
+          "visibleRing": true,
+          "size": [208, 32]
+        }
+      ],
+      "flowStatus": "Step 2 of 5: Queue job",
+      "returnLink": {
+        "hash": "#project-ledgerguard",
+        "targetTop": 24,
+        "scrollY": 160
+      },
+      "errors": ["Failed to load resource: the server responded with a status of 404 (Not Found)"],
+      "reducedMotion": {
+        "motion": "reduce",
+        "runningAnimations": 0
+      }
+    },
+    "tablet": {
+      "fontsLoaded": ["Geist", "Geist Mono", "Newsreader"],
+      "index": {
+        "horizontalOverflow": false,
+        "scrollHeight": 2206,
+        "featured": {
+          "ledgerguard": {
+            "found": true,
+            "nameTop": 621,
+            "nameBottom": 666,
+            "inFirstViewport": true
+          },
+          "alwaysgeeky": {
+            "found": true,
+            "nameTop": 892,
+            "nameBottom": 937,
+            "inFirstViewport": true
+          },
+          "emplifi": {
+            "found": true,
+            "nameTop": 1163,
+            "nameBottom": 1208,
+            "inFirstViewport": false
+          }
+        },
+        "linksInMain": 10,
+        "caseStudyLinks": 7,
+        "hiddenTextAtRest": 0,
+        "motion": "full"
+      },
+      "indexAxe": [],
+      "indexTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [146, 45]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [75, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Portfolio",
+          "visibleRing": true,
+          "size": [54, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Open Source",
+          "visibleRing": true,
+          "size": [83, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Writing",
+          "visibleRing": true,
+          "size": [46, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Principles",
+          "visibleRing": true,
+          "size": [63, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Contact",
+          "visibleRing": true,
+          "size": [51, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Book a call calendly.com/alipajand/intro (opens in new tab)",
+          "visibleRing": true,
+          "size": [105, 45]
+        },
+        {
+          "tag": "a",
+          "name": "GitHub github.com/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [75, 45]
+        },
+        {
+          "tag": "a",
+          "name": "LinkedIn linkedin.com/in/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [85, 45]
+        },
+        {
+          "tag": "a",
+          "name": "LedgerGuard case study",
+          "visibleRing": true,
+          "size": [259, 45]
+        },
+        {
+          "tag": "a",
+          "name": "AlwaysGeeky Games case study",
+          "visibleRing": true,
+          "size": [408, 45]
+        },
+        {
+          "tag": "a",
+          "name": "Emplifi case study",
+          "visibleRing": true,
+          "size": [147, 45]
+        },
+        {
+          "tag": "a",
+          "name": "Agent Engineering Tools case study",
+          "visibleRing": true,
+          "size": [189, 52]
+        },
+        {
+          "tag": "a",
+          "name": "TallyFolio case study",
+          "visibleRing": true,
+          "size": [100, 24]
+        },
+        {
+          "tag": "a",
+          "name": "ControlTech case study",
+          "visibleRing": true,
+          "size": [127, 24]
+        }
+      ],
+      "back": {
+        "scrolledTo": 1095,
+        "afterBack": 1095,
+        "linkTopBefore": 500,
+        "linkTopAfterBack": 500,
+        "restored": true
+      },
+      "case": {
+        "horizontalOverflow": false,
+        "h1": "LedgerGuard",
+        "outlineBeforeContent": true,
+        "headings": "H1H2H2H2H2H2H3H3H3H2H2H2H2H2",
+        "imagesRequested": []
+      },
+      "caseAxe": [],
+      "caseTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [146, 45]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [75, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Portfolio",
+          "visibleRing": true,
+          "size": [54, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Open Source",
+          "visibleRing": true,
+          "size": [83, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Writing",
+          "visibleRing": true,
+          "size": [46, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Principles",
+          "visibleRing": true,
+          "size": [63, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Contact",
+          "visibleRing": true,
+          "size": [51, 44]
+        },
+        {
+          "tag": "a",
+          "name": "← All case studies",
+          "visibleRing": true,
+          "size": [149, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Live product ledgerguard.io (opens in new tab)",
+          "visibleRing": true,
+          "size": [217, 45]
+        },
+        {
+          "tag": "summary",
+          "name": "On this page",
+          "visibleRing": true,
+          "size": [707, 44]
+        },
+        {
+          "tag": "button",
+          "name": "Play walkthrough",
+          "visibleRing": true,
+          "size": [148, 44]
+        },
+        {
+          "tag": "button",
+          "name": "Next step",
+          "visibleRing": true,
+          "size": [98, 44]
+        }
+      ],
+      "flowStatus": "Step 2 of 5: Queue job",
+      "returnLink": {
+        "hash": "#project-ledgerguard",
+        "targetTop": 24,
+        "scrollY": 577
+      },
+      "errors": [],
+      "reducedMotion": {
+        "motion": "reduce",
+        "runningAnimations": 0
+      }
+    },
+    "mobile": {
+      "fontsLoaded": ["Geist", "Geist Mono", "Newsreader"],
+      "index": {
+        "horizontalOverflow": false,
+        "scrollHeight": 2985,
+        "featured": {
+          "ledgerguard": {
+            "found": true,
+            "nameTop": 745,
+            "nameBottom": 783,
+            "inFirstViewport": true
+          },
+          "alwaysgeeky": {
+            "found": true,
+            "nameTop": 1135,
+            "nameBottom": 1173,
+            "inFirstViewport": false
+          },
+          "emplifi": {
+            "found": true,
+            "nameTop": 1479,
+            "nameBottom": 1517,
+            "inFirstViewport": false
+          }
+        },
+        "linksInMain": 10,
+        "caseStudyLinks": 7,
+        "hiddenTextAtRest": 0,
+        "motion": "full"
+      },
+      "indexAxe": [],
+      "indexTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [146, 45]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [75, 44]
+        },
+        {
+          "tag": "summary",
+          "name": "Menu",
+          "visibleRing": true,
+          "size": [67, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Book a call calendly.com/alipajand/intro (opens in new tab)",
+          "visibleRing": true,
+          "size": [105, 45]
+        },
+        {
+          "tag": "a",
+          "name": "GitHub github.com/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [75, 45]
+        },
+        {
+          "tag": "a",
+          "name": "LinkedIn linkedin.com/in/alipajand (opens in new tab)",
+          "visibleRing": true,
+          "size": [85, 45]
+        },
+        {
+          "tag": "a",
+          "name": "LedgerGuard case study",
+          "visibleRing": true,
+          "size": [216, 38]
+        },
+        {
+          "tag": "a",
+          "name": "AlwaysGeeky Games case study",
+          "visibleRing": true,
+          "size": [341, 38]
+        },
+        {
+          "tag": "a",
+          "name": "Emplifi case study",
+          "visibleRing": true,
+          "size": [123, 38]
+        },
+        {
+          "tag": "a",
+          "name": "Agent Engineering Tools case study",
+          "visibleRing": true,
+          "size": [248, 24]
+        },
+        {
+          "tag": "a",
+          "name": "TallyFolio case study",
+          "visibleRing": true,
+          "size": [100, 24]
+        },
+        {
+          "tag": "a",
+          "name": "ControlTech case study",
+          "visibleRing": true,
+          "size": [127, 24]
+        }
+      ],
+      "back": {
+        "scrolledTo": 1736,
+        "afterBack": 1736,
+        "linkTopBefore": 410,
+        "linkTopAfterBack": 410,
+        "restored": true
+      },
+      "case": {
+        "horizontalOverflow": false,
+        "h1": "LedgerGuard",
+        "outlineBeforeContent": true,
+        "headings": "H1H2H2H2H2H2H3H3H3H2H2H2H2H2",
+        "imagesRequested": []
+      },
+      "caseAxe": [],
+      "caseTab": [
+        {
+          "tag": "a",
+          "name": "Skip to content",
+          "visibleRing": true,
+          "size": [146, 45]
+        },
+        {
+          "tag": "a",
+          "name": "Ali Pajand",
+          "visibleRing": true,
+          "size": [75, 44]
+        },
+        {
+          "tag": "summary",
+          "name": "Menu",
+          "visibleRing": true,
+          "size": [67, 44]
+        },
+        {
+          "tag": "a",
+          "name": "← All case studies",
+          "visibleRing": true,
+          "size": [149, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Live product ledgerguard.io (opens in new tab)",
+          "visibleRing": true,
+          "size": [217, 45]
+        },
+        {
+          "tag": "summary",
+          "name": "On this page",
+          "visibleRing": true,
+          "size": [358, 44]
+        },
+        {
+          "tag": "button",
+          "name": "Play walkthrough",
+          "visibleRing": true,
+          "size": [148, 44]
+        },
+        {
+          "tag": "button",
+          "name": "Next step",
+          "visibleRing": true,
+          "size": [98, 44]
+        },
+        {
+          "tag": "a",
+          "name": "Open larger image: Landing page.",
+          "visibleRing": true,
+          "size": [118, 24]
+        },
+        {
+          "tag": "a",
+          "name": "Open larger image: Authentication.",
+          "visibleRing": true,
+          "size": [118, 24]
+        },
+        {
+          "tag": "a",
+          "name": "Open larger image: Dashboard.",
+          "visibleRing": true,
+          "size": [118, 24]
+        },
+        {
+          "tag": "a",
+          "name": "The quiet failure mode in contract AI: when the UI believes ",
+          "visibleRing": true,
+          "size": [345, 89]
+        }
+      ],
+      "flowStatus": "Step 2 of 5: Queue job",
+      "returnLink": {
+        "hash": "#project-ledgerguard",
+        "targetTop": 24,
+        "scrollY": 667
+      },
+      "errors": [],
+      "reducedMotion": {
+        "motion": "reduce",
+        "runningAnimations": 0
+      }
+    }
+  }
+}

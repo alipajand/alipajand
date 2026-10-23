@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Interface Atlas Portfolio</title>
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <meta
+      name="description"
+      content="Ali Pajand portfolio, concept B: a survey-sheet index of seven case studies with system plates."
+    />
+    <meta name="color-scheme" content="dark" />
+    <script>
+      (function () {
+        var r = document.documentElement,
+          s = null;
+        try {
+          s = localStorage.getItem("p1-motion");
+        } catch (e) {}
+        r.dataset.motion =
+          s || (matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduce" : "full");
+        r.classList.add("js");
+        var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site">
+      <div class="site__inner">
+        <a class="site__brand" href="index.html">Ali Pajand</a>
+        <nav class="site__nav" aria-label="Primary">
+          <ul>
+            <li><a href="index.html" aria-current="page">Portfolio</a></li>
+            <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+            <li><a href="https://alipajand.com/writing">Writing</a></li>
+            <li><a href="https://alipajand.com/principles">Principles</a></li>
+            <li><a href="https://alipajand.com/contact">Contact</a></li>
+          </ul>
+        </nav>
+        <details class="site__menu">
+          <summary>Menu</summary>
+          <nav aria-label="Primary (compact)">
+            <ul>
+              <li><a href="index.html" aria-current="page">Portfolio</a></li>
+              <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+              <li><a href="https://alipajand.com/writing">Writing</a></li>
+              <li><a href="https://alipajand.com/principles">Principles</a></li>
+              <li><a href="https://alipajand.com/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <div class="wrap">
+        <header class="sheet">
+          <div class="sheet__id">
+            <h1 class="sheet__h">
+              <span class="sheet__page">Portfolio</span> <span class="sheet__name">Ali Pajand</span>
+            </h1>
+            <p class="sheet__role">
+              Senior Software Engineer
+              <span>· Frontend architecture, design systems, and full-stack product work</span>
+            </p>
+            <p class="sheet__thesis">
+              Nine-plus years of production web work, with frontend architecture as the
+              specialization. Each case study covers the problem, what I owned, the decisions that
+              mattered, and what I traded away to get there.
+            </p>
+          </div>
+          <div class="sheet__aside">
+            <ul class="contact" aria-label="Profiles and booking">
+              <li>
+                <a href="https://calendly.com/alipajand/intro" target="_blank" rel="noopener"
+                  ><span class="contact__label">Book a call</span>
+                  <span class="contact__host">calendly.com/alipajand/intro</span
+                  ><span class="sr-only"> (opens in new tab)</span></a
+                >
+              </li>
+              <li>
+                <a href="https://github.com/alipajand" target="_blank" rel="noopener"
+                  ><span class="contact__label">GitHub</span>
+                  <span class="contact__host">github.com/alipajand</span
+                  ><span class="sr-only"> (opens in new tab)</span></a
+                >
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/alipajand" target="_blank" rel="noopener"
+                  ><span class="contact__label">LinkedIn</span>
+                  <span class="contact__host">linkedin.com/in/alipajand</span
+                  ><span class="sr-only"> (opens in new tab)</span></a
+                >
+              </li>
+            </ul>
+            <p class="sheet__meta">Montreal, Canada · Open to remote work within Canada</p>
+          </div>
+        </header>
+        <section class="atlas" id="case-studies" aria-labelledby="atlas-h">
+          <div class="atlas__bar">
+            <h2 class="atlas__h" id="atlas-h">
+              Case studies
+              <span class="atlas__count">7 entries · F featured · S supporting · E experiment</span>
+            </h2>
+            <div class="hl" role="group" aria-labelledby="hl-label" hidden>
+              <span class="hl__label" id="hl-label">Highlight</span>
+              <button
+                type="button"
+                class="hl__btn"
+                aria-pressed="false"
+                data-cap="frontend"
+                data-count="4"
+              >
+                Frontend architecture</button
+              ><button
+                type="button"
+                class="hl__btn"
+                aria-pressed="false"
+                data-cap="design-systems"
+                data-count="2"
+              >
+                Design systems</button
+              ><button
+                type="button"
+                class="hl__btn"
+                aria-pressed="false"
+                data-cap="full-stack"
+                data-count="3"
+              >
+                APIs and data</button
+              ><button
+                type="button"
+                class="hl__btn"
+                aria-pressed="false"
+                data-cap="ai"
+                data-count="4"
+              >
+                AI review boundaries</button
+              ><button
+                type="button"
+                class="hl__btn"
+                aria-pressed="false"
+                data-cap="performance"
+                data-count="1"
+              >
+                Rendering performance</button
+              ><button
+                type="button"
+                class="hl__btn"
+                aria-pressed="false"
+                data-cap="dx"
+                data-count="3"
+              >
+                Testing and DX
+              </button>
+            </div>
+            <p class="hl__status" aria-live="polite"></p>
+          </div>
+          <div class="atlas__cols" aria-hidden="true">
+            <span>Ref</span><span>Project</span><span>Role · Years</span><span>System</span>
+          </div>
+          <section class="band band--featured" aria-labelledby="band-featured">
+            <h3 class="band__h" id="band-featured">
+              <span class="band__letter" aria-hidden="true">F</span> Featured
+              <span class="band__n">3</span>
+            </h3>
+            <article
+              class="row row--featured"
+              id="project-ledgerguard"
+              tabindex="-1"
+              data-caps="frontend full-stack ai"
+              style="--i: 0"
+            >
+              <p class="row__ref"><span class="sr-only">Reference </span>F1</p>
+              <div class="row__main">
+                <h4 class="row__name">
+                  <a class="row__link" href="ledgerguard.html"
+                    ><span style="view-transition-name: name-ledgerguard">LedgerGuard</span
+                    ><span class="sr-only"> case study</span></a
+                  >
+                </h4>
+                <p class="row__title">Full-Stack AI Contract Intelligence</p>
+                <p class="row__line">
+                  Built alone across the Next.js product, Fastify API, PostgreSQL schema, and a
+                  queue-backed document pipeline, with AI-suggested values kept apart from confirmed
+                  contract data until someone reviews them.
+                </p>
+              </div>
+              <dl class="row__facts">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Senior Product Engineer</dd>
+                </div>
+                <div>
+                  <dt>Years</dt>
+                  <dd>2026–Present</dd>
+                </div>
+              </dl>
+              <div class="plate">
+                <p class="plate__k">System · 5 layers</p>
+                <ol>
+                  <li style="--i: 0">
+                    <span aria-hidden="true">L1</span>Next.js App Router product
+                  </li>
+                  <li style="--i: 1"><span aria-hidden="true">L2</span>Node.js/Fastify API</li>
+                  <li style="--i: 2">
+                    <span aria-hidden="true">L3</span>Supabase PostgreSQL, Auth, Storage
+                  </li>
+                  <li style="--i: 3">
+                    <span aria-hidden="true">L4</span>Redis/BullMQ orchestration
+                  </li>
+                  <li style="--i: 4"><span aria-hidden="true">L5</span>Python extraction worker</li>
+                </ol>
+              </div>
+            </article>
+            <article
+              class="row row--featured"
+              id="project-alwaysgeeky"
+              tabindex="-1"
+              data-caps="frontend design-systems dx"
+              style="--i: 1"
+            >
+              <p class="row__ref"><span class="sr-only">Reference </span>F2</p>
+              <div class="row__main">
+                <h4 class="row__name">
+                  <a class="row__link" href="alwaysgeeky.html"
+                    ><span style="view-transition-name: name-alwaysgeeky">AlwaysGeeky Games</span
+                    ><span class="sr-only"> case study</span></a
+                  >
+                </h4>
+                <p class="row__title">Shared Design System &amp; Frontend Standards</p>
+                <p class="row__line">
+                  Built and owned the shared React and TypeScript library four product surfaces were
+                  built on, with Storybook as the contract and CI gates that caught drift before it
+                  shipped.
+                </p>
+              </div>
+              <dl class="row__facts">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Senior Frontend Engineer</dd>
+                </div>
+                <div>
+                  <dt>Years</dt>
+                  <dd>2024–2026</dd>
+                </div>
+              </dl>
+              <div class="plate">
+                <p class="plate__k">System · 5 layers</p>
+                <ol>
+                  <li style="--i: 0">
+                    <span aria-hidden="true">L1</span>Four Next.js product surfaces
+                  </li>
+                  <li style="--i: 1">
+                    <span aria-hidden="true">L2</span>Shared React and TypeScript library
+                  </li>
+                  <li style="--i: 2"><span aria-hidden="true">L3</span>Storybook documentation</li>
+                  <li style="--i: 3"><span aria-hidden="true">L4</span>Frontend conventions</li>
+                  <li style="--i: 4"><span aria-hidden="true">L5</span>CI quality gates</li>
+                </ol>
+              </div>
+            </article>
+            <article
+              class="row row--featured"
+              id="project-emplifi"
+              tabindex="-1"
+              data-caps="frontend design-systems performance"
+              style="--i: 2"
+            >
+              <p class="row__ref"><span class="sr-only">Reference </span>F3</p>
+              <div class="row__main">
+                <h4 class="row__name">
+                  <a class="row__link" href="emplifi.html"
+                    ><span style="view-transition-name: name-emplifi">Emplifi</span
+                    ><span class="sr-only"> case study</span></a
+                  >
+                </h4>
+                <p class="row__title">Enterprise Analytics</p>
+                <p class="row__line">
+                  Dense D3.js analytics modules assembled from shared accessible components, with
+                  rendering work profiled on the embedded mobile-webview path where the cost showed
+                  up.
+                </p>
+              </div>
+              <dl class="row__facts">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Senior Frontend Engineer</dd>
+                </div>
+                <div>
+                  <dt>Years</dt>
+                  <dd>2022–2023</dd>
+                </div>
+              </dl>
+              <div class="plate">
+                <p class="plate__k">System · 4 layers</p>
+                <ol>
+                  <li style="--i: 0">
+                    <span aria-hidden="true">L1</span>React product composition
+                  </li>
+                  <li style="--i: 1"><span aria-hidden="true">L2</span>D3.js chart behavior</li>
+                  <li style="--i: 2"><span aria-hidden="true">L3</span>GSAP motion</li>
+                  <li style="--i: 3">
+                    <span aria-hidden="true">L4</span>Shared accessible components
+                  </li>
+                </ol>
+              </div>
+            </article>
+          </section>
+          <section class="band band--supporting" aria-labelledby="band-supporting">
+            <h3 class="band__h" id="band-supporting">
+              <span class="band__letter" aria-hidden="true">S</span> Supporting
+              <span class="band__n">3</span>
+            </h3>
+            <article
+              class="row row--supporting"
+              id="project-agent-tooling"
+              tabindex="-1"
+              data-caps="ai dx"
+              style="--i: 0"
+            >
+              <p class="row__ref"><span class="sr-only">Reference </span>S1</p>
+              <div class="row__main">
+                <h4 class="row__name">
+                  <a class="row__link" href="agent-tooling.html"
+                    ><span style="view-transition-name: name-agent-tooling"
+                      >Agent Engineering Tools</span
+                    ><span class="sr-only"> case study</span></a
+                  >
+                </h4>
+                <p class="row__title">Deterministic AI-Agent Developer Tools</p>
+                <p class="row__line row__line--short">
+                  Three TypeScript CLIs and a GitHub Action that make repository readiness, agent
+                  settings, and pull-request risk checkable in CI.
+                </p>
+              </div>
+              <dl class="row__facts">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Independent / Ongoing</dd>
+                </div>
+              </dl>
+            </article>
+            <article
+              class="row row--supporting"
+              id="project-tallyfolio"
+              tabindex="-1"
+              data-caps="full-stack ai"
+              style="--i: 1"
+            >
+              <p class="row__ref"><span class="sr-only">Reference </span>S2</p>
+              <div class="row__main">
+                <h4 class="row__name">
+                  <a class="row__link" href="tallyfolio.html"
+                    ><span style="view-transition-name: name-tallyfolio">TallyFolio</span
+                    ><span class="sr-only"> case study</span></a
+                  >
+                </h4>
+                <p class="row__title">Privacy-first personal finance tracker</p>
+                <p class="row__line row__line--short">
+                  A manual-first finance PWA with integer minor-unit money math, in-memory CSV
+                  import review, and AI limited to explaining figures already computed.
+                </p>
+              </div>
+              <dl class="row__facts">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Founder · Product Engineer · Designer</dd>
+                </div>
+                <div>
+                  <dt>Years</dt>
+                  <dd>Independent</dd>
+                </div>
+              </dl>
+            </article>
+            <article
+              class="row row--supporting"
+              id="project-controltech"
+              tabindex="-1"
+              data-caps="frontend dx"
+              style="--i: 2"
+            >
+              <p class="row__ref"><span class="sr-only">Reference </span>S3</p>
+              <div class="row__main">
+                <h4 class="row__name">
+                  <a class="row__link" href="controltech.html"
+                    ><span style="view-transition-name: name-controltech">ControlTech</span
+                    ><span class="sr-only"> case study</span></a
+                  >
+                </h4>
+                <p class="row__title">Startup Studio Frontend Delivery</p>
+                <p class="row__line row__line--short">
+                  Four years at a startup studio taking SaaS products, dashboards, and PWAs from MVP
+                  to production, with the test coverage that made repeated releases survivable.
+                </p>
+              </div>
+              <dl class="row__facts">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Frontend Engineer</dd>
+                </div>
+                <div>
+                  <dt>Years</dt>
+                  <dd>2018–2022</dd>
+                </div>
+              </dl>
+            </article>
+          </section>
+          <section class="band band--experiment" aria-labelledby="band-experiment">
+            <h3 class="band__h" id="band-experiment">
+              <span class="band__letter" aria-hidden="true">E</span> Experiment
+              <span class="band__n">1</span>
+            </h3>
+            <article
+              class="row row--experiment"
+              id="project-mapbylaw"
+              tabindex="-1"
+              data-caps="full-stack ai"
+              style="--i: 0"
+            >
+              <p class="row__ref"><span class="sr-only">Reference </span>E1</p>
+              <div class="row__main">
+                <h4 class="row__name">
+                  <a class="row__link" href="mapbylaw.html"
+                    ><span style="view-transition-name: name-mapbylaw">MapBylaw</span
+                    ><span class="sr-only"> case study</span></a
+                  >
+                </h4>
+                <p class="row__title">AI-Assisted Zoning Exploration</p>
+                <p class="row__line row__line--short">
+                  A Montreal zoning experiment where one typed AI-recommendation contract is shared
+                  by the Fastify API, the React dashboard, and the PDF report.
+                </p>
+              </div>
+              <dl class="row__facts">
+                <div>
+                  <dt>Role</dt>
+                  <dd>Independent / Product experiment</dd>
+                </div>
+              </dl>
+            </article>
+          </section>
+        </section>
+      </div>
+    </main>
+    <footer class="proto">
+      <p>
+        <strong>Concept B · Interface Atlas</strong> is a P1 design prototype for
+        alipajand.com/portfolio. Project text is generated from <code>data/projects.ts</code>;
+        screenshots are the real ones in <code>public/portfolio-media</code>, resized. Items marked
+        “Source pending” carry figures whose provenance is not yet established.
+      </p>
+    </footer>
+    <script src="../shared/behaviour.js" defer></script>
+    <script src="concept.js" defer></script>
+  </body>
+</html>
