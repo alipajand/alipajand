@@ -93,6 +93,16 @@ async function glide(target, ms, offset = 0) {
   );
 }
 
+// Scroll offset at a fraction of the way through the boundary step's workspace states.
+function boundaryY(f) {
+  const step = document.getElementById("layer-boundary");
+  const col = document.querySelector('[data-beat="collapse"]');
+  const seq = document.getElementById("sequence");
+  const a = seq.offsetTop + step.offsetTop - innerHeight * 0.25;
+  const z = seq.offsetTop + col.offsetTop - innerHeight * 0.7;
+  return a + (z - a) * f;
+}
+
 async function tap(selector) {
   const box = await page.locator(selector).first().boundingBox();
   const x = box.x + box.width / 2;
@@ -120,10 +130,12 @@ if (M.reduce) {
   await wait(1800);
   await glide("#layer-boundary", 2200);
   await wait(600);
-  await glide("[data-demo]", 900, 120);
-  await tap('[data-row="notice"] [data-confirm]');
+  await glide(".wsx__fig", 900, 90);
+  await wait(500);
+  await glide(".wsx__states", 700, M.height * 0.5);
+  await tap('[data-ws-to="partial"]');
   await wait(1100);
-  await tap('[data-row="renewal"] [data-confirm]');
+  await tap('[data-ws-to="confirmed"]');
   await wait(1200);
   await glide("#project-ledgerguard", 2000);
   await wait(1400);
@@ -140,29 +152,33 @@ if (M.reduce) {
 } else {
   const slow = M.mobile ? 1.15 : 1;
   mark("opening");
-  await glide("#work", 2600 * slow);
-  await wait(700);
+  await glide("#work", 2300 * slow);
+  await wait(600);
   mark("layers");
   for (const id of ["layer-api", "layer-data", "layer-jobs", "layer-boundary"]) {
-    await glide(`#${id}`, 1500 * slow);
-    await wait(id === "layer-boundary" ? 700 : 450);
+    await glide(`#${id}`, 1250 * slow);
+    await wait(id === "layer-boundary" ? 200 : 350);
   }
+  // the plane uncovers the workspace; scrolling plays its review states, then pick one by hand
   mark("demo");
-  if (M.mobile) await glide("[data-demo]", 800, M.height * 0.35);
-  await tap('[data-row="notice"] [data-confirm]');
-  await wait(1100);
-  await tap('[data-row="renewal"] [data-confirm]');
-  await wait(1300);
+  await glide(await page.evaluate(boundaryY, 0.3), 1100 * slow);
+  await wait(300);
+  await glide(await page.evaluate(boundaryY, M.mobile ? 0.6 : 0.62), 1300 * slow);
+  await wait(500);
+  await tap('[data-ws-to="confirmed"]');
+  await wait(900);
+  await tap('[data-ws-to="ready"]');
+  await wait(900);
   mark("collapse");
   await glide("#project-ledgerguard", 3200 * slow);
-  await wait(1200);
+  await wait(800);
   await glide('#project-ledgerguard a[href="ledgerguard.html"]', 1300, M.height * 0.62);
   await wait(400);
   mark("detail");
   await tap('#project-ledgerguard a[href="ledgerguard.html"]');
   await page.waitForURL(/ledgerguard/);
   await addCursor();
-  await wait(1700);
+  await wait(1300);
   await glide(M.height * 0.7, 1200);
   await wait(500);
   await glide(0, 900);

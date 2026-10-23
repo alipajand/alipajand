@@ -870,6 +870,86 @@ a {
   text-transform: uppercase;
 }
 
+/* the workspace sheet the red plane uncovers (live sequence only) */
+.ws {
+  display: none;
+}
+
+.ws__frame {
+  position: relative;
+  aspect-ratio: 1600 / 1000;
+  border: 1.5px dashed rgba(237, 231, 218, 0.55);
+  background: #0d1012;
+  overflow: hidden;
+}
+
+.ws__frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ws .ws__frame img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 240ms var(--ease-out);
+}
+
+.ws[data-state="ready"] [data-ws-img="ready"],
+.ws[data-state="partial"] [data-ws-img="partial"],
+.ws[data-state="confirmed"] [data-ws-img="confirmed"] {
+  opacity: 1;
+}
+
+.ws__strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 1.2em;
+  margin: 10px 0 0;
+  color: var(--on-void-2);
+  font: 500 0.6875rem/1.3 var(--mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ws__strip b {
+  color: #f0573c;
+  font-weight: 500;
+}
+
+.ws__strip em {
+  font-style: normal;
+  color: var(--on-void);
+}
+
+.motion-live .ws {
+  display: block;
+  position: absolute;
+  z-index: 2;
+  left: max(var(--gutter), 4vw);
+  top: 96px;
+  /* clear of the bar above and the layer index below */
+  width: min(52vw, calc((100svh - 360px) * 1.6));
+  pointer-events: none;
+  visibility: hidden;
+}
+
+@media (max-width: 899px) {
+  .motion-live .ws {
+    left: var(--gutter);
+    right: var(--gutter-r);
+    top: 72px;
+    width: auto;
+  }
+}
+
+@media (min-width: 900px) {
+  .motion-live .wsx__fig {
+    display: none;
+  }
+}
+
 /* layer index, shown while the stack is on stage */
 .layers {
   position: absolute;
@@ -1069,93 +1149,104 @@ a {
   margin-bottom: 6px;
 }
 
-/* the boundary demonstration */
-.demo {
+/* the review boundary in the product: the workspace prototype and its states.
+   Prototypes are framed with a dashed line, the drafting convention for what is proposed;
+   screenshots of the shipped product keep a solid one. */
+.wsx {
   margin: 18px 0 0;
-  padding: 16px;
-  border: 1px solid rgba(237, 231, 218, 0.28);
+  padding-top: 16px;
+  border-top: 1px solid rgba(237, 231, 218, 0.18);
 }
 
-.demo legend {
-  padding: 0 8px;
-  color: #f0846e;
-  font: 500 0.75rem/1 var(--mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.wsx__fig {
+  margin: 0 0 14px;
 }
 
-.demo__note {
-  color: var(--on-void-2) !important;
+.wsx__fig .ws__frame img {
+  display: none;
+}
+
+.wsx__fig[data-state="ready"] [data-ws-img="ready"],
+.wsx__fig[data-state="partial"] [data-ws-img="partial"],
+.wsx__fig[data-state="confirmed"] [data-ws-img="confirmed"] {
+  display: block;
+}
+
+.wsx__fig figcaption {
+  margin-top: 8px;
+  color: var(--on-void-2);
   font-size: 0.8125rem;
 }
 
-.demo__rows {
-  margin: 0 0 12px;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 8px;
-}
-
-.demo__row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 4px 12px;
-  padding: 10px 12px;
-  border: 1.5px dashed #f0573c;
-}
-
-.demo__row[data-state="confirmed"] {
-  border: 1.5px solid var(--on-void);
-}
-
-.demo__name {
-  font-weight: 600;
-}
-
-.demo__state {
-  grid-column: 1;
-  color: #f0846e;
-  font: 500 0.6875rem/1.2 var(--mono);
+.wsx__fig figcaption b {
+  color: var(--on-void);
+  font: 500 0.6875rem/1.3 var(--mono);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
-.demo__row[data-state="confirmed"] .demo__state {
-  color: var(--on-void-2);
+.wsx__states {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0 0 8px;
 }
 
-.demo__btn,
-.demo__reset {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  min-height: 40px;
-  padding: 0 14px;
-  border: 1.5px solid var(--on-void);
+.wsx__states button {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-height: 58px;
+  padding: 9px 10px;
+  border: 1.5px dashed rgba(237, 231, 218, 0.45);
   border-radius: 0;
-  background: var(--on-void);
-  color: var(--void);
-  font: 600 0.875rem/1 var(--sans);
+  background: transparent;
+  color: var(--on-void);
+  font: 600 0.8125rem/1.2 var(--sans);
+  text-align: left;
   cursor: pointer;
 }
 
-.demo__btn:disabled {
-  background: transparent;
+.wsx__states small {
   color: var(--on-void-2);
-  border-color: rgba(237, 231, 218, 0.3);
-  cursor: default;
+  font: 500 0.625rem/1.25 var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-.demo__reset {
-  min-height: 36px;
-  background: transparent;
-  color: var(--on-void);
+.wsx__states button[aria-pressed="true"] {
+  border-style: solid;
+  border-color: var(--on-void);
+  background: var(--on-void);
+  color: var(--void);
 }
 
-.demo__live {
+.wsx__states button[aria-pressed="true"] small {
+  color: var(--ink-2);
+}
+
+.wsx__states button:hover {
+  border-color: var(--on-void);
+}
+
+.wsx__live {
+  min-height: 1.4em;
   color: var(--on-void-2) !important;
   font-size: 0.875rem;
+}
+
+.wsx__src {
+  color: var(--on-void-2) !important;
+  font-size: 0.8125rem;
+}
+
+.wsx__src b {
+  color: var(--on-void);
+  font-weight: 600;
+}
+
+.wsx__open {
+  font-weight: 600;
 }
 
 /* static drawing of the stack (no script, reduced motion, or motion off) */
@@ -1256,6 +1347,14 @@ a {
 
 .motion-live .step--intro {
   min-height: 120vh;
+}
+
+/* the boundary step holds the workspace states: the card arrives as the plane rises,
+   and the extra length is the scroll the three states play over */
+.motion-live #layer-boundary {
+  min-height: 230vh;
+  align-items: flex-start;
+  padding-top: 60vh;
 }
 
 .motion-live .step__card {
@@ -1801,6 +1900,53 @@ a {
 
 .cs__shot img {
   border: 1px solid var(--ink);
+}
+
+.cs__h3 {
+  margin: 28px 0 12px;
+  font: 600 1.1875rem/1.35 var(--sans);
+}
+
+.cs__protos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 16px;
+  margin: 0 0 16px;
+}
+
+.cs__protos--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cs__proto {
+  margin: 0;
+}
+
+.cs__proto img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1.5px dashed var(--ink);
+}
+
+.cs__proto figcaption {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 0.8125rem;
+}
+
+.cs__proto b {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  .cs__protos,
+  .cs__protos--3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .pending {

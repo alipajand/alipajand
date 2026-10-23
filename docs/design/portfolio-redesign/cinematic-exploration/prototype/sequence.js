@@ -5,7 +5,8 @@
 //   1. the cut opens: the two halves of the cover sheet part along the section line;
 //   2. the camera tilts: the screenshot inside becomes the top sheet of an exploded stack;
 //   3. the camera descends: one sheet per layer comes into focus while its text scrolls past;
-//   4. the boundary: a red plane rises through every sheet, then the stack collapses.
+//   4. the boundary: a red plane rises through every sheet and uncovers the workspace, whose
+//      review states play over the rest of the step; then the stack collapses.
 // Text never moves with the stage: it scrolls natively in its own column. Nothing here touches
 // scroll position, history, or anchors.
 (function () {
@@ -61,69 +62,33 @@
     });
   });
 
-  /* ---------- the boundary demonstration (works in every mode) ---------- */
+  /* ---------- the workspace states (work in every mode) ---------- */
 
-  var DX = 306; // from the suggested store to the confirmed store on sheet LG-03
+  var WS_KEYS = ["ready", "partial", "confirmed"];
 
-  function initDemo() {
-    var demo = document.querySelector("[data-demo]");
-    if (!demo) return;
-    var live = demo.querySelector("[data-demo-live]");
-    var rows = Array.prototype.slice.call(demo.querySelectorAll("[data-row]"));
-
-    function moveChips(key, confirmed, animate) {
-      document.querySelectorAll('[data-chip="' + key + '"]').forEach(function (chip) {
-        chip.dataset.state = confirmed ? "confirmed" : "suggested";
-        var x = confirmed ? DX : 0;
-        if (window.gsap) {
-          if (animate && motionOn()) gsap.to(chip, { x: x, duration: 0.8, ease: "power3.inOut" });
-          else gsap.set(chip, { x: x });
-        } else {
-          chip.setAttribute("transform", "translate(" + x + " 0)");
-        }
-      });
-    }
-
-    function announce() {
-      var done = rows.filter(function (r) {
-        return r.dataset.state === "confirmed";
-      });
-      var names = done.map(function (r) {
-        return r.querySelector(".demo__name").textContent.toLowerCase();
-      });
-      live.textContent = done.length
-        ? "Confirmed: " +
-          names.join(", ") +
-          ". " +
-          (rows.length - done.length) +
-          " still suggested."
-        : "Three values suggested. None confirmed.";
-    }
-
-    function set(row, confirmed, animate) {
-      row.dataset.state = confirmed ? "confirmed" : "suggested";
-      row.querySelector("[data-state-label]").textContent = confirmed
-        ? "Confirmed by a reviewer"
-        : "Suggested by extraction";
-      var btn = row.querySelector("[data-confirm]");
-      btn.firstChild.textContent = confirmed ? "Confirmed" : "Confirm";
-      if (confirmed) btn.setAttribute("aria-disabled", "true");
-      else btn.removeAttribute("aria-disabled");
-      moveChips(row.dataset.row, confirmed, animate);
-    }
-
-    demo.addEventListener("click", function (e) {
-      var btn = e.target.closest("[data-confirm]");
-      if (btn && btn.getAttribute("aria-disabled") !== "true") {
-        set(btn.closest("[data-row]"), true, true);
-        announce();
+  function setWs(key, announce) {
+    document.querySelectorAll("[data-ws]").forEach(function (el) {
+      el.dataset.state = key;
+    });
+    document.querySelectorAll("[data-ws-to]").forEach(function (btn) {
+      btn.setAttribute("aria-pressed", String(btn.dataset.wsTo === key));
+      if (announce && btn.dataset.wsTo === key) {
+        document.querySelector("[data-ws-live]").textContent =
+          "Showing " +
+          btn.querySelector("span").textContent.toLowerCase() +
+          ": " +
+          btn.querySelector("small").textContent +
+          ".";
       }
-      if (e.target.closest("[data-demo-reset]")) {
-        rows.forEach(function (r) {
-          set(r, false, true);
-        });
-        announce();
-      }
+    });
+  }
+
+  function initWorkspace() {
+    var card = document.querySelector("[data-ws-card]");
+    if (!card) return;
+    card.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-ws-to]");
+      if (btn) setWs(btn.dataset.wsTo, true);
     });
   }
 
@@ -193,6 +158,8 @@
     var cut = stage.querySelector(".cut");
     var floor = rig.querySelector(".floor");
     var boundary = rig.querySelector("[data-boundary]");
+    var scene = stage.querySelector(".scene");
+    var ws = stage.querySelector(".ws");
     var links = Array.prototype.slice.call(stage.querySelectorAll("[data-layers] a"));
 
     var vh = window.innerHeight;
@@ -237,6 +204,8 @@
       gsap.set(inks(k), { strokeDasharray: "1 1", strokeDashoffset: 1 });
     });
     gsap.set(boundary, { opacity: 0, clipPath: "inset(100% 0 0 0)" });
+    gsap.set(ws, { autoAlpha: 0, clipPath: "inset(100% 0% 0% 0%)" });
+    gsap.set(scene, { opacity: 1 });
 
     var tl = gsap.timeline({
       defaults: { ease: "none" },
@@ -388,11 +357,25 @@
       b0 + (b1 - b0) * 0.4
     );
 
-    /* collapse: the sheets come back together into the shipped interface, then the cut closes
-       over it, so the sequence ends on paper, where the readable story begins */
+    /* the plane has risen: it uncovers the workspace, in the same direction, and the stack
+       recedes behind it. Its review states then follow the reader through the step. */
     var col = beat("collapse");
     var c0 = p(col.offsetTop - vh * 0.7);
     var cm = p(col.offsetTop + col.offsetHeight * 0.35 - vh * 0.5);
+    var w0 = b1;
+    var w1 = w0 + (c0 - w0) * 0.18;
+    var t1 = w0 + (c0 - w0) * 0.42;
+    var t2 = w0 + (c0 - w0) * 0.68;
+    tl.set(ws, { autoAlpha: 1 }, w0);
+    tl.to(ws, { clipPath: "inset(0% 0% 0% 0%)", duration: w1 - w0, ease: "power2.out" }, w0);
+    tl.to(scene, { opacity: 0.22, duration: w1 - w0 }, w0);
+    var wx = (cm - c0) * 0.35;
+    tl.to(ws, { clipPath: "inset(0% 0% 100% 0%)", duration: wx, ease: "power2.in" }, c0);
+    tl.to(scene, { opacity: 1, duration: wx }, c0);
+    tl.set(ws, { autoAlpha: 0 }, c0 + wx);
+
+    /* collapse: the sheets come back together into the shipped interface, then the cut closes
+       over it, so the sequence ends on paper, where the readable story begins */
     var c1 = 1;
     tl.to(boundary, { opacity: 0, duration: (cm - c0) * 0.3 }, c0);
     tl.to(
@@ -431,8 +414,22 @@
       return s.offsetTop;
     });
 
+    var seg = -1;
+
     function update(self) {
       var y = self.progress * total;
+      var k =
+        self.progress < w0 || self.progress >= c0
+          ? -1
+          : self.progress < t1
+            ? 0
+            : self.progress < t2
+              ? 1
+              : 2;
+      if (k !== seg) {
+        seg = k;
+        if (k > -1) setWs(WS_KEYS[k], false);
+      }
       root.dataset.ground = y > open.offsetHeight * 0.55 && self.progress < cm ? "void" : "";
       tone();
       var current = 0;
@@ -462,7 +459,7 @@
   });
 
   syncToggle();
-  initDemo();
+  initWorkspace();
   build();
   tone();
   window.AA = {

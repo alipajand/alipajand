@@ -80,39 +80,49 @@
     "detail": "#layer-boundary"
   },
   {
-    "name": "demo full: confirm updates row, chip and live region",
+    "name": "workspace full: a state button switches every view and announces it",
     "pass": true,
-    "detail": "Confirmed: notice window. 2 still suggested."
+    "detail": "Showing partially reviewed: 6 of 13 confirmed."
   },
   {
-    "name": "demo full: focus stays on the confirmed row",
-    "pass": true,
-    "detail": ""
-  },
-  {
-    "name": "demo full: reset returns to suggested",
+    "name": "workspace full: focus stays on the chosen state",
     "pass": true,
     "detail": ""
   },
   {
-    "name": "demo reduce: confirm updates row, chip and live region",
+    "name": "workspace full: scrolling through the step reaches Confirmed on the stage",
     "pass": true,
-    "detail": "Confirmed: notice window. 2 still suggested."
+    "detail": "confirmed visible"
   },
   {
-    "name": "demo reduce: focus stays on the confirmed row",
+    "name": "workspace reduce: a state button switches every view and announces it",
+    "pass": true,
+    "detail": "Showing partially reviewed: 6 of 13 confirmed."
+  },
+  {
+    "name": "workspace reduce: focus stays on the chosen state",
     "pass": true,
     "detail": ""
   },
   {
-    "name": "demo reduce: reset returns to suggested",
+    "name": "workspace reduce: the inline figure shows the chosen state",
+    "pass": true,
+    "detail": "partial"
+  },
+  {
+    "name": "workspace prototype renders with no errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "workspace prototype links back to the A–A step",
     "pass": true,
     "detail": ""
   },
   {
     "name": "Back restores the scroll position",
     "pass": true,
-    "detail": "10243 → 10243"
+    "detail": "11098 → 11098"
   },
   {
     "name": "Back skips the arrival animation",

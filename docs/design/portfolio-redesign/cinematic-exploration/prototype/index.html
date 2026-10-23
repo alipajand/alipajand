@@ -387,6 +387,54 @@
                 <div class="boundary" data-boundary><span>Review boundary</span></div>
               </div>
             </div>
+            <div class="ws" data-ws data-state="ready">
+              <div class="ws__frame">
+                <img
+                  data-ws-img="ready"
+                  src="media/proto-workspace-ready-1600.webp"
+                  srcset="
+                    media/proto-workspace-ready-960.webp   960w,
+                    media/proto-workspace-ready-1600.webp 1600w
+                  "
+                  sizes="(min-width: 900px) 56vw, 92vw"
+                  width="1600"
+                  height="1000"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                /><img
+                  data-ws-img="partial"
+                  src="media/proto-workspace-partial-1600.webp"
+                  srcset="
+                    media/proto-workspace-partial-960.webp   960w,
+                    media/proto-workspace-partial-1600.webp 1600w
+                  "
+                  sizes="(min-width: 900px) 56vw, 92vw"
+                  width="1600"
+                  height="1000"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                /><img
+                  data-ws-img="confirmed"
+                  src="media/proto-workspace-confirmed-1600.webp"
+                  srcset="
+                    media/proto-workspace-confirmed-960.webp   960w,
+                    media/proto-workspace-confirmed-1600.webp 1600w
+                  "
+                  sizes="(min-width: 900px) 56vw, 92vw"
+                  width="1600"
+                  height="1000"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <p class="ws__strip">
+                <b>A–A</b> Document Intelligence Workspace
+                <em>Design prototype · fictional data</em>
+              </p>
+            </div>
           </div>
           <div class="panel panel--top" data-panel="top" data-tone="paper">
             <div class="panel__head">
@@ -992,54 +1040,97 @@
                 <li>Values cross the boundary only through explicit review</li>
                 <li>The boundary holds across the schema, the API, and the UI</li>
               </ul>
-              <fieldset class="demo" data-demo>
-                <legend>Move a value across the line</legend>
-                <p class="demo__note">
-                  A demonstration of the rule, drawn on sheet LG-03. Not product UI.
+              <div class="wsx" data-ws-card>
+                <p>
+                  In the product, the line runs through the Document Intelligence Workspace. Terms
+                  on the left, the contract on the right: a person confirms, corrects, or flags each
+                  extracted term, and only then does it count.
                 </p>
-                <ul class="demo__rows" role="list">
-                  <li class="demo__row" data-row="notice" data-state="suggested">
-                    <span class="demo__name">Notice window</span>
-                    <span class="demo__state" data-state-label>Suggested by extraction</span>
-                    <button
-                      type="button"
-                      class="demo__btn"
-                      data-confirm="notice"
-                      aria-describedby="demo-live"
-                    >
-                      Confirm<span class="sr-only"> notice window</span>
-                    </button>
-                  </li>
-                  <li class="demo__row" data-row="renewal" data-state="suggested">
-                    <span class="demo__name">Renewal date</span>
-                    <span class="demo__state" data-state-label>Suggested by extraction</span>
-                    <button
-                      type="button"
-                      class="demo__btn"
-                      data-confirm="renewal"
-                      aria-describedby="demo-live"
-                    >
-                      Confirm<span class="sr-only"> renewal date</span>
-                    </button>
-                  </li>
-                  <li class="demo__row" data-row="autorenew" data-state="suggested">
-                    <span class="demo__name">Auto-renew</span>
-                    <span class="demo__state" data-state-label>Suggested by extraction</span>
-                    <button
-                      type="button"
-                      class="demo__btn"
-                      data-confirm="autorenew"
-                      aria-describedby="demo-live"
-                    >
-                      Confirm<span class="sr-only"> auto-renew</span>
-                    </button>
-                  </li>
-                </ul>
-                <p class="demo__live" id="demo-live" aria-live="polite" data-demo-live>
-                  Three values suggested. None confirmed.
+                <figure class="wsx__fig" data-ws data-state="ready">
+                  <div class="ws__frame">
+                    <img
+                      data-ws-img="ready"
+                      src="media/proto-workspace-ready-1600.webp"
+                      srcset="
+                        media/proto-workspace-ready-960.webp   960w,
+                        media/proto-workspace-ready-1600.webp 1600w
+                      "
+                      sizes="(min-width: 900px) 31rem, calc(100vw - 72px)"
+                      width="1600"
+                      height="1000"
+                      alt="Design prototype of the LedgerGuard Document Intelligence Workspace with fictional data, ready for review: 0 of 13 terms confirmed. Extracted terms on the left, the contract on the right."
+                      loading="lazy"
+                      decoding="async"
+                    /><img
+                      data-ws-img="partial"
+                      src="media/proto-workspace-partial-1600.webp"
+                      srcset="
+                        media/proto-workspace-partial-960.webp   960w,
+                        media/proto-workspace-partial-1600.webp 1600w
+                      "
+                      sizes="(min-width: 900px) 31rem, calc(100vw - 72px)"
+                      width="1600"
+                      height="1000"
+                      alt="Design prototype of the LedgerGuard Document Intelligence Workspace with fictional data, partially reviewed: 6 of 13 terms confirmed. Extracted terms on the left, the contract on the right."
+                      loading="lazy"
+                      decoding="async"
+                    /><img
+                      data-ws-img="confirmed"
+                      src="media/proto-workspace-confirmed-1600.webp"
+                      srcset="
+                        media/proto-workspace-confirmed-960.webp   960w,
+                        media/proto-workspace-confirmed-1600.webp 1600w
+                      "
+                      sizes="(min-width: 900px) 31rem, calc(100vw - 72px)"
+                      width="1600"
+                      height="1000"
+                      alt="Design prototype of the LedgerGuard Document Intelligence Workspace with fictional data, confirmed: 13 of 13 terms confirmed. Extracted terms on the left, the contract on the right."
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <b>Design prototype · fictional data.</b> Not the shipped product.
+                  </figcaption>
+                </figure>
+                <div class="wsx__states" role="group" aria-label="Workspace review state">
+                  <button
+                    type="button"
+                    data-ws-to="ready"
+                    aria-pressed="true"
+                    aria-describedby="ws-live"
+                  >
+                    <span>Ready for review</span><small>0 of 13 confirmed</small></button
+                  ><button
+                    type="button"
+                    data-ws-to="partial"
+                    aria-pressed="false"
+                    aria-describedby="ws-live"
+                  >
+                    <span>Partially reviewed</span><small>6 of 13 confirmed</small></button
+                  ><button
+                    type="button"
+                    data-ws-to="confirmed"
+                    aria-pressed="false"
+                    aria-describedby="ws-live"
+                  >
+                    <span>Confirmed</span><small>13 of 13 confirmed</small>
+                  </button>
+                </div>
+                <p class="wsx__live" id="ws-live" aria-live="polite" data-ws-live></p>
+                <p class="wsx__src">
+                  <b>Shipped behaviour it is drawn on:</b> the suggested, verified and corrected
+                  statuses and their confirm, edit and needs-review actions; the notice deadline as
+                  term end minus notice days, verified only once both of those terms are confirmed
+                  or corrected. <b>Proposed, not built:</b> a separate Corrected chip, history and
+                  details as tabs, viewer zoom, and moving to the next term after a confirm.
                 </p>
-                <button type="button" class="demo__reset" data-demo-reset>Reset</button>
-              </fieldset>
+                <p>
+                  <a class="wsx__open" href="workspace.html"
+                    >Open the workspace prototype <span aria-hidden="true">→</span></a
+                  >
+                </p>
+              </div>
             </div>
           </article>
           <div class="beat beat--collapse" data-beat="collapse"></div>

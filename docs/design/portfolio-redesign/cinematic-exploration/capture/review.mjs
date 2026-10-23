@@ -138,35 +138,89 @@ for (const path of ["/index.html", "/ledgerguard.html"]) {
   await ctx.close();
 }
 
-// 4. Boundary demo: confirm moves the row and its chip, announces it, and keeps focus.
+// 4. Workspace states: a state button switches every view of the workspace, announces it and
+//    keeps focus. In the live sequence, scrolling through the step also moves through the states.
+const boundaryAt = (f) => {
+  const step = document.getElementById("layer-boundary");
+  const col = document.querySelector('[data-beat="collapse"]');
+  const seq = document.getElementById("sequence");
+  const a = seq.offsetTop + step.offsetTop - innerHeight * 0.25;
+  const z = seq.offsetTop + col.offsetTop - innerHeight * 0.7;
+  scrollTo(0, a + (z - a) * f);
+};
 for (const reduce of [false, true]) {
+  const mode = reduce ? "reduce" : "full";
   const { ctx, page } = await open("/index.html", { reduce });
   await page.evaluate(() => document.getElementById("layer-boundary").scrollIntoView());
   await page.waitForTimeout(1200);
-  const btn = page.locator('[data-row="notice"] [data-confirm]');
-  await btn.focus();
+  await page.locator('[data-ws-to="partial"]').focus();
   await page.keyboard.press("Enter");
-  await page.waitForTimeout(1100);
-  const s = await page.evaluate(() => ({
-    row: document.querySelector('[data-row="notice"]').dataset.state,
-    chip: document.querySelector('[data-chip="notice"]').dataset.state,
-    x: Math.round(document.querySelector('[data-chip="notice"]').getBoundingClientRect().x),
-    live: document.querySelector("[data-demo-live]").textContent,
-    focus: document.activeElement.closest("[data-row]")?.dataset.row ?? null,
-  }));
+  await page.waitForTimeout(400);
+  const s = await page.evaluate(() => {
+    const fig = document.querySelector(".wsx__fig");
+    const shown = [...fig.querySelectorAll("img")]
+      .filter(
+        (i) => getComputedStyle(i).display !== "none" && getComputedStyle(fig).display !== "none"
+      )
+      .map((i) => i.dataset.wsImg);
+    return {
+      states: [...document.querySelectorAll("[data-ws]")].map((el) => el.dataset.state),
+      pressed: [...document.querySelectorAll('[data-ws-to][aria-pressed="true"]')].map(
+        (b) => b.dataset.wsTo
+      ),
+      live: document.querySelector("[data-ws-live]").textContent,
+      focus: document.activeElement.dataset.wsTo ?? null,
+      shown: shown.join(),
+    };
+  });
   check(
-    `demo ${reduce ? "reduce" : "full"}: confirm updates row, chip and live region`,
-    s.row === "confirmed" && s.chip === "confirmed" && /Confirmed: notice/i.test(s.live),
+    `workspace ${mode}: a state button switches every view and announces it`,
+    s.states.every((x) => x === "partial") &&
+      s.pressed.join() === "partial" &&
+      /partially reviewed/i.test(s.live),
     s.live
   );
-  check(
-    `demo ${reduce ? "reduce" : "full"}: focus stays on the confirmed row`,
-    s.focus === "notice"
+  check(`workspace ${mode}: focus stays on the chosen state`, s.focus === "partial");
+  if (reduce) {
+    check(
+      "workspace reduce: the inline figure shows the chosen state",
+      s.shown === "partial",
+      s.shown
+    );
+  } else {
+    await page.evaluate(boundaryAt, 0.8);
+    await page.waitForTimeout(1600);
+    const st = await page.evaluate(() => {
+      const ws = document.querySelector(".ws");
+      return `${ws.dataset.state} ${getComputedStyle(ws).visibility}`;
+    });
+    check(
+      "workspace full: scrolling through the step reaches Confirmed on the stage",
+      st === "confirmed visible",
+      st
+    );
+  }
+  await ctx.close();
+}
+
+// 4b. The workspace prototype runs from the local copy and links back to the step.
+{
+  const { ctx, page, errors } = await open("/workspace.html");
+  await page.waitForTimeout(600);
+  const ok = await page.evaluate(() =>
+    /Brightwave Analytics/.test(document.getElementById("root").innerText)
   );
-  await page.click("[data-demo-reset]");
-  await page.waitForTimeout(1000);
-  const r = await page.evaluate(() => document.querySelector('[data-row="notice"]').dataset.state);
-  check(`demo ${reduce ? "reduce" : "full"}: reset returns to suggested`, r === "suggested");
+  check(
+    "workspace prototype renders with no errors",
+    ok && errors.length === 0,
+    errors.join(" | ")
+  );
+  await page.click(".aa-back a");
+  await page.waitForURL(/index\.html#layer-boundary/);
+  check(
+    "workspace prototype links back to the A–A step",
+    page.url().endsWith("index.html#layer-boundary")
+  );
   await ctx.close();
 }
 

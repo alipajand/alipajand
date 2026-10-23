@@ -157,27 +157,54 @@ const decisionNote = (d, label) => `<div class="note">
   <p class="note__trade"><span>Trade-off</span> ${esc(d.tradeOff)}</p>
 </div>`;
 
-const FIELDS = [
-  { key: "notice", label: "Notice window" },
-  { key: "renewal", label: "Renewal date" },
-  { key: "autorenew", label: "Auto-renew" },
+// The review boundary, shown in the Document Intelligence Workspace design prototype
+// (workspace.html, a local copy). Captures are of that prototype with fictional data.
+const WS_STATES = [
+  { key: "ready", label: "Ready for review", count: "0 of 13 terms confirmed" },
+  { key: "partial", label: "Partially reviewed", count: "6 of 13 terms confirmed" },
+  { key: "confirmed", label: "Confirmed", count: "13 of 13 terms confirmed" },
 ];
+const PROTO = "Design prototype · fictional data";
+const media = (name) =>
+  `src="media/${name}-1600.webp" srcset="media/${name}-960.webp 960w, media/${name}-1600.webp 1600w"`;
+const wsAlt = (st) =>
+  `Design prototype of the LedgerGuard Document Intelligence Workspace with fictional data, ${st.label.toLowerCase()}: ${st.count}. Extracted terms on the left, the contract on the right.`;
+const wsImgs = (sizes, alt) =>
+  WS_STATES.map(
+    (st) =>
+      `<img data-ws-img="${st.key}" ${media("proto-workspace-" + st.key)} sizes="${sizes}" width="1600" height="1000" alt="${alt ? esc(wsAlt(st)) : ""}" loading="lazy" decoding="async">`
+  ).join("");
 
-const boundaryDemo = `<fieldset class="demo" data-demo>
-  <legend>Move a value across the line</legend>
-  <p class="demo__note">A demonstration of the rule, drawn on sheet LG-03. Not product UI.</p>
-  <ul class="demo__rows" role="list">
-    ${FIELDS.map(
-      (f) => `<li class="demo__row" data-row="${f.key}" data-state="suggested">
-      <span class="demo__name">${f.label}</span>
-      <span class="demo__state" data-state-label>Suggested by extraction</span>
-      <button type="button" class="demo__btn" data-confirm="${f.key}" aria-describedby="demo-live">Confirm<span class="sr-only"> ${f.label.toLowerCase()}</span></button>
-    </li>`
+// On the stage: a flat sheet the red plane uncovers once it has risen through the stack.
+const wsStage = `<div class="ws" data-ws data-state="ready">
+  <div class="ws__frame">${wsImgs("(min-width: 900px) 56vw, 92vw", false)}</div>
+  <p class="ws__strip"><b>A–A</b> Document Intelligence Workspace <em>${PROTO}</em></p>
+</div>`;
+
+// NEW copy, for owner approval.
+const WS_LEAD =
+  "In the product, the line runs through the Document Intelligence Workspace. Terms on the left, the contract on the right: a person confirms, corrects, or flags each extracted term, and only then does it count.";
+const WS_SHIPPED =
+  "the suggested, verified and corrected statuses and their confirm, edit and needs-review actions; the notice deadline as term end minus notice days, verified only once both of those terms are confirmed or corrected.";
+const WS_PROPOSED =
+  "a separate Corrected chip, history and details as tabs, viewer zoom, and moving to the next term after a confirm.";
+
+const boundaryWorkspace = `<div class="wsx" data-ws-card>
+  <p>${WS_LEAD}</p>
+  <figure class="wsx__fig" data-ws data-state="ready">
+    <div class="ws__frame">${wsImgs("(min-width: 900px) 31rem, calc(100vw - 72px)", true)}</div>
+    <figcaption><b>${PROTO}.</b> Not the shipped product.</figcaption>
+  </figure>
+  <div class="wsx__states" role="group" aria-label="Workspace review state">
+    ${WS_STATES.map(
+      (st, i) =>
+        `<button type="button" data-ws-to="${st.key}" aria-pressed="${i === 0}" aria-describedby="ws-live"><span>${st.label}</span><small>${st.count.replace(" terms", "")}</small></button>`
     ).join("")}
-  </ul>
-  <p class="demo__live" id="demo-live" aria-live="polite" data-demo-live>Three values suggested. None confirmed.</p>
-  <button type="button" class="demo__reset" data-demo-reset>Reset</button>
-</fieldset>`;
+  </div>
+  <p class="wsx__live" id="ws-live" aria-live="polite" data-ws-live></p>
+  <p class="wsx__src"><b>Shipped behaviour it is drawn on:</b> ${WS_SHIPPED} <b>Proposed, not built:</b> ${WS_PROPOSED}</p>
+  <p><a class="wsx__open" href="workspace.html">Open the workspace prototype <span aria-hidden="true">→</span></a></p>
+</div>`;
 
 const others = PORTFOLIO_CASE_STUDY_ORDER.filter((s) => s !== "ledgerguard").map((slug, i) => {
   const p = PROJECTS.find((x) => x.slug === slug);
@@ -204,6 +231,7 @@ function indexPage() {
     <div class="void" aria-hidden="true">
       <div class="void__glow"></div>
       <div class="scene">${stack("stage")}</div>
+      ${wsStage}
     </div>
     <div class="panel panel--top" data-panel="top" data-tone="paper">
       <div class="panel__head">
@@ -288,7 +316,7 @@ function indexPage() {
         .slice(0, 2)
         .concat(compare.columns[1].items.slice(-1))
         .map((i) => `<li>${esc(i)}</li>`)
-        .join("")}</ul>${boundaryDemo}`
+        .join("")}</ul>${boundaryWorkspace}`
     )}
     <div class="beat beat--collapse" data-beat="collapse"></div>
   </div>
@@ -348,6 +376,42 @@ ${contact}`;
 const list = (items) =>
   `<ul class="cs__list">${items.map((i) => `<li>${txt(i)}</li>`).join("")}</ul>`;
 
+// Dashboard states from the LedgerGuard dashboard design prototype (fictional data).
+const DB_STATES = [
+  {
+    key: "typical",
+    label: "Typical workspace",
+    alt: "deadlines grouped by notice window, verified and provisional totals kept apart",
+  },
+  { key: "loading", label: "Loading", alt: "skeletons in the shape of the final layout" },
+  {
+    key: "error",
+    label: "Dashboard failed",
+    alt: "an error that says nothing changed in the contracts, with Try again and Open Contracts",
+  },
+  {
+    key: "empty",
+    label: "New workspace",
+    alt: "an empty state with one action, Upload your first contract",
+  },
+];
+
+const protoFig = (name, label, alt, sizes) => `<figure class="cs__proto">
+      <img ${media(name)} sizes="${sizes}" width="1600" height="1000" alt="Design prototype with fictional data, ${esc(alt)}" loading="lazy" decoding="async">
+      <figcaption><b>${esc(label)}</b> ${PROTO}</figcaption>
+    </figure>`;
+
+// NEW copy, for owner approval.
+const PROTO_INTRO =
+  "Two of LedgerGuard's interactive design prototypes. They show designed states with fictional data, not screenshots of the shipped product. The workspace prototype's design notes separate shipped behaviour from proposals.";
+
+const prototypes = `<p>${PROTO_INTRO}</p>
+    <h3 class="cs__h3">Document Intelligence Workspace</h3>
+    <div class="cs__protos cs__protos--3">${WS_STATES.map((st) => protoFig("proto-workspace-" + st.key, st.label + " · " + st.count, "the Document Intelligence Workspace, " + st.label.toLowerCase(), "(min-width: 1100px) 300px, calc(100vw - 32px)")).join("")}</div>
+    <p><a href="workspace.html">Open the workspace prototype <span aria-hidden="true">→</span></a></p>
+    <h3 class="cs__h3">Dashboard states</h3>
+    <div class="cs__protos">${DB_STATES.map((st) => protoFig("proto-dashboard-" + st.key, st.label, "the dashboard, " + st.alt, "(min-width: 1100px) 450px, calc(100vw - 32px)")).join("")}</div>`;
+
 function casePage() {
   const shots = cs.interfaceEvidence
     .map((f) => {
@@ -378,6 +442,7 @@ function casePage() {
     ],
     ["ux", "UX decisions", list(cs.uxDecisions)],
     ["evidence", "Interface evidence", shots],
+    ["prototypes", "Design prototypes", prototypes],
     ["outcome", "Outcome", list(cs.outcome)],
     ["next", "What I would improve next", list(cs.nextImprovements)],
   ];
@@ -424,7 +489,14 @@ const pi = process.argv.indexOf("--publish");
 if (pi > -1) {
   const out = process.argv[pi + 1];
   mkdirSync(out, { recursive: true });
-  for (const f of ["styles.css", "sequence.js", "case.js", "ledgerguard.html", "media"])
+  for (const f of [
+    "styles.css",
+    "sequence.js",
+    "case.js",
+    "ledgerguard.html",
+    "workspace.html",
+    "media",
+  ])
     cpSync(join(here, f), join(out, f), { recursive: true });
   // The Artifact host wraps the main page in its own skeleton.
   const html = readFileSync(join(here, "index.html"), "utf8");
