@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Emplifi · Systems in Motion</title>
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <meta
+      name="description"
+      content="Case study: React, TypeScript, and D3.js enterprise analytics modules built on shared accessible components, with an 80% reduction in unnecessary rendering and chart-update paint work. Senior Frontend Engineer — Ali Pajand."
+    />
+    <meta name="color-scheme" content="dark" />
+    <script>
+      (function () {
+        var r = document.documentElement,
+          s = null;
+        try {
+          s = localStorage.getItem("p1-motion");
+        } catch (e) {}
+        r.dataset.motion =
+          s || (matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduce" : "full");
+        r.classList.add("js");
+        var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site">
+      <div class="site__inner">
+        <a class="site__brand" href="index.html">Ali Pajand</a>
+        <nav class="site__nav" aria-label="Primary">
+          <ul>
+            <li><a href="index.html" aria-current="page">Portfolio</a></li>
+            <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+            <li><a href="https://alipajand.com/writing">Writing</a></li>
+            <li><a href="https://alipajand.com/principles">Principles</a></li>
+            <li><a href="https://alipajand.com/contact">Contact</a></li>
+          </ul>
+        </nav>
+        <details class="site__menu">
+          <summary>Menu</summary>
+          <nav aria-label="Primary (compact)">
+            <ul>
+              <li><a href="index.html" aria-current="page">Portfolio</a></li>
+              <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+              <li><a href="https://alipajand.com/writing">Writing</a></li>
+              <li><a href="https://alipajand.com/principles">Principles</a></li>
+              <li><a href="https://alipajand.com/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <div class="wrap case">
+        <header class="case__head">
+          <a class="case__back" href="index.html#project-emplifi"
+            ><span aria-hidden="true">←</span> All case studies</a
+          >
+          <p class="case__kicker">Featured · 2022–2023 · Senior Frontend Engineer</p>
+          <h1 class="case__title">
+            <span style="view-transition-name: name-emplifi">Emplifi</span>
+          </h1>
+          <p class="case__sub">Enterprise Analytics</p>
+          <p class="case__lede">
+            Enterprise social analytics: metric-heavy dashboards that had to stay readable and
+            responsive while rendering a lot of data at once. Most of my work sat where chart
+            behaviour, React composition, and the rendering budget meet.
+          </p>
+          <p class="case__stack">
+            <span>React</span><span>TypeScript</span><span>D3.js</span><span>Design systems</span
+            ><span>Performance</span><span>Accessibility</span><span>Sentry</span>
+          </p>
+          <ul class="plinks" aria-label="Emplifi links">
+            <li class="plinks__item">
+              <a href="https://emplifi.io" target="_blank" rel="noopener"
+                ><span class="plinks__label">Company website</span>
+                <span class="plinks__host">emplifi.io</span
+                ><span class="sr-only"> (opens in new tab)</span></a
+              >
+            </li>
+          </ul>
+          <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="true">
+            <span class="motion-toggle__dot" aria-hidden="true"></span
+            ><span data-motion-label>Motion on</span>
+          </button>
+        </header>
+        <aside class="rail" aria-label="Emplifi system flow">
+          <figure class="dg dg--flow" data-flow data-tempo="1800" aria-labelledby="dg-3-t">
+            <figcaption class="dg__head">
+              <span class="dg__kind">Flow</span>
+              <strong class="dg__title" id="dg-3-t"
+                >Performance work anchored to the webview path</strong
+              >
+            </figcaption>
+            <ol class="dg__steps">
+              <li class="dg__step" data-step="0" style="--i: 0">
+                <span class="dg__n" aria-hidden="true">1</span
+                ><span class="dg__label">Run in webview</span
+                ><span class="dg__detail"
+                  >Test dashboard modules in embedded mobile webviews, not only desktop
+                  browsers.</span
+                >
+              </li>
+              <li class="dg__step" data-step="1" style="--i: 1">
+                <span class="dg__n" aria-hidden="true">2</span
+                ><span class="dg__label">Profile rendering</span
+                ><span class="dg__detail"
+                  >Find unnecessary re-renders and chart-update paint work in dense views.</span
+                >
+              </li>
+              <li class="dg__step" data-step="2" style="--i: 2">
+                <span class="dg__n" aria-hidden="true">3</span
+                ><span class="dg__label">Reduce cost</span
+                ><span class="dg__detail"
+                  ><span class="pending"
+                    >Cut unnecessary re-renders and chart-update paint cost on lower-powered devices
+                    by 80%.</span
+                  >
+                  <span class="proto-flag">Source pending</span></span
+                >
+              </li>
+              <li class="dg__step" data-step="3" style="--i: 3">
+                <span class="dg__n" aria-hidden="true">4</span
+                ><span class="dg__label">Monitor release</span
+                ><span class="dg__detail"
+                  >Use Sentry and Hotjar to see how dense dashboards behave after release, not only
+                  in local testing.</span
+                >
+              </li>
+            </ol>
+            <p class="dg__caption">
+              Embedded mobile webviews surfaced animation and layout cost that desktop testing never
+              showed, so that is where profiling started.
+            </p>
+          </figure>
+          <p class="rail__note">
+            From the Technical decisions section. Step through it with the buttons, or read the
+            steps as a list.
+          </p>
+        </aside>
+        <nav class="chips" aria-label="Sections in the Emplifi case study" data-outline>
+          <ol>
+            <li><a href="#context">Context</a></li>
+            <li><a href="#problem">Problem</a></li>
+            <li><a href="#role">My role</a></li>
+            <li><a href="#built">What I built</a></li>
+            <li><a href="#technical-decisions">Technical decisions</a></li>
+            <li><a href="#ux-decisions">UX and detail decisions</a></li>
+            <li><a href="#outcome">Outcome</a></li>
+            <li><a href="#improve">What I would improve</a></li>
+          </ol>
+        </nav>
+        <article class="case__body" aria-label="Emplifi case study">
+          <section class="cs-sec" id="context" aria-labelledby="context-h">
+            <h2 class="cs-sec__h" id="context-h">Context</h2>
+            <div class="cs-sec__body">
+              <p>
+                The dashboards were React, TypeScript, D3.js, and GSAP, shipped to standard browsers
+                and to embedded mobile webviews. The webviews were the constraint that mattered:
+                they surfaced animation and layout cost that desktop testing never showed.
+              </p>
+            </div>
+          </section>
+          <section class="cs-sec" id="problem" aria-labelledby="problem-h">
+            <h2 class="cs-sec__h" id="problem-h">Problem</h2>
+            <div class="cs-sec__body">
+              <p>
+                Dense analytics degrade quietly. Interaction cost, layout pressure, and host
+                constraints each look tolerable on their own, and then a customer opens the
+                dashboard in a webview on a mid-range phone and the charts stop being usable.
+                Cutting the data down would have solved the symptom and broken the product.
+              </p>
+              <figure class="dg dg--compare" aria-labelledby="dg-1-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 1 · Comparison</span>
+                  <strong class="dg__title" id="dg-1-t"
+                    >Cutting the data vs cutting the rendering cost</strong
+                  >
+                </figcaption>
+                <div class="dg__cols">
+                  <div class="dg__col dg__col--rejected">
+                    <p class="dg__collabel">Reduce what the dashboard shows</p>
+                    <ul>
+                      <li>Makes charts usable again on lower-powered devices</li>
+                      <li>Removes the dense data the product exists to show</li>
+                      <li>Leaves interaction and layout cost unexamined</li>
+                    </ul>
+                  </div>
+                  <div class="dg__col dg__col--chosen">
+                    <p class="dg__collabel">
+                      <span class="dg__taken">Approach taken</span> Reduce what rendering costs
+                    </p>
+                    <ul>
+                      <li>Keeps dense views intact</li>
+                      <li>Targets unnecessary re-renders and chart-update paint work</li>
+                      <li>Tunes desktop and embedded webview contexts separately</li>
+                      <li>Treats readability and interaction pacing as part of performance</li>
+                    </ul>
+                  </div>
+                </div>
+                <p class="dg__caption">
+                  Reducing what the dashboard shows would have fixed the symptom and broken the
+                  product, so the cost had to come out of rendering instead.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="role" aria-labelledby="role-h">
+            <h2 class="cs-sec__h" id="role-h">My role</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>Built dashboard modules in React, TypeScript, and D3.js.</li>
+                <li>
+                  Profiled and reduced rendering cost in dense views, focusing on the embedded
+                  webview path where problems showed up first.
+                </li>
+                <li>
+                  Built the reusable, accessible components the dashboard modules were assembled
+                  from, and wrote the documentation that let other engineers use them without
+                  asking.
+                </li>
+                <li>
+                  Used Sentry and Hotjar to understand how the dashboards behaved after release
+                  rather than only in local testing.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="built" aria-labelledby="built-h">
+            <h2 class="cs-sec__h" id="built-h">What I built</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Metric-heavy dashboard modules with chart interactions and the UI around them.
+                </li>
+                <li>
+                  Shared, accessible UI components and the usage documentation around them, so
+                  dashboard work started from an existing baseline instead of from scratch.
+                </li>
+                <li>
+                  Responsive behaviour tuned separately for desktop and embedded mobile webview
+                  contexts.
+                </li>
+                <li>
+                  GSAP motion used where it helped people keep their place in the data, not as
+                  decoration.
+                </li>
+              </ul>
+              <figure class="dg dg--layers" aria-labelledby="dg-2-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 2 · System layers</span>
+                  <strong class="dg__title" id="dg-2-t">How a dashboard module is composed</strong>
+                </figcaption>
+                <ol class="dg__layers">
+                  <li class="dg__layer" style="--i: 0">
+                    <span class="dg__label">React product composition</span
+                    ><span class="dg__detail"
+                      >The dashboard UI, controls, and layout around each chart.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 1">
+                    <span class="dg__label">D3.js chart behavior</span
+                    ><span class="dg__detail"
+                      >Tailored data visualization and chart interactions, tuned on their own
+                      terms.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 2">
+                    <span class="dg__label">GSAP motion</span
+                    ><span class="dg__detail"
+                      >Used where it helps people keep their place in the data, not as
+                      decoration.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 3">
+                    <span class="dg__label">Shared accessible components</span
+                    ><span class="dg__detail"
+                      >The documented baseline dashboard modules were assembled from, instead of
+                      starting from scratch.</span
+                    >
+                  </li>
+                </ol>
+                <p class="dg__caption">
+                  Splitting chart behavior from product composition let chart tuning happen without
+                  losing control of the surrounding dashboard UI.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="technical-decisions" aria-labelledby="technical-decisions-h">
+            <h2 class="cs-sec__h" id="technical-decisions-h">Technical decisions</h2>
+            <div class="cs-sec__body">
+              <article class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__n">Decision 1</span> Use D3.js for chart behavior and React
+                  for surrounding product composition rather than trying to collapse the whole
+                  dashboard into a single abstraction.
+                </h3>
+                <ol class="decision__chain">
+                  <li>
+                    <span class="decision__k">Why</span> The product needed both tailored data
+                    visualization behavior and maintainable UI composition around it.
+                  </li>
+                  <li>
+                    <span class="decision__k">Trade-off</span> This requires careful coordination
+                    between chart rendering and the broader React surface.
+                  </li>
+                  <li>
+                    <span class="decision__k">Result</span> The team could tune chart-specific
+                    behavior without losing control of the surrounding dashboard UI.
+                  </li>
+                </ol>
+              </article>
+              <article class="decision">
+                <h3 class="decision__title">
+                  <span class="decision__n">Decision 2</span> Work on rendering performance
+                  specifically for embedded and mobile webview paths instead of assuming desktop
+                  behavior would translate well.
+                </h3>
+                <ol class="decision__chain">
+                  <li>
+                    <span class="decision__k">Why</span> Those contexts expose animation and layout
+                    problems earlier than standard desktop testing does.
+                  </li>
+                  <li>
+                    <span class="decision__k">Trade-off</span> Host-specific tuning adds more QA
+                    complexity and more edge conditions to account for.
+                  </li>
+                  <li>
+                    <span class="decision__k">Result</span> Dashboard modules stayed more usable in
+                    constrained contexts where performance issues would otherwise surface first.
+                  </li>
+                </ol>
+              </article>
+            </div>
+          </section>
+          <section class="cs-sec" id="ux-decisions" aria-labelledby="ux-decisions-h">
+            <h2 class="cs-sec__h" id="ux-decisions-h">UX and detail decisions</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Treated readability and interaction pacing as part of performance work, not as
+                  separate concerns.
+                </li>
+                <li>
+                  Used production monitoring with Sentry and Hotjar to understand how dense
+                  dashboard UI behaved after release.
+                </li>
+                <li>
+                  Made motion serve orientation and hierarchy rather than decorative movement.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="outcome" aria-labelledby="outcome-h">
+            <h2 class="cs-sec__h" id="outcome-h">Outcome</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  <span class="pending"
+                    >Cut unnecessary re-renders and chart-update paint cost on lower-powered devices
+                    by 80%.</span
+                  >
+                  <span class="proto-flag">Source pending</span>
+                </li>
+                <li>
+                  Left behind reusable accessible components and documentation that colleagues
+                  credited with helping the team ship faster.
+                </li>
+                <li>
+                  Left behind patterns for balancing chart interaction against readability in dense
+                  product surfaces.
+                </li>
+                <li>
+                  Kept performance work anchored to the environments the dashboards actually ran in.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="improve" aria-labelledby="improve-h">
+            <h2 class="cs-sec__h" id="improve-h">What I would improve</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Document clearer motion and rendering budgets so new modules inherit the same
+                  constraints more consistently.
+                </li>
+                <li>
+                  Capture more product-specific evidence around embedded edge cases as part of the
+                  portfolio narrative.
+                </li>
+              </ul>
+            </div>
+          </section>
+        </article>
+        <nav class="casenav" aria-label="Case study navigation">
+          <a class="casenav__back" href="index.html#project-emplifi">Back to all case studies</a>
+          <a class="casenav__next" href="agent-tooling.html"
+            ><span class="casenav__k">Next case study</span>
+            <span class="casenav__name">Agent Engineering Tools</span></a
+          >
+        </nav>
+      </div>
+    </main>
+    <footer class="proto">
+      <p>
+        <strong>Concept C · Systems in Motion</strong> is a P1 design prototype for
+        alipajand.com/portfolio. Project text is generated from <code>data/projects.ts</code>;
+        screenshots are the real ones in <code>public/portfolio-media</code>, resized. Items marked
+        “Source pending” carry figures whose provenance is not yet established.
+      </p>
+    </footer>
+    <script src="../shared/behaviour.js" defer></script>
+    <script src="concept.js" defer></script>
+  </body>
+</html>

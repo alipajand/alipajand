@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>MapBylaw · Engineering Editorial</title>
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <meta
+      name="description"
+      content="Case study: An independent, experimental zoning and property-feasibility product for Montreal. Map-led information architecture, plus AI recommendations built as a typed contract shared by a Fastify API, React dashboard, and React-PDF report. Ali Pajand."
+    />
+    <meta name="color-scheme" content="dark" />
+    <script>
+      (function () {
+        var r = document.documentElement,
+          s = null;
+        try {
+          s = localStorage.getItem("p1-motion");
+        } catch (e) {}
+        r.dataset.motion =
+          s || (matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduce" : "full");
+        r.classList.add("js");
+        var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site">
+      <div class="site__inner">
+        <a class="site__brand" href="index.html">Ali Pajand</a>
+        <nav class="site__nav" aria-label="Primary">
+          <ul>
+            <li><a href="index.html" aria-current="page">Portfolio</a></li>
+            <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+            <li><a href="https://alipajand.com/writing">Writing</a></li>
+            <li><a href="https://alipajand.com/principles">Principles</a></li>
+            <li><a href="https://alipajand.com/contact">Contact</a></li>
+          </ul>
+        </nav>
+        <details class="site__menu">
+          <summary>Menu</summary>
+          <nav aria-label="Primary (compact)">
+            <ul>
+              <li><a href="index.html" aria-current="page">Portfolio</a></li>
+              <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+              <li><a href="https://alipajand.com/writing">Writing</a></li>
+              <li><a href="https://alipajand.com/principles">Principles</a></li>
+              <li><a href="https://alipajand.com/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <div class="wrap case">
+        <header class="case__head">
+          <a class="case__back" href="index.html#project-mapbylaw"
+            ><span aria-hidden="true">←</span> All case studies</a
+          >
+          <p class="case__kicker">Experiment case study</p>
+          <h1 class="case__title">
+            <span style="view-transition-name: name-mapbylaw">MapBylaw</span>
+          </h1>
+          <p class="case__sub">AI-Assisted Zoning Exploration</p>
+          <p class="case__lede">
+            MapBylaw is an independent experiment in making zoning and property-feasibility
+            information easier to explore, with AI recommendations that have to stay grounded in the
+            same verified data as the rest of the product. The work emphasizes navigation,
+            filtering, and an honest recommendation contract rather than claims about complete
+            municipal coverage or planning authority.
+          </p>
+          <dl class="facts">
+            <div>
+              <dt>Role</dt>
+              <dd>Independent / Product experiment</dd>
+            </div>
+
+            <div>
+              <dt>Stack and focus</dt>
+              <dd>
+                AI product UI, Typed API contracts, Information architecture, Filtering UI,
+                React-PDF
+              </dd>
+            </div>
+          </dl>
+          <ul class="plinks" aria-label="MapBylaw links">
+            <li class="plinks__item">
+              <a href="https://mapbylaw.ca/" target="_blank" rel="noopener"
+                ><span class="plinks__label">Live product</span>
+                <span class="plinks__host">mapbylaw.ca</span
+                ><span class="sr-only"> (opens in new tab)</span></a
+              >
+            </li>
+          </ul>
+        </header>
+        <details class="outline" data-open-wide>
+          <summary class="outline__h">On this page</summary>
+          <nav aria-label="Sections in the MapBylaw case study" data-outline>
+            <ol>
+              <li><a href="#context">Context</a></li>
+              <li><a href="#problem">Problem</a></li>
+              <li><a href="#role">My role</a></li>
+              <li><a href="#built">What I built</a></li>
+              <li><a href="#technical-decisions">Technical decisions</a></li>
+              <li><a href="#ux-decisions">UX and detail decisions</a></li>
+              <li><a href="#evidence">Interface evidence</a></li>
+              <li><a href="#outcome">Outcome</a></li>
+              <li><a href="#improve">What I would improve</a></li>
+              <li><a href="#related">Related work</a></li>
+            </ol>
+          </nav>
+        </details>
+        <article class="case__body" aria-label="MapBylaw case study">
+          <section class="cs-sec" id="context" aria-labelledby="context-h">
+            <h2 class="cs-sec__h" id="context-h">Context</h2>
+            <div class="cs-sec__body">
+              <p>
+                Zoning information is dense, technical, and easy to present in ways that overwhelm
+                people quickly. The experiment focused on information architecture, progressive
+                disclosure, and a more legible path through property-related questions.
+              </p>
+            </div>
+          </section>
+          <section class="cs-sec" id="problem" aria-labelledby="problem-h">
+            <h2 class="cs-sec__h" id="problem-h">Problem</h2>
+            <div class="cs-sec__body">
+              <p>
+                When bylaw and zoning information is presented as an undifferentiated wall of
+                detail, the product forces users to do too much translation themselves. The
+                interface needed to reduce that friction without implying official completeness or
+                certainty beyond the experiment’s scope.
+              </p>
+              <figure class="dg dg--compare" aria-labelledby="dg-1-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 1 · Comparison</span>
+                  <strong class="dg__title" id="dg-1-t"
+                    >A wall of bylaw detail vs a guided path</strong
+                  >
+                </figcaption>
+                <div class="dg__cols">
+                  <div class="dg__col dg__col--rejected">
+                    <p class="dg__collabel">Undifferentiated detail</p>
+                    <ul>
+                      <li>Every detail presented at once</li>
+                      <li>Users translate bylaw language into answers themselves</li>
+                      <li>Organized around raw document structure</li>
+                      <li>Reads like an unstructured archive</li>
+                    </ul>
+                  </div>
+                  <div class="dg__col dg__col--chosen">
+                    <p class="dg__collabel">
+                      <span class="dg__taken">Approach taken</span> Task-oriented workflow
+                    </p>
+                    <ul>
+                      <li>A map-led overview comes first</li>
+                      <li>Filtering narrows to the information a question needs</li>
+                      <li>Progressive disclosure moves into lower-level detail later</li>
+                      <li>Framed as an experiment, not an official municipal reference</li>
+                    </ul>
+                  </div>
+                </div>
+                <p class="dg__caption">
+                  The value of the experiment depends on whether people can navigate the
+                  information, not on how much of it fits on one page.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="role" aria-labelledby="role-h">
+            <h2 class="cs-sec__h" id="role-h">My role</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Designed the frontend product direction and information architecture for the
+                  experiment.
+                </li>
+                <li>
+                  Built navigation and filtering patterns aimed at making property workflows easier
+                  to follow.
+                </li>
+                <li>
+                  Designed the AI recommendation contract and the boundaries on what the model is
+                  allowed to claim.
+                </li>
+                <li>
+                  Worked across the Fastify API, the React dashboard, and the React-PDF report so
+                  all three render the same recommendation payload.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="built" aria-labelledby="built-h">
+            <h2 class="cs-sec__h" id="built-h">What I built</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  A map-led product surface for browsing property context and zoning-related
+                  details.
+                </li>
+                <li>
+                  Filtering and progressive-disclosure patterns for moving from overview into more
+                  specific information.
+                </li>
+                <li>
+                  Workflow framing that treats complex bylaw information as a navigable product
+                  problem.
+                </li>
+                <li>
+                  A recommendation service with a narrow context builder over verified inputs
+                  (zoning, sector, policy flags, feasibility signals, and computed scenarios) and
+                  Zod-validated structured output.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="technical-decisions" aria-labelledby="technical-decisions-h">
+            <h2 class="cs-sec__h" id="technical-decisions-h">Technical decisions</h2>
+            <div class="cs-sec__body">
+              <article class="decision">
+                <p class="decision__n">Decision 1</p>
+                <h3 class="decision__title">
+                  Focus the product around information architecture and workflow clarity instead of
+                  trying to present every possible detail at once.
+                </h3>
+                <dl class="decision__dl">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      The value of the experiment depends on whether people can navigate the
+                      information, not on how much text can fit on a page.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      Reducing surface complexity means some details appear later in the flow rather
+                      than immediately.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      The product experiment demonstrates a clearer path through complex information
+                      without over-claiming completeness.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <article class="decision">
+                <p class="decision__n">Decision 2</p>
+                <h3 class="decision__title">
+                  Use progressive disclosure and filtering to keep the interface oriented around
+                  tasks rather than raw document structure.
+                </h3>
+                <dl class="decision__dl">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      Users need a guided path through the material, not only access to the
+                      underlying rules.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      Task-oriented presentation requires more careful curation of what appears
+                      first and what remains secondary.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      The interface makes exploration feel more intentional and less like reading an
+                      unstructured archive.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <article class="decision">
+                <p class="decision__n">Decision 3</p>
+                <h3 class="decision__title">
+                  Treat AI recommendations as a typed product service with one contract across the
+                  API, the dashboard, and the PDF report, instead of as presentation copy.
+                </h3>
+                <dl class="decision__dl">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      Loosely typed recommendations make it hard to prove what the model saw,
+                      validate what it returned, or guarantee the dashboard and PDF say the same
+                      thing.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      A narrow context trades breadth for grounding: recommendations are less
+                      expansive, and output that steps outside the schema is rejected rather than
+                      cleaned up.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      Each recommendation references a computed scenario and the verified inputs it
+                      relied on, and the dashboard and PDF render the same payload.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <figure class="dg dg--flow" data-flow aria-labelledby="dg-2-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 2 · Flow</span>
+                  <strong class="dg__title" id="dg-2-t"
+                    >From map overview to specific zoning detail</strong
+                  >
+                </figcaption>
+                <ol class="dg__steps">
+                  <li class="dg__step" data-step="0" style="--i: 0">
+                    <span class="dg__n" aria-hidden="true">1</span
+                    ><span class="dg__label">Map overview</span
+                    ><span class="dg__detail"
+                      >Browse property context on a map-led product surface.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="1" style="--i: 1">
+                    <span class="dg__n" aria-hidden="true">2</span
+                    ><span class="dg__label">Filter</span
+                    ><span class="dg__detail"
+                      >Narrow zoning-related details down to what the current question needs.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="2" style="--i: 2">
+                    <span class="dg__n" aria-hidden="true">3</span
+                    ><span class="dg__label">Progressive detail</span
+                    ><span class="dg__detail"
+                      >Move from the overview into more specific information once the context is
+                      set.</span
+                    >
+                  </li>
+                </ol>
+                <p class="dg__caption">
+                  Detail appears later in the flow on purpose, so users reach it with enough context
+                  to understand it.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="ux-decisions" aria-labelledby="ux-decisions-h">
+            <h2 class="cs-sec__h" id="ux-decisions-h">UX and detail decisions</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Framed the work clearly as a product experiment rather than as a definitive
+                  municipal reference.
+                </li>
+                <li>
+                  Used filtering and disclosure patterns to reduce cognitive load before users reach
+                  lower-level detail.
+                </li>
+                <li>
+                  Kept the interface oriented around navigation and understanding instead of raw
+                  data density.
+                </li>
+                <li>
+                  Recommendations show their cited inputs and limitations instead of hiding missing
+                  data behind confident-sounding prose.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="evidence" aria-labelledby="evidence-h">
+            <h2 class="cs-sec__h" id="evidence-h">Interface evidence</h2>
+            <div class="cs-sec__body">
+              <figure class="shot">
+                <img
+                  src="../shared/media/mapbylaw-landing-640.webp"
+                  srcset="
+                    ../shared/media/mapbylaw-landing-640.webp   640w,
+                    ../shared/media/mapbylaw-landing-1280.webp 1280w
+                  "
+                  sizes="(min-width: 1024px) 704px, calc(100vw - 32px)"
+                  width="1280"
+                  height="827"
+                  loading="lazy"
+                  decoding="async"
+                  alt="MapBylaw landing page introducing a zoning and bylaw exploration product experiment."
+                />
+                <figcaption>
+                  <strong>Landing page.</strong> The public entry point positions the work as a
+                  clearer way to navigate zoning information, not as an official or exhaustive
+                  database.
+                  <a class="shot__open" href="../shared/media/mapbylaw-landing-1280.webp"
+                    >Open larger image<span class="sr-only">: Landing page.</span></a
+                  >
+                </figcaption>
+              </figure>
+              <figure class="shot">
+                <img
+                  src="../shared/media/mapbylaw-dashboard-640.webp"
+                  srcset="
+                    ../shared/media/mapbylaw-dashboard-640.webp   640w,
+                    ../shared/media/mapbylaw-dashboard-1280.webp 1280w
+                  "
+                  sizes="(min-width: 1024px) 704px, calc(100vw - 32px)"
+                  width="1280"
+                  height="734"
+                  loading="lazy"
+                  decoding="async"
+                  alt="MapBylaw dashboard showing map context, property details, and filtered zoning information."
+                />
+                <figcaption>
+                  <strong>Dashboard.</strong> The workflow emphasizes map context, filtering, and
+                  progressive disclosure to make dense information easier to follow.
+                  <a class="shot__open" href="../shared/media/mapbylaw-dashboard-1280.webp"
+                    >Open larger image<span class="sr-only">: Dashboard.</span></a
+                  >
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="outcome" aria-labelledby="outcome-h">
+            <h2 class="cs-sec__h" id="outcome-h">Outcome</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Created a product experiment that demonstrates information architecture and
+                  workflow thinking on a complex domain.
+                </li>
+                <li>
+                  Showed how filtering and progressive disclosure can make dense zoning information
+                  more approachable.
+                </li>
+                <li>
+                  Turned AI recommendations from free-form suggestions into specific, auditable
+                  output tied to verified inputs and computed scenarios.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="improve" aria-labelledby="improve-h">
+            <h2 class="cs-sec__h" id="improve-h">What I would improve</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Continue exploring clearer task-based entry points for different property
+                  questions.
+                </li>
+                <li>
+                  Expand the evidence set carefully without implying official coverage or exhaustive
+                  zoning accuracy.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="related" aria-labelledby="related-h">
+            <h2 class="cs-sec__h" id="related-h">Related work</h2>
+            <div class="cs-sec__body">
+              <ul class="related">
+                <li>
+                  <a
+                    href="https://alipajand.com/writing/mapbylaw-ai-recommendations"
+                    target="_blank"
+                    rel="noopener"
+                    >Teaching MapBylaw to give honest AI recommendations<span class="sr-only">
+                      (opens in new tab)</span
+                    ></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </section>
+        </article>
+        <nav class="casenav" aria-label="Case study navigation">
+          <a class="casenav__back" href="index.html#project-mapbylaw">Back to all case studies</a>
+          <a class="casenav__next" href="ledgerguard.html"
+            ><span class="casenav__k">Next case study</span>
+            <span class="casenav__name">LedgerGuard</span></a
+          >
+        </nav>
+      </div>
+    </main>
+    <footer class="proto">
+      <p>
+        <strong>Concept A · Engineering Editorial</strong> is a P1 design prototype for
+        alipajand.com/portfolio. Project text is generated from <code>data/projects.ts</code>;
+        screenshots are the real ones in <code>public/portfolio-media</code>, resized. Items marked
+        “Source pending” carry figures whose provenance is not yet established.
+      </p>
+    </footer>
+    <script src="../shared/behaviour.js" defer></script>
+    <script src="concept.js" defer></script>
+  </body>
+</html>

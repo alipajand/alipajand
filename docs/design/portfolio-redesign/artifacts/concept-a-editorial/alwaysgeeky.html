@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>AlwaysGeeky Games · Engineering Editorial</title>
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <meta
+      name="description"
+      content="Case study: A shared React and TypeScript component library across four product surfaces, with Storybook, accessibility work, TypeScript and review conventions, and CI quality gates. Senior Frontend Engineer — Ali Pajand."
+    />
+    <meta name="color-scheme" content="dark" />
+    <script>
+      (function () {
+        var r = document.documentElement,
+          s = null;
+        try {
+          s = localStorage.getItem("p1-motion");
+        } catch (e) {}
+        r.dataset.motion =
+          s || (matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduce" : "full");
+        r.classList.add("js");
+        var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site">
+      <div class="site__inner">
+        <a class="site__brand" href="index.html">Ali Pajand</a>
+        <nav class="site__nav" aria-label="Primary">
+          <ul>
+            <li><a href="index.html" aria-current="page">Portfolio</a></li>
+            <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+            <li><a href="https://alipajand.com/writing">Writing</a></li>
+            <li><a href="https://alipajand.com/principles">Principles</a></li>
+            <li><a href="https://alipajand.com/contact">Contact</a></li>
+          </ul>
+        </nav>
+        <details class="site__menu">
+          <summary>Menu</summary>
+          <nav aria-label="Primary (compact)">
+            <ul>
+              <li><a href="index.html" aria-current="page">Portfolio</a></li>
+              <li><a href="https://alipajand.com/open-source">Open Source</a></li>
+              <li><a href="https://alipajand.com/writing">Writing</a></li>
+              <li><a href="https://alipajand.com/principles">Principles</a></li>
+              <li><a href="https://alipajand.com/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <div class="wrap case">
+        <header class="case__head">
+          <a class="case__back" href="index.html#project-alwaysgeeky"
+            ><span aria-hidden="true">←</span> All case studies</a
+          >
+          <p class="case__kicker">Featured case study · 2024–2026</p>
+          <h1 class="case__title">
+            <span style="view-transition-name: name-alwaysgeeky">AlwaysGeeky Games</span>
+          </h1>
+          <p class="case__sub">Shared Design System &amp; Frontend Standards</p>
+          <p class="case__lede">
+            Four product surfaces shared one React and TypeScript component library. I built and
+            owned it, and established the conventions that decided how teams were expected to build
+            against it: component APIs, accessibility defaults, TypeScript rules, and what a review
+            was supposed to catch.
+          </p>
+          <dl class="facts">
+            <div>
+              <dt>Role</dt>
+              <dd>Senior Frontend Engineer</dd>
+            </div>
+            <div>
+              <dt>Timeframe</dt>
+              <dd>2024–2026</dd>
+            </div>
+            <div>
+              <dt>Stack and focus</dt>
+              <dd>React, Next.js, TypeScript, Storybook, GraphQL, Accessibility</dd>
+            </div>
+          </dl>
+          <ul class="plinks" aria-label="AlwaysGeeky Games links">
+            <li class="plinks__item plinks__item--closed">
+              <span class="plinks__label">Voxies Marketplace</span>
+              <span class="plinks__status">Closed July 2026. Shown as historical work.</span>
+            </li>
+            <li class="plinks__item">
+              <a href="https://login.voxies.io/" target="_blank" rel="noopener"
+                ><span class="plinks__label">Voxies login</span>
+                <span class="plinks__host">login.voxies.io</span
+                ><span class="sr-only"> (opens in new tab)</span></a
+              >
+            </li>
+          </ul>
+        </header>
+        <details class="outline" data-open-wide>
+          <summary class="outline__h">On this page</summary>
+          <nav aria-label="Sections in the AlwaysGeeky Games case study" data-outline>
+            <ol>
+              <li><a href="#context">Context</a></li>
+              <li><a href="#problem">Problem</a></li>
+              <li><a href="#role">My role</a></li>
+              <li><a href="#built">What I built</a></li>
+              <li><a href="#technical-decisions">Technical decisions</a></li>
+              <li><a href="#ux-decisions">UX and detail decisions</a></li>
+              <li><a href="#evidence">Interface evidence</a></li>
+              <li><a href="#outcome">Outcome</a></li>
+              <li><a href="#improve">What I would improve</a></li>
+            </ol>
+          </nav>
+        </details>
+        <article class="case__body" aria-label="AlwaysGeeky Games case study">
+          <section class="cs-sec" id="context" aria-labelledby="context-h">
+            <h2 class="cs-sec__h" id="context-h">Context</h2>
+            <div class="cs-sec__body">
+              <p>
+                The surfaces included a marketplace, authentication, product, and account
+                experiences, all in Next.js on top of the shared library, documented in Storybook
+                and integrated over GraphQL. Alongside the product work, we ran an AI-assisted
+                development workflow using Cursor with MCP tooling, so the same lint, type, and test
+                signals engineers saw in CI were available in the editor.
+              </p>
+              <figure class="dg dg--layers" aria-labelledby="dg-1-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 1 · System layers</span>
+                  <strong class="dg__title" id="dg-1-t"
+                    >One library under four product surfaces</strong
+                  >
+                </figcaption>
+                <ol class="dg__layers">
+                  <li class="dg__layer" style="--i: 0">
+                    <span class="dg__label">Four Next.js product surfaces</span
+                    ><span class="dg__detail"
+                      >Marketplace, authentication, product, and account experiences, integrated
+                      over GraphQL.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 1">
+                    <span class="dg__label">Shared React and TypeScript library</span
+                    ><span class="dg__detail"
+                      >Components with explicit states and escape hatches, used across every
+                      surface.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 2">
+                    <span class="dg__label">Storybook documentation</span
+                    ><span class="dg__detail"
+                      >Where each component's contract and the states it is responsible for are
+                      written down.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 3">
+                    <span class="dg__label">Frontend conventions</span
+                    ><span class="dg__detail"
+                      >Component API shape, accessibility defaults, TypeScript rules, and what
+                      reviewers push back on.</span
+                    >
+                  </li>
+                  <li class="dg__layer" style="--i: 4">
+                    <span class="dg__label">CI quality gates</span
+                    ><span class="dg__detail"
+                      >Hold the library and the product surfaces to the same baseline.</span
+                    >
+                  </li>
+                </ol>
+                <p class="dg__caption">
+                  Each layer restates the same contract a level lower, so drift gets caught before
+                  it depends on a reviewer remembering.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="problem" aria-labelledby="problem-h">
+            <h2 class="cs-sec__h" id="problem-h">Problem</h2>
+            <div class="cs-sec__body">
+              <p>
+                Marketplace and account flows drift into one-off implementations the moment speed
+                beats shared contracts. Four surfaces multiply that: the same empty state gets
+                invented four times, accessibility gets handled well in one and forgotten in the
+                others, and nobody notices until the library and the products disagree.
+              </p>
+              <figure class="dg dg--compare" aria-labelledby="dg-2-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 2 · Comparison</span>
+                  <strong class="dg__title" id="dg-2-t"
+                    >Per-surface one-offs vs a shared contract</strong
+                  >
+                </figcaption>
+                <div class="dg__cols">
+                  <div class="dg__col dg__col--rejected">
+                    <p class="dg__collabel">One-offs per surface</p>
+                    <ul>
+                      <li>The same empty state gets invented four times</li>
+                      <li>Accessibility handled well in one surface and forgotten in the others</li>
+                      <li>The library and the products disagree before anyone notices</li>
+                      <li>Conventions live only in reviewers' heads</li>
+                    </ul>
+                  </div>
+                  <div class="dg__col dg__col--chosen">
+                    <p class="dg__collabel">
+                      <span class="dg__taken">Approach taken</span> Shared library with gates
+                    </p>
+                    <ul>
+                      <li>Loading, empty, and error states defined once and reused</li>
+                      <li>Accessibility defaults built into shared components</li>
+                      <li>Storybook documents each component's states and API</li>
+                      <li>CI gates enforce the baseline instead of reviewer memory</li>
+                    </ul>
+                  </div>
+                </div>
+                <p class="dg__caption">
+                  Four surfaces multiply every inconsistency, so the shared contract has to be
+                  easier to use than writing a one-off.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="role" aria-labelledby="role-h">
+            <h2 class="cs-sec__h" id="role-h">My role</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Owned the React and TypeScript component library used across all four surfaces.
+                </li>
+                <li>
+                  Established the frontend conventions the surfaces were built to: component API
+                  shape, accessibility expectations, TypeScript rules, and what reviewers were
+                  expected to push back on.
+                </li>
+                <li>
+                  Evolved the Storybook documentation so components were discoverable enough that
+                  reuse was the easier path.
+                </li>
+                <li>
+                  Wrote the design docs for library and convention changes, and drove their adoption
+                  across the teams building the four surfaces.
+                </li>
+                <li>
+                  Mentored engineers on component API design, accessibility, and TypeScript patterns
+                  through pairing and code review.
+                </li>
+                <li>
+                  Shipped marketplace, authentication, product, and account workflows with
+                  consistent loading, empty, and error handling.
+                </li>
+                <li>
+                  Worked on the Cursor and MCP setup so editor feedback lined up with the checks CI
+                  already ran.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="built" aria-labelledby="built-h">
+            <h2 class="cs-sec__h" id="built-h">What I built</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Shared React and TypeScript components used across the marketplace and account
+                  surfaces.
+                </li>
+                <li>
+                  Storybook documentation covering component usage and the states each one is
+                  responsible for.
+                </li>
+                <li>Workflow UI for catalog browsing, login, and account-access states.</li>
+                <li>
+                  CI quality gates that held the library and the product surfaces to the same
+                  baseline.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="technical-decisions" aria-labelledby="technical-decisions-h">
+            <h2 class="cs-sec__h" id="technical-decisions-h">Technical decisions</h2>
+            <div class="cs-sec__body">
+              <article class="decision">
+                <p class="decision__n">Decision 1</p>
+                <h3 class="decision__title">
+                  Treat component APIs as the contract, and Storybook as where that contract is
+                  written down, rather than as documentation produced after the fact.
+                </h3>
+                <dl class="decision__dl">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      A component used on four surfaces is an interface other engineers depend on.
+                      If its states and escape hatches aren't explicit, each surface fills the gaps
+                      differently.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      Codifying a pattern is slower than writing the screen in front of you, and
+                      every component gains maintenance weight.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      The library stayed close to the surfaces it was meant to serve instead of
+                      becoming a parallel set of components nobody reached for.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <article class="decision">
+                <p class="decision__n">Decision 2</p>
+                <h3 class="decision__title">
+                  Put the design-system baseline behind CI gates instead of relying on reviewers to
+                  remember it.
+                </h3>
+                <dl class="decision__dl">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      Conventions that only live in people's heads decay as soon as the team is
+                      busy, and review attention is the scarcest thing on a small frontend team.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      Gates add friction on individual screens, and a gate that fires too often gets
+                      routed around.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      Standards work stayed enforceable rather than aspirational, and review time
+                      went to design decisions instead of catching lint-level drift.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <article class="decision">
+                <p class="decision__n">Decision 3</p>
+                <h3 class="decision__title">
+                  Wire the AI-assisted workflow through MCP tooling that runs the same lint, type,
+                  and test commands as CI.
+                </h3>
+                <dl class="decision__dl">
+                  <div>
+                    <dt>Why</dt>
+                    <dd>
+                      Editor-level AI assistance is only useful if its feedback matches what will
+                      actually block the pull request.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Trade-off</dt>
+                    <dd>
+                      Maintaining the tooling is real work, and it only pays off if the underlying
+                      scripts stay the single source of truth.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Result</dt>
+                    <dd>
+                      Assisted development stayed anchored to the project's real quality signals
+                      instead of to a model's guess about them.
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+              <figure class="dg dg--flow" data-flow aria-labelledby="dg-3-t">
+                <figcaption class="dg__head">
+                  <span class="dg__kind">Fig. 3 · Flow</span>
+                  <strong class="dg__title" id="dg-3-t"
+                    >The same checks from editor to merge</strong
+                  >
+                </figcaption>
+                <ol class="dg__steps">
+                  <li class="dg__step" data-step="0" style="--i: 0">
+                    <span class="dg__n" aria-hidden="true">1</span
+                    ><span class="dg__label">Build in editor</span
+                    ><span class="dg__detail"
+                      >Engineers work against the shared library with Cursor and MCP tooling.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="1" style="--i: 1">
+                    <span class="dg__n" aria-hidden="true">2</span
+                    ><span class="dg__label">Editor checks</span
+                    ><span class="dg__detail"
+                      >MCP tooling runs the same lint, type, and test commands CI runs.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="2" style="--i: 2">
+                    <span class="dg__n" aria-hidden="true">3</span
+                    ><span class="dg__label">CI quality gates</span
+                    ><span class="dg__detail"
+                      >The same scripts block the pull request when the baseline breaks.</span
+                    >
+                  </li>
+                  <li class="dg__step" data-step="3" style="--i: 3">
+                    <span class="dg__n" aria-hidden="true">4</span
+                    ><span class="dg__label">Code review</span
+                    ><span class="dg__detail"
+                      >With lint-level drift already caught, review time goes to design
+                      decisions.</span
+                    >
+                  </li>
+                </ol>
+                <p class="dg__loop">
+                  <span>Loop</span> The underlying scripts stay the single source of truth, so
+                  editor feedback and CI cannot drift apart.
+                </p>
+                <p class="dg__caption">
+                  Assisted development is only useful when its feedback matches what will actually
+                  block the pull request.
+                </p>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="ux-decisions" aria-labelledby="ux-decisions-h">
+            <h2 class="cs-sec__h" id="ux-decisions-h">UX and detail decisions</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Kept loading, empty, and error states consistent across product surfaces instead
+                  of letting each workflow invent its own patterns.
+                </li>
+                <li>
+                  Used accessibility improvements such as semantic structure, keyboard support, and
+                  clearer state messaging where the product surfaces required it.
+                </li>
+                <li>
+                  Treated authentication and recovery UI as part of the same system as the main
+                  marketplace experience.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="evidence" aria-labelledby="evidence-h">
+            <h2 class="cs-sec__h" id="evidence-h">Interface evidence</h2>
+            <div class="cs-sec__body">
+              <figure class="shot">
+                <img
+                  src="../shared/media/alwaysgeeky-marketplace-640.webp"
+                  srcset="
+                    ../shared/media/alwaysgeeky-marketplace-640.webp   640w,
+                    ../shared/media/alwaysgeeky-marketplace-1280.webp 1280w
+                  "
+                  sizes="(min-width: 1024px) 704px, calc(100vw - 32px)"
+                  width="1280"
+                  height="827"
+                  loading="lazy"
+                  decoding="async"
+                  alt="AlwaysGeeky Games marketplace interface using shared design-system components."
+                />
+                <figcaption>
+                  <strong>Marketplace.</strong> Catalog browsing and calls to action sit on top of
+                  reusable UI patterns rather than page-specific one-offs.
+                  <span class="shot__hist">Historical: the marketplace closed in July 2026.</span>
+                  <a class="shot__open" href="../shared/media/alwaysgeeky-marketplace-1280.webp"
+                    >Open larger image<span class="sr-only">: Marketplace.</span></a
+                  >
+                </figcaption>
+              </figure>
+              <figure class="shot">
+                <img
+                  src="../shared/media/alwaysgeeky-login-640.webp"
+                  srcset="
+                    ../shared/media/alwaysgeeky-login-640.webp   640w,
+                    ../shared/media/alwaysgeeky-login-1280.webp 1280w
+                  "
+                  sizes="(min-width: 1024px) 704px, calc(100vw - 32px)"
+                  width="1280"
+                  height="827"
+                  loading="lazy"
+                  decoding="async"
+                  alt="AlwaysGeeky Games login flow using shared form and recovery patterns."
+                />
+                <figcaption>
+                  <strong>Authentication.</strong> Login and recovery states follow the same
+                  component rules as the broader product UI.
+                  <a class="shot__open" href="../shared/media/alwaysgeeky-login-1280.webp"
+                    >Open larger image<span class="sr-only">: Authentication.</span></a
+                  >
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+          <section class="cs-sec" id="outcome" aria-labelledby="outcome-h">
+            <h2 class="cs-sec__h" id="outcome-h">Outcome</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  A component baseline four product surfaces were built on, with the conventions and
+                  gates that kept them aligned.
+                </li>
+                <li>
+                  Closer agreement between Storybook documentation, shipped UI, and what CI actually
+                  enforced.
+                </li>
+                <li>
+                  Better accessibility, responsive behaviour, API integration, and testing standards
+                  across the surfaces, plus an AI-assisted workflow tied to the project's real
+                  checks.
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="cs-sec" id="improve" aria-labelledby="improve-h">
+            <h2 class="cs-sec__h" id="improve-h">What I would improve</h2>
+            <div class="cs-sec__body">
+              <ul class="plist">
+                <li>
+                  Expand product-level regression coverage around key marketplace paths so
+                  system-level changes are easier to validate.
+                </li>
+                <li>
+                  Document more workflow-specific usage guidance inside Storybook as the shared
+                  system grows.
+                </li>
+              </ul>
+            </div>
+          </section>
+        </article>
+        <nav class="casenav" aria-label="Case study navigation">
+          <a class="casenav__back" href="index.html#project-alwaysgeeky"
+            >Back to all case studies</a
+          >
+          <a class="casenav__next" href="emplifi.html"
+            ><span class="casenav__k">Next case study</span>
+            <span class="casenav__name">Emplifi</span></a
+          >
+        </nav>
+      </div>
+    </main>
+    <footer class="proto">
+      <p>
+        <strong>Concept A · Engineering Editorial</strong> is a P1 design prototype for
+        alipajand.com/portfolio. Project text is generated from <code>data/projects.ts</code>;
+        screenshots are the real ones in <code>public/portfolio-media</code>, resized. Items marked
+        “Source pending” carry figures whose provenance is not yet established.
+      </p>
+    </footer>
+    <script src="../shared/behaviour.js" defer></script>
+    <script src="concept.js" defer></script>
+  </body>
+</html>
