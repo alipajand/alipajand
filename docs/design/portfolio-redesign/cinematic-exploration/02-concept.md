@@ -35,7 +35,9 @@ The accepted creative brief lists "a light theme (unless Ali asks)" as a non-goa
 
 ## Scene 01: opening composition
 
-The first screen at 1440×900 ([desktop-01-cover.webp](screenshots/desktop-01-cover.webp)):
+> **Revised in revision 2.** The cover below is the first proof's closed cover. Revision 2 opens with the cut already open on the shipped interface, and its sequence is four beats; see [03-storyboard.md § The first frame](03-storyboard.md#the-first-frame) and [04-motion-spec.md](04-motion-spec.md).
+
+The first screen at 1440×900 in revision 1 ([before/desktop-first-frame.webp](screenshots/before/desktop-first-frame.webp)):
 
 ```
 ┌────────────────────────────────────────────────────────────────────┐
@@ -59,7 +61,7 @@ The first screen at 1440×900 ([desktop-01-cover.webp](screenshots/desktop-01-co
 - **One dominant idea.** The name is cut by a line. Everything else is small and set at the margins, the way a drawing sheet works.
 - **Senior positioning in the first screen.** The role, focus, stack, experience, location and availability are all visible without scrolling. They sit in the drawing's **title block**, the corner box every engineering drawing has.
 - **Not a résumé hero.** There are no two columns, no headshot and no cards. The title block is a convention of the medium, not a layout grid.
-- **Mobile** ([mobile-01-cover.webp](screenshots/mobile-01-cover.webp)): the name stacks as ALI / PAJAND. The cut moves to cross PAJAND (`--cut-at: 1.18em`), the markers shrink, and the title block becomes a two-column grid under the thesis.
+- **Mobile** ([before/mobile-first-frame.webp](screenshots/before/mobile-first-frame.webp)): the name stacks as ALI / PAJAND. The cut moves to cross PAJAND (`--cut-at: 1.18em`), the markers shrink, and the title block becomes a two-column grid under the thesis.
 - **Arrival** (fresh visits with motion on only): the section line draws from left to right in 520 ms, then the two "A" markers pop in, finishing by 580 ms. Nothing else moves; all text is present on first paint.
 
 ### Typography

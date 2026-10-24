@@ -1,9 +1,10 @@
 {
   "load": 0,
-  "opening": 1.61,
-  "layers": 4.53,
-  "demo": 10.84,
-  "collapse": 17.03,
-  "detail": 22.76,
-  "end": 29.2
+  "opening": 2.22,
+  "anatomy": 5.14,
+  "boundary": 12.88,
+  "matchcut": 18.83,
+  "landed": 23.35,
+  "detail": 25.06,
+  "end": 32.1
 }

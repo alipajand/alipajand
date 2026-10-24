@@ -1,17 +1,31 @@
 // Case-study page: the motion preference and the view-transition guard. The page itself is
 // static; the only entrance is the section line drawing across the title (CSS, 520 ms).
+// The preference follows the same rule as the sequence page (see sequence.js).
 (function () {
   "use strict";
   var root = document.documentElement;
-  var KEY = "aa-motion";
+  var KEY = "aa-motion2";
   var mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function osMode() {
+    return mq.matches ? "reduce" : "full";
+  }
 
   function stored() {
     try {
-      return localStorage.getItem(KEY);
+      return JSON.parse(localStorage.getItem(KEY) || "null");
     } catch {
       return null;
     }
+  }
+
+  function resolve() {
+    var s = stored();
+    var os = osMode();
+    if (s && (s.m === "full" || s.m === "reduce")) {
+      if (os === "full" || s.os === "reduce") return s.m;
+    }
+    return os;
   }
 
   function motionOn() {
@@ -26,24 +40,21 @@
     });
   }
 
-  function set(value, persist) {
-    root.dataset.motion = value;
-    if (persist) {
-      try {
-        localStorage.setItem(KEY, value);
-      } catch {
-        /* storage unavailable */
-      }
-    }
-    sync();
-  }
-
   mq.addEventListener("change", function () {
-    if (!stored()) set(mq.matches ? "reduce" : "full", false);
+    root.dataset.motion = resolve();
+    sync();
   });
 
   document.addEventListener("click", function (e) {
-    if (e.target.closest("[data-motion-toggle]")) set(motionOn() ? "reduce" : "full", true);
+    if (!e.target.closest("[data-motion-toggle]")) return;
+    var next = motionOn() ? "reduce" : "full";
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ m: next, os: osMode() }));
+    } catch {
+      /* storage unavailable */
+    }
+    root.dataset.motion = next;
+    sync();
   });
 
   ["pageswap", "pagereveal"].forEach(function (type) {

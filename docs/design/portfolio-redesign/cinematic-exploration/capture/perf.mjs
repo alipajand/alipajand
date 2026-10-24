@@ -1,4 +1,5 @@
-// Rough performance probe: delivered bytes by type, and frame pacing while scrolling the sequence.
+// Rough performance probe: delivered bytes by type, main-thread time and frame pacing while
+// scrolling the sequence, with the static fallback measured the same way for comparison.
 //   node capture/perf.mjs
 // Lab numbers from headless Chromium on a laptop. They show relative cost, not field performance.
 import { createRequire } from "node:module";
@@ -13,8 +14,11 @@ const { chromium } = createRequire(join(process.env.NODE_PATH ?? ".", "noop.js")
 const server = await serve(join(here, "../prototype"));
 const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH });
 
-async function probe(label, viewport, cpu) {
-  const ctx = await browser.newContext({ viewport });
+async function probe(label, viewport, cpu, reduce = false) {
+  const ctx = await browser.newContext({
+    viewport,
+    reducedMotion: reduce ? "reduce" : "no-preference",
+  });
   const page = await ctx.newPage();
   const cdp = await ctx.newCDPSession(page);
   await cdp.send("Emulation.setCPUThrottlingRate", { rate: cpu });
@@ -47,6 +51,21 @@ async function probe(label, viewport, cpu) {
         setTimeout(() => done({ lcp: Math.round(lcp), cls: +cls.toFixed(3) }), 300);
       })
   );
+  // Elements promoted for compositing by will-change, at rest and in the middle of the sequence.
+  const promoted = () =>
+    page.evaluate(
+      () =>
+        [...document.querySelectorAll("*")].filter(
+          (el) => getComputedStyle(el).willChange !== "auto"
+        ).length
+    );
+  const restPromoted = await promoted();
+  await cdp.send("Performance.enable");
+  const metric = async () =>
+    Object.fromEntries(
+      (await cdp.send("Performance.getMetrics")).metrics.map((m) => [m.name, m.value])
+    );
+  const m0 = await metric();
   // Scroll the whole sequence in 8 s and record every frame interval.
   const frames = await page.evaluate(
     () =>
@@ -65,6 +84,11 @@ async function probe(label, viewport, cpu) {
         })(t0);
       })
   );
+  const m1 = await metric();
+  const ms = (k) => Math.round((m1[k] - m0[k]) * 1000);
+  await page.evaluate(() => scrollTo(0, document.getElementById("sequence").offsetHeight / 2));
+  await page.waitForTimeout(800);
+  const midPromoted = await promoted();
   const sorted = [...frames].sort((a, b) => a - b);
   const p = (q) => sorted[Math.floor(q * (sorted.length - 1))].toFixed(1);
   const kb = Object.fromEntries(Object.entries(bytes).map(([k, v]) => [k, Math.round(v / 1024)]));
@@ -72,6 +96,7 @@ async function probe(label, viewport, cpu) {
     JSON.stringify({
       label,
       cpuSlowdown: cpu,
+      live: await page.evaluate(() => document.documentElement.classList.contains("motion-live")),
       kb,
       totalKb: Object.values(kb).reduce((a, b) => a + b, 0),
       ...vitals,
@@ -79,6 +104,11 @@ async function probe(label, viewport, cpu) {
       medianMs: p(0.5),
       p95Ms: p(0.95),
       over33ms: frames.filter((g) => g > 33.4).length,
+      scriptMs: ms("ScriptDuration"),
+      layoutMs: ms("LayoutDuration"),
+      styleMs: ms("RecalcStyleDuration"),
+      taskMs: ms("TaskDuration"),
+      willChange: { rest: restPromoted, mid: midPromoted },
     })
   );
   await ctx.close();
@@ -87,5 +117,7 @@ async function probe(label, viewport, cpu) {
 await probe("desktop", { width: 1440, height: 900 }, 1);
 await probe("desktop, 4x CPU slowdown", { width: 1440, height: 900 }, 4);
 await probe("mobile viewport, 4x CPU slowdown", { width: 390, height: 844 }, 4);
+await probe("desktop static fallback, 4x CPU slowdown", { width: 1440, height: 900 }, 4, true);
+await probe("mobile static fallback, 4x CPU slowdown", { width: 390, height: 844 }, 4, true);
 await browser.close();
 server.close();

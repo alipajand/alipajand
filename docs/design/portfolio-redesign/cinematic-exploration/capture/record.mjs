@@ -2,7 +2,8 @@
 //   node capture/record.mjs <outDir> <desktop|mobile|reduce>
 // Scrolling is native (window.scrollTo on an eased rAF loop, standing in for a reader's wheel or
 // thumb). The cursor dot is injected by this script for legibility; it is not part of the prototype.
-// Writes <name>.mp4 plus <name>-marks.json, and for the desktop run the five segment clips.
+// Writes <name>.mp4 plus <name>-marks.json; the desktop run also writes the beat clips, and the
+// desktop and mobile runs each write their match cut as its own clip.
 import { createRequire } from "node:module";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
@@ -93,13 +94,12 @@ async function glide(target, ms, offset = 0) {
   );
 }
 
-// Scroll offset at a fraction of the way through the boundary step's workspace states.
+// Scroll offset at a fraction of the way through beat C, the boundary and its workspace states.
 function boundaryY(f) {
-  const step = document.getElementById("layer-boundary");
-  const col = document.querySelector('[data-beat="collapse"]');
   const seq = document.getElementById("sequence");
-  const a = seq.offsetTop + step.offsetTop - innerHeight * 0.25;
-  const z = seq.offsetTop + col.offsetTop - innerHeight * 0.7;
+  const a = seq.offsetTop + document.getElementById("boundary").offsetTop - innerHeight;
+  const z =
+    seq.offsetTop + document.querySelector('[data-beat="land"]').offsetTop - innerHeight * 1.1;
   return a + (z - a) * f;
 }
 
@@ -126,9 +126,15 @@ await wait(1400);
 if (M.reduce) {
   await glide("#work", 1600);
   await wait(1400);
-  await glide(".anatomy", 1200, 80);
-  await wait(1800);
-  await glide("#layer-boundary", 2200);
+  await glide("#anatomy", 1200);
+  await wait(900);
+  await glide(".strata--static", 900, 90);
+  await wait(500);
+  await tap('[data-layer-to="3"]');
+  await wait(1300);
+  await tap('[data-layer-to="3"]');
+  await wait(700);
+  await glide("#boundary", 2200);
   await wait(600);
   await glide(".wsx__fig", 900, 90);
   await wait(500);
@@ -154,27 +160,31 @@ if (M.reduce) {
   mark("opening");
   await glide("#work", 2300 * slow);
   await wait(600);
-  mark("layers");
-  for (const id of ["layer-api", "layer-data", "layer-jobs", "layer-boundary"]) {
-    await glide(`#${id}`, 1250 * slow);
-    await wait(id === "layer-boundary" ? 200 : 350);
-  }
-  // the plane uncovers the workspace; scrolling plays its review states, then pick one by hand
-  mark("demo");
-  await glide(await page.evaluate(boundaryY, 0.3), 1100 * slow);
+  // B: the anatomy, then one layer picked out by hand and put back
+  mark("anatomy");
+  await glide("#anatomy", 2400 * slow, M.mobile ? M.height * 0.6 : 0);
+  await wait(400);
+  await glide('[data-layer-to="4"]', 900 * slow, M.height * 0.7);
   await wait(300);
-  await glide(await page.evaluate(boundaryY, M.mobile ? 0.6 : 0.62), 1300 * slow);
+  await tap('[data-layer-to="4"]');
+  await wait(1200);
+  await tap('[data-layer-to="4"]');
   await wait(500);
-  await tap('[data-ws-to="confirmed"]');
+  // C: the boundary uncovers the workspace; scrolling plays its review states
+  mark("boundary");
+  await glide(await page.evaluate(boundaryY, 0.15), 1600 * slow);
+  await wait(300);
+  await glide(await page.evaluate(boundaryY, 0.95), 3400 * slow);
+  await wait(600);
+  // D: the match cut, slow enough to follow the one screenshot into the story
+  mark("matchcut");
+  await glide("#project-ledgerguard", 3600 * slow);
   await wait(900);
-  await tap('[data-ws-to="ready"]');
-  await wait(900);
-  mark("collapse");
-  await glide("#project-ledgerguard", 3200 * slow);
-  await wait(800);
+  mark("landed");
   await glide('#project-ledgerguard a[href="ledgerguard.html"]', 1300, M.height * 0.62);
   await wait(400);
   mark("detail");
+  await wait(200);
   await tap('#project-ledgerguard a[href="ledgerguard.html"]');
   await page.waitForURL(/ledgerguard/);
   await addCursor();
@@ -223,14 +233,18 @@ const rel = Object.fromEntries(Object.entries(marks).map(([k, v]) => [k, +(v - s
 writeFileSync(join(out, `${name}-marks.json`), JSON.stringify(rel, null, 2) + "\n");
 console.log(name, `${usable.length} frames`, `${rel.end}s`, rel);
 
-// The desktop run also yields the four motion segments the brief asks for.
-if (mode === "desktop") {
-  const clips = [
-    ["01-opening", 0, rel.layers],
-    ["02-into-the-project", rel.opening, rel.demo],
-    ["03-boundary-interaction", rel.demo - 0.3, rel.collapse],
-    ["04-transition-to-detail", rel.collapse, rel.end],
-  ];
+// The desktop run also yields one clip per beat; desktop and mobile each yield their match cut.
+if (mode !== "reduce") {
+  const clips =
+    mode === "desktop"
+      ? [
+          ["01-cut-reveal", 0, rel.anatomy],
+          ["02-anatomy", rel.anatomy - 0.2, rel.boundary],
+          ["03-review-boundary", rel.boundary - 0.2, rel.matchcut],
+          ["04-match-cut", rel.matchcut - 0.3, rel.landed],
+          ["05-into-the-case-study", rel.landed - 0.3, rel.end],
+        ]
+      : [["mobile-match-cut", rel.matchcut - 0.3, rel.landed]];
   for (const [clip, a, b] of clips) {
     ff([
       "-ss",

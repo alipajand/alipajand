@@ -1,8 +1,8 @@
 // Captures still frames of the sequence at chosen scroll positions.
 //   node capture/frames.mjs <outDir> <width> <height> [reduce] [positions...]
 // Positions are element ids (scrolled so the element's top meets the viewport top), or numbers
-// (a scroll offset in viewport heights), or ws-<fraction> (that far through the boundary step's
-// workspace states, 0 to 1). Each frame waits for the scrubbed timeline to settle.
+// (a scroll offset in viewport heights), or ws-<fraction> (that far through beat C, the boundary
+// and its workspace states, 0 to 1). Each frame waits for the scrubbed timeline to settle.
 import { createRequire } from "node:module";
 import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -32,12 +32,9 @@ for (const pos of list) {
     let y;
     if (pos.startsWith("ws-")) {
       const seq = document.getElementById("sequence");
-      const a =
-        seq.offsetTop + document.getElementById("layer-boundary").offsetTop - innerHeight * 0.25;
+      const a = seq.offsetTop + document.getElementById("boundary").offsetTop - innerHeight;
       const z =
-        seq.offsetTop +
-        document.querySelector('[data-beat="collapse"]').offsetTop -
-        innerHeight * 0.7;
+        seq.offsetTop + document.querySelector('[data-beat="land"]').offsetTop - innerHeight * 1.1;
       y = a + (z - a) * Number(pos.slice(3));
     } else if (Number.isNaN(n)) {
       y = document.getElementById(pos).getBoundingClientRect().top + scrollY;

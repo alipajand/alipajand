@@ -40,44 +40,64 @@
     "detail": ""
   },
   {
-    "name": "keyboard: first Tab is the skip link",
+    "name": "keyboard full: first Tab is the skip link",
     "pass": true,
-    "detail": "Skip the sequence"
+    "detail": "Skip to the LedgerGuard story"
   },
   {
-    "name": "keyboard: skip link visible with focus ring",
+    "name": "keyboard full: skip link visible with focus ring",
     "pass": true,
     "detail": ""
   },
   {
-    "name": "keyboard: skip link lands on the project",
+    "name": "keyboard full: skip link lands on the project",
     "pass": true,
     "detail": "{\"top\":0,\"hash\":\"#project-ledgerguard\"}"
   },
   {
-    "name": "keyboard: 11 tab stops on screen with focus ring",
+    "name": "keyboard full: 11 tab stops on screen with focus ring",
     "pass": true,
     "detail": ""
   },
   {
-    "name": "layer index marks #layer-api current",
+    "name": "keyboard reduce: first Tab is the skip link",
     "pass": true,
-    "detail": "#layer-api"
+    "detail": "Skip to the LedgerGuard story"
   },
   {
-    "name": "layer index marks #layer-data current",
+    "name": "keyboard reduce: skip link visible with focus ring",
     "pass": true,
-    "detail": "#layer-data"
+    "detail": ""
   },
   {
-    "name": "layer index marks #layer-jobs current",
+    "name": "keyboard reduce: skip link lands on the project",
     "pass": true,
-    "detail": "#layer-jobs"
+    "detail": "{\"top\":0,\"hash\":\"#project-ledgerguard\"}"
   },
   {
-    "name": "layer index marks #layer-boundary current",
+    "name": "keyboard reduce: 11 tab stops on screen with focus ring",
     "pass": true,
-    "detail": "#layer-boundary"
+    "detail": ""
+  },
+  {
+    "name": "layer list full: a layer button focuses its layer and keeps keyboard focus",
+    "pass": true,
+    "detail": "{\"focus\":\"3\",\"pressed\":[\"3\"],\"active\":\"3\"}"
+  },
+  {
+    "name": "layer list full: pressing again clears the focus",
+    "pass": true,
+    "detail": "null"
+  },
+  {
+    "name": "layer list reduce: a layer button focuses its layer and keeps keyboard focus",
+    "pass": true,
+    "detail": "{\"focus\":\"3\",\"pressed\":[\"3\"],\"active\":\"3\"}"
+  },
+  {
+    "name": "layer list reduce: pressing again clears the focus",
+    "pass": true,
+    "detail": "null"
   },
   {
     "name": "workspace full: a state button switches every view and announces it",
@@ -90,9 +110,14 @@
     "detail": ""
   },
   {
-    "name": "workspace full: scrolling through the step reaches Confirmed on the stage",
+    "name": "workspace full: scrolling through the step shows ready, partial, confirmed in order",
     "pass": true,
-    "detail": "confirmed visible"
+    "detail": "ready → partial → confirmed"
+  },
+  {
+    "name": "workspace full: a jump across the whole step ends confirmed",
+    "pass": true,
+    "detail": "confirmed"
   },
   {
     "name": "workspace reduce: a state button switches every view and announces it",
@@ -105,54 +130,204 @@
     "detail": ""
   },
   {
-    "name": "workspace reduce: the inline figure shows the chosen state",
-    "pass": true,
-    "detail": "partial"
-  },
-  {
     "name": "workspace prototype renders with no errors",
     "pass": true,
     "detail": ""
   },
   {
-    "name": "workspace prototype links back to the A–A step",
+    "name": "workspace prototype links back to the boundary step",
+    "pass": true,
+    "detail": "top 0"
+  },
+  {
+    "name": "anchor full: #work lands on its section",
+    "pass": true,
+    "detail": "{\"top\":0,\"atEnd\":false}"
+  },
+  {
+    "name": "anchor full: #anatomy lands on its section",
+    "pass": true,
+    "detail": "{\"top\":0,\"atEnd\":false}"
+  },
+  {
+    "name": "anchor full: #boundary lands on its section",
+    "pass": true,
+    "detail": "{\"top\":0,\"atEnd\":false}"
+  },
+  {
+    "name": "anchor full: #project-ledgerguard lands on its section",
+    "pass": true,
+    "detail": "{\"top\":0,\"atEnd\":false}"
+  },
+  {
+    "name": "anchor full: #contact lands on its section",
+    "pass": true,
+    "detail": "{\"top\":338,\"atEnd\":true}"
+  },
+  {
+    "name": "anchor reduce: #work lands on its section",
+    "pass": true,
+    "detail": "{\"top\":0,\"atEnd\":false}"
+  },
+  {
+    "name": "anchor reduce: #anatomy lands on its section",
+    "pass": true,
+    "detail": "{\"top\":0,\"atEnd\":false}"
+  },
+  {
+    "name": "anchor reduce: #boundary lands on its section",
+    "pass": true,
+    "detail": "{\"top\":0,\"atEnd\":false}"
+  },
+  {
+    "name": "anchor reduce: #project-ledgerguard lands on its section",
+    "pass": true,
+    "detail": "{\"top\":0,\"atEnd\":false}"
+  },
+  {
+    "name": "anchor reduce: #contact lands on its section",
+    "pass": true,
+    "detail": "{\"top\":339,\"atEnd\":true}"
+  },
+  {
+    "name": "history full: Back restores the scroll position",
+    "pass": true,
+    "detail": "4725 → 4725"
+  },
+  {
+    "name": "history full: Back skips the arrival animation",
     "pass": true,
     "detail": ""
   },
   {
-    "name": "Back restores the scroll position",
-    "pass": true,
-    "detail": "11098 → 11098"
-  },
-  {
-    "name": "Back skips the arrival animation",
-    "pass": true,
-    "detail": ""
-  },
-  {
-    "name": "return link lands on the project anchor",
+    "name": "history full: return link lands on the project anchor",
     "pass": true,
     "detail": "{\"hash\":\"#project-ledgerguard\",\"top\":0}"
   },
   {
-    "name": "reduced motion: sequence not pinned",
+    "name": "history reduce: Back restores the scroll position",
     "pass": true,
-    "detail": "{\"live\":false,\"motion\":\"reduce\",\"anims\":0,\"anatomy\":true}"
+    "detail": "4821 → 4821"
   },
   {
-    "name": "reduced motion: no running animations",
-    "pass": true,
-    "detail": "0"
-  },
-  {
-    "name": "reduced motion: static anatomy drawing shown",
+    "name": "history reduce: Back skips the arrival animation",
     "pass": true,
     "detail": ""
   },
   {
+    "name": "history reduce: return link lands on the project anchor",
+    "pass": true,
+    "detail": "{\"hash\":\"#project-ledgerguard\",\"top\":0}"
+  },
+  {
+    "name": "direct access full: case study link visible in the first frame",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "direct access reduce: case study link visible in the first frame",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "fail-safe, reduced motion: static layout, nothing pinned, story and figure visible",
+    "pass": true,
+    "detail": "{\"live\":false,\"motion\":\"reduce\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+  },
+  {
+    "name": "fail-safe, reduced motion: workspace states still switch",
+    "pass": true,
+    "detail": "confirmed"
+  },
+  {
+    "name": "fail-safe, JavaScript disabled: static layout, nothing pinned, story and figure visible",
+    "pass": true,
+    "detail": "{\"live\":false,\"motion\":null,\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+  },
+  {
+    "name": "fail-safe, JavaScript disabled: state and layer buttons are disabled, not dead",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "fail-safe, GSAP unavailable: static layout, nothing pinned, story and figure visible",
+    "pass": true,
+    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+  },
+  {
+    "name": "fail-safe, GSAP unavailable: workspace states still switch",
+    "pass": true,
+    "detail": "confirmed"
+  },
+  {
+    "name": "fail-safe, ScrollTrigger unavailable: static layout, nothing pinned, story and figure visible",
+    "pass": true,
+    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+  },
+  {
+    "name": "fail-safe, ScrollTrigger unavailable: workspace states still switch",
+    "pass": true,
+    "detail": "confirmed"
+  },
+  {
+    "name": "fail-safe, sequence.js unavailable: static layout, nothing pinned, story and figure visible",
+    "pass": true,
+    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+  },
+  {
+    "name": "fail-safe, sequence.js unavailable: state and layer buttons are disabled, not dead",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "fail-safe, timeline build throws: static layout, nothing pinned, story and figure visible",
+    "pass": true,
+    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+  },
+  {
+    "name": "fail-safe, timeline build throws: workspace states still switch",
+    "pass": true,
+    "detail": "confirmed"
+  },
+  {
+    "name": "OS switches to reduced motion mid-page: sequence comes off at once",
+    "pass": true,
+    "detail": "{\"before\":true,\"after\":false,\"inline\":0}"
+  },
+  {
+    "name": "OS switches to reduced motion mid-page: reader keeps their place",
+    "pass": true,
+    "detail": "#anatomy top 0"
+  },
+  {
+    "name": "OS switches back: sequence returns",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "motion choice: stored on, made before the OS asked for reduced motion → off",
+    "pass": true,
+    "detail": "{\"live\":false,\"motion\":\"reduce\"}"
+  },
+  {
+    "name": "motion choice: stored on, chosen while the OS asked for reduced motion → on",
+    "pass": true,
+    "detail": "{\"live\":true,\"motion\":\"full\"}"
+  },
+  {
+    "name": "motion choice: stored off, OS asks for nothing → off",
+    "pass": true,
+    "detail": "{\"live\":false,\"motion\":\"reduce\"}"
+  },
+  {
     "name": "motion toggle turns the sequence off",
     "pass": true,
-    "detail": "{\"live\":false,\"pressed\":\"false\"}"
+    "detail": "{\"live\":false,\"pressed\":\"false\",\"top\":0}"
+  },
+  {
+    "name": "motion toggle keeps the reader's place",
+    "pass": true,
+    "detail": "#boundary top 0"
   },
   {
     "name": "motion choice persists across reload",
@@ -160,33 +335,83 @@
     "detail": "reduce"
   },
   {
-    "name": "no horizontal overflow /index.html @1440",
+    "name": "no horizontal overflow /index.html @1440 full",
     "pass": true,
     "detail": "scrollWidth 1440"
   },
   {
-    "name": "no horizontal overflow /ledgerguard.html @1440",
+    "name": "no horizontal overflow /index.html @1440 reduce",
     "pass": true,
     "detail": "scrollWidth 1440"
   },
   {
-    "name": "no horizontal overflow /index.html @768",
+    "name": "no horizontal overflow /ledgerguard.html @1440 full",
+    "pass": true,
+    "detail": "scrollWidth 1440"
+  },
+  {
+    "name": "no horizontal overflow /ledgerguard.html @1440 reduce",
+    "pass": true,
+    "detail": "scrollWidth 1440"
+  },
+  {
+    "name": "no horizontal overflow /index.html @768 full",
     "pass": true,
     "detail": "scrollWidth 768"
   },
   {
-    "name": "no horizontal overflow /ledgerguard.html @768",
+    "name": "no horizontal overflow /index.html @768 reduce",
     "pass": true,
     "detail": "scrollWidth 768"
   },
   {
-    "name": "no horizontal overflow /index.html @390",
+    "name": "no horizontal overflow /ledgerguard.html @768 full",
+    "pass": true,
+    "detail": "scrollWidth 768"
+  },
+  {
+    "name": "no horizontal overflow /ledgerguard.html @768 reduce",
+    "pass": true,
+    "detail": "scrollWidth 768"
+  },
+  {
+    "name": "no horizontal overflow /index.html @390 full",
     "pass": true,
     "detail": "scrollWidth 390"
   },
   {
-    "name": "no horizontal overflow /ledgerguard.html @390",
+    "name": "no horizontal overflow /index.html @390 reduce",
     "pass": true,
     "detail": "scrollWidth 390"
+  },
+  {
+    "name": "no horizontal overflow /ledgerguard.html @390 full",
+    "pass": true,
+    "detail": "scrollWidth 390"
+  },
+  {
+    "name": "no horizontal overflow /ledgerguard.html @390 reduce",
+    "pass": true,
+    "detail": "scrollWidth 390"
+  },
+  {
+    "name": "webkit @1440: sequence activates and lands without errors",
+    "pass": true,
+    "detail": "{\"live\":true,\"landed\":true,\"slotTop\":140,\"errors\":[]}"
+  },
+  {
+    "name": "webkit @390: sequence activates and lands without errors",
+    "pass": true,
+    "detail": "{\"live\":true,\"landed\":true,\"slotTop\":72,\"errors\":[]}"
+  },
+  {
+    "name": "webkit: reduced motion keeps the static layout",
+    "pass": true,
+    "detail": "{\"live\":false,\"motion\":\"reduce\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6706}"
+  },
+  {
+    "name": "firefox: not run, the browser did not launch on this machine",
+    "pass": null,
+    "detail": "Could not find profile folder."
   }
 ]

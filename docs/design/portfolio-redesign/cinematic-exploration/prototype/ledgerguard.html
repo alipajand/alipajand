@@ -13,19 +13,19 @@
     <script>
       (function () {
         var r = document.documentElement,
+          q = matchMedia("(prefers-reduced-motion: reduce)"),
           s = null;
         try {
-          s = localStorage.getItem("aa-motion");
+          s = JSON.parse(localStorage.getItem("aa-motion2") || "null");
         } catch (e) {}
-        r.dataset.motion =
-          s || (matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduce" : "full");
+        var os = q.matches ? "reduce" : "full",
+          m = os;
+        if (s && (s.m === "full" || s.m === "reduce")) {
+          if (os === "full") m = s.m;
+          else if (s.os === "reduce") m = s.m;
+        }
+        r.dataset.motion = m;
         r.classList.add("js");
-        if (
-          r.dataset.motion === "full" &&
-          document.currentScript &&
-          document.currentScript.dataset.seq !== undefined
-        )
-          r.classList.add("motion-live");
         var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
         if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
       })();
@@ -42,11 +42,12 @@
     <a class="skip" href="#main">Skip to content</a>
     <header class="bar" data-bar>
       <a class="bar__mark" href="index.html"
-        ><span class="bar__ap" aria-hidden="true">A—A</span> Ali Pajand</a
+        ><span class="bar__ap" aria-hidden="true">A—A</span>
+        <span class="bar__name">Ali Pajand</span></a
       >
       <nav class="bar__nav" aria-label="Site">
         <a href="index.html#work">Work</a>
-        <a href="index.html#project-ledgerguard" class="bar__skip">Portfolio</a>
+        <a href="ledgerguard.html" aria-current="page">Case study</a>
         <a href="#contact">Contact</a>
         <button type="button" class="bar__motion" data-motion-toggle aria-pressed="true">
           <span class="bar__dot" aria-hidden="true"></span><span data-motion-label>Motion on</span>
@@ -58,7 +59,7 @@
         <a class="cs__back" href="index.html#project-ledgerguard"
           ><span aria-hidden="true">←</span> Back to the work</a
         >
-        <p class="story__k">Featured · 2026–Present · Senior Product Engineer</p>
+        <p class="story__k">Featured · 2026–Present · Independent product</p>
         <h1 class="cs__name">
           <span class="story__cut story__cut--arrive" aria-hidden="true"></span>LedgerGuard
         </h1>
@@ -88,22 +89,30 @@
           </div>
         </dl>
       </header>
-      <figure class="cs__hero cs__hero--proto">
-        <img
-          src="media/proto-dashboard-typical-1600.webp"
-          srcset="
-            media/proto-dashboard-typical-960.webp   960w,
-            media/proto-dashboard-typical-1600.webp 1600w
-          "
-          sizes="(min-width: 1100px) 1040px, calc(100vw - 32px)"
-          width="1600"
-          height="1000"
-          alt="Design prototype of the LedgerGuard dashboard with fictional data: deadlines grouped by notice window, verified and provisional totals kept apart."
-          decoding="async"
-        />
+      <figure class="cs__hero">
+        <div class="sheet">
+          <div class="sheet__in">
+            <img
+              src="media/ledgerguard-dashboard-1600.webp"
+              srcset="
+                media/ledgerguard-dashboard-960.webp   960w,
+                media/ledgerguard-dashboard-1600.webp 1600w
+              "
+              sizes="(min-width: 1100px) 1040px, calc(100vw - 32px)"
+              width="1600"
+              height="1034"
+              alt="LedgerGuard dashboard showing contract status, renewal visibility, and review workflows."
+              decoding="async"
+            />
+            <span class="sheet__strip"
+              ><b>LG-01</b> <span>Next.js App Router product</span>
+              <em>Screenshot · shipped product</em></span
+            >
+          </div>
+        </div>
         <figcaption>
-          <b>Design prototype · fictional data · Dashboard.</b> The dashboard's typical state:
-          deadlines grouped by notice window, with verified and provisional totals kept apart.
+          <b>Screenshot · Dashboard.</b> The dashboard keeps review state, contract visibility, and
+          renewal workflows legible without treating extraction output as final by default.
         </figcaption>
       </figure>
       <div class="cs__grid">
@@ -331,26 +340,6 @@
                 visible here.
               </figcaption>
             </figure>
-            <figure class="cs__shot">
-              <img
-                src="media/ledgerguard-dashboard-1600.webp"
-                srcset="
-                  media/ledgerguard-dashboard-960.webp   960w,
-                  media/ledgerguard-dashboard-1600.webp 1600w
-                "
-                sizes="(min-width: 1100px) 900px, calc(100vw - 32px)"
-                width="1600"
-                height="1034"
-                alt="LedgerGuard dashboard showing contract status, renewal visibility, and review workflows."
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption>
-                <b>Screenshot · Dashboard.</b> The dashboard keeps review state, contract
-                visibility, and renewal workflows legible without treating extraction output as
-                final by default.
-              </figcaption>
-            </figure>
           </section>
           <section id="prototypes" aria-labelledby="prototypes-h">
             <h2 id="prototypes-h">Design prototypes</h2>
@@ -497,10 +486,6 @@
               <li>
                 Shipped a working end-to-end product: ingestion, extraction review, and contract
                 visibility, live at ledgerguard.io.
-              </li>
-              <li>
-                <span class="pending">Reached 90% unit-test coverage on the web application.</span>
-                <span class="flag">Source pending</span>
               </li>
               <li>
                 Held the boundary between suggested and confirmed contract data across the schema,

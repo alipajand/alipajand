@@ -1,26 +1,50 @@
 // Section A–A: the scroll choreography.
 //
-// The page is complete without this file. With motion on and GSAP loaded, the stage becomes
-// sticky and one timeline, scrubbed by native scroll, plays four movements:
-//   1. the cut opens: the two halves of the cover sheet part along the section line;
-//   2. the camera tilts: the screenshot inside becomes the top sheet of an exploded stack;
-//   3. the camera descends: one sheet per layer comes into focus while its text scrolls past;
-//   4. the boundary: a red plane rises through every sheet and uncovers the workspace, whose
-//      review states play over the rest of the step; then the stack collapses.
-// Text never moves with the stage: it scrolls natively in its own column. Nothing here touches
-// scroll position, history, or anchors.
+// The page is complete without this file: the cover is already cut open and shows the shipped
+// interface, and every fact is in the text. The boot script lays out the animated version
+// (.motion-live) before first paint, so nothing shifts; it is confirmed by .motion-ready only
+// once GSAP and ScrollTrigger are present and the timeline has been built. If any of that
+// fails, both classes come off and the page goes back to its static layout.
+//
+// One timeline, scrubbed by native scroll, plays four beats:
+//   A. the cut opens and the interface comes forward;
+//   B. it separates into its anatomy (desktop: an exploded stack of five sheets; narrow
+//      screens: a drawn section of five bands);
+//   C. the review boundary cuts through every layer and uncovers the workspace prototype,
+//      whose review states advance with the reader;
+//   D. the match cut: the screenshot settles into the story's figure as the dark interior
+//      gives way to the story's sheet, and the stage lets go.
+// Text never moves with the stage: it scrolls natively. Nothing here touches history; scroll
+// position is only restored when a change of layout would otherwise lose the reader's place.
 (function () {
   "use strict";
   var root = document.documentElement;
-  var KEY = "aa-motion";
+  var KEY = "aa-motion2";
   var mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /* ---------- the motion preference ---------- */
+
+  function osMode() {
+    return mq.matches ? "reduce" : "full";
+  }
 
   function stored() {
     try {
-      return localStorage.getItem(KEY);
+      return JSON.parse(localStorage.getItem(KEY) || "null");
     } catch {
       return null;
     }
+  }
+
+  // A stored choice wins when the OS asks for nothing, or when it was itself made while the OS
+  // asked for reduced motion. A choice made before the OS switched to reduced motion does not.
+  function resolve() {
+    var s = stored();
+    var os = osMode();
+    if (s && (s.m === "full" || s.m === "reduce")) {
+      if (os === "full" || s.os === "reduce") return s.m;
+    }
+    return os;
   }
 
   function motionOn() {
@@ -35,25 +59,28 @@
     });
   }
 
-  function setMotion(value, persist) {
-    root.dataset.motion = value;
-    if (persist) {
-      try {
-        localStorage.setItem(KEY, value);
-      } catch {
-        /* storage unavailable: the choice lasts for this page */
-      }
-    }
+  function apply(mode) {
+    if (root.dataset.motion === mode) return;
+    var place = keepPlace();
+    root.dataset.motion = mode;
     syncToggle();
     build();
+    place();
   }
 
   mq.addEventListener("change", function () {
-    if (!stored()) setMotion(mq.matches ? "reduce" : "full", false);
+    apply(resolve());
   });
 
   document.addEventListener("click", function (e) {
-    if (e.target.closest("[data-motion-toggle]")) setMotion(motionOn() ? "reduce" : "full", true);
+    if (!e.target.closest("[data-motion-toggle]")) return;
+    var next = motionOn() ? "reduce" : "full";
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ m: next, os: osMode() }));
+    } catch {
+      /* storage unavailable: the choice lasts for this page */
+    }
+    apply(next);
   });
 
   ["pageswap", "pagereveal"].forEach(function (type) {
@@ -62,7 +89,32 @@
     });
   });
 
-  /* ---------- the workspace states (work in every mode) ---------- */
+  // When the layout changes under the reader (motion switched, or a failed build reverted),
+  // keep the section they were reading at the same height on screen.
+  function keepPlace() {
+    var ids = ["work", "anatomy", "boundary", "project-ledgerguard", "contact"];
+    var el = null;
+    var off = 0;
+    if (window.scrollY > 4) {
+      ids.forEach(function (id) {
+        var n = document.getElementById(id);
+        if (n && n.getBoundingClientRect().top <= window.innerHeight * 0.35) {
+          el = n;
+          off = n.getBoundingClientRect().top;
+        }
+      });
+    }
+    return function () {
+      if (el) window.scrollTo(0, window.scrollY + el.getBoundingClientRect().top - off);
+    };
+  }
+
+  /* ---------- the workspace states and the layer list (work in every mode) ---------- */
+
+  // The buttons ship disabled, so a page without this file has no controls that do nothing.
+  document.querySelectorAll("[data-ws-to], [data-layer-to]").forEach(function (b) {
+    b.disabled = false;
+  });
 
   var WS_KEYS = ["ready", "partial", "confirmed"];
 
@@ -83,27 +135,43 @@
     });
   }
 
-  function initWorkspace() {
-    var card = document.querySelector("[data-ws-card]");
-    if (!card) return;
-    card.addEventListener("click", function (e) {
-      var btn = e.target.closest("[data-ws-to]");
-      if (btn) setWs(btn.dataset.wsTo, true);
-    });
-  }
+  document.addEventListener("click", function (e) {
+    var ws = e.target.closest("[data-ws-to]");
+    if (ws) setWs(ws.dataset.wsTo, true);
+    var layer = e.target.closest("[data-layer-to]");
+    if (layer) {
+      var k = layer.dataset.layerTo;
+      var on = root.dataset.focus !== k;
+      if (on) root.dataset.focus = k;
+      else delete root.dataset.focus;
+      document.querySelectorAll("[data-layer-to]").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(on && b.dataset.layerTo === k));
+      });
+    }
+  });
 
   /* ---------- bar tone: read the ground actually under the bar ---------- */
 
+  // While the sticky stage is on screen its own state says what is under the bar: the paper
+  // cover, the dark interior, or the story's paper once the interior has faded.
+  var stageTone = null;
   var toneQueued = false;
   function tone() {
     toneQueued = false;
+    if (stageTone !== null && root.classList.contains("motion-live")) {
+      var seq = document.getElementById("sequence");
+      if (seq.getBoundingClientRect().bottom > window.innerHeight + 1) {
+        if (root.dataset.tone !== stageTone) root.dataset.tone = stageTone;
+        return;
+      }
+    }
     var hits = document.elementsFromPoint(window.innerWidth / 2, 44);
     var t = "";
     for (var i = 0; i < hits.length; i++) {
       if (hits[i].closest(".bar")) continue;
       var host = hits[i].closest("[data-tone]");
       if (host) {
-        t = host.dataset.tone;
+        t = host.dataset.tone === "void" ? "void" : "";
         break;
       }
     }
@@ -115,331 +183,468 @@
       requestAnimationFrame(tone);
     }
   }
-  window.addEventListener(
-    "scroll",
-    function () {
-      queueTone();
-    },
-    { passive: true }
-  );
+  window.addEventListener("scroll", queueTone, { passive: true });
 
   /* ---------- the sequence ---------- */
 
   var ctx = null;
-  var built = false;
 
-  function build() {
+  function teardown() {
     if (ctx) {
       ctx.revert();
       ctx = null;
     }
-    var live = motionOn() && window.gsap && window.ScrollTrigger;
-    root.classList.toggle("motion-live", !!live);
-    if (!live) {
-      root.dataset.ground = "";
-      if (window.ScrollTrigger) ScrollTrigger.refresh();
-      return;
-    }
-    gsap.registerPlugin(ScrollTrigger);
-    ctx = gsap.context(sequence);
-    built = true;
+    root.classList.remove("motion-live", "motion-ready");
+    delete root.dataset.landed;
+    document.getElementById("sequence").style.removeProperty("--grid-y");
+    stageTone = null;
   }
 
-  function sequence() {
+  // The rest pose is written once, in CSS, on .rest-probe: the same values the static cover
+  // uses. GSAP starts from them so the first frame does not move when motion goes live.
+  function restPose() {
+    var cs = getComputedStyle(document.querySelector(".rest-probe"));
+    var t = String(cs.translate).split(" ").map(parseFloat);
+    var r = String(cs.rotate).match(/(-?[\d.]+)deg/);
+    return {
+      x: t[0] || 0,
+      y: t[1] || 0,
+      rotationX: r ? parseFloat(r[1]) : 0,
+      rotationZ: 0,
+      scale: parseFloat(cs.scale) || 1,
+    };
+  }
+
+  function build() {
+    teardown();
+    if (!motionOn() || !window.gsap || !window.ScrollTrigger) {
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+      tone();
+      return false;
+    }
+    root.classList.add("motion-live");
+    try {
+      var pose = restPose();
+      gsap.registerPlugin(ScrollTrigger);
+      // the context is kept even when the build throws, so teardown can revert what it set
+      var failed = null;
+      ctx = gsap.context(function () {
+        try {
+          sequence(pose);
+        } catch (err) {
+          failed = err;
+        }
+      });
+      if (failed) throw failed;
+      root.classList.add("motion-ready");
+      return true;
+    } catch (err) {
+      teardown();
+      if (window.console) console.warn("Section A–A: motion left off.", err);
+      return false;
+    } finally {
+      tone();
+    }
+  }
+
+  function sequence(pose) {
     var seq = document.getElementById("sequence");
     var stage = seq.querySelector("[data-stage]");
-    var rig = stage.querySelector('[data-rig="stage"]');
+    var interior = stage.querySelector("[data-interior]");
+    var voidEl = stage.querySelector("[data-void]");
+    var scene = stage.querySelector(".scene");
+    var rig = stage.querySelector("[data-rig]");
     var plates = [1, 2, 3, 4, 5].map(function (k) {
       return rig.querySelector('[data-plate="' + k + '"]');
     });
     var top = stage.querySelector('[data-panel="top"]');
     var bottom = stage.querySelector('[data-panel="bottom"]');
-    var faces = stage.querySelectorAll(".cutface");
+    var heads = stage.querySelectorAll(".panel__head, .panel__foot");
     var cut = stage.querySelector(".cut");
+    var tag = stage.querySelector("[data-aperture-tag]");
     var floor = rig.querySelector(".floor");
     var boundary = rig.querySelector("[data-boundary]");
-    var scene = stage.querySelector(".scene");
     var ws = stage.querySelector(".ws");
-    var links = Array.prototype.slice.call(stage.querySelectorAll("[data-layers] a"));
+    var strata = stage.querySelector('[data-strata="stage"]');
+    var story = document.getElementById("project-ledgerguard");
+    var slot = story.querySelector("[data-slot]");
+    var ledger = Array.prototype.slice.call(document.querySelectorAll("[data-ledger] li"));
 
     var vh = window.innerHeight;
-    var vw = window.innerWidth;
-    var wide = vw >= 900;
+    var stageW = stage.offsetWidth;
+    var stageH = stage.offsetHeight;
+    var wide = stageW >= 900;
     var total = seq.offsetHeight - vh;
+    var seqTop = seq.getBoundingClientRect().top + window.scrollY;
+    var topOf = function (el) {
+      return el.getBoundingClientRect().top + window.scrollY - seqTop;
+    };
     var beat = function (name) {
       return seq.querySelector('[data-beat="' + name + '"]');
     };
     var p = function (px) {
       return Math.max(0, Math.min(1, px / total));
     };
-    // scroll distance at which an element's top sits at a fraction of the viewport
-    var when = function (el, frac) {
-      return p(el.offsetTop - vh * frac);
+    var plateW = rig.offsetWidth;
+    // the stack's poses are designed for a sheet of the old width; plates are drawn larger
+    // and only ever scaled down, so the screenshot stays sharp
+    var u = Math.min(stageW * 0.64, 1040) / plateW;
+    var iT = topOf(beat("intro"));
+    var aT = topOf(beat("anatomy"));
+    var bT = topOf(beat("boundary"));
+    var lT = topOf(beat("land"));
+
+    // where the screenshot lands: the story's figure, as it sits when the stage lets go
+    var sr = slot.getBoundingClientRect();
+    var or = story.getBoundingClientRect();
+    var land = {
+      x: sr.left + sr.width / 2 - stageW / 2,
+      y: sr.top - or.top + sr.height / 2 - stageH / 2,
+      scale: sr.width / plateW,
+      rotationX: 0,
+      rotationZ: 0,
     };
 
-    var GAP = wide ? 150 : 96;
-    var TILT_X = 56;
-    var SIN = Math.sin((TILT_X * Math.PI) / 180);
-    var baseX = wide ? -vw * 0.19 : 0;
-    var baseY = wide ? 0 : -vh * 0.2;
+    // the paper behind the stage continues the story's grid without a seam
+    seq.style.setProperty("--grid-y", ((story.offsetTop - seq.offsetTop) % 24) + "px");
 
-    // Screen offset of sheet k (1-based) from the top sheet, for a given rig scale and twist.
-    function offsetOf(k, scale, twist) {
-      var d = (k - 1) * GAP * SIN * scale;
-      var r = (twist * Math.PI) / 180;
-      return { x: -d * Math.sin(r), y: d * Math.cos(r) };
-    }
-
-    function inks(k) {
-      return plates[k - 1].querySelectorAll(
-        ".ink:not(.tenant):not(.store--suggested):not(.wire--red)"
-      );
-    }
-
-    gsap.set(rig, { rotationX: 0, rotationZ: 0, scale: wide ? 0.84 : 0.92, x: 0, y: baseY * 0.4 });
+    gsap.set(rig, pose);
     plates.forEach(function (pl, i) {
-      gsap.set(pl, { z: -i * 2, opacity: i === 0 ? 1 : 0 });
-    });
-    [2, 3, 4, 5].forEach(function (k) {
-      gsap.set(inks(k), { strokeDasharray: "1 1", strokeDashoffset: 1 });
+      gsap.set(pl, { z: -i * 2, autoAlpha: i === 0 ? 1 : 0 });
     });
     gsap.set(boundary, { opacity: 0, clipPath: "inset(100% 0 0 0)" });
     gsap.set(ws, { autoAlpha: 0, clipPath: "inset(100% 0% 0% 0%)" });
-    gsap.set(scene, { opacity: 1 });
 
     var tl = gsap.timeline({
       defaults: { ease: "none" },
-      // The scrub keeps moving the paper panels after scrolling stops; re-read the ground as it does.
-      onUpdate: queueTone,
+      onUpdate: function () {
+        // the hand-off: once the scrubbed timeline itself has arrived, the story's own figure
+        // takes over from the stage's, in the same place at the same size
+        var tp = tl.progress();
+        stageTone = tp < toneAt[0] || tp > toneAt[1] ? "" : "void";
+        var landed = tp > 0.998;
+        if (landed !== root.hasAttribute("data-landed")) {
+          if (landed) root.dataset.landed = "";
+          else delete root.dataset.landed;
+        }
+        queueTone();
+      },
       scrollTrigger: {
         trigger: seq,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.9,
+        scrub: 0.6,
         onUpdate: update,
       },
     });
     tl.set({}, {}, 1);
 
-    /* 1 · the cut opens */
-    var open = beat("open");
-    var a1 = p(open.offsetHeight * 0.95);
-    var lead = Math.min(0.012, a1 * 0.1);
-    tl.to(top, { y: 8, duration: lead, ease: "power1.in" }, 0);
-    tl.to(bottom, { y: -8, duration: lead, ease: "power1.in" }, 0);
-    tl.to(faces, { opacity: 1, duration: lead }, lead);
-    tl.to(cut, { opacity: 0, duration: a1 * 0.2 }, lead);
-    tl.to(
-      stage.querySelectorAll(".panel__head, .panel__foot"),
-      { opacity: 0, duration: a1 * 0.35 },
-      lead
-    );
-    tl.to(top, { y: 0, yPercent: -102, duration: a1 - lead, ease: "power3.inOut" }, lead);
-    tl.to(bottom, { y: 0, yPercent: 102, duration: a1 - lead, ease: "power3.inOut" }, lead);
-    tl.to(rig, { scale: wide ? 0.94 : 1, y: baseY * 0.4, duration: a1, ease: "power1.out" }, 0);
-    // as the cut finishes opening, the interface drifts aside to make room for the reading column
-    if (wide)
-      tl.to(
-        rig,
-        { x: baseX * 0.8, scale: 0.84, duration: a1 * 0.45, ease: "power2.inOut" },
-        a1 * 0.55
-      );
+    /* A · the cut opens: the paper halves part and the interface comes forward */
+    var a1 = p(wide ? iT + vh * 0.2 : iT - vh * 0.15);
+    tl.to(tag, { autoAlpha: 0, duration: a1 * 0.2 }, 0);
+    tl.to(cut, { opacity: 0, duration: a1 * 0.3 }, 0);
+    tl.to(heads, { opacity: 0, duration: a1 * 0.4 }, 0);
+    tl.to(top, { yPercent: -104, duration: a1 * 0.8, ease: "power2.inOut" }, 0);
+    tl.to(bottom, { yPercent: 104, duration: a1 * 0.8, ease: "power2.inOut" }, 0);
 
-    /* 2 · the camera tilts: the interface becomes the top sheet */
-    var intro = beat("intro");
-    var t0 = a1;
-    var t1 = Math.max(t0 + 0.02, when(intro, 0.25));
-    var s1 = wide ? 0.54 : 0.6;
-    tl.to(
-      rig,
-      {
-        rotationX: TILT_X,
-        rotationZ: -36,
-        scale: s1,
-        x: baseX,
-        y: baseY - vh * 0.12,
-        duration: t1 - t0,
-        ease: "power2.inOut",
-      },
-      t0
-    );
-    plates.forEach(function (pl, i) {
-      tl.to(pl, { z: -i * GAP, opacity: 1, duration: t1 - t0, ease: "power2.inOut" }, t0);
-    });
-    tl.to(floor, { opacity: 1, duration: t1 - t0 }, t0);
+    var wsMarks = null;
+    var drawMarks = [];
+    var toneAt = [a1 * 0.45, 1];
+    if (wide) desktop();
+    else narrow();
 
-    /* 3 · the camera descends, one sheet at a time */
-    function focus(k, at, until, twist, scale) {
-      var o = offsetOf(k, scale, twist);
-      var d = until - at;
-      tl.to(
-        rig,
-        {
-          rotationZ: twist,
-          scale: scale,
-          x: baseX - o.x,
-          y: baseY - o.y,
-          duration: d,
-          ease: "power2.inOut",
-        },
-        at
-      );
-      plates.forEach(function (pl, i) {
-        var j = i + 1;
-        tl.to(
-          pl,
-          {
-            opacity: j < k ? 0.06 : 1,
-            "--shade": j > k ? 0.55 : 0,
-            z: -i * GAP + (j === k ? 36 : 0),
-            duration: d,
-            ease: "power2.inOut",
-          },
-          at
+    function desktop() {
+      var GAP = 150 / u;
+      var SIN = Math.sin((56 * Math.PI) / 180);
+      var baseX = -stageW * 0.19;
+      var offsetOf = function (k, scale, twist) {
+        var d = (k - 1) * GAP * SIN * scale;
+        var r = (twist * Math.PI) / 180;
+        return { x: -d * Math.sin(r), y: d * Math.cos(r) };
+      };
+      var inks = function (k) {
+        return plates[k - 1].querySelectorAll(
+          ".ink:not(.tenant):not(.store--suggested):not(.wire--red)"
         );
+      };
+      [2, 3, 4, 5].forEach(function (k) {
+        gsap.set(inks(k), { strokeDasharray: "1 1", strokeDashoffset: 1 });
       });
-      if (k > 1)
-        tl.to(
-          inks(k),
-          { strokeDashoffset: 0, duration: d * 0.9, ease: "power1.out" },
-          at + d * 0.1
-        );
-    }
 
-    var steps = ["layer-interface", "layer-api", "layer-data", "layer-jobs", "layer-boundary"].map(
-      function (id) {
-        return document.getElementById(id);
-      }
-    );
-    var sF = wide ? 0.74 : 0.7;
-    focus(1, when(steps[0], 0.85), when(steps[0], 0.3), -36, sF);
-    focus(2, when(steps[1], 0.85), when(steps[1], 0.3), -34, sF);
-    focus(3, when(steps[2], 0.85), when(steps[2], 0.3), -32, sF);
-    focus(4, when(steps[3], 0.85), when(steps[3], 0.3), -30, sF);
-    // the jobs step covers two sheets: the queue, then the worker beneath it
-    var mid = steps[3].offsetTop + steps[3].offsetHeight * 0.5;
-    focus(5, p(mid - vh * 0.55), p(mid - vh * 0.1), -29, sF);
-
-    /* 4 · the boundary: pull back, raise the red plane through every sheet */
-    var b0 = when(steps[4], 0.85);
-    var b1 = when(steps[4], 0.25);
-    var s4 = wide ? 0.5 : 0.56;
-    var o4 = offsetOf(3.4, s4, -26);
-    tl.to(
-      rig,
-      {
-        rotationZ: -26,
-        scale: s4,
-        x: baseX - o4.x,
-        y: baseY - o4.y,
-        duration: b1 - b0,
-        ease: "power2.inOut",
-      },
-      b0
-    );
-    plates.forEach(function (pl, i) {
+      // A: from the close-up in the cut to the whole interface, moved aside for the text
       tl.to(
-        pl,
+        rig,
+        { x: baseX, y: 0, rotationX: 0, scale: 0.74 * u, duration: a1, ease: "power2.inOut" },
+        0
+      );
+
+      // B: the anatomy. One tilt separates all five sheets; the drawings ink in one after
+      // another while the list beside them is read. The camera drifts down the stack.
+      var b0 = a1;
+      var b1 = p(aT + vh * 0.55);
+      var bd = b1 - b0;
+      var o3 = offsetOf(2.1, 0.54 * u, -32);
+      tl.to(
+        rig,
         {
-          opacity: i === 0 ? 0.85 : 1,
-          "--shade": i === 0 ? 0 : 0.12 * i,
-          z: -i * GAP,
-          duration: b1 - b0,
+          rotationX: 56,
+          rotationZ: -36,
+          scale: 0.54 * u,
+          x: baseX,
+          y: -vh * 0.12,
+          duration: bd * 0.35,
           ease: "power2.inOut",
         },
         b0
       );
-    });
-    tl.to(boundary, { opacity: 1, duration: (b1 - b0) * 0.3 }, b0 + (b1 - b0) * 0.4);
-    tl.to(
-      boundary,
-      { clipPath: "inset(0% 0 0 0)", duration: (b1 - b0) * 0.6, ease: "power2.out" },
-      b0 + (b1 - b0) * 0.4
-    );
-
-    /* the plane has risen: it uncovers the workspace, in the same direction, and the stack
-       recedes behind it. Its review states then follow the reader through the step. */
-    var col = beat("collapse");
-    var c0 = p(col.offsetTop - vh * 0.7);
-    var cm = p(col.offsetTop + col.offsetHeight * 0.35 - vh * 0.5);
-    var w0 = b1;
-    var w1 = w0 + (c0 - w0) * 0.18;
-    var t1 = w0 + (c0 - w0) * 0.42;
-    var t2 = w0 + (c0 - w0) * 0.68;
-    tl.set(ws, { autoAlpha: 1 }, w0);
-    tl.to(ws, { clipPath: "inset(0% 0% 0% 0%)", duration: w1 - w0, ease: "power2.out" }, w0);
-    tl.to(scene, { opacity: 0.22, duration: w1 - w0 }, w0);
-    var wx = (cm - c0) * 0.35;
-    tl.to(ws, { clipPath: "inset(0% 0% 100% 0%)", duration: wx, ease: "power2.in" }, c0);
-    tl.to(scene, { opacity: 1, duration: wx }, c0);
-    tl.set(ws, { autoAlpha: 0 }, c0 + wx);
-
-    /* collapse: the sheets come back together into the shipped interface, then the cut closes
-       over it, so the sequence ends on paper, where the readable story begins */
-    var c1 = 1;
-    tl.to(boundary, { opacity: 0, duration: (cm - c0) * 0.3 }, c0);
-    tl.to(
-      rig,
-      {
-        rotationX: 0,
-        rotationZ: 0,
-        scale: wide ? 0.62 : 0.86,
-        x: 0,
-        y: 0,
-        duration: cm - c0,
-        ease: "power2.inOut",
-      },
-      c0
-    );
-    plates.forEach(function (pl, i) {
+      plates.forEach(function (pl, i) {
+        tl.to(pl, { z: -i * GAP, autoAlpha: 1, duration: bd * 0.35, ease: "power2.inOut" }, b0);
+      });
+      tl.to(floor, { opacity: 1, duration: bd * 0.35 }, b0);
       tl.to(
-        pl,
+        rig,
         {
-          z: -i * 2,
-          opacity: i === 0 ? 1 : 0,
-          "--shade": 0,
-          duration: cm - c0,
+          rotationZ: -32,
+          x: baseX - o3.x,
+          y: -vh * 0.12 - o3.y * 0.5,
+          duration: bd * 0.65,
+          ease: "sine.inOut",
+        },
+        b0 + bd * 0.35
+      );
+      [2, 3, 4, 5].forEach(function (k, i) {
+        tl.to(
+          inks(k),
+          { strokeDashoffset: 0, duration: bd * 0.22, ease: "power1.out" },
+          b0 + bd * (0.3 + i * 0.16)
+        );
+      });
+
+      // C: the boundary. Pull back, raise the red plane through every sheet, then uncover
+      // the workspace in the same direction while the stack recedes behind it.
+      var c0 = b1;
+      var c1 = p(lT - vh * 1.05);
+      var cd = c1 - c0;
+      var o4 = offsetOf(3.4, 0.5 * u, -26);
+      tl.to(
+        rig,
+        {
+          rotationZ: -26,
+          scale: 0.5 * u,
+          x: baseX - o4.x,
+          y: -o4.y,
+          duration: cd * 0.25,
           ease: "power2.inOut",
         },
         c0
       );
-    });
-    tl.to(floor, { opacity: 0, duration: (cm - c0) * 0.6 }, c0);
-    tl.set(stage.querySelectorAll(".name"), { opacity: 0 }, cm);
-    tl.to(top, { yPercent: 0, duration: c1 - cm, ease: "power3.inOut" }, cm);
-    tl.to(bottom, { yPercent: 0, duration: c1 - cm, ease: "power3.inOut" }, cm);
-    tl.to(faces, { opacity: 0, duration: (c1 - cm) * 0.25 }, c1 - (c1 - cm) * 0.25);
+      plates.forEach(function (pl, i) {
+        tl.to(
+          pl,
+          { "--shade": i === 0 ? 0 : 0.12 * i, duration: cd * 0.25, ease: "power2.inOut" },
+          c0
+        );
+      });
+      tl.to(boundary, { opacity: 1, duration: cd * 0.08 }, c0 + cd * 0.1);
+      tl.to(
+        boundary,
+        { clipPath: "inset(0% 0 0 0)", duration: cd * 0.2, ease: "power2.out" },
+        c0 + cd * 0.1
+      );
+      var w0 = c0 + cd * 0.3;
+      tl.set(ws, { autoAlpha: 1 }, w0);
+      tl.to(ws, { clipPath: "inset(0% 0% 0% 0%)", duration: cd * 0.14, ease: "power2.out" }, w0);
+      tl.to(scene, { opacity: 0.2, duration: cd * 0.14 }, w0);
+      tl.to(
+        ws,
+        { clipPath: "inset(0% 0% 100% 0%)", duration: cd * 0.1, ease: "power2.in" },
+        c1 - cd * 0.1
+      );
+      tl.to(scene, { opacity: 1, duration: cd * 0.1 }, c1 - cd * 0.1);
+      tl.set(ws, { autoAlpha: 0 }, c1);
+      states(w0 + cd * 0.26, w0 + cd * 0.46);
 
-    var marks = steps.map(function (s) {
-      return s.offsetTop;
-    });
+      // D: the match cut. The sheets close back into the one screenshot, which keeps moving,
+      // now flat, into the story's figure while the interior fades to the story's paper.
+      var d0 = c1;
+      var dd = 1 - d0;
+      tl.to(boundary, { opacity: 0, duration: dd * 0.25 }, d0);
+      plates.forEach(function (pl, i) {
+        tl.to(
+          pl,
+          {
+            z: -i * 2,
+            autoAlpha: i === 0 ? 1 : 0,
+            "--shade": 0,
+            duration: dd * 0.45,
+            ease: "power2.inOut",
+          },
+          d0
+        );
+      });
+      tl.to(floor, { opacity: 0, duration: dd * 0.3 }, d0);
+      tl.to(
+        rig,
+        {
+          rotationX: 0,
+          rotationZ: 0,
+          scale: 0.8 * u,
+          // close up already over the figure's column, so the sheet never crosses the story's
+          // heading on its way in
+          x: land.x,
+          y: 0,
+          duration: dd * 0.45,
+          ease: "power2.inOut",
+        },
+        d0
+      );
+      ride(d0 + dd * 0.45);
+      tl.to(plates[0], { boxShadow: "0 0 0 0 rgba(0,0,0,0)", duration: dd * 0.3 }, d0 + dd * 0.5);
+      tl.to(voidEl, { opacity: 0, duration: dd * 0.35, ease: "power1.inOut" }, d0 + dd * 0.35);
+      toneAt[1] = d0 + dd * 0.55;
+      drawn(b0, bd);
+    }
 
-    var seg = -1;
+    function narrow() {
+      var winH = stageH * 0.56;
+      var barH = 56;
+      var flat = {
+        x: 0,
+        y: (barH + winH) / 2 - stageH / 2,
+        rotationX: 0,
+        scale: (stageW - 32) / plateW,
+      };
+      var shot = strata.querySelector("[data-band-shot]");
+      var hr = shot.getBoundingClientRect();
+      var tr = stage.getBoundingClientRect();
+      var band = {
+        x: hr.left - tr.left + hr.width / 2 - stageW / 2,
+        y: hr.top - tr.top + hr.height / 2 - stageH / 2,
+        rotationX: 0,
+        scale: hr.width / plateW,
+      };
+      var bands = strata.querySelectorAll(".stratum:not([data-k='1'])");
+      var line = strata.querySelector("[data-strata-line]");
+      gsap.set(interior, { clipPath: "inset(0px 0px 0px 0px)" });
+      gsap.set(strata, { autoAlpha: 0 });
+      gsap.set(bands, { clipPath: "inset(0% 100% 0% 0%)" });
+      gsap.set(line, { scaleY: 0 });
 
+      // A: the cut opens into a window at the top of the screen; the whole interface fits it
+      tl.to(rig, Object.assign({ duration: a1, ease: "power2.inOut" }, flat), 0);
+      tl.to(
+        interior,
+        {
+          clipPath: "inset(0px 0px " + (stageH - winH) + "px 0px)",
+          duration: a1 * 0.8,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      // B: the section. The screenshot settles into band LG-01 and the four layers beneath it
+      // are drawn in, one band at a time.
+      var b0 = p(aT - vh * 0.95);
+      var b1 = p(aT - vh * 0.1);
+      var bd = b1 - b0;
+      tl.to(strata, { autoAlpha: 1, duration: bd * 0.2 }, b0);
+      tl.to(rig, Object.assign({ duration: bd * 0.3, ease: "power2.inOut" }, band), b0);
+      bands.forEach(function (b, i) {
+        tl.to(
+          b,
+          { clipPath: "inset(0% 0% 0% 0%)", duration: bd * 0.18, ease: "power2.out" },
+          b0 + bd * (0.25 + i * 0.17)
+        );
+      });
+
+      // C: the boundary drops through every band, then the workspace slides over the section
+      // and its states advance; the thirteen terms below it fill as they are confirmed.
+      var c0 = p(bT - vh * 0.9);
+      var c1 = p(lT - vh * 1.05);
+      var cd = c1 - c0;
+      tl.to(line, { scaleY: 1, duration: cd * 0.12, ease: "power2.inOut" }, c0);
+      var w0 = c0 + cd * 0.2;
+      tl.set(ws, { autoAlpha: 1 }, w0);
+      tl.to(ws, { clipPath: "inset(0% 0% 0% 0%)", duration: cd * 0.1, ease: "power2.out" }, w0);
+      tl.to(strata, { autoAlpha: 0, duration: cd * 0.06 }, w0 + cd * 0.04);
+      tl.to(
+        ws,
+        { clipPath: "inset(0% 0% 100% 0%)", duration: cd * 0.08, ease: "power2.in" },
+        c1 - cd * 0.08
+      );
+      tl.to(strata, { autoAlpha: 1, duration: cd * 0.08 }, c1 - cd * 0.08);
+      tl.set(ws, { autoAlpha: 0 }, c1);
+      states(w0 + cd * 0.3, w0 + cd * 0.52);
+
+      // D: the match cut. The section lifts away; the screenshot grows out of its band into
+      // the story's figure while the window opens to the story's paper.
+      var d0 = c1;
+      var dd = 1 - d0;
+      tl.to(strata, { autoAlpha: 0, duration: dd * 0.3 }, d0);
+      tl.to(interior, { clipPath: "inset(0px 0px 0px 0px)", duration: dd * 0.4 }, d0 + dd * 0.2);
+      ride(d0 + dd * 0.22);
+      tl.to(plates[0], { boxShadow: "0 0 0 0 rgba(0,0,0,0)", duration: dd * 0.3 }, d0 + dd * 0.4);
+      tl.to(voidEl, { opacity: 0, duration: dd * 0.35, ease: "power1.inOut" }, d0 + dd * 0.3);
+      toneAt[1] = d0 + dd * 0.5;
+      drawn(b0, bd);
+    }
+
+    // The match cut's last move. The sheet travels to where the story's figure will be a short
+    // way before the end, then rises with the page for that last stretch, exactly as the figure
+    // itself does, so the two are one object by the time the stage lets go.
+    function ride(from) {
+      // ride only as far as keeps the path one-directional and the sheet on screen
+      var r = Math.max(0, Math.min(vh * 0.3, -land.y));
+      var t0 = 1 - p(r);
+      tl.to(
+        rig,
+        {
+          x: land.x,
+          y: land.y + r,
+          scale: land.scale,
+          rotationX: 0,
+          rotationZ: 0,
+          duration: t0 - from,
+          ease: "power2.inOut",
+        },
+        from
+      );
+      tl.to(rig, { y: land.y, duration: 1 - t0, ease: "none" }, t0);
+    }
+
+    // the workspace states follow the reader: ready, then partial, then confirmed
+    function states(t1, t2) {
+      wsMarks = [t1, t2];
+    }
+
+    // progressive detail: each layer in the list reads as drawn once its sheet has inked in
+    function drawn(b0, bd) {
+      drawMarks = [0.1, 0.4, 0.56, 0.72, 0.88].map(function (f) {
+        return b0 + bd * f;
+      });
+    }
+
+    var seg = -2;
     function update(self) {
-      var y = self.progress * total;
-      var k =
-        self.progress < w0 || self.progress >= c0
-          ? -1
-          : self.progress < t1
-            ? 0
-            : self.progress < t2
-              ? 1
-              : 2;
-      if (k !== seg) {
-        seg = k;
-        if (k > -1) setWs(WS_KEYS[k], false);
+      var pr = self.progress;
+      if (wsMarks) {
+        // everything before the first mark is "ready" and everything after the last is
+        // "confirmed", so a jump across the step never leaves a stale state; a state picked by
+        // hand stays until the reader crosses a mark
+        var k = pr < wsMarks[0] ? 0 : pr < wsMarks[1] ? 1 : 2;
+        if (k !== seg) {
+          seg = k;
+          setWs(WS_KEYS[k], false);
+        }
       }
-      root.dataset.ground = y > open.offsetHeight * 0.55 && self.progress < cm ? "void" : "";
-      tone();
-      var current = 0;
-      marks.forEach(function (m, i) {
-        if (y + vh * 0.5 >= m) current = i + 1;
+      ledger.forEach(function (li, i) {
+        var on = pr >= drawMarks[i];
+        if (on !== li.hasAttribute("data-drawn")) {
+          if (on) li.setAttribute("data-drawn", "");
+          else li.removeAttribute("data-drawn");
+        }
       });
-      links.forEach(function (a) {
-        if (Number(a.dataset.to) === current) a.setAttribute("aria-current", "step");
-        else a.removeAttribute("aria-current");
-      });
+      queueTone();
     }
 
     // Arrivals mid-page (Back, anchors, rebuilds) start at the right frame instead of
@@ -455,18 +660,35 @@
     if (window.innerWidth === lastWidth) return;
     lastWidth = window.innerWidth;
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(build, 200);
+    resizeTimer = setTimeout(function () {
+      var place = keepPlace();
+      build();
+      place();
+    }, 200);
   });
 
+  // The landing and every beat are measured from the laid-out page; web fonts change that
+  // layout, so measure again once they are in.
+  if (document.fonts && document.fonts.status !== "loaded") {
+    document.fonts.ready.then(function () {
+      if (!ctx) return;
+      var place = keepPlace();
+      build();
+      place();
+    });
+  }
+
   syncToggle();
-  initWorkspace();
-  build();
-  tone();
+  // An arrival at an anchor was scrolled in the static layout; once the animated layout is
+  // live, put the target back at the top.
+  var target = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if (build() && target) target.scrollIntoView();
   window.AA = {
     rebuild: build,
     motionOn: motionOn,
-    get built() {
-      return built;
+    resolve: resolve,
+    get live() {
+      return root.classList.contains("motion-live");
     },
   };
 })();

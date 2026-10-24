@@ -10,24 +10,34 @@
     />
     <meta name="color-scheme" content="light" />
     <link rel="icon" href="data:," />
-    <script data-seq>
+    <script>
       (function () {
         var r = document.documentElement,
+          q = matchMedia("(prefers-reduced-motion: reduce)"),
           s = null;
         try {
-          s = localStorage.getItem("aa-motion");
+          s = JSON.parse(localStorage.getItem("aa-motion2") || "null");
         } catch (e) {}
-        r.dataset.motion =
-          s || (matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduce" : "full");
+        var os = q.matches ? "reduce" : "full",
+          m = os;
+        if (s && (s.m === "full" || s.m === "reduce")) {
+          if (os === "full") m = s.m;
+          else if (s.os === "reduce") m = s.m;
+        }
+        r.dataset.motion = m;
         r.classList.add("js");
-        if (
-          r.dataset.motion === "full" &&
-          document.currentScript &&
-          document.currentScript.dataset.seq !== undefined
-        )
-          r.classList.add("motion-live");
         var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
         if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+        if (m === "full") {
+          r.classList.add("motion-live");
+          addEventListener("load", function () {
+            if (r.classList.contains("motion-ready")) return;
+            r.classList.remove("motion-live");
+            var t =
+              location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+            if (t) t.scrollIntoView();
+          });
+        }
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,14 +49,15 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <a class="skip" href="#project-ledgerguard">Skip the sequence</a>
+    <a class="skip" href="#project-ledgerguard">Skip to the LedgerGuard story</a>
     <header class="bar" data-bar>
       <a class="bar__mark" href="#top"
-        ><span class="bar__ap" aria-hidden="true">A—A</span> Ali Pajand</a
+        ><span class="bar__ap" aria-hidden="true">A—A</span>
+        <span class="bar__name">Ali Pajand</span></a
       >
       <nav class="bar__nav" aria-label="Site">
         <a href="#work">Work</a>
-        <a href="#project-ledgerguard" class="bar__skip">Skip intro</a>
+        <a href="ledgerguard.html">Case study</a>
         <a href="#contact">Contact</a>
         <button type="button" class="bar__motion" data-motion-toggle aria-pressed="true">
           <span class="bar__dot" aria-hidden="true"></span><span data-motion-label>Motion on</span>
@@ -56,11 +67,11 @@
     <main id="top">
       <section class="seq" id="sequence" aria-labelledby="name" data-tone="void">
         <div class="stage" data-stage>
-          <h1 class="sr-only" id="name">Ali Pajand</h1>
-          <div class="void" aria-hidden="true">
-            <div class="void__glow"></div>
+          <h1 class="sr-only" id="name">Ali Pajand, Senior Software Engineer</h1>
+          <div class="interior" data-interior aria-hidden="true">
+            <div class="void" data-void><div class="void__glow"></div></div>
             <div class="scene">
-              <div class="rig" data-rig="stage">
+              <div class="rig" data-rig>
                 <div class="floor"></div>
                 <div class="plate plate--draw" data-plate="5" style="--k: 5">
                   <svg
@@ -366,28 +377,60 @@
                     </g>
                   </svg>
                 </div>
-                <div class="plate plate--shot" data-plate="1" style="--k: 1">
-                  <img
-                    src="media/ledgerguard-dashboard-1600.webp"
-                    srcset="
-                      media/ledgerguard-dashboard-960.webp   960w,
-                      media/ledgerguard-dashboard-1600.webp 1600w
-                    "
-                    sizes="(min-width: 768px) 62vw, 90vw"
-                    width="1600"
-                    height="1034"
-                    alt=""
-                    decoding="async"
-                  />
-                  <span class="plate__strip"
-                    ><b>LG-01</b> Next.js App Router product
-                    <em>Screenshot · shipped product</em></span
-                  >
+                <div class="plate plate--shot sheet" data-plate="1" style="--k: 1">
+                  <div class="sheet__in">
+                    <img
+                      src="media/ledgerguard-dashboard-1600.webp"
+                      srcset="
+                        media/ledgerguard-dashboard-960.webp   960w,
+                        media/ledgerguard-dashboard-1600.webp 1600w
+                      "
+                      sizes="(min-width: 900px) 125vw, 300vw"
+                      width="1600"
+                      height="1034"
+                      alt=""
+                      decoding="async"
+                    />
+                    <span class="sheet__strip"
+                      ><b>LG-01</b> <span>Next.js App Router product</span>
+                      <em>Screenshot · shipped product</em></span
+                    >
+                  </div>
                 </div>
                 <div class="boundary" data-boundary><span>Review boundary</span></div>
               </div>
             </div>
-            <div class="ws" data-ws data-state="ready">
+            <div class="strata strata--stage" data-strata="stage" aria-hidden="true">
+              <p class="strata__sides" aria-hidden="true">
+                <span>Suggested</span><span>Confirmed</span>
+              </p>
+              <ol class="strata__bands" role="list">
+                <li class="stratum" data-k="1">
+                  <span class="stratum__k"><b>LG-01</b> Next.js App Router product</span
+                  ><span class="stratum__body"
+                    ><span class="stratum__shot" data-band-shot></span
+                  ></span>
+                </li>
+                <li class="stratum" data-k="2">
+                  <span class="stratum__k"><b>LG-02</b> Node.js/Fastify API</span
+                  ><span class="stratum__body"></span>
+                </li>
+                <li class="stratum" data-k="3">
+                  <span class="stratum__k"><b>LG-03</b> Supabase PostgreSQL, Auth, Storage</span
+                  ><span class="stratum__body"></span>
+                </li>
+                <li class="stratum" data-k="4">
+                  <span class="stratum__k"><b>LG-04</b> Redis/BullMQ orchestration</span
+                  ><span class="stratum__body"></span>
+                </li>
+                <li class="stratum" data-k="5">
+                  <span class="stratum__k"><b>LG-05</b> Python extraction worker</span
+                  ><span class="stratum__body"></span>
+                </li>
+              </ol>
+              <span class="strata__line" data-strata-line><i>A–A · Review boundary</i></span>
+            </div>
+            <div class="ws" data-ws data-state="ready" aria-hidden="true">
               <div class="ws__frame">
                 <img
                   data-ws-img="ready"
@@ -396,7 +439,7 @@
                     media/proto-workspace-ready-960.webp   960w,
                     media/proto-workspace-ready-1600.webp 1600w
                   "
-                  sizes="(min-width: 900px) 56vw, 92vw"
+                  sizes="(min-width: 900px) 56vw, 380vw"
                   width="1600"
                   height="1000"
                   alt=""
@@ -409,7 +452,7 @@
                     media/proto-workspace-partial-960.webp   960w,
                     media/proto-workspace-partial-1600.webp 1600w
                   "
-                  sizes="(min-width: 900px) 56vw, 92vw"
+                  sizes="(min-width: 900px) 56vw, 380vw"
                   width="1600"
                   height="1000"
                   alt=""
@@ -422,7 +465,7 @@
                     media/proto-workspace-confirmed-960.webp   960w,
                     media/proto-workspace-confirmed-1600.webp 1600w
                   "
-                  sizes="(min-width: 900px) 56vw, 92vw"
+                  sizes="(min-width: 900px) 56vw, 380vw"
                   width="1600"
                   height="1000"
                   alt=""
@@ -434,8 +477,22 @@
                 <b>A–A</b> Document Intelligence Workspace
                 <em>Design prototype · fictional data</em>
               </p>
+              <div class="tally tally--stage" data-ws data-state="ready" aria-hidden="true">
+                <span class="tally__ticks"
+                  ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+                  ><i></i><i></i
+                ></span>
+                <span class="tally__msg"
+                  ><span data-ws-msg="ready">0 of 13 confirmed. Nothing counts yet.</span
+                  ><span data-ws-msg="partial">6 of 13 confirmed. Only those count.</span
+                  ><span data-ws-msg="confirmed"
+                    >13 of 13 confirmed. Every term now counts.</span
+                  ></span
+                >
+              </div>
             </div>
           </div>
+          <i class="rest-probe" hidden></i>
           <div class="panel panel--top" data-panel="top" data-tone="paper">
             <div class="panel__head">
               <p class="eyebrow"><span>Section A–A</span> <span>Sheet 01</span></p>
@@ -485,26 +542,9 @@
             <span class="cut__line"></span>
             <span class="cut__mark cut__mark--r"><i>A</i></span>
           </div>
-          <nav class="layers" aria-label="LedgerGuard layers" data-layers>
-            <p class="layers__k">LedgerGuard · sheets</p>
-            <ol>
-              <li>
-                <a href="#layer-interface" data-to="1"><b>01</b> Interface</a>
-              </li>
-              <li>
-                <a href="#layer-api" data-to="2"><b>02</b> API</a>
-              </li>
-              <li>
-                <a href="#layer-data" data-to="3"><b>03</b> Data</a>
-              </li>
-              <li>
-                <a href="#layer-jobs" data-to="4"><b>04–05</b> Jobs</a>
-              </li>
-              <li>
-                <a href="#layer-boundary" data-to="5"><b>A–A</b> Boundary</a>
-              </li>
-            </ol>
-          </nav>
+          <p class="aperture__tag" data-aperture-tag>
+            <b>LG-01</b> LedgerGuard · Screenshot · shipped product
+          </p>
         </div>
 
         <div class="track">
@@ -520,7 +560,7 @@
               <h2 id="work-h" class="intro__name">LedgerGuard</h2>
               <p class="intro__title">Full-Stack AI Contract Intelligence</p>
               <p class="intro__meta">
-                Senior Product Engineer · built alone ·
+                Independent product · designed and built end to end ·
                 <a href="https://ledgerguard.io/">ledgerguard.io</a>
               </p>
               <p>
@@ -529,507 +569,123 @@
                 document pipeline, billing, infrastructure, and delivery.
               </p>
               <p class="intro__how">
-                Five layers under one shipped product. Scroll down through them, or jump to a layer.
+                Five layers and one review boundary. Scroll, or pick a layer.
+                <a href="ledgerguard.html">Or read the case study</a>.
               </p>
-              <figure class="anatomy" aria-labelledby="anatomy-cap">
-                <div class="anatomy__scene" aria-hidden="true">
-                  <div class="rig" data-rig="static">
-                    <div class="floor"></div>
-                    <div class="plate plate--draw" data-plate="5" style="--k: 5">
-                      <svg
-                        class="drawing"
-                        viewBox="0 0 1000 646"
-                        preserveAspectRatio="xMidYMid meet"
-                        aria-hidden="true"
-                        focusable="false"
-                        data-label="worker"
-                      >
-                        <rect x="14" y="14" width="972" height="618" class="frame" />
-                        <text x="56" y="92" class="t-title">Extraction</text>
-                        <text x="56" y="122" class="t-note">
-                          Isolated from deterministic contract state.
-                        </text>
-                        <path d="M86,200 H206 L236,230 V420 H86 Z" class="doc ink" pathLength="1" />
-                        <path d="M206,200 V230 H236" class="doc ink" pathLength="1" />
-                        <line x1="106" y1="262" x2="214" y2="262" class="hair" />
-                        <line x1="106" y1="290" x2="214" y2="290" class="hair" />
-                        <line x1="106" y1="318" x2="190" y2="318" class="hair" />
-                        <line x1="106" y1="346" x2="214" y2="346" class="hair" />
-                        <text x="161" y="452" text-anchor="middle" class="t-note">
-                          contract PDF
-                        </text>
-
-                        <line x1="250" y1="310" x2="320" y2="310" class="wire ink" pathLength="1" />
-                        <path d="M310,304 L320,310 L310,316" class="wire ink" pathLength="1" />
-
-                        <rect
-                          x="320"
-                          y="264"
-                          width="190"
-                          height="92"
-                          class="box ink"
-                          pathLength="1"
-                        />
-                        <text x="415" y="317" text-anchor="middle" class="t-box">AWS Textract</text>
-
-                        <line x1="510" y1="310" x2="580" y2="310" class="wire ink" pathLength="1" />
-                        <path d="M570,304 L580,310 L570,316" class="wire ink" pathLength="1" />
-
-                        <rect
-                          x="580"
-                          y="264"
-                          width="190"
-                          height="92"
-                          class="box ink"
-                          pathLength="1"
-                        />
-                        <text x="675" y="317" text-anchor="middle" class="t-box">OpenAI</text>
-
-                        <line x1="770" y1="310" x2="820" y2="310" class="wire ink" pathLength="1" />
-                        <path d="M810,304 L820,310 L810,316" class="wire ink" pathLength="1" />
-                        <rect
-                          x="820"
-                          y="250"
-                          width="124"
-                          height="120"
-                          class="store store--suggested ink"
-                          pathLength="1"
-                        />
-                        <text x="882" y="316" text-anchor="middle" class="t-store t-red">
-                          suggested
-                        </text>
-                        <text x="56" y="550" class="t-dim">
-                          Python worker · AWS Textract and OpenAI extraction
-                        </text>
-
-                        <g class="strip">
-                          <rect x="0" y="592" width="1000" height="54" class="strip__bg" />
-                          <line x1="0" y1="592" x2="1000" y2="592" class="hair" />
-                          <text x="28" y="625" class="t-code">LG-05</text>
-                          <text x="150" y="625" class="t-strip">Python extraction worker</text>
-                          <text x="972" y="625" class="t-kind" text-anchor="end">
-                            Editorial diagram
-                          </text>
-                        </g>
-                      </svg>
-                    </div>
-                    <div class="plate plate--draw" data-plate="4" style="--k: 4">
-                      <svg
-                        class="drawing"
-                        viewBox="0 0 1000 646"
-                        preserveAspectRatio="xMidYMid meet"
-                        aria-hidden="true"
-                        focusable="false"
-                        data-label="jobs"
-                      >
-                        <rect x="14" y="14" width="972" height="618" class="frame" />
-                        <text x="56" y="92" class="t-title">Job contract</text>
-                        <text x="56" y="122" class="t-note">
-                          Document processing can retry or fail independently.
-                        </text>
-
-                        <rect
-                          x="56"
-                          y="250"
-                          width="170"
-                          height="92"
-                          class="box ink"
-                          pathLength="1"
-                        />
-                        <text x="141" y="303" text-anchor="middle" class="t-box">API</text>
-
-                        <line x1="226" y1="296" x2="300" y2="296" class="wire ink" pathLength="1" />
-                        <path d="M290,290 L300,296 L290,302" class="wire ink" pathLength="1" />
-                        <rect
-                          x="300"
-                          y="236"
-                          width="420"
-                          height="120"
-                          class="queue ink"
-                          pathLength="1"
-                        />
-                        <line x1="384" y1="236" x2="384" y2="356" class="hair" />
-                        <line x1="468" y1="236" x2="468" y2="356" class="hair" />
-                        <line x1="552" y1="236" x2="552" y2="356" class="hair" />
-                        <line x1="636" y1="236" x2="636" y2="356" class="hair" />
-                        <rect x="316" y="268" width="52" height="56" class="job" />
-                        <rect x="400" y="268" width="52" height="56" class="job" />
-                        <rect x="484" y="268" width="52" height="56" class="job job--failed" />
-                        <text x="510" y="384" text-anchor="middle" class="t-note t-red">
-                          failed · retry
-                        </text>
-                        <text x="510" y="214" text-anchor="middle" class="t-box">
-                          Redis / BullMQ
-                        </text>
-
-                        <line x1="720" y1="296" x2="790" y2="296" class="wire ink" pathLength="1" />
-                        <path d="M780,290 L790,296 L780,302" class="wire ink" pathLength="1" />
-
-                        <rect
-                          x="790"
-                          y="250"
-                          width="154"
-                          height="92"
-                          class="box ink"
-                          pathLength="1"
-                        />
-                        <text x="867" y="303" text-anchor="middle" class="t-box">worker</text>
-                        <path
-                          d="M867,342 V450 H510 V392"
-                          class="wire wire--red ink"
-                          pathLength="1"
-                        />
-                        <path
-                          d="M504,402 L510,392 L516,402"
-                          class="wire wire--red ink"
-                          pathLength="1"
-                        />
-                        <text x="56" y="550" class="t-dim">
-                          Redis/BullMQ orchestration · explicit job contracts
-                        </text>
-
-                        <g class="strip">
-                          <rect x="0" y="592" width="1000" height="54" class="strip__bg" />
-                          <line x1="0" y1="592" x2="1000" y2="592" class="hair" />
-                          <text x="28" y="625" class="t-code">LG-04</text>
-                          <text x="150" y="625" class="t-strip">Redis / BullMQ orchestration</text>
-                          <text x="972" y="625" class="t-kind" text-anchor="end">
-                            Editorial diagram
-                          </text>
-                        </g>
-                      </svg>
-                    </div>
-                    <div class="plate plate--draw" data-plate="3" style="--k: 3">
-                      <svg
-                        class="drawing"
-                        viewBox="0 0 1000 646"
-                        preserveAspectRatio="xMidYMid meet"
-                        aria-hidden="true"
-                        focusable="false"
-                        data-label="data"
-                      >
-                        <rect x="14" y="14" width="972" height="618" class="frame" />
-                        <defs>
-                          <pattern
-                            id="hatch-red"
-                            width="10"
-                            height="10"
-                            patternUnits="userSpaceOnUse"
-                            patternTransform="rotate(45)"
-                          >
-                            <line x1="0" y1="0" x2="0" y2="10" class="hatch-red" />
-                          </pattern>
-                          <pattern
-                            id="hatch-ink"
-                            width="10"
-                            height="10"
-                            patternUnits="userSpaceOnUse"
-                            patternTransform="rotate(45)"
-                          >
-                            <line x1="0" y1="0" x2="0" y2="10" class="hatch-ink" />
-                          </pattern>
-                        </defs>
-                        <rect
-                          x="56"
-                          y="70"
-                          width="600"
-                          height="440"
-                          class="tenant ink"
-                          pathLength="1"
-                        />
-                        <text x="72" y="100" class="t-title">Tenant A</text>
-                        <rect
-                          x="76"
-                          y="130"
-                          width="292"
-                          height="340"
-                          class="store store--suggested ink"
-                          pathLength="1"
-                        />
-                        <text x="90" y="160" class="t-store t-red">suggested</text>
-                        <rect
-                          x="388"
-                          y="130"
-                          width="248"
-                          height="340"
-                          class="store store--confirmed ink"
-                          pathLength="1"
-                        />
-                        <text x="402" y="160" class="t-store">confirmed</text>
-
-                        <g class="chip" data-chip="notice" data-state="suggested">
-                          <rect x="96" y="196" width="220" height="40" class="chip__box" />
-                          <rect x="232" y="209" width="70" height="14" class="chip__bar" />
-                          <text x="110" y="222" class="t-chip">notice window</text>
-                        </g>
-
-                        <g class="chip" data-chip="renewal" data-state="suggested">
-                          <rect x="96" y="256" width="220" height="40" class="chip__box" />
-                          <rect x="232" y="269" width="70" height="14" class="chip__bar" />
-                          <text x="110" y="282" class="t-chip">renewal date</text>
-                        </g>
-
-                        <g class="chip" data-chip="autorenew" data-state="suggested">
-                          <rect x="96" y="316" width="220" height="40" class="chip__box" />
-                          <rect x="232" y="329" width="70" height="14" class="chip__bar" />
-                          <text x="110" y="342" class="t-chip">auto-renew</text>
-                        </g>
-                        <rect
-                          x="690"
-                          y="70"
-                          width="254"
-                          height="440"
-                          class="tenant ink"
-                          pathLength="1"
-                        />
-                        <text x="706" y="100" class="t-title">Tenant B</text>
-                        <rect
-                          x="710"
-                          y="130"
-                          width="214"
-                          height="340"
-                          class="store ink"
-                          pathLength="1"
-                          fill="url(#hatch-ink)"
-                          fill-opacity="0.18"
-                        />
-                        <text x="817" y="306" text-anchor="middle" class="t-note">
-                          out of scope
-                        </text>
-                        <text x="56" y="550" class="t-dim">
-                          Supabase PostgreSQL, Auth, Storage · suggested and confirmed values stored
-                          differently
-                        </text>
-
-                        <g class="strip">
-                          <rect x="0" y="592" width="1000" height="54" class="strip__bg" />
-                          <line x1="0" y1="592" x2="1000" y2="592" class="hair" />
-                          <text x="28" y="625" class="t-code">LG-03</text>
-                          <text x="150" y="625" class="t-strip">PostgreSQL data model</text>
-                          <text x="972" y="625" class="t-kind" text-anchor="end">
-                            Editorial diagram
-                          </text>
-                        </g>
-                      </svg>
-                    </div>
-                    <div class="plate plate--draw" data-plate="2" style="--k: 2">
-                      <svg
-                        class="drawing"
-                        viewBox="0 0 1000 646"
-                        preserveAspectRatio="xMidYMid meet"
-                        aria-hidden="true"
-                        focusable="false"
-                        data-label="api"
-                      >
-                        <rect x="14" y="14" width="972" height="618" class="frame" />
-                        <text x="56" y="92" class="t-title">Request path</text>
-                        <text x="56" y="122" class="t-note">
-                          Deterministic contract data and API rules live here.
-                        </text>
-
-                        <rect
-                          x="56"
-                          y="236"
-                          width="150"
-                          height="92"
-                          class="box ink"
-                          pathLength="1"
-                        />
-                        <text x="131" y="289" text-anchor="middle" class="t-box">request</text>
-
-                        <line x1="206" y1="282" x2="262" y2="282" class="wire ink" pathLength="1" />
-                        <path d="M252,276 L262,282 L252,288" class="wire ink" pathLength="1" />
-
-                        <rect
-                          x="262"
-                          y="236"
-                          width="150"
-                          height="92"
-                          class="box ink"
-                          pathLength="1"
-                        />
-                        <text x="337" y="289" text-anchor="middle" class="t-box">auth</text>
-
-                        <line x1="412" y1="282" x2="468" y2="282" class="wire ink" pathLength="1" />
-                        <path d="M458,276 L468,282 L458,288" class="wire ink" pathLength="1" />
-
-                        <rect
-                          x="468"
-                          y="236"
-                          width="176"
-                          height="92"
-                          class="box ink box--strong"
-                          pathLength="1"
-                        />
-                        <text x="556" y="289" text-anchor="middle" class="t-box">tenant scope</text>
-
-                        <line x1="644" y1="282" x2="700" y2="282" class="wire ink" pathLength="1" />
-                        <path d="M690,276 L700,282 L690,288" class="wire ink" pathLength="1" />
-
-                        <rect
-                          x="700"
-                          y="236"
-                          width="230"
-                          height="92"
-                          class="box ink"
-                          pathLength="1"
-                        />
-                        <text x="815" y="289" text-anchor="middle" class="t-box">
-                          contract rules
-                        </text>
-                        <path d="M815,328 V430 H330" class="wire ink" pathLength="1" />
-                        <path d="M340,424 L330,430 L340,436" class="wire ink" pathLength="1" />
-
-                        <rect
-                          x="150"
-                          y="392"
-                          width="180"
-                          height="76"
-                          class="box ink"
-                          pathLength="1"
-                        />
-                        <text x="240" y="437" text-anchor="middle" class="t-box">
-                          contract data
-                        </text>
-                        <line x1="56" y1="520" x2="930" y2="520" class="dim" />
-                        <line x1="56" y1="510" x2="56" y2="530" class="dim" />
-                        <line x1="930" y1="510" x2="930" y2="530" class="dim" />
-                        <text x="493" y="550" text-anchor="middle" class="t-dim">
-                          Node.js / Fastify · owns authentication and tenant scoping
-                        </text>
-
-                        <g class="strip">
-                          <rect x="0" y="592" width="1000" height="54" class="strip__bg" />
-                          <line x1="0" y1="592" x2="1000" y2="592" class="hair" />
-                          <text x="28" y="625" class="t-code">LG-02</text>
-                          <text x="150" y="625" class="t-strip">Node.js / Fastify API</text>
-                          <text x="972" y="625" class="t-kind" text-anchor="end">
-                            Editorial diagram
-                          </text>
-                        </g>
-                      </svg>
-                    </div>
-                    <div class="plate plate--shot" data-plate="1" style="--k: 1">
-                      <img
-                        src="media/ledgerguard-dashboard-1600.webp"
-                        srcset="
-                          media/ledgerguard-dashboard-960.webp   960w,
-                          media/ledgerguard-dashboard-1600.webp 1600w
-                        "
-                        sizes="(min-width: 768px) 62vw, 90vw"
-                        width="1600"
-                        height="1034"
-                        alt=""
-                        decoding="async"
-                      />
-                      <span class="plate__strip"
-                        ><b>LG-01</b> Next.js App Router product
-                        <em>Screenshot · shipped product</em></span
-                      >
-                    </div>
-                    <div class="boundary" data-boundary><span>Review boundary</span></div>
-                  </div>
+            </div>
+          </article>
+          <article class="beat step" id="anatomy" data-beat="anatomy" aria-labelledby="anatomy-h">
+            <div class="step__card">
+              <p class="step__code">LG-01 – LG-05 <span>Anatomy</span></p>
+              <h3 id="anatomy-h">One product, five layers</h3>
+              <ol class="ledger" role="list" data-ledger>
+                <li data-layer="1">
+                  <button type="button" data-layer-to="1" aria-pressed="false" disabled>
+                    <b>LG-01</b> Interface
+                  </button>
+                  <p>
+                    <span class="ledger__label">Next.js App Router product.</span> Server-rendered
+                    product surfaces, with client components only where review interactions need
+                    them.
+                  </p>
+                </li>
+                <li data-layer="2">
+                  <button type="button" data-layer-to="2" aria-pressed="false" disabled>
+                    <b>LG-02</b> API
+                  </button>
+                  <p>
+                    <span class="ledger__label">Node.js/Fastify API.</span> Owns deterministic
+                    contract data, API rules, authentication, and tenant scoping.
+                  </p>
+                </li>
+                <li data-layer="3">
+                  <button type="button" data-layer-to="3" aria-pressed="false" disabled>
+                    <b>LG-03</b> Data
+                  </button>
+                  <p>
+                    <span class="ledger__label">Supabase PostgreSQL, Auth, Storage.</span> The
+                    tenant-scoped data model, where suggested and confirmed values are stored
+                    differently.
+                  </p>
+                </li>
+                <li data-layer="4">
+                  <button type="button" data-layer-to="4" aria-pressed="false" disabled>
+                    <b>LG-04</b> Jobs
+                  </button>
+                  <p>
+                    <span class="ledger__label">Redis/BullMQ orchestration.</span> Explicit job
+                    contracts that let document processing retry or fail independently.
+                  </p>
+                </li>
+                <li data-layer="5">
+                  <button type="button" data-layer-to="5" aria-pressed="false" disabled>
+                    <b>LG-05</b> Worker
+                  </button>
+                  <p>
+                    <span class="ledger__label">Python extraction worker.</span> AWS Textract and
+                    OpenAI extraction, isolated from deterministic contract state.
+                  </p>
+                </li>
+              </ol>
+              <figure class="figure figure--strata">
+                <div class="strata strata--static" data-strata="static">
+                  <p class="strata__sides" aria-hidden="true">
+                    <span>Suggested</span><span>Confirmed</span>
+                  </p>
+                  <ol class="strata__bands" role="list">
+                    <li class="stratum" data-k="1">
+                      <span class="stratum__k"><b>LG-01</b> Next.js App Router product</span
+                      ><span class="stratum__body"
+                        ><span class="stratum__shot" data-band-shot
+                          ><img
+                            src="media/ledgerguard-dashboard-960.webp"
+                            width="960"
+                            height="620"
+                            alt=""
+                            loading="lazy"
+                            decoding="async" /></span
+                      ></span>
+                    </li>
+                    <li class="stratum" data-k="2">
+                      <span class="stratum__k"><b>LG-02</b> Node.js/Fastify API</span
+                      ><span class="stratum__body"></span>
+                    </li>
+                    <li class="stratum" data-k="3">
+                      <span class="stratum__k"><b>LG-03</b> Supabase PostgreSQL, Auth, Storage</span
+                      ><span class="stratum__body"></span>
+                    </li>
+                    <li class="stratum" data-k="4">
+                      <span class="stratum__k"><b>LG-04</b> Redis/BullMQ orchestration</span
+                      ><span class="stratum__body"></span>
+                    </li>
+                    <li class="stratum" data-k="5">
+                      <span class="stratum__k"><b>LG-05</b> Python extraction worker</span
+                      ><span class="stratum__body"></span>
+                    </li>
+                  </ol>
+                  <span class="strata__line" data-strata-line><i>A–A · Review boundary</i></span>
                 </div>
-                <figcaption id="anatomy-cap">
-                  LedgerGuard, exploded: a screenshot of the shipped product on top (LG-01), four
-                  editorial diagrams beneath it (LG-02 to LG-05), and the review boundary cutting
-                  through all of them.
+                <figcaption>
+                  LedgerGuard in section: the shipped product's screenshot in band LG-01, editorial
+                  bands for the four layers beneath it, and the review boundary cut through all
+                  five.
                 </figcaption>
               </figure>
+              <p class="step__src">
+                LG-01 is a screenshot of the shipped product. LG-02 to LG-05 are editorial diagrams
+                of its documented architecture.
+              </p>
             </div>
           </article>
           <article
             class="beat step"
-            id="layer-interface"
-            data-beat="1"
-            aria-labelledby="layer-interface-h"
-          >
-            <div class="step__card">
-              <p class="step__code">LG-01 <span>Layer 1 of 5</span></p>
-              <h3 id="layer-interface-h">Next.js App Router product</h3>
-              <p>
-                Server-rendered product surfaces, with client components only where review
-                interactions need them.
-              </p>
-              <div class="note">
-                <p class="note__k">Decision</p>
-                <p>
-                  Draw a hard line in the App Router between server-rendered product surfaces and
-                  the client components that handle review interactions.
-                </p>
-                <p class="note__trade">
-                  <span>Trade-off</span> It takes more up-front structure than pushing the whole
-                  dashboard into one client-heavy tree, and every new feature has to be placed on
-                  one side of the line deliberately.
-                </p>
-              </div>
-              <p class="step__src">Sheet LG-01 is a screenshot of the shipped product.</p>
-            </div>
-          </article>
-          <article class="beat step" id="layer-api" data-beat="2" aria-labelledby="layer-api-h">
-            <div class="step__card">
-              <p class="step__code">LG-02 <span>Layer 2 of 5</span></p>
-              <h3 id="layer-api-h">Node.js/Fastify API</h3>
-              <p>
-                Owns deterministic contract data, API rules, authentication, and tenant scoping.
-              </p>
-              <div class="note">
-                <p class="note__k">Decision</p>
-                <p>
-                  Keep deterministic contract data and API rules in Node.js/Fastify while isolating
-                  probabilistic extraction in the Python worker behind explicit job contracts.
-                </p>
-                <p class="note__trade">
-                  <span>Trade-off</span> The separation adds Redis/BullMQ orchestration, worker
-                  lifecycle handling, and more API contracts to maintain.
-                </p>
-              </div>
-            </div>
-          </article>
-          <article class="beat step" id="layer-data" data-beat="3" aria-labelledby="layer-data-h">
-            <div class="step__card">
-              <p class="step__code">LG-03 <span>Layer 3 of 5</span></p>
-              <h3 id="layer-data-h">Supabase PostgreSQL, Auth, Storage</h3>
-              <p>
-                The tenant-scoped data model, where suggested and confirmed values are stored
-                differently.
-              </p>
-              <p>
-                Every tenant boundary, job contract, and API surface in that list is one I had to
-                define, because there was nobody else to define them.
-              </p>
-            </div>
-          </article>
-          <article class="beat step" id="layer-jobs" data-beat="4" aria-labelledby="layer-jobs-h">
-            <div class="step__card">
-              <p class="step__code">LG-04 <span>Layer 4 of 5</span></p>
-              <h3 id="layer-jobs-h">Redis/BullMQ orchestration and Python extraction worker</h3>
-              <p>
-                Explicit job contracts that let document processing retry or fail independently. AWS
-                Textract and OpenAI extraction, isolated from deterministic contract state.
-              </p>
-              <div class="note">
-                <p class="note__k">Decision</p>
-                <p>
-                  Model extraction as an async workflow with visible intermediate states instead of
-                  hiding processing behind a single loading spinner.
-                </p>
-                <p class="note__trade">
-                  <span>Trade-off</span> More UI states mean more implementation and copy work
-                  across the review flow.
-                </p>
-              </div>
-            </div>
-          </article>
-          <article
-            class="beat step"
-            id="layer-boundary"
-            data-beat="5"
-            aria-labelledby="layer-boundary-h"
+            id="boundary"
+            data-beat="boundary"
+            aria-labelledby="boundary-h"
           >
             <div class="step__card">
               <p class="step__code">A–A <span>Review boundary</span></p>
-              <h3 id="layer-boundary-h">The review boundary</h3>
+              <h3 id="boundary-h">The review boundary</h3>
               <p>
                 Set the rule the rest of the product follows: suggested values and confirmed values
                 are stored differently, rendered differently, and only cross the boundary through
@@ -1098,6 +754,7 @@
                     type="button"
                     data-ws-to="ready"
                     aria-pressed="true"
+                    disabled
                     aria-describedby="ws-live"
                   >
                     <span>Ready for review</span><small>0 of 13 confirmed</small></button
@@ -1105,6 +762,7 @@
                     type="button"
                     data-ws-to="partial"
                     aria-pressed="false"
+                    disabled
                     aria-describedby="ws-live"
                   >
                     <span>Partially reviewed</span><small>6 of 13 confirmed</small></button
@@ -1112,18 +770,33 @@
                     type="button"
                     data-ws-to="confirmed"
                     aria-pressed="false"
+                    disabled
                     aria-describedby="ws-live"
                   >
                     <span>Confirmed</span><small>13 of 13 confirmed</small>
                   </button>
                 </div>
+                <div class="tally tally--card" data-ws data-state="ready" aria-hidden="true">
+                  <span class="tally__ticks"
+                    ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+                    ><i></i><i></i
+                  ></span>
+                  <span class="tally__msg"
+                    ><span data-ws-msg="ready">0 of 13 confirmed. Nothing counts yet.</span
+                    ><span data-ws-msg="partial">6 of 13 confirmed. Only those count.</span
+                    ><span data-ws-msg="confirmed"
+                      >13 of 13 confirmed. Every term now counts.</span
+                    ></span
+                  >
+                </div>
                 <p class="wsx__live" id="ws-live" aria-live="polite" data-ws-live></p>
                 <p class="wsx__src">
-                  <b>Shipped behaviour it is drawn on:</b> the suggested, verified and corrected
-                  statuses and their confirm, edit and needs-review actions; the notice deadline as
-                  term end minus notice days, verified only once both of those terms are confirmed
-                  or corrected. <b>Proposed, not built:</b> a separate Corrected chip, history and
-                  details as tabs, viewer zoom, and moving to the next term after a confirm.
+                  <b>The prototype's notes list as shipped:</b> the suggested, verified and
+                  corrected statuses and their confirm, edit and needs-review actions; the notice
+                  deadline as term end minus notice days, verified only once both of those terms are
+                  confirmed or corrected. <b>Proposed, not built:</b> a separate Corrected chip,
+                  history and details as tabs, viewer zoom, and moving to the next term after a
+                  confirm. The prototype is drawn on that behaviour; it is not a recording of it.
                 </p>
                 <p>
                   <a class="wsx__open" href="workspace.html"
@@ -1133,12 +806,45 @@
               </div>
             </div>
           </article>
-          <div class="beat beat--collapse" data-beat="collapse"></div>
+          <div class="beat beat--land" data-beat="land"></div>
         </div>
       </section>
 
-      <section class="story" id="project-ledgerguard" aria-labelledby="story-h" tabindex="-1">
+      <section
+        class="story"
+        id="project-ledgerguard"
+        aria-labelledby="story-h"
+        tabindex="-1"
+        data-tone="paper"
+      >
         <div class="story__in">
+          <figure class="story__shot">
+            <div class="sheet" data-slot>
+              <div class="sheet__in">
+                <img
+                  src="media/ledgerguard-dashboard-1600.webp"
+                  srcset="
+                    media/ledgerguard-dashboard-960.webp   960w,
+                    media/ledgerguard-dashboard-1600.webp 1600w
+                  "
+                  sizes="(min-width: 1100px) 700px, calc(100vw - 32px)"
+                  width="1600"
+                  height="1034"
+                  alt="LedgerGuard dashboard showing contract status, renewal visibility, and review workflows."
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="sheet__strip"
+                  ><b>LG-01</b> <span>Next.js App Router product</span>
+                  <em>Screenshot · shipped product</em></span
+                >
+              </div>
+            </div>
+            <figcaption>
+              <b>Screenshot.</b> The dashboard keeps review state, contract visibility, and renewal
+              workflows legible without treating extraction output as final by default.
+            </figcaption>
+          </figure>
           <header class="story__head">
             <p class="story__k">Featured · 01 · 2026–Present</p>
             <h2 id="story-h" class="story__name">
@@ -1146,25 +852,6 @@
             </h2>
             <p class="story__title">Full-Stack AI Contract Intelligence</p>
           </header>
-          <figure class="story__shot story__shot--proto">
-            <img
-              src="media/proto-dashboard-typical-1600.webp"
-              srcset="
-                media/proto-dashboard-typical-960.webp   960w,
-                media/proto-dashboard-typical-1600.webp 1600w
-              "
-              sizes="(min-width: 1100px) 760px, calc(100vw - 32px)"
-              width="1600"
-              height="1000"
-              alt="Design prototype of the LedgerGuard dashboard with fictional data: deadlines grouped by notice window, verified and provisional totals kept apart."
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>
-              <b>Design prototype · fictional data.</b> The dashboard's typical state: deadlines
-              grouped by notice window, with verified and provisional totals kept apart.
-            </figcaption>
-          </figure>
           <div class="story__body">
             <p class="story__lede">
               A multi-tenant contract-intelligence SaaS built alone across the Next.js App Router
@@ -1220,7 +907,7 @@
         </div>
       </section>
 
-      <section class="register" aria-labelledby="reg-h">
+      <section class="register" aria-labelledby="reg-h" data-tone="paper">
         <div class="register__in">
           <h2 id="reg-h" class="register__h">Other sheets in this set</h2>
           <p class="register__note">

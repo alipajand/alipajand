@@ -1,7 +1,8 @@
 /* Section A–A · cinematic exploration for the alipajand.com portfolio.
    One committed look: drafting paper outside, a dark interior inside the cut.
-   The page is complete without script; .motion-live (set by sequence.js) turns the
-   sequence into a sticky stage scrubbed by scroll. */
+   The page is complete without script. .motion-live turns the sequence into a sticky stage
+   scrubbed by scroll: the boot script sets it before first paint, and sequence.js confirms it
+   with .motion-ready once the timeline is built, or takes it off. */
 
 @view-transition {
   navigation: auto;
@@ -31,8 +32,9 @@
 
   --gutter: max(16px, env(safe-area-inset-left, 0px));
   --gutter-r: max(16px, env(safe-area-inset-right, 0px));
-  --name: min(19.5vw, 34svh);
-  --plate-w: min(64vw, 1040px);
+  --name: min(17vw, 27svh);
+  /* sheets are drawn large and only scaled down, so the screenshot stays sharp in every pose */
+  --plate-w: min(125vw, 2030px);
   --plate-h: calc(var(--plate-w) * 0.646);
   --grid: 24px;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -48,7 +50,6 @@
 @media (max-width: 767px) {
   :root {
     --name: min(27vw, 17svh);
-    --plate-w: 88vw;
   }
 }
 
@@ -144,10 +145,6 @@ a {
   --bar-bg: rgba(16, 15, 13, 0.92);
 }
 
-.motion-live:not([data-tone="void"]) .bar {
-  --bar-bg: transparent;
-}
-
 .bar a {
   text-decoration: none;
   padding: 6px 0;
@@ -230,7 +227,7 @@ a {
   }
 }
 
-/* ---------- stage ---------- */
+/* ---------- stage: the cover sheet, already cut open ---------- */
 
 .seq {
   position: relative;
@@ -238,6 +235,8 @@ a {
 }
 
 .stage {
+  /* the aperture: how far the cut stands open at rest, before any scrolling */
+  --ap: clamp(150px, 23svh, 260px);
   position: relative;
   height: 100vh;
   height: 100svh;
@@ -247,12 +246,214 @@ a {
   background: var(--void);
 }
 
+@media (max-width: 899px) {
+  .stage {
+    --ap: clamp(112px, 17svh, 170px);
+  }
+}
+
+.interior {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.void {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 50% 52%, #2a251e 0%, var(--void) 64%);
+}
+
+.void__glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 70vmax;
+  height: 40vmax;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, rgba(240, 225, 190, 0.1), transparent);
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  perspective: 2400px;
+  perspective-origin: 50% 50%;
+}
+
+/* centred on the stage even when the sheet is wider than the screen (grid centring is safe
+   and would pin an overflowing sheet to the start edge) */
+.rig {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--plate-w);
+  height: var(--plate-h);
+  margin: calc(var(--plate-h) / -2) 0 0 calc(var(--plate-w) / -2);
+  transform-style: preserve-3d;
+}
+
+/* The rest pose: the shipped interface seen through the cut, close up and tipped back, so the
+   first frame already has depth. Written as individual transform properties so the page shows
+   it without script; sequence.js reads the same values from .rest-probe and hands them to GSAP. */
+.rig,
+.rest-probe {
+  translate: var(--rest-x) var(--rest-y);
+  rotate: x var(--rest-tilt);
+  scale: var(--rest-s);
+}
+
+:root {
+  --rest-s: 1;
+  --rest-tilt: 22deg;
+  --rest-x: calc(var(--plate-w) * 0.069);
+  --rest-y: calc(var(--plate-h) * -0.18);
+}
+
+@media (max-width: 899px) {
+  :root {
+    --plate-w: 300vw;
+    --rest-tilt: 12deg;
+    --rest-x: calc(var(--plate-w) * 0.151);
+    --rest-y: calc(var(--plate-h) * -0.138);
+  }
+}
+
+/* GSAP owns the pose once the timeline is built; until then the CSS rest pose stays */
+.motion-ready .rig {
+  translate: none;
+  rotate: none;
+  scale: none;
+}
+
+.plate {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  box-shadow:
+    0 0 0 2px rgba(0, 0, 0, 0.35),
+    0 100px 180px -60px rgba(0, 0, 0, 0.7);
+  backface-visibility: hidden;
+  --shade: 0;
+  --dim: 0;
+}
+
+/* sheets below the one in focus sit in shadow; a sheet picked in the anatomy list lifts */
+.plate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: #0b0a08;
+  opacity: max(var(--shade), var(--dim));
+  pointer-events: none;
+}
+
+[data-focus] .plate {
+  --dim: 0.62;
+}
+
+[data-focus="1"] .plate[data-plate="1"],
+[data-focus="2"] .plate[data-plate="2"],
+[data-focus="3"] .plate[data-plate="3"],
+[data-focus="4"] .plate[data-plate="4"],
+[data-focus="5"] .plate[data-plate="5"] {
+  --dim: 0;
+  translate: 0 0 70px;
+  outline: 3px solid #f0573c;
+}
+
+/* sheet thickness: the bottom edge, folded down toward the viewer */
+.plate::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 14px;
+  transform-origin: top center;
+  transform: rotateX(-90deg);
+  background: var(--edge-draw);
+}
+
+.plate--shot {
+  background: #141414;
+}
+
+.plate--shot::after {
+  background: var(--edge-shot);
+}
+
+:root:not(.motion-ready) .scene .plate:not([data-plate="1"]),
+:root:not(.motion-ready) .scene .boundary,
+:root:not(.motion-ready) .scene .floor {
+  display: none;
+}
+
+/* ---------- sheet LG-01: screenshot plus title strip, at the stack's proportions ---------- */
+
+.sheet {
+  aspect-ratio: 1 / 0.646;
+  background: #141414;
+}
+
+.sheet__in {
+  position: relative;
+  height: 100%;
+  container-type: inline-size;
+}
+
+.sheet img {
+  width: 100%;
+  height: 91.6%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.sheet__strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 8.4%;
+  display: flex;
+  align-items: center;
+  gap: 1.4em;
+  padding: 0 2.8%;
+  background: var(--vellum);
+  border-top: 1px solid var(--ink);
+  color: var(--ink);
+  font: 500 1.25cqw / 1 var(--mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sheet__strip b {
+  color: var(--red-ink);
+  font-weight: 500;
+}
+
+.sheet__strip em {
+  margin-left: auto;
+  font-style: normal;
+  color: var(--ink-2);
+}
+
+.plate--draw {
+  background-color: var(--vellum);
+  background-image:
+    linear-gradient(rgba(22, 20, 15, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 20, 15, 0.05) 1px, transparent 1px);
+  background-size: 2.4% 3.7%;
+}
+
 .panel {
   position: absolute;
   z-index: 2;
   left: 0;
   right: 0;
-  height: 50%;
+  height: calc(50% - var(--ap) / 2);
   overflow: hidden;
   background-color: var(--paper);
   background-image:
@@ -264,12 +465,15 @@ a {
 .panel--top {
   top: 0;
   background-position: 0 0;
+  /* the upper lip of the cut throws a shadow onto the interface below it */
+  box-shadow: 0 22px 34px -14px rgba(0, 0, 0, 0.7);
+  z-index: 3;
 }
 
 .panel--bottom {
   bottom: 0;
-  /* keep the grid continuous across the cut */
-  background-position: 0 calc(50svh * -1 + 0px);
+  /* keep the grid continuous across the cut, as if the paper were one sheet */
+  background-position: 0 calc(-1 * (50svh + var(--ap) / 2));
 }
 
 .panel__head {
@@ -354,7 +558,6 @@ a {
   left: 0;
   right: 0;
   height: 14px;
-  opacity: 0;
   background: repeating-linear-gradient(-45deg, var(--red) 0 1.5px, transparent 1.5px 7px);
 }
 
@@ -547,130 +750,6 @@ a {
   right: var(--gutter-r);
 }
 
-/* ---------- the interior ---------- */
-
-.void {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: radial-gradient(120% 90% at 50% 62%, #26221c 0%, var(--void) 62%);
-}
-
-.void__glow {
-  position: absolute;
-  left: 50%;
-  top: 56%;
-  width: 70vmax;
-  height: 40vmax;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(240, 225, 190, 0.1), transparent);
-  pointer-events: none;
-}
-
-.scene {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  perspective: 2400px;
-  perspective-origin: 50% 42%;
-}
-
-.rig {
-  position: relative;
-  width: var(--plate-w);
-  height: var(--plate-h);
-  transform-style: preserve-3d;
-}
-
-.plate {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.35),
-    0 50px 90px -30px rgba(0, 0, 0, 0.7);
-  backface-visibility: hidden;
-  --shade: 0;
-}
-
-/* sheets below the one in focus sit in shadow */
-.plate::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: #0b0a08;
-  opacity: var(--shade);
-  pointer-events: none;
-}
-
-/* sheet thickness: the bottom edge, folded down toward the viewer */
-.plate::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 100%;
-  height: 7px;
-  transform-origin: top center;
-  transform: rotateX(-90deg);
-  background: var(--edge-draw);
-}
-
-.plate--shot {
-  background: #141414;
-}
-
-.plate--shot::after {
-  background: var(--edge-shot);
-}
-
-.plate--shot img {
-  width: 100%;
-  height: calc(100% - 8.4%);
-  object-fit: cover;
-  object-position: top center;
-}
-
-.plate__strip {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 8.4%;
-  display: flex;
-  align-items: center;
-  gap: 1.4em;
-  padding: 0 2.8%;
-  background: var(--vellum);
-  border-top: 1px solid var(--ink);
-  color: var(--ink);
-  font: 500 clamp(7px, 0.95vw, 13px) / 1 var(--mono);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.plate__strip b {
-  color: var(--red-ink);
-  font-weight: 500;
-}
-
-.plate__strip em {
-  margin-left: auto;
-  font-style: normal;
-  color: var(--ink-2);
-}
-
-.plate--draw {
-  background-color: var(--vellum);
-  background-image:
-    linear-gradient(rgba(22, 20, 15, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(22, 20, 15, 0.05) 1px, transparent 1px);
-  background-size: 2.4% 3.7%;
-}
-
 .drawing {
   display: block;
   width: 100%;
@@ -834,11 +913,11 @@ a {
 .floor {
   position: absolute;
   inset: -55% -40%;
-  transform: translateZ(-760px);
+  transform: translateZ(calc(var(--plate-w) * -0.825));
   background-image:
     linear-gradient(rgba(237, 231, 218, 0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(237, 231, 218, 0.07) 1px, transparent 1px);
-  background-size: 64px 64px;
+  background-size: 125px 125px;
   -webkit-mask-image: radial-gradient(closest-side, #000 30%, transparent);
   mask-image: radial-gradient(closest-side, #000 30%, transparent);
   opacity: 0;
@@ -849,9 +928,10 @@ a {
   top: -6%;
   bottom: -6%;
   left: 37.8%;
-  width: 640px;
+  /* sized to the sheet, which is drawn at twice the size it is usually seen at */
+  width: calc(var(--plate-w) * 0.695);
   transform-origin: left center;
-  transform: translateZ(60px) rotateY(90deg);
+  transform: translateZ(calc(var(--plate-w) * 0.065)) rotateY(90deg);
   border-left: 2px solid var(--red);
   border-right: 2px solid var(--red);
   background:
@@ -865,12 +945,44 @@ a {
   top: 10px;
   left: 12px;
   color: #ffb4a3;
-  font: 500 14px/1 var(--mono);
+  font: 500 calc(var(--plate-w) * 0.015) / 1 var(--mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-/* the workspace sheet the red plane uncovers (live sequence only) */
+/* the provenance of what the cut exposes, labelled in the first frame */
+.aperture__tag {
+  position: absolute;
+  z-index: 3;
+  left: calc(var(--gutter) + 58px);
+  top: calc(50% - var(--ap) / 2 + 26px);
+  margin: 0;
+  padding: 6px 9px;
+  background: rgba(16, 15, 13, 0.86);
+  border: 1px solid rgba(237, 231, 218, 0.28);
+  color: var(--on-void);
+  font: 500 0.6875rem/1 var(--mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.aperture__tag b {
+  color: #f0573c;
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+@media (max-width: 899px) {
+  .aperture__tag {
+    left: var(--gutter);
+    top: calc(50% - var(--ap) / 2 + 20px);
+    font-size: 0.625rem;
+  }
+}
+
+/* ---------- the workspace sheet the red plane uncovers ---------- */
+
 .ws {
   display: none;
 }
@@ -923,103 +1035,248 @@ a {
   color: var(--on-void);
 }
 
-.motion-live .ws {
-  display: block;
-  position: absolute;
-  z-index: 2;
-  left: max(var(--gutter), 4vw);
-  top: 96px;
-  /* clear of the bar above and the layer index below */
-  width: min(52vw, calc((100svh - 360px) * 1.6));
-  pointer-events: none;
-  visibility: hidden;
+/* the consequence of each review state: thirteen terms, filled as they are confirmed.
+   Unconfirmed terms keep the red dashed outline of a suggestion; confirmed ones are solid. */
+.tally {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
 }
 
-@media (max-width: 899px) {
-  .motion-live .ws {
-    left: var(--gutter);
-    right: var(--gutter-r);
-    top: 72px;
-    width: auto;
-  }
+.tally__ticks {
+  display: grid;
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  gap: 4px;
 }
 
-@media (min-width: 900px) {
-  .motion-live .wsx__fig {
-    display: none;
-  }
+.tally__ticks i {
+  height: 14px;
+  border: 1.5px dashed #f0573c;
+  transition:
+    background-color 240ms,
+    border-color 240ms;
 }
 
-/* layer index, shown while the stack is on stage */
-.layers {
-  position: absolute;
-  z-index: 4;
-  left: var(--gutter);
-  bottom: 28px;
-  color: var(--on-void-2);
-  font: 500 0.6875rem/1 var(--mono);
+[data-state="partial"] .tally__ticks i:nth-child(-n + 6),
+[data-state="confirmed"] .tally__ticks i {
+  border-style: solid;
+  border-color: var(--on-void);
+  background: var(--on-void);
+}
+
+.tally__msg {
+  color: var(--on-void);
+  font: 500 0.75rem/1.3 var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tally__msg span {
+  display: none;
+}
+
+[data-state="ready"] [data-ws-msg="ready"],
+[data-state="partial"] [data-ws-msg="partial"],
+[data-state="confirmed"] [data-ws-msg="confirmed"] {
+  display: inline;
+}
+
+/* ---------- the section: five bands and the line through them ---------- */
+
+.strata {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  color: var(--ink);
+  background-color: var(--vellum);
+  background-image:
+    linear-gradient(rgba(22, 20, 15, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 20, 15, 0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
+  --pad: 14px;
+  padding: var(--pad) var(--pad) 16px;
+  border: 1px solid var(--ink);
+  /* where the review boundary crosses the bands */
+  --line: 58%;
+}
+
+.strata__sides {
+  position: relative;
+  height: 1.2em;
+  margin: 0;
+  font: 500 0.625rem/1.2 var(--mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  visibility: hidden;
-  opacity: 0;
-  transition:
-    opacity 300ms,
-    visibility 0s 300ms;
 }
 
-.motion-live[data-ground="void"] .layers {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 300ms;
+.strata__sides span {
+  position: absolute;
+  bottom: 0;
 }
 
-.layers__k {
-  margin: 0 0 12px;
+.strata__sides span:first-child {
+  right: calc(100% - var(--line) + 12px);
+  color: var(--red-ink);
 }
 
-.layers ol {
+.strata__sides span:last-child {
+  left: calc(var(--line) + 12px);
+}
+
+.strata__bands {
   margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 2px;
+  gap: 6px;
 }
 
-.layers a {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  min-height: 28px;
-  padding: 0 10px 0 0;
-  color: var(--on-void-2);
-  text-decoration: none;
+.stratum {
+  position: relative;
+  min-height: 46px;
+  display: grid;
+  border: 1.5px solid var(--ink);
+  /* suggested side: red, dashed, hatched; confirmed side: ink */
+  background:
+    linear-gradient(90deg, transparent var(--line), var(--paper) var(--line)),
+    repeating-linear-gradient(-45deg, rgba(200, 50, 27, 0.5) 0 1.5px, transparent 1.5px 7px);
 }
 
-.layers a b {
-  min-width: 3.4em;
+.stratum::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--line);
+  right: 0;
+  background: var(--hatch);
+  opacity: 0.85;
+}
+
+.stratum[data-k="2"] {
+  --hatch: repeating-linear-gradient(45deg, var(--ink) 0 1px, transparent 1px 6px);
+}
+
+.stratum[data-k="3"] {
+  --hatch:
+    repeating-linear-gradient(45deg, var(--ink) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(-45deg, var(--ink) 0 1px, transparent 1px 6px);
+}
+
+.stratum[data-k="4"] {
+  --hatch: radial-gradient(circle, var(--ink) 1.2px, transparent 1.5px) 0 0 / 7px 7px;
+}
+
+.stratum[data-k="5"] {
+  --hatch: repeating-linear-gradient(0deg, var(--ink) 0 1px, transparent 1px 5px);
+}
+
+.stratum__k {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  max-width: calc(var(--line) - 18px);
+  padding: 6px 10px;
+  font: 500 0.6875rem/1.3 var(--mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.stratum__k b {
+  margin-right: 6px;
+  color: var(--red-ink);
   font-weight: 500;
 }
 
-.layers a[aria-current="step"] {
-  color: var(--on-void);
+.stratum__k {
+  background: linear-gradient(var(--vellum), var(--vellum)) no-repeat 0 0 / 100% 100%;
+  justify-self: start;
+  margin: 6px;
 }
 
-.layers a[aria-current="step"] b {
-  color: #f0573c;
+/* band LG-01 holds the screenshot */
+.stratum[data-k="1"] {
+  grid-template-columns: minmax(0, 1fr);
 }
 
-.layers a:hover {
-  color: var(--on-void);
+.stratum[data-k="1"]::after {
+  display: none;
 }
 
-.layers a:focus-visible {
-  outline-color: #f0573c;
+.stratum__body {
+  display: contents;
 }
 
-@media (max-width: 767px) {
-  .layers {
-    display: none;
-  }
+.stratum__shot {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(100%, 22rem);
+  aspect-ratio: 1 / 0.646;
+  margin: 0 6px 6px auto;
+  overflow: hidden;
+}
+
+.stratum__shot img {
+  width: 100%;
+  height: 91.6%;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid var(--ink);
+}
+
+.strata__line {
+  position: absolute;
+  top: 8px;
+  bottom: 6px;
+  left: calc(var(--pad) + (100% - 2 * var(--pad)) * 0.58);
+  width: 0;
+  border-left: 3px solid var(--red);
+  transform-origin: top center;
+}
+
+.strata__line i {
+  position: absolute;
+  bottom: -2px;
+  left: 6px;
+  padding: 3px 6px;
+  background: var(--red);
+  color: #fff;
+  font: 500 0.5625rem/1 var(--mono);
+  font-style: normal;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.figure--strata {
+  margin: 22px 0 6px;
+}
+
+.figure--strata figcaption {
+  margin-top: 10px;
+  color: var(--on-void-2);
+  font-size: 0.875rem;
+}
+
+/* the stage copy of the section is only used on narrow screens with motion on */
+.strata--stage {
+  display: none;
+}
+
+/* a layer picked in the anatomy list stands out in the section too */
+:root[data-focus] .stratum {
+  opacity: 0.4;
+}
+
+:root[data-focus="1"] .stratum[data-k="1"],
+:root[data-focus="2"] .stratum[data-k="2"],
+:root[data-focus="3"] .stratum[data-k="3"],
+:root[data-focus="4"] .stratum[data-k="4"],
+:root[data-focus="5"] .stratum[data-k="5"] {
+  opacity: 1;
+  outline: 3px solid var(--red);
+  outline-offset: 2px;
 }
 
 /* ---------- the track: native-scrolling text beside the stage ---------- */
@@ -1028,17 +1285,10 @@ a {
   position: relative;
   z-index: 5;
   color: var(--on-void);
-  pointer-events: none;
-}
-
-.track a,
-.track button,
-.track .step__card {
-  pointer-events: auto;
 }
 
 .beat--open,
-.beat--collapse {
+.beat--land {
   display: none;
 }
 
@@ -1047,7 +1297,7 @@ a {
 }
 
 .step__card {
-  max-width: 34rem;
+  max-width: 36rem;
   margin: 0 auto;
   padding: clamp(20px, 2vw, 32px);
   background: var(--void-2);
@@ -1113,12 +1363,6 @@ a {
   font-size: 0.9375rem;
 }
 
-.note {
-  margin: 18px 0 8px;
-  padding: 14px 0 0;
-  border-top: 1px dashed rgba(237, 231, 218, 0.28);
-}
-
 .note__k {
   margin: 0 0 6px !important;
   color: var(--on-void-2) !important;
@@ -1147,6 +1391,74 @@ a {
 
 .step__list li {
   margin-bottom: 6px;
+}
+
+/* the anatomy list: every layer's fact at once; each name picks its sheet */
+.ledger {
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(237, 231, 218, 0.18);
+}
+
+.ledger li {
+  padding: 10px 0 8px;
+  border-bottom: 1px solid rgba(237, 231, 218, 0.12);
+}
+
+.ledger p {
+  margin: 4px 0 0 !important;
+  color: var(--on-void-2) !important;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.ledger__label {
+  color: var(--on-void);
+}
+
+.ledger button {
+  display: inline-flex;
+  gap: 10px;
+  align-items: baseline;
+  min-height: 32px;
+  padding: 4px 8px 4px 0;
+  border: 0;
+  background: none;
+  color: var(--on-void);
+  font: 700 1.25rem/1 var(--display);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ledger button b {
+  color: #f0846e;
+  font: 500 0.6875rem/1 var(--mono);
+  letter-spacing: 0.06em;
+}
+
+/* without sequence.js the buttons stay disabled: readable as text, not offered as controls */
+.ledger button:disabled,
+.wsx__states button:disabled {
+  color: inherit;
+  cursor: default;
+}
+
+.ledger button[aria-pressed="true"] {
+  color: #f0573c;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
+}
+
+/* progressive detail: with motion on, a layer reads as drawn once its sheet has inked in */
+.motion-live .ledger li {
+  transition: opacity 240ms;
+}
+
+.motion-live .ledger li:not([data-drawn]) {
+  opacity: 0.45;
 }
 
 /* the review boundary in the product: the workspace prototype and its states.
@@ -1189,7 +1501,7 @@ a {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
-  margin: 0 0 8px;
+  margin: 0 0 4px;
 }
 
 .wsx__states button {
@@ -1229,6 +1541,10 @@ a {
   border-color: var(--on-void);
 }
 
+.tally--card {
+  margin: 10px 0 6px;
+}
+
 .wsx__live {
   min-height: 1.4em;
   color: var(--on-void-2) !important;
@@ -1249,67 +1565,22 @@ a {
   font-weight: 600;
 }
 
-/* static drawing of the stack (no script, reduced motion, or motion off) */
-.anatomy {
-  margin: 24px 0 0;
-}
-
-.step__card--intro {
-  max-width: 64rem;
-}
-
-.anatomy__scene {
-  position: relative;
-  height: min(90vw, 620px);
-  display: grid;
-  place-items: center;
-  perspective: 2400px;
-  overflow: hidden;
-}
-
-.anatomy .rig {
-  --plate-w: min(60vw, 560px);
-  transform: translateY(-8%) rotateX(56deg) rotateZ(-36deg) scale(0.86);
-}
-
-.anatomy .plate {
-  transform: translateZ(calc((var(--k) - 1) * -70px));
-}
-
-.anatomy .floor {
-  opacity: 1;
-}
-
-.anatomy .boundary {
-  opacity: 1;
-  width: 380px;
-}
-
-.anatomy figcaption {
-  margin-top: 12px;
-  color: var(--on-void-2);
-  font-size: 0.875rem;
-}
-
-@media (max-width: 767px) {
-  .anatomy .rig {
-    --plate-w: 64vw;
-  }
-  .anatomy .plate {
-    transform: translateZ(calc((var(--k) - 1) * -44px));
-  }
-  .anatomy .boundary {
-    width: 240px;
-  }
-  .anatomy__scene {
-    height: 96vw;
-  }
-}
-
-/* ---------- live sequence ---------- */
+/* ---------- live sequence (set by sequence.js once GSAP and the timeline are built) ---------- */
 
 .motion-live .seq {
   display: grid;
+}
+
+@media (min-width: 900px) {
+  .motion-live .seq {
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+    background-size: var(--grid) var(--grid);
+    /* aligned to the story's grid by sequence.js */
+    background-position: 0 var(--grid-y, 0px);
+  }
 }
 
 .motion-live .stage,
@@ -1317,44 +1588,90 @@ a {
   grid-area: 1 / 1;
 }
 
+/* the stage never takes pointer input itself, so the story beneath it stays clickable after
+   the match cut; only the cover sheet's own links do */
 .motion-live .stage {
   position: sticky;
+  z-index: 2;
+  background: none;
   top: 0;
   align-self: start;
+  pointer-events: none;
+}
+
+.motion-live .panel {
+  pointer-events: auto;
+}
+
+.motion-live .track {
+  pointer-events: none;
+}
+
+.motion-live .track a,
+.motion-live .track button,
+.motion-live .track .step__card {
+  pointer-events: auto;
 }
 
 .motion-live .beat--open {
   display: block;
-  height: 125vh;
+  height: 45vh;
 }
 
-.motion-live .beat--collapse {
+/* the last screen of the sequence is shared with the story: it overlaps the sticky stage,
+   which lands the screenshot in the story's figure and then lets go */
+.motion-live .beat--land {
   display: block;
-  height: 130vh;
+  height: max(100vh, 560px);
+  height: max(100svh, 560px);
 }
 
-.motion-live .anatomy {
+.motion-live .story {
+  z-index: 1;
+  margin-top: calc(-1 * max(100vh, 560px));
+  margin-top: calc(-1 * max(100svh, 560px));
+}
+
+.motion-live:not([data-landed]) .story [data-slot],
+.motion-live[data-landed] .scene {
+  visibility: hidden;
+}
+
+.motion-live .figure--strata,
+.motion-live .wsx__fig {
   display: none;
 }
 
+.motion-live .ws {
+  display: block;
+  position: absolute;
+  left: max(var(--gutter), 4vw);
+  top: 96px;
+  width: min(52vw, calc((100svh - 300px) * 1.6));
+  visibility: hidden;
+}
+
 .motion-live .step {
-  min-height: 135vh;
+  min-height: 120vh;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-block: 10vh;
+  padding-block: 8vh;
 }
 
+/* the intro card arrives from below the first frame, never on it */
 .motion-live .step--intro {
-  min-height: 120vh;
+  min-height: 115vh;
+  align-items: flex-start;
+  padding-top: 62vh;
 }
 
-/* the boundary step holds the workspace states: the card arrives as the plane rises,
-   and the extra length is the scroll the three states play over */
-.motion-live #layer-boundary {
-  min-height: 230vh;
-  align-items: flex-start;
-  padding-top: 60vh;
+.motion-live #anatomy {
+  min-height: 135vh;
+}
+
+.motion-live #boundary {
+  min-height: 150vh;
 }
 
 .motion-live .step__card {
@@ -1363,27 +1680,122 @@ a {
   background: rgba(16, 15, 13, 0.9);
 }
 
+/* ---------- narrow screens: a directed section, not a smaller 3D scene ---------- */
+
 @media (max-width: 899px) {
-  .motion-live .step {
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 5vh;
+  .strata {
+    --pad: 10px;
+    padding-bottom: 12px;
   }
+  .stratum__k {
+    font-size: 0.625rem;
+  }
+
+  /* the window: the top of the screen shows the work; text reads beneath it, never over it */
+  .motion-live .stage {
+    --win: 56svh;
+    z-index: 6;
+  }
+
+  .motion-live .scene .plate:not([data-plate="1"]),
+  .motion-live .scene .boundary,
+  .motion-live .scene .floor {
+    display: none;
+  }
+
+  /* the screenshot sits over the section it settles into; the workspace covers both */
+  .motion-live .scene {
+    z-index: 2;
+  }
+
+  .motion-live .ws {
+    z-index: 3;
+  }
+
+  .motion-live .strata--stage {
+    z-index: 1;
+    display: grid;
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter-r);
+    top: calc(env(safe-area-inset-top, 0px) + 64px);
+    visibility: hidden;
+  }
+
+  .motion-live .strata--stage .stratum {
+    min-height: 34px;
+  }
+
+  .motion-live .strata--stage .stratum[data-k="1"] {
+    min-height: 0;
+  }
+
+  .motion-live .strata--stage .stratum__shot {
+    width: 58%;
+  }
+
+  /* the workspace, cropped to its review list so the states read at phone size */
+  .motion-live .ws {
+    left: var(--gutter);
+    right: var(--gutter-r);
+    top: calc(env(safe-area-inset-top, 0px) + 64px);
+    width: auto;
+  }
+
+  .motion-live .ws__frame {
+    aspect-ratio: 420 / 360;
+  }
+
+  .motion-live .ws .ws__frame img {
+    inset: auto;
+    left: -53.33%;
+    top: -94.44%;
+    width: 380.95%;
+    max-width: none;
+  }
+
+  .motion-live .ws__strip {
+    margin-top: 8px;
+    font-size: 0.625rem;
+  }
+
+  .motion-live .tally--stage {
+    margin-top: 8px;
+  }
+
+  .motion-live .step,
+  .motion-live .step--intro,
+  .motion-live #anatomy,
+  .motion-live #boundary {
+    min-height: 0;
+    display: block;
+    padding: 0 var(--gutter-r) 0 var(--gutter);
+  }
+
+  .motion-live .beat--open {
+    height: calc(var(--win, 56svh) + 18svh);
+  }
+
+  .motion-live .step + .step {
+    margin-top: 12svh;
+  }
+
   .motion-live .step__card {
     width: 100%;
-    background: rgba(16, 15, 13, 0.94);
+    background: var(--void-2);
   }
-  .motion-live .step__card--intro {
-    background: rgba(16, 15, 13, 0.94);
-    border-color: rgba(237, 231, 218, 0.14);
+
+  .motion-live .beat--land {
+    margin-top: 18svh;
+  }
+
+  .motion-live .ledger p {
+    font-size: 0.875rem;
   }
 }
 
-.motion-live .stage .plate,
-.motion-live .stage .rig,
-.motion-live .panel {
-  will-change: transform;
-}
+/* GSAP's own inline transforms promote what moves while it moves; nothing is promoted for
+   the life of the page */
 
 /* ---------- story ---------- */
 
@@ -1454,15 +1866,10 @@ a {
   margin: 0;
 }
 
-.story__shot img,
-.cs__hero img {
-  border: 1px solid var(--ink);
+.story__shot .sheet,
+.cs__hero .sheet {
+  outline: 1px solid var(--ink);
   view-transition-name: lg-shot;
-}
-
-.story__shot--proto img,
-.cs__hero--proto img {
-  border: 1.5px dashed var(--ink);
 }
 
 .story__shot figcaption,
@@ -1558,19 +1965,29 @@ a {
   color: var(--red-ink);
 }
 
+/* On wide screens the story opens on its figure: the screenshot the sequence carries in
+   lands at the top of the left column, and the reading column sits beside it. */
 @media (min-width: 1100px) {
   .story__in {
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: clamp(32px, 4vw, 64px);
+    row-gap: 28px;
     align-items: start;
-  }
-  .story__head {
-    grid-column: 1 / -1;
   }
   .story__shot {
     grid-column: 1;
+    grid-row: 1 / span 2;
   }
+  .story__head,
   .story__body {
     grid-column: 2;
+  }
+  .story__head .story__name {
+    font-size: clamp(4.5rem, 1rem + 5.6vw, 7.5rem);
+  }
+  .story__title {
+    margin-top: 12px;
+    font-size: 1.25rem;
   }
 }
 
@@ -1952,21 +2369,6 @@ a {
   .cs__protos--3 {
     grid-template-columns: minmax(0, 1fr);
   }
-}
-
-.pending {
-  color: var(--ink-2);
-}
-
-.flag {
-  display: inline-block;
-  padding: 2px 6px;
-  border: 1px dashed var(--red-ink);
-  color: var(--red-ink);
-  font: 500 0.625rem/1.2 var(--mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  vertical-align: 2px;
 }
 
 /* ---------- arrival (fresh visits with motion on) ---------- */
