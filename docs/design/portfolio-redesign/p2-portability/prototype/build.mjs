@@ -817,6 +817,7 @@ if (pi > -1) {
   for (const f of [
     "grammar.css",
     "projects.css",
+    "opening.css",
     "motion.js",
     "register.js",
     "ag.js",
