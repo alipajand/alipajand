@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>LedgerGuard · Section A–A</title>
+    <meta
+      name="description"
+      content="Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD."
+    />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="data:," />
+    <script>
+      (function () {
+        var r = document.documentElement,
+          q = matchMedia("(prefers-reduced-motion: reduce)"),
+          s = null;
+        try {
+          s = JSON.parse(localStorage.getItem("aa-motion2") || "null");
+        } catch (e) {}
+        var os = q.matches ? "reduce" : "full",
+          m = os;
+        if (s && (s.m === "full" || s.m === "reduce")) {
+          if (os === "full") m = s.m;
+          else if (s.os === "reduce") m = s.m;
+        }
+        r.dataset.motion = m;
+        r.classList.add("js");
+        var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="bar" data-bar>
+      <a class="bar__mark" href="index.html"
+        ><span class="bar__ap" aria-hidden="true">A—A</span>
+        <span class="bar__name">Ali Pajand</span></a
+      >
+      <nav class="bar__nav" aria-label="Site">
+        <a href="index.html#work">Work</a>
+        <a href="ledgerguard.html" aria-current="page">Case study</a>
+        <a href="#contact">Contact</a>
+        <button type="button" class="bar__motion" data-motion-toggle aria-pressed="true">
+          <span class="bar__dot" aria-hidden="true"></span><span data-motion-label>Motion on</span>
+        </button>
+      </nav>
+    </header>
+    <main id="main" tabindex="-1" class="cs">
+      <header class="cs__head">
+        <a class="cs__back" href="index.html#project-ledgerguard"
+          ><span aria-hidden="true">←</span> Back to the work</a
+        >
+        <p class="story__k">Featured · 2026–Present · Independent product</p>
+        <h1 class="cs__name">
+          <span class="story__cut story__cut--arrive" aria-hidden="true"></span>LedgerGuard
+        </h1>
+        <p class="story__title">Full-Stack AI Contract Intelligence</p>
+        <p class="cs__lede">
+          LedgerGuard tracks contract renewals, commitments, notice windows, and financial exposure.
+          I designed and built it alone: the product, the API, the data model, the document
+          pipeline, billing, infrastructure, and delivery.
+        </p>
+        <dl class="titleblock titleblock--cs">
+          <div>
+            <dt>Stack</dt>
+            <dd>Next.js · TypeScript · Node.js · Fastify · PostgreSQL · Redis/BullMQ · AI</dd>
+          </div>
+          <div>
+            <dt>Live</dt>
+            <dd><a href="https://ledgerguard.io/">ledgerguard.io</a></dd>
+          </div>
+          <div>
+            <dt>Writing</dt>
+            <dd>
+              <a
+                href="https://alipajand.com/writing/ledgerguard-truth-between-extraction-and-finance"
+                >The quiet failure mode in contract AI: when the UI believes the wrong row</a
+              >
+            </dd>
+          </div>
+        </dl>
+      </header>
+      <figure class="cs__hero">
+        <div class="sheet">
+          <div class="sheet__in">
+            <img
+              src="media/ledgerguard-dashboard-1600.webp"
+              srcset="
+                media/ledgerguard-dashboard-960.webp   960w,
+                media/ledgerguard-dashboard-1600.webp 1600w
+              "
+              sizes="(min-width: 1100px) 1040px, calc(100vw - 32px)"
+              width="1600"
+              height="1034"
+              alt="LedgerGuard dashboard showing contract status, renewal visibility, and review workflows."
+              decoding="async"
+            />
+            <span class="sheet__strip"
+              ><b>LG-01</b> <span>Next.js App Router product</span>
+              <em>Screenshot · shipped product</em></span
+            >
+          </div>
+        </div>
+        <figcaption>
+          <b>Screenshot · Dashboard.</b> The dashboard keeps review state, contract visibility, and
+          renewal workflows legible without treating extraction output as final by default.
+        </figcaption>
+      </figure>
+      <div class="cs__grid">
+        <nav class="cs__toc" aria-label="Sections">
+          <ol>
+            <li><a href="#context">Context</a></li>
+            <li><a href="#problem">Problem</a></li>
+            <li><a href="#role">My role</a></li>
+            <li><a href="#built">What I built</a></li>
+            <li><a href="#decisions">Technical decisions</a></li>
+            <li><a href="#ux">UX decisions</a></li>
+            <li><a href="#evidence">Interface evidence</a></li>
+            <li><a href="#prototypes">Design prototypes</a></li>
+            <li><a href="#outcome">Outcome</a></li>
+            <li><a href="#next">What I would improve next</a></li>
+          </ol>
+        </nav>
+        <div class="cs__body">
+          <section id="context" aria-labelledby="context-h">
+            <h2 id="context-h">Context</h2>
+            <p>
+              A Next.js App Router application sits in front of a Node.js/Fastify API, Supabase
+              PostgreSQL/Auth/Storage, Redis/BullMQ orchestration, and a Python worker running AWS
+              Textract and OpenAI extraction. Every tenant boundary, job contract, and API surface
+              in that list is one I had to define, because there was nobody else to define them.
+            </p>
+          </section>
+          <section id="problem" aria-labelledby="problem-h">
+            <h2 id="problem-h">Problem</h2>
+            <p>
+              Extraction output is useless if the interface makes it look settled. Someone deciding
+              whether to exercise a notice window needs to know whether a date came out of a model
+              or out of a person confirming it against the document. The workflow had to carry that
+              distinction from the database through to the screen, and stay legible while extraction
+              was still running, partially done, or failed.
+            </p>
+          </section>
+          <section id="role" aria-labelledby="role-h">
+            <h2 id="role-h">My role</h2>
+            <ul class="cs__list">
+              <li>
+                Product direction, architecture, implementation, testing, infrastructure, and
+                release, across the whole stack.
+              </li>
+              <li>
+                Built the Next.js App Router product, the Fastify API, the PostgreSQL data model,
+                authentication and tenant scoping, background-job orchestration, and the Python
+                worker integration.
+              </li>
+              <li>
+                Set the rule the rest of the product follows: suggested values and confirmed values
+                are stored differently, rendered differently, and only cross the boundary through
+                explicit review.
+              </li>
+            </ul>
+          </section>
+          <section id="built" aria-labelledby="built-h">
+            <h2 id="built-h">What I built</h2>
+            <ul class="cs__list">
+              <li>Document ingestion and upload flows wired to async extraction state.</li>
+              <li>Tenant-aware dashboard navigation and the review surfaces for contract data.</li>
+              <li>
+                A verification UI that keeps suggested values visually and structurally apart from
+                confirmed ones, with source context attached.
+              </li>
+              <li>
+                Renewal and portfolio views that stay honest about which records are still
+                incomplete.
+              </li>
+              <li>
+                API contracts, authentication, billing, job orchestration, Docker setup, and the
+                CI/CD pipeline.
+              </li>
+            </ul>
+          </section>
+          <section id="decisions" aria-labelledby="decisions-h">
+            <h2 id="decisions-h">Technical decisions</h2>
+            <article class="cs__note">
+              <p class="note__k">Note 1</p>
+              <h3>
+                Keep deterministic contract data and API rules in Node.js/Fastify while isolating
+                probabilistic extraction in the Python worker behind explicit job contracts.
+              </h3>
+              <dl>
+                <div>
+                  <dt>Why</dt>
+                  <dd>
+                    The product needed retryable document processing without allowing AI output to
+                    bypass authentication, tenant boundaries, or user confirmation.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Trade-off</dt>
+                  <dd>
+                    The separation adds Redis/BullMQ orchestration, worker lifecycle handling, and
+                    more API contracts to maintain.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Result</dt>
+                  <dd>
+                    Background extraction can fail or retry independently while deterministic
+                    contract state remains controlled by the application and user review.
+                  </dd>
+                </div>
+              </dl>
+            </article>
+            <article class="cs__note">
+              <p class="note__k">Note 2</p>
+              <h3>
+                Draw a hard line in the App Router between server-rendered product surfaces and the
+                client components that handle review interactions.
+              </h3>
+              <dl>
+                <div>
+                  <dt>Why</dt>
+                  <dd>
+                    Review is the only genuinely interactive part of the product. Everything else is
+                    composition and data fetching, and treating it that way keeps the client bundle
+                    and the state surface small.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Trade-off</dt>
+                  <dd>
+                    It takes more up-front structure than pushing the whole dashboard into one
+                    client-heavy tree, and every new feature has to be placed on one side of the
+                    line deliberately.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Result</dt>
+                  <dd>
+                    Route, data, and interaction concerns stayed separable as the workflow grew past
+                    the original two screens.
+                  </dd>
+                </div>
+              </dl>
+            </article>
+            <article class="cs__note">
+              <p class="note__k">Note 3</p>
+              <h3>
+                Model extraction as an async workflow with visible intermediate states instead of
+                hiding processing behind a single loading spinner.
+              </h3>
+              <dl>
+                <div>
+                  <dt>Why</dt>
+                  <dd>
+                    Document review depends on whether extraction has started, partially completed,
+                    failed, or produced values that still need review.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Trade-off</dt>
+                  <dd>
+                    More UI states mean more implementation and copy work across the review flow.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Result</dt>
+                  <dd>
+                    Users can tell whether the product is waiting, recovering, or ready for
+                    confirmation instead of guessing from a generic pending state.
+                  </dd>
+                </div>
+              </dl>
+            </article>
+          </section>
+          <section id="ux" aria-labelledby="ux-h">
+            <h2 id="ux-h">UX decisions</h2>
+            <ul class="cs__list">
+              <li>
+                Used language that distinguishes AI-suggested values from confirmed user-reviewed
+                data throughout the workflow.
+              </li>
+              <li>
+                Kept source context visible where available so review decisions stay tied to the
+                contract rather than to a generic summary.
+              </li>
+              <li>
+                Treated incomplete extraction and review-required states as first-class product
+                states rather than edge-case modals.
+              </li>
+            </ul>
+          </section>
+          <section id="evidence" aria-labelledby="evidence-h">
+            <h2 id="evidence-h">Interface evidence</h2>
+            <figure class="cs__shot">
+              <img
+                src="media/ledgerguard-landing-1600.webp"
+                srcset="
+                  media/ledgerguard-landing-960.webp   960w,
+                  media/ledgerguard-landing-1600.webp 1600w
+                "
+                sizes="(min-width: 1100px) 900px, calc(100vw - 32px)"
+                width="1600"
+                height="1034"
+                alt="LedgerGuard landing page introducing AI-assisted contract intelligence for renewals and commitments."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <b>Screenshot · Landing page.</b> The public positioning frames the product around
+                contract workflows rather than opaque AI output.
+              </figcaption>
+            </figure>
+            <figure class="cs__shot">
+              <img
+                src="media/ledgerguard-login-1600.webp"
+                srcset="
+                  media/ledgerguard-login-960.webp   960w,
+                  media/ledgerguard-login-1600.webp 1600w
+                "
+                sizes="(min-width: 1100px) 900px, calc(100vw - 32px)"
+                width="1600"
+                height="1034"
+                alt="LedgerGuard sign-in screen for tenant-aware contract workflows."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <b>Screenshot · Authentication.</b> The sign-in flow sits in front of tenant-aware
+                document and dashboard work without over-claiming access controls beyond what is
+                visible here.
+              </figcaption>
+            </figure>
+          </section>
+          <section id="prototypes" aria-labelledby="prototypes-h">
+            <h2 id="prototypes-h">Design prototypes</h2>
+            <p>
+              Two of LedgerGuard's interactive design prototypes. They show designed states with
+              fictional data, not screenshots of the shipped product. The workspace prototype's
+              design notes separate shipped behaviour from proposals.
+            </p>
+            <h3 class="cs__h3">Document Intelligence Workspace</h3>
+            <div class="cs__protos cs__protos--3">
+              <figure class="cs__proto">
+                <img
+                  src="media/proto-workspace-ready-1600.webp"
+                  srcset="
+                    media/proto-workspace-ready-960.webp   960w,
+                    media/proto-workspace-ready-1600.webp 1600w
+                  "
+                  sizes="(min-width: 1100px) 300px, calc(100vw - 32px)"
+                  width="1600"
+                  height="1000"
+                  alt="Design prototype with fictional data, the Document Intelligence Workspace, ready for review"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>
+                  <b>Ready for review · 0 of 13 terms confirmed</b> Design prototype · fictional
+                  data
+                </figcaption>
+              </figure>
+              <figure class="cs__proto">
+                <img
+                  src="media/proto-workspace-partial-1600.webp"
+                  srcset="
+                    media/proto-workspace-partial-960.webp   960w,
+                    media/proto-workspace-partial-1600.webp 1600w
+                  "
+                  sizes="(min-width: 1100px) 300px, calc(100vw - 32px)"
+                  width="1600"
+                  height="1000"
+                  alt="Design prototype with fictional data, the Document Intelligence Workspace, partially reviewed"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>
+                  <b>Partially reviewed · 6 of 13 terms confirmed</b> Design prototype · fictional
+                  data
+                </figcaption>
+              </figure>
+              <figure class="cs__proto">
+                <img
+                  src="media/proto-workspace-confirmed-1600.webp"
+                  srcset="
+                    media/proto-workspace-confirmed-960.webp   960w,
+                    media/proto-workspace-confirmed-1600.webp 1600w
+                  "
+                  sizes="(min-width: 1100px) 300px, calc(100vw - 32px)"
+                  width="1600"
+                  height="1000"
+                  alt="Design prototype with fictional data, the Document Intelligence Workspace, confirmed"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>
+                  <b>Confirmed · 13 of 13 terms confirmed</b> Design prototype · fictional data
+                </figcaption>
+              </figure>
+            </div>
+            <p>
+              <a href="workspace.html"
+                >Open the workspace prototype <span aria-hidden="true">→</span></a
+              >
+            </p>
+            <h3 class="cs__h3">Dashboard states</h3>
+            <div class="cs__protos">
+              <figure class="cs__proto">
+                <img
+                  src="media/proto-dashboard-typical-1600.webp"
+                  srcset="
+                    media/proto-dashboard-typical-960.webp   960w,
+                    media/proto-dashboard-typical-1600.webp 1600w
+                  "
+                  sizes="(min-width: 1100px) 450px, calc(100vw - 32px)"
+                  width="1600"
+                  height="1000"
+                  alt="Design prototype with fictional data, the dashboard, deadlines grouped by notice window, verified and provisional totals kept apart"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption><b>Typical workspace</b> Design prototype · fictional data</figcaption>
+              </figure>
+              <figure class="cs__proto">
+                <img
+                  src="media/proto-dashboard-loading-1600.webp"
+                  srcset="
+                    media/proto-dashboard-loading-960.webp   960w,
+                    media/proto-dashboard-loading-1600.webp 1600w
+                  "
+                  sizes="(min-width: 1100px) 450px, calc(100vw - 32px)"
+                  width="1600"
+                  height="1000"
+                  alt="Design prototype with fictional data, the dashboard, skeletons in the shape of the final layout"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption><b>Loading</b> Design prototype · fictional data</figcaption>
+              </figure>
+              <figure class="cs__proto">
+                <img
+                  src="media/proto-dashboard-error-1600.webp"
+                  srcset="
+                    media/proto-dashboard-error-960.webp   960w,
+                    media/proto-dashboard-error-1600.webp 1600w
+                  "
+                  sizes="(min-width: 1100px) 450px, calc(100vw - 32px)"
+                  width="1600"
+                  height="1000"
+                  alt="Design prototype with fictional data, the dashboard, an error that says nothing changed in the contracts, with Try again and Open Contracts"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption><b>Dashboard failed</b> Design prototype · fictional data</figcaption>
+              </figure>
+              <figure class="cs__proto">
+                <img
+                  src="media/proto-dashboard-empty-1600.webp"
+                  srcset="
+                    media/proto-dashboard-empty-960.webp   960w,
+                    media/proto-dashboard-empty-1600.webp 1600w
+                  "
+                  sizes="(min-width: 1100px) 450px, calc(100vw - 32px)"
+                  width="1600"
+                  height="1000"
+                  alt="Design prototype with fictional data, the dashboard, an empty state with one action, Upload your first contract"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption><b>New workspace</b> Design prototype · fictional data</figcaption>
+              </figure>
+            </div>
+          </section>
+          <section id="outcome" aria-labelledby="outcome-h">
+            <h2 id="outcome-h">Outcome</h2>
+            <ul class="cs__list">
+              <li>
+                Shipped a working end-to-end product: ingestion, extraction review, and contract
+                visibility, live at ledgerguard.io.
+              </li>
+              <li>
+                Held the boundary between suggested and confirmed contract data across the schema,
+                the API, and the UI rather than only in the interface layer.
+              </li>
+            </ul>
+          </section>
+          <section id="next" aria-labelledby="next-h">
+            <h2 id="next-h">What I would improve next</h2>
+            <ul class="cs__list">
+              <li>
+                Add more product-level evidence around exception handling so reviewers can
+                prioritize the highest-risk contracts faster.
+              </li>
+              <li>
+                Continue refining summary views so incomplete extraction states are easier to scan
+                across larger contract sets.
+              </li>
+            </ul>
+          </section>
+          <p class="story__cta">
+            <a class="cta" href="index.html#project-ledgerguard"
+              ><span aria-hidden="true">←</span> <span>Back to the work</span></a
+            >
+          </p>
+        </div>
+      </div>
+    </main>
+    <footer class="contact" id="contact" aria-labelledby="contact-h" data-tone="void">
+      <div class="contact__in">
+        <h2 id="contact-h" class="contact__h">Contact</h2>
+        <ul class="contact__links" role="list">
+          <li>
+            <a href="https://calendly.com/alipajand/intro"
+              ><span>Book a call</span
+              ><span class="contact__host">calendly.com/alipajand/intro</span></a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/alipajand"
+              ><span>GitHub</span><span class="contact__host">github.com/alipajand</span></a
+            >
+          </li>
+          <li>
+            <a href="https://linkedin.com/in/alipajand"
+              ><span>LinkedIn</span><span class="contact__host">linkedin.com/in/alipajand</span></a
+            >
+          </li>
+        </ul>
+        <p class="contact__meta">
+          Montreal, Canada · Open to remote work within Canada · English: professional. French:
+          intermediate.
+        </p>
+        <p class="proto">
+          Design prototype for the alipajand.com portfolio · Section A–A cinematic exploration · not
+          production code.
+        </p>
+      </div>
+    </footer>
+    <script src="case.js"></script>
+  </body>
+</html>
