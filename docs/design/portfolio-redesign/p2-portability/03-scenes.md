@@ -1,0 +1,56 @@
+# 03 · The AlwaysGeeky and Emplifi scenes
+
+Two scenes that test the grammar on projects with very different evidence. AlwaysGeeky has two shipped screenshots and a documented system behind them. Emplifi has no screenshots at all. Each scene uses the shared contract (see 02) and adds only its project's move (see 01).
+
+Every claim in both scenes is read from `data/projects.ts` at build time. The step headings, scene notes, materials notes and drawing labels are new copy and are listed for approval in 01.
+
+## AlwaysGeeky · from the interface to the component system under it
+
+**The move:** the detail callout, in blueprint blue. Blue always means "this part is shared".
+
+**The idea:** start on the product a reader can see, then go down through it. The marketplace is one of four surfaces. They stand on one library, the library's contract is written in Storybook, and CI holds the line. The transition is a **descent**: the camera follows one blue line from a part of the interface down to the gates.
+
+| Beat                   | Card (reader's text)                                                                                              | Stage                                                                                                                                                                                                                                                                                                                                  | Still                                                 |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Open frame             | Name, case-study title, role, the card problem's first sentence, the materials note                               | The shipped marketplace screenshot, full width, with its strip. Nothing is waiting for scroll.                                                                                                                                                                                                                                         | `desktop-ag-00-first-frame`                           |
+| 1 · Detail             | AG-01 → Detail 1. "From the interface to its parts." The case study's marketplace caption.                        | Two blue callouts draw onto the screenshot: a listing card and the header control. A lens lifts the listing card out at 2.2×. The lens holds a **crop of the same screenshot**, labelled "Crop of the shipped screenshot, enlarged · not a Storybook screen". The rest dims.                                                           | `desktop-ag-01-detail`                                |
+| 2 · Assembly           | AG-02. "One library under four product surfaces." The five layers of the system, each from the case study.        | The lens shrinks into the library slab. The screenshot steps back into the first of four surfaces. Marketplace and login are shipped screenshots. Product and account are **openings**, marked "No screenshot in this portfolio". A blue band (the shared library) scales out under them, and drop lines draw from each surface to it. | `desktop-ag-02-assembly`                              |
+| 3 · Contract and gates | AG-03, AG-04. "Storybook as the contract, CI as the gate." Two technical decisions and the design-docs role line. | A blue bus draws down from the library. The camera follows it to AG-03, an editorial diagram of what a component contract states (states, escape hatches, accessibility defaults). A second bus leads to AG-04, a diagram of the CI gates the library and surfaces share.                                                              | `desktop-ag-03-gates`                                 |
+| 4 · Match cut          | The case study opens                                                                                              | The marketplace screenshot lands in the case study's hero within 2 px.                                                                                                                                                                                                                                                                 | `desktop-ag-08-match-cut`, `desktop-ag-09-case-study` |
+
+**What is not shown, on purpose:**
+
+- No Storybook screen. AG-03 is a drawing of what a contract specifies, labelled "Editorial diagram · schematic". It is not a picture of Storybook.
+- No component inventory. The portfolio does not have a verified list of the library's components, so none is drawn.
+- No pipeline vendor, check count or pass rate. AG-04 names the kinds of gate the case study describes and nothing more.
+
+**Sources in `data/projects.ts` (alwaysgeeky):** `cardProblem`, `caseStudy.context` (the four surfaces, Next.js, GraphQL), `myRole` (library ownership, conventions, Storybook, design docs), `whatIBuilt` (CI quality gates), `technicalDecisions[0]` and `[1]`, and `interfaceEvidence` (the two shipped screenshots and their captions).
+
+## Emplifi · measure the update, not the data
+
+**The move:** the dimension line and the time axis, in ochre. Ochre always means "this is a measure".
+
+**The idea:** the dashboards are proprietary, so the scene never shows one. It draws the **constraint** instead: a chart in a webview, the frame budget it has to fit, how a module is composed, and the decision to cut rendering cost rather than data. The transition is an **instrument**: a measuring cursor reads across the drawn chart, then the phone steps aside and the same reading becomes a frame timeline.
+
+| Beat             | Card (reader's text)                                                                                                   | Stage                                                                                                                                                                                                                                                                                   | Still                                                 |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Open frame       | Name, title, role, the card problem's first sentence, the disclosure "No screenshots: the dashboards are proprietary." | EM-01: a phone outline holding a **drawn** chart, labelled "Editorial diagram · illustrative data". It is generic marks, not an Emplifi screen.                                                                                                                                         | `desktop-em-00-first-frame`                           |
+| 1 · The webview  | EM-01. "A dense chart, where it actually ran." The case study's context.                                               | An ochre cursor sweeps across the chart and the webview outline turns ochre: this is the environment that mattered.                                                                                                                                                                     | `desktop-em-01-chart`                                 |
+| 2 · Profiling    | EM-02. "Measure the update, not the data." The problem statement and two checks.                                       | The phone steps aside. EM-02, a frame timeline, fades in. Its ticks are the 60 Hz frame budget, a property of the display. Work blocks (needed re-renders, other re-renders, the D3 chart update, layout, chart-update paint) grow along it. Spill marks show the frames they run into. | `desktop-em-02-cost`                                  |
+| 3 · Composition  | EM-03. "How a dashboard module is composed." The D3/React decision.                                                    | EM-03: the module's layers rise from the base. A dimension line marks where React's ownership ends and D3's begins.                                                                                                                                                                     | `desktop-em-03-composition`                           |
+| 4 · The decision | EM-04. "The same update, cheaper to draw." The compare diagram's argument, and the monitoring line.                    | The timeline redraws to its after state. Unneeded re-renders go, the paint block shortens, and the spill marks fade. A stamp reads "Monitor release" (Sentry and Hotjar, from the case study). Labels swap at one point, so before and after are never mixed.                           | `desktop-em-04-after`                                 |
+| 5 · Match cut    | The case study opens                                                                                                   | The webview drawing lands in the case study's hero.                                                                                                                                                                                                                                     | `desktop-em-08-match-cut`, `desktop-em-09-case-study` |
+
+**What is not shown, on purpose:**
+
+- No Emplifi interface, logo, metric name, or anything that imitates their product.
+- No measured value. Every timeline carries: "Schematic. Block lengths are illustrative; no profile or measured value is shown." Block lengths are proportions chosen to be legible.
+- **The 80% claim is not featured or shown.** The data file's outcome line and meta description contain it. The build drops any sentence with a percentage from the scene and the case study, and the review checks every page for a percentage figure. Whether to keep the claim on the production site is an open owner decision (see 06).
+
+**Sources in `data/projects.ts` (emplifi):** `cardProblem` (first sentence only), `caseStudy.context`, `problem`, `myRole`, `technicalDecisions[0]` and `[1]`, `uxDecisions` (monitoring), and `diagrams` (the compare diagram's columns).
+
+## Phone and reduced motion
+
+On phones, each beat's readable drawing sits in its card as a sideways-scrolling frame, because the stage drawing is too small to read at phone scale. The stage still runs above the cards as a window.
+
+Under reduced motion, or without script, neither scene moves. Each step shows its static figure: the detail lens as a still crop, the assembly, the contract and gates, and the four Emplifi drawings. The case study follows. See `screenshots/*-reduced-*`.

@@ -83,8 +83,12 @@ const GSAP = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5";
 // GSAP and the timeline are confirmed, and if that has not happened by the load event (a
 // script failed or was blocked), the static layout comes back.
 const PROVISIONAL = `if(m==="full"){r.classList.add("motion-live");addEventListener("load",function(){if(r.classList.contains("motion-ready"))return;r.classList.remove("motion-live");var t=location.hash&&document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)t.scrollIntoView()})}`;
+// Depth: the stacked 3D anatomy runs only where it has been seen to render (Chromium, which
+// exposes navigator.userAgentData); everywhere else the flat 2D section runs instead.
+// ?depth=flat or ?depth=3d forces either, for review.
+const DEPTH = `var d=/[?&]depth=(flat|3d)/.exec(location.search);if(d?d[1]==="flat":!navigator.userAgentData)r.classList.add("depth-flat");`;
 const boot = (live) =>
-  `<script>(function(){var r=document.documentElement,q=matchMedia("(prefers-reduced-motion: reduce)"),s=null;try{s=JSON.parse(localStorage.getItem("aa-motion2")||"null")}catch(e){}var os=q.matches?"reduce":"full",m=os;if(s&&(s.m==="full"||s.m==="reduce")){if(os==="full")m=s.m;else if(s.os==="reduce")m=s.m}r.dataset.motion=m;r.classList.add("js");var n=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];if((n&&n.type==="back_forward")||location.hash)r.classList.add("returning");${live ? PROVISIONAL : ""}})();</script>`;
+  `<script>(function(){var r=document.documentElement,q=matchMedia("(prefers-reduced-motion: reduce)"),s=null;try{s=JSON.parse(localStorage.getItem("aa-motion2")||"null")}catch(e){}var os=q.matches?"reduce":"full",m=os;if(s&&(s.m==="full"||s.m==="reduce")){if(os==="full")m=s.m;else if(s.os==="reduce")m=s.m}r.dataset.motion=m;r.classList.add("js");var n=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];if((n&&n.type==="back_forward")||location.hash)r.classList.add("returning");${DEPTH}${live ? PROVISIONAL : ""}})();</script>`;
 
 const shell = ({ title, description, body, scripts = "", live = false }) => `<!doctype html>
 <html lang="en">
@@ -188,21 +192,21 @@ const WS_STATES = [
     label: "Ready for review",
     count: "0 of 13 terms confirmed",
     tally: 0,
-    msg: "0 of 13 confirmed. Nothing counts yet.",
+    msg: "0 of 13 terms confirmed. Review required.",
   },
   {
     key: "partial",
     label: "Partially reviewed",
     count: "6 of 13 terms confirmed",
     tally: 6,
-    msg: "6 of 13 confirmed. Only those count.",
+    msg: "6 of 13 terms confirmed. 7 await review.",
   },
   {
     key: "confirmed",
     label: "Confirmed",
     count: "13 of 13 terms confirmed",
     tally: 13,
-    msg: "13 of 13 confirmed. Every term now counts.",
+    msg: "13 of 13 terms confirmed. Review complete.",
   },
 ];
 const wsAlt = (st) =>
@@ -213,8 +217,10 @@ const wsImgs = (sizes, alt) =>
       `<img data-ws-img="${st.key}" ${media("proto-workspace-" + st.key)} sizes="${sizes}" width="1600" height="1000" alt="${alt ? esc(wsAlt(st)) : ""}" loading="lazy" decoding="async">`
   ).join("");
 
-// The visible consequence of each state: thirteen terms, filled as they are confirmed.
+// The visible consequence of each state: thirteen terms, filled as they are confirmed. The
+// states are the prototype's, with fictional data, and the tally says so wherever it appears.
 const tally = (cls) => `<div class="tally ${cls}" data-ws data-state="ready" aria-hidden="true">
+  <span class="tally__k">Prototype state · fictional data</span>
   <span class="tally__ticks">${Array.from({ length: 13 }, () => "<i></i>").join("")}</span>
   <span class="tally__msg">${WS_STATES.map((st) => `<span data-ws-msg="${st.key}">${st.msg}</span>`).join("")}</span>
 </div>`;

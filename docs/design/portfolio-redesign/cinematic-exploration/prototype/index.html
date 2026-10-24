@@ -28,6 +28,8 @@
         r.classList.add("js");
         var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
         if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+        var d = /[?&]depth=(flat|3d)/.exec(location.search);
+        if (d ? d[1] === "flat" : !navigator.userAgentData) r.classList.add("depth-flat");
         if (m === "full") {
           r.classList.add("motion-live");
           addEventListener("load", function () {
@@ -478,15 +480,16 @@
                 <em>Design prototype · fictional data</em>
               </p>
               <div class="tally tally--stage" data-ws data-state="ready" aria-hidden="true">
+                <span class="tally__k">Prototype state · fictional data</span>
                 <span class="tally__ticks"
                   ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
                   ><i></i><i></i
                 ></span>
                 <span class="tally__msg"
-                  ><span data-ws-msg="ready">0 of 13 confirmed. Nothing counts yet.</span
-                  ><span data-ws-msg="partial">6 of 13 confirmed. Only those count.</span
+                  ><span data-ws-msg="ready">0 of 13 terms confirmed. Review required.</span
+                  ><span data-ws-msg="partial">6 of 13 terms confirmed. 7 await review.</span
                   ><span data-ws-msg="confirmed"
-                    >13 of 13 confirmed. Every term now counts.</span
+                    >13 of 13 terms confirmed. Review complete.</span
                   ></span
                 >
               </div>
@@ -777,15 +780,16 @@
                   </button>
                 </div>
                 <div class="tally tally--card" data-ws data-state="ready" aria-hidden="true">
+                  <span class="tally__k">Prototype state · fictional data</span>
                   <span class="tally__ticks"
                     ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
                     ><i></i><i></i
                   ></span>
                   <span class="tally__msg"
-                    ><span data-ws-msg="ready">0 of 13 confirmed. Nothing counts yet.</span
-                    ><span data-ws-msg="partial">6 of 13 confirmed. Only those count.</span
+                    ><span data-ws-msg="ready">0 of 13 terms confirmed. Review required.</span
+                    ><span data-ws-msg="partial">6 of 13 terms confirmed. 7 await review.</span
                     ><span data-ws-msg="confirmed"
-                      >13 of 13 confirmed. Every term now counts.</span
+                      >13 of 13 terms confirmed. Review complete.</span
                     ></span
                   >
                 </div>

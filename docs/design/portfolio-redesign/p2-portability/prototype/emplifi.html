@@ -1,0 +1,1509 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Emplifi Sheet</title>
+    <meta
+      name="description"
+      content="Ali Pajand portfolio, P2: Emplifi, a screenshot-free case study about rendering dense D3 charts in mobile webviews."
+    />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="data:," />
+    <script>
+      (function () {
+        var r = document.documentElement,
+          q = matchMedia("(prefers-reduced-motion: reduce)"),
+          s = null;
+        try {
+          s = JSON.parse(localStorage.getItem("aa-motion2") || "null");
+        } catch (e) {}
+        var os = q.matches ? "reduce" : "full",
+          m = os;
+        if (s && (s.m === "full" || s.m === "reduce")) {
+          if (os === "full") m = s.m;
+          else if (s.os === "reduce") m = s.m;
+        }
+        r.dataset.motion = m;
+        r.classList.add("js");
+        var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
+        if (m === "full") {
+          r.classList.add("motion-live");
+          addEventListener("load", function () {
+            if (r.classList.contains("motion-ready")) return;
+            r.classList.remove("motion-live");
+            var t =
+              location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+            if (t) t.scrollIntoView();
+          });
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="grammar.css" />
+    <link rel="stylesheet" href="projects.css" />
+  </head>
+  <body>
+    <a class="skip" href="#case">Skip to the Emplifi case study</a>
+
+    <header class="bar">
+      <a class="bar__mark" href="index.html" aria-label="Ali Pajand, portfolio register"
+        ><span class="bar__ap" aria-hidden="true">A–A</span
+        ><span class="bar__name">Ali Pajand</span></a
+      >
+      <nav class="bar__nav" aria-label="Primary">
+        <a href="index.html#register">Index</a><a href="#case">Case study</a
+        ><a href="#contact">Contact</a>
+        <button type="button" class="bar__motion" data-motion-toggle aria-pressed="true">
+          <span class="bar__dot" aria-hidden="true"></span><span data-motion-label>Motion on</span>
+        </button>
+      </nav>
+    </header>
+    <main id="main" class="page page--em">
+      <section
+        class="seq"
+        id="sequence"
+        data-scene="em"
+        aria-label="Emplifi: the cost of drawing a dense chart in a mobile webview"
+      >
+        <div class="stage" data-stage aria-hidden="true">
+          <div class="stage__win" data-win></div>
+          <div class="pic" data-pic>
+            <div class="canvas" data-canvas>
+              <div class="em-phone" data-phone data-vt-subject>
+                <svg
+                  class="drawing drawing--em"
+                  viewBox="0 0 420 820"
+                  preserveAspectRatio="xMidYMid meet"
+                  aria-hidden="true"
+                  focusable="false"
+                  data-label="em-webview"
+                >
+                  <rect
+                    x="18"
+                    y="14"
+                    width="384"
+                    height="728"
+                    rx="46"
+                    class="phone ink"
+                    pathLength="1"
+                  />
+                  <rect x="34" y="30" width="352" height="696" rx="32" class="phone__glass" />
+                  <rect x="164" y="40" width="92" height="22" rx="11" class="phone__notch" />
+                  <rect x="34" y="78" width="352" height="58" class="host" />
+                  <text x="54" y="114" class="t-small">Host app</text>
+                  <rect x="308" y="96" width="58" height="20" rx="10" class="host__pill" />
+                  <rect
+                    x="44"
+                    y="148"
+                    width="332"
+                    height="568"
+                    class="webview ink"
+                    pathLength="1"
+                  />
+                  <text x="58" y="176" class="t-small t-em">Embedded webview</text>
+                  <text x="58" y="206" class="t-cell">Dashboard module</text>
+
+                  <g class="chart">
+                    <line x1="58" y1="226.0" x2="362" y2="226.0" class="grid" />
+                    <line x1="58" y1="275.5" x2="362" y2="275.5" class="grid" />
+                    <line x1="58" y1="325.0" x2="362" y2="325.0" class="grid" />
+                    <line x1="58" y1="374.5" x2="362" y2="374.5" class="grid" />
+                    <line x1="58" y1="424.0" x2="362" y2="424.0" class="grid" />
+                    <path
+                      d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3 L362,424 L58,424 Z"
+                      class="area"
+                    />
+                    <path
+                      d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3"
+                      class="line ink"
+                      pathLength="1"
+                    />
+                    <path
+                      d="M58.0,365.3 L62.8,364.3 L67.7,364.9 L72.5,359.4 L77.3,362.8 L82.1,365.2 L87.0,356.0 L91.8,346.7 L96.6,337.3 L101.4,330.3 L106.3,331.0 L111.1,323.1 L115.9,316.8 L120.7,313.2 L125.6,320.2 L130.4,327.0 L135.2,323.7 L140.0,330.5 L144.9,335.6 L149.7,341.4 L154.5,337.3 L159.3,347.3 L164.2,355.2 L169.0,355.5 L173.8,365.2 L178.6,375.6 L183.5,374.3 L188.3,377.5 L193.1,372.8 L197.9,376.6 L202.8,380.2 L207.6,380.3 L212.4,371.9 L217.2,364.2 L222.1,354.7 L226.9,356.4 L231.7,361.2 L236.5,360.2 L241.4,351.9 L246.2,341.9 L251.0,335.9 L255.8,330.6 L260.7,324.6 L265.5,325.5 L270.3,326.0 L275.1,327.0 L280.0,334.6 L284.8,330.1 L289.6,336.1 L294.4,340.9 L299.3,342.0 L304.1,351.1 L308.9,353.6 L313.7,361.0 L318.6,359.0 L323.4,367.3 L328.2,374.2 L333.0,383.8 L337.9,389.6 L342.7,396.9 L347.5,403.0 L352.3,402.3 L357.2,397.5 L362.0,403.8"
+                      class="line line--2 ink"
+                      pathLength="1"
+                    />
+                    <path
+                      d="M58.0,299.7 L62.8,305.8 L67.7,306.9 L72.5,310.1 L77.3,308.9 L82.1,303.6 L87.0,302.3 L91.8,306.1 L96.6,309.5 L101.4,300.6 L106.3,292.9 L111.1,295.6 L115.9,289.7 L120.7,293.2 L125.6,289.3 L130.4,289.0 L135.2,284.0 L140.0,287.0 L144.9,282.1 L149.7,288.3 L154.5,283.6 L159.3,288.0 L164.2,293.1 L169.0,290.9 L173.8,296.9 L178.6,301.7 L183.5,299.7 L188.3,305.3 L193.1,302.4 L197.9,301.4 L202.8,306.8 L207.6,306.3 L212.4,311.9 L217.2,312.6 L222.1,308.1 L226.9,311.6 L231.7,308.8 L236.5,307.8 L241.4,302.8 L246.2,302.8 L251.0,298.1 L255.8,296.0 L260.7,294.7 L265.5,294.1 L270.3,295.9 L275.1,297.2 L280.0,294.5 L284.8,294.4 L289.6,294.3 L294.4,293.8 L299.3,290.8 L304.1,287.7 L308.9,290.8 L313.7,292.3 L318.6,299.2 L323.4,306.1 L328.2,314.2 L333.0,312.5 L337.9,319.3 L342.7,316.7 L347.5,325.0 L352.3,325.0 L357.2,331.6 L362.0,327.4"
+                      class="line line--3 ink"
+                      pathLength="1"
+                    />
+                    <g class="bars">
+                      <rect x="59.0" y="503.9" width="7.5" height="22.1" class="bar" />
+                      <rect x="68.5" y="503.7" width="7.5" height="22.3" class="bar" />
+                      <rect x="78.0" y="505.4" width="7.5" height="20.6" class="bar" />
+                      <rect x="87.5" y="503.3" width="7.5" height="22.7" class="bar" />
+                      <rect x="97.0" y="497.9" width="7.5" height="28.1" class="bar" />
+                      <rect x="106.5" y="499.1" width="7.5" height="26.9" class="bar" />
+                      <rect x="116.0" y="505.3" width="7.5" height="20.7" class="bar" />
+                      <rect x="125.5" y="508.6" width="7.5" height="17.4" class="bar" />
+                      <rect x="135.0" y="511.1" width="7.5" height="14.9" class="bar" />
+                      <rect x="144.5" y="513.5" width="7.5" height="12.5" class="bar" />
+                      <rect x="154.0" y="511.1" width="7.5" height="14.9" class="bar" />
+                      <rect x="163.5" y="510.8" width="7.5" height="15.2" class="bar" />
+                      <rect x="173.0" y="504.6" width="7.5" height="21.4" class="bar" />
+                      <rect x="182.5" y="502.0" width="7.5" height="24.0" class="bar" />
+                      <rect x="192.0" y="502.1" width="7.5" height="23.9" class="bar" />
+                      <rect x="201.5" y="495.5" width="7.5" height="30.5" class="bar" />
+                      <rect x="211.0" y="488.0" width="7.5" height="38.0" class="bar" />
+                      <rect x="220.5" y="488.5" width="7.5" height="37.5" class="bar" />
+                      <rect x="230.0" y="487.3" width="7.5" height="38.7" class="bar" />
+                      <rect x="239.5" y="481.0" width="7.5" height="45.0" class="bar" />
+                      <rect x="249.0" y="474.1" width="7.5" height="51.9" class="bar" />
+                      <rect x="258.5" y="473.9" width="7.5" height="52.1" class="bar" />
+                      <rect x="268.0" y="477.2" width="7.5" height="48.8" class="bar" />
+                      <rect x="277.5" y="485.6" width="7.5" height="40.4" class="bar" />
+                      <rect x="287.0" y="489.0" width="7.5" height="37.0" class="bar" />
+                      <rect x="296.5" y="489.0" width="7.5" height="37.0" class="bar" />
+                      <rect x="306.0" y="484.9" width="7.5" height="41.1" class="bar" />
+                      <rect x="315.5" y="493.2" width="7.5" height="32.8" class="bar" />
+                      <rect x="325.0" y="490.5" width="7.5" height="35.5" class="bar" />
+                      <rect x="334.5" y="498.4" width="7.5" height="27.6" class="bar" />
+                      <rect x="344.0" y="506.2" width="7.5" height="19.8" class="bar" />
+                      <rect x="353.5" y="504.8" width="7.5" height="21.2" class="bar" />
+                    </g>
+                  </g>
+                  <line x1="58" y1="556" x2="362" y2="556" class="hair" />
+                  <rect x="58" y="572" width="304" height="30" class="row-box" />
+                  <rect x="66" y="582" width="90" height="10" class="row-ink" />
+                  <rect x="58" y="614" width="304" height="30" class="row-box" />
+                  <rect x="66" y="624" width="130" height="10" class="row-ink" />
+                  <rect x="58" y="656" width="304" height="30" class="row-box" />
+                  <rect x="66" y="666" width="170" height="10" class="row-ink" />
+                  <line x1="210" y1="226" x2="210" y2="526" class="cursor em" />
+                  <text x="210" y="776" class="t-kind" text-anchor="middle">
+                    EM-01 · Editorial diagram · illustrative data
+                  </text>
+                </svg>
+              </div>
+              <div class="em-sheet em-sheet--tl" data-tl data-late>
+                <svg
+                  class="drawing drawing--em drawing--tl drawing--both"
+                  viewBox="0 0 1000 470"
+                  preserveAspectRatio="xMidYMid meet"
+                  aria-hidden="true"
+                  focusable="false"
+                  data-label="em-timeline"
+                >
+                  <rect x="12" y="12" width="976" height="396" class="frame" />
+                  <text x="40" y="58" class="t-title">
+                    <tspan class="t-before">One update, before</tspan>
+                    <tspan class="t-after">One update, after</tspan>
+                  </text>
+                  <text x="210" y="86" class="t-small">frame budget at 60 Hz · 16.7 ms each</text>
+                  <line x1="210" y1="94" x2="210" y2="304" class="frame-tick frame-tick--0" />
+                  <line x1="338" y1="94" x2="338" y2="304" class="frame-tick" />
+                  <line x1="466" y1="94" x2="466" y2="304" class="frame-tick" />
+                  <line x1="594" y1="94" x2="594" y2="304" class="frame-tick" />
+                  <line x1="722" y1="94" x2="722" y2="304" class="frame-tick" />
+                  <line x1="850" y1="94" x2="850" y2="304" class="frame-tick" />
+                  <line x1="978" y1="94" x2="978" y2="304" class="frame-tick" />
+                  <g class="miss">
+                    <rect x="468" y="102" width="124" height="12" class="miss__box" />
+                    <rect x="596" y="102" width="124" height="12" class="miss__box" />
+                    <rect x="724" y="102" width="124" height="12" class="miss__box" />
+                    <text x="470" y="326" class="t-small t-em">frames the update spills into</text>
+                  </g>
+                  <g class="blk" data-k="0.32" data-blk="render">
+                    <rect
+                      x="218.0"
+                      y="126"
+                      width="250.0"
+                      height="30"
+                      class="blk__box blk__box--render"
+                    />
+                  </g>
+                  <text x="196" y="148" class="t-small t-before" text-anchor="end">
+                    All re-renders
+                  </text>
+                  <text x="196" y="148" class="t-small t-after" text-anchor="end">
+                    Needed re-renders
+                  </text>
+                  <g class="blk" data-k="0.55" data-blk="d3">
+                    <rect
+                      x="474.0"
+                      y="170"
+                      width="155.0"
+                      height="30"
+                      class="blk__box blk__box--d3"
+                    />
+                  </g>
+                  <text x="196" y="192" class="t-small t-before" text-anchor="end">
+                    D3 chart update
+                  </text>
+                  <text x="196" y="192" class="t-small t-after" text-anchor="end">
+                    D3 chart update
+                  </text>
+                  <g class="blk" data-k="0.5" data-blk="layout">
+                    <rect
+                      x="635.0"
+                      y="214"
+                      width="125.0"
+                      height="30"
+                      class="blk__box blk__box--layout"
+                    />
+                  </g>
+                  <text x="196" y="236" class="t-small t-before" text-anchor="end">Layout</text>
+                  <text x="196" y="236" class="t-small t-after" text-anchor="end">Layout</text>
+                  <g class="blk" data-k="0.48" data-blk="paint">
+                    <rect
+                      x="766.0"
+                      y="258"
+                      width="140.0"
+                      height="30"
+                      class="blk__box blk__box--paint"
+                    />
+                  </g>
+                  <text x="196" y="280" class="t-small t-before" text-anchor="end">
+                    Chart-update paint
+                  </text>
+                  <text x="196" y="280" class="t-small t-after" text-anchor="end">
+                    Chart-update paint
+                  </text>
+                  <line x1="210" y1="304" x2="978" y2="304" class="axis" />
+                  <text x="40" y="386" class="t-small">
+                    Schematic. Block lengths are illustrative; no profile or measured value is
+                    shown.
+                  </text>
+
+                  <g class="strip">
+                    <rect x="0" y="420" width="1000" height="50" class="strip__bg" />
+                    <line x1="0" y1="420" x2="1000" y2="420" class="hair" />
+                    <text x="24" y="451" class="t-code">EM-02</text>
+                    <text x="111" y="451" class="t-strip">The cost of one chart update</text>
+                    <text x="976" y="451" class="t-kind" text-anchor="end">
+                      Editorial diagram · schematic
+                    </text>
+                  </g>
+                </svg>
+              </div>
+              <div class="em-sheet em-sheet--layers" data-layers data-late>
+                <svg
+                  class="drawing drawing--em"
+                  viewBox="0 0 1000 646"
+                  preserveAspectRatio="xMidYMid meet"
+                  aria-hidden="true"
+                  focusable="false"
+                  data-label="em-layers"
+                >
+                  <rect x="12" y="12" width="976" height="572" class="frame" />
+                  <text x="40" y="58" class="t-title">How a dashboard module is composed</text>
+
+                  <g class="lyr" data-lyr="0">
+                    <path d="M64,122 L104,100 L704,100 L664,122 Z" class="lyr__top" />
+                    <rect
+                      x="64"
+                      y="122"
+                      width="600"
+                      height="80"
+                      class="lyr__face ink"
+                      pathLength="1"
+                    />
+                    <text x="82" y="148" class="t-cell">React product composition</text>
+                    <text x="82" y="170" class="t-small" text-anchor="start">
+                      The dashboard UI, controls, and layout around each chart.
+                    </text>
+                  </g>
+                  <g class="lyr" data-lyr="1">
+                    <path d="M90,234 L130,212 L730,212 L690,234 Z" class="lyr__top" />
+                    <rect
+                      x="90"
+                      y="234"
+                      width="600"
+                      height="80"
+                      class="lyr__face ink"
+                      pathLength="1"
+                    />
+                    <text x="108" y="260" class="t-cell">D3.js chart behavior</text>
+                    <text x="108" y="282" class="t-small" text-anchor="start">
+                      Tailored data visualization and chart interactions, tuned on their own terms.
+                    </text>
+                  </g>
+                  <g class="lyr" data-lyr="2">
+                    <path d="M116,346 L156,324 L756,324 L716,346 Z" class="lyr__top" />
+                    <rect
+                      x="116"
+                      y="346"
+                      width="600"
+                      height="80"
+                      class="lyr__face ink"
+                      pathLength="1"
+                    />
+                    <text x="134" y="372" class="t-cell">GSAP motion</text>
+                    <text x="134" y="394" class="t-small" text-anchor="start">
+                      Used where it helps people keep their place in the data, not as decoration.
+                    </text>
+                  </g>
+                  <g class="lyr" data-lyr="3">
+                    <path d="M142,458 L182,436 L782,436 L742,458 Z" class="lyr__top" />
+                    <rect
+                      x="142"
+                      y="458"
+                      width="600"
+                      height="80"
+                      class="lyr__face ink"
+                      pathLength="1"
+                    />
+                    <text x="160" y="484" class="t-cell">Shared accessible components</text>
+                    <text x="160" y="506" class="t-small" text-anchor="start">
+                      The documented baseline dashboard modules were assembled from, instead of
+                    </text>
+                    <text x="160" y="524" class="t-small" text-anchor="start">
+                      starting from scratch.
+                    </text>
+                  </g>
+                  <path d="M728,122 V314" class="dim em" />
+                  <path d="M720,122 H736 M720,314 H736" class="dim em" />
+                  <text x="748" y="168" class="t-cell t-em-ink" text-anchor="start">
+                    React owns the
+                  </text>
+                  <text x="748" y="190" class="t-cell t-em-ink" text-anchor="start">
+                    composition around the
+                  </text>
+                  <text x="748" y="212" class="t-cell t-em-ink" text-anchor="start">
+                    chart; D3 owns the
+                  </text>
+                  <text x="748" y="234" class="t-cell t-em-ink" text-anchor="start">
+                    chart's own behavior.
+                  </text>
+
+                  <g class="strip">
+                    <rect x="0" y="596" width="1000" height="50" class="strip__bg" />
+                    <line x1="0" y1="596" x2="1000" y2="596" class="hair" />
+                    <text x="24" y="627" class="t-code">EM-03</text>
+                    <text x="111" y="627" class="t-strip">Composition of a dashboard module</text>
+                    <text x="976" y="627" class="t-kind" text-anchor="end">Editorial diagram</text>
+                  </g>
+                </svg>
+              </div>
+              <p class="em-stamp" data-stamp data-late>
+                <b>Monitor release</b> Use Sentry and Hotjar to see how dense dashboards behave
+                after release, not only in local testing.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="track" data-track>
+          <header class="step step--open" id="top">
+            <div class="step__card step__card--open">
+              <p class="step__k"><span class="step__code">EM</span> Featured sheet · 2022–2023</p>
+              <h1 class="step__name">Emplifi</h1>
+              <p class="step__title">Enterprise Analytics</p>
+              <p class="step__role">Senior Frontend Engineer · Senior Software Engineer today</p>
+              <p class="step__lede">
+                Data-heavy React and TypeScript analytics modules built on D3.js, assembled from
+                shared accessible components and their documentation, running in both desktop
+                browsers and embedded mobile webviews.
+              </p>
+              <p class="step__note">
+                No screenshots: the dashboards are proprietary. Every drawing here is an editorial
+                diagram with illustrative data.
+              </p>
+              <p class="step__prov">
+                <b>Materials.</b> <span class="m m--draw">Editorial diagrams</span> only, with
+                <span class="m m--draw">illustrative data</span>. No Emplifi interface is shown or
+                imitated, and no value in a drawing is a measurement.
+              </p>
+              <p class="step__go"><a class="btn" href="#case">Read the case study</a></p>
+            </div>
+          </header>
+          <article class="step" id="chart" data-beat="chart">
+            <div class="step__card">
+              <p class="step__k"><span class="step__code em">1</span> EM-01 · The webview</p>
+              <h2 class="step__h">A dense chart, where it actually ran</h2>
+              <p>
+                The dashboards were React, TypeScript, D3.js, and GSAP, shipped to standard browsers
+                and to embedded mobile webviews. The webviews were the constraint that mattered:
+                they surfaced animation and layout cost that desktop testing never showed.
+              </p>
+            </div>
+            <figure class="step__fig step__fig--phone">
+              <svg
+                class="drawing drawing--em"
+                viewBox="0 0 420 820"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+                data-label="em-webview"
+              >
+                <rect
+                  x="18"
+                  y="14"
+                  width="384"
+                  height="728"
+                  rx="46"
+                  class="phone ink"
+                  pathLength="1"
+                />
+                <rect x="34" y="30" width="352" height="696" rx="32" class="phone__glass" />
+                <rect x="164" y="40" width="92" height="22" rx="11" class="phone__notch" />
+                <rect x="34" y="78" width="352" height="58" class="host" />
+                <text x="54" y="114" class="t-small">Host app</text>
+                <rect x="308" y="96" width="58" height="20" rx="10" class="host__pill" />
+                <rect x="44" y="148" width="332" height="568" class="webview ink" pathLength="1" />
+                <text x="58" y="176" class="t-small t-em">Embedded webview</text>
+                <text x="58" y="206" class="t-cell">Dashboard module</text>
+
+                <g class="chart">
+                  <line x1="58" y1="226.0" x2="362" y2="226.0" class="grid" />
+                  <line x1="58" y1="275.5" x2="362" y2="275.5" class="grid" />
+                  <line x1="58" y1="325.0" x2="362" y2="325.0" class="grid" />
+                  <line x1="58" y1="374.5" x2="362" y2="374.5" class="grid" />
+                  <line x1="58" y1="424.0" x2="362" y2="424.0" class="grid" />
+                  <path
+                    d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3 L362,424 L58,424 Z"
+                    class="area"
+                  />
+                  <path
+                    d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3"
+                    class="line ink"
+                    pathLength="1"
+                  />
+                  <path
+                    d="M58.0,365.3 L62.8,364.3 L67.7,364.9 L72.5,359.4 L77.3,362.8 L82.1,365.2 L87.0,356.0 L91.8,346.7 L96.6,337.3 L101.4,330.3 L106.3,331.0 L111.1,323.1 L115.9,316.8 L120.7,313.2 L125.6,320.2 L130.4,327.0 L135.2,323.7 L140.0,330.5 L144.9,335.6 L149.7,341.4 L154.5,337.3 L159.3,347.3 L164.2,355.2 L169.0,355.5 L173.8,365.2 L178.6,375.6 L183.5,374.3 L188.3,377.5 L193.1,372.8 L197.9,376.6 L202.8,380.2 L207.6,380.3 L212.4,371.9 L217.2,364.2 L222.1,354.7 L226.9,356.4 L231.7,361.2 L236.5,360.2 L241.4,351.9 L246.2,341.9 L251.0,335.9 L255.8,330.6 L260.7,324.6 L265.5,325.5 L270.3,326.0 L275.1,327.0 L280.0,334.6 L284.8,330.1 L289.6,336.1 L294.4,340.9 L299.3,342.0 L304.1,351.1 L308.9,353.6 L313.7,361.0 L318.6,359.0 L323.4,367.3 L328.2,374.2 L333.0,383.8 L337.9,389.6 L342.7,396.9 L347.5,403.0 L352.3,402.3 L357.2,397.5 L362.0,403.8"
+                    class="line line--2 ink"
+                    pathLength="1"
+                  />
+                  <path
+                    d="M58.0,299.7 L62.8,305.8 L67.7,306.9 L72.5,310.1 L77.3,308.9 L82.1,303.6 L87.0,302.3 L91.8,306.1 L96.6,309.5 L101.4,300.6 L106.3,292.9 L111.1,295.6 L115.9,289.7 L120.7,293.2 L125.6,289.3 L130.4,289.0 L135.2,284.0 L140.0,287.0 L144.9,282.1 L149.7,288.3 L154.5,283.6 L159.3,288.0 L164.2,293.1 L169.0,290.9 L173.8,296.9 L178.6,301.7 L183.5,299.7 L188.3,305.3 L193.1,302.4 L197.9,301.4 L202.8,306.8 L207.6,306.3 L212.4,311.9 L217.2,312.6 L222.1,308.1 L226.9,311.6 L231.7,308.8 L236.5,307.8 L241.4,302.8 L246.2,302.8 L251.0,298.1 L255.8,296.0 L260.7,294.7 L265.5,294.1 L270.3,295.9 L275.1,297.2 L280.0,294.5 L284.8,294.4 L289.6,294.3 L294.4,293.8 L299.3,290.8 L304.1,287.7 L308.9,290.8 L313.7,292.3 L318.6,299.2 L323.4,306.1 L328.2,314.2 L333.0,312.5 L337.9,319.3 L342.7,316.7 L347.5,325.0 L352.3,325.0 L357.2,331.6 L362.0,327.4"
+                    class="line line--3 ink"
+                    pathLength="1"
+                  />
+                  <g class="bars">
+                    <rect x="59.0" y="503.9" width="7.5" height="22.1" class="bar" />
+                    <rect x="68.5" y="503.7" width="7.5" height="22.3" class="bar" />
+                    <rect x="78.0" y="505.4" width="7.5" height="20.6" class="bar" />
+                    <rect x="87.5" y="503.3" width="7.5" height="22.7" class="bar" />
+                    <rect x="97.0" y="497.9" width="7.5" height="28.1" class="bar" />
+                    <rect x="106.5" y="499.1" width="7.5" height="26.9" class="bar" />
+                    <rect x="116.0" y="505.3" width="7.5" height="20.7" class="bar" />
+                    <rect x="125.5" y="508.6" width="7.5" height="17.4" class="bar" />
+                    <rect x="135.0" y="511.1" width="7.5" height="14.9" class="bar" />
+                    <rect x="144.5" y="513.5" width="7.5" height="12.5" class="bar" />
+                    <rect x="154.0" y="511.1" width="7.5" height="14.9" class="bar" />
+                    <rect x="163.5" y="510.8" width="7.5" height="15.2" class="bar" />
+                    <rect x="173.0" y="504.6" width="7.5" height="21.4" class="bar" />
+                    <rect x="182.5" y="502.0" width="7.5" height="24.0" class="bar" />
+                    <rect x="192.0" y="502.1" width="7.5" height="23.9" class="bar" />
+                    <rect x="201.5" y="495.5" width="7.5" height="30.5" class="bar" />
+                    <rect x="211.0" y="488.0" width="7.5" height="38.0" class="bar" />
+                    <rect x="220.5" y="488.5" width="7.5" height="37.5" class="bar" />
+                    <rect x="230.0" y="487.3" width="7.5" height="38.7" class="bar" />
+                    <rect x="239.5" y="481.0" width="7.5" height="45.0" class="bar" />
+                    <rect x="249.0" y="474.1" width="7.5" height="51.9" class="bar" />
+                    <rect x="258.5" y="473.9" width="7.5" height="52.1" class="bar" />
+                    <rect x="268.0" y="477.2" width="7.5" height="48.8" class="bar" />
+                    <rect x="277.5" y="485.6" width="7.5" height="40.4" class="bar" />
+                    <rect x="287.0" y="489.0" width="7.5" height="37.0" class="bar" />
+                    <rect x="296.5" y="489.0" width="7.5" height="37.0" class="bar" />
+                    <rect x="306.0" y="484.9" width="7.5" height="41.1" class="bar" />
+                    <rect x="315.5" y="493.2" width="7.5" height="32.8" class="bar" />
+                    <rect x="325.0" y="490.5" width="7.5" height="35.5" class="bar" />
+                    <rect x="334.5" y="498.4" width="7.5" height="27.6" class="bar" />
+                    <rect x="344.0" y="506.2" width="7.5" height="19.8" class="bar" />
+                    <rect x="353.5" y="504.8" width="7.5" height="21.2" class="bar" />
+                  </g>
+                </g>
+                <line x1="58" y1="556" x2="362" y2="556" class="hair" />
+                <rect x="58" y="572" width="304" height="30" class="row-box" />
+                <rect x="66" y="582" width="90" height="10" class="row-ink" />
+                <rect x="58" y="614" width="304" height="30" class="row-box" />
+                <rect x="66" y="624" width="130" height="10" class="row-ink" />
+                <rect x="58" y="656" width="304" height="30" class="row-box" />
+                <rect x="66" y="666" width="170" height="10" class="row-ink" />
+                <line x1="210" y1="226" x2="210" y2="526" class="cursor em" />
+                <text x="210" y="776" class="t-kind" text-anchor="middle">
+                  EM-01 · Editorial diagram · illustrative data
+                </text>
+              </svg>
+            </figure>
+          </article>
+          <article class="step" id="cost" data-beat="cost">
+            <div class="step__card">
+              <p class="step__k"><span class="step__code em">2</span> EM-02 · Profiling</p>
+              <h2 class="step__h">Measure the update, not the data</h2>
+              <p>
+                Dense analytics degrade quietly. Interaction cost, layout pressure, and host
+                constraints each look tolerable on their own, and then a customer opens the
+                dashboard in a webview on a mid-range phone and the charts stop being usable.
+                Cutting the data down would have solved the symptom and broken the product.
+              </p>
+              <p class="step__src">
+                Test dashboard modules in embedded mobile webviews, not only desktop browsers. Find
+                unnecessary re-renders and chart-update paint work in dense views.
+              </p>
+            </div>
+            <figure class="step__fig scroll-x">
+              <svg
+                class="drawing drawing--em drawing--tl drawing--before"
+                viewBox="0 0 1000 470"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+                data-label="em-timeline"
+              >
+                <rect x="12" y="12" width="976" height="396" class="frame" />
+                <text x="40" y="58" class="t-title">
+                  <tspan class="t-before">One update, before</tspan>
+                  <tspan class="t-after">One update, after</tspan>
+                </text>
+                <text x="210" y="86" class="t-small">frame budget at 60 Hz · 16.7 ms each</text>
+                <line x1="210" y1="94" x2="210" y2="304" class="frame-tick frame-tick--0" />
+                <line x1="338" y1="94" x2="338" y2="304" class="frame-tick" />
+                <line x1="466" y1="94" x2="466" y2="304" class="frame-tick" />
+                <line x1="594" y1="94" x2="594" y2="304" class="frame-tick" />
+                <line x1="722" y1="94" x2="722" y2="304" class="frame-tick" />
+                <line x1="850" y1="94" x2="850" y2="304" class="frame-tick" />
+                <line x1="978" y1="94" x2="978" y2="304" class="frame-tick" />
+                <g class="miss">
+                  <rect x="468" y="102" width="124" height="12" class="miss__box" />
+                  <rect x="596" y="102" width="124" height="12" class="miss__box" />
+                  <rect x="724" y="102" width="124" height="12" class="miss__box" />
+                  <text x="470" y="326" class="t-small t-em">frames the update spills into</text>
+                </g>
+                <g class="blk" data-k="0.32" data-blk="render">
+                  <rect
+                    x="218.0"
+                    y="126"
+                    width="250.0"
+                    height="30"
+                    class="blk__box blk__box--render"
+                  />
+                </g>
+                <text x="196" y="148" class="t-small t-before" text-anchor="end">
+                  All re-renders
+                </text>
+                <text x="196" y="148" class="t-small t-after" text-anchor="end">
+                  Needed re-renders
+                </text>
+                <g class="blk" data-k="0.55" data-blk="d3">
+                  <rect x="474.0" y="170" width="155.0" height="30" class="blk__box blk__box--d3" />
+                </g>
+                <text x="196" y="192" class="t-small t-before" text-anchor="end">
+                  D3 chart update
+                </text>
+                <text x="196" y="192" class="t-small t-after" text-anchor="end">
+                  D3 chart update
+                </text>
+                <g class="blk" data-k="0.5" data-blk="layout">
+                  <rect
+                    x="635.0"
+                    y="214"
+                    width="125.0"
+                    height="30"
+                    class="blk__box blk__box--layout"
+                  />
+                </g>
+                <text x="196" y="236" class="t-small t-before" text-anchor="end">Layout</text>
+                <text x="196" y="236" class="t-small t-after" text-anchor="end">Layout</text>
+                <g class="blk" data-k="0.48" data-blk="paint">
+                  <rect
+                    x="766.0"
+                    y="258"
+                    width="140.0"
+                    height="30"
+                    class="blk__box blk__box--paint"
+                  />
+                </g>
+                <text x="196" y="280" class="t-small t-before" text-anchor="end">
+                  Chart-update paint
+                </text>
+                <text x="196" y="280" class="t-small t-after" text-anchor="end">
+                  Chart-update paint
+                </text>
+                <line x1="210" y1="304" x2="978" y2="304" class="axis" />
+                <text x="40" y="386" class="t-small">
+                  Schematic. Block lengths are illustrative; no profile or measured value is shown.
+                </text>
+
+                <g class="strip">
+                  <rect x="0" y="420" width="1000" height="50" class="strip__bg" />
+                  <line x1="0" y1="420" x2="1000" y2="420" class="hair" />
+                  <text x="24" y="451" class="t-code">EM-02</text>
+                  <text x="111" y="451" class="t-strip">The cost of one chart update</text>
+                  <text x="976" y="451" class="t-kind" text-anchor="end">
+                    Editorial diagram · schematic
+                  </text>
+                </g>
+              </svg>
+            </figure>
+          </article>
+          <article class="step" id="composition" data-beat="composition">
+            <div class="step__card">
+              <p class="step__k"><span class="step__code em">3</span> EM-03 · Composition</p>
+              <h2 class="step__h">How a dashboard module is composed</h2>
+              <p>
+                Use D3.js for chart behavior and React for surrounding product composition rather
+                than trying to collapse the whole dashboard into a single abstraction.
+              </p>
+              <p class="step__src">
+                Splitting chart behavior from product composition let chart tuning happen without
+                losing control of the surrounding dashboard UI.
+              </p>
+            </div>
+            <figure class="step__fig scroll-x">
+              <svg
+                class="drawing drawing--em"
+                viewBox="0 0 1000 646"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+                data-label="em-layers"
+              >
+                <rect x="12" y="12" width="976" height="572" class="frame" />
+                <text x="40" y="58" class="t-title">How a dashboard module is composed</text>
+
+                <g class="lyr" data-lyr="0">
+                  <path d="M64,122 L104,100 L704,100 L664,122 Z" class="lyr__top" />
+                  <rect
+                    x="64"
+                    y="122"
+                    width="600"
+                    height="80"
+                    class="lyr__face ink"
+                    pathLength="1"
+                  />
+                  <text x="82" y="148" class="t-cell">React product composition</text>
+                  <text x="82" y="170" class="t-small" text-anchor="start">
+                    The dashboard UI, controls, and layout around each chart.
+                  </text>
+                </g>
+                <g class="lyr" data-lyr="1">
+                  <path d="M90,234 L130,212 L730,212 L690,234 Z" class="lyr__top" />
+                  <rect
+                    x="90"
+                    y="234"
+                    width="600"
+                    height="80"
+                    class="lyr__face ink"
+                    pathLength="1"
+                  />
+                  <text x="108" y="260" class="t-cell">D3.js chart behavior</text>
+                  <text x="108" y="282" class="t-small" text-anchor="start">
+                    Tailored data visualization and chart interactions, tuned on their own terms.
+                  </text>
+                </g>
+                <g class="lyr" data-lyr="2">
+                  <path d="M116,346 L156,324 L756,324 L716,346 Z" class="lyr__top" />
+                  <rect
+                    x="116"
+                    y="346"
+                    width="600"
+                    height="80"
+                    class="lyr__face ink"
+                    pathLength="1"
+                  />
+                  <text x="134" y="372" class="t-cell">GSAP motion</text>
+                  <text x="134" y="394" class="t-small" text-anchor="start">
+                    Used where it helps people keep their place in the data, not as decoration.
+                  </text>
+                </g>
+                <g class="lyr" data-lyr="3">
+                  <path d="M142,458 L182,436 L782,436 L742,458 Z" class="lyr__top" />
+                  <rect
+                    x="142"
+                    y="458"
+                    width="600"
+                    height="80"
+                    class="lyr__face ink"
+                    pathLength="1"
+                  />
+                  <text x="160" y="484" class="t-cell">Shared accessible components</text>
+                  <text x="160" y="506" class="t-small" text-anchor="start">
+                    The documented baseline dashboard modules were assembled from, instead of
+                  </text>
+                  <text x="160" y="524" class="t-small" text-anchor="start">
+                    starting from scratch.
+                  </text>
+                </g>
+                <path d="M728,122 V314" class="dim em" />
+                <path d="M720,122 H736 M720,314 H736" class="dim em" />
+                <text x="748" y="168" class="t-cell t-em-ink" text-anchor="start">
+                  React owns the
+                </text>
+                <text x="748" y="190" class="t-cell t-em-ink" text-anchor="start">
+                  composition around the
+                </text>
+                <text x="748" y="212" class="t-cell t-em-ink" text-anchor="start">
+                  chart; D3 owns the
+                </text>
+                <text x="748" y="234" class="t-cell t-em-ink" text-anchor="start">
+                  chart's own behavior.
+                </text>
+
+                <g class="strip">
+                  <rect x="0" y="596" width="1000" height="50" class="strip__bg" />
+                  <line x1="0" y1="596" x2="1000" y2="596" class="hair" />
+                  <text x="24" y="627" class="t-code">EM-03</text>
+                  <text x="111" y="627" class="t-strip">Composition of a dashboard module</text>
+                  <text x="976" y="627" class="t-kind" text-anchor="end">Editorial diagram</text>
+                </g>
+              </svg>
+            </figure>
+          </article>
+          <article class="step" id="after" data-beat="after">
+            <div class="step__card">
+              <p class="step__k"><span class="step__code em">4</span> EM-04 · The decision</p>
+              <h2 class="step__h">The same update, cheaper to draw</h2>
+              <p>
+                Reducing what the dashboard shows would have fixed the symptom and broken the
+                product, so the cost had to come out of rendering instead.
+              </p>
+              <ul class="facts">
+                <li>Keeps dense views intact</li>
+                <li>Targets unnecessary re-renders and chart-update paint work</li>
+                <li>Tunes desktop and embedded webview contexts separately</li>
+                <li>Treats readability and interaction pacing as part of performance</li>
+              </ul>
+              <p class="step__src">
+                Use Sentry and Hotjar to see how dense dashboards behave after release, not only in
+                local testing.
+              </p>
+            </div>
+            <figure class="step__fig scroll-x">
+              <svg
+                class="drawing drawing--em drawing--tl drawing--after"
+                viewBox="0 0 1000 470"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+                data-label="em-timeline"
+              >
+                <rect x="12" y="12" width="976" height="396" class="frame" />
+                <text x="40" y="58" class="t-title">
+                  <tspan class="t-before">One update, before</tspan>
+                  <tspan class="t-after">One update, after</tspan>
+                </text>
+                <text x="210" y="86" class="t-small">frame budget at 60 Hz · 16.7 ms each</text>
+                <line x1="210" y1="94" x2="210" y2="304" class="frame-tick frame-tick--0" />
+                <line x1="338" y1="94" x2="338" y2="304" class="frame-tick" />
+                <line x1="466" y1="94" x2="466" y2="304" class="frame-tick" />
+                <line x1="594" y1="94" x2="594" y2="304" class="frame-tick" />
+                <line x1="722" y1="94" x2="722" y2="304" class="frame-tick" />
+                <line x1="850" y1="94" x2="850" y2="304" class="frame-tick" />
+                <line x1="978" y1="94" x2="978" y2="304" class="frame-tick" />
+                <g class="miss">
+                  <rect x="468" y="102" width="124" height="12" class="miss__box" />
+                  <rect x="596" y="102" width="124" height="12" class="miss__box" />
+                  <rect x="724" y="102" width="124" height="12" class="miss__box" />
+                  <text x="470" y="326" class="t-small t-em">frames the update spills into</text>
+                </g>
+                <g class="blk" data-k="0.32" data-blk="render">
+                  <rect
+                    x="218.0"
+                    y="126"
+                    width="80.0"
+                    height="30"
+                    class="blk__box blk__box--render"
+                  />
+                </g>
+                <text x="196" y="148" class="t-small t-before" text-anchor="end">
+                  All re-renders
+                </text>
+                <text x="196" y="148" class="t-small t-after" text-anchor="end">
+                  Needed re-renders
+                </text>
+                <g class="blk" data-k="0.55" data-blk="d3">
+                  <rect x="304.0" y="170" width="85.3" height="30" class="blk__box blk__box--d3" />
+                </g>
+                <text x="196" y="192" class="t-small t-before" text-anchor="end">
+                  D3 chart update
+                </text>
+                <text x="196" y="192" class="t-small t-after" text-anchor="end">
+                  D3 chart update
+                </text>
+                <g class="blk" data-k="0.5" data-blk="layout">
+                  <rect
+                    x="395.3"
+                    y="214"
+                    width="62.5"
+                    height="30"
+                    class="blk__box blk__box--layout"
+                  />
+                </g>
+                <text x="196" y="236" class="t-small t-before" text-anchor="end">Layout</text>
+                <text x="196" y="236" class="t-small t-after" text-anchor="end">Layout</text>
+                <g class="blk" data-k="0.48" data-blk="paint">
+                  <rect
+                    x="463.8"
+                    y="258"
+                    width="67.2"
+                    height="30"
+                    class="blk__box blk__box--paint"
+                  />
+                </g>
+                <text x="196" y="280" class="t-small t-before" text-anchor="end">
+                  Chart-update paint
+                </text>
+                <text x="196" y="280" class="t-small t-after" text-anchor="end">
+                  Chart-update paint
+                </text>
+                <line x1="210" y1="304" x2="978" y2="304" class="axis" />
+                <text x="40" y="386" class="t-small">
+                  Schematic. Block lengths are illustrative; no profile or measured value is shown.
+                </text>
+
+                <g class="strip">
+                  <rect x="0" y="420" width="1000" height="50" class="strip__bg" />
+                  <line x1="0" y1="420" x2="1000" y2="420" class="hair" />
+                  <text x="24" y="451" class="t-code">EM-04</text>
+                  <text x="111" y="451" class="t-strip">The cost of one chart update</text>
+                  <text x="976" y="451" class="t-kind" text-anchor="end">
+                    Editorial diagram · schematic
+                  </text>
+                </g>
+              </svg>
+            </figure>
+          </article>
+          <div class="beat beat--land" data-beat="land"></div>
+        </div>
+      </section>
+
+      <section class="case" id="case" aria-labelledby="case-h" data-tone="paper">
+        <header class="case__head">
+          <p class="case__k">
+            <span class="case__code">EM</span> Featured · Senior Frontend Engineer · 2022–2023
+          </p>
+          <h2 class="case__name" id="case-h">Emplifi</h2>
+          <p class="case__title">Enterprise Analytics</p>
+        </header>
+
+        <figure
+          class="plate plate--draw case__hero case__hero--draw"
+          data-slot
+          style="--vt: sheet-em"
+        >
+          <div class="plate__draw">
+            <div class="slot-media">
+              <svg
+                class="drawing drawing--em"
+                viewBox="0 0 420 820"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+                data-label="em-webview"
+              >
+                <rect
+                  x="18"
+                  y="14"
+                  width="384"
+                  height="728"
+                  rx="46"
+                  class="phone ink"
+                  pathLength="1"
+                />
+                <rect x="34" y="30" width="352" height="696" rx="32" class="phone__glass" />
+                <rect x="164" y="40" width="92" height="22" rx="11" class="phone__notch" />
+                <rect x="34" y="78" width="352" height="58" class="host" />
+                <text x="54" y="114" class="t-small">Host app</text>
+                <rect x="308" y="96" width="58" height="20" rx="10" class="host__pill" />
+                <rect x="44" y="148" width="332" height="568" class="webview ink" pathLength="1" />
+                <text x="58" y="176" class="t-small t-em">Embedded webview</text>
+                <text x="58" y="206" class="t-cell">Dashboard module</text>
+
+                <g class="chart">
+                  <line x1="58" y1="226.0" x2="362" y2="226.0" class="grid" />
+                  <line x1="58" y1="275.5" x2="362" y2="275.5" class="grid" />
+                  <line x1="58" y1="325.0" x2="362" y2="325.0" class="grid" />
+                  <line x1="58" y1="374.5" x2="362" y2="374.5" class="grid" />
+                  <line x1="58" y1="424.0" x2="362" y2="424.0" class="grid" />
+                  <path
+                    d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3 L362,424 L58,424 Z"
+                    class="area"
+                  />
+                  <path
+                    d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3"
+                    class="line ink"
+                    pathLength="1"
+                  />
+                  <path
+                    d="M58.0,365.3 L62.8,364.3 L67.7,364.9 L72.5,359.4 L77.3,362.8 L82.1,365.2 L87.0,356.0 L91.8,346.7 L96.6,337.3 L101.4,330.3 L106.3,331.0 L111.1,323.1 L115.9,316.8 L120.7,313.2 L125.6,320.2 L130.4,327.0 L135.2,323.7 L140.0,330.5 L144.9,335.6 L149.7,341.4 L154.5,337.3 L159.3,347.3 L164.2,355.2 L169.0,355.5 L173.8,365.2 L178.6,375.6 L183.5,374.3 L188.3,377.5 L193.1,372.8 L197.9,376.6 L202.8,380.2 L207.6,380.3 L212.4,371.9 L217.2,364.2 L222.1,354.7 L226.9,356.4 L231.7,361.2 L236.5,360.2 L241.4,351.9 L246.2,341.9 L251.0,335.9 L255.8,330.6 L260.7,324.6 L265.5,325.5 L270.3,326.0 L275.1,327.0 L280.0,334.6 L284.8,330.1 L289.6,336.1 L294.4,340.9 L299.3,342.0 L304.1,351.1 L308.9,353.6 L313.7,361.0 L318.6,359.0 L323.4,367.3 L328.2,374.2 L333.0,383.8 L337.9,389.6 L342.7,396.9 L347.5,403.0 L352.3,402.3 L357.2,397.5 L362.0,403.8"
+                    class="line line--2 ink"
+                    pathLength="1"
+                  />
+                  <path
+                    d="M58.0,299.7 L62.8,305.8 L67.7,306.9 L72.5,310.1 L77.3,308.9 L82.1,303.6 L87.0,302.3 L91.8,306.1 L96.6,309.5 L101.4,300.6 L106.3,292.9 L111.1,295.6 L115.9,289.7 L120.7,293.2 L125.6,289.3 L130.4,289.0 L135.2,284.0 L140.0,287.0 L144.9,282.1 L149.7,288.3 L154.5,283.6 L159.3,288.0 L164.2,293.1 L169.0,290.9 L173.8,296.9 L178.6,301.7 L183.5,299.7 L188.3,305.3 L193.1,302.4 L197.9,301.4 L202.8,306.8 L207.6,306.3 L212.4,311.9 L217.2,312.6 L222.1,308.1 L226.9,311.6 L231.7,308.8 L236.5,307.8 L241.4,302.8 L246.2,302.8 L251.0,298.1 L255.8,296.0 L260.7,294.7 L265.5,294.1 L270.3,295.9 L275.1,297.2 L280.0,294.5 L284.8,294.4 L289.6,294.3 L294.4,293.8 L299.3,290.8 L304.1,287.7 L308.9,290.8 L313.7,292.3 L318.6,299.2 L323.4,306.1 L328.2,314.2 L333.0,312.5 L337.9,319.3 L342.7,316.7 L347.5,325.0 L352.3,325.0 L357.2,331.6 L362.0,327.4"
+                    class="line line--3 ink"
+                    pathLength="1"
+                  />
+                  <g class="bars">
+                    <rect x="59.0" y="503.9" width="7.5" height="22.1" class="bar" />
+                    <rect x="68.5" y="503.7" width="7.5" height="22.3" class="bar" />
+                    <rect x="78.0" y="505.4" width="7.5" height="20.6" class="bar" />
+                    <rect x="87.5" y="503.3" width="7.5" height="22.7" class="bar" />
+                    <rect x="97.0" y="497.9" width="7.5" height="28.1" class="bar" />
+                    <rect x="106.5" y="499.1" width="7.5" height="26.9" class="bar" />
+                    <rect x="116.0" y="505.3" width="7.5" height="20.7" class="bar" />
+                    <rect x="125.5" y="508.6" width="7.5" height="17.4" class="bar" />
+                    <rect x="135.0" y="511.1" width="7.5" height="14.9" class="bar" />
+                    <rect x="144.5" y="513.5" width="7.5" height="12.5" class="bar" />
+                    <rect x="154.0" y="511.1" width="7.5" height="14.9" class="bar" />
+                    <rect x="163.5" y="510.8" width="7.5" height="15.2" class="bar" />
+                    <rect x="173.0" y="504.6" width="7.5" height="21.4" class="bar" />
+                    <rect x="182.5" y="502.0" width="7.5" height="24.0" class="bar" />
+                    <rect x="192.0" y="502.1" width="7.5" height="23.9" class="bar" />
+                    <rect x="201.5" y="495.5" width="7.5" height="30.5" class="bar" />
+                    <rect x="211.0" y="488.0" width="7.5" height="38.0" class="bar" />
+                    <rect x="220.5" y="488.5" width="7.5" height="37.5" class="bar" />
+                    <rect x="230.0" y="487.3" width="7.5" height="38.7" class="bar" />
+                    <rect x="239.5" y="481.0" width="7.5" height="45.0" class="bar" />
+                    <rect x="249.0" y="474.1" width="7.5" height="51.9" class="bar" />
+                    <rect x="258.5" y="473.9" width="7.5" height="52.1" class="bar" />
+                    <rect x="268.0" y="477.2" width="7.5" height="48.8" class="bar" />
+                    <rect x="277.5" y="485.6" width="7.5" height="40.4" class="bar" />
+                    <rect x="287.0" y="489.0" width="7.5" height="37.0" class="bar" />
+                    <rect x="296.5" y="489.0" width="7.5" height="37.0" class="bar" />
+                    <rect x="306.0" y="484.9" width="7.5" height="41.1" class="bar" />
+                    <rect x="315.5" y="493.2" width="7.5" height="32.8" class="bar" />
+                    <rect x="325.0" y="490.5" width="7.5" height="35.5" class="bar" />
+                    <rect x="334.5" y="498.4" width="7.5" height="27.6" class="bar" />
+                    <rect x="344.0" y="506.2" width="7.5" height="19.8" class="bar" />
+                    <rect x="353.5" y="504.8" width="7.5" height="21.2" class="bar" />
+                  </g>
+                </g>
+                <line x1="58" y1="556" x2="362" y2="556" class="hair" />
+                <rect x="58" y="572" width="304" height="30" class="row-box" />
+                <rect x="66" y="582" width="90" height="10" class="row-ink" />
+                <rect x="58" y="614" width="304" height="30" class="row-box" />
+                <rect x="66" y="624" width="130" height="10" class="row-ink" />
+                <rect x="58" y="656" width="304" height="30" class="row-box" />
+                <rect x="66" y="666" width="170" height="10" class="row-ink" />
+                <line x1="210" y1="226" x2="210" y2="526" class="cursor em" />
+                <text x="210" y="776" class="t-kind" text-anchor="middle">
+                  EM-01 · Editorial diagram · illustrative data
+                </text>
+              </svg>
+            </div>
+          </div>
+          <figcaption class="strip strip--draw">
+            <span class="strip__code">EM-01</span
+            ><span class="strip__title">A dense chart in an embedded mobile webview</span
+            ><span class="strip__kind">Editorial diagram · illustrative data</span>
+          </figcaption>
+          <p class="plate__cap">
+            <b>No screenshots.</b> No screenshots: the dashboards are proprietary. Every drawing
+            here is an editorial diagram with illustrative data.
+          </p>
+        </figure>
+        <div class="case__body">
+          <p class="case__lede">
+            Enterprise social analytics: metric-heavy dashboards that had to stay readable and
+            responsive while rendering a lot of data at once. Most of my work sat where chart
+            behaviour, React composition, and the rendering budget meet.
+          </p>
+          <section class="case__sec" aria-labelledby="c-context">
+            <h3 class="case__h" id="c-context">Context</h3>
+            <p>
+              The dashboards were React, TypeScript, D3.js, and GSAP, shipped to standard browsers
+              and to embedded mobile webviews. The webviews were the constraint that mattered: they
+              surfaced animation and layout cost that desktop testing never showed.
+            </p>
+          </section>
+          <section class="case__sec" aria-labelledby="c-problem">
+            <h3 class="case__h" id="c-problem">Problem</h3>
+            <p>
+              Dense analytics degrade quietly. Interaction cost, layout pressure, and host
+              constraints each look tolerable on their own, and then a customer opens the dashboard
+              in a webview on a mid-range phone and the charts stop being usable. Cutting the data
+              down would have solved the symptom and broken the product.
+            </p>
+          </section>
+          <section class="case__sec" aria-labelledby="c-role">
+            <h3 class="case__h" id="c-role">What I owned</h3>
+            <ul class="case__list">
+              <li>Built dashboard modules in React, TypeScript, and D3.js.</li>
+              <li>
+                Profiled and reduced rendering cost in dense views, focusing on the embedded webview
+                path where problems showed up first.
+              </li>
+              <li>
+                Built the reusable, accessible components the dashboard modules were assembled from,
+                and wrote the documentation that let other engineers use them without asking.
+              </li>
+              <li>
+                Used Sentry and Hotjar to understand how the dashboards behaved after release rather
+                than only in local testing.
+              </li>
+            </ul>
+          </section>
+          <section class="case__sec" aria-labelledby="c-built">
+            <h3 class="case__h" id="c-built">What I built</h3>
+            <ul class="case__list">
+              <li>
+                Metric-heavy dashboard modules with chart interactions and the UI around them.
+              </li>
+              <li>
+                Shared, accessible UI components and the usage documentation around them, so
+                dashboard work started from an existing baseline instead of from scratch.
+              </li>
+              <li>
+                Responsive behaviour tuned separately for desktop and embedded mobile webview
+                contexts.
+              </li>
+              <li>
+                GSAP motion used where it helped people keep their place in the data, not as
+                decoration.
+              </li>
+            </ul>
+          </section>
+          <section class="case__sec" aria-labelledby="c-dec">
+            <h3 class="case__h" id="c-dec">Technical decisions</h3>
+            <article class="dec">
+              <p class="dec__n">Decision 01</p>
+              <h4 class="dec__h">
+                Use D3.js for chart behavior and React for surrounding product composition rather
+                than trying to collapse the whole dashboard into a single abstraction.
+              </h4>
+              <dl class="dec__dl">
+                <div>
+                  <dt>Why</dt>
+                  <dd>
+                    The product needed both tailored data visualization behavior and maintainable UI
+                    composition around it.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Trade-off</dt>
+                  <dd>
+                    This requires careful coordination between chart rendering and the broader React
+                    surface.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Result</dt>
+                  <dd>
+                    The team could tune chart-specific behavior without losing control of the
+                    surrounding dashboard UI.
+                  </dd>
+                </div>
+              </dl>
+            </article>
+            <article class="dec">
+              <p class="dec__n">Decision 02</p>
+              <h4 class="dec__h">
+                Work on rendering performance specifically for embedded and mobile webview paths
+                instead of assuming desktop behavior would translate well.
+              </h4>
+              <dl class="dec__dl">
+                <div>
+                  <dt>Why</dt>
+                  <dd>
+                    Those contexts expose animation and layout problems earlier than standard
+                    desktop testing does.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Trade-off</dt>
+                  <dd>
+                    Host-specific tuning adds more QA complexity and more edge conditions to account
+                    for.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Result</dt>
+                  <dd>
+                    Dashboard modules stayed more usable in constrained contexts where performance
+                    issues would otherwise surface first.
+                  </dd>
+                </div>
+              </dl>
+            </article>
+          </section>
+          <section class="case__sec" aria-labelledby="c-ux">
+            <h3 class="case__h" id="c-ux">UX decisions</h3>
+            <ul class="case__list">
+              <li>
+                Treated readability and interaction pacing as part of performance work, not as
+                separate concerns.
+              </li>
+              <li>
+                Used production monitoring with Sentry and Hotjar to understand how dense dashboard
+                UI behaved after release.
+              </li>
+              <li>Made motion serve orientation and hierarchy rather than decorative movement.</li>
+            </ul>
+          </section>
+          <section class="case__sec case__drawings" aria-labelledby="c-dr">
+            <h3 class="case__h" id="c-dr">Drawings</h3>
+            <p>The scene's editorial diagrams at full size.</p>
+            <figure class="scroll-x">
+              <svg
+                class="drawing drawing--em drawing--tl drawing--before"
+                viewBox="0 0 1000 470"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+                data-label="em-timeline"
+              >
+                <rect x="12" y="12" width="976" height="396" class="frame" />
+                <text x="40" y="58" class="t-title">
+                  <tspan class="t-before">One update, before</tspan>
+                  <tspan class="t-after">One update, after</tspan>
+                </text>
+                <text x="210" y="86" class="t-small">frame budget at 60 Hz · 16.7 ms each</text>
+                <line x1="210" y1="94" x2="210" y2="304" class="frame-tick frame-tick--0" />
+                <line x1="338" y1="94" x2="338" y2="304" class="frame-tick" />
+                <line x1="466" y1="94" x2="466" y2="304" class="frame-tick" />
+                <line x1="594" y1="94" x2="594" y2="304" class="frame-tick" />
+                <line x1="722" y1="94" x2="722" y2="304" class="frame-tick" />
+                <line x1="850" y1="94" x2="850" y2="304" class="frame-tick" />
+                <line x1="978" y1="94" x2="978" y2="304" class="frame-tick" />
+                <g class="miss">
+                  <rect x="468" y="102" width="124" height="12" class="miss__box" />
+                  <rect x="596" y="102" width="124" height="12" class="miss__box" />
+                  <rect x="724" y="102" width="124" height="12" class="miss__box" />
+                  <text x="470" y="326" class="t-small t-em">frames the update spills into</text>
+                </g>
+                <g class="blk" data-k="0.32" data-blk="render">
+                  <rect
+                    x="218.0"
+                    y="126"
+                    width="250.0"
+                    height="30"
+                    class="blk__box blk__box--render"
+                  />
+                </g>
+                <text x="196" y="148" class="t-small t-before" text-anchor="end">
+                  All re-renders
+                </text>
+                <text x="196" y="148" class="t-small t-after" text-anchor="end">
+                  Needed re-renders
+                </text>
+                <g class="blk" data-k="0.55" data-blk="d3">
+                  <rect x="474.0" y="170" width="155.0" height="30" class="blk__box blk__box--d3" />
+                </g>
+                <text x="196" y="192" class="t-small t-before" text-anchor="end">
+                  D3 chart update
+                </text>
+                <text x="196" y="192" class="t-small t-after" text-anchor="end">
+                  D3 chart update
+                </text>
+                <g class="blk" data-k="0.5" data-blk="layout">
+                  <rect
+                    x="635.0"
+                    y="214"
+                    width="125.0"
+                    height="30"
+                    class="blk__box blk__box--layout"
+                  />
+                </g>
+                <text x="196" y="236" class="t-small t-before" text-anchor="end">Layout</text>
+                <text x="196" y="236" class="t-small t-after" text-anchor="end">Layout</text>
+                <g class="blk" data-k="0.48" data-blk="paint">
+                  <rect
+                    x="766.0"
+                    y="258"
+                    width="140.0"
+                    height="30"
+                    class="blk__box blk__box--paint"
+                  />
+                </g>
+                <text x="196" y="280" class="t-small t-before" text-anchor="end">
+                  Chart-update paint
+                </text>
+                <text x="196" y="280" class="t-small t-after" text-anchor="end">
+                  Chart-update paint
+                </text>
+                <line x1="210" y1="304" x2="978" y2="304" class="axis" />
+                <text x="40" y="386" class="t-small">
+                  Schematic. Block lengths are illustrative; no profile or measured value is shown.
+                </text>
+
+                <g class="strip">
+                  <rect x="0" y="420" width="1000" height="50" class="strip__bg" />
+                  <line x1="0" y1="420" x2="1000" y2="420" class="hair" />
+                  <text x="24" y="451" class="t-code">EM-02</text>
+                  <text x="111" y="451" class="t-strip">The cost of one chart update</text>
+                  <text x="976" y="451" class="t-kind" text-anchor="end">
+                    Editorial diagram · schematic
+                  </text>
+                </g>
+              </svg>
+            </figure>
+            <figure class="scroll-x">
+              <svg
+                class="drawing drawing--em"
+                viewBox="0 0 1000 646"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+                data-label="em-layers"
+              >
+                <rect x="12" y="12" width="976" height="572" class="frame" />
+                <text x="40" y="58" class="t-title">How a dashboard module is composed</text>
+
+                <g class="lyr" data-lyr="0">
+                  <path d="M64,122 L104,100 L704,100 L664,122 Z" class="lyr__top" />
+                  <rect
+                    x="64"
+                    y="122"
+                    width="600"
+                    height="80"
+                    class="lyr__face ink"
+                    pathLength="1"
+                  />
+                  <text x="82" y="148" class="t-cell">React product composition</text>
+                  <text x="82" y="170" class="t-small" text-anchor="start">
+                    The dashboard UI, controls, and layout around each chart.
+                  </text>
+                </g>
+                <g class="lyr" data-lyr="1">
+                  <path d="M90,234 L130,212 L730,212 L690,234 Z" class="lyr__top" />
+                  <rect
+                    x="90"
+                    y="234"
+                    width="600"
+                    height="80"
+                    class="lyr__face ink"
+                    pathLength="1"
+                  />
+                  <text x="108" y="260" class="t-cell">D3.js chart behavior</text>
+                  <text x="108" y="282" class="t-small" text-anchor="start">
+                    Tailored data visualization and chart interactions, tuned on their own terms.
+                  </text>
+                </g>
+                <g class="lyr" data-lyr="2">
+                  <path d="M116,346 L156,324 L756,324 L716,346 Z" class="lyr__top" />
+                  <rect
+                    x="116"
+                    y="346"
+                    width="600"
+                    height="80"
+                    class="lyr__face ink"
+                    pathLength="1"
+                  />
+                  <text x="134" y="372" class="t-cell">GSAP motion</text>
+                  <text x="134" y="394" class="t-small" text-anchor="start">
+                    Used where it helps people keep their place in the data, not as decoration.
+                  </text>
+                </g>
+                <g class="lyr" data-lyr="3">
+                  <path d="M142,458 L182,436 L782,436 L742,458 Z" class="lyr__top" />
+                  <rect
+                    x="142"
+                    y="458"
+                    width="600"
+                    height="80"
+                    class="lyr__face ink"
+                    pathLength="1"
+                  />
+                  <text x="160" y="484" class="t-cell">Shared accessible components</text>
+                  <text x="160" y="506" class="t-small" text-anchor="start">
+                    The documented baseline dashboard modules were assembled from, instead of
+                  </text>
+                  <text x="160" y="524" class="t-small" text-anchor="start">
+                    starting from scratch.
+                  </text>
+                </g>
+                <path d="M728,122 V314" class="dim em" />
+                <path d="M720,122 H736 M720,314 H736" class="dim em" />
+                <text x="748" y="168" class="t-cell t-em-ink" text-anchor="start">
+                  React owns the
+                </text>
+                <text x="748" y="190" class="t-cell t-em-ink" text-anchor="start">
+                  composition around the
+                </text>
+                <text x="748" y="212" class="t-cell t-em-ink" text-anchor="start">
+                  chart; D3 owns the
+                </text>
+                <text x="748" y="234" class="t-cell t-em-ink" text-anchor="start">
+                  chart's own behavior.
+                </text>
+
+                <g class="strip">
+                  <rect x="0" y="596" width="1000" height="50" class="strip__bg" />
+                  <line x1="0" y1="596" x2="1000" y2="596" class="hair" />
+                  <text x="24" y="627" class="t-code">EM-03</text>
+                  <text x="111" y="627" class="t-strip">Composition of a dashboard module</text>
+                  <text x="976" y="627" class="t-kind" text-anchor="end">Editorial diagram</text>
+                </g>
+              </svg>
+            </figure>
+            <figure class="scroll-x">
+              <svg
+                class="drawing drawing--em drawing--tl drawing--after"
+                viewBox="0 0 1000 470"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+                data-label="em-timeline"
+              >
+                <rect x="12" y="12" width="976" height="396" class="frame" />
+                <text x="40" y="58" class="t-title">
+                  <tspan class="t-before">One update, before</tspan>
+                  <tspan class="t-after">One update, after</tspan>
+                </text>
+                <text x="210" y="86" class="t-small">frame budget at 60 Hz · 16.7 ms each</text>
+                <line x1="210" y1="94" x2="210" y2="304" class="frame-tick frame-tick--0" />
+                <line x1="338" y1="94" x2="338" y2="304" class="frame-tick" />
+                <line x1="466" y1="94" x2="466" y2="304" class="frame-tick" />
+                <line x1="594" y1="94" x2="594" y2="304" class="frame-tick" />
+                <line x1="722" y1="94" x2="722" y2="304" class="frame-tick" />
+                <line x1="850" y1="94" x2="850" y2="304" class="frame-tick" />
+                <line x1="978" y1="94" x2="978" y2="304" class="frame-tick" />
+                <g class="miss">
+                  <rect x="468" y="102" width="124" height="12" class="miss__box" />
+                  <rect x="596" y="102" width="124" height="12" class="miss__box" />
+                  <rect x="724" y="102" width="124" height="12" class="miss__box" />
+                  <text x="470" y="326" class="t-small t-em">frames the update spills into</text>
+                </g>
+                <g class="blk" data-k="0.32" data-blk="render">
+                  <rect
+                    x="218.0"
+                    y="126"
+                    width="80.0"
+                    height="30"
+                    class="blk__box blk__box--render"
+                  />
+                </g>
+                <text x="196" y="148" class="t-small t-before" text-anchor="end">
+                  All re-renders
+                </text>
+                <text x="196" y="148" class="t-small t-after" text-anchor="end">
+                  Needed re-renders
+                </text>
+                <g class="blk" data-k="0.55" data-blk="d3">
+                  <rect x="304.0" y="170" width="85.3" height="30" class="blk__box blk__box--d3" />
+                </g>
+                <text x="196" y="192" class="t-small t-before" text-anchor="end">
+                  D3 chart update
+                </text>
+                <text x="196" y="192" class="t-small t-after" text-anchor="end">
+                  D3 chart update
+                </text>
+                <g class="blk" data-k="0.5" data-blk="layout">
+                  <rect
+                    x="395.3"
+                    y="214"
+                    width="62.5"
+                    height="30"
+                    class="blk__box blk__box--layout"
+                  />
+                </g>
+                <text x="196" y="236" class="t-small t-before" text-anchor="end">Layout</text>
+                <text x="196" y="236" class="t-small t-after" text-anchor="end">Layout</text>
+                <g class="blk" data-k="0.48" data-blk="paint">
+                  <rect
+                    x="463.8"
+                    y="258"
+                    width="67.2"
+                    height="30"
+                    class="blk__box blk__box--paint"
+                  />
+                </g>
+                <text x="196" y="280" class="t-small t-before" text-anchor="end">
+                  Chart-update paint
+                </text>
+                <text x="196" y="280" class="t-small t-after" text-anchor="end">
+                  Chart-update paint
+                </text>
+                <line x1="210" y1="304" x2="978" y2="304" class="axis" />
+                <text x="40" y="386" class="t-small">
+                  Schematic. Block lengths are illustrative; no profile or measured value is shown.
+                </text>
+
+                <g class="strip">
+                  <rect x="0" y="420" width="1000" height="50" class="strip__bg" />
+                  <line x1="0" y1="420" x2="1000" y2="420" class="hair" />
+                  <text x="24" y="451" class="t-code">EM-04</text>
+                  <text x="111" y="451" class="t-strip">The cost of one chart update</text>
+                  <text x="976" y="451" class="t-kind" text-anchor="end">
+                    Editorial diagram · schematic
+                  </text>
+                </g>
+              </svg>
+            </figure>
+          </section>
+
+          <section class="case__sec" aria-labelledby="c-out">
+            <h3 class="case__h" id="c-out">Outcome</h3>
+            <ul class="case__list">
+              <li>
+                Left behind reusable accessible components and documentation that colleagues
+                credited with helping the team ship faster.
+              </li>
+              <li>
+                Left behind patterns for balancing chart interaction against readability in dense
+                product surfaces.
+              </li>
+              <li>
+                Kept performance work anchored to the environments the dashboards actually ran in.
+              </li>
+            </ul>
+          </section>
+          <section class="case__sec" aria-labelledby="c-next">
+            <h3 class="case__h" id="c-next">What I would improve</h3>
+            <ul class="case__list">
+              <li>
+                Document clearer motion and rendering budgets so new modules inherit the same
+                constraints more consistently.
+              </li>
+              <li>
+                Capture more product-specific evidence around embedded edge cases as part of the
+                portfolio narrative.
+              </li>
+            </ul>
+          </section>
+          <section class="case__sec" aria-labelledby="c-links">
+            <h3 class="case__h" id="c-links">Links</h3>
+            <ul class="case__links">
+              <li><a href="https://emplifi.io" rel="noopener">Company website ↗</a></li>
+            </ul>
+          </section>
+        </div>
+      </section>
+
+      <nav class="sheetnav" aria-label="Other sheets">
+        <a class="sheetnav__a" href="alwaysgeeky.html"
+          ><span class="sheetnav__k">Previous sheet</span
+          ><span class="sheetnav__n"><b>AG</b> AlwaysGeeky</span></a
+        >
+        <a class="sheetnav__a sheetnav__a--mid" href="index.html#register"
+          ><span class="sheetnav__k">Index</span
+          ><span class="sheetnav__n">Drawing register</span></a
+        >
+        <a class="sheetnav__a sheetnav__a--next" href="index.html#register"
+          ><span class="sheetnav__k">Next sheet</span
+          ><span class="sheetnav__n"><b>00</b> Back to the register</span></a
+        >
+      </nav>
+    </main>
+
+    <footer class="contact" id="contact" data-tone="void">
+      <div class="contact__in">
+        <p class="contact__k">Contact</p>
+        <h2 class="contact__h">Senior Software Engineer, Montreal, Canada</h2>
+        <ul class="contact__list" role="list">
+          <li>
+            <a href="https://calendly.com/alipajand/intro"
+              >Book a call<span>calendly.com/alipajand/intro</span></a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/alipajand">GitHub<span>github.com/alipajand</span></a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/in/alipajand"
+              >LinkedIn<span>linkedin.com/in/alipajand</span></a
+            >
+          </li>
+        </ul>
+        <p class="contact__note">
+          Open to remote work within Canada. Design prototype for review; not the production site.
+        </p>
+      </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="motion.js"></script>
+    <script src="em.js"></script>
+  </body>
+</html>

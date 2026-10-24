@@ -1,0 +1,529 @@
+/* Section A–A · P2 · project-specific storytelling.
+   Each project owns one drafting move and one ink, and nothing else:
+     AlwaysGeeky · the detail callout, in blueprint blue (--ag)
+     Emplifi     · the dimension line and the time axis, in ochre (--em, --em-ink for text)
+   Red is not used here. It is the A–A identity and, on LedgerGuard only, the review boundary.
+   Stage geometry is in canvas units (a 1200 x 800 drawing, scaled by motion.js). */
+
+/* ---------- inks inside drawings ---------- */
+
+.drawing .ag,
+.drawing .drop,
+.drawing .bus {
+  fill: none;
+  stroke: var(--ag);
+  stroke-width: 2.5;
+}
+
+.drawing .bus {
+  stroke-width: 3;
+}
+
+.drawing .tick {
+  stroke-width: 2.5;
+}
+
+.drawing .t-ag {
+  font: 500 14px var(--mono);
+  fill: var(--ag);
+}
+
+.drawing .band__box {
+  fill: var(--vellum);
+  stroke: var(--edge-draw);
+}
+
+.drawing .band__box--lib {
+  fill: var(--ag-wash);
+  stroke: var(--ag);
+  stroke-width: 2;
+}
+
+.drawing .em,
+.drawing .dim,
+.drawing .cursor {
+  fill: none;
+  stroke: var(--em);
+  stroke-width: 2.5;
+}
+
+.drawing .t-em,
+.drawing .t-em-ink {
+  fill: var(--em-ink);
+}
+
+.drawing .t-em-ink {
+  font-weight: 600;
+}
+
+/* EM-01 · the webview */
+.drawing .phone {
+  fill: var(--vellum);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.drawing .phone__glass {
+  fill: #f8f4ea;
+}
+
+.drawing .phone__notch {
+  fill: var(--ink);
+}
+
+.drawing .host {
+  fill: var(--paper-2);
+}
+
+.drawing .host__pill {
+  fill: var(--rule-strong);
+}
+
+.drawing .webview {
+  fill: none;
+  stroke: var(--ink-2);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 5;
+}
+
+.drawing .chart .grid {
+  stroke: var(--rule);
+}
+
+.drawing .area {
+  fill: rgba(22, 20, 15, 0.06);
+}
+
+.drawing .line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.drawing .line--2 {
+  stroke: var(--ink-2);
+  stroke-width: 1.5;
+}
+
+.drawing .line--3 {
+  stroke: #8f8673;
+  stroke-width: 1.5;
+}
+
+.drawing .bar {
+  fill: rgba(22, 20, 15, 0.2);
+}
+
+.drawing .row-box {
+  fill: none;
+  stroke: var(--rule-strong);
+}
+
+.drawing .row-ink {
+  fill: rgba(22, 20, 15, 0.14);
+}
+
+/* EM-02 / EM-04 · the timeline: frames are the display's budget, blocks are illustrative */
+.drawing .frame-tick {
+  stroke: var(--rule-strong);
+  stroke-dasharray: 3 4;
+}
+
+.drawing .frame-tick--0 {
+  stroke: var(--ink);
+  stroke-dasharray: none;
+}
+
+.drawing .axis {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.drawing .miss__box {
+  fill: rgba(168, 103, 10, 0.3);
+  stroke: var(--em);
+  stroke-width: 2;
+}
+
+.drawing .blk__box {
+  fill: var(--ink);
+}
+
+.drawing .blk__box--d3 {
+  fill: var(--ink-2);
+}
+
+.drawing .blk__box--layout {
+  fill: #8f8673;
+}
+
+.drawing .blk__box--paint {
+  fill: #b3a994;
+}
+
+.drawing--before .t-after,
+.drawing--after .t-before,
+.drawing--both:not(.is-after) .t-after,
+.drawing--both.is-after .t-before,
+.drawing--after .miss {
+  display: none;
+}
+
+/* EM-03 · the exploded section */
+.drawing .lyr__top {
+  fill: var(--paper-2);
+  stroke: var(--edge-draw);
+}
+
+.drawing .lyr__face {
+  fill: var(--vellum);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+/* ---------- AlwaysGeeky stage ---------- */
+
+.ag-world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1200px;
+  height: 2300px;
+  transform-origin: 0 0;
+}
+
+.ag-wires {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1200px;
+  height: 2300px;
+  overflow: visible;
+}
+
+.ag-wires .ink {
+  fill: none;
+  stroke: var(--ag);
+  stroke-width: 3;
+}
+
+.ag-plate {
+  position: absolute;
+  left: 0;
+  top: 24px;
+  width: 1200px;
+  height: 752px;
+  background: var(--void);
+  outline: 2px solid var(--edge-shot);
+  transform-origin: 0 0;
+}
+
+.ag-plate > img {
+  width: 100%;
+  height: 100%;
+}
+
+.ag-dim {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  opacity: 0;
+}
+
+.ag-callouts {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ag-callouts .ink {
+  fill: none;
+  stroke: var(--ag);
+  stroke-width: 4;
+}
+
+.ag-tag,
+.ag-plate__l,
+.ag-lens__l,
+.ag-surf__l,
+.em-stamp {
+  position: absolute;
+  margin: 0;
+  font: 500 20px/1.3 var(--mono);
+  letter-spacing: 0.02em;
+}
+
+.ag-tag {
+  padding: 8px 12px;
+  background: var(--ag);
+  color: #fff;
+}
+
+.ag-tag b,
+.ag-lens__l b,
+.ag-plate__l b {
+  font-weight: 600;
+  margin-right: 0.5em;
+}
+
+.ag-tag--1 {
+  left: 566px;
+  top: 446px;
+}
+
+.ag-tag--2 {
+  right: 386px;
+  top: 128px;
+}
+
+.ag-plate__l {
+  left: 0;
+  right: 0;
+  bottom: -40px;
+  color: var(--ink-2);
+  font-size: 18px;
+}
+
+.ag-lens {
+  position: absolute;
+  left: 30.6px;
+  top: 537.9px;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--void);
+  box-shadow:
+    0 0 0 4px var(--ag),
+    0 24px 48px rgba(22, 20, 15, 0.28);
+  transform-origin: 50% 50%;
+}
+
+.ag-lens img {
+  position: absolute;
+  left: 7.65px;
+  top: 91px;
+  width: 284.7px;
+  max-width: none;
+  height: auto;
+}
+
+.ag-lens__l {
+  left: 600px;
+  top: 742px;
+  translate: -50% 0;
+  white-space: nowrap;
+  padding: 8px 12px;
+  background: var(--vellum);
+  border: 1.5px solid var(--ag);
+  color: var(--ink);
+  font-size: 18px;
+}
+
+.ag-surf {
+  position: absolute;
+  top: 120px;
+  width: 250px;
+  height: 157px;
+  overflow: hidden;
+  background: var(--void);
+  outline: 2px solid var(--edge-shot);
+}
+
+.ag-surf img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+}
+
+.ag-surf__void {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top right,
+      transparent calc(50% - 1px),
+      var(--edge-draw) 50%,
+      transparent calc(50% + 1px)
+    ),
+    linear-gradient(
+      to bottom right,
+      transparent calc(50% - 1px),
+      var(--edge-draw) 50%,
+      transparent calc(50% + 1px)
+    ),
+    rgba(22, 20, 15, 0.035);
+}
+
+.ag-surf:has(.ag-surf__void) {
+  background: var(--vellum);
+  outline: 2px dashed var(--edge-draw);
+}
+
+.ag-surf__l {
+  top: 288px;
+  width: 250px;
+  display: grid;
+  gap: 2px;
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+.ag-surf__l b {
+  color: var(--ink);
+  font: 600 22px/1.2 var(--sans);
+}
+
+.ag-band {
+  position: absolute;
+  left: 60px;
+  top: 430px;
+  width: 1075px;
+  height: 92px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-content: center;
+  gap: 2px 18px;
+  padding: 0 24px;
+  background: var(--vellum);
+  border: 3px solid var(--ag);
+  box-shadow: inset 0 0 0 999px var(--ag-wash);
+  transform-origin: 0 50%;
+}
+
+.ag-band__n {
+  grid-row: span 2;
+  align-self: center;
+  color: var(--ag);
+  font: 500 22px var(--mono);
+}
+
+.ag-band__t {
+  font: 700 30px/1.1 var(--display);
+  text-transform: uppercase;
+}
+
+.ag-band__d {
+  color: var(--ink-2);
+  font-size: 18px;
+}
+
+.ag-sheet {
+  position: absolute;
+  left: 100px;
+  width: 1000px;
+  box-shadow: 0 18px 40px rgba(22, 20, 15, 0.12);
+}
+
+.ag-sheet--contract {
+  top: 900px;
+}
+
+.ag-sheet--gates {
+  top: 1640px;
+}
+
+/* ---------- Emplifi stage ---------- */
+
+.em-phone {
+  position: absolute;
+  left: 420px;
+  top: 40px;
+  width: 360px;
+  transform-origin: 0 0;
+}
+
+.em-sheet {
+  position: absolute;
+  box-shadow: 0 18px 40px rgba(22, 20, 15, 0.12);
+  transform-origin: 0 0;
+}
+
+.em-sheet--tl {
+  left: 250px;
+  top: 150px;
+  width: 940px;
+}
+
+.em-sheet--layers {
+  left: 110px;
+  top: 64px;
+  width: 1000px;
+}
+
+.em-stamp {
+  left: 520px;
+  top: 640px;
+  display: grid;
+  gap: 4px;
+  max-width: 600px;
+  padding: 14px 18px;
+  background: var(--vellum);
+  border-left: 5px solid var(--em);
+  color: var(--ink-2);
+  font: 400 19px/1.4 var(--sans);
+}
+
+.em-stamp b {
+  color: var(--em-ink);
+  font: 500 16px/1.2 var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* step markers take the project ink */
+.step__code.ag {
+  color: var(--ag);
+}
+
+.step__code.em {
+  color: var(--em-ink);
+}
+
+.page--ag .step__prov {
+  border-left-color: var(--ag);
+}
+
+.page--em .step__prov {
+  border-left-color: var(--em);
+}
+
+/* the readable crop for Detail 1, when the stage is not running */
+.lens-static {
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  background: var(--void);
+  border: 1px solid var(--edge-shot);
+}
+
+.lens-static img {
+  width: min(100%, 520px);
+  border-radius: 999px / 50%;
+  box-shadow: 0 0 0 4px var(--ag);
+}
+
+.step__fig--phone {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--vellum);
+  border: 1px solid var(--edge-draw);
+}
+
+.step__fig--phone .drawing {
+  width: min(320px, 80%);
+}
+
+/* in the register, each featured row marks its matches in its own ink */
+.row[data-row="alwaysgeeky"] {
+  --mark: rgba(33, 72, 184, 0.28);
+}
+
+.row[data-row="emplifi"] {
+  --mark: rgba(168, 103, 10, 0.32);
+}
