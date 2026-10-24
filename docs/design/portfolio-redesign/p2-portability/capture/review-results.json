@@ -1,0 +1,377 @@
+[
+  {
+    "name": "axe index.html full",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "console index.html full",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "axe index.html reduce",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "console index.html reduce",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "axe alwaysgeeky.html full",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "console alwaysgeeky.html full",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "axe alwaysgeeky.html reduce",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "console alwaysgeeky.html reduce",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "axe emplifi.html full",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "console emplifi.html full",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "axe emplifi.html reduce",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "console emplifi.html reduce",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "keyboard index.html full: first Tab is the skip link",
+    "pass": true,
+    "detail": "Skip to the project register"
+  },
+  {
+    "name": "keyboard index.html full: 31 tab stops on screen with a focus ring",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "keyboard index.html full: every register row's case-study link is a tab stop",
+    "pass": true,
+    "detail": "7 of 7"
+  },
+  {
+    "name": "keyboard index.html reduce: first Tab is the skip link",
+    "pass": true,
+    "detail": "Skip to the project register"
+  },
+  {
+    "name": "keyboard index.html reduce: 31 tab stops on screen with a focus ring",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "keyboard index.html reduce: every register row's case-study link is a tab stop",
+    "pass": true,
+    "detail": "7 of 7"
+  },
+  {
+    "name": "keyboard alwaysgeeky.html full: first Tab is the skip link",
+    "pass": true,
+    "detail": "Skip to the AlwaysGeeky case study"
+  },
+  {
+    "name": "keyboard alwaysgeeky.html full: 14 tab stops on screen with a focus ring",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "keyboard alwaysgeeky.html reduce: first Tab is the skip link",
+    "pass": true,
+    "detail": "Skip to the AlwaysGeeky case study"
+  },
+  {
+    "name": "keyboard alwaysgeeky.html reduce: 14 tab stops on screen with a focus ring",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "keyboard emplifi.html full: first Tab is the skip link",
+    "pass": true,
+    "detail": "Skip to the Emplifi case study"
+  },
+  {
+    "name": "keyboard emplifi.html full: 13 tab stops on screen with a focus ring",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "keyboard emplifi.html reduce: first Tab is the skip link",
+    "pass": true,
+    "detail": "Skip to the Emplifi case study"
+  },
+  {
+    "name": "keyboard emplifi.html reduce: 13 tab stops on screen with a focus ring",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "register: pointing at a row shows its sheet in the key plan",
+    "pass": true,
+    "detail": "emplifi"
+  },
+  {
+    "name": "register: focusing a row shows its sheet",
+    "pass": true,
+    "detail": "{\"view\":\"controltech\",\"label\":\"CT-01\"}"
+  },
+  {
+    "name": "register: the key-plan wipe is at most 280 ms",
+    "pass": true,
+    "detail": "280 ms"
+  },
+  {
+    "name": "register: Design systems marks AlwaysGeeky and Emplifi, in rows and schedule",
+    "pass": true,
+    "detail": "[\"alwaysgeeky\",\"emplifi\"] col cells 8"
+  },
+  {
+    "name": "register: the status line names the marked sheets",
+    "pass": true,
+    "detail": "Design systems: 2 sheets marked, AlwaysGeeky Games, Emplifi."
+  },
+  {
+    "name": "register: the status line is a polite live region",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "register: Escape clears the marks",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "no script: 7 register links, no dead controls, full schedule",
+    "pass": true,
+    "detail": "{\"rows\":7,\"caps\":0,\"table\":7}"
+  },
+  {
+    "name": "no script alwaysgeeky.html: stage hidden, every step figure shown",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":null,\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+  },
+  {
+    "name": "no script emplifi.html: stage hidden, every step figure shown",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":null,\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+  },
+  {
+    "name": "motion alwaysgeeky.html: live and confirmed",
+    "pass": true,
+    "detail": "{\"live\":true,\"ready\":true,\"motion\":\"full\",\"stage\":\"block\",\"figs\":0,\"inlineTransforms\":6,\"height\":11660}"
+  },
+  {
+    "name": "reduced alwaysgeeky.html: static steps, no inline transforms",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"reduce\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+  },
+  {
+    "name": "reduced alwaysgeeky.html: the toggle turns the scene on and off cleanly",
+    "pass": true,
+    "detail": "on true/true, off false, transforms 0"
+  },
+  {
+    "name": "fail-safe alwaysgeeky.html: GSAP blocked leaves the static page",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+  },
+  {
+    "name": "fail-safe alwaysgeeky.html: ScrollTrigger blocked leaves the static page",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+  },
+  {
+    "name": "fail-safe alwaysgeeky.html: scene script blocked leaves the static page",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+  },
+  {
+    "name": "fail-safe alwaysgeeky.html: timeline throws mid-build leaves the static page",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+  },
+  {
+    "name": "motion emplifi.html: live and confirmed",
+    "pass": true,
+    "detail": "{\"live\":true,\"ready\":true,\"motion\":\"full\",\"stage\":\"block\",\"figs\":0,\"inlineTransforms\":7,\"height\":11372}"
+  },
+  {
+    "name": "reduced emplifi.html: static steps, no inline transforms",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"reduce\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+  },
+  {
+    "name": "reduced emplifi.html: the toggle turns the scene on and off cleanly",
+    "pass": true,
+    "detail": "on true/true, off false, transforms 0"
+  },
+  {
+    "name": "fail-safe emplifi.html: GSAP blocked leaves the static page",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+  },
+  {
+    "name": "fail-safe emplifi.html: ScrollTrigger blocked leaves the static page",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+  },
+  {
+    "name": "fail-safe emplifi.html: scene script blocked leaves the static page",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+  },
+  {
+    "name": "fail-safe emplifi.html: timeline throws mid-build leaves the static page",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+  },
+  {
+    "name": "anchor alwaysgeeky.html#case: the case study is at the top, hero shown",
+    "pass": true,
+    "detail": "{\"top\":0,\"landed\":true,\"slot\":\"visible\"}"
+  },
+  {
+    "name": "match cut alwaysgeeky.html 1440px: the subject lands on the hero within 2 px",
+    "pass": true,
+    "detail": "{\"landed\":true,\"dx\":0.0000152587890625,\"dy\":0.003173828125,\"dw\":0.021240234375}"
+  },
+  {
+    "name": "match cut alwaysgeeky.html 390px: the subject lands on the hero within 2 px",
+    "pass": true,
+    "detail": "{\"landed\":true,\"dx\":0.0000133514404296875,\"dy\":0.4375,\"dw\":0.0047607421875}"
+  },
+  {
+    "name": "anchor emplifi.html#case: the case study is at the top, hero shown",
+    "pass": true,
+    "detail": "{\"top\":0,\"landed\":true,\"slot\":\"visible\"}"
+  },
+  {
+    "name": "match cut emplifi.html 1440px: the subject lands on the hero within 2 px",
+    "pass": true,
+    "detail": "{\"landed\":true,\"dx\":0.000030517578125,\"dy\":0.003173828125,\"dw\":0.012603759765625}"
+  },
+  {
+    "name": "match cut emplifi.html 390px: the subject lands on the hero within 2 px",
+    "pass": true,
+    "detail": "{\"landed\":true,\"dx\":0.000003814697265625,\"dy\":0.375,\"dw\":0.00042724609375}"
+  },
+  {
+    "name": "layout: no sideways scroll on any page at 320–1440 px, both modes",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "facts: no percentage figure on any page (80% and 90% never shown)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "provenance: every figure carries a sheet strip or is a labelled drawing",
+    "pass": true,
+    "detail": "{\"index.html\":0,\"alwaysgeeky.html\":0,\"emplifi.html\":0}"
+  },
+  {
+    "name": "Emplifi: no raster image anywhere on the sheet",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "AlwaysGeeky: only crops of the two shipped screenshots",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "AlwaysGeeky: no Storybook screen is claimed",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "provenance: every strip names its material",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "ink alwaysgeeky.html: no red outside the A–A mark",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "ink emplifi.html: no red outside the A–A mark",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "depth: Chromium runs the 3D anatomy by default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "depth: ?depth=flat runs the drawn section with no tilt",
+    "pass": true,
+    "detail": "{\"flat\":true,\"ready\":true,\"strata\":\"grid\",\"tilt\":\"x 0deg\"}"
+  },
+  {
+    "name": "depth: flat run sets no 3D transform mid-sequence",
+    "pass": true,
+    "detail": "0 elements"
+  },
+  {
+    "name": "LedgerGuard: review captions match the review and say prototype · fictional data",
+    "pass": true,
+    "detail": "Prototype state · fictional data | 0 of 13 terms confirmed. Review required. | 6 of 13 terms confirmed. 7 await review. | 13 of 13 terms confirmed. Review complete."
+  },
+  {
+    "name": "webkit index: renders, no errors",
+    "pass": true,
+    "detail": "{\"live\":false,\"ready\":false,\"flat\":false,\"sw\":1440}"
+  },
+  {
+    "name": "webkit ag-detail: renders, no errors",
+    "pass": true,
+    "detail": "{\"live\":true,\"ready\":true,\"flat\":false,\"sw\":1440}"
+  },
+  {
+    "name": "webkit ag-assembly: renders, no errors",
+    "pass": true,
+    "detail": "{\"live\":true,\"ready\":true,\"flat\":false,\"sw\":1440}"
+  },
+  {
+    "name": "webkit em-composition: renders, no errors",
+    "pass": true,
+    "detail": "{\"live\":true,\"ready\":true,\"flat\":false,\"sw\":1440}"
+  },
+  {
+    "name": "webkit lg-section: renders, no errors, depth flat",
+    "pass": true,
+    "detail": "{\"live\":true,\"ready\":true,\"flat\":true,\"sw\":1440}"
+  },
+  {
+    "name": "firefox: engine available",
+    "pass": null,
+    "detail": "not installed here"
+  }
+]

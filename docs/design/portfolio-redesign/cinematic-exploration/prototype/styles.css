@@ -1064,6 +1064,13 @@ a {
   background: var(--on-void);
 }
 
+.tally__k {
+  color: var(--on-void-2);
+  font: 500 0.625rem/1.3 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .tally__msg {
   color: var(--on-void);
   font: 500 0.75rem/1.3 var(--mono);
@@ -1791,6 +1798,45 @@ a {
 
   .motion-live .ledger p {
     font-size: 0.875rem;
+  }
+}
+
+/* ---------- flat depth: the drawn section on wide screens, with no 3D at all ---------- */
+/* Where 3D is not known to render (every browser without navigator.userAgentData, or
+   ?depth=flat), the first frame is not tipped back, sheets have no folded edge, and wide
+   screens run the same drawn section as phones, beside the cards instead of in a window. */
+
+.depth-flat {
+  --rest-tilt: 0deg;
+}
+
+.depth-flat .plate::after {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .depth-flat.motion-live .scene .plate:not([data-plate="1"]),
+  .depth-flat.motion-live .scene .boundary,
+  .depth-flat.motion-live .scene .floor {
+    display: none;
+  }
+
+  .depth-flat.motion-live .scene {
+    z-index: 2;
+  }
+
+  .depth-flat.motion-live .ws {
+    z-index: 3;
+  }
+
+  .depth-flat.motion-live .strata--stage {
+    z-index: 1;
+    display: grid;
+    position: absolute;
+    left: max(var(--gutter), 4vw);
+    width: min(56vw, calc((100svh - 150px) * 1.25));
+    top: calc(env(safe-area-inset-top, 0px) + 84px);
+    visibility: hidden;
   }
 }
 

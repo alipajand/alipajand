@@ -310,7 +310,9 @@
 
     gsap.set(rig, pose);
     plates.forEach(function (pl, i) {
-      gsap.set(pl, { z: -i * 2, autoAlpha: i === 0 ? 1 : 0 });
+      var p0 = { autoAlpha: i === 0 ? 1 : 0 };
+      if (!root.classList.contains("depth-flat")) p0.z = -i * 2;
+      gsap.set(pl, p0);
     });
     gsap.set(boundary, { opacity: 0, clipPath: "inset(100% 0 0 0)" });
     gsap.set(ws, { autoAlpha: 0, clipPath: "inset(100% 0% 0% 0%)" });
@@ -350,7 +352,9 @@
     var wsMarks = null;
     var drawMarks = [];
     var toneAt = [a1 * 0.45, 1];
-    if (wide) desktop();
+    // the stacked anatomy needs 3D; where depth is flat, wide screens run the drawn section
+    var flatDepth = root.classList.contains("depth-flat");
+    if (wide && !flatDepth) desktop();
     else narrow();
 
     function desktop() {
@@ -505,15 +509,24 @@
       drawn(b0, bd);
     }
 
+    // The drawn section: a phone's window at the top of the screen, or, on a wide screen
+    // without 3D, the left of the stage beside the cards. Only 2D transforms.
     function narrow() {
-      var winH = stageH * 0.56;
+      var winH = wide ? stageH : stageH * 0.56;
       var barH = 56;
-      var flat = {
-        x: 0,
-        y: (barH + winH) / 2 - stageH / 2,
-        rotationX: 0,
-        scale: (stageW - 32) / plateW,
-      };
+      var flat = wide
+        ? {
+            x: -stageW * 0.19,
+            y: 20,
+            rotationX: 0,
+            scale: (stageW * 0.56) / plateW,
+          }
+        : {
+            x: 0,
+            y: (barH + winH) / 2 - stageH / 2,
+            rotationX: 0,
+            scale: (stageW - 32) / plateW,
+          };
       var shot = strata.querySelector("[data-band-shot]");
       var hr = shot.getBoundingClientRect();
       var tr = stage.getBoundingClientRect();
@@ -532,20 +545,22 @@
 
       // A: the cut opens into a window at the top of the screen; the whole interface fits it
       tl.to(rig, Object.assign({ duration: a1, ease: "power2.inOut" }, flat), 0);
-      tl.to(
-        interior,
-        {
-          clipPath: "inset(0px 0px " + (stageH - winH) + "px 0px)",
-          duration: a1 * 0.8,
-          ease: "power2.inOut",
-        },
-        0
-      );
+      if (!wide) {
+        tl.to(
+          interior,
+          {
+            clipPath: "inset(0px 0px " + (stageH - winH) + "px 0px)",
+            duration: a1 * 0.8,
+            ease: "power2.inOut",
+          },
+          0
+        );
+      }
 
       // B: the section. The screenshot settles into band LG-01 and the four layers beneath it
       // are drawn in, one band at a time.
-      var b0 = p(aT - vh * 0.95);
-      var b1 = p(aT - vh * 0.1);
+      var b0 = wide ? a1 : p(aT - vh * 0.95);
+      var b1 = wide ? p(aT + vh * 0.55) : p(aT - vh * 0.1);
       var bd = b1 - b0;
       tl.to(strata, { autoAlpha: 1, duration: bd * 0.2 }, b0);
       tl.to(rig, Object.assign({ duration: bd * 0.3, ease: "power2.inOut" }, band), b0);
@@ -559,7 +574,7 @@
 
       // C: the boundary drops through every band, then the workspace slides over the section
       // and its states advance; the thirteen terms below it fill as they are confirmed.
-      var c0 = p(bT - vh * 0.9);
+      var c0 = wide ? b1 : p(bT - vh * 0.9);
       var c1 = p(lT - vh * 1.05);
       var cd = c1 - c0;
       tl.to(line, { scaleY: 1, duration: cd * 0.12, ease: "power2.inOut" }, c0);
