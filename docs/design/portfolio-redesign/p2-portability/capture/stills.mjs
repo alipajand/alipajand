@@ -1,4 +1,4 @@
-// Captures the storyboard stills for P2: the register, then one frame per beat of each scene, on
+// Captures the storyboard stills for P2: the opening and the register, then one frame per beat of each scene, on
 // desktop and on a phone, plus the reduced-motion presentation of every page.
 //   node capture/stills.mjs <outDir>
 // PNG out; the committed screenshots are WebP made from them with cwebp -q 82.
@@ -64,26 +64,37 @@ for (const [tag, w, h] of [
   ["desktop", 1440, 900],
   ["mobile", 390, 844],
 ]) {
-  /* the register */
+  /* the opening, the condensed register, then the rest of the work */
   {
     const { ctx, page } = await open(w, h, false, "index.html");
     await shot(page, `${tag}-00-index-first-screen`);
     if (w > 900) {
-      await page.hover('[data-row="alwaysgeeky"] .row__name');
-      await shot(page, `${tag}-01-index-key-plan`);
+      await page.hover('.bay[data-row="alwaysgeeky"] .bay__sect');
+      await shot(page, `${tag}-01-index-bay-focus`);
+      await page.mouse.move(0, 0);
     }
-    await page.evaluate(() => document.getElementById("register").scrollIntoView());
-    await shot(page, `${tag}-02-index-register`);
+    // the end of the pinned condensation: the bays are the register's top row
+    await page.evaluate(() => {
+      const t = window.ScrollTrigger && ScrollTrigger.getAll()[0];
+      scrollTo(0, t ? t.end : document.getElementById("work").offsetTop);
+    });
+    await shot(page, `${tag}-02-index-condensed`);
+    await page.evaluate(() => document.querySelector(".sup").scrollIntoView());
+    await shot(page, `${tag}-03-index-supporting`);
     await page.locator('[data-cap-to="systems"]').click();
     await page.evaluate(() => document.getElementById("capabilities").scrollIntoView());
-    await shot(page, `${tag}-03-index-capability-marked`);
+    await shot(page, `${tag}-04-index-capability-marked`);
+    if (w < 900) {
+      await page.evaluate(() => scrollTo(0, 0));
+      await shot(page, `${tag}-05-index-full`, { fullPage: true });
+    }
     await ctx.close();
   }
 
   /* the scenes, beat by beat */
   for (const [code, path, beats] of [
     ["ag", "alwaysgeeky.html", ["detail", "assembly", "gates"]],
-    ["em", "emplifi.html", ["chart", "cost", "composition", "after"]],
+    ["em", "emplifi.html", ["chart", "path", "composition", "budget"]],
   ]) {
     const { ctx, page } = await open(w, h, false, path);
     await shot(page, `${tag}-${code}-00-first-frame`);
@@ -106,6 +117,9 @@ for (const [tag, w, h] of [
   ]) {
     const { ctx, page } = await open(w, h, true, path);
     await shot(page, `${tag}-reduced-${code}-first-screen`);
+    if (code === "index" && w < 900) {
+      await shot(page, `${tag}-reduced-index-full`, { fullPage: true });
+    }
     if (code !== "index") {
       await page.evaluate(() =>
         document.querySelector(".track > .step[data-beat]").scrollIntoView()

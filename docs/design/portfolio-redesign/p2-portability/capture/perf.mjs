@@ -82,7 +82,9 @@ async function probe(path, label, viewport, cpu, reduce = false) {
       page: path,
       label,
       cpuSlowdown: cpu,
-      live: await page.evaluate(() => document.documentElement.classList.contains("motion-live")),
+      live: await page.evaluate(() =>
+        ["motion-live", "op-live"].some((c) => document.documentElement.classList.contains(c))
+      ),
       kb,
       totalKb: Object.values(kb).reduce((a, b) => a + b, 0),
       clsLoad: cls0,

@@ -152,8 +152,8 @@ async function arrive(re) {
 // ---- the runs ----
 mark("load");
 if (mode === "lg-flat" || mode === "webkit-lg-flat") {
-  // the LedgerGuard sequence with depth flat: forced in Chromium, the default in WebKit
-  await page.goto(P1 + (M.webkit ? "index.html" : "index.html?depth=flat"));
+  // the LedgerGuard sequence in its default, flat presentation (3D runs only with ?depth=3d)
+  await page.goto(P1 + "index.html");
   await page.evaluate(() => document.fonts.ready);
   await addCursor();
   await wait(1300);
@@ -176,25 +176,31 @@ if (mode === "lg-flat" || mode === "webkit-lg-flat") {
   await addCursor();
   await wait(1400);
   mark("index");
-  await glide("#register", 1600, 60);
-  await wait(300);
+  // the pinned condensation, at reading speed: the identity block slides away, then the bays
+  // close toward the cut until they are the register's top row
+  const condensed = await page.evaluate(() => {
+    const t = window.ScrollTrigger && ScrollTrigger.getAll()[0];
+    return t ? t.end : document.getElementById("work").offsetTop;
+  });
+  await glide(condensed, 3000 * slow);
+  await wait(700);
+  mark("condensed");
   if (!M.mobile) {
-    for (const slug of ["alwaysgeeky", "emplifi", "agent-tooling", "tallyfolio", "ledgerguard"]) {
-      await hover(`[data-row="${slug}"] .row__name`);
-      await wait(650);
+    for (const slug of ["alwaysgeeky", "emplifi", "ledgerguard"]) {
+      await hover(`.bay[data-row="${slug}"] .bay__sect`);
+      await wait(700);
     }
-  } else {
-    await glide('[data-row="emplifi"]', 1600, 120);
-    await wait(500);
   }
-  await glide(".caps", 700, M.mobile ? 200 : 260);
+  await glide(".sup", 1500 * slow, M.mobile ? 90 : 120);
+  await wait(900);
+  await glide(".caps", 900, M.mobile ? 200 : 260);
   await tap('[data-cap-to="systems"]');
   await wait(1400);
   await tap('[data-cap-to="systems"]');
   await wait(500);
-  await glide('[data-row="alwaysgeeky"]', 900, M.mobile ? 160 : 200);
-  await wait(300);
-  await tap('[data-row="alwaysgeeky"] .row__more a');
+  await glide(condensed, 1400);
+  await wait(400);
+  await tap('.bay[data-row="alwaysgeeky"] .bay__sect');
   await arrive(/alwaysgeeky/);
   await wait(1300);
   mark("ag");
@@ -222,7 +228,7 @@ if (mode === "lg-flat" || mode === "webkit-lg-flat") {
   await wait(1300);
   mark("em");
   if (M.reduce) {
-    for (const id of ["#chart", "#cost", "#composition", "#after", "#case"]) {
+    for (const id of ["#chart", "#path", "#composition", "#budget", "#case"]) {
       await glide(id, 1500, 60);
       await wait(1200);
     }

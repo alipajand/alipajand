@@ -62,30 +62,30 @@
   {
     "name": "keyboard index.html full: first Tab is the skip link",
     "pass": true,
-    "detail": "Skip to the project register"
+    "detail": "Skip to selected work"
   },
   {
-    "name": "keyboard index.html full: 31 tab stops on screen with a focus ring",
+    "name": "keyboard index.html full: 27 tab stops on screen with a focus ring",
     "pass": true,
     "detail": ""
   },
   {
-    "name": "keyboard index.html full: every register row's case-study link is a tab stop",
+    "name": "keyboard index.html full: all seven case-study links are tab stops",
     "pass": true,
     "detail": "7 of 7"
   },
   {
     "name": "keyboard index.html reduce: first Tab is the skip link",
     "pass": true,
-    "detail": "Skip to the project register"
+    "detail": "Skip to selected work"
   },
   {
-    "name": "keyboard index.html reduce: 31 tab stops on screen with a focus ring",
+    "name": "keyboard index.html reduce: 27 tab stops on screen with a focus ring",
     "pass": true,
     "detail": ""
   },
   {
-    "name": "keyboard index.html reduce: every register row's case-study link is a tab stop",
+    "name": "keyboard index.html reduce: all seven case-study links are tab stops",
     "pass": true,
     "detail": "7 of 7"
   },
@@ -95,7 +95,7 @@
     "detail": "Skip to the AlwaysGeeky case study"
   },
   {
-    "name": "keyboard alwaysgeeky.html full: 14 tab stops on screen with a focus ring",
+    "name": "keyboard alwaysgeeky.html full: 12 tab stops on screen with a focus ring",
     "pass": true,
     "detail": ""
   },
@@ -105,7 +105,7 @@
     "detail": "Skip to the AlwaysGeeky case study"
   },
   {
-    "name": "keyboard alwaysgeeky.html reduce: 14 tab stops on screen with a focus ring",
+    "name": "keyboard alwaysgeeky.html reduce: 12 tab stops on screen with a focus ring",
     "pass": true,
     "detail": ""
   },
@@ -130,29 +130,24 @@
     "detail": ""
   },
   {
-    "name": "register: pointing at a row shows its sheet in the key plan",
+    "name": "register: 3 featured case studies and scenes, 3 supporting, MapBylaw as the experiment",
     "pass": true,
-    "detail": "emplifi"
+    "detail": "{\"featured\":[\"../../cinematic-exploration/prototype/ledgerguard.html\",\"alwaysgeeky.html#case\",\"emplifi.html#case\"],\"scenes\":[\"../../cinematic-exploration/prototype/index.html\",\"alwaysgeeky.html\",\"emplifi.html\"],\"supporting\":3,\"experiment\":[\"mapbylaw\"]}"
   },
   {
-    "name": "register: focusing a row shows its sheet",
+    "name": "register: pointing at a bay quiets the other two (hover is an enhancement only)",
     "pass": true,
-    "detail": "{\"view\":\"controltech\",\"label\":\"CT-01\"}"
+    "detail": "[[\"ledgerguard\",0.86],[\"alwaysgeeky\",0.86],[\"emplifi\",1]]"
   },
   {
-    "name": "register: the key-plan wipe is at most 280 ms",
-    "pass": true,
-    "detail": "280 ms"
-  },
-  {
-    "name": "register: Design systems marks AlwaysGeeky and Emplifi, in rows and schedule",
+    "name": "register: Design systems marks AlwaysGeeky and Emplifi, in the bays and the schedule",
     "pass": true,
     "detail": "[\"alwaysgeeky\",\"emplifi\"] col cells 8"
   },
   {
-    "name": "register: the status line names the marked sheets",
+    "name": "register: the status line names the marked projects",
     "pass": true,
-    "detail": "Design systems: 2 sheets marked, AlwaysGeeky Games, Emplifi."
+    "detail": "Design systems: 2 projects marked, AlwaysGeeky Games, Emplifi."
   },
   {
     "name": "register: the status line is a polite live region",
@@ -165,29 +160,49 @@
     "detail": ""
   },
   {
-    "name": "no script: 7 register links, no dead controls, full schedule",
+    "name": "opening 1440px: pins, condenses the bays and keeps the register attached",
+    "pass": true,
+    "detail": "{\"live\":true,\"h\":246,\"end\":486,\"condensed\":84,\"gap\":0}"
+  },
+  {
+    "name": "opening 390px: pins, condenses the bays and keeps the register attached",
+    "pass": true,
+    "detail": "{\"live\":true,\"h\":176,\"end\":562,\"condensed\":60,\"gap\":0}"
+  },
+  {
+    "name": "opening 1440px reduced: static, no transforms",
+    "pass": true,
+    "detail": "{\"live\":false,\"height\":2783,\"inline\":0}"
+  },
+  {
+    "name": "opening 390px reduced: static, no transforms, page under 4,200 px",
+    "pass": true,
+    "detail": "{\"live\":false,\"height\":3999,\"inline\":0}"
+  },
+  {
+    "name": "no script: 7 case-study links, no dead controls, full schedule",
     "pass": true,
     "detail": "{\"rows\":7,\"caps\":0,\"table\":7}"
   },
   {
     "name": "no script alwaysgeeky.html: stage hidden, every step figure shown",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":null,\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":null,\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
   },
   {
     "name": "no script emplifi.html: stage hidden, every step figure shown",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":null,\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":null,\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
   },
   {
     "name": "motion alwaysgeeky.html: live and confirmed",
     "pass": true,
-    "detail": "{\"live\":true,\"ready\":true,\"motion\":\"full\",\"stage\":\"block\",\"figs\":0,\"inlineTransforms\":6,\"height\":11660}"
+    "detail": "{\"live\":true,\"ready\":true,\"motion\":\"full\",\"stage\":\"block\",\"figs\":0,\"inlineTransforms\":6,\"height\":10931}"
   },
   {
     "name": "reduced alwaysgeeky.html: static steps, no inline transforms",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"reduce\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"reduce\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
   },
   {
     "name": "reduced alwaysgeeky.html: the toggle turns the scene on and off cleanly",
@@ -197,32 +212,32 @@
   {
     "name": "fail-safe alwaysgeeky.html: GSAP blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
   },
   {
     "name": "fail-safe alwaysgeeky.html: ScrollTrigger blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
   },
   {
     "name": "fail-safe alwaysgeeky.html: scene script blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
   },
   {
     "name": "fail-safe alwaysgeeky.html: timeline throws mid-build leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":8105}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
   },
   {
     "name": "motion emplifi.html: live and confirmed",
     "pass": true,
-    "detail": "{\"live\":true,\"ready\":true,\"motion\":\"full\",\"stage\":\"block\",\"figs\":0,\"inlineTransforms\":7,\"height\":11372}"
+    "detail": "{\"live\":true,\"ready\":true,\"motion\":\"full\",\"stage\":\"block\",\"figs\":0,\"inlineTransforms\":10,\"height\":11391}"
   },
   {
     "name": "reduced emplifi.html: static steps, no inline transforms",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"reduce\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"reduce\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
   },
   {
     "name": "reduced emplifi.html: the toggle turns the scene on and off cleanly",
@@ -232,22 +247,22 @@
   {
     "name": "fail-safe emplifi.html: GSAP blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
   },
   {
     "name": "fail-safe emplifi.html: ScrollTrigger blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
   },
   {
     "name": "fail-safe emplifi.html: scene script blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
   },
   {
     "name": "fail-safe emplifi.html: timeline throws mid-build leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7234}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
   },
   {
     "name": "anchor alwaysgeeky.html#case: the case study is at the top, hero shown",
@@ -257,12 +272,12 @@
   {
     "name": "match cut alwaysgeeky.html 1440px: the subject lands on the hero within 2 px",
     "pass": true,
-    "detail": "{\"landed\":true,\"dx\":0.0000152587890625,\"dy\":0.003173828125,\"dw\":0.021240234375}"
+    "detail": "{\"landed\":true,\"dx\":0.0000152587890625,\"dy\":0.003082275390625,\"dw\":0.02972412109375}"
   },
   {
     "name": "match cut alwaysgeeky.html 390px: the subject lands on the hero within 2 px",
     "pass": true,
-    "detail": "{\"landed\":true,\"dx\":0.0000133514404296875,\"dy\":0.4375,\"dw\":0.0047607421875}"
+    "detail": "{\"landed\":true,\"dx\":0.0000133514404296875,\"dy\":0.00000762939453125,\"dw\":0.0047607421875}"
   },
   {
     "name": "anchor emplifi.html#case: the case study is at the top, hero shown",
@@ -272,12 +287,12 @@
   {
     "name": "match cut emplifi.html 1440px: the subject lands on the hero within 2 px",
     "pass": true,
-    "detail": "{\"landed\":true,\"dx\":0.000030517578125,\"dy\":0.003173828125,\"dw\":0.012603759765625}"
+    "detail": "{\"landed\":true,\"dx\":0.000030517578125,\"dy\":0.003082275390625,\"dw\":0.002044677734375}"
   },
   {
     "name": "match cut emplifi.html 390px: the subject lands on the hero within 2 px",
     "pass": true,
-    "detail": "{\"landed\":true,\"dx\":0.000003814697265625,\"dy\":0.375,\"dw\":0.00042724609375}"
+    "detail": "{\"landed\":true,\"dx\":0.0000152587890625,\"dy\":0,\"dw\":0.0038299560546875}"
   },
   {
     "name": "layout: no sideways scroll on any page at 320–1440 px, both modes",
@@ -310,6 +325,26 @@
     "detail": ""
   },
   {
+    "name": "facts: the word proprietary is not used",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "Emplifi: every 16.7 ms is called a reference, never a measurement",
+    "pass": true,
+    "detail": "3 mentions"
+  },
+  {
+    "name": "Emplifi: no before/after, reduction or speed-up wording in any drawing or heading",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "AlwaysGeeky: the Voxies relation and the July 2026 closure are stated",
+    "pass": true,
+    "detail": ""
+  },
+  {
     "name": "provenance: every strip names its material",
     "pass": true,
     "detail": ""
@@ -325,12 +360,22 @@
     "detail": ""
   },
   {
-    "name": "depth: Chromium runs the 3D anatomy by default",
+    "name": "depth: no user-agent sniffing (navigator.userAgentData is not used as a capability test)",
     "pass": true,
     "detail": ""
   },
   {
-    "name": "depth: ?depth=flat runs the drawn section with no tilt",
+    "name": "depth: the flat drawn section is the default",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "depth: ?depth=3d opts into the 3D anatomy (Chromium review only)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "depth: the default runs the drawn section with no tilt",
     "pass": true,
     "detail": "{\"flat\":true,\"ready\":true,\"strata\":\"grid\",\"tilt\":\"x 0deg\"}"
   },
@@ -361,6 +406,11 @@
   },
   {
     "name": "webkit em-composition: renders, no errors",
+    "pass": true,
+    "detail": "{\"live\":true,\"ready\":true,\"flat\":false,\"sw\":1440}"
+  },
+  {
+    "name": "webkit em-budget: renders, no errors",
     "pass": true,
     "detail": "{\"live\":true,\"ready\":true,\"flat\":false,\"sw\":1440}"
   },

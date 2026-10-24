@@ -124,7 +124,17 @@
   fill: rgba(22, 20, 15, 0.14);
 }
 
-/* EM-02 / EM-04 · the timeline: frames are the display's budget, blocks are illustrative */
+/* EM-02 · the render path: equal stations, an ochre profiling line, two marked stages */
+.drawing .probe--drop {
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.drawing .t-box--s {
+  font-size: 16px;
+}
+
+/* EM-04 · the reference ruler and the illustrative tree */
 .drawing .frame-tick {
   stroke: var(--rule-strong);
   stroke-dasharray: 3 4;
@@ -140,34 +150,24 @@
   stroke-width: 1.5;
 }
 
-.drawing .miss__box {
-  fill: rgba(168, 103, 10, 0.3);
+.drawing .box--em {
   stroke: var(--em);
   stroke-width: 2;
 }
 
-.drawing .blk__box {
-  fill: var(--ink);
+.drawing .d3-own {
+  fill: var(--em-wash);
+  stroke: var(--em);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 5;
 }
 
-.drawing .blk__box--d3 {
-  fill: var(--ink-2);
+.drawing .mark-d3 {
+  fill: rgba(22, 20, 15, 0.28);
 }
 
-.drawing .blk__box--layout {
-  fill: #8f8673;
-}
-
-.drawing .blk__box--paint {
-  fill: #b3a994;
-}
-
-.drawing--before .t-after,
-.drawing--after .t-before,
-.drawing--both:not(.is-after) .t-after,
-.drawing--both.is-after .t-before,
-.drawing--after .miss {
-  display: none;
+.drawing .update {
+  stroke-width: 3;
 }
 
 /* EM-03 · the exploded section */
@@ -189,7 +189,7 @@
   left: 0;
   top: 0;
   width: 1200px;
-  height: 2300px;
+  height: 1400px;
   transform-origin: 0 0;
 }
 
@@ -198,7 +198,7 @@
   left: 0;
   top: 0;
   width: 1200px;
-  height: 2300px;
+  height: 1400px;
   overflow: visible;
 }
 
@@ -419,12 +419,9 @@
   box-shadow: 0 18px 40px rgba(22, 20, 15, 0.12);
 }
 
-.ag-sheet--contract {
-  top: 900px;
-}
-
-.ag-sheet--gates {
-  top: 1640px;
+/* world coordinates: the chain's spine (local x 500) continues the library's bus at x 600 */
+.ag-sheet--chain {
+  top: 560px;
 }
 
 /* ---------- Emplifi stage ---------- */
@@ -443,10 +440,16 @@
   transform-origin: 0 0;
 }
 
-.em-sheet--tl {
-  left: 250px;
-  top: 150px;
-  width: 940px;
+.em-sheet--path {
+  left: 330px;
+  top: 170px;
+  width: 850px;
+}
+
+.em-sheet--budget {
+  left: 100px;
+  top: 30px;
+  width: 1000px;
 }
 
 .em-sheet--layers {
@@ -456,8 +459,8 @@
 }
 
 .em-stamp {
-  left: 520px;
-  top: 640px;
+  left: 100px;
+  top: 694px;
   display: grid;
   gap: 4px;
   max-width: 600px;
@@ -517,13 +520,4 @@
 
 .step__fig--phone .drawing {
   width: min(320px, 80%);
-}
-
-/* in the register, each featured row marks its matches in its own ink */
-.row[data-row="alwaysgeeky"] {
-  --mark: rgba(33, 72, 184, 0.28);
-}
-
-.row[data-row="emplifi"] {
-  --mark: rgba(168, 103, 10, 0.32);
 }

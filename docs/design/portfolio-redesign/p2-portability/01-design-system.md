@@ -20,10 +20,10 @@ A project never borrows another project's move or ink. The red review boundary s
 ### Surfaces
 
 - **Paper exterior.** `--paper #ebe6da` on a 24 px drafting grid. Scenes show the grid; reading pages are plain paper.
-- **Void interior.** `--void #100f0d`. Only shipped screenshots sit on void, so dark always means "this is the real product".
+- **Void interior.** `--void #100f0d`. On the scene and case-study pages only shipped screenshots sit on void, so dark means "this is the real product". The index's section is the one exception: below the A–A cut the bays show the system behind each project as a light-ink diagram on void, and the cut band names it ("LG-02 ↓ Diagram") so the material is never left to colour alone. 06 flags this as an open question.
 - **Vellum.** `--vellum #f2ede2` under every editorial drawing and every reading card.
 
-The paper and void pairing is approved for this concept only. It is not approved as a site-wide light theme.
+The paper and void pairing is a concept for this exploration only. It is not a proposed site-wide light theme, and nothing here changes the production theme.
 
 ### Type
 
@@ -57,7 +57,7 @@ Crops follow the same rule. AlwaysGeeky's Detail 1 is a crop of the shipped mark
 
 ### Title block
 
-The index carries a drafting title block: stack, experience, base, availability and contact. On wide screens it sits in the sheet's lower right, where a title block sits on a drawing. Every value in it comes from the public facts already on the site.
+The index carries a drafting title block: stack, experience, base and availability, with "Book a call" as its last row. On wide screens it sits to the right of the name. Every value in it comes from the public facts already on the site.
 
 ### The A–A mark
 
@@ -65,7 +65,7 @@ The red section line through the name, and `A–A` in the bar, are the set's ide
 
 ### Focus and controls
 
-- Focus ring: 3 px `--red`, offset 3 px, on every interactive element. The register rows draw it inset on the whole row.
+- Focus ring: 3 px `--red`, offset 3 px, on every interactive element. Bays and supporting rows draw it inset on the whole link.
 - Controls are square-cornered, outlined, at least 32 px tall in the bar and 36 px elsewhere.
 - Controls that need script ship disabled and hidden, so a page without script never offers a control that does nothing.
 
@@ -74,52 +74,46 @@ The red section line through the name, and `A–A` in the bar, are the set's ide
 - **Bar:** the A–A mark and name (link to the register), two or three section links, and the Motion toggle.
 - **Register (Sheet 00):** the project index. See below.
 - **Sheet navigation:** at the end of every case study: previous sheet, index, next sheet.
-- **Skip link:** first in tab order on every page, to the register or the case study.
+- **Skip link:** first in tab order on every page, to the selected work or the case study.
 
-## The portfolio index: a drawing register
+## The portfolio index: a section through the work
 
-The index is a drafting **drawing register**, not a gallery and not a grid of cards. A register is the list a drawing set opens with: every sheet, numbered, with its title and status.
+P2 drew the index as a register: a typeset list with a key-plan aperture. The review found it clear but not cinematic, and long on a phone. P2.1 keeps every destination and turns the first screen into one drawing.
 
-### First screen
+### The first frame
 
-The first screen establishes who and what before any project:
+The page opens on the name and the title block, and directly under them a **section through the three featured projects**, cut on the A–A line:
 
-- Name, cut by the A–A line.
-- `Senior Software Engineer`.
-- Focus line and the approved thesis, "The interface, and the work behind it."
-- The title block.
+- **Three bays**, one per featured project, separated by solid walls. Bay widths are equal; a dimension string above them gives each one's timeframe and the key says "Bays dimensioned by time · not to scale".
+- **Above the cut**, what a user saw: the shipped LedgerGuard dashboard, the historical Voxies marketplace, and for Emplifi the EM-01 webview drawing (there is no Emplifi screenshot).
+- **The cut band**, hatched, carries both materials as tags: "LG-01 ↑ Shipped screenshot" and "LG-02 ↓ Diagram". Where a tag would be cut short (below 1,360 px), only the sheet code shows; the brief under the bay names the material in full.
+- **Below the cut**, the system behind it, in the project's own ink on void: LedgerGuard's five layers and red review boundary, AlwaysGeeky's four surfaces on one library, Emplifi's React frame around the D3 chart.
+- **The thesis as two datums**, set in the key column against the cut: "The interface," above the line and "and the work behind it." below it. On narrow screens they become a two-line legend above the bays.
+- **Red A bubbles** at both ends of the cut, the set's identity mark, on wide screens only.
 
-On a 1440 × 900 screen the first featured row is visible without scrolling.
+Each bay has a drawing-title block under it: code bubble, name and "Case study →" (one link, straight to the case study), and the case-study title. The picture is a second link, marked "Scene", into the optional scene. Pointing at or focusing a bay quiets the other two; nothing depends on hover.
 
-### Rows
+### The condensation
 
-| Group      | Sheets         | Row content                                                                                         |
-| ---------- | -------------- | --------------------------------------------------------------------------------------------------- |
-| Featured   | LG, AG, EM     | Large code, name, case-study title, first sentence, role and years, evidence type, "Open the scene" |
-| Supporting | AT, TF, CT, MB | Smaller code, same lines, "Case study on alipajand.com"                                             |
+With motion on, the opening pins while it condenses into the register (see 02): the identity block slides up under the bar, then the bays shorten toward the cut until the row of three is the register's top row. What follows rises at reading speed. Without motion, or without script, the page is the same content as one static column.
 
-- The whole row is one link to the case study, so the case study is always reachable directly and the scene is never required. Featured rows add a second link, "Open the scene".
-- The row link is a real box that repeats the row's columns, not `display: contents`. A `display: contents` link was skipped in the tab order in Chromium, which the review caught.
-- **Evidence type** is part of every row. Examples: "Shipped screenshots · editorial diagrams", "Editorial diagrams only · illustrative data · no screenshots", "Text and diagrams · no screenshot". A reader knows what kind of proof is behind a row before opening it.
-- MapBylaw is filed under Supporting with the tier label "Experiment" in its role line, as its data describes it.
+### Below the section
 
-### Key plan
+| Group      | Sheets                                           | Treatment                                                                                                                                                       |
+| ---------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Featured   | LG, AG, EM                                       | The bays, then one **brief** each: role and years, the first sentence of the problem, and what the two materials are ("LG-01 above the cut: … LG-02 below: …"). |
+| Supporting | Agent Engineering Tools, TallyFolio, ControlTech | Three columns of plain rows: code box, name, case-study title, "Case study on alipajand.com ↗", role, years and evidence type.                                  |
+| Experiment | MapBylaw                                         | Its own group, behind a dashed rule: "A self-directed experiment, kept apart from client and product work."                                                     |
 
-On wide screens a sticky aperture beside the list shows the sheet under the pointer or keyboard focus, with its strip. The change is a top-to-bottom wipe of 280 ms, with none under reduced motion. Its contents:
+Every one of the seven destinations is a single link from the index. Featured case studies are reachable without opening a scene.
 
-- **LG, AG, TF, MB:** shipped screenshots.
-- **EM:** the EM-01 webview drawing.
-- **AT, CT:** openings.
+### Mobile
 
-The aperture is decorative (`aria-hidden`); every fact it shows is also in the row.
+At 390 px the bays become three slender cores side by side, each still cut on the line, with the name and "Case study →" under it. There are no inline screenshots beyond the cores, so the page is about 4,000 px tall (P2 was about 5,600). Supporting work starts around 1,500 px down.
 
-On narrow screens there is no aperture. Featured rows show their own thumbnail inline.
+### Disciplines
 
-### Capability schedule
-
-A table of seven capabilities against seven sheets. Every mark cites its evidence, which is either the project's own tag or, marked "(case study)", a phrase from its case study. Seven toggle buttons above the register mark matching sheets in both the register and the table. A polite live region announces the result, for example "Design systems: 2 sheets marked, AlwaysGeeky Games, Emplifi." Escape clears it.
-
-Without script, the table is a plain table and the buttons are not shown.
+The capability table is now headed "By discipline": "Explore the work by technical discipline." Seven buttons mark matching projects in the bays and rows and in the table. A polite live region announces the result, for example "Design systems: 2 projects marked, AlwaysGeeky Games, Emplifi." Escape clears it. Without script, the table is a plain table and the buttons are not shown.
 
 ## Project moves
 
@@ -129,26 +123,35 @@ Red, `--red #c8321b`. The red line means the human review boundary: suggested va
 
 ### AlwaysGeeky · the detail callout
 
-Blueprint blue, `--ag #2148b8`, about 6.4:1 on paper.
+Blueprint blue, `--ag #2148b8`, about 6.4:1 on paper; `--ag-v #98adff` on void.
+
+AlwaysGeeky Games makes Voxies. The marketplace and login shown are Voxies surfaces; the marketplace closed in July 2026, so the screenshots are labelled historical and neither address is linked.
 
 - The **callout** is a circle and leader on the shipped screenshot. It names a part of the interface without redrawing it.
 - The **lens** lifts that part out, enlarged, as a crop of the same screenshot.
-- The **blue line** continues from the lens down through the system: drop lines from each surface to the library, then a bus down to the contract and the gates. Blue always means "this part is shared".
+- The **blue line** continues from the lens down through the system: drop lines from each surface to the library, then one spine down AG-03. Storybook contract clauses branch off the spine; the CI gates hang from its foot. Blue always means "this part is shared".
 
-### Emplifi · the dimension line and the time axis
+AG-03 is a single drawing so the scene needs one camera move, not two stops. It is not a Storybook screen and names no tool, check count or pass rate.
 
-Ochre, `--em #a8670a`, used for lines and fills only. Its text ink is `--em-ink #7d4c05`, about 5.5:1, because the line ochre is too light for small text.
+### Emplifi · the render path and the frame budget
 
-- The **cursor** reads across a chart the way a measuring instrument would.
-- The **time axis** is a frame timeline whose ticks are the 60 Hz frame budget. That budget is a property of the display, not a measurement.
-- **Spill marks** show the frames an update runs into.
+Ochre, `--em #a8670a`, used for lines and fills only. Its text ink is `--em-ink #7d4c05`, about 5.5:1, because the line ochre is too light for small text. On void it is `--em-v #e3a33f`.
+
+The Emplifi sheet shows **technique, not magnitude**. P2's before/after timelines were removed: their shorter "after" blocks read as a measured gain that no source supports.
+
+- **EM-02, the render path.** Five equal stations from input to paint, and an ochre probe line along them: "Profiled where the cost showed up first: in the embedded webview". Brackets mark the two stages the case study names, unnecessary re-renders and chart-update paint work. The note says the boxes are equal on purpose: stages, not durations.
+- **EM-04, the frame budget.** A **reference** ruler of three 60 Hz frames, bracketed "16.7 ms", with the text "This is a reference budget, not a measurement; other refresh rates set other budgets." Beside it, an illustrative module tree shows the composition decision: a chart update runs inside the D3-owned region and does not re-render the React controls and legend around it.
 - The **dimension line** marks where React's ownership ends and D3's begins.
 
-No drawing on the Emplifi sheet carries a measured value. Each timeline says "Schematic. Block lengths are illustrative; no profile or measured value is shown."
+No drawing on the Emplifi sheet carries a measured value, and no length in it is comparative.
+
+### The index section
+
+The section reuses each project's ink on void (`--lg-v #f0674c` for LedgerGuard's review boundary only, `--ag-v`, `--em-v`). Red on the index appears only in the A–A mark, the A bubbles, the focus ring and LedgerGuard's bay.
 
 ## Tokens
 
-All tokens are in `prototype/grammar.css`. Project inks are declared there so the whole set is visible in one place, and used only in `projects.css`.
+All tokens are in `prototype/grammar.css`, except the void inks the index section uses, which are in `prototype/opening.css`. Project inks are used only in `projects.css` and the index section.
 
 ```text
 --paper #ebe6da   --paper-2 #e2dccd   --vellum #f2ede2
@@ -160,6 +163,7 @@ All tokens are in `prototype/grammar.css`. Project inks are declared there so th
 --red-ink #b02a14                  red as small text on paper (4.29:1 at --red is too low)
 --ag #2148b8  --ag-wash            AlwaysGeeky
 --em #a8670a  --em-ink #7d4c05  --em-wash   Emplifi
+--lg-v #f0674c  --ag-v #98adff  --em-v #e3a33f   project inks on void (index section only, opening.css)
 --ease-out cubic-bezier(.16,1,.3,1)   --t-quick 180ms   --t-wipe 280ms
 ```
 
@@ -172,10 +176,13 @@ All tokens are in `prototype/grammar.css`. Project inks are declared there so th
 
 ## New copy for owner approval
 
-All other text is read from `data/projects.ts` or was approved in the P1 review. The following lines are new and need approval:
+All other text is read from `data/projects.ts` or was approved in an earlier review. Lines marked "review" are the wording the P2 review suggested.
 
-- Register intro: "Seven projects, drawn as one set. The three featured sheets each open into a short scene and a full case study; every row goes straight to the case study."
-- Schedule intro: "Which sheets show evidence of what. Every mark cites the project's own tag or case-study text. Pick a capability to mark its sheets in the register."
-- AlwaysGeeky step headings: "From the interface to its parts", "Storybook as the contract, CI as the gate". The scene note: "Four beats. Scroll, or go straight to the case study."
-- Emplifi step headings: "A dense chart, where it actually ran", "Measure the update, not the data", "The same update, cheaper to draw". The disclosure: "No screenshots: the dashboards are proprietary. Every drawing here is an editorial diagram with illustrative data."
-- Evidence-type lines in the register, the materials notes on each scene's first card, and the drawing titles and notes inside the AG and EM drawings.
+- Selected work: "Seven projects; three explored in depth." (review)
+- Disciplines: "By discipline", "Explore the work by technical discipline." (review), and the note "Every mark cites the project's own tag or case-study text. Pick a discipline to mark its projects above."
+- Index key and datums: "Bays dimensioned by time · not to scale", "The interface," / "and the work behind it." (the approved thesis, split), cut tags "Shipped screenshot", "Historical screenshot", "Illustrative diagram", "Diagram".
+- Supporting and experiment notes: "Case studies on alipajand.com.", "A self-directed experiment, kept apart from client and product work."
+- **Voxies relation, needs owner confirmation of the facts:** "AlwaysGeeky Games makes Voxies; the marketplace and login shown here are Voxies surfaces. The marketplace closed in July 2026, so these screenshots are a historical record, not a live product." and "The Voxies marketplace closed in July 2026, so neither the marketplace nor the login address is linked from this prototype."
+- AlwaysGeeky headings: "From interface to shared system", "Storybook contracts. CI enforcement." (both review).
+- Emplifi headings: "A dense chart in an embedded webview", "Investigating the render path", "Designing within the frame budget" (all review). Disclosure: "No interface screenshots included. Diagrams illustrate the approach with fictional, unmeasured data." (review)
+- The notes inside EM-02 and EM-04 quoted above, the AG-03 drawing title and note, and the briefs' material lines.

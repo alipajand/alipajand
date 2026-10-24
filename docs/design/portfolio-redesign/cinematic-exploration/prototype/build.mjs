@@ -83,10 +83,10 @@ const GSAP = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5";
 // GSAP and the timeline are confirmed, and if that has not happened by the load event (a
 // script failed or was blocked), the static layout comes back.
 const PROVISIONAL = `if(m==="full"){r.classList.add("motion-live");addEventListener("load",function(){if(r.classList.contains("motion-ready"))return;r.classList.remove("motion-live");var t=location.hash&&document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)t.scrollIntoView()})}`;
-// Depth: the stacked 3D anatomy runs only where it has been seen to render (Chromium, which
-// exposes navigator.userAgentData); everywhere else the flat 2D section runs instead.
-// ?depth=flat or ?depth=3d forces either, for review.
-const DEPTH = `var d=/[?&]depth=(flat|3d)/.exec(location.search);if(d?d[1]==="flat":!navigator.userAgentData)r.classList.add("depth-flat");`;
+// Depth: the flat 2D section is the default everywhere. The stacked 3D anatomy is an
+// exploration that has only been seen to render in Chromium, so it runs only on request
+// (?depth=3d); no browser detection stands in for a capability check.
+const DEPTH = `if(!/[?&]depth=3d/.test(location.search))r.classList.add("depth-flat");`;
 const boot = (live) =>
   `<script>(function(){var r=document.documentElement,q=matchMedia("(prefers-reduced-motion: reduce)"),s=null;try{s=JSON.parse(localStorage.getItem("aa-motion2")||"null")}catch(e){}var os=q.matches?"reduce":"full",m=os;if(s&&(s.m==="full"||s.m==="reduce")){if(os==="full")m=s.m;else if(s.os==="reduce")m=s.m}r.dataset.motion=m;r.classList.add("js");var n=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];if((n&&n.type==="back_forward")||location.hash)r.classList.add("returning");${DEPTH}${live ? PROVISIONAL : ""}})();</script>`;
 

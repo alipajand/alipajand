@@ -1,4 +1,4 @@
-// Functional review of the P2 prototype: accessibility, keyboard, the register's controls, motion
+// Functional review of the P2 prototype: accessibility, keyboard, the opening and register, motion
 // modes and their fail-safes, anchors, layout, provenance and factual guards, the match cuts,
 // the LedgerGuard depth fallback, and a pass in WebKit and Firefox where they are installed.
 //   node capture/review.mjs [outFile.json] [shotDir]
@@ -119,7 +119,7 @@ for (const p of PAGES) {
       href: document.activeElement.getAttribute("href"),
       text: document.activeElement.textContent.trim(),
     }));
-    const target = p === "index.html" ? "#register" : "#case";
+    const target = p === "index.html" ? "#work" : "#case";
     check(`keyboard ${p} ${mode}: first Tab is the skip link`, first.href === target, first.text);
     const bad = [];
     let stops = 0;
@@ -145,11 +145,12 @@ for (const p of PAGES) {
             a.textContent.trim().slice(0, 30),
           visible: r.width > 0 && r.bottom > 0 && r.top < innerHeight,
           ring,
+          case: a.matches(".bay__name a, .srow__link"),
         };
       });
       if (!s) break;
       stops++;
-      if (s.id.startsWith("A.row__link")) rowLinks++;
+      if (s.case) rowLinks++;
       if (!s.visible || !s.ring)
         bad.push(`${s.id}${s.visible ? "" : " (off screen)"}${s.ring ? "" : " (no ring)"}`);
     }
@@ -160,7 +161,7 @@ for (const p of PAGES) {
     );
     if (p === "index.html")
       check(
-        `keyboard index.html ${mode}: every register row's case-study link is a tab stop`,
+        `keyboard index.html ${mode}: all seven case-study links are tab stops`,
         rowLinks === 7,
         `${rowLinks} of 7`
       );
@@ -168,52 +169,59 @@ for (const p of PAGES) {
   }
 }
 
-/* 3 · the register: key plan, capability marks, live status, Escape */
+/* 3 · the register: seven destinations, bay focus, discipline marks, live status, Escape */
 {
   const { ctx, page } = await open(P2 + "index.html");
-  await page.hover('[data-row="emplifi"] .row__name');
-  await page.waitForTimeout(350);
-  let on = await page.evaluate(() => document.querySelector(".viewer__sheet.is-on")?.dataset.view);
-  check("register: pointing at a row shows its sheet in the key plan", on === "emplifi", on);
-  await page.focus('[data-row="controltech"] .row__link');
-  await page.waitForTimeout(350);
-  on = await page.evaluate(() => ({
-    view: document.querySelector(".viewer__sheet.is-on")?.dataset.view,
-    label: document.querySelector("[data-view-label]").textContent,
+  const dest = await page.evaluate(() => ({
+    featured: [...document.querySelectorAll(".bay__name a")].map((a) => a.getAttribute("href")),
+    scenes: [...document.querySelectorAll(".bay__sect")].map((a) => a.getAttribute("href")),
+    supporting: [...document.querySelectorAll(".sup .srow__link")].length,
+    experiment: [...document.querySelectorAll(".exp .srow--exp .srow__link")].map((a) =>
+      a.closest("[data-row]").getAttribute("data-row")
+    ),
   }));
   check(
-    "register: focusing a row shows its sheet",
-    on.view === "controltech" && on.label === "CT-01",
-    JSON.stringify(on)
+    "register: 3 featured case studies and scenes, 3 supporting, MapBylaw as the experiment",
+    dest.featured.length === 3 &&
+      dest.scenes.length === 3 &&
+      dest.supporting === 3 &&
+      dest.experiment.join() === "mapbylaw",
+    JSON.stringify(dest)
   );
-  const wipe = await page.evaluate(
-    () =>
-      Math.max(
-        ...getComputedStyle(document.querySelector(".viewer__sheet"))
-          .transitionDuration.split(",")
-          .map(parseFloat)
-      ) * 1000
+  await page.hover('.bay[data-row="emplifi"] .bay__sect');
+  await page.waitForTimeout(350);
+  const dim = await page.evaluate(() =>
+    [...document.querySelectorAll(".bay")].map((b) => [
+      b.dataset.row,
+      +getComputedStyle(b.querySelector(".bay__below .drawing")).opacity,
+    ])
   );
-  check("register: the key-plan wipe is at most 280 ms", wipe <= 280, `${wipe} ms`);
+  const em = dim.find(([r]) => r === "emplifi")[1];
+  check(
+    "register: pointing at a bay quiets the other two (hover is an enhancement only)",
+    dim.every(([r, o]) => r === "emplifi" || o < em),
+    JSON.stringify(dim)
+  );
+  await page.mouse.move(0, 0);
   await page.focus('[data-cap-to="systems"]');
   await page.keyboard.press("Enter");
   await page.waitForTimeout(200);
   const marked = await page.evaluate(() => ({
     pressed: document.querySelector('[data-cap-to="systems"]').getAttribute("aria-pressed"),
-    matches: [...document.querySelectorAll(".row.is-match")].map((r) => r.dataset.row),
+    matches: [...document.querySelectorAll(".is-match")].map((r) => r.dataset.row),
     status: document.querySelector("[data-cap-status]").textContent,
     col: document.querySelectorAll('.sched__table .is-col[data-col="systems"]').length,
   }));
   check(
-    "register: Design systems marks AlwaysGeeky and Emplifi, in rows and schedule",
+    "register: Design systems marks AlwaysGeeky and Emplifi, in the bays and the schedule",
     marked.pressed === "true" &&
       marked.matches.join() === "alwaysgeeky,emplifi" &&
       marked.col === 8,
     JSON.stringify(marked.matches) + " col cells " + marked.col
   );
   check(
-    "register: the status line names the marked sheets",
-    /2 sheets marked, AlwaysGeeky Games, Emplifi\./.test(marked.status),
+    "register: the status line names the marked projects",
+    /2 projects marked, AlwaysGeeky Games, Emplifi\./.test(marked.status),
     marked.status
   );
   const live = await page.evaluate(() =>
@@ -223,9 +231,51 @@ for (const p of PAGES) {
   await page.keyboard.press("Escape");
   await page.waitForTimeout(100);
   const cleared = await page.evaluate(
-    () => !document.querySelector(".reg").dataset.cap && !document.querySelector(".row.is-match")
+    () => !document.querySelector(".reg").dataset.cap && !document.querySelector(".is-match")
   );
   check("register: Escape clears the marks", cleared);
+  await ctx.close();
+}
+
+/* 3b · the opening: pinned condensation with motion, one static column without */
+for (const [w, h] of [
+  [1440, 900],
+  [390, 844],
+]) {
+  const { ctx, page } = await open(P2 + "index.html", { width: w, height: h });
+  const r = await page.evaluate(async () => {
+    const sect = document.querySelector("[data-sect]");
+    const bays = () => Math.round(sect.querySelector(".bay__above").getBoundingClientRect().height);
+    const t = ScrollTrigger.getAll()[0];
+    const a = { live: document.documentElement.classList.contains("op-live"), h: bays() };
+    scrollTo(0, t.end);
+    await new Promise((d) => setTimeout(d, 900));
+    const briefs = document.querySelector(".briefs").getBoundingClientRect().top;
+    const stage = document.querySelector("[data-op-stage]").getBoundingClientRect().bottom;
+    return { ...a, end: Math.round(t.end), condensed: bays(), gap: Math.round(briefs - stage) };
+  });
+  check(
+    `opening ${w}px: pins, condenses the bays and keeps the register attached`,
+    r.live && r.condensed < r.h && r.gap >= 0 && r.gap <= 40,
+    JSON.stringify(r)
+  );
+  await ctx.close();
+}
+for (const [w, h] of [
+  [1440, 900],
+  [390, 844],
+]) {
+  const { ctx, page } = await open(P2 + "index.html", { width: w, height: h, reduce: true });
+  const r = await page.evaluate(() => ({
+    live: document.documentElement.classList.contains("op-live"),
+    height: document.documentElement.scrollHeight,
+    inline: document.querySelectorAll('[style*="transform"]').length,
+  }));
+  check(
+    `opening ${w}px reduced: static, no transforms${w < 600 ? ", page under 4,200 px" : ""}`,
+    !r.live && r.inline === 0 && (w > 600 || r.height < 4200),
+    JSON.stringify(r)
+  );
   await ctx.close();
 }
 
@@ -233,14 +283,14 @@ for (const p of PAGES) {
 {
   const { ctx, page } = await open(P2 + "index.html", { js: false });
   const r = await page.evaluate(() => ({
-    rows: document.querySelectorAll(".row__link[href]").length,
+    rows: document.querySelectorAll(".bay__name a[href], .srow__link[href]").length,
     caps: [...document.querySelectorAll(".cap")].filter(
       (b) => getComputedStyle(b).display !== "none"
     ).length,
     table: document.querySelectorAll(".sched__table tbody tr").length,
   }));
   check(
-    "no script: 7 register links, no dead controls, full schedule",
+    "no script: 7 case-study links, no dead controls, full schedule",
     r.rows === 7 && r.caps === 0 && r.table === 7,
     JSON.stringify(r)
   );
@@ -410,6 +460,9 @@ check(
       );
       return {
         body: document.body.innerText,
+        drawn: [...document.querySelectorAll(".drawing, .step__h, .step__k")]
+          .map((d) => d.textContent)
+          .join(" "),
         imgs: [...document.querySelectorAll("img")].map((i) => i.getAttribute("src")),
         figs: [...document.querySelectorAll("figure")].filter(
           (f) => !f.querySelector(".strip, .drawing")
@@ -450,6 +503,31 @@ check(
     /(not a|nothing here is a) Storybook screen/.test(texts["alwaysgeeky.html"].body) &&
       !/Storybook screenshot/i.test(texts["alwaysgeeky.html"].body)
   );
+  const all = Object.values(texts)
+    .map((t) => t.body)
+    .join("\n");
+  check("facts: the word proprietary is not used", !/proprietary/i.test(all));
+  const em = texts["emplifi.html"].body;
+  check(
+    "Emplifi: every 16.7 ms is called a reference, never a measurement",
+    /16\.7 ms/.test(em) &&
+      (em.match(/16\.7 ms/g) || []).length <=
+        (em.match(/reference/gi) || []).length + (em.match(/60 Hz/g) || []).length &&
+      /not a measurement/.test(em),
+    `${(em.match(/16\.7 ms/g) || []).length} mentions`
+  );
+  // the drawings and scene headings; the case study's own published wording is left as it is
+  check(
+    "Emplifi: no before/after, reduction or speed-up wording in any drawing or heading",
+    !/\bbefore\b|\bafter\b|\breduc(e|ed|tion)\b|\bfaster\b|\bsaved?\b/i.test(
+      texts["emplifi.html"].drawn
+    )
+  );
+  const ag = texts["alwaysgeeky.html"].body;
+  check(
+    "AlwaysGeeky: the Voxies relation and the July 2026 closure are stated",
+    /makes Voxies/.test(ag) && /closed in July 2026/.test(ag)
+  );
   const kinds = Object.values(texts).flatMap((t) => t.strips);
   const unlabelled = kinds.filter(
     (k) => !/(Screenshot|Editorial diagram|Design prototype|No screenshot)/i.test(k)
@@ -481,13 +559,22 @@ for (const p of SCENES) {
   await ctx.close();
 }
 
-/* 10 · LedgerGuard depth: 3D where it has been seen to render, flat elsewhere or on request */
+/* 10 · LedgerGuard depth: flat everywhere by default, 3D only on request */
 {
+  const src = readFileSync(join(here, "../../cinematic-exploration/prototype/index.html"), "utf8");
+  check(
+    "depth: no user-agent sniffing (navigator.userAgentData is not used as a capability test)",
+    !/userAgentData|navigator\.userAgent/.test(src)
+  );
   const { ctx, page } = await open(P1 + "index.html");
   const d = await page.evaluate(() => document.documentElement.classList.contains("depth-flat"));
-  check("depth: Chromium runs the 3D anatomy by default", !d);
+  check("depth: the flat drawn section is the default", d);
   await ctx.close();
-  const f = await open(P1 + "index.html?depth=flat");
+  const q = await open(P1 + "index.html?depth=3d");
+  const d3 = await q.page.evaluate(() => document.documentElement.classList.contains("depth-flat"));
+  check("depth: ?depth=3d opts into the 3D anatomy (Chromium review only)", !d3);
+  await q.ctx.close();
+  const f = await open(P1 + "index.html");
   const s = await f.page.evaluate(() => ({
     flat: document.documentElement.classList.contains("depth-flat"),
     ready: document.documentElement.classList.contains("motion-ready"),
@@ -495,7 +582,7 @@ for (const p of SCENES) {
     tilt: getComputedStyle(document.querySelector(".rest-probe")).rotate,
   }));
   check(
-    "depth: ?depth=flat runs the drawn section with no tilt",
+    "depth: the default runs the drawn section with no tilt",
     s.flat && s.ready && s.strata === "grid" && (s.tilt === "none" || /0deg/.test(s.tilt)),
     JSON.stringify(s)
   );
@@ -547,6 +634,7 @@ for (const [label, engine] of [
     [P2 + "alwaysgeeky.html", 0.24, "ag-detail"],
     [P2 + "alwaysgeeky.html", 0.5, "ag-assembly"],
     [P2 + "emplifi.html", 0.62, "em-composition"],
+    [P2 + "emplifi.html", 0.85, "em-budget"],
     [P1 + "index.html", 0.4, "lg-section"],
   ]) {
     const { ctx, page, errors } = await open(path, { engine: b });

@@ -1,6 +1,6 @@
 # 02 · Motion grammar and transition specification
 
-One motion contract for every sheet. Projects write their beats; the contract stays the same. The implementation is `prototype/motion.js`, about 330 lines and shared by every page. Each scene adds its own file: `ag.js` and `em.js` in P2, and the P1 `sequence.js` for LedgerGuard.
+One motion contract for every sheet. Projects write their beats; the contract stays the same. The implementation is `prototype/motion.js`, about 330 lines and shared by every page. Each scene adds its own file: `ag.js` and `em.js` in P2, and the P1 `sequence.js` for LedgerGuard. The index has its own small file, `register.js`, for the opening's condensation and the discipline marks.
 
 ## Principles
 
@@ -8,7 +8,7 @@ One motion contract for every sheet. Projects write their beats; the contract st
 2. **Text never moves with the stage.** Cards scroll natively. Only the drawing moves.
 3. **Change while the card arrives, hold while it is read.** Each step's motion starts as its card begins to enter (step top at 55% of the viewport below the top). It settles in the first 60–75% of the step's span and then holds.
 4. **Nothing gates content.** Every fact is in the HTML without script. The stage is `aria-hidden`; the steps and the case study carry the content.
-5. **Never 3D in P2.** Every P2 scene uses 2D translate, scale and opacity, SVG stroke draw-in, and SVG attribute tweens. The LedgerGuard 3D anatomy now runs only where it has been seen to render (see 04).
+5. **Never 3D in P2.** Every P2 scene uses 2D translate, scale and opacity, SVG stroke draw-in, and SVG attribute tweens. The LedgerGuard 3D anatomy now runs only on request, with `?depth=3d` (see 04).
 6. **Ends in a match cut.** The scene's subject lands in the case study's hero, and the stage lets go.
 
 ## Activation and fail-safe
@@ -29,21 +29,21 @@ All four failure routes are tested in the review: GSAP blocked, ScrollTrigger bl
 - **Canvas:** a fixed 1200 × 800 drawing, scaled by `--k` to fit the picture area. It is drawn large and only scaled down.
 - **Wide screens (≥ 900 px):** the picture area is the stage left of the cards. Cards are `min(28rem, 31vw)` on the right.
 - **Narrow screens:** a **window** at the top shows the canvas full-width (paper band with a 1.5 px ink rule). Cards scroll beneath it, never over it. Because diagram labels are too small for a phone at that scale, each card carries the readable drawing in a sideways-scrolling frame.
-- **World and camera:** a scene may place its drawing on a larger world plane and move the camera over it. AlwaysGeeky uses a 1200 × 2300 world to travel down from the interface to the gates.
+- **World and camera:** a scene may place its drawing on a larger world plane and move the camera over it. AlwaysGeeky uses a 1200 × 1400 world: one move from the assembly down to AG-03. (P2 used 2,300 px and two stops, which the review found over-dense.)
 
 ## Timing
 
-| Token            | Value                                               | Use                                                   |
-| ---------------- | --------------------------------------------------- | ----------------------------------------------------- |
-| Scrub lag        | 0.6 s                                               | All scenes                                            |
-| Step span        | 130 svh on wide screens, at least 110 svh on narrow | One card per step                                     |
-| Settle           | 60–75% of the step's span                           | Motion done before the card leaves the centre         |
-| Draw-in          | `pathLength="1"`, `stroke-dashoffset` 1 → 0         | Callouts, leaders, drops, buses, ticks, gate outlines |
-| Hover/focus wipe | 280 ms, `--ease-out`                                | Key plan in the register                              |
-| Quick state      | 180 ms                                              | Row dimming                                           |
-| Page transition  | 420 ms, `--ease-out`                                | Cross-document view transitions                       |
+| Token           | Value                                               | Use                                                   |
+| --------------- | --------------------------------------------------- | ----------------------------------------------------- |
+| Scrub lag       | 0.6 s                                               | All scenes                                            |
+| Step span       | 130 svh on wide screens, at least 110 svh on narrow | One card per step                                     |
+| Settle          | 60–75% of the step's span                           | Motion done before the card leaves the centre         |
+| Draw-in         | `pathLength="1"`, `stroke-dashoffset` 1 → 0         | Callouts, leaders, drops, buses, ticks, gate outlines |
+| Opening         | Scrubbed, no lag; length = the height given up      | Index condensation (see below)                        |
+| Quick state     | 180 ms                                              | Bay and row dimming                                   |
+| Page transition | 420 ms, `--ease-out`                                | Cross-document view transitions                       |
 
-Eases are `power2.inOut` for moves of the subject or camera, `power2.out` for things being laid down, `power1.inOut` for the measuring cursor, and `none` for the final ride. No entrance animation runs on load: the first frame is the open frame. The only timed animations are the 280 ms wipe and the 420 ms view transition, both under the 600 ms ceiling, and neither gates content.
+Eases are `power2.inOut` for moves of the subject or camera, `power2.out` for things being laid down, `power1.inOut` for the measuring cursor, and `none` for the final ride. No entrance animation runs on load: the first frame is the open frame. The only timed animations are the 180 ms dimming and the 420 ms view transition, both under the 600 ms ceiling, and neither gates content.
 
 ## Beat patterns
 
@@ -57,36 +57,55 @@ These are the reusable shapes. Each project picks some and adds its own move.
 | **Step back**  | The subject shrinks into its place in a larger drawing                                        | AG plate into surface, EM phone aside   |
 | **Assemble**   | Parts arrive in order, staggered 6–8% of the step                                             | AG surfaces, EM blocks, LG bands        |
 | **Explode**    | A stack opens from its base into layers                                                       | EM composition, LG anatomy              |
-| **Descend**    | The camera follows an inked line to the next drawing                                          | AG bus to contract and gates            |
-| **Revise**     | The same drawing redrawn to a new state; labels swap at one point                             | EM before → after                       |
+| **Descend**    | The camera follows an inked line to the next drawing, which then draws in reading order       | AG spine, clauses, gates                |
+| **Probe**      | A line runs along a process and drops onto the stages it inspects                             | EM render path                          |
+| **Condense**   | A pinned composition shortens toward a datum until it is a row of the next layout             | Index opening                           |
 | **Match cut**  | The subject travels to the hero, arrives a short way before the end, then rises with the page | All                                     |
+
+## The opening: a pinned condensation
+
+The index's first frame is the section through the three featured projects (see 01). The transition into the register is one authored move, scrubbed by native scroll:
+
+1. `.op` is fixed at the opening's natural height and `.op__stage` becomes sticky.
+2. Over the first part of the scroll, the identity block slides up under the bar (its top margin goes from 0 to minus its height) and fades.
+3. Then the bays shorten toward the A–A cut. The space above the cut goes from about 30 vh to 84 px, the space below from about 22 vh to 64 px (60 and 46 px on a phone). The screenshot keeps its lower edge on the cut; the drawing keeps its upper edge. The pictures settle from 1.08 to 1.
+4. On wide screens the datums, the left A bubble and the key-column end of the cut fade out, because the condensed row would run through the key text. Phones keep the legend and timeframes.
+
+The scroll length is exactly the height the stage gives up (identity block plus the two bay reductions), and each part's share of the timeline matches its share of that height. So the stage shrinks at the scroll rate: the briefs below stay attached to it, never covered and never left behind. Keyboard focus that lands in the identity block after it has slid away scrolls back to the top. The build is torn down and rebuilt on the Motion toggle, a width change and font load; any throw leaves the static column.
+
+**Risk:** the stage is sticky (compositor) while its height is set from script (main thread). On a slow device the two can disagree for a frame, which shows as a seam or a jump at the boundary with the briefs. It was not seen in headless Chromium recordings and has not been tested on real devices (see 04).
+
+**Measured cost:** because the condensation animates a margin and two heights, the browser counts it as layout shift: 0.117 after a full scroll on desktop and 0.378 at phone width in the lab probe, with about 730 ms of style and layout work at 4× CPU slowdown (04). A production version should condense with transforms and a clip on a fixed-height stage instead.
 
 ## The match cut, precisely
 
 1. At build time, `motion.js` measures the hero's media (`[data-slot] .slot-media`) where it will be when the scroll reaches the end of the sequence. It converts that into canvas units.
-2. The subject travels there, arriving `min(0.3 × viewport, half the remaining span)` before the end, while the hero is still rising.
+2. The scene's last drawing holds for the first 12% of the landing span, so its card can be read; it fades by 24%. The subject then travels to the hero, arriving `min(0.3 × viewport, half the remaining span)` before the end, while the hero is still rising.
 3. For the last stretch, the subject rises linearly with the page, exactly as the hero does.
 4. At timeline progress > 0.998, `data-landed` is set: the stage hides and the hero's media shows. The timeline's own progress is used, not the scroll position, so the hand-off happens on the frame where the two coincide.
 5. Before the hand-off, the hero's media is hidden and, for a screenshot, so is its dark plate. The strip and caption are already in place.
 
 The review checks that the subject's box and the hero's box differ by 2 px or less at hand-off, on desktop and on a phone, for both scenes.
 
+**Layout, so the subject never crosses text.** In P2 the EM phone travelled across the case-study heading. The case study's top block (`.case__top`) now puts the hero on the left, under the stage's picture area, and the heading in the right-hand column where the cards were, from 900 px up. Below 900 px the hero comes first and the heading follows it. Either way the subject's path and the heading never overlap. This was checked in recorded frames, not only by box geometry (see 05).
+
 ## Page transitions
 
 Same-origin page changes use cross-document view transitions (`@view-transition { navigation: auto }`) at 420 ms. One element on each page carries the shared name:
 
-| From                                                | To               | Shared element                                                    |
-| --------------------------------------------------- | ---------------- | ----------------------------------------------------------------- |
-| Register, key plan (wide) or row thumbnail (narrow) | AG or EM scene   | The stage's subject: the marketplace plate or the webview drawing |
-| Register                                            | AG or EM `#case` | The case study's hero                                             |
-| Anything else                                       | —                | Root cross-fade only                                              |
+| From                              | To                | Shared element                                                    |
+| --------------------------------- | ----------------- | ----------------------------------------------------------------- |
+| Index bay picture (above the cut) | AG or EM scene    | The stage's subject: the marketplace plate or the webview drawing |
+| Index bay picture                 | LedgerGuard scene | Root cross-fade (P1 names its own pictures)                       |
+| Anything else                     | —                 | Root cross-fade only                                              |
 
 Under reduced motion both `pageswap` and `pagereveal` skip the transition. Browsers without cross-document view transitions simply navigate.
 
 ## Reduced motion
 
 - With reduced motion, `.motion-live` is never set. Scenes become a sequence of readable steps, each with its static figure, followed by the case study.
-- Every CSS transition is set to 0 s, so the wipe and the row dimming become instant.
+- The index opening does not pin or condense; it is one static column with the same content.
+- Every CSS transition is set to 0 s, so the bay and row dimming become instant.
 - The Motion toggle can turn the scene on for this page. That choice is stored, and it wins only under the rule above.
 
 ## LedgerGuard and depth

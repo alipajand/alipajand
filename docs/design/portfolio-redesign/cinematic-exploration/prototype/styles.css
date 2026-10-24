@@ -1802,9 +1802,9 @@ a {
 }
 
 /* ---------- flat depth: the drawn section on wide screens, with no 3D at all ---------- */
-/* Where 3D is not known to render (every browser without navigator.userAgentData, or
-   ?depth=flat), the first frame is not tipped back, sheets have no folded edge, and wide
-   screens run the same drawn section as phones, beside the cards instead of in a window. */
+/* The default everywhere (3D runs only on request, with ?depth=3d): the first frame is not
+   tipped back, sheets have no folded edge, and wide screens run the same drawn section as
+   phones, beside the cards instead of in a window. */
 
 .depth-flat {
   --rest-tilt: 0deg;

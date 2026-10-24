@@ -6,8 +6,8 @@
 // blue, AlwaysGeeky's detail callouts) and "em" (ochre, Emplifi's measuring lines). Red is not
 // used in these drawings: it belongs to the A–A identity and to LedgerGuard's review boundary.
 
-const svg = (w, h, body, label, cls = "") =>
-  `<svg class="drawing ${cls}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false" data-label="${label}">${body}</svg>`;
+const svg = (w, h, body, label, cls = "", fit = "xMidYMid meet") =>
+  `<svg class="drawing ${cls}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="${fit}" aria-hidden="true" focusable="false" data-label="${label}">${body}</svg>`;
 
 const strip = (w, h, code, title, kind) => `
   <g class="strip">
@@ -45,99 +45,61 @@ const lines = (x, y, s, n, lh, cls, anchor = "start") =>
     .join("");
 
 /* ---------------------------------------------------------------------------------------- */
-/* Universal: a sheet with nothing to show. The drafting convention for an opening (a box     */
-/* with its diagonals) marks where a screenshot would go when none is published.              */
-/* ---------------------------------------------------------------------------------------- */
-
-export const noShot = (code, name, kind, note) => {
-  const W = 1000;
-  const H = 626;
-  return svg(
-    W,
-    H,
-    `${frame(W, H)}
-    <rect x="70" y="70" width="${W - 140}" height="${H - 220}" class="void-box"/>
-    <line x1="70" y1="70" x2="${W - 70}" y2="${H - 150}" class="hair"/>
-    <line x1="${W - 70}" y1="70" x2="70" y2="${H - 150}" class="hair"/>
-    <rect x="${W / 2 - 230}" y="${(H - 150) / 2 + 2}" width="460" height="${note ? 96 : 64}" class="label-bg"/>
-    <text x="${W / 2}" y="${(H - 150) / 2 + 44}" class="t-title" text-anchor="middle">${esc(name)}</text>
-    ${note ? `<text x="${W / 2}" y="${(H - 150) / 2 + 78}" class="t-note" text-anchor="middle">${esc(note)}</text>` : ""}
-    ${strip(W, H, code, "No screenshot in this portfolio", kind)}`,
-    code,
-    "drawing--noshot"
-  );
-};
-
-/* ---------------------------------------------------------------------------------------- */
 /* AlwaysGeeky                                                                                 */
 /* ---------------------------------------------------------------------------------------- */
 
-// AG-03 · the component contract: what the Storybook documentation recorded for each
-// component, drawn as a schedule. It is not a Storybook screen.
-export const agContract = (rows) => {
+// AG-03 · the contract and its enforcement, as one chain hanging from the library: a blue
+// spine runs down from the shared library through what Storybook records for each component,
+// then into the gates that run the same scripts from the editor to the merge. One drawing, so
+// the scene needs one camera move and the reader holds one picture. It is not a Storybook
+// screen and names no tool, check count or pass rate.
+export const agChain = (contract, gates, loop) => {
   const W = 1000;
-  const H = 646;
-  const top = 132;
-  const rh = 78;
+  const H = 780;
+  const sx = 500;
+  const rows = contract.map((r, i) => ({ ...r, y: 150 + i * 64 }));
+  const gy = 470;
+  const bw = 230;
+  const gap = 40;
+  const g0 = (W - (3 * bw + 2 * gap)) / 2;
   return svg(
     W,
     H,
     `${frame(W, H)}
-    <text x="48" y="74" class="t-title">Component contract</text>
-    <text x="48" y="104" class="t-note">What each shared component was documented to own, written down in Storybook.</text>
-    <line x1="48" y1="${top - 8}" x2="${W - 48}" y2="${top - 8}" class="rule-strong"/>
-    <text x="48" y="${top + 20}" class="t-col">Part of the contract</text>
-    <text x="440" y="${top + 20}" class="t-col">Where it is enforced</text>
+    <path d="M${sx},12 V${gy}" class="spine ink ag" pathLength="1"/>
+    <text x="${sx - 32}" y="128" class="t-title" text-anchor="end">Storybook contract</text>
+    ${lines(sx - 32, 160, "What each shared component is documented to own, written down where engineers look first.", 34, 22, "t-note", "end")}
     ${rows
       .map(
         (r, i) => `
-      <g class="row" data-row="${i}">
-        <line x1="48" y1="${top + 36 + i * rh}" x2="${W - 48}" y2="${top + 36 + i * rh}" class="hair"/>
-        <circle cx="66" cy="${top + 36 + i * rh + 38}" r="9" class="tick ink ag" pathLength="1"/>
-        ${lines(92, top + 36 + i * rh + 32, r.part, 28, 22, "t-cell")}
-        ${lines(440, top + 36 + i * rh + 32, r.where, 44, 22, "t-cell t-cell--soft")}
+      <g class="clause" data-clause="${i}">
+        <path d="M${sx},${r.y} H${sx + 36}" class="branch ink ag" pathLength="1"/>
+        <circle cx="${sx + 46}" cy="${r.y}" r="9" class="tick ink ag" pathLength="1"/>
+        ${lines(sx + 68, r.y + 6, r.part, 34, 22, "t-cell")}
       </g>`
       )
       .join("")}
-    ${strip(W, H, "AG-03", "Storybook as the component contract", "Editorial diagram")}`,
-    "ag-contract"
-  );
-};
-
-// AG-04 · the gates: the same scripts from the editor to the merge.
-export const agGates = (steps, loop) => {
-  const W = 1000;
-  const H = 646;
-  const bw = 196;
-  const gap = 32;
-  const x0 = 48;
-  const y = 200;
-  return svg(
-    W,
-    H,
-    `${frame(W, H)}
-    <text x="48" y="74" class="t-title">The same checks from editor to merge</text>
-    <text x="48" y="104" class="t-note">Frontend conventions held by CI, not by memory.</text>
-    ${steps
-      .map((s, i) => {
-        const x = x0 + i * (bw + gap);
-        return `
-      <g class="gate" data-gate="${i}">
-        <rect x="${x}" y="${y}" width="${bw}" height="132" class="box ink" pathLength="1"/>
-        <text x="${x + 16}" y="${y + 34}" class="t-code">${String(i + 1).padStart(2, "0")}</text>
-        ${lines(x + 16, y + 66, s.label, 16, 24, "t-box")}
-        ${i < steps.length - 1 ? `<line x1="${x + bw}" y1="${y + 66}" x2="${x + bw + gap}" y2="${y + 66}" class="wire ink" pathLength="1"/><path d="M${x + bw + gap - 9},${y + 60} L${x + bw + gap},${y + 66} L${x + bw + gap - 9},${y + 72}" class="wire ink" pathLength="1"/>` : ""}
-        ${lines(x, y + 172, s.detail, 26, 20, "t-small")}
-      </g>`;
-      })
-      .join("")}
-    <!-- the shared scripts sit above the first three gates, clear of their notes -->
-    <path d="M${x0 + bw / 2},${y - 34} H${x0 + 2 * (bw + gap) + bw / 2}" class="bus ink ag" pathLength="1"/>
-    ${[0, 1, 2].map((i) => `<line x1="${x0 + i * (bw + gap) + bw / 2}" y1="${y - 34}" x2="${x0 + i * (bw + gap) + bw / 2}" y2="${y}" class="bus bus--drop ink ag" pathLength="1"/>`).join("")}
-    <text x="${x0 + bw / 2}" y="${y - 46}" class="t-ag">one set of lint, type and test scripts</text>
-    ${lines(48, H - 112, loop, 92, 20, "t-small")}
-    ${strip(W, H, "AG-04", "CI quality gates", "Editorial diagram")}`,
-    "ag-gates"
+    <g class="gates">
+      <path d="M${g0 + bw / 2},${gy} H${g0 + 2 * (bw + gap) + bw / 2}" class="bus ink ag" pathLength="1"/>
+      <text x="${g0}" y="${gy - 16}" class="t-title">CI enforcement</text>
+      <text x="${W - g0}" y="${gy - 16}" class="t-ag" text-anchor="end">one set of lint, type and test scripts</text>
+      ${gates
+        .map((g, i) => {
+          const x = g0 + i * (bw + gap);
+          return `
+        <g class="gate" data-gate="${i}">
+          <path d="M${x + bw / 2},${gy} V${gy + 34}" class="bus bus--drop ink ag" pathLength="1"/>
+          <rect x="${x}" y="${gy + 34}" width="${bw}" height="78" class="box ink" pathLength="1"/>
+          <text x="${x + 16}" y="${gy + 62}" class="t-code">${String(i + 1).padStart(2, "0")}</text>
+          <text x="${x + 16}" y="${gy + 92}" class="t-box">${esc(g)}</text>
+          ${i < gates.length - 1 ? `<path d="M${x + bw},${gy + 73} H${x + bw + gap} M${x + bw + gap - 8},${gy + 67} L${x + bw + gap},${gy + 73} L${x + bw + gap - 8},${gy + 79}" class="wire ink" pathLength="1"/>` : ""}
+        </g>`;
+        })
+        .join("")}
+    </g>
+    ${lines(g0, H - 104, loop, 88, 20, "t-small")}
+    ${strip(W, H, "AG-03", "Storybook contract and CI enforcement", "Editorial diagram")}`,
+    "ag-chain"
   );
 };
 
@@ -251,13 +213,14 @@ const chart = (x0, y0, w, h) => {
 };
 
 // EM-01 · a dense chart in an embedded mobile webview: a phone, the host app's chrome, and the
-// webview the dashboard module runs in.
-export const emWebview = () => {
+// webview the dashboard module runs in. With crop, only the top of the phone is drawn, anchored
+// to the bottom edge of its box (the opening's bays show it standing on the section line).
+export const emWebview = ({ crop = 0 } = {}) => {
   const W = 420;
   const H = 820;
   return svg(
     W,
-    H,
+    crop || H,
     `<rect x="18" y="14" width="${W - 36}" height="${H - 92}" rx="46" class="phone ink" pathLength="1"/>
     <rect x="34" y="30" width="${W - 68}" height="${H - 124}" rx="32" class="phone__glass"/>
     <rect x="${W / 2 - 46}" y="40" width="92" height="22" rx="11" class="phone__notch"/>
@@ -271,63 +234,10 @@ export const emWebview = () => {
     <line x1="58" y1="556" x2="${W - 58}" y2="556" class="hair"/>
     ${[0, 1, 2].map((i) => `<rect x="58" y="${572 + i * 42}" width="${W - 116}" height="30" class="row-box"/><rect x="66" y="${582 + i * 42}" width="${90 + i * 40}" height="10" class="row-ink"/>`).join("")}
     <line x1="210" y1="226" x2="210" y2="526" class="cursor em"/>
-    <text x="${W / 2}" y="${H - 44}" class="t-kind" text-anchor="middle">EM-01 · Editorial diagram · illustrative data</text>`,
+    ${crop ? "" : `<text x="${W / 2}" y="${H - 44}" class="t-kind" text-anchor="middle">EM-01 · Editorial diagram · illustrative data</text>`}`,
     "em-webview",
-    "drawing--em"
-  );
-};
-
-// EM-02 and EM-04 · the cost of one update, as a schematic frame timeline. Frames are the 60 Hz
-// budget (a property of the display, not a measurement). Block lengths are illustrative.
-const WORK = [
-  { key: "render", before: "All re-renders", after: "Needed re-renders", w: 1.0, k: 0.32 },
-  { key: "d3", before: "D3 chart update", after: "D3 chart update", w: 0.62, k: 0.55 },
-  { key: "layout", before: "Layout", after: "Layout", w: 0.5, k: 0.5 },
-  { key: "paint", before: "Chart-update paint", after: "Chart-update paint", w: 0.56, k: 0.48 },
-];
-
-export const emTimeline = (state = "both") => {
-  const W = 1000;
-  const H = 470;
-  const x0 = 210;
-  const fw = 128;
-  const frames = 6;
-  const y0 = 120;
-  const rh = 44;
-  const ticks = Array.from({ length: frames + 1 }, (_, i) => {
-    const x = x0 + i * fw;
-    return `<line x1="${x}" y1="${y0 - 26}" x2="${x}" y2="${y0 + WORK.length * rh + 8}" class="${i ? "frame-tick" : "frame-tick frame-tick--0"}"/>`;
-  }).join("");
-  const blocks = (() => {
-    let x = x0 + 8;
-    return WORK.map((b, i) => {
-      const w = b.w * 250;
-      const r = `<g class="blk" data-k="${b.k}" data-blk="${b.key}">
-        <rect x="${x.toFixed(1)}" y="${y0 + i * rh + 6}" width="${(state === "after" ? w * b.k : w).toFixed(1)}" height="${rh - 14}" class="blk__box blk__box--${b.key}"/>
-      </g>
-      <text x="${x0 - 14}" y="${y0 + i * rh + 28}" class="t-small t-before" text-anchor="end">${esc(b.before)}</text>
-      <text x="${x0 - 14}" y="${y0 + i * rh + 28}" class="t-small t-after" text-anchor="end">${esc(b.after)}</text>`;
-      x += (state === "after" ? w * b.k : w) + 6;
-      return r;
-    }).join("");
-  })();
-  return svg(
-    W,
-    H,
-    `${frame(W, H)}
-    <text x="40" y="58" class="t-title"><tspan class="t-before">One update, before</tspan><tspan class="t-after">One update, after</tspan></text>
-    <text x="${x0}" y="${y0 - 34}" class="t-small">frame budget at 60 Hz · 16.7 ms each</text>
-    ${ticks}
-    <g class="miss">
-      ${[2, 3, 4].map((i) => `<rect x="${x0 + i * fw + 2}" y="${y0 - 18}" width="${fw - 4}" height="12" class="miss__box"/>`).join("")}
-      <text x="${x0 + 2 * fw + 4}" y="${y0 + WORK.length * rh + 30}" class="t-small t-em">frames the update spills into</text>
-    </g>
-    ${blocks}
-    <line x1="${x0}" y1="${y0 + WORK.length * rh + 8}" x2="${x0 + frames * fw}" y2="${y0 + WORK.length * rh + 8}" class="axis"/>
-    <text x="40" y="${H - 84}" class="t-small">Schematic. Block lengths are illustrative; no profile or measured value is shown.</text>
-    ${strip(W, H, state === "after" ? "EM-04" : "EM-02", "The cost of one chart update", "Editorial diagram · schematic")}`,
-    "em-timeline",
-    `drawing--em drawing--tl drawing--${state}`
+    "drawing--em",
+    crop ? "xMidYMax meet" : "xMidYMid meet"
   );
 };
 
@@ -364,3 +274,174 @@ export const emLayers = (layers) => {
     "drawing--em"
   );
 };
+
+// EM-02 · the render path of one chart update, as stations of equal width. The boxes are
+// stages, not durations: nothing in this drawing has a length that stands for time.
+export const emRenderPath = () => {
+  const W = 1000;
+  const H = 540;
+  const STATIONS = [
+    { label: "Input to the module", sub: "Data or interaction" },
+    { label: "React re-render", sub: "Product composition" },
+    { label: "D3 chart update", sub: "Chart behavior" },
+    { label: "Style and layout", sub: "Browser work" },
+    { label: "Paint", sub: "Browser work" },
+  ];
+  const bw = 160;
+  const gap = 30;
+  const x0 = 40;
+  const y = 196;
+  const bh = 124;
+  const find = { 1: "unnecessary re-renders", 4: "chart-update paint work" };
+  return svg(
+    W,
+    H,
+    `${frame(W, H)}
+    <text x="40" y="58" class="t-title">The render path of one chart update</text>
+    <text x="40" y="88" class="t-note">Equal boxes: the stages of an update, not how long each one takes.</text>
+    <text x="${x0}" y="132" class="t-small t-em">Profiled where the cost showed up first: in the embedded webview</text>
+    <path d="M${x0},146 H${W - 40} M${x0},138 V154 M${W - 40},138 V154" class="probe em ink" pathLength="1"/>
+    ${STATIONS.map((st, i) => {
+      const x = x0 + i * (bw + gap);
+      return `
+      <g class="station" data-station="${i}">
+        <path d="M${x + bw / 2},146 V${y - 8}" class="probe probe--drop em ink" pathLength="1"/>
+        <rect x="${x}" y="${y}" width="${bw}" height="${bh}" class="box ink" pathLength="1"/>
+        <text x="${x + 14}" y="${y + 28}" class="t-code">${String(i + 1).padStart(2, "0")}</text>
+        ${lines(x + 14, y + 54, st.label, 13, 22, "t-box")}
+        <text x="${x + 14}" y="${y + bh - 12}" class="t-small">${esc(st.sub)}</text>
+        ${i < STATIONS.length - 1 ? `<path d="M${x + bw},${y + bh / 2} H${x + bw + gap} M${x + bw + gap - 8},${y + bh / 2 - 6} L${x + bw + gap},${y + bh / 2} L${x + bw + gap - 8},${y + bh / 2 + 6}" class="wire ink" pathLength="1"/>` : ""}
+        ${find[i] ? `<g class="find" data-find="${i}"><path d="M${x},${y + bh + 16} V${y + bh + 28} H${x + bw} V${y + bh + 16}" class="em ink" pathLength="1"/><text x="${x + bw / 2}" y="${y + bh + 54}" class="t-cell t-em-ink" text-anchor="middle">${find[i]}</text></g>` : ""}
+      </g>`;
+    }).join("")}
+    <text x="40" y="${H - 108}" class="t-small">The two marked stages are what the profiling targeted, as the case study names them.</text>
+    <text x="40" y="${H - 84}" class="t-small">Schematic. No profile, timing or measured value is shown.</text>
+    ${strip(W, H, "EM-02", "The render path of one chart update", "Editorial diagram · schematic")}`,
+    "em-path",
+    "drawing--em"
+  );
+};
+
+// EM-04 · designing within the frame budget. The ruler is a reference: one frame of a 60 Hz
+// display. The tree is illustrative, drawn to show the approach, not the production code.
+export const emBudget = (approach) => {
+  const W = 1000;
+  const H = 640;
+  const fx = 40;
+  const fw = 120;
+  const ry = 196;
+  const node = (x, y, w, label, cls = "") =>
+    `<rect x="${x}" y="${y}" width="${w}" height="40" class="box ink ${cls}" pathLength="1"/><text x="${x + w / 2}" y="${y + 26}" class="t-box t-box--s" text-anchor="middle">${esc(label)}</text>`;
+  return svg(
+    W,
+    H,
+    `${frame(W, H)}
+    <text x="40" y="58" class="t-title">Designing within the frame budget</text>
+    <g class="ref">
+      <text x="${fx}" y="122" class="t-col">Reference budget</text>
+      <path d="M${fx},${ry} H${fx + fw * 3}" class="axis"/>
+      ${[0, 1, 2, 3].map((i) => `<line x1="${fx + i * fw}" y1="${ry - 12}" x2="${fx + i * fw}" y2="${ry + 12}" class="${i ? "frame-tick" : "frame-tick frame-tick--0"}"/>`).join("")}
+      <path d="M${fx},${ry - 30} V${ry - 22} H${fx + fw} V${ry - 30}" class="em dim-ref ink" pathLength="1"/>
+      <text x="${fx + fw / 2}" y="${ry - 40}" class="t-cell t-em-ink" text-anchor="middle">16.7 ms</text>
+      ${[0, 1, 2].map((i) => `<text x="${fx + i * fw + fw / 2}" y="${ry + 32}" class="t-small" text-anchor="middle">frame</text>`).join("")}
+      ${lines(fx, ry + 76, "One frame of a 60 Hz display lasts about 16.7 ms. This is a reference budget, not a measurement; other refresh rates set other budgets.", 40, 22, "t-small")}
+    </g>
+    <g class="tree">
+      <text x="500" y="122" class="t-col">Illustrative module tree</text>
+      ${node(610, 140, 220, "Dashboard module")}
+      <path d="M720,180 V204 H585 V228 M720,204 H835 V228" class="wire ink" pathLength="1"/>
+      ${node(500, 228, 170, "Controls")}
+      ${node(735, 228, 200, "Chart container", "box--em")}
+      <path d="M585,268 V292" class="wire ink" pathLength="1"/>
+      ${node(500, 292, 170, "Legend, filters")}
+      <rect x="715" y="300" width="240" height="96" class="d3-own"/>
+      <text x="729" y="322" class="t-small t-em">D3.js owns the chart's marks</text>
+      ${[0, 1, 2, 3, 4, 5, 6, 7].map((i) => `<rect x="${733 + i * 27}" y="${386 - (16 + ((i * 37) % 44))}" width="16" height="${16 + ((i * 37) % 44)}" class="mark-d3"/>`).join("")}
+      <path d="M965,104 V160 M965,160 C965,190 900,200 880,228 M835,268 V300" class="update em ink" pathLength="1"/>
+      <path d="M959,112 L965,100 L971,112" class="update em"/>
+      <text x="955" y="96" class="t-small t-em" text-anchor="end">a chart update</text>
+      <text x="500" y="356" class="t-small">Not re-rendered</text>
+      <text x="500" y="376" class="t-small">by a chart update</text>
+    </g>
+    <line x1="40" y1="438" x2="${W - 40}" y2="438" class="hair"/>
+    <text x="40" y="468" class="t-col">The approach, from the case study</text>
+    ${approach
+      .slice(0, 4)
+      .map((a, i) => {
+        const x = 40 + (i % 2) * 470;
+        const y = 500 + Math.floor(i / 2) * 26;
+        return `<text x="${x}" y="${y}" class="t-small"><tspan class="t-em-ink">${String(i + 1).padStart(2, "0")}</tspan>  ${esc(a)}</text>`;
+      })
+      .join("")}
+    ${strip(W, H, "EM-04", "Designing within the frame budget", "Editorial diagram · schematic")}`,
+    "em-budget",
+    "drawing--em"
+  );
+};
+
+/* ---------------------------------------------------------------------------------------- */
+/* Sheet 00 · the opening. Each featured bay is cut by the A–A line: the shipped interface      */
+/* above it, the system behind it below, drawn in light line on the dark interior. Sized for    */
+/* any bay: the drawing hangs from the cut (xMidYMin slice), so a short bay keeps its top.      */
+/* ---------------------------------------------------------------------------------------- */
+
+const interior = (body, label, cls) =>
+  svg(400, 240, body, label, `drawing--void ${cls}`, "xMidYMin slice");
+
+export const lgInterior = (layers) =>
+  interior(
+    `<defs><pattern id="lg-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" class="v-hatch"/></pattern></defs>
+    ${layers
+      .map((l, i) => {
+        const y = 16 + i * 36 + (i === 4 ? 10 : 0);
+        return `<g class="v-slab">
+        <rect x="24" y="${y}" width="352" height="26" class="${i === 4 ? "v-box v-box--prob" : "v-box"} ink" pathLength="1"/>
+        <text x="36" y="${y + 17}" class="v-code">${String(i + 1).padStart(2, "0")}</text>
+        <text x="64" y="${y + 17}" class="v-lab">${esc(l.label)}</text>
+      </g>`;
+      })
+      .join("")}
+    <path d="M12,165 H388" class="v-line lg ink" pathLength="1"/>
+    <text x="388" y="160" class="v-note lg" text-anchor="end">review boundary</text>`,
+    "LG-02",
+    "drawing--lg"
+  );
+
+export const agInterior = (surfaces, layers) =>
+  interior(
+    `${surfaces
+      .map((s, i) => {
+        const x = 24 + i * 89;
+        return `<rect x="${x}" y="16" width="81" height="36" class="v-box ink" pathLength="1"/>
+        <text x="${x + 40.5}" y="38" class="v-lab v-lab--s" text-anchor="middle">${esc(s)}</text>
+        <path d="M${x + 40.5},52 V82" class="v-line ag ink" pathLength="1"/>`;
+      })
+      .join("")}
+    <rect x="24" y="82" width="352" height="38" class="v-box v-box--lib ag ink" pathLength="1"/>
+    <text x="38" y="106" class="v-lab">${esc(layers[1].label)}</text>
+    <path d="M200,120 V230" class="v-line ag ink" pathLength="1"/>
+    <rect x="88" y="142" width="224" height="30" class="v-box v-box--dash ink" pathLength="1"/>
+    <text x="200" y="162" class="v-lab" text-anchor="middle">${esc(layers[2].label)}</text>
+    <path d="M88,196 H312 M88,190 V202 M163,190 V202 M237,190 V202 M312,190 V202" class="v-line ag ink" pathLength="1"/>
+    <text x="200" y="222" class="v-lab" text-anchor="middle">${esc(layers[4].label)}</text>`,
+    "AG-02",
+    "drawing--ag"
+  );
+
+export const emInterior = () =>
+  interior(
+    `<rect x="24" y="16" width="352" height="134" class="v-box ink" pathLength="1"/>
+    <text x="36" y="36" class="v-lab">React product composition</text>
+    ${[0, 1, 2].map((i) => `<rect x="36" y="${50 + i * 30}" width="68" height="20" class="v-box v-box--s"/>`).join("")}
+    <rect x="120" y="48" width="244" height="92" class="v-box v-box--dash em ink" pathLength="1"/>
+    <text x="132" y="66" class="v-lab v-lab--em">D3.js chart behavior</text>
+    <path d="${pathOf(series(40, 7, 50, 3.2), 132, 352, 74, 132, 18, 84)}" class="v-chart ink" pathLength="1"/>
+    <path d="M24,166 H376 M24,160 V172 M120,160 V172 M376,160 V172" class="v-line em ink" pathLength="1"/>
+    <text x="72" y="186" class="v-note em" text-anchor="middle">React</text>
+    <text x="248" y="186" class="v-note em" text-anchor="middle">D3</text>
+    <path d="M24,212 H376" class="v-rule"/>
+    ${[0, 1, 2, 3, 4, 5, 6].map((i) => `<path d="M${24 + i * 58.67},206 V218" class="v-rule"/>`).join("")}
+    <text x="24" y="234" class="v-note">16.7 ms reference · 60 Hz · not a measurement</text>`,
+    "EM-02",
+    "drawing--em"
+  );

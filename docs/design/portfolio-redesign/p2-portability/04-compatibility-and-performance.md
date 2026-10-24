@@ -1,6 +1,14 @@
 # 04 · Compatibility and performance risk
 
-This records what was run, in which engine, and what is still open. Nothing here is a claim of browser support. **Safari support is not claimed.** No shipping Safari, Firefox, screen reader or real device was tested for P2.
+This records what was run, in which engine, and what is still open. Nothing here is a claim of browser support, and no headless result is treated as one. **Safari support is not claimed. Firefox support is not claimed.** No shipping Safari, Firefox, screen reader or real device was tested for P2 or P2.1.
+
+| Environment                         | Status                                                                                      |
+| ----------------------------------- | ------------------------------------------------------------------------------------------- |
+| Chromium, headless                  | 3D LedgerGuard renders when asked for with `?depth=3d`. Everything in 05 was run here.      |
+| WebKit, headless                    | The default flat LedgerGuard path runs. In P1 the 3D anatomy flattened here.                |
+| Shipping Safari, macOS and iOS      | **Unverified.**                                                                             |
+| Firefox                             | **Unverified.** Not installed in this environment.                                          |
+| Real phones, tablets, webview hosts | **Unverified.** Touch, momentum scrolling, thermal limits and GPU differences are untested. |
 
 ## What was tested, and where
 
@@ -12,18 +20,19 @@ This records what was run, in which engine, and what is still open. Nothing here
 | VoiceOver, NVDA, TalkBack                  | Not run                                                                     | Nothing                                                                                                                  | Everything; axe and the keyboard walk are not a screen-reader test                                              |
 | Real phones and tablets                    | Not run                                                                     | Nothing                                                                                                                  | Touch scrolling, momentum, webview hosts, thermal throttling                                                    |
 
-## LedgerGuard depth: still an unresolved shipping blocker
+## LedgerGuard depth: flat by default
 
-**Status: unresolved shipping blocker for the 3D path.** The P1 review recorded that in headless WebKit the LedgerGuard anatomy flattened. The 3D stack rendered as a flat pile and the depth reading was lost. That is not evidence that shipping Safari is broken. It is also not evidence that Safari works. Until the 3D path is seen working in shipping Safari, it must not ship there.
+**The 3D path remains an unresolved shipping blocker.** The P1 review recorded that in headless WebKit the LedgerGuard anatomy flattened: the 3D stack rendered as a flat pile and the depth reading was lost. That is not evidence that shipping Safari is broken, and it is not evidence that Safari works.
 
-P2 adds a **non-3D fallback**, so the blocker has an exit that does not depend on Safari's 3D behaviour:
+**What P2.1 changed.** P2 chose 3D wherever `navigator.userAgentData` existed, which is a guess about the engine, not a test of what it can render. The review rejected that. Now:
 
-- **What it is.** On wide screens, the flat path runs the P1 narrow-screen "drawn section" beside the cards. LG-01 is a drawn plate with bands below it, a red line drops through every band, and the workspace and match cut follow. There is no tilt, no folded edge, and no 3D transform on any element. The review checks that last point mid-sequence.
-- **When it runs.** 3D runs only where `navigator.userAgentData` exists, which today is Chromium-based browsers. Every other engine gets the flat path. `?depth=flat` and `?depth=3d` force either one for review.
-- **Where it was seen.** In Chromium with `?depth=flat`, in the review, the stills and the recording `ledgerguard-flat-depth.mp4`. In headless WebKit by default, in a screenshot and the recording `webkit-ledgerguard-flat-depth.mp4`.
-- **What is still needed.** Before the blocker can be closed, the flat path must be seen in shipping Safari on macOS and iOS, and in Firefox. The owner must also accept that Safari and Firefox readers get a different, flatter LedgerGuard sequence. That is a product decision, not a technical one.
+- **The flat "drawn section" is the default everywhere.** On wide screens it runs the P1 narrow-screen section beside the cards: LG-01 as a drawn plate with bands below it, a red line dropping through every band, then the workspace and the match cut. No tilt, no folded edge, no 3D transform on any element. The review checks that last point mid-sequence.
+- **3D runs only on request**, with `?depth=3d`, for design review in Chromium. No user-agent or client-hints API is read. The review checks the page source for `userAgentData` and `navigator.userAgent`.
+- **No production browser configuration was changed.** This is the prototype only.
 
-**Risk in the detection rule.** `navigator.userAgentData` is a Chromium API. Using it to choose 3D is a capability guess, not a capability test. If Safari ships 3D correctly, its readers still get the flat path. If a Chromium browser renders 3D badly, its readers still get 3D. A production version should replace the guess with a rendering probe, or ship the flat path everywhere.
+**Where the flat path was seen:** headless Chromium (review, stills, `ledgerguard-flat-depth.mp4`) and headless WebKit (screenshot and `webkit-ledgerguard-flat-depth.mp4`). **Where it was not:** shipping Safari, Firefox, any real device.
+
+**Before the 3D path could ship anywhere,** it would need to be seen working in shipping Safari on macOS and iOS and in Firefox, or be gated by a rendering probe rather than an engine guess. Until then the flat path is the verified stable presentation, and the owner should treat 3D as a review-only variant.
 
 ## AlwaysGeeky and Emplifi: no 3D at all
 
@@ -31,58 +40,60 @@ Both P2 scenes use 2D transforms, opacity, SVG stroke draw-in and SVG attribute 
 
 ## Feature dependencies and what happens without each
 
-| Feature                                              | Used for                                                                  | Without it                                                                                                                                                                        |
-| ---------------------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| JavaScript                                           | Every scene, the key plan and capability marks                            | Static pages. Every fact is in the HTML, every step shows its figure, and controls that need script are hidden. Tested.                                                           |
-| GSAP 3.12.5 and ScrollTrigger (cdnjs)                | Scene timelines                                                           | Fail-safe: the static page returns. Tested with each one blocked.                                                                                                                 |
-| `prefers-reduced-motion`                             | Static steps, no transitions                                              | Full motion. The Motion toggle can turn it off per page.                                                                                                                          |
-| Cross-document view transitions (`@view-transition`) | 420 ms shared-element page changes                                        | Plain navigation. Not tested in an engine without it.                                                                                                                             |
-| `:has()`                                             | Key-plan thumbnails that hold drawings, and AG surfaces that are openings | Those frames keep their default ground. Cosmetic.                                                                                                                                 |
-| `text-wrap: balance`                                 | Headings                                                                  | Normal wrapping                                                                                                                                                                   |
-| `svh` units                                          | Stage and step heights                                                    | No `vh` fallback is declared, so a browser without `svh` (Safari before 15.4, Chrome before 108) drops those heights. Not tested. A production version should declare `vh` first. |
-| `clip-path: inset()`                                 | Key-plan wipe                                                             | No wipe; the sheet swaps                                                                                                                                                          |
+| Feature                                              | Used for                                                                 | Without it                                                                                                                                                                        |
+| ---------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| JavaScript                                           | Every scene, the index condensation and the discipline marks             | Static pages. Every fact is in the HTML, every step shows its figure, and controls that need script are hidden. Tested.                                                           |
+| GSAP 3.12.5 and ScrollTrigger (cdnjs)                | Scene timelines                                                          | Fail-safe: the static page returns. Tested with each one blocked.                                                                                                                 |
+| `prefers-reduced-motion`                             | Static steps, no transitions                                             | Full motion. The Motion toggle can turn it off per page.                                                                                                                          |
+| Cross-document view transitions (`@view-transition`) | 420 ms shared-element page changes                                       | Plain navigation. Not tested in an engine without it.                                                                                                                             |
+| `:has()`                                             | Index bay focus (quieting the other bays), AG surfaces that are openings | The other bays are not quieted; frames keep their default ground. Cosmetic.                                                                                                       |
+| `position: sticky`                                   | Index opening stage, scene stages                                        | The opening is not pinned. The condensation still scrubs but scrolls away with the page; content stays readable. Not tested in an engine without it.                              |
+| CSS custom properties animated by GSAP               | Index bay heights during the condensation                                | If a browser ignores them, the bays keep their open height and the identity block still slides. Not tested.                                                                       |
+| `text-wrap: balance`                                 | Headings                                                                 | Normal wrapping                                                                                                                                                                   |
+| `svh` units                                          | Stage and step heights                                                   | No `vh` fallback is declared, so a browser without `svh` (Safari before 15.4, Chrome before 108) drops those heights. Not tested. A production version should declare `vh` first. |
 
 ## Performance (lab)
 
 Headless Chromium on a laptop, using `capture/perf.mjs`. The whole page is scrolled in 10 s with an rAF loop, and every frame interval is recorded. "4×" is CDP CPU throttling. These numbers show **relative cost between pages and modes**. They are not field performance and say nothing about Safari, Firefox or a real phone.
 
-| Page        | Run                                     | Live | Delivered KB | CLS   | Frame median / p95 ms | Script ms | Style ms | Layout ms | Task ms |
-| ----------- | --------------------------------------- | ---- | ------------ | ----- | --------------------- | --------- | -------- | --------- | ------- |
-| index       | desktop                                 | no   | 208          | 0.031 | 16.7 / 16.8           | 52        | 0        | 0         | 219     |
-| index       | desktop, 4x CPU slowdown                | no   | 208          | 0.031 | 16.7 / 16.7           | 20        | 0        | 0         | 117     |
-| index       | phone viewport, 4x CPU slowdown         | no   | 284          | 0.023 | 16.7 / 16.7           | 9         | 0        | 0         | 47      |
-| index       | desktop reduced motion, 4x CPU slowdown | no   | 207          | 0.031 | 16.7 / 16.7           | 14        | 0        | 0         | 75      |
-| alwaysgeeky | desktop                                 | yes  | 514          | 0.041 | 16.7 / 16.8           | 82        | 15       | 5         | 272     |
-| alwaysgeeky | desktop, 4x CPU slowdown                | yes  | 515          | 0.041 | 16.7 / 16.8           | 114       | 32       | 14        | 465     |
-| alwaysgeeky | phone viewport, 4x CPU slowdown         | yes  | 514          | 0.02  | 16.7 / 16.7           | 142       | 47       | 17        | 586     |
-| alwaysgeeky | desktop reduced motion, 4x CPU slowdown | no   | 514          | 0.003 | 16.7 / 16.7           | 47        | 0        | 0         | 196     |
-| emplifi     | desktop                                 | yes  | 249          | 0.035 | 16.7 / 16.8           | 65        | 16       | 14        | 241     |
-| emplifi     | desktop, 4x CPU slowdown                | yes  | 248          | 0.035 | 16.7 / 16.7           | 90        | 31       | 16        | 406     |
-| emplifi     | phone viewport, 4x CPU slowdown         | yes  | 248          | 0.014 | 16.7 / 16.7           | 67        | 30       | 13        | 343     |
-| emplifi     | desktop reduced motion, 4x CPU slowdown | no   | 248          | 0.003 | 16.7 / 16.7           | 66        | 0        | 0         | 286     |
+| Page        | Run                                     | Live | Delivered KB | CLS load / after scroll | Frame median / p95 ms | Script ms | Style ms | Layout ms | Task ms |
+| ----------- | --------------------------------------- | ---- | ------------ | ----------------------- | --------------------- | --------- | -------- | --------- | ------- |
+| index       | desktop                                 | yes  | 337          | 0.002 / 0.117           | 16.7 / 16.7           | 85        | 155      | 126       | 672     |
+| index       | desktop, 4x CPU slowdown                | yes  | 337          | 0.001 / 0.116           | 16.7 / 16.8           | 72        | 409      | 318       | 1280    |
+| index       | phone viewport, 4x CPU slowdown         | yes  | 337          | 0.001 / 0.378           | 16.7 / 16.8           | 82        | 222      | 330       | 1013    |
+| index       | desktop reduced motion, 4x CPU slowdown | no   | 324          | 0.002 / 0.002           | 16.7 / 16.8           | 15        | 0        | 0         | 63      |
+| alwaysgeeky | desktop                                 | yes  | 497          | 0.042 / 0.042           | 16.7 / 16.7           | 139       | 27       | 8         | 482     |
+| alwaysgeeky | desktop, 4x CPU slowdown                | yes  | 497          | 0.042 / 0.042           | 16.7 / 16.8           | 72        | 25       | 11        | 289     |
+| alwaysgeeky | phone viewport, 4x CPU slowdown         | yes  | 497          | 0.014 / 0.014           | 16.7 / 16.7           | 63        | 22       | 15        | 279     |
+| alwaysgeeky | desktop reduced motion, 4x CPU slowdown | no   | 497          | 0.010 / 0.010           | 16.7 / 16.7           | 22        | 0        | 0         | 91      |
+| emplifi     | desktop                                 | yes  | 251          | 0.035 / 0.035           | 16.7 / 16.7           | 164       | 30       | 15        | 547     |
+| emplifi     | desktop, 4x CPU slowdown                | yes  | 251          | 0.036 / 0.036           | 16.7 / 16.7           | 109       | 32       | 17        | 466     |
+| emplifi     | phone viewport, 4x CPU slowdown         | yes  | 251          | 0.018 / 0.018           | 16.7 / 16.8           | 128       | 41       | 18        | 576     |
+| emplifi     | desktop reduced motion, 4x CPU slowdown | no   | 251          | 0.003 / 0.003           | 16.7 / 16.8           | 77        | 0        | 0         | 295     |
 
 Raw results: [`capture/perf-results.jsonl`](capture/perf-results.jsonl).
 
 ### Reading the numbers
 
-- **Main-thread time is the useful signal here, not frame pacing.** Headless Chromium paces requestAnimationFrame at 60 Hz without a real compositor or GPU, so every run shows a 16.7 ms median and no long frames. That does not mean a real device holds 60 fps.
-- **The scenes cost more than the static pages, as expected.** For a full scroll at 4× slowdown, AlwaysGeeky uses about 465 ms of task time on desktop and 586 ms on a phone viewport. Emplifi uses 406 ms and 343 ms. The same pages under reduced motion use 196 ms and 286 ms. The index, which has no scene, uses 75–117 ms.
-- **AlwaysGeeky is the heavier scene.** It moves raster images (the screenshot and the lens crop) and a 1200 × 2300 world plane. Emplifi moves SVG only.
-- **Layout shift is small but not zero.** The index and the live scenes shift by 0.03–0.04 on load, below the 0.1 "good" threshold. The reduced-motion scenes shift by 0.003. The likely causes are the web-font swap and, on scene pages, the stage being fitted after fonts load. This is not yet traced.
-- **Weight.** AlwaysGeeky delivers about 515 KB, mostly its two screenshots at two sizes. Emplifi delivers about 250 KB and the index about 210 KB. The index delivers about 285 KB on a phone, because its featured rows show thumbnails there.
+- **The index opening causes layout shift while scrolling. This is a blocker for production as built.** The condensation animates the identity block's top margin and the bays' heights, which are layout properties, so the browser counts each scrolled frame as a shift. Cumulative layout shift after a full scroll is 0.117 on desktop and **0.378 at phone width**, against 0.031 and 0.023 for the static P2 register. Above 0.1 is "needs improvement" and above 0.25 is "poor" in Core Web Vitals. Under reduced motion it is 0.002. It also costs main-thread time: about 730 ms of style and layout work for a full scroll at 4× slowdown on desktop, against none for the static page. **The fix belongs to the next round:** keep the stage at a fixed layout height and condense with transforms and a clip (the bays' upper and lower panes translate toward the cut, a `clip-path` trims them), moving the following content with a transform until the pin releases. That keeps the same picture without layout work per frame. It was not attempted here because it changes the transition's mechanics and needs its own review.
+- **Main-thread time is the useful signal, not frame pacing.** Headless Chromium paces requestAnimationFrame at 60 Hz without a real compositor or GPU, so every run shows a 16.7 ms median and no long frames. That does not mean a real device holds 60 fps.
+- **The scenes cost more than their reduced-motion versions, as expected**, and these runs vary by tens of percent between takes (the AlwaysGeeky 4× run is lower than its 1× run in this take, which is noise, not a gain). Compare orders of magnitude, not single numbers.
+- **AlwaysGeeky's world plane is smaller** (1200 × 1400, from 2300), and its style and layout time stays under 30 ms.
+- **Weight.** The index now delivers about 337 KB, from about 208 KB in P2, because the three bay pictures load on every width and the page loads GSAP, ScrollTrigger and the opening script. AlwaysGeeky delivers about 497 KB and Emplifi about 251 KB.
 
 ### Risks
 
-1. **Stage images on phones.** The AG stage carries a 1600 px marketplace screenshot and a second crop of it in the lens. On a phone both are drawn at a fraction of their size. A production version should serve a smaller source to the stage on narrow screens.
-2. **Rebuild on resize.** Each scene rebuilds its timeline when the width changes or fonts load, because every beat is measured from layout. Phones fire width changes rarely, but a desktop window drag rebuilds often. The rebuild is debounced. A production version should measure the cost on a slow device.
-3. **SVG draw-in on large drawings.** Stroke dash animation repaints the SVG each frame while it runs. The AG gates and EM timeline are the largest drawings. Each draws for 10–20% of one step. This is acceptable in the lab; on low-end Android it has not been measured.
-4. **Scrub lag.** `scrub: 0.6` smooths motion but means the stage trails a fast flick by up to 0.6 s. That is a deliberate choice, and it should be checked with real touch input.
-5. **Three CDN dependencies.** GSAP, ScrollTrigger and Google Fonts. The fail-safe covers GSAP. A font failure falls back to the declared stacks, which changes the measured layout, and the scene rebuilds when fonts load.
+1. **Opening seam.** The index stage is sticky, which the compositor handles, while its height is driven from the main thread by the scrubbed timeline. On a slow device or under a long task the two can disagree for a frame, showing a seam or jump between the condensing stage and the briefs below. Headless recordings did not show it; real devices are untested. A production version would need to test this on a mid-range Android phone and an older iPhone, and could fall back to an unpinned opening if it appears.
+2. **Stage images on phones.** The AG stage carries a 1600 px marketplace screenshot and a second crop of it in the lens. On a phone both are drawn at a fraction of their size. A production version should serve a smaller source to the stage on narrow screens.
+3. **Rebuild on resize.** Each scene rebuilds its timeline when the width changes or fonts load, because every beat is measured from layout. Phones fire width changes rarely, but a desktop window drag rebuilds often. The rebuild is debounced. A production version should measure the cost on a slow device.
+4. **SVG draw-in on large drawings.** Stroke dash animation repaints the SVG each frame while it runs. AG-03 and EM-04 are the largest drawings. Each draws for 10–20% of one step. This is acceptable in the lab; on low-end Android it has not been measured.
+5. **Scrub lag.** `scrub: 0.6` smooths motion but means the stage trails a fast flick by up to 0.6 s. That is a deliberate choice, and it should be checked with real touch input.
+6. **Three CDN dependencies.** GSAP, ScrollTrigger and Google Fonts. The fail-safe covers GSAP. A font failure falls back to the declared stacks, which changes the measured layout, and the scene rebuilds when fonts load.
 
 ## Before any production decision
 
-- Shipping Safari, macOS and iOS: index, AG, EM, and LedgerGuard with the flat path. Close or keep the depth blocker.
-- Firefox, desktop and Android: the same set. Firefox gets the flat path by the current rule.
-- VoiceOver on macOS and iOS: the register, a scene's steps, the capability marks and their live region.
-- A mid-range Android phone and an older iPhone: frame pacing through each scene, and the match cut.
+- Shipping Safari, macOS and iOS: index (including the opening condensation), AG, EM, and LedgerGuard's flat path. Decide whether 3D is ever offered.
+- Firefox, desktop and Android: the same set.
+- VoiceOver on macOS and iOS: the opening, the bays' two links, a scene's steps, the discipline marks and their live region.
+- A mid-range Android phone and an older iPhone: the opening seam, frame pacing through each scene, and both match cuts.
 - An embedded webview, if the portfolio is ever opened from inside another app. It is not a stated requirement.

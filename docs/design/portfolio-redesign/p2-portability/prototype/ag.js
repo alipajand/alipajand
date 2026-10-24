@@ -5,8 +5,9 @@
 //      lifts one of them out, enlarged. The lens holds a crop of the same screenshot.
 //   2. Assembly: the screenshot steps back into one of four surfaces, all standing on one
 //      shared library. Two surfaces have shipped screenshots; two are marked as openings.
-//   3. Contract and gates: the camera follows the blue line down, to the Storybook contract,
-//      then to the CI gates.
+//   3. Contract and enforcement: one camera move follows the blue line down from the library
+//      into a single drawing. The spine draws, each contract clause branches off in turn, and
+//      the gates hang from its foot, all while the step card is read: no second stop.
 //   4. Match cut: the marketplace screenshot lands in the case study's hero.
 AA.scene(function (S) {
   var stage = S.stage;
@@ -32,16 +33,19 @@ AA.scene(function (S) {
   var wires = q(".ag-wires");
   var drops = qa("[data-drop]");
   var bus = qa("[data-bus]");
-  var contract = q("[data-sheet=contract]");
-  var gates = q("[data-sheet=gates]");
-  var ticks = qa("[data-sheet=contract] .ink");
-  var gateInk = qa("[data-sheet=gates] .ink");
+  var chain = q("[data-sheet=chain]");
+  var spine = q("[data-sheet=chain] .spine");
+  var clauses = qa("[data-sheet=chain] .clause");
+  var gateGroup = q("[data-sheet=chain] .gates");
+  var gateInk = qa("[data-sheet=chain] .gates .ink");
   var win = q("[data-win]");
 
   gsap.set([world, plate], { transformOrigin: "0 0" });
-  gsap.set([lens, lensL, tags, surfs, surfL, band, contract, gates], { autoAlpha: 0 });
+  gsap.set([lens, lensL, tags, surfs, surfL, band, chain, gateGroup].concat(clauses), {
+    autoAlpha: 0,
+  });
   gsap.set([callSvg, wires], { autoAlpha: 1 });
-  gsap.set(calls.concat(drops, bus, ticks, gateInk), { strokeDashoffset: 1 });
+  gsap.set(calls.concat(drops, bus, [spine], gateInk), { strokeDashoffset: 1 });
 
   var steps = ["#detail", "#assembly", "#gates"].map(function (id) {
     return S.start(document.querySelector(id));
@@ -108,24 +112,25 @@ AA.scene(function (S) {
   S.at(surfL, { autoAlpha: 1 }, f(1, 0.5), f(1, 0.62));
   S.at(drops, { strokeDashoffset: 0 }, f(1, 0.56), f(1, 0.74));
 
-  /* 3 · contract, then gates: the camera follows the blue line down; both sheets are drawn
-     while the card is still being read */
-  S.at(bus[0], { strokeDashoffset: 0 }, f(2, 0), f(2, 0.14));
-  S.at(world, { scale: 1, x: 0, y: -823, ease: "power2.inOut" }, f(2, 0.02), f(2, 0.22));
-  S.at([plate, band].concat(surfs, surfL), { autoAlpha: 0 }, f(2, 0.08), f(2, 0.18));
-  S.at(contract, { autoAlpha: 1 }, f(2, 0.08), f(2, 0.16));
-  S.at(ticks, { strokeDashoffset: 0, stagger: 0.015 }, f(2, 0.16), f(2, 0.28));
-  S.at(bus[1], { strokeDashoffset: 0 }, f(2, 0.32), f(2, 0.4));
-  S.at(world, { y: -1563, ease: "power2.inOut" }, f(2, 0.32), f(2, 0.52));
-  S.at(contract, { autoAlpha: 0 }, f(2, 0.4), f(2, 0.5));
-  S.at(gates, { autoAlpha: 1 }, f(2, 0.36), f(2, 0.44));
-  S.at(gateInk, { strokeDashoffset: 0, stagger: 0.003 }, f(2, 0.44), f(2, 0.62));
+  /* 3 · contract and enforcement: one move down the blue line, then the chain draws in reading
+     order (spine, each clause, the gates) while the card is still being read */
+  S.at(bus[0], { strokeDashoffset: 0 }, f(2, 0), f(2, 0.1));
+  S.at(world, { scale: 1, x: 0, y: -548, ease: "power2.inOut" }, f(2, 0.02), f(2, 0.24));
+  S.at([plate, band].concat(surfs, surfL, drops), { autoAlpha: 0 }, f(2, 0.08), f(2, 0.18));
+  S.at(chain, { autoAlpha: 1 }, f(2, 0.1), f(2, 0.16));
+  S.at(spine, { strokeDashoffset: 0 }, f(2, 0.12), f(2, 0.4));
+  clauses.forEach(function (c, i) {
+    var t = 0.18 + i * 0.05;
+    S.at(c, { autoAlpha: 1 }, f(2, t), f(2, t + 0.06));
+  });
+  S.at(gateGroup, { autoAlpha: 1 }, f(2, 0.4), f(2, 0.42));
+  S.at(gateInk, { strokeDashoffset: 0, stagger: 0.004 }, f(2, 0.4), f(2, 0.6));
 
-  /* 4 · the match cut */
+  /* 4 · the match cut: the chain holds until its card is mostly read, then gives way */
   var w = 1 - L0;
-  S.at([gates, wires], { autoAlpha: 0 }, L0, L0 + w * 0.14);
-  if (win) S.at(win, { autoAlpha: 0 }, L0, L0 + w * 0.3);
-  S.tl.set(world, { x: 0, y: 0, scale: 1 }, L0 + w * 0.15);
-  S.at(plate, { autoAlpha: 1 }, L0 + w * 0.16, L0 + w * 0.26);
-  S.land(plate, { x: 0, y: 24, w: 1200 }, L0 + w * 0.2);
+  S.at([chain, wires], { autoAlpha: 0 }, L0 + w * 0.12, L0 + w * 0.24);
+  if (win) S.at(win, { autoAlpha: 0 }, L0 + w * 0.24, L0 + w * 0.36);
+  S.tl.set(world, { x: 0, y: 0, scale: 1 }, L0 + w * 0.25);
+  S.at(plate, { autoAlpha: 1 }, L0 + w * 0.24, L0 + w * 0.32);
+  S.land(plate, { x: 0, y: 24, w: 1200 }, L0 + w * 0.27);
 });

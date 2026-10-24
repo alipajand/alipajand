@@ -6,7 +6,7 @@
     <title>Section A–A Register</title>
     <meta
       name="description"
-      content="Ali Pajand portfolio, P2 design exploration: the project register for the Section A–A visual system."
+      content="Ali Pajand portfolio, P2.1 design exploration: the opening and project register for the Section A–A visual system."
     />
     <meta name="color-scheme" content="light" />
     <link rel="icon" href="data:," />
@@ -38,9 +38,10 @@
     />
     <link rel="stylesheet" href="grammar.css" />
     <link rel="stylesheet" href="projects.css" />
+    <link rel="stylesheet" href="opening.css" />
   </head>
   <body>
-    <a class="skip" href="#register">Skip to the project register</a>
+    <a class="skip" href="#work">Skip to selected work</a>
 
     <header class="bar">
       <a class="bar__mark" href="index.html" aria-label="Ali Pajand, portfolio register"
@@ -48,58 +49,666 @@
         ><span class="bar__name">Ali Pajand</span></a
       >
       <nav class="bar__nav" aria-label="Primary">
-        <a href="#register">Register</a><a href="#capabilities">Capabilities</a
+        <a href="#work">Work</a><a href="#capabilities">Disciplines</a
         ><a href="#contact">Contact</a>
         <button type="button" class="bar__motion" data-motion-toggle aria-pressed="true">
           <span class="bar__dot" aria-hidden="true"></span><span data-motion-label>Motion on</span>
         </button>
       </nav>
     </header>
-    <main id="main">
-      <section class="tb" aria-labelledby="tb-name" data-tone="paper">
-        <p class="tb__k">
-          <span class="tb__ap" aria-hidden="true">A–A</span> Section A–A · Sheet 00 · Drawing
-          register
-        </p>
-        <h1 class="tb__name" id="tb-name">
-          <span class="tb__cut" aria-hidden="true"></span>Ali Pajand
-        </h1>
-        <p class="tb__role">Senior Software Engineer</p>
-        <p class="tb__focus">Frontend architecture, design systems, and full-stack product work</p>
-        <p class="tb__thesis">The interface, and the work behind it.</p>
+    <main id="main" class="reg">
+      <section class="op" aria-labelledby="op-name" data-opening>
+        <div class="op__stage" data-op-stage>
+          <header class="op__id" data-op-id>
+            <p class="op__k">
+              <span class="op__ap" aria-hidden="true">A–A</span> Section A–A · Sheet 00
+            </p>
+            <h1 class="op__name" id="op-name">Ali Pajand</h1>
+            <p class="op__role">Senior Software Engineer</p>
+            <p class="op__focus">
+              Frontend architecture, design systems, and full-stack product work
+            </p>
+            <dl class="op__tb">
+              <div>
+                <dt>Stack</dt>
+                <dd>React · TypeScript · Next.js · Node.js</dd>
+              </div>
+              <div>
+                <dt>Experience</dt>
+                <dd>9+ years</dd>
+              </div>
+              <div>
+                <dt>Based</dt>
+                <dd>Montreal, Canada</dd>
+              </div>
+              <div>
+                <dt>Availability</dt>
+                <dd>Open to remote work within Canada</dd>
+              </div>
+              <div class="op__call">
+                <dt class="sr-only">Contact</dt>
+                <dd><a href="https://calendly.com/alipajand/intro">Book a call</a></dd>
+              </div>
+            </dl>
+          </header>
+          <div class="sect" id="work" data-sect>
+            <div class="sect__key">
+              <h2 class="sect__h">Selected work</h2>
+              <p class="sect__intro">Seven projects; three explored in depth.</p>
+              <p class="sect__nts" aria-hidden="true">Bays dimensioned by time · not to scale</p>
+              <p class="sr-only">
+                The interface, and the work behind it. Each featured project is drawn cut through:
+                the shipped interface above the line, the system behind it below.
+              </p>
+            </div>
+            <div class="sect__draw">
+              <p class="datum datum--up" aria-hidden="true"><span>The interface,</span></p>
+              <p class="datum datum--down" aria-hidden="true">
+                <span>and the work behind it.</span>
+              </p>
+              <p class="dims" aria-hidden="true">
+                <span class="dims__seg"><span>2026–present</span></span
+                ><span class="dims__seg"><span>2024–2026</span></span
+                ><span class="dims__seg"><span>2022–2023</span></span>
+              </p>
+              <ol class="bays" role="list">
+                <li class="bay bay--lg" data-row="ledgerguard" data-caps="frontend fullstack ai">
+                  <a
+                    class="bay__sect"
+                    href="../../cinematic-exploration/prototype/index.html"
+                    aria-label="LedgerGuard: open the scene"
+                  >
+                    <span class="bay__above"
+                      ><img
+                        style="object-position: 38% 78%"
+                        class="bay__img"
+                        src="media/ledgerguard-dashboard-960.webp"
+                        srcset="
+                          media/ledgerguard-dashboard-960.webp   960w,
+                          media/ledgerguard-dashboard-1600.webp 1600w
+                        "
+                        sizes="(max-width: 899px) 30vw, 28vw"
+                        width="1600"
+                        height="1003"
+                        alt=""
+                        decoding="async"
+                    /></span>
+                    <span class="bay__cut" aria-hidden="true"
+                      ><span class="bay__tag"><b>LG-01</b><i> Shipped screenshot</i></span
+                      ><span class="bay__tag bay__tag--v"><b>LG-02</b><i> Diagram</i></span></span
+                    >
+                    <span class="bay__below"
+                      ><svg
+                        class="drawing drawing--void drawing--lg"
+                        viewBox="0 0 400 240"
+                        preserveAspectRatio="xMidYMin slice"
+                        aria-hidden="true"
+                        focusable="false"
+                        data-label="LG-02"
+                      >
+                        <defs>
+                          <pattern
+                            id="lg-hatch"
+                            width="8"
+                            height="8"
+                            patternUnits="userSpaceOnUse"
+                            patternTransform="rotate(45)"
+                          >
+                            <line x1="0" y1="0" x2="0" y2="8" class="v-hatch" />
+                          </pattern>
+                        </defs>
+                        <g class="v-slab">
+                          <rect
+                            x="24"
+                            y="16"
+                            width="352"
+                            height="26"
+                            class="v-box ink"
+                            pathLength="1"
+                          />
+                          <text x="36" y="33" class="v-code">01</text>
+                          <text x="64" y="33" class="v-lab">Next.js App Router product</text>
+                        </g>
+                        <g class="v-slab">
+                          <rect
+                            x="24"
+                            y="52"
+                            width="352"
+                            height="26"
+                            class="v-box ink"
+                            pathLength="1"
+                          />
+                          <text x="36" y="69" class="v-code">02</text>
+                          <text x="64" y="69" class="v-lab">Node.js/Fastify API</text>
+                        </g>
+                        <g class="v-slab">
+                          <rect
+                            x="24"
+                            y="88"
+                            width="352"
+                            height="26"
+                            class="v-box ink"
+                            pathLength="1"
+                          />
+                          <text x="36" y="105" class="v-code">03</text>
+                          <text x="64" y="105" class="v-lab">
+                            Supabase PostgreSQL, Auth, Storage
+                          </text>
+                        </g>
+                        <g class="v-slab">
+                          <rect
+                            x="24"
+                            y="124"
+                            width="352"
+                            height="26"
+                            class="v-box ink"
+                            pathLength="1"
+                          />
+                          <text x="36" y="141" class="v-code">04</text>
+                          <text x="64" y="141" class="v-lab">Redis/BullMQ orchestration</text>
+                        </g>
+                        <g class="v-slab">
+                          <rect
+                            x="24"
+                            y="170"
+                            width="352"
+                            height="26"
+                            class="v-box v-box--prob ink"
+                            pathLength="1"
+                          />
+                          <text x="36" y="187" class="v-code">05</text>
+                          <text x="64" y="187" class="v-lab">Python extraction worker</text>
+                        </g>
+                        <path d="M12,165 H388" class="v-line lg ink" pathLength="1" />
+                        <text x="388" y="160" class="v-note lg" text-anchor="end">
+                          review boundary
+                        </text>
+                      </svg></span
+                    >
+                    <span class="bay__go" aria-hidden="true">Scene</span>
+                  </a>
+                  <div class="bay__title">
+                    <p class="bay__bubble" aria-hidden="true">LG</p>
+                    <h3 class="bay__name">
+                      <a href="../../cinematic-exploration/prototype/ledgerguard.html"
+                        ><span class="bay__nm">LedgerGuard</span
+                        ><span class="bay__cs"
+                          >Case study<span class="sr-only"
+                            >: Full-Stack AI Contract Intelligence</span
+                          ></span
+                        ></a
+                      >
+                    </h3>
+                    <p class="bay__sub">Full-Stack AI Contract Intelligence</p>
+                  </div>
+                </li>
+                <li
+                  class="bay bay--ag"
+                  data-row="alwaysgeeky"
+                  data-caps="frontend systems a11y dx"
+                  data-vt="sheet-ag"
+                >
+                  <a
+                    class="bay__sect"
+                    href="alwaysgeeky.html"
+                    aria-label="AlwaysGeeky Games: open the scene"
+                  >
+                    <span class="bay__above"
+                      ><img
+                        style="object-position: 42% 88%"
+                        class="bay__img"
+                        src="media/ag-marketplace-960.webp"
+                        srcset="
+                          media/ag-marketplace-960.webp   960w,
+                          media/ag-marketplace-1600.webp 1600w
+                        "
+                        sizes="(max-width: 899px) 30vw, 28vw"
+                        width="1600"
+                        height="1003"
+                        alt=""
+                        decoding="async"
+                    /></span>
+                    <span class="bay__cut" aria-hidden="true"
+                      ><span class="bay__tag"><b>AG-01</b><i> Historical screenshot</i></span
+                      ><span class="bay__tag bay__tag--v"><b>AG-02</b><i> Diagram</i></span></span
+                    >
+                    <span class="bay__below"
+                      ><svg
+                        class="drawing drawing--void drawing--ag"
+                        viewBox="0 0 400 240"
+                        preserveAspectRatio="xMidYMin slice"
+                        aria-hidden="true"
+                        focusable="false"
+                        data-label="AG-02"
+                      >
+                        <rect
+                          x="24"
+                          y="16"
+                          width="81"
+                          height="36"
+                          class="v-box ink"
+                          pathLength="1"
+                        />
+                        <text x="64.5" y="38" class="v-lab v-lab--s" text-anchor="middle">
+                          Marketplace
+                        </text>
+                        <path d="M64.5,52 V82" class="v-line ag ink" pathLength="1" />
+                        <rect
+                          x="113"
+                          y="16"
+                          width="81"
+                          height="36"
+                          class="v-box ink"
+                          pathLength="1"
+                        />
+                        <text x="153.5" y="38" class="v-lab v-lab--s" text-anchor="middle">
+                          Authentication
+                        </text>
+                        <path d="M153.5,52 V82" class="v-line ag ink" pathLength="1" />
+                        <rect
+                          x="202"
+                          y="16"
+                          width="81"
+                          height="36"
+                          class="v-box ink"
+                          pathLength="1"
+                        />
+                        <text x="242.5" y="38" class="v-lab v-lab--s" text-anchor="middle">
+                          Product
+                        </text>
+                        <path d="M242.5,52 V82" class="v-line ag ink" pathLength="1" />
+                        <rect
+                          x="291"
+                          y="16"
+                          width="81"
+                          height="36"
+                          class="v-box ink"
+                          pathLength="1"
+                        />
+                        <text x="331.5" y="38" class="v-lab v-lab--s" text-anchor="middle">
+                          Account
+                        </text>
+                        <path d="M331.5,52 V82" class="v-line ag ink" pathLength="1" />
+                        <rect
+                          x="24"
+                          y="82"
+                          width="352"
+                          height="38"
+                          class="v-box v-box--lib ag ink"
+                          pathLength="1"
+                        />
+                        <text x="38" y="106" class="v-lab">
+                          Shared React and TypeScript library
+                        </text>
+                        <path d="M200,120 V230" class="v-line ag ink" pathLength="1" />
+                        <rect
+                          x="88"
+                          y="142"
+                          width="224"
+                          height="30"
+                          class="v-box v-box--dash ink"
+                          pathLength="1"
+                        />
+                        <text x="200" y="162" class="v-lab" text-anchor="middle">
+                          Storybook documentation
+                        </text>
+                        <path
+                          d="M88,196 H312 M88,190 V202 M163,190 V202 M237,190 V202 M312,190 V202"
+                          class="v-line ag ink"
+                          pathLength="1"
+                        />
+                        <text x="200" y="222" class="v-lab" text-anchor="middle">
+                          CI quality gates
+                        </text>
+                      </svg></span
+                    >
+                    <span class="bay__go" aria-hidden="true">Scene</span>
+                  </a>
+                  <div class="bay__title">
+                    <p class="bay__bubble" aria-hidden="true">AG</p>
+                    <h3 class="bay__name">
+                      <a href="alwaysgeeky.html#case"
+                        ><span class="bay__nm">AlwaysGeeky Games</span
+                        ><span class="bay__cs"
+                          >Case study<span class="sr-only"
+                            >: Shared Design System &amp; Frontend Standards</span
+                          ></span
+                        ></a
+                      >
+                    </h3>
+                    <p class="bay__sub">Shared Design System &amp; Frontend Standards</p>
+                  </div>
+                </li>
+                <li
+                  class="bay bay--em"
+                  data-row="emplifi"
+                  data-caps="frontend systems dataviz a11y"
+                  data-vt="sheet-em"
+                >
+                  <a class="bay__sect" href="emplifi.html" aria-label="Emplifi: open the scene">
+                    <span class="bay__above"
+                      ><svg
+                        class="drawing drawing--em"
+                        viewBox="0 0 420 560"
+                        preserveAspectRatio="xMidYMax meet"
+                        aria-hidden="true"
+                        focusable="false"
+                        data-label="em-webview"
+                      >
+                        <rect
+                          x="18"
+                          y="14"
+                          width="384"
+                          height="728"
+                          rx="46"
+                          class="phone ink"
+                          pathLength="1"
+                        />
+                        <rect x="34" y="30" width="352" height="696" rx="32" class="phone__glass" />
+                        <rect x="164" y="40" width="92" height="22" rx="11" class="phone__notch" />
+                        <rect x="34" y="78" width="352" height="58" class="host" />
+                        <text x="54" y="114" class="t-small">Host app</text>
+                        <rect x="308" y="96" width="58" height="20" rx="10" class="host__pill" />
+                        <rect
+                          x="44"
+                          y="148"
+                          width="332"
+                          height="568"
+                          class="webview ink"
+                          pathLength="1"
+                        />
+                        <text x="58" y="176" class="t-small t-em">Embedded webview</text>
+                        <text x="58" y="206" class="t-cell">Dashboard module</text>
 
-        <dl class="tblock">
-          <div>
-            <dt>Stack</dt>
-            <dd>React · TypeScript · Next.js · Node.js</dd>
+                        <g class="chart">
+                          <line x1="58" y1="226.0" x2="362" y2="226.0" class="grid" />
+                          <line x1="58" y1="275.5" x2="362" y2="275.5" class="grid" />
+                          <line x1="58" y1="325.0" x2="362" y2="325.0" class="grid" />
+                          <line x1="58" y1="374.5" x2="362" y2="374.5" class="grid" />
+                          <line x1="58" y1="424.0" x2="362" y2="424.0" class="grid" />
+                          <path
+                            d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3 L362,424 L58,424 Z"
+                            class="area"
+                          />
+                          <path
+                            d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3"
+                            class="line ink"
+                            pathLength="1"
+                          />
+                          <path
+                            d="M58.0,365.3 L62.8,364.3 L67.7,364.9 L72.5,359.4 L77.3,362.8 L82.1,365.2 L87.0,356.0 L91.8,346.7 L96.6,337.3 L101.4,330.3 L106.3,331.0 L111.1,323.1 L115.9,316.8 L120.7,313.2 L125.6,320.2 L130.4,327.0 L135.2,323.7 L140.0,330.5 L144.9,335.6 L149.7,341.4 L154.5,337.3 L159.3,347.3 L164.2,355.2 L169.0,355.5 L173.8,365.2 L178.6,375.6 L183.5,374.3 L188.3,377.5 L193.1,372.8 L197.9,376.6 L202.8,380.2 L207.6,380.3 L212.4,371.9 L217.2,364.2 L222.1,354.7 L226.9,356.4 L231.7,361.2 L236.5,360.2 L241.4,351.9 L246.2,341.9 L251.0,335.9 L255.8,330.6 L260.7,324.6 L265.5,325.5 L270.3,326.0 L275.1,327.0 L280.0,334.6 L284.8,330.1 L289.6,336.1 L294.4,340.9 L299.3,342.0 L304.1,351.1 L308.9,353.6 L313.7,361.0 L318.6,359.0 L323.4,367.3 L328.2,374.2 L333.0,383.8 L337.9,389.6 L342.7,396.9 L347.5,403.0 L352.3,402.3 L357.2,397.5 L362.0,403.8"
+                            class="line line--2 ink"
+                            pathLength="1"
+                          />
+                          <path
+                            d="M58.0,299.7 L62.8,305.8 L67.7,306.9 L72.5,310.1 L77.3,308.9 L82.1,303.6 L87.0,302.3 L91.8,306.1 L96.6,309.5 L101.4,300.6 L106.3,292.9 L111.1,295.6 L115.9,289.7 L120.7,293.2 L125.6,289.3 L130.4,289.0 L135.2,284.0 L140.0,287.0 L144.9,282.1 L149.7,288.3 L154.5,283.6 L159.3,288.0 L164.2,293.1 L169.0,290.9 L173.8,296.9 L178.6,301.7 L183.5,299.7 L188.3,305.3 L193.1,302.4 L197.9,301.4 L202.8,306.8 L207.6,306.3 L212.4,311.9 L217.2,312.6 L222.1,308.1 L226.9,311.6 L231.7,308.8 L236.5,307.8 L241.4,302.8 L246.2,302.8 L251.0,298.1 L255.8,296.0 L260.7,294.7 L265.5,294.1 L270.3,295.9 L275.1,297.2 L280.0,294.5 L284.8,294.4 L289.6,294.3 L294.4,293.8 L299.3,290.8 L304.1,287.7 L308.9,290.8 L313.7,292.3 L318.6,299.2 L323.4,306.1 L328.2,314.2 L333.0,312.5 L337.9,319.3 L342.7,316.7 L347.5,325.0 L352.3,325.0 L357.2,331.6 L362.0,327.4"
+                            class="line line--3 ink"
+                            pathLength="1"
+                          />
+                          <g class="bars">
+                            <rect x="59.0" y="503.9" width="7.5" height="22.1" class="bar" />
+                            <rect x="68.5" y="503.7" width="7.5" height="22.3" class="bar" />
+                            <rect x="78.0" y="505.4" width="7.5" height="20.6" class="bar" />
+                            <rect x="87.5" y="503.3" width="7.5" height="22.7" class="bar" />
+                            <rect x="97.0" y="497.9" width="7.5" height="28.1" class="bar" />
+                            <rect x="106.5" y="499.1" width="7.5" height="26.9" class="bar" />
+                            <rect x="116.0" y="505.3" width="7.5" height="20.7" class="bar" />
+                            <rect x="125.5" y="508.6" width="7.5" height="17.4" class="bar" />
+                            <rect x="135.0" y="511.1" width="7.5" height="14.9" class="bar" />
+                            <rect x="144.5" y="513.5" width="7.5" height="12.5" class="bar" />
+                            <rect x="154.0" y="511.1" width="7.5" height="14.9" class="bar" />
+                            <rect x="163.5" y="510.8" width="7.5" height="15.2" class="bar" />
+                            <rect x="173.0" y="504.6" width="7.5" height="21.4" class="bar" />
+                            <rect x="182.5" y="502.0" width="7.5" height="24.0" class="bar" />
+                            <rect x="192.0" y="502.1" width="7.5" height="23.9" class="bar" />
+                            <rect x="201.5" y="495.5" width="7.5" height="30.5" class="bar" />
+                            <rect x="211.0" y="488.0" width="7.5" height="38.0" class="bar" />
+                            <rect x="220.5" y="488.5" width="7.5" height="37.5" class="bar" />
+                            <rect x="230.0" y="487.3" width="7.5" height="38.7" class="bar" />
+                            <rect x="239.5" y="481.0" width="7.5" height="45.0" class="bar" />
+                            <rect x="249.0" y="474.1" width="7.5" height="51.9" class="bar" />
+                            <rect x="258.5" y="473.9" width="7.5" height="52.1" class="bar" />
+                            <rect x="268.0" y="477.2" width="7.5" height="48.8" class="bar" />
+                            <rect x="277.5" y="485.6" width="7.5" height="40.4" class="bar" />
+                            <rect x="287.0" y="489.0" width="7.5" height="37.0" class="bar" />
+                            <rect x="296.5" y="489.0" width="7.5" height="37.0" class="bar" />
+                            <rect x="306.0" y="484.9" width="7.5" height="41.1" class="bar" />
+                            <rect x="315.5" y="493.2" width="7.5" height="32.8" class="bar" />
+                            <rect x="325.0" y="490.5" width="7.5" height="35.5" class="bar" />
+                            <rect x="334.5" y="498.4" width="7.5" height="27.6" class="bar" />
+                            <rect x="344.0" y="506.2" width="7.5" height="19.8" class="bar" />
+                            <rect x="353.5" y="504.8" width="7.5" height="21.2" class="bar" />
+                          </g>
+                        </g>
+                        <line x1="58" y1="556" x2="362" y2="556" class="hair" />
+                        <rect x="58" y="572" width="304" height="30" class="row-box" />
+                        <rect x="66" y="582" width="90" height="10" class="row-ink" />
+                        <rect x="58" y="614" width="304" height="30" class="row-box" />
+                        <rect x="66" y="624" width="130" height="10" class="row-ink" />
+                        <rect x="58" y="656" width="304" height="30" class="row-box" />
+                        <rect x="66" y="666" width="170" height="10" class="row-ink" />
+                        <line x1="210" y1="226" x2="210" y2="526" class="cursor em" /></svg
+                    ></span>
+                    <span class="bay__cut" aria-hidden="true"
+                      ><span class="bay__tag"><b>EM-01</b><i> Illustrative diagram</i></span
+                      ><span class="bay__tag bay__tag--v"><b>EM-02</b><i> Diagram</i></span></span
+                    >
+                    <span class="bay__below"
+                      ><svg
+                        class="drawing drawing--void drawing--em"
+                        viewBox="0 0 400 240"
+                        preserveAspectRatio="xMidYMin slice"
+                        aria-hidden="true"
+                        focusable="false"
+                        data-label="EM-02"
+                      >
+                        <rect
+                          x="24"
+                          y="16"
+                          width="352"
+                          height="134"
+                          class="v-box ink"
+                          pathLength="1"
+                        />
+                        <text x="36" y="36" class="v-lab">React product composition</text>
+                        <rect x="36" y="50" width="68" height="20" class="v-box v-box--s" />
+                        <rect x="36" y="80" width="68" height="20" class="v-box v-box--s" />
+                        <rect x="36" y="110" width="68" height="20" class="v-box v-box--s" />
+                        <rect
+                          x="120"
+                          y="48"
+                          width="244"
+                          height="92"
+                          class="v-box v-box--dash em ink"
+                          pathLength="1"
+                        />
+                        <text x="132" y="66" class="v-lab v-lab--em">D3.js chart behavior</text>
+                        <path
+                          d="M132.0,106.0 L137.6,102.7 L143.3,102.9 L148.9,103.4 L154.6,101.0 L160.2,99.7 L165.8,99.6 L171.5,97.2 L177.1,95.0 L182.8,94.1 L188.4,92.6 L194.1,91.5 L199.7,89.7 L205.3,91.4 L211.0,92.5 L216.6,91.9 L222.3,91.6 L227.9,95.1 L233.5,95.1 L239.2,96.3 L244.8,95.1 L250.5,94.5 L256.1,97.6 L261.7,98.5 L267.4,96.9 L273.0,96.4 L278.7,96.0 L284.3,95.8 L289.9,93.4 L295.6,90.8 L301.2,91.1 L306.9,91.4 L312.5,88.6 L318.2,88.6 L323.8,89.5 L329.4,89.5 L335.1,88.8 L340.7,88.9 L346.4,87.0 L352.0,87.0"
+                          class="v-chart ink"
+                          pathLength="1"
+                        />
+                        <path
+                          d="M24,166 H376 M24,160 V172 M120,160 V172 M376,160 V172"
+                          class="v-line em ink"
+                          pathLength="1"
+                        />
+                        <text x="72" y="186" class="v-note em" text-anchor="middle">React</text>
+                        <text x="248" y="186" class="v-note em" text-anchor="middle">D3</text>
+                        <path d="M24,212 H376" class="v-rule" />
+                        <path d="M24,206 V218" class="v-rule" />
+                        <path d="M82.67,206 V218" class="v-rule" />
+                        <path d="M141.34,206 V218" class="v-rule" />
+                        <path d="M200.01,206 V218" class="v-rule" />
+                        <path d="M258.68,206 V218" class="v-rule" />
+                        <path d="M317.35,206 V218" class="v-rule" />
+                        <path d="M376.02,206 V218" class="v-rule" />
+                        <text x="24" y="234" class="v-note">
+                          16.7 ms reference · 60 Hz · not a measurement
+                        </text>
+                      </svg></span
+                    >
+                    <span class="bay__go" aria-hidden="true">Scene</span>
+                  </a>
+                  <div class="bay__title">
+                    <p class="bay__bubble" aria-hidden="true">EM</p>
+                    <h3 class="bay__name">
+                      <a href="emplifi.html#case"
+                        ><span class="bay__nm">Emplifi</span
+                        ><span class="bay__cs"
+                          >Case study<span class="sr-only">: Enterprise Analytics</span></span
+                        ></a
+                      >
+                    </h3>
+                    <p class="bay__sub">Enterprise Analytics</p>
+                  </div>
+                </li>
+              </ol>
+              <div class="sect__line" aria-hidden="true"></div>
+              <span class="sect__a sect__a--l" aria-hidden="true">A</span>
+              <span class="sect__a sect__a--r" aria-hidden="true">A</span>
+            </div>
           </div>
-          <div>
-            <dt>Experience</dt>
-            <dd>9+ years</dd>
-          </div>
-          <div>
-            <dt>Based</dt>
-            <dd>Montreal, Canada</dd>
-          </div>
-          <div>
-            <dt>Availability</dt>
-            <dd>Open to remote work within Canada</dd>
-          </div>
-          <div class="tblock__wide">
-            <dt>Contact</dt>
-            <dd><a href="https://calendly.com/alipajand/intro">Book a call</a></dd>
-          </div>
-        </dl>
+        </div>
       </section>
 
-      <section class="reg" id="register" aria-labelledby="reg-h">
-        <header class="reg__head">
-          <h2 class="reg__h" id="reg-h">Drawing register</h2>
-          <p class="reg__intro">
-            Seven projects, drawn as one set. The three featured sheets each open into a short scene
-            and a full case study; every row goes straight to the case study.
+      <section class="briefs" aria-label="Featured work in brief">
+        <ol class="briefs__list" role="list">
+          <li class="brief" data-row="ledgerguard">
+            <p class="brief__k">
+              <span class="brief__code">LG</span> Independent product · 2026–present
+            </p>
+            <p class="brief__line">
+              A multi-tenant contract-intelligence SaaS built alone across the Next.js App Router
+              product, Fastify API, PostgreSQL schema, authentication, billing, and a queue-backed
+              document pipeline.
+            </p>
+            <p class="brief__mat">
+              <b>LG-01</b> above the cut: the LedgerGuard dashboard, a shipped screenshot.
+              <b>LG-02</b> below: editorial diagram, five layers, one review boundary.
+            </p>
+          </li>
+          <li class="brief" data-row="alwaysgeeky">
+            <p class="brief__k">
+              <span class="brief__code">AG</span> Senior Frontend Engineer · 2024–2026
+            </p>
+            <p class="brief__line">
+              Four product surfaces, one React and TypeScript component library.
+            </p>
+            <p class="brief__mat">
+              <b>AG-01</b> above the cut: the Voxies marketplace, a shipped screenshot, now
+              historical. <b>AG-02</b> below: editorial diagram, four surfaces on one library.
+            </p>
+          </li>
+          <li class="brief" data-row="emplifi">
+            <p class="brief__k">
+              <span class="brief__code">EM</span> Senior Frontend Engineer · 2022–2023
+            </p>
+            <p class="brief__line">
+              Data-heavy React and TypeScript analytics modules built on D3.js, assembled from
+              shared accessible components and their documentation, running in both desktop browsers
+              and embedded mobile webviews.
+            </p>
+            <p class="brief__mat">
+              <b>EM-01</b> above the cut: an editorial diagram of a chart in a webview, with
+              illustrative data. <b>EM-02</b> below: editorial diagram, React around D3, inside one
+              frame.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="sup" aria-labelledby="sup-h">
+        <div class="sect__key">
+          <h2 class="sup__h" id="sup-h">Supporting</h2>
+          <p class="sect__intro">Case studies on alipajand.com.</p>
+        </div>
+        <ol class="sup__list" role="list">
+          <li class="srow" data-row="agent-tooling" data-caps="ai dx">
+            <a
+              class="srow__link"
+              href="https://alipajand.com/portfolio/agent-tooling"
+              rel="noopener"
+            >
+              <span class="srow__code" aria-hidden="true">AT</span>
+              <span class="srow__name">Agent Engineering Tools</span>
+              <span class="srow__title">Deterministic AI-Agent Developer Tools</span>
+              <span class="srow__go"
+                >Case study on alipajand.com<span class="sr-only">
+                  (opens the production site)</span
+                >
+                ↗</span
+              >
+            </a>
+            <p class="srow__meta">Independent / Ongoing · Text and diagrams · no screenshot</p>
+          </li>
+          <li class="srow" data-row="tallyfolio" data-caps="fullstack">
+            <a class="srow__link" href="https://alipajand.com/portfolio/tallyfolio" rel="noopener">
+              <span class="srow__code" aria-hidden="true">TF</span>
+              <span class="srow__name">TallyFolio</span>
+              <span class="srow__title">Privacy-first personal finance tracker</span>
+              <span class="srow__go"
+                >Case study on alipajand.com<span class="sr-only">
+                  (opens the production site)</span
+                >
+                ↗</span
+              >
+            </a>
+            <p class="srow__meta">
+              Founder · Product Engineer · Designer · Independent · Shipped screenshots
+            </p>
+          </li>
+          <li class="srow" data-row="controltech" data-caps="frontend dx">
+            <a class="srow__link" href="https://alipajand.com/portfolio/controltech" rel="noopener">
+              <span class="srow__code" aria-hidden="true">CT</span>
+              <span class="srow__name">ControlTech</span>
+              <span class="srow__title">Startup Studio Frontend Delivery</span>
+              <span class="srow__go"
+                >Case study on alipajand.com<span class="sr-only">
+                  (opens the production site)</span
+                >
+                ↗</span
+              >
+            </a>
+            <p class="srow__meta">
+              Frontend Engineer · 2018–2022 · Text and diagrams · no screenshot
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="exp" aria-labelledby="exp-h">
+        <div class="sect__key">
+          <h2 class="sup__h" id="exp-h">Experiment</h2>
+          <p class="sect__intro">
+            A self-directed experiment, kept apart from client and product work.
           </p>
-          <div class="caps" role="group" aria-label="Mark sheets by capability">
+        </div>
+        <ol class="sup__list" role="list">
+          <li class="srow srow--exp" data-row="mapbylaw" data-caps="fullstack ai">
+            <a class="srow__link" href="https://alipajand.com/portfolio/mapbylaw" rel="noopener">
+              <span class="srow__code" aria-hidden="true">MB</span>
+              <span class="srow__name">MapBylaw</span>
+              <span class="srow__title">AI-Assisted Zoning Exploration</span>
+              <span class="srow__go"
+                >Case study on alipajand.com<span class="sr-only">
+                  (opens the production site)</span
+                >
+                ↗</span
+              >
+            </a>
+            <p class="srow__meta">Independent / Product experiment · Shipped screenshots</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="sched" id="capabilities" aria-labelledby="sched-h">
+        <div class="sect__key">
+          <h2 class="sup__h" id="sched-h">By discipline</h2>
+          <p class="sect__intro">Explore the work by technical discipline.</p>
+        </div>
+        <div class="sched__body">
+          <div class="caps" role="group" aria-label="Mark projects by discipline">
             <button type="button" class="cap" data-cap-to="frontend" aria-pressed="false" disabled>
               Frontend architecture</button
             ><button type="button" class="cap" data-cap-to="systems" aria-pressed="false" disabled>
@@ -123,808 +732,173 @@
             </button>
           </div>
           <p class="caps__status" data-cap-status aria-live="polite"></p>
-        </header>
-        <div class="reg__body">
-          <div class="reg__list">
-            <section class="reg__group" aria-labelledby="g-featured">
-              <h3 class="reg__gh" id="g-featured">Featured</h3>
-              <ol class="reg__rows" role="list">
-                <li
-                  class="row row--featured"
-                  data-row="ledgerguard"
-                  data-caps="frontend fullstack ai"
-                >
-                  <a
-                    class="row__link"
-                    href="../../cinematic-exploration/prototype/ledgerguard.html"
-                    data-sheet="ledgerguard"
-                  >
-                    <span class="row__code" aria-hidden="true">LG</span>
-                    <span class="row__name">LedgerGuard</span>
-                    <span class="row__title">Full-Stack AI Contract Intelligence</span>
-                    <span class="sr-only">. Read the case study.</span>
-                  </a>
-                  <p class="row__line">
-                    A multi-tenant contract-intelligence SaaS built alone across the Next.js App
-                    Router product, Fastify API, PostgreSQL schema, authentication, billing, and a
-                    queue-backed document pipeline.
-                  </p>
-                  <p class="row__meta">
-                    <span>Independent product</span><span>2026–present</span
-                    ><span class="row__ev"
-                      >Shipped screenshots · editorial diagrams · design prototypes (fictional
-                      data)</span
-                    >
-                  </p>
-                  <p class="row__more">
-                    <a href="../../cinematic-exploration/prototype/index.html"
-                      >Open the scene<span class="sr-only"> for LedgerGuard</span></a
-                    >
-                  </p>
-                  <figure class="row__thumb">
-                    <img
-                      class=""
-                      src="media/ledgerguard-dashboard-960.webp"
-                      srcset="
-                        media/ledgerguard-dashboard-960.webp   960w,
-                        media/ledgerguard-dashboard-1600.webp 1600w
-                      "
-                      sizes="(max-width: 899px) 92vw, 40vw"
-                      width="1600"
-                      height="1003"
-                      alt="LedgerGuard dashboard: the contracts table with review state and exposure columns."
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <figcaption class="strip">
-                      <span class="strip__code">LG-01</span
-                      ><span class="strip__title">LedgerGuard</span
-                      ><span class="strip__kind">Screenshot · shipped product</span>
-                    </figcaption>
-                  </figure>
-                </li>
-                <li
-                  class="row row--featured"
-                  data-row="alwaysgeeky"
-                  data-caps="frontend systems a11y dx"
-                >
-                  <a class="row__link" href="alwaysgeeky.html#case" data-sheet="alwaysgeeky">
-                    <span class="row__code" aria-hidden="true">AG</span>
-                    <span class="row__name">AlwaysGeeky Games</span>
-                    <span class="row__title">Shared Design System &amp; Frontend Standards</span>
-                    <span class="sr-only">. Read the case study.</span>
-                  </a>
-                  <p class="row__line">
-                    Four product surfaces, one React and TypeScript component library.
-                  </p>
-                  <p class="row__meta">
-                    <span>Senior Frontend Engineer</span><span>2024–2026</span
-                    ><span class="row__ev">Shipped screenshots · editorial diagrams</span>
-                  </p>
-                  <p class="row__more">
-                    <a href="alwaysgeeky.html"
-                      >Open the scene<span class="sr-only"> for AlwaysGeeky Games</span></a
-                    >
-                  </p>
-                  <figure class="row__thumb">
-                    <img
-                      class=""
-                      src="media/ag-marketplace-960.webp"
-                      srcset="
-                        media/ag-marketplace-960.webp   960w,
-                        media/ag-marketplace-1600.webp 1600w
-                      "
-                      sizes="(max-width: 899px) 92vw, 40vw"
-                      width="1600"
-                      height="1003"
-                      alt="AlwaysGeeky Games marketplace: the Voxies town with shop, tavern, rentals and forge, and a recently listed item."
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <figcaption class="strip">
-                      <span class="strip__code">AG-01</span
-                      ><span class="strip__title">AlwaysGeeky Games</span
-                      ><span class="strip__kind">Screenshot · shipped product</span>
-                    </figcaption>
-                  </figure>
-                </li>
-                <li
-                  class="row row--featured"
-                  data-row="emplifi"
-                  data-caps="frontend systems dataviz a11y"
-                >
-                  <a class="row__link" href="emplifi.html#case" data-sheet="emplifi">
-                    <span class="row__code" aria-hidden="true">EM</span>
-                    <span class="row__name">Emplifi</span>
-                    <span class="row__title">Enterprise Analytics</span>
-                    <span class="sr-only">. Read the case study.</span>
-                  </a>
-                  <p class="row__line">
-                    Data-heavy React and TypeScript analytics modules built on D3.js, assembled from
-                    shared accessible components and their documentation, running in both desktop
-                    browsers and embedded mobile webviews.
-                  </p>
-                  <p class="row__meta">
-                    <span>Senior Frontend Engineer</span><span>2022–2023</span
-                    ><span class="row__ev"
-                      >Editorial diagrams only · illustrative data · no screenshots</span
-                    >
-                  </p>
-                  <p class="row__more">
-                    <a href="emplifi.html"
-                      >Open the scene<span class="sr-only"> for Emplifi</span></a
-                    >
-                  </p>
-                  <figure class="row__thumb">
-                    <svg
-                      class="drawing drawing--em"
-                      viewBox="0 0 420 820"
-                      preserveAspectRatio="xMidYMid meet"
-                      aria-hidden="true"
-                      focusable="false"
-                      data-label="em-webview"
-                    >
-                      <rect
-                        x="18"
-                        y="14"
-                        width="384"
-                        height="728"
-                        rx="46"
-                        class="phone ink"
-                        pathLength="1"
-                      />
-                      <rect x="34" y="30" width="352" height="696" rx="32" class="phone__glass" />
-                      <rect x="164" y="40" width="92" height="22" rx="11" class="phone__notch" />
-                      <rect x="34" y="78" width="352" height="58" class="host" />
-                      <text x="54" y="114" class="t-small">Host app</text>
-                      <rect x="308" y="96" width="58" height="20" rx="10" class="host__pill" />
-                      <rect
-                        x="44"
-                        y="148"
-                        width="332"
-                        height="568"
-                        class="webview ink"
-                        pathLength="1"
-                      />
-                      <text x="58" y="176" class="t-small t-em">Embedded webview</text>
-                      <text x="58" y="206" class="t-cell">Dashboard module</text>
-
-                      <g class="chart">
-                        <line x1="58" y1="226.0" x2="362" y2="226.0" class="grid" />
-                        <line x1="58" y1="275.5" x2="362" y2="275.5" class="grid" />
-                        <line x1="58" y1="325.0" x2="362" y2="325.0" class="grid" />
-                        <line x1="58" y1="374.5" x2="362" y2="374.5" class="grid" />
-                        <line x1="58" y1="424.0" x2="362" y2="424.0" class="grid" />
-                        <path
-                          d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3 L362,424 L58,424 Z"
-                          class="area"
-                        />
-                        <path
-                          d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3"
-                          class="line ink"
-                          pathLength="1"
-                        />
-                        <path
-                          d="M58.0,365.3 L62.8,364.3 L67.7,364.9 L72.5,359.4 L77.3,362.8 L82.1,365.2 L87.0,356.0 L91.8,346.7 L96.6,337.3 L101.4,330.3 L106.3,331.0 L111.1,323.1 L115.9,316.8 L120.7,313.2 L125.6,320.2 L130.4,327.0 L135.2,323.7 L140.0,330.5 L144.9,335.6 L149.7,341.4 L154.5,337.3 L159.3,347.3 L164.2,355.2 L169.0,355.5 L173.8,365.2 L178.6,375.6 L183.5,374.3 L188.3,377.5 L193.1,372.8 L197.9,376.6 L202.8,380.2 L207.6,380.3 L212.4,371.9 L217.2,364.2 L222.1,354.7 L226.9,356.4 L231.7,361.2 L236.5,360.2 L241.4,351.9 L246.2,341.9 L251.0,335.9 L255.8,330.6 L260.7,324.6 L265.5,325.5 L270.3,326.0 L275.1,327.0 L280.0,334.6 L284.8,330.1 L289.6,336.1 L294.4,340.9 L299.3,342.0 L304.1,351.1 L308.9,353.6 L313.7,361.0 L318.6,359.0 L323.4,367.3 L328.2,374.2 L333.0,383.8 L337.9,389.6 L342.7,396.9 L347.5,403.0 L352.3,402.3 L357.2,397.5 L362.0,403.8"
-                          class="line line--2 ink"
-                          pathLength="1"
-                        />
-                        <path
-                          d="M58.0,299.7 L62.8,305.8 L67.7,306.9 L72.5,310.1 L77.3,308.9 L82.1,303.6 L87.0,302.3 L91.8,306.1 L96.6,309.5 L101.4,300.6 L106.3,292.9 L111.1,295.6 L115.9,289.7 L120.7,293.2 L125.6,289.3 L130.4,289.0 L135.2,284.0 L140.0,287.0 L144.9,282.1 L149.7,288.3 L154.5,283.6 L159.3,288.0 L164.2,293.1 L169.0,290.9 L173.8,296.9 L178.6,301.7 L183.5,299.7 L188.3,305.3 L193.1,302.4 L197.9,301.4 L202.8,306.8 L207.6,306.3 L212.4,311.9 L217.2,312.6 L222.1,308.1 L226.9,311.6 L231.7,308.8 L236.5,307.8 L241.4,302.8 L246.2,302.8 L251.0,298.1 L255.8,296.0 L260.7,294.7 L265.5,294.1 L270.3,295.9 L275.1,297.2 L280.0,294.5 L284.8,294.4 L289.6,294.3 L294.4,293.8 L299.3,290.8 L304.1,287.7 L308.9,290.8 L313.7,292.3 L318.6,299.2 L323.4,306.1 L328.2,314.2 L333.0,312.5 L337.9,319.3 L342.7,316.7 L347.5,325.0 L352.3,325.0 L357.2,331.6 L362.0,327.4"
-                          class="line line--3 ink"
-                          pathLength="1"
-                        />
-                        <g class="bars">
-                          <rect x="59.0" y="503.9" width="7.5" height="22.1" class="bar" />
-                          <rect x="68.5" y="503.7" width="7.5" height="22.3" class="bar" />
-                          <rect x="78.0" y="505.4" width="7.5" height="20.6" class="bar" />
-                          <rect x="87.5" y="503.3" width="7.5" height="22.7" class="bar" />
-                          <rect x="97.0" y="497.9" width="7.5" height="28.1" class="bar" />
-                          <rect x="106.5" y="499.1" width="7.5" height="26.9" class="bar" />
-                          <rect x="116.0" y="505.3" width="7.5" height="20.7" class="bar" />
-                          <rect x="125.5" y="508.6" width="7.5" height="17.4" class="bar" />
-                          <rect x="135.0" y="511.1" width="7.5" height="14.9" class="bar" />
-                          <rect x="144.5" y="513.5" width="7.5" height="12.5" class="bar" />
-                          <rect x="154.0" y="511.1" width="7.5" height="14.9" class="bar" />
-                          <rect x="163.5" y="510.8" width="7.5" height="15.2" class="bar" />
-                          <rect x="173.0" y="504.6" width="7.5" height="21.4" class="bar" />
-                          <rect x="182.5" y="502.0" width="7.5" height="24.0" class="bar" />
-                          <rect x="192.0" y="502.1" width="7.5" height="23.9" class="bar" />
-                          <rect x="201.5" y="495.5" width="7.5" height="30.5" class="bar" />
-                          <rect x="211.0" y="488.0" width="7.5" height="38.0" class="bar" />
-                          <rect x="220.5" y="488.5" width="7.5" height="37.5" class="bar" />
-                          <rect x="230.0" y="487.3" width="7.5" height="38.7" class="bar" />
-                          <rect x="239.5" y="481.0" width="7.5" height="45.0" class="bar" />
-                          <rect x="249.0" y="474.1" width="7.5" height="51.9" class="bar" />
-                          <rect x="258.5" y="473.9" width="7.5" height="52.1" class="bar" />
-                          <rect x="268.0" y="477.2" width="7.5" height="48.8" class="bar" />
-                          <rect x="277.5" y="485.6" width="7.5" height="40.4" class="bar" />
-                          <rect x="287.0" y="489.0" width="7.5" height="37.0" class="bar" />
-                          <rect x="296.5" y="489.0" width="7.5" height="37.0" class="bar" />
-                          <rect x="306.0" y="484.9" width="7.5" height="41.1" class="bar" />
-                          <rect x="315.5" y="493.2" width="7.5" height="32.8" class="bar" />
-                          <rect x="325.0" y="490.5" width="7.5" height="35.5" class="bar" />
-                          <rect x="334.5" y="498.4" width="7.5" height="27.6" class="bar" />
-                          <rect x="344.0" y="506.2" width="7.5" height="19.8" class="bar" />
-                          <rect x="353.5" y="504.8" width="7.5" height="21.2" class="bar" />
-                        </g>
-                      </g>
-                      <line x1="58" y1="556" x2="362" y2="556" class="hair" />
-                      <rect x="58" y="572" width="304" height="30" class="row-box" />
-                      <rect x="66" y="582" width="90" height="10" class="row-ink" />
-                      <rect x="58" y="614" width="304" height="30" class="row-box" />
-                      <rect x="66" y="624" width="130" height="10" class="row-ink" />
-                      <rect x="58" y="656" width="304" height="30" class="row-box" />
-                      <rect x="66" y="666" width="170" height="10" class="row-ink" />
-                      <line x1="210" y1="226" x2="210" y2="526" class="cursor em" />
-                      <text x="210" y="776" class="t-kind" text-anchor="middle">
-                        EM-01 · Editorial diagram · illustrative data
-                      </text>
-                    </svg>
-                    <figcaption class="strip">
-                      <span class="strip__code">EM-01</span><span class="strip__title">Emplifi</span
-                      ><span class="strip__kind">Editorial diagram · illustrative data</span>
-                    </figcaption>
-                  </figure>
-                </li>
-              </ol>
-            </section>
-
-            <section class="reg__group" aria-labelledby="g-supporting">
-              <h3 class="reg__gh" id="g-supporting">Supporting</h3>
-              <ol class="reg__rows" role="list">
-                <li class="row" data-row="agent-tooling" data-caps="ai dx">
-                  <a
-                    class="row__link"
-                    href="https://alipajand.com/portfolio/agent-tooling"
-                    data-sheet="agent-tooling"
-                    rel="noopener"
-                  >
-                    <span class="row__code" aria-hidden="true">AT</span>
-                    <span class="row__name">Agent Engineering Tools</span>
-                    <span class="row__title">Deterministic AI-Agent Developer Tools</span>
-                    <span class="sr-only">. Case study on alipajand.com.</span>
-                  </a>
-                  <p class="row__line">
-                    Three TypeScript CLIs and a GitHub Action built out of the same frustration:
-                    teams adopt AI-assisted development before their conventions, agent settings,
-                    and review process can carry it.
-                  </p>
-                  <p class="row__meta">
-                    <span>Independent / Ongoing</span
-                    ><span class="row__ev">Text and diagrams · no screenshot</span>
-                  </p>
-                  <p class="row__more">
-                    <a href="https://alipajand.com/portfolio/agent-tooling" rel="noopener"
-                      >Case study on alipajand.com<span class="sr-only">
-                        for Agent Engineering Tools</span
-                      >
-                      ↗</a
-                    >
-                  </p>
-                </li>
-                <li class="row" data-row="tallyfolio" data-caps="fullstack">
-                  <a
-                    class="row__link"
-                    href="https://alipajand.com/portfolio/tallyfolio"
-                    data-sheet="tallyfolio"
-                    rel="noopener"
-                  >
-                    <span class="row__code" aria-hidden="true">TF</span>
-                    <span class="row__name">TallyFolio</span>
-                    <span class="row__title">Privacy-first personal finance tracker</span>
-                    <span class="sr-only">. Case study on alipajand.com.</span>
-                  </a>
-                  <p class="row__line">
-                    Most personal finance apps make you choose between bank aggregation and a
-                    spreadsheet.
-                  </p>
-                  <p class="row__meta">
-                    <span>Founder · Product Engineer · Designer</span><span>Independent</span
-                    ><span class="row__ev">Shipped screenshots</span>
-                  </p>
-                  <p class="row__more">
-                    <a href="https://alipajand.com/portfolio/tallyfolio" rel="noopener"
-                      >Case study on alipajand.com<span class="sr-only"> for TallyFolio</span> ↗</a
-                    >
-                  </p>
-                </li>
-                <li class="row" data-row="controltech" data-caps="frontend dx">
-                  <a
-                    class="row__link"
-                    href="https://alipajand.com/portfolio/controltech"
-                    data-sheet="controltech"
-                    rel="noopener"
-                  >
-                    <span class="row__code" aria-hidden="true">CT</span>
-                    <span class="row__name">ControlTech</span>
-                    <span class="row__title">Startup Studio Frontend Delivery</span>
-                    <span class="sr-only">. Case study on alipajand.com.</span>
-                  </a>
-                  <p class="row__line">
-                    Four years across multiple early-stage SaaS products, dashboards, and PWAs,
-                    taken from MVP to production.
-                  </p>
-                  <p class="row__meta">
-                    <span>Frontend Engineer</span><span>2018–2022</span
-                    ><span class="row__ev">Text and diagrams · no screenshot</span>
-                  </p>
-                  <p class="row__more">
-                    <a href="https://alipajand.com/portfolio/controltech" rel="noopener"
-                      >Case study on alipajand.com<span class="sr-only"> for ControlTech</span> ↗</a
-                    >
-                  </p>
-                </li>
-                <li class="row" data-row="mapbylaw" data-caps="fullstack ai">
-                  <a
-                    class="row__link"
-                    href="https://alipajand.com/portfolio/mapbylaw"
-                    data-sheet="mapbylaw"
-                    rel="noopener"
-                  >
-                    <span class="row__code" aria-hidden="true">MB</span>
-                    <span class="row__name">MapBylaw</span>
-                    <span class="row__title">AI-Assisted Zoning Exploration</span>
-                    <span class="sr-only">. Case study on alipajand.com.</span>
-                  </a>
-                  <p class="row__line">
-                    An independent zoning and property-feasibility experiment for Montreal.
-                  </p>
-                  <p class="row__meta">
-                    <span>Independent / Product experiment</span
-                    ><span class="row__ev">Shipped screenshots</span>
-                  </p>
-                  <p class="row__more">
-                    <a href="https://alipajand.com/portfolio/mapbylaw" rel="noopener"
-                      >Case study on alipajand.com<span class="sr-only"> for MapBylaw</span> ↗</a
-                    >
-                  </p>
-                </li>
-              </ol>
-            </section>
-          </div>
-          <aside class="viewer" aria-hidden="true">
-            <p class="viewer__k">Key plan · <span data-view-label>LG-01</span></p>
-            <div class="viewer__frame">
-              <figure class="viewer__sheet is-on" data-view="ledgerguard" style="--vt: sheet-lg">
-                <div class="viewer__pic viewer__pic--shot">
-                  <img
-                    class=""
-                    src="media/ledgerguard-dashboard-960.webp"
-                    srcset="
-                      media/ledgerguard-dashboard-960.webp   960w,
-                      media/ledgerguard-dashboard-1600.webp 1600w
-                    "
-                    sizes="40vw"
-                    width="1600"
-                    height="1003"
-                    alt=""
-                    decoding="async"
-                  />
-                </div>
-                <figcaption class="strip">
-                  <span class="strip__code">LG-01</span><span class="strip__title">LedgerGuard</span
-                  ><span class="strip__kind">Screenshot · shipped product</span>
-                </figcaption>
-              </figure>
-              <figure class="viewer__sheet" data-view="alwaysgeeky" style="--vt: sheet-ag">
-                <div class="viewer__pic viewer__pic--shot">
-                  <img
-                    class=""
-                    src="media/ag-marketplace-960.webp"
-                    srcset="
-                      media/ag-marketplace-960.webp   960w,
-                      media/ag-marketplace-1600.webp 1600w
-                    "
-                    sizes="40vw"
-                    width="1600"
-                    height="1003"
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <figcaption class="strip">
-                  <span class="strip__code">AG-01</span
-                  ><span class="strip__title">AlwaysGeeky Games</span
-                  ><span class="strip__kind">Screenshot · shipped product</span>
-                </figcaption>
-              </figure>
-              <figure class="viewer__sheet" data-view="emplifi" style="--vt: sheet-em">
-                <div class="viewer__pic viewer__pic--draw">
-                  <svg
-                    class="drawing drawing--em"
-                    viewBox="0 0 420 820"
-                    preserveAspectRatio="xMidYMid meet"
-                    aria-hidden="true"
-                    focusable="false"
-                    data-label="em-webview"
-                  >
-                    <rect
-                      x="18"
-                      y="14"
-                      width="384"
-                      height="728"
-                      rx="46"
-                      class="phone ink"
-                      pathLength="1"
-                    />
-                    <rect x="34" y="30" width="352" height="696" rx="32" class="phone__glass" />
-                    <rect x="164" y="40" width="92" height="22" rx="11" class="phone__notch" />
-                    <rect x="34" y="78" width="352" height="58" class="host" />
-                    <text x="54" y="114" class="t-small">Host app</text>
-                    <rect x="308" y="96" width="58" height="20" rx="10" class="host__pill" />
-                    <rect
-                      x="44"
-                      y="148"
-                      width="332"
-                      height="568"
-                      class="webview ink"
-                      pathLength="1"
-                    />
-                    <text x="58" y="176" class="t-small t-em">Embedded webview</text>
-                    <text x="58" y="206" class="t-cell">Dashboard module</text>
-
-                    <g class="chart">
-                      <line x1="58" y1="226.0" x2="362" y2="226.0" class="grid" />
-                      <line x1="58" y1="275.5" x2="362" y2="275.5" class="grid" />
-                      <line x1="58" y1="325.0" x2="362" y2="325.0" class="grid" />
-                      <line x1="58" y1="374.5" x2="362" y2="374.5" class="grid" />
-                      <line x1="58" y1="424.0" x2="362" y2="424.0" class="grid" />
-                      <path
-                        d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3 L362,424 L58,424 Z"
-                        class="area"
-                      />
-                      <path
-                        d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3"
-                        class="line ink"
-                        pathLength="1"
-                      />
-                      <path
-                        d="M58.0,365.3 L62.8,364.3 L67.7,364.9 L72.5,359.4 L77.3,362.8 L82.1,365.2 L87.0,356.0 L91.8,346.7 L96.6,337.3 L101.4,330.3 L106.3,331.0 L111.1,323.1 L115.9,316.8 L120.7,313.2 L125.6,320.2 L130.4,327.0 L135.2,323.7 L140.0,330.5 L144.9,335.6 L149.7,341.4 L154.5,337.3 L159.3,347.3 L164.2,355.2 L169.0,355.5 L173.8,365.2 L178.6,375.6 L183.5,374.3 L188.3,377.5 L193.1,372.8 L197.9,376.6 L202.8,380.2 L207.6,380.3 L212.4,371.9 L217.2,364.2 L222.1,354.7 L226.9,356.4 L231.7,361.2 L236.5,360.2 L241.4,351.9 L246.2,341.9 L251.0,335.9 L255.8,330.6 L260.7,324.6 L265.5,325.5 L270.3,326.0 L275.1,327.0 L280.0,334.6 L284.8,330.1 L289.6,336.1 L294.4,340.9 L299.3,342.0 L304.1,351.1 L308.9,353.6 L313.7,361.0 L318.6,359.0 L323.4,367.3 L328.2,374.2 L333.0,383.8 L337.9,389.6 L342.7,396.9 L347.5,403.0 L352.3,402.3 L357.2,397.5 L362.0,403.8"
-                        class="line line--2 ink"
-                        pathLength="1"
-                      />
-                      <path
-                        d="M58.0,299.7 L62.8,305.8 L67.7,306.9 L72.5,310.1 L77.3,308.9 L82.1,303.6 L87.0,302.3 L91.8,306.1 L96.6,309.5 L101.4,300.6 L106.3,292.9 L111.1,295.6 L115.9,289.7 L120.7,293.2 L125.6,289.3 L130.4,289.0 L135.2,284.0 L140.0,287.0 L144.9,282.1 L149.7,288.3 L154.5,283.6 L159.3,288.0 L164.2,293.1 L169.0,290.9 L173.8,296.9 L178.6,301.7 L183.5,299.7 L188.3,305.3 L193.1,302.4 L197.9,301.4 L202.8,306.8 L207.6,306.3 L212.4,311.9 L217.2,312.6 L222.1,308.1 L226.9,311.6 L231.7,308.8 L236.5,307.8 L241.4,302.8 L246.2,302.8 L251.0,298.1 L255.8,296.0 L260.7,294.7 L265.5,294.1 L270.3,295.9 L275.1,297.2 L280.0,294.5 L284.8,294.4 L289.6,294.3 L294.4,293.8 L299.3,290.8 L304.1,287.7 L308.9,290.8 L313.7,292.3 L318.6,299.2 L323.4,306.1 L328.2,314.2 L333.0,312.5 L337.9,319.3 L342.7,316.7 L347.5,325.0 L352.3,325.0 L357.2,331.6 L362.0,327.4"
-                        class="line line--3 ink"
-                        pathLength="1"
-                      />
-                      <g class="bars">
-                        <rect x="59.0" y="503.9" width="7.5" height="22.1" class="bar" />
-                        <rect x="68.5" y="503.7" width="7.5" height="22.3" class="bar" />
-                        <rect x="78.0" y="505.4" width="7.5" height="20.6" class="bar" />
-                        <rect x="87.5" y="503.3" width="7.5" height="22.7" class="bar" />
-                        <rect x="97.0" y="497.9" width="7.5" height="28.1" class="bar" />
-                        <rect x="106.5" y="499.1" width="7.5" height="26.9" class="bar" />
-                        <rect x="116.0" y="505.3" width="7.5" height="20.7" class="bar" />
-                        <rect x="125.5" y="508.6" width="7.5" height="17.4" class="bar" />
-                        <rect x="135.0" y="511.1" width="7.5" height="14.9" class="bar" />
-                        <rect x="144.5" y="513.5" width="7.5" height="12.5" class="bar" />
-                        <rect x="154.0" y="511.1" width="7.5" height="14.9" class="bar" />
-                        <rect x="163.5" y="510.8" width="7.5" height="15.2" class="bar" />
-                        <rect x="173.0" y="504.6" width="7.5" height="21.4" class="bar" />
-                        <rect x="182.5" y="502.0" width="7.5" height="24.0" class="bar" />
-                        <rect x="192.0" y="502.1" width="7.5" height="23.9" class="bar" />
-                        <rect x="201.5" y="495.5" width="7.5" height="30.5" class="bar" />
-                        <rect x="211.0" y="488.0" width="7.5" height="38.0" class="bar" />
-                        <rect x="220.5" y="488.5" width="7.5" height="37.5" class="bar" />
-                        <rect x="230.0" y="487.3" width="7.5" height="38.7" class="bar" />
-                        <rect x="239.5" y="481.0" width="7.5" height="45.0" class="bar" />
-                        <rect x="249.0" y="474.1" width="7.5" height="51.9" class="bar" />
-                        <rect x="258.5" y="473.9" width="7.5" height="52.1" class="bar" />
-                        <rect x="268.0" y="477.2" width="7.5" height="48.8" class="bar" />
-                        <rect x="277.5" y="485.6" width="7.5" height="40.4" class="bar" />
-                        <rect x="287.0" y="489.0" width="7.5" height="37.0" class="bar" />
-                        <rect x="296.5" y="489.0" width="7.5" height="37.0" class="bar" />
-                        <rect x="306.0" y="484.9" width="7.5" height="41.1" class="bar" />
-                        <rect x="315.5" y="493.2" width="7.5" height="32.8" class="bar" />
-                        <rect x="325.0" y="490.5" width="7.5" height="35.5" class="bar" />
-                        <rect x="334.5" y="498.4" width="7.5" height="27.6" class="bar" />
-                        <rect x="344.0" y="506.2" width="7.5" height="19.8" class="bar" />
-                        <rect x="353.5" y="504.8" width="7.5" height="21.2" class="bar" />
-                      </g>
-                    </g>
-                    <line x1="58" y1="556" x2="362" y2="556" class="hair" />
-                    <rect x="58" y="572" width="304" height="30" class="row-box" />
-                    <rect x="66" y="582" width="90" height="10" class="row-ink" />
-                    <rect x="58" y="614" width="304" height="30" class="row-box" />
-                    <rect x="66" y="624" width="130" height="10" class="row-ink" />
-                    <rect x="58" y="656" width="304" height="30" class="row-box" />
-                    <rect x="66" y="666" width="170" height="10" class="row-ink" />
-                    <line x1="210" y1="226" x2="210" y2="526" class="cursor em" />
-                    <text x="210" y="776" class="t-kind" text-anchor="middle">
-                      EM-01 · Editorial diagram · illustrative data
-                    </text>
-                  </svg>
-                </div>
-                <figcaption class="strip">
-                  <span class="strip__code">EM-01</span><span class="strip__title">Emplifi</span
-                  ><span class="strip__kind">Editorial diagram · illustrative data</span>
-                </figcaption>
-              </figure>
-              <figure class="viewer__sheet" data-view="agent-tooling" style="--vt: sheet-at">
-                <div class="viewer__pic viewer__pic--draw">
-                  <svg
-                    class="drawing drawing--noshot"
-                    viewBox="0 0 1000 626"
-                    preserveAspectRatio="xMidYMid meet"
-                    aria-hidden="true"
-                    focusable="false"
-                    data-label="AT"
-                  >
-                    <rect x="12" y="12" width="976" height="552" class="frame" />
-                    <rect x="70" y="70" width="860" height="406" class="void-box" />
-                    <line x1="70" y1="70" x2="930" y2="476" class="hair" />
-                    <line x1="930" y1="70" x2="70" y2="476" class="hair" />
-                    <rect x="270" y="240" width="460" height="96" class="label-bg" />
-                    <text x="500" y="282" class="t-title" text-anchor="middle">
-                      Three CLIs and a GitHub Action
-                    </text>
-                    <text x="500" y="316" class="t-note" text-anchor="middle">
-                      Checks for AI-assisted development, run in CI
-                    </text>
-
-                    <g class="strip">
-                      <rect x="0" y="576" width="1000" height="50" class="strip__bg" />
-                      <line x1="0" y1="576" x2="1000" y2="576" class="hair" />
-                      <text x="24" y="607" class="t-code">AT</text>
-                      <text x="72" y="607" class="t-strip">No screenshot in this portfolio</text>
-                      <text x="976" y="607" class="t-kind" text-anchor="end">
-                        Editorial diagram
-                      </text>
-                    </g>
-                  </svg>
-                </div>
-                <figcaption class="strip">
-                  <span class="strip__code">AT-01</span
-                  ><span class="strip__title">Agent Engineering Tools</span
-                  ><span class="strip__kind">Editorial diagram · no screenshot</span>
-                </figcaption>
-              </figure>
-              <figure class="viewer__sheet" data-view="tallyfolio" style="--vt: sheet-tf">
-                <div class="viewer__pic viewer__pic--shot">
-                  <img
-                    class=""
-                    src="media/tallyfolio-dashboard-960.webp"
-                    width="960"
-                    height="600"
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <figcaption class="strip">
-                  <span class="strip__code">TF-01</span><span class="strip__title">TallyFolio</span
-                  ><span class="strip__kind">Screenshot · shipped product</span>
-                </figcaption>
-              </figure>
-              <figure class="viewer__sheet" data-view="controltech" style="--vt: sheet-ct">
-                <div class="viewer__pic viewer__pic--draw">
-                  <svg
-                    class="drawing drawing--noshot"
-                    viewBox="0 0 1000 626"
-                    preserveAspectRatio="xMidYMid meet"
-                    aria-hidden="true"
-                    focusable="false"
-                    data-label="CT"
-                  >
-                    <rect x="12" y="12" width="976" height="552" class="frame" />
-                    <rect x="70" y="70" width="860" height="406" class="void-box" />
-                    <line x1="70" y1="70" x2="930" y2="476" class="hair" />
-                    <line x1="930" y1="70" x2="70" y2="476" class="hair" />
-                    <rect x="270" y="240" width="460" height="96" class="label-bg" />
-                    <text x="500" y="282" class="t-title" text-anchor="middle">
-                      Early-stage SaaS products and PWAs
-                    </text>
-                    <text x="500" y="316" class="t-note" text-anchor="middle">
-                      Four years, MVP to production
-                    </text>
-
-                    <g class="strip">
-                      <rect x="0" y="576" width="1000" height="50" class="strip__bg" />
-                      <line x1="0" y1="576" x2="1000" y2="576" class="hair" />
-                      <text x="24" y="607" class="t-code">CT</text>
-                      <text x="72" y="607" class="t-strip">No screenshot in this portfolio</text>
-                      <text x="976" y="607" class="t-kind" text-anchor="end">
-                        Editorial diagram
-                      </text>
-                    </g>
-                  </svg>
-                </div>
-                <figcaption class="strip">
-                  <span class="strip__code">CT-01</span><span class="strip__title">ControlTech</span
-                  ><span class="strip__kind">Editorial diagram · no screenshot</span>
-                </figcaption>
-              </figure>
-              <figure class="viewer__sheet" data-view="mapbylaw" style="--vt: sheet-mb">
-                <div class="viewer__pic viewer__pic--shot">
-                  <img
-                    class=""
-                    src="media/mapbylaw-landing-960.webp"
-                    width="960"
-                    height="600"
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <figcaption class="strip">
-                  <span class="strip__code">MB-01</span><span class="strip__title">MapBylaw</span
-                  ><span class="strip__kind">Screenshot · shipped product</span>
-                </figcaption>
-              </figure>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section class="sched" id="capabilities" aria-labelledby="sched-h">
-        <header class="sched__head">
-          <h2 class="sched__h" id="sched-h">Capability schedule</h2>
-          <p class="sched__intro">
-            Which sheets show evidence of what. Every mark cites the project's own tag or case-study
-            text. Pick a capability to mark its sheets in the register.
+          <p class="sched__note">
+            Every mark cites the project's own tag or case-study text. Pick a discipline to mark its
+            projects above.
           </p>
-        </header>
 
-        <div
-          class="sched__wrap"
-          role="region"
-          aria-label="Capability schedule table, scrolls sideways"
-          tabindex="0"
-        >
-          <table class="sched__table">
-            <caption class="sr-only">
-              Capability schedule: which projects show evidence of each capability, and the evidence
-              each mark cites.
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col" class="sched__p">Sheet</th>
-                <th scope="col" data-col="frontend"><span>Frontend architecture</span></th>
-                <th scope="col" data-col="systems"><span>Design systems</span></th>
-                <th scope="col" data-col="dataviz">
-                  <span>Data viz and rendering performance</span>
-                </th>
-                <th scope="col" data-col="fullstack"><span>APIs, data and jobs</span></th>
-                <th scope="col" data-col="ai"><span>AI product workflows</span></th>
-                <th scope="col" data-col="a11y"><span>Accessibility</span></th>
-                <th scope="col" data-col="dx"><span>Testing, CI and DX</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr data-row="ledgerguard">
-                <th scope="row" class="sched__p">
-                  <span class="sched__code">LG</span> LedgerGuard
-                </th>
-                <td data-col="frontend">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">Next.js</span>
-                </td>
-                <td data-col="systems" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="fullstack">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">Fastify, PostgreSQL, Redis/BullMQ</span>
-                </td>
-                <td data-col="ai">
-                  <span class="mark" aria-hidden="true"></span><span class="sched__ev">AI</span>
-                </td>
-                <td data-col="a11y" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="dx" class="sched__none"><span class="sr-only">No</span></td>
-              </tr>
-              <tr data-row="alwaysgeeky">
-                <th scope="row" class="sched__p">
-                  <span class="sched__code">AG</span> AlwaysGeeky Games
-                </th>
-                <td data-col="frontend">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">React, Next.js</span>
-                </td>
-                <td data-col="systems">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">Storybook</span>
-                </td>
-                <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="fullstack" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="ai" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="a11y">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">Accessibility</span>
-                </td>
-                <td data-col="dx">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">CI quality gates (case study)</span>
-                </td>
-              </tr>
-              <tr data-row="emplifi">
-                <th scope="row" class="sched__p"><span class="sched__code">EM</span> Emplifi</th>
-                <td data-col="frontend">
-                  <span class="mark" aria-hidden="true"></span><span class="sched__ev">React</span>
-                </td>
-                <td data-col="systems">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">Design systems</span>
-                </td>
-                <td data-col="dataviz">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">D3.js, Performance</span>
-                </td>
-                <td data-col="fullstack" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="ai" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="a11y">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">Accessibility</span>
-                </td>
-                <td data-col="dx" class="sched__none"><span class="sr-only">No</span></td>
-              </tr>
-              <tr data-row="agent-tooling">
-                <th scope="row" class="sched__p">
-                  <span class="sched__code">AT</span> Agent Engineering Tools
-                </th>
-                <td data-col="frontend" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="systems" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="fullstack" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="ai">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">AI Agents</span>
-                </td>
-                <td data-col="a11y" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="dx">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">GitHub Actions, Developer Experience</span>
-                </td>
-              </tr>
-              <tr data-row="tallyfolio">
-                <th scope="row" class="sched__p"><span class="sched__code">TF</span> TallyFolio</th>
-                <td data-col="frontend" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="systems" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="fullstack">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">Full-stack product</span>
-                </td>
-                <td data-col="ai" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="a11y" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="dx" class="sched__none"><span class="sr-only">No</span></td>
-              </tr>
-              <tr data-row="controltech">
-                <th scope="row" class="sched__p">
-                  <span class="sched__code">CT</span> ControlTech
-                </th>
-                <td data-col="frontend">
-                  <span class="mark" aria-hidden="true"></span><span class="sched__ev">React</span>
-                </td>
-                <td data-col="systems" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="fullstack" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="ai" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="a11y" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="dx">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">Testing, CI/CD</span>
-                </td>
-              </tr>
-              <tr data-row="mapbylaw">
-                <th scope="row" class="sched__p"><span class="sched__code">MB</span> MapBylaw</th>
-                <td data-col="frontend" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="systems" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="fullstack">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">Typed API contracts</span>
-                </td>
-                <td data-col="ai">
-                  <span class="mark" aria-hidden="true"></span
-                  ><span class="sched__ev">AI product UI</span>
-                </td>
-                <td data-col="a11y" class="sched__none"><span class="sr-only">No</span></td>
-                <td data-col="dx" class="sched__none"><span class="sr-only">No</span></td>
-              </tr>
-            </tbody>
-          </table>
+          <div
+            class="sched__wrap"
+            role="region"
+            aria-label="Capability schedule table, scrolls sideways"
+            tabindex="0"
+          >
+            <table class="sched__table">
+              <caption class="sr-only">
+                Capability schedule: which projects show evidence of each discipline, and the
+                evidence each mark cites.
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col" class="sched__p">Project</th>
+                  <th scope="col" data-col="frontend"><span>Frontend architecture</span></th>
+                  <th scope="col" data-col="systems"><span>Design systems</span></th>
+                  <th scope="col" data-col="dataviz">
+                    <span>Data viz and rendering performance</span>
+                  </th>
+                  <th scope="col" data-col="fullstack"><span>APIs, data and jobs</span></th>
+                  <th scope="col" data-col="ai"><span>AI product workflows</span></th>
+                  <th scope="col" data-col="a11y"><span>Accessibility</span></th>
+                  <th scope="col" data-col="dx"><span>Testing, CI and DX</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-row="ledgerguard">
+                  <th scope="row" class="sched__p">
+                    <span class="sched__code">LG</span> LedgerGuard
+                  </th>
+                  <td data-col="frontend">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">Next.js</span>
+                  </td>
+                  <td data-col="systems" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="fullstack">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">Fastify, PostgreSQL, Redis/BullMQ</span>
+                  </td>
+                  <td data-col="ai">
+                    <span class="mark" aria-hidden="true"></span><span class="sched__ev">AI</span>
+                  </td>
+                  <td data-col="a11y" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="dx" class="sched__none"><span class="sr-only">No</span></td>
+                </tr>
+                <tr data-row="alwaysgeeky">
+                  <th scope="row" class="sched__p">
+                    <span class="sched__code">AG</span> AlwaysGeeky Games
+                  </th>
+                  <td data-col="frontend">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">React, Next.js</span>
+                  </td>
+                  <td data-col="systems">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">Storybook</span>
+                  </td>
+                  <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="fullstack" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="ai" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="a11y">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">Accessibility</span>
+                  </td>
+                  <td data-col="dx">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">CI quality gates (case study)</span>
+                  </td>
+                </tr>
+                <tr data-row="emplifi">
+                  <th scope="row" class="sched__p"><span class="sched__code">EM</span> Emplifi</th>
+                  <td data-col="frontend">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">React</span>
+                  </td>
+                  <td data-col="systems">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">Design systems</span>
+                  </td>
+                  <td data-col="dataviz">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">D3.js, Performance</span>
+                  </td>
+                  <td data-col="fullstack" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="ai" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="a11y">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">Accessibility</span>
+                  </td>
+                  <td data-col="dx" class="sched__none"><span class="sr-only">No</span></td>
+                </tr>
+                <tr data-row="agent-tooling">
+                  <th scope="row" class="sched__p">
+                    <span class="sched__code">AT</span> Agent Engineering Tools
+                  </th>
+                  <td data-col="frontend" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="systems" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="fullstack" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="ai">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">AI Agents</span>
+                  </td>
+                  <td data-col="a11y" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="dx">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">GitHub Actions, Developer Experience</span>
+                  </td>
+                </tr>
+                <tr data-row="tallyfolio">
+                  <th scope="row" class="sched__p">
+                    <span class="sched__code">TF</span> TallyFolio
+                  </th>
+                  <td data-col="frontend" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="systems" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="fullstack">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">Full-stack product</span>
+                  </td>
+                  <td data-col="ai" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="a11y" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="dx" class="sched__none"><span class="sr-only">No</span></td>
+                </tr>
+                <tr data-row="controltech">
+                  <th scope="row" class="sched__p">
+                    <span class="sched__code">CT</span> ControlTech
+                  </th>
+                  <td data-col="frontend">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">React</span>
+                  </td>
+                  <td data-col="systems" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="fullstack" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="ai" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="a11y" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="dx">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">Testing, CI/CD</span>
+                  </td>
+                </tr>
+                <tr data-row="mapbylaw">
+                  <th scope="row" class="sched__p"><span class="sched__code">MB</span> MapBylaw</th>
+                  <td data-col="frontend" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="systems" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="dataviz" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="fullstack">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">Typed API contracts</span>
+                  </td>
+                  <td data-col="ai">
+                    <span class="mark" aria-hidden="true"></span
+                    ><span class="sched__ev">AI product UI</span>
+                  </td>
+                  <td data-col="a11y" class="sched__none"><span class="sr-only">No</span></td>
+                  <td data-col="dx" class="sched__none"><span class="sr-only">No</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
     </main>
@@ -953,6 +927,8 @@
         </p>
       </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="motion.js"></script>
     <script src="register.js"></script>
   </body>

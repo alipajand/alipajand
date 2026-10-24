@@ -28,8 +28,7 @@
         r.classList.add("js");
         var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
         if ((n && n.type === "back_forward") || location.hash) r.classList.add("returning");
-        var d = /[?&]depth=(flat|3d)/.exec(location.search);
-        if (d ? d[1] === "flat" : !navigator.userAgentData) r.classList.add("depth-flat");
+        if (!/[?&]depth=3d/.test(location.search)) r.classList.add("depth-flat");
         if (m === "full") {
           r.classList.add("motion-live");
           addEventListener("load", function () {

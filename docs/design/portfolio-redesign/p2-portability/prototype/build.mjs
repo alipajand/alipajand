@@ -44,23 +44,34 @@ const CONTACT = [
 const THESIS = "The interface, and the work behind it.";
 const LG_ROLE = "Independent product";
 
-// NEW copy, for owner approval.
+// NEW copy, for owner approval. Lines marked "review" are the PR #216 design review's own
+// suggestions.
 const COPY = {
-  registerIntro:
-    "Seven projects, drawn as one set. The three featured sheets each open into a short scene and a full case study; every row goes straight to the case study.",
-  scheduleIntro:
-    "Which sheets show evidence of what. Every mark cites the project's own tag or case-study text. Pick a capability to mark its sheets in the register.",
+  workH: "Selected work",
+  workIntro: "Seven projects; three explored in depth.", // review
+  capsH: "By discipline",
+  capsIntro: "Explore the work by technical discipline.", // review
+  scheduleNote:
+    "Every mark cites the project's own tag or case-study text. Pick a discipline to mark its projects above.",
+  supportingNote: "Case studies on alipajand.com.",
+  experimentNote: "A self-directed experiment, kept apart from client and product work.",
   agNote: "Four beats. Scroll, or go straight to the case study.",
-  agDetail: "From the interface to its parts",
-  agGates: "Storybook as the contract, CI as the gate",
+  agVoxies:
+    "AlwaysGeeky Games makes Voxies; the marketplace and login shown here are Voxies surfaces. The marketplace closed in July 2026, so these screenshots are a historical record, not a live product.",
+  agClosed: "The marketplace closed in July 2026.",
+  agLinks:
+    "The Voxies marketplace closed in July 2026, so neither the marketplace nor the login address is linked from this prototype.",
+  agDetail: "From interface to shared system", // review
+  agGates: "Storybook contracts. CI enforcement.", // review
   emNote:
-    "No screenshots: the dashboards are proprietary. Every drawing here is an editorial diagram with illustrative data.",
-  emChart: "A dense chart, where it actually ran",
-  emCost: "Measure the update, not the data",
-  emAfter: "The same update, cheaper to draw",
+    "No interface screenshots included. Diagrams illustrate the approach with fictional, unmeasured data.", // review
+  emChart: "A dense chart in an embedded webview", // review
+  emPath: "Investigating the render path", // review
+  emBudget: "Designing within the frame budget", // review
 };
 
-// The register. Codes are sheet prefixes; "case" goes straight to the readable case study.
+// The register. Codes are sheet prefixes; "case" goes straight to the readable case study,
+// "scene" to the cinematic one. Supporting work and the experiment link to the production site.
 const SHEETS = {
   ledgerguard: {
     code: "LG",
@@ -70,23 +81,13 @@ const SHEETS = {
     case: `${P1}/ledgerguard.html`,
     scene: `${P1}/index.html`,
     evidence: "Shipped screenshots · editorial diagrams · design prototypes (fictional data)",
-    view: {
-      img: "media/ledgerguard-dashboard",
-      kind: "Screenshot · shipped product",
-      alt: "LedgerGuard dashboard: the contracts table with review state and exposure columns.",
-    },
   },
   alwaysgeeky: {
     code: "AG",
     tier: "Featured",
     case: "alwaysgeeky.html#case",
     scene: "alwaysgeeky.html",
-    evidence: "Shipped screenshots · editorial diagrams",
-    view: {
-      img: "media/ag-marketplace",
-      kind: "Screenshot · shipped product",
-      alt: "AlwaysGeeky Games marketplace: the Voxies town with shop, tavern, rentals and forge, and a recently listed item.",
-    },
+    evidence: "Shipped screenshots (historical) · editorial diagrams",
   },
   emplifi: {
     code: "EM",
@@ -94,60 +95,15 @@ const SHEETS = {
     case: "emplifi.html#case",
     scene: "emplifi.html",
     evidence: "Editorial diagrams only · illustrative data · no screenshots",
-    view: { svg: () => draw.emWebview(), kind: "Editorial diagram · illustrative data" },
   },
   "agent-tooling": {
     code: "AT",
     tier: "Supporting",
     evidence: "Text and diagrams · no screenshot",
-    view: {
-      svg: () =>
-        draw.noShot(
-          "AT",
-          "Three CLIs and a GitHub Action",
-          "Editorial diagram",
-          "Checks for AI-assisted development, run in CI"
-        ),
-      kind: "Editorial diagram · no screenshot",
-    },
   },
-  tallyfolio: {
-    code: "TF",
-    tier: "Supporting",
-    evidence: "Shipped screenshots",
-    view: {
-      img: "media/tallyfolio-dashboard",
-      kind: "Screenshot · shipped product",
-      alt: "TallyFolio dashboard: income, spending and cash-flow charts.",
-      only960: true,
-    },
-  },
-  controltech: {
-    code: "CT",
-    tier: "Supporting",
-    evidence: "Text and diagrams · no screenshot",
-    view: {
-      svg: () =>
-        draw.noShot(
-          "CT",
-          "Early-stage SaaS products and PWAs",
-          "Editorial diagram",
-          "Four years, MVP to production"
-        ),
-      kind: "Editorial diagram · no screenshot",
-    },
-  },
-  mapbylaw: {
-    code: "MB",
-    tier: "Experiment",
-    evidence: "Shipped screenshots",
-    view: {
-      img: "media/mapbylaw-landing",
-      kind: "Screenshot · shipped product",
-      alt: "MapBylaw landing page: a dark map of Montreal with a site search.",
-      only960: true,
-    },
-  },
+  tallyfolio: { code: "TF", tier: "Supporting", evidence: "Shipped screenshots" },
+  controltech: { code: "CT", tier: "Supporting", evidence: "Text and diagrams · no screenshot" },
+  mapbylaw: { code: "MB", tier: "Experiment", evidence: "Shipped screenshots" },
 };
 
 // The capability schedule. Each mark names its evidence: a capability tag from the project's
@@ -207,7 +163,14 @@ const PROVISIONAL = `if(m==="full"){r.classList.add("motion-live");addEventListe
 const boot = (live) =>
   `<script>(function(){var r=document.documentElement,q=matchMedia("(prefers-reduced-motion: reduce)"),s=null;try{s=JSON.parse(localStorage.getItem("aa-motion2")||"null")}catch(e){}var os=q.matches?"reduce":"full",m=os;if(s&&(s.m==="full"||s.m==="reduce")){if(os==="full")m=s.m;else if(s.os==="reduce")m=s.m}r.dataset.motion=m;r.classList.add("js");var n=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];if((n&&n.type==="back_forward")||location.hash)r.classList.add("returning");${live ? PROVISIONAL : ""}})();</script>`;
 
-const shell = ({ title, description, body, scripts = "", live = false }) => `<!doctype html>
+const shell = ({
+  title,
+  description,
+  body,
+  scripts = "",
+  live = false,
+  css = [],
+}) => `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -222,6 +185,7 @@ ${boot(live)}
 <link rel="stylesheet" href="${FONTS}">
 <link rel="stylesheet" href="grammar.css">
 <link rel="stylesheet" href="projects.css">
+${css.map((c) => `<link rel="stylesheet" href="${c}">`).join("\n")}
 </head>
 <body>
 ${body}
@@ -260,73 +224,129 @@ const contact = `
   </div>
 </footer>`;
 
-const titleBlock = () => `
-<dl class="tblock">
-  <div><dt>Stack</dt><dd>${PROFILE.stack.join(" · ")}</dd></div>
-  <div><dt>Experience</dt><dd>${esc(PROFILE.experience)}</dd></div>
-  <div><dt>Based</dt><dd>${esc(PROFILE.location)}</dd></div>
-  <div><dt>Availability</dt><dd>${esc(PROFILE.availability)}</dd></div>
-  <div class="tblock__wide"><dt>Contact</dt><dd><a href="${CONTACT[0].href}">${CONTACT[0].label}</a></dd></div>
-</dl>`;
-
 /* =============================================================================== index */
+
+// The opening's three bays: what stands above the A–A cut (the interface) and what is drawn
+// below it (the work behind it).
+const LG_LAYERS = bySlug("ledgerguard").caseStudy.diagrams.find((d) => d.spec.type === "layers")
+  .spec.layers;
+const AG_LAYERS = bySlug("alwaysgeeky").caseStudy.diagrams.find((d) => d.spec.type === "layers")
+  .spec.layers;
+const AG_SURFACES = ["Marketplace", "Authentication", "Product", "Account"];
+const BAYS = {
+  ledgerguard: {
+    face: {
+      img: "media/ledgerguard-dashboard",
+      pos: "38% 78%",
+      kind: "Screenshot · shipped product",
+      tag: "Shipped screenshot",
+      what: "the LedgerGuard dashboard, a shipped screenshot",
+    },
+    interior: () => draw.lgInterior(LG_LAYERS),
+    behind: "five layers, one review boundary",
+  },
+  alwaysgeeky: {
+    face: {
+      img: "media/ag-marketplace",
+      pos: "42% 88%",
+      kind: "Screenshot · shipped product, historical",
+      tag: "Historical screenshot",
+      what: "the Voxies marketplace, a shipped screenshot, now historical",
+    },
+    interior: () => draw.agInterior(AG_SURFACES, AG_LAYERS),
+    behind: "four surfaces on one library",
+    vt: "sheet-ag",
+  },
+  emplifi: {
+    face: {
+      svg: () => draw.emWebview({ crop: 560 }),
+      kind: "Editorial diagram · illustrative data",
+      tag: "Illustrative diagram",
+      what: "an editorial diagram of a chart in a webview, with illustrative data",
+    },
+    interior: () => draw.emInterior(),
+    behind: "React around D3, inside one frame",
+    vt: "sheet-em",
+  },
+};
 
 function indexPage() {
   const order = [...PORTFOLIO_CASE_STUDY_ORDER];
-  const row = (slug) => {
+  const featured = order.filter((s) => SHEETS[s].tier === "Featured");
+  const caps = (slug) => Object.keys(EVIDENCE[slug] ?? {}).join(" ");
+
+  const bay = (slug) => {
     const p = bySlug(slug);
     const s = SHEETS[slug];
-    const featured = s.tier === "Featured";
-    const caps = Object.keys(EVIDENCE[slug] ?? {}).join(" ");
-    const role = s.role ?? p.role;
-    const time = s.time ?? p.timeframe ?? "";
-    const external = !s.case;
-    const href = s.case ?? `${SITE}/portfolio/${slug}`;
+    const b = BAYS[slug];
+    const face = b.face.img
+      ? img(b.face.img, "", "(max-width: 899px) 30vw, 28vw", {
+          eager: true,
+          cls: "bay__img",
+        }).replace("<img ", `<img style="object-position: ${b.face.pos}" `)
+      : b.face.svg();
     return `
-      <li class="row ${featured ? "row--featured" : ""}" data-row="${slug}" data-caps="${caps}">
-        <a class="row__link" href="${href}" data-sheet="${slug}"${external ? ' rel="noopener"' : ""}>
-          <span class="row__code" aria-hidden="true">${s.code}</span>
-          <span class="row__name">${esc(p.name)}</span>
-          <span class="row__title">${esc(p.caseStudyTitle)}</span>
-          <span class="sr-only">. ${external ? "Case study on alipajand.com" : "Read the case study"}.</span>
+      <li class="bay bay--${s.code.toLowerCase()}" data-row="${slug}" data-caps="${caps(slug)}"${b.vt ? ` data-vt="${b.vt}"` : ""}>
+        <a class="bay__sect" href="${s.scene}" aria-label="${esc(p.name)}: open the scene">
+          <span class="bay__above">${face}</span>
+          <span class="bay__cut" aria-hidden="true"><span class="bay__tag"><b>${s.code}-01</b><i> ${esc(b.face.tag)}</i></span><span class="bay__tag bay__tag--v"><b>${s.code}-02</b><i> Diagram</i></span></span>
+          <span class="bay__below">${b.interior()}</span>
+          <span class="bay__go" aria-hidden="true">Scene</span>
         </a>
-        <p class="row__line">${esc(firstSentence(p.cardProblem))}</p>
-        <p class="row__meta"><span>${esc(role)}</span>${time ? `<span>${esc(time)}</span>` : ""}<span class="row__ev">${esc(s.evidence)}</span></p>
-        ${featured ? `<p class="row__more"><a href="${s.scene}">Open the scene<span class="sr-only"> for ${esc(p.name)}</span></a>${external ? "" : ""}</p>` : `<p class="row__more"><a href="${href}" rel="noopener">Case study on alipajand.com<span class="sr-only"> for ${esc(p.name)}</span> ↗</a></p>`}
-        ${featured ? `<figure class="row__thumb">${s.view.img ? img(s.view.img, s.view.alt, "(max-width: 899px) 92vw, 40vw", { only960: s.view.only960 }) : s.view.svg()}${strip(`${s.code}-01`, p.name, s.view.kind)}</figure>` : ""}
+        <div class="bay__title">
+          <p class="bay__bubble" aria-hidden="true">${s.code}</p>
+          <h3 class="bay__name"><a href="${s.case}"><span class="bay__nm">${esc(p.name)}</span><span class="bay__cs">Case study<span class="sr-only">: ${esc(p.caseStudyTitle)}</span></span></a></h3>
+          <p class="bay__sub">${esc(p.caseStudyTitle)}</p>
+        </div>
       </li>`;
   };
-  const group = (label, tiers) => `
-    <section class="reg__group" aria-labelledby="g-${label.toLowerCase()}">
-      <h3 class="reg__gh" id="g-${label.toLowerCase()}">${label}</h3>
-      <ol class="reg__rows" role="list">${order
-        .filter((s) => tiers.includes(SHEETS[s].tier))
-        .map(row)
-        .join("")}</ol>
-    </section>`;
 
-  const viewer = order
-    .map((slug) => {
-      const s = SHEETS[slug];
-      const p = bySlug(slug);
-      return `<figure class="viewer__sheet ${slug === "ledgerguard" ? "is-on" : ""}" data-view="${slug}" style="--vt: sheet-${s.code.toLowerCase()}">
-        <div class="viewer__pic ${s.view.img ? "viewer__pic--shot" : "viewer__pic--draw"}">${s.view.img ? img(s.view.img, "", "40vw", { only960: s.view.only960, eager: slug === "ledgerguard" }) : s.view.svg()}</div>
-        ${strip(`${s.code}-01`, p.name, s.view.kind)}
-      </figure>`;
-    })
+  const brief = (slug) => {
+    const p = bySlug(slug);
+    const s = SHEETS[slug];
+    return `
+      <li class="brief" data-row="${slug}">
+        <p class="brief__k"><span class="brief__code">${s.code}</span> ${esc(s.role ?? p.role)} · ${esc(s.time ?? p.timeframe)}</p>
+        <p class="brief__line">${esc(firstSentence(p.cardProblem))}</p>
+        <p class="brief__mat"><b>${s.code}-01</b> above the cut: ${esc(BAYS[slug].face.what)}. <b>${s.code}-02</b> below: editorial diagram, ${esc(BAYS[slug].behind)}.</p>
+      </li>`;
+  };
+
+  const entry = (slug, mod = "") => {
+    const p = bySlug(slug);
+    const s = SHEETS[slug];
+    const cls = "srow";
+    return `
+      <li class="${cls}${mod ? ` ${cls}--${mod}` : ""}" data-row="${slug}" data-caps="${caps(slug)}">
+        <a class="${cls}__link" href="${SITE}/portfolio/${slug}" rel="noopener">
+          <span class="${cls}__code" aria-hidden="true">${s.code}</span>
+          <span class="${cls}__name">${esc(p.name)}</span>
+          <span class="${cls}__title">${esc(p.caseStudyTitle)}</span>
+          <span class="${cls}__go">Case study on alipajand.com<span class="sr-only"> (opens the production site)</span> ↗</span>
+        </a>
+        <p class="${cls}__meta">${esc(p.role)}${p.timeframe ? ` · ${esc(p.timeframe)}` : ""} · ${esc(s.evidence)}</p>
+      </li>`;
+  };
+
+  // The dimension string over the bays: each bay is dimensioned by its timeframe. The bays are
+  // equal, so the string is marked not to scale.
+  const dims = featured
+    .map(
+      (slug) =>
+        `<span class="dims__seg"><span>${esc(SHEETS[slug].time ?? bySlug(slug).timeframe)}</span></span>`
+    )
     .join("");
 
-  const capButtons = (cls) =>
-    CAPS.map(
-      (c) =>
-        `<button type="button" class="${cls}" data-cap-to="${c.key}" aria-pressed="false" disabled>${esc(c.label)}</button>`
-    ).join("");
+  const capButtons = CAPS.map(
+    (c) =>
+      `<button type="button" class="cap" data-cap-to="${c.key}" aria-pressed="false" disabled>${esc(c.label)}</button>`
+  ).join("");
 
   const schedule = `
     <div class="sched__wrap" role="region" aria-label="Capability schedule table, scrolls sideways" tabindex="0">
       <table class="sched__table">
-        <caption class="sr-only">Capability schedule: which projects show evidence of each capability, and the evidence each mark cites.</caption>
-        <thead><tr><th scope="col" class="sched__p">Sheet</th>${CAPS.map((c) => `<th scope="col" data-col="${c.key}"><span>${esc(c.label)}</span></th>`).join("")}</tr></thead>
+        <caption class="sr-only">Capability schedule: which projects show evidence of each discipline, and the evidence each mark cites.</caption>
+        <thead><tr><th scope="col" class="sched__p">Project</th>${CAPS.map((c) => `<th scope="col" data-col="${c.key}"><span>${esc(c.label)}</span></th>`).join("")}</tr></thead>
         <tbody>
           ${order
             .map((slug) => {
@@ -340,47 +360,85 @@ function indexPage() {
     </div>`;
 
   const body = `
-<a class="skip" href="#register">Skip to the project register</a>
+<a class="skip" href="#work">Skip to selected work</a>
 ${bar([
-  { label: "Register", href: "#register" },
-  { label: "Capabilities", href: "#capabilities" },
+  { label: "Work", href: "#work" },
+  { label: "Disciplines", href: "#capabilities" },
   { label: "Contact", href: "#contact" },
 ])}
-<main id="main">
-  <section class="tb" aria-labelledby="tb-name" data-tone="paper">
-    <p class="tb__k"><span class="tb__ap" aria-hidden="true">A–A</span> Section A–A · Sheet 00 · Drawing register</p>
-    <h1 class="tb__name" id="tb-name"><span class="tb__cut" aria-hidden="true"></span>${esc(PROFILE.name)}</h1>
-    <p class="tb__role">${esc(PROFILE.role)}</p>
-    <p class="tb__focus">${esc(PROFILE.focus)}</p>
-    <p class="tb__thesis">${esc(THESIS)}</p>
-    ${titleBlock()}
-  </section>
-
-  <section class="reg" id="register" aria-labelledby="reg-h">
-    <header class="reg__head">
-      <h2 class="reg__h" id="reg-h">Drawing register</h2>
-      <p class="reg__intro">${esc(COPY.registerIntro)}</p>
-      <div class="caps" role="group" aria-label="Mark sheets by capability">${capButtons("cap")}</div>
-      <p class="caps__status" data-cap-status aria-live="polite"></p>
-    </header>
-    <div class="reg__body">
-      <div class="reg__list">
-        ${group("Featured", ["Featured"])}
-        ${group("Supporting", ["Supporting", "Experiment"])}
+<main id="main" class="reg">
+  <section class="op" aria-labelledby="op-name" data-opening>
+    <div class="op__stage" data-op-stage>
+      <header class="op__id" data-op-id>
+        <p class="op__k"><span class="op__ap" aria-hidden="true">A–A</span> Section A–A · Sheet 00</p>
+        <h1 class="op__name" id="op-name">${esc(PROFILE.name)}</h1>
+        <p class="op__role">${esc(PROFILE.role)}</p>
+        <p class="op__focus">${esc(PROFILE.focus)}</p>
+        <dl class="op__tb">
+          <div><dt>Stack</dt><dd>${PROFILE.stack.join(" · ")}</dd></div>
+          <div><dt>Experience</dt><dd>${esc(PROFILE.experience)}</dd></div>
+          <div><dt>Based</dt><dd>${esc(PROFILE.location)}</dd></div>
+          <div><dt>Availability</dt><dd>${esc(PROFILE.availability)}</dd></div>
+          <div class="op__call"><dt class="sr-only">Contact</dt><dd><a href="${CONTACT[0].href}">${CONTACT[0].label}</a></dd></div>
+        </dl>
+      </header>
+      <div class="sect" id="work" data-sect>
+        <div class="sect__key">
+          <h2 class="sect__h">${esc(COPY.workH)}</h2>
+          <p class="sect__intro">${esc(COPY.workIntro)}</p>
+          <p class="sect__nts" aria-hidden="true">Bays dimensioned by time · not to scale</p>
+          <p class="sr-only">${esc(THESIS)} Each featured project is drawn cut through: the shipped interface above the line, the system behind it below.</p>
+        </div>
+        <div class="sect__draw">
+          <p class="datum datum--up" aria-hidden="true"><span>The interface,</span></p>
+          <p class="datum datum--down" aria-hidden="true"><span>and the work behind it.</span></p>
+          <p class="dims" aria-hidden="true">${dims}</p>
+          <ol class="bays" role="list">${featured.map(bay).join("")}</ol>
+          <div class="sect__line" aria-hidden="true"></div>
+          <span class="sect__a sect__a--l" aria-hidden="true">A</span>
+          <span class="sect__a sect__a--r" aria-hidden="true">A</span>
+        </div>
       </div>
-      <aside class="viewer" aria-hidden="true">
-        <p class="viewer__k">Key plan · <span data-view-label>LG-01</span></p>
-        <div class="viewer__frame">${viewer}</div>
-      </aside>
     </div>
   </section>
 
+  <section class="briefs" aria-label="Featured work in brief">
+    <ol class="briefs__list" role="list">${featured.map(brief).join("")}</ol>
+  </section>
+
+  <section class="sup" aria-labelledby="sup-h">
+    <div class="sect__key">
+      <h2 class="sup__h" id="sup-h">Supporting</h2>
+      <p class="sect__intro">${esc(COPY.supportingNote)}</p>
+    </div>
+    <ol class="sup__list" role="list">${order
+      .filter((s) => SHEETS[s].tier === "Supporting")
+      .map((s) => entry(s))
+      .join("")}</ol>
+  </section>
+
+  <section class="exp" aria-labelledby="exp-h">
+    <div class="sect__key">
+      <h2 class="sup__h" id="exp-h">Experiment</h2>
+      <p class="sect__intro">${esc(COPY.experimentNote)}</p>
+    </div>
+    <ol class="sup__list" role="list">${order
+      .filter((s) => SHEETS[s].tier === "Experiment")
+      .map((s) => entry(s, "exp"))
+      .join("")}</ol>
+  </section>
+
   <section class="sched" id="capabilities" aria-labelledby="sched-h">
-    <header class="sched__head">
-      <h2 class="sched__h" id="sched-h">Capability schedule</h2>
-      <p class="sched__intro">${esc(COPY.scheduleIntro)}</p>
-    </header>
-    ${schedule}
+    <div class="sect__key">
+      <h2 class="sup__h" id="sched-h">${esc(COPY.capsH)}</h2>
+      <p class="sect__intro">${esc(COPY.capsIntro)}</p>
+    </div>
+    <div class="sched__body">
+      <div class="caps" role="group" aria-label="Mark projects by discipline">${capButtons}</div>
+      <p class="caps__status" data-cap-status aria-live="polite"></p>
+      <p class="sched__note">${esc(COPY.scheduleNote)}</p>
+      ${schedule}
+    </div>
   </section>
 </main>
 ${contact}`;
@@ -388,15 +446,19 @@ ${contact}`;
   return shell({
     title: "Section A–A Register",
     description:
-      "Ali Pajand portfolio, P2 design exploration: the project register for the Section A–A visual system.",
+      "Ali Pajand portfolio, P2.1 design exploration: the opening and project register for the Section A–A visual system.",
     body,
-    scripts: `<script src="motion.js"></script>\n<script src="register.js"></script>`,
+    css: ["opening.css"],
+    scripts: `<script src="${GSAP}/gsap.min.js"></script>
+<script src="${GSAP}/ScrollTrigger.min.js"></script>
+<script src="motion.js"></script>
+<script src="register.js"></script>`,
   });
 }
 
 /* ========================================================================= case study */
 
-function caseStudy(p, s, hero, drawings = "") {
+function caseStudy(p, s, hero, drawings = "", links = null) {
   const cs = p.caseStudy;
   const sec = (id, h, inner) =>
     `<section class="case__sec" aria-labelledby="${id}"><h3 class="case__h" id="${id}">${h}</h3>${inner}</section>`;
@@ -419,12 +481,14 @@ function caseStudy(p, s, hero, drawings = "") {
   const evidence = (cs.interfaceEvidence ?? []).slice(1);
   return `
 <section class="case" id="case" aria-labelledby="case-h" data-tone="paper">
-  <header class="case__head">
-    <p class="case__k"><span class="case__code">${s.code}</span> Featured · ${esc(p.role)} · ${esc(p.timeframe)}</p>
-    <h2 class="case__name" id="case-h">${esc(p.name)}</h2>
-    <p class="case__title">${esc(p.caseStudyTitle)}</p>
-  </header>
-  ${hero}
+  <div class="case__top">
+    <header class="case__head">
+      <p class="case__k"><span class="case__code">${s.code}</span> Featured · ${esc(p.role)} · ${esc(p.timeframe)}</p>
+      <h2 class="case__name" id="case-h">${esc(p.name)}</h2>
+      <p class="case__title">${esc(p.caseStudyTitle)}</p>
+    </header>
+    ${hero}
+  </div>
   <div class="case__body">
     <p class="case__lede">${esc(safe([cs.overview])[0] ?? "")}</p>
     ${sec("c-context", "Context", `<p>${esc(cs.context)}</p>`)}
@@ -437,7 +501,7 @@ function caseStudy(p, s, hero, drawings = "") {
     ${evidence.length ? sec("c-ev", "More evidence", evidence.map((e) => `<figure class="plate">${img(e.src.replace("/portfolio-media/alwaysgeeky-", "media/ag-").replace(".png", ""), e.alt, "(max-width: 899px) 92vw, 60vw")}${strip(`${s.code}-05`, e.captionLead.replace(/\.$/, ""), "Screenshot · shipped product")}<p class="plate__cap">${esc(e.captionBody)}</p></figure>`).join("")) : ""}
     ${sec("c-out", "Outcome", ul(safe(cs.outcome)))}
     ${sec("c-next", "What I would improve", ul(cs.nextImprovements))}
-    ${p.liveLinks.length ? sec("c-links", "Links", `<ul class="case__links">${p.liveLinks.map((l) => `<li><a href="${l.href}" rel="noopener">${esc(l.label)} ↗</a></li>`).join("")}</ul>`) : ""}
+    ${links ? sec("c-links", "Links", links) : p.liveLinks.length ? sec("c-links", "Links", `<ul class="case__links">${p.liveLinks.map((l) => `<li><a href="${l.href}" rel="noopener">${esc(l.label)} ↗</a></li>`).join("")}</ul>`) : ""}
   </div>
 </section>`;
 }
@@ -445,12 +509,12 @@ function caseStudy(p, s, hero, drawings = "") {
 const sheetNav = (prev, next) => `
 <nav class="sheetnav" aria-label="Other sheets">
   <a class="sheetnav__a" href="${prev.href}"><span class="sheetnav__k">Previous sheet</span><span class="sheetnav__n"><b>${prev.code}</b> ${esc(prev.name)}</span></a>
-  <a class="sheetnav__a sheetnav__a--mid" href="index.html#register"><span class="sheetnav__k">Index</span><span class="sheetnav__n">Drawing register</span></a>
+  <a class="sheetnav__a sheetnav__a--mid" href="index.html#work"><span class="sheetnav__k">Index</span><span class="sheetnav__n">Selected work</span></a>
   <a class="sheetnav__a sheetnav__a--next" href="${next.href}"><span class="sheetnav__k">Next sheet</span><span class="sheetnav__n"><b>${next.code}</b> ${esc(next.name)}</span></a>
 </nav>`;
 
 // The opening card of a scene: who, what and when, and the way out.
-const openCard = (p, s, note, provenance) => `
+const openCard = (p, s, note, provenance, ctx = "") => `
   <header class="step step--open" id="top">
     <div class="step__card step__card--open">
       <p class="step__k"><span class="step__code">${s.code}</span> Featured sheet · ${esc(p.timeframe)}</p>
@@ -458,6 +522,7 @@ const openCard = (p, s, note, provenance) => `
       <p class="step__title">${esc(p.caseStudyTitle)}</p>
       <p class="step__role">${esc(p.role)} · ${esc(PROFILE.role)} today</p>
       <p class="step__lede">${esc(firstSentence(p.cardProblem))}</p>
+      ${ctx ? `<p class="step__ctx">${esc(ctx)}</p>` : ""}
       <p class="step__note">${esc(note)}</p>
       <p class="step__prov">${provenance}</p>
       <p class="step__go"><a class="btn" href="#case">Read the case study</a></p>
@@ -483,6 +548,11 @@ function alwaysGeekyPage() {
     { part: "Conventions: API shape, TypeScript rules, review", where: shared[3] },
   ];
   const under = layersSpec.layers.slice(1);
+  const chain = draw.agChain(
+    contractRows,
+    flow.steps.slice(1).map((st) => st.label),
+    flow.loop
+  );
   const assemblyStatic = draw.agAssembly(SURFACES, under, [
     "media/ag-marketplace-960.webp",
     "media/ag-login-960.webp",
@@ -498,14 +568,12 @@ function alwaysGeekyPage() {
     <div class="pic" data-pic>
       <div class="canvas" data-canvas>
         <div class="ag-world" data-world>
-          <svg class="ag-wires" viewBox="0 0 1200 2300" data-late>
+          <svg class="ag-wires" viewBox="0 0 1200 1400" data-late>
             ${[0, 1, 2, 3].map((i) => `<line data-drop="${i}" x1="${surfX(i) + 125}" y1="334" x2="${surfX(i) + 125}" y2="428" class="drop ink ag" pathLength="1"/>`).join("")}
-            <line data-bus="0" x1="600" y1="522" x2="600" y2="896" class="bus ink ag" pathLength="1"/>
-            <line data-bus="1" x1="600" y1="1548" x2="600" y2="1636" class="bus ink ag" pathLength="1"/>
+            <line data-bus="0" x1="600" y1="522" x2="600" y2="574" class="bus ink ag" pathLength="1"/>
           </svg>
           <div class="ag-band" data-band data-late><span class="ag-band__n">01</span><span class="ag-band__t">${esc(under[0].label)}</span><span class="ag-band__d">${esc(under[0].detail)}</span></div>
-          <div class="ag-sheet ag-sheet--contract" data-sheet="contract" data-late>${draw.agContract(contractRows)}</div>
-          <div class="ag-sheet ag-sheet--gates" data-sheet="gates" data-late>${draw.agGates(flow.steps, flow.loop)}</div>
+          <div class="ag-sheet ag-sheet--chain" data-sheet="chain" data-late>${chain}</div>
           ${SURFACES.map((name, i) =>
             i === 0
               ? ""
@@ -527,7 +595,7 @@ function alwaysGeekyPage() {
             </svg>
             <p class="ag-tag ag-tag--1" data-tag="1" data-late><b>1</b> Catalog browsing and a call to action</p>
             <p class="ag-tag ag-tag--2" data-tag="2" data-late><b>2</b> Sign in</p>
-            <p class="ag-plate__l" data-plate-l><b>AG-01</b> Marketplace · Screenshot · shipped product</p>
+            <p class="ag-plate__l" data-plate-l><b>AG-01</b> Voxies marketplace · Screenshot · shipped product, historical</p>
           </div>
           <div class="ag-lens" data-lens data-late>
             <img src="media/ag-detail-listing.webp" width="820" height="340" alt="" decoding="async">
@@ -540,7 +608,7 @@ function alwaysGeekyPage() {
 
   const steps = `
   <div class="track" data-track>
-    ${openCard(p, s, COPY.agNote, `<b>Materials.</b> Marketplace and login are <span class="m m--shot">shipped screenshots</span>. Everything drawn is an <span class="m m--draw">editorial diagram</span> of the documented system; nothing here is a Storybook screen.`)}
+    ${openCard(p, s, COPY.agNote, `<b>Materials.</b> Marketplace and login are <span class="m m--shot">shipped screenshots</span>, now historical. Everything drawn is an <span class="m m--draw">editorial diagram</span> of the documented system; nothing here is a Storybook screen.`, COPY.agVoxies)}
     <article class="step" id="detail" data-beat="detail">
       <div class="step__card">
         <p class="step__k"><span class="step__code ag">1</span> AG-01 → Detail 1</p>
@@ -567,13 +635,12 @@ function alwaysGeekyPage() {
     </article>
     <article class="step" id="gates" data-beat="gates">
       <div class="step__card">
-        <p class="step__k"><span class="step__code ag">3</span> AG-03, AG-04 · Contract and gates</p>
+        <p class="step__k"><span class="step__code ag">3</span> AG-03 · Contract and enforcement</p>
         <h2 class="step__h">${esc(COPY.agGates)}</h2>
-        <p>${esc(cs.technicalDecisions[0].decision)}</p>
-        <p>${esc(cs.technicalDecisions[1].decision)}</p>
-        <p class="step__src">${esc(cs.myRole[3])}</p>
+        <p><b>Contract.</b> ${esc(cs.technicalDecisions[0].decision)}</p>
+        <p><b>Enforcement.</b> ${esc(cs.technicalDecisions[1].decision)}</p>
       </div>
-      <figure class="step__fig scroll-x"><div class="drawings step__fig--pair">${draw.agContract(contractRows)}${draw.agGates(flow.steps, flow.loop)}</div></figure>
+      <figure class="step__fig scroll-x">${chain}</figure>
     </article>
     <div class="beat beat--land" data-beat="land"></div>
   </div>`;
@@ -581,14 +648,14 @@ function alwaysGeekyPage() {
   const hero = `
   <figure class="plate case__hero" data-slot style="--vt: sheet-ag">
     ${img("media/ag-marketplace", market.alt, "(max-width: 899px) 92vw, 64vw", { cls: "slot-media" })}
-    ${strip("AG-01", "Marketplace", "Screenshot · shipped product")}
-    <p class="plate__cap"><b>${esc(market.captionLead)}</b> ${esc(market.captionBody)}</p>
+    ${strip("AG-01", "Voxies marketplace", "Screenshot · shipped product, historical")}
+    <p class="plate__cap"><b>${esc(market.captionLead)}</b> ${esc(market.captionBody)} ${esc(COPY.agClosed)}</p>
   </figure>`;
 
   const body = `
 <a class="skip" href="#case">Skip to the AlwaysGeeky case study</a>
 ${bar([
-  { label: "Index", href: "index.html#register" },
+  { label: "Index", href: "index.html#work" },
   { label: "Case study", href: "#case" },
   { label: "Contact", href: "#contact" },
 ])}
@@ -597,7 +664,13 @@ ${bar([
     ${stage}
     ${steps}
   </section>
-  ${caseStudy(p, s, hero, [assemblyStatic, draw.agContract(contractRows), draw.agGates(flow.steps, flow.loop)].map((d) => `<figure class="scroll-x">${d}</figure>`).join(""))}
+  ${caseStudy(
+    p,
+    s,
+    hero,
+    [assemblyStatic, chain].map((d) => `<figure class="scroll-x">${d}</figure>`).join(""),
+    `<p>${esc(COPY.agLinks)}</p>`
+  )}
   ${sheetNav({ href: SHEETS.ledgerguard.case, code: "LG", name: "LedgerGuard" }, { href: "emplifi.html", code: "EM", name: "Emplifi" })}
 </main>
 ${contact}`;
@@ -624,10 +697,13 @@ function emplifiPage() {
   const layersSpec = cs.diagrams.find((d) => d.spec.type === "layers").spec;
   const compare = cs.diagrams.find((d) => d.spec.type === "compare").spec;
   const flow = cs.diagrams.find((d) => d.spec.type === "flow").spec;
+  // the flow's "Reduce cost" step carries the unsupported 80% figure: it is never shown
   const steps4 = flow.steps.map((st) => ({
     ...st,
     detail: unsupported(st.detail) ? "" : st.detail,
   }));
+  const approach = safe(compare.columns[1].items);
+  const monitor = steps4.find((st) => st.label === "Monitor release");
 
   const stage = `
   <div class="stage" data-stage aria-hidden="true">
@@ -635,16 +711,17 @@ function emplifiPage() {
     <div class="pic" data-pic>
       <div class="canvas" data-canvas>
         <div class="em-phone" data-phone data-vt-subject>${draw.emWebview()}</div>
-        <div class="em-sheet em-sheet--tl" data-tl data-late>${draw.emTimeline("both")}</div>
+        <div class="em-sheet em-sheet--path" data-path data-late>${draw.emRenderPath()}</div>
         <div class="em-sheet em-sheet--layers" data-layers data-late>${draw.emLayers(layersSpec.layers)}</div>
-        <p class="em-stamp" data-stamp data-late><b>${esc(steps4[3].label)}</b> ${esc(steps4[3].detail)}</p>
+        <div class="em-sheet em-sheet--budget" data-budget data-late>${draw.emBudget(approach)}</div>
+        <p class="em-stamp" data-stamp data-late><b>${esc(monitor.label)}</b> ${esc(monitor.detail)}</p>
       </div>
     </div>
   </div>`;
 
   const steps = `
   <div class="track" data-track>
-    ${openCard(p, s, COPY.emNote, `<b>Materials.</b> <span class="m m--draw">Editorial diagrams</span> only, with <span class="m m--draw">illustrative data</span>. No Emplifi interface is shown or imitated, and no value in a drawing is a measurement.`)}
+    ${openCard(p, s, COPY.emNote, `<b>Materials.</b> <span class="m m--draw">Editorial diagrams</span> only, with fictional, unmeasured data. No Emplifi interface is shown or imitated, and no length, value or timing in a drawing is a measurement.`)}
     <article class="step" id="chart" data-beat="chart">
       <div class="step__card">
         <p class="step__k"><span class="step__code em">1</span> EM-01 · The webview</p>
@@ -653,14 +730,14 @@ function emplifiPage() {
       </div>
       <figure class="step__fig step__fig--phone">${draw.emWebview()}</figure>
     </article>
-    <article class="step" id="cost" data-beat="cost">
+    <article class="step" id="path" data-beat="path">
       <div class="step__card">
-        <p class="step__k"><span class="step__code em">2</span> EM-02 · Profiling</p>
-        <h2 class="step__h">${esc(COPY.emCost)}</h2>
+        <p class="step__k"><span class="step__code em">2</span> EM-02 · The render path</p>
+        <h2 class="step__h">${esc(COPY.emPath)}</h2>
         <p>${esc(cs.problem)}</p>
         <p class="step__src">${esc(steps4[0].detail)} ${esc(steps4[1].detail)}</p>
       </div>
-      <figure class="step__fig scroll-x">${draw.emTimeline("before")}</figure>
+      <figure class="step__fig scroll-x">${draw.emRenderPath()}</figure>
     </article>
     <article class="step" id="composition" data-beat="composition">
       <div class="step__card">
@@ -671,15 +748,14 @@ function emplifiPage() {
       </div>
       <figure class="step__fig scroll-x">${draw.emLayers(layersSpec.layers)}</figure>
     </article>
-    <article class="step" id="after" data-beat="after">
+    <article class="step" id="budget" data-beat="budget">
       <div class="step__card">
-        <p class="step__k"><span class="step__code em">4</span> EM-04 · The decision</p>
-        <h2 class="step__h">${esc(COPY.emAfter)}</h2>
+        <p class="step__k"><span class="step__code em">4</span> EM-04 · The frame budget</p>
+        <h2 class="step__h">${esc(COPY.emBudget)}</h2>
         <p>${esc(compare.caption)}</p>
-        <ul class="facts">${compare.columns[1].items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>
-        <p class="step__src">${esc(steps4[3].detail)}</p>
+        <p class="step__src">The 16.7 ms ruler is a reference: one frame of a 60 Hz display, not a measurement. ${esc(monitor.detail)}</p>
       </div>
-      <figure class="step__fig scroll-x">${draw.emTimeline("after")}</figure>
+      <figure class="step__fig scroll-x">${draw.emBudget(approach)}</figure>
     </article>
     <div class="beat beat--land" data-beat="land"></div>
   </div>`;
@@ -688,30 +764,37 @@ function emplifiPage() {
   <figure class="plate plate--draw case__hero case__hero--draw" data-slot style="--vt: sheet-em">
     <div class="plate__draw"><div class="slot-media">${draw.emWebview()}</div></div>
     ${strip("EM-01", "A dense chart in an embedded mobile webview", "Editorial diagram · illustrative data", "strip--draw")}
-    <p class="plate__cap"><b>No screenshots.</b> ${esc(COPY.emNote)}</p>
+    <p class="plate__cap"><b>Editorial diagram.</b> ${esc(COPY.emNote)}</p>
   </figure>`;
 
   const body = `
 <a class="skip" href="#case">Skip to the Emplifi case study</a>
 ${bar([
-  { label: "Index", href: "index.html#register" },
+  { label: "Index", href: "index.html#work" },
   { label: "Case study", href: "#case" },
   { label: "Contact", href: "#contact" },
 ])}
 <main id="main" class="page page--em">
-  <section class="seq" id="sequence" data-scene="em" aria-label="Emplifi: the cost of drawing a dense chart in a mobile webview">
+  <section class="seq" id="sequence" data-scene="em" aria-label="Emplifi: rendering a dense chart in an embedded webview">
     ${stage}
     ${steps}
   </section>
-  ${caseStudy(p, s, hero, [draw.emTimeline("before"), draw.emLayers(layersSpec.layers), draw.emTimeline("after")].map((d) => `<figure class="scroll-x">${d}</figure>`).join(""))}
-  ${sheetNav({ href: "alwaysgeeky.html", code: "AG", name: "AlwaysGeeky" }, { href: "index.html#register", code: "00", name: "Back to the register" })}
+  ${caseStudy(
+    p,
+    s,
+    hero,
+    [draw.emRenderPath(), draw.emLayers(layersSpec.layers), draw.emBudget(approach)]
+      .map((d) => `<figure class="scroll-x">${d}</figure>`)
+      .join("")
+  )}
+  ${sheetNav({ href: "alwaysgeeky.html", code: "AG", name: "AlwaysGeeky" }, { href: "index.html#work", code: "00", name: "Back to the register" })}
 </main>
 ${contact}`;
 
   return shell({
     title: "Emplifi Sheet",
     description:
-      "Ali Pajand portfolio, P2: Emplifi, a screenshot-free case study about rendering dense D3 charts in mobile webviews.",
+      "Ali Pajand portfolio, P2.1: Emplifi, a screenshot-free case study about rendering dense D3 charts in embedded webviews.",
     body,
     live: true,
     scripts: `<script src="${GSAP}/gsap.min.js"></script>

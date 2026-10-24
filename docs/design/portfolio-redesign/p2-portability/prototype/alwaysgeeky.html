@@ -58,7 +58,7 @@
         ><span class="bar__name">Ali Pajand</span></a
       >
       <nav class="bar__nav" aria-label="Primary">
-        <a href="index.html#register">Index</a><a href="#case">Case study</a
+        <a href="index.html#work">Index</a><a href="#case">Case study</a
         ><a href="#contact">Contact</a>
         <button type="button" class="bar__motion" data-motion-toggle aria-pressed="true">
           <span class="bar__dot" aria-hidden="true"></span><span data-motion-label>Motion on</span>
@@ -77,7 +77,7 @@
           <div class="pic" data-pic>
             <div class="canvas" data-canvas>
               <div class="ag-world" data-world>
-                <svg class="ag-wires" viewBox="0 0 1200 2300" data-late>
+                <svg class="ag-wires" viewBox="0 0 1200 1400" data-late>
                   <line
                     data-drop="0"
                     x1="185"
@@ -119,16 +119,7 @@
                     x1="600"
                     y1="522"
                     x2="600"
-                    y2="896"
-                    class="bus ink ag"
-                    pathLength="1"
-                  />
-                  <line
-                    data-bus="1"
-                    x1="600"
-                    y1="1548"
-                    x2="600"
-                    y2="1636"
+                    y2="574"
                     class="bus ink ag"
                     pathLength="1"
                   />
@@ -141,243 +132,130 @@
                     surface.</span
                   >
                 </div>
-                <div class="ag-sheet ag-sheet--contract" data-sheet="contract" data-late>
+                <div class="ag-sheet ag-sheet--chain" data-sheet="chain" data-late>
                   <svg
                     class="drawing"
-                    viewBox="0 0 1000 646"
+                    viewBox="0 0 1000 780"
                     preserveAspectRatio="xMidYMid meet"
                     aria-hidden="true"
                     focusable="false"
-                    data-label="ag-contract"
+                    data-label="ag-chain"
                   >
-                    <rect x="12" y="12" width="976" height="572" class="frame" />
-                    <text x="48" y="74" class="t-title">Component contract</text>
-                    <text x="48" y="104" class="t-note">
-                      What each shared component was documented to own, written down in Storybook.
+                    <rect x="12" y="12" width="976" height="706" class="frame" />
+                    <path d="M500,12 V470" class="spine ink ag" pathLength="1" />
+                    <text x="468" y="128" class="t-title" text-anchor="end">
+                      Storybook contract
                     </text>
-                    <line x1="48" y1="124" x2="952" y2="124" class="rule-strong" />
-                    <text x="48" y="152" class="t-col">Part of the contract</text>
-                    <text x="440" y="152" class="t-col">Where it is enforced</text>
+                    <text x="468" y="160" class="t-note" text-anchor="end">
+                      What each shared component is
+                    </text>
+                    <text x="468" y="182" class="t-note" text-anchor="end">
+                      documented to own, written down
+                    </text>
+                    <text x="468" y="204" class="t-note" text-anchor="end">
+                      where engineers look first.
+                    </text>
 
-                    <g class="row" data-row="0">
-                      <line x1="48" y1="168" x2="952" y2="168" class="hair" />
-                      <circle cx="66" cy="206" r="9" class="tick ink ag" pathLength="1" />
-                      <text x="92" y="200" class="t-cell" text-anchor="start">
-                        Loading, empty, and error
-                      </text>
-                      <text x="92" y="222" class="t-cell" text-anchor="start">states</text>
-                      <text x="440" y="200" class="t-cell t-cell--soft" text-anchor="start">
-                        Loading, empty, and error states defined
-                      </text>
-                      <text x="440" y="222" class="t-cell t-cell--soft" text-anchor="start">
-                        once and reused
+                    <g class="clause" data-clause="0">
+                      <path d="M500,150 H536" class="branch ink ag" pathLength="1" />
+                      <circle cx="546" cy="150" r="9" class="tick ink ag" pathLength="1" />
+                      <text x="568" y="156" class="t-cell" text-anchor="start">
+                        Loading, empty, and error states
                       </text>
                     </g>
-                    <g class="row" data-row="1">
-                      <line x1="48" y1="246" x2="952" y2="246" class="hair" />
-                      <circle cx="66" cy="284" r="9" class="tick ink ag" pathLength="1" />
-                      <text x="92" y="278" class="t-cell" text-anchor="start">
+                    <g class="clause" data-clause="1">
+                      <path d="M500,214 H536" class="branch ink ag" pathLength="1" />
+                      <circle cx="546" cy="214" r="9" class="tick ink ag" pathLength="1" />
+                      <text x="568" y="220" class="t-cell" text-anchor="start">
                         Accessibility defaults
                       </text>
-                      <text x="440" y="278" class="t-cell t-cell--soft" text-anchor="start">
-                        Accessibility defaults built into shared
-                      </text>
-                      <text x="440" y="300" class="t-cell t-cell--soft" text-anchor="start">
-                        components
+                    </g>
+                    <g class="clause" data-clause="2">
+                      <path d="M500,278 H536" class="branch ink ag" pathLength="1" />
+                      <circle cx="546" cy="278" r="9" class="tick ink ag" pathLength="1" />
+                      <text x="568" y="284" class="t-cell" text-anchor="start">
+                        Component API and escape hatches
                       </text>
                     </g>
-                    <g class="row" data-row="2">
-                      <line x1="48" y1="324" x2="952" y2="324" class="hair" />
-                      <circle cx="66" cy="362" r="9" class="tick ink ag" pathLength="1" />
-                      <text x="92" y="356" class="t-cell" text-anchor="start">
-                        Component API and escape
+                    <g class="clause" data-clause="3">
+                      <path d="M500,342 H536" class="branch ink ag" pathLength="1" />
+                      <circle cx="546" cy="342" r="9" class="tick ink ag" pathLength="1" />
+                      <text x="568" y="348" class="t-cell" text-anchor="start">
+                        Conventions: API shape, TypeScript
                       </text>
-                      <text x="92" y="378" class="t-cell" text-anchor="start">hatches</text>
-                      <text x="440" y="356" class="t-cell t-cell--soft" text-anchor="start">
-                        Storybook documents each component's states
-                      </text>
-                      <text x="440" y="378" class="t-cell t-cell--soft" text-anchor="start">
-                        and API
-                      </text>
+                      <text x="568" y="370" class="t-cell" text-anchor="start">rules, review</text>
                     </g>
-                    <g class="row" data-row="3">
-                      <line x1="48" y1="402" x2="952" y2="402" class="hair" />
-                      <circle cx="66" cy="440" r="9" class="tick ink ag" pathLength="1" />
-                      <text x="92" y="434" class="t-cell" text-anchor="start">
-                        Conventions: API shape,
+                    <g class="gates">
+                      <path d="M230,470 H770" class="bus ink ag" pathLength="1" />
+                      <text x="115" y="454" class="t-title">CI enforcement</text>
+                      <text x="885" y="454" class="t-ag" text-anchor="end">
+                        one set of lint, type and test scripts
                       </text>
-                      <text x="92" y="456" class="t-cell" text-anchor="start">
-                        TypeScript rules, review
-                      </text>
-                      <text x="440" y="434" class="t-cell t-cell--soft" text-anchor="start">
-                        CI gates enforce the baseline instead of
-                      </text>
-                      <text x="440" y="456" class="t-cell t-cell--soft" text-anchor="start">
-                        reviewer memory
-                      </text>
-                    </g>
 
-                    <g class="strip">
-                      <rect x="0" y="596" width="1000" height="50" class="strip__bg" />
-                      <line x1="0" y1="596" x2="1000" y2="596" class="hair" />
-                      <text x="24" y="627" class="t-code">AG-03</text>
-                      <text x="111" y="627" class="t-strip">
-                        Storybook as the component contract
-                      </text>
-                      <text x="976" y="627" class="t-kind" text-anchor="end">
-                        Editorial diagram
-                      </text>
+                      <g class="gate" data-gate="0">
+                        <path d="M230,470 V504" class="bus bus--drop ink ag" pathLength="1" />
+                        <rect
+                          x="115"
+                          y="504"
+                          width="230"
+                          height="78"
+                          class="box ink"
+                          pathLength="1"
+                        />
+                        <text x="131" y="532" class="t-code">01</text>
+                        <text x="131" y="562" class="t-box">Editor checks</text>
+                        <path
+                          d="M345,543 H385 M377,537 L385,543 L377,549"
+                          class="wire ink"
+                          pathLength="1"
+                        />
+                      </g>
+                      <g class="gate" data-gate="1">
+                        <path d="M500,470 V504" class="bus bus--drop ink ag" pathLength="1" />
+                        <rect
+                          x="385"
+                          y="504"
+                          width="230"
+                          height="78"
+                          class="box ink"
+                          pathLength="1"
+                        />
+                        <text x="401" y="532" class="t-code">02</text>
+                        <text x="401" y="562" class="t-box">CI quality gates</text>
+                        <path
+                          d="M615,543 H655 M647,537 L655,543 L647,549"
+                          class="wire ink"
+                          pathLength="1"
+                        />
+                      </g>
+                      <g class="gate" data-gate="2">
+                        <path d="M770,470 V504" class="bus bus--drop ink ag" pathLength="1" />
+                        <rect
+                          x="655"
+                          y="504"
+                          width="230"
+                          height="78"
+                          class="box ink"
+                          pathLength="1"
+                        />
+                        <text x="671" y="532" class="t-code">03</text>
+                        <text x="671" y="562" class="t-box">Code review</text>
+                      </g>
                     </g>
-                  </svg>
-                </div>
-                <div class="ag-sheet ag-sheet--gates" data-sheet="gates" data-late>
-                  <svg
-                    class="drawing"
-                    viewBox="0 0 1000 646"
-                    preserveAspectRatio="xMidYMid meet"
-                    aria-hidden="true"
-                    focusable="false"
-                    data-label="ag-gates"
-                  >
-                    <rect x="12" y="12" width="976" height="572" class="frame" />
-                    <text x="48" y="74" class="t-title">The same checks from editor to merge</text>
-                    <text x="48" y="104" class="t-note">
-                      Frontend conventions held by CI, not by memory.
-                    </text>
-
-                    <g class="gate" data-gate="0">
-                      <rect
-                        x="48"
-                        y="200"
-                        width="196"
-                        height="132"
-                        class="box ink"
-                        pathLength="1"
-                      />
-                      <text x="64" y="234" class="t-code">01</text>
-                      <text x="64" y="266" class="t-box" text-anchor="start">Build in editor</text>
-                      <line x1="244" y1="266" x2="276" y2="266" class="wire ink" pathLength="1" />
-                      <path d="M267,260 L276,266 L267,272" class="wire ink" pathLength="1" />
-                      <text x="48" y="372" class="t-small" text-anchor="start">
-                        Engineers work against the
-                      </text>
-                      <text x="48" y="392" class="t-small" text-anchor="start">
-                        shared library with Cursor
-                      </text>
-                      <text x="48" y="412" class="t-small" text-anchor="start">
-                        and MCP tooling.
-                      </text>
-                    </g>
-                    <g class="gate" data-gate="1">
-                      <rect
-                        x="276"
-                        y="200"
-                        width="196"
-                        height="132"
-                        class="box ink"
-                        pathLength="1"
-                      />
-                      <text x="292" y="234" class="t-code">02</text>
-                      <text x="292" y="266" class="t-box" text-anchor="start">Editor checks</text>
-                      <line x1="472" y1="266" x2="504" y2="266" class="wire ink" pathLength="1" />
-                      <path d="M495,260 L504,266 L495,272" class="wire ink" pathLength="1" />
-                      <text x="276" y="372" class="t-small" text-anchor="start">
-                        MCP tooling runs the same
-                      </text>
-                      <text x="276" y="392" class="t-small" text-anchor="start">
-                        lint, type, and test
-                      </text>
-                      <text x="276" y="412" class="t-small" text-anchor="start">
-                        commands CI runs.
-                      </text>
-                    </g>
-                    <g class="gate" data-gate="2">
-                      <rect
-                        x="504"
-                        y="200"
-                        width="196"
-                        height="132"
-                        class="box ink"
-                        pathLength="1"
-                      />
-                      <text x="520" y="234" class="t-code">03</text>
-                      <text x="520" y="266" class="t-box" text-anchor="start">
-                        CI quality gates
-                      </text>
-                      <line x1="700" y1="266" x2="732" y2="266" class="wire ink" pathLength="1" />
-                      <path d="M723,260 L732,266 L723,272" class="wire ink" pathLength="1" />
-                      <text x="504" y="372" class="t-small" text-anchor="start">
-                        The same scripts block the
-                      </text>
-                      <text x="504" y="392" class="t-small" text-anchor="start">
-                        pull request when the
-                      </text>
-                      <text x="504" y="412" class="t-small" text-anchor="start">
-                        baseline breaks.
-                      </text>
-                    </g>
-                    <g class="gate" data-gate="3">
-                      <rect
-                        x="732"
-                        y="200"
-                        width="196"
-                        height="132"
-                        class="box ink"
-                        pathLength="1"
-                      />
-                      <text x="748" y="234" class="t-code">04</text>
-                      <text x="748" y="266" class="t-box" text-anchor="start">Code review</text>
-
-                      <text x="732" y="372" class="t-small" text-anchor="start">
-                        With lint-level drift
-                      </text>
-                      <text x="732" y="392" class="t-small" text-anchor="start">
-                        already caught, review
-                      </text>
-                      <text x="732" y="412" class="t-small" text-anchor="start">
-                        time goes to design
-                      </text>
-                      <text x="732" y="432" class="t-small" text-anchor="start">decisions.</text>
-                    </g>
-                    <!-- the shared scripts sit above the first three gates, clear of their notes -->
-                    <path d="M146,166 H602" class="bus ink ag" pathLength="1" />
-                    <line
-                      x1="146"
-                      y1="166"
-                      x2="146"
-                      y2="200"
-                      class="bus bus--drop ink ag"
-                      pathLength="1"
-                    />
-                    <line
-                      x1="374"
-                      y1="166"
-                      x2="374"
-                      y2="200"
-                      class="bus bus--drop ink ag"
-                      pathLength="1"
-                    />
-                    <line
-                      x1="602"
-                      y1="166"
-                      x2="602"
-                      y2="200"
-                      class="bus bus--drop ink ag"
-                      pathLength="1"
-                    />
-                    <text x="146" y="154" class="t-ag">one set of lint, type and test scripts</text>
-                    <text x="48" y="534" class="t-small" text-anchor="start">
+                    <text x="115" y="676" class="t-small" text-anchor="start">
                       The underlying scripts stay the single source of truth, so editor feedback and
                       CI cannot
                     </text>
-                    <text x="48" y="554" class="t-small" text-anchor="start">drift apart.</text>
+                    <text x="115" y="696" class="t-small" text-anchor="start">drift apart.</text>
 
                     <g class="strip">
-                      <rect x="0" y="596" width="1000" height="50" class="strip__bg" />
-                      <line x1="0" y1="596" x2="1000" y2="596" class="hair" />
-                      <text x="24" y="627" class="t-code">AG-04</text>
-                      <text x="111" y="627" class="t-strip">CI quality gates</text>
-                      <text x="976" y="627" class="t-kind" text-anchor="end">
+                      <rect x="0" y="730" width="1000" height="50" class="strip__bg" />
+                      <line x1="0" y1="730" x2="1000" y2="730" class="hair" />
+                      <text x="24" y="761" class="t-code">AG-03</text>
+                      <text x="111" y="761" class="t-strip">
+                        Storybook contract and CI enforcement
+                      </text>
+                      <text x="976" y="761" class="t-kind" text-anchor="end">
                         Editorial diagram
                       </text>
                     </g>
@@ -431,7 +309,7 @@
                   </p>
                   <p class="ag-tag ag-tag--2" data-tag="2" data-late><b>2</b> Sign in</p>
                   <p class="ag-plate__l" data-plate-l>
-                    <b>AG-01</b> Marketplace · Screenshot · shipped product
+                    <b>AG-01</b> Voxies marketplace · Screenshot · shipped product, historical
                   </p>
                 </div>
                 <div class="ag-lens" data-lens data-late>
@@ -461,12 +339,17 @@
               <p class="step__lede">
                 Four product surfaces, one React and TypeScript component library.
               </p>
+              <p class="step__ctx">
+                AlwaysGeeky Games makes Voxies; the marketplace and login shown here are Voxies
+                surfaces. The marketplace closed in July 2026, so these screenshots are a historical
+                record, not a live product.
+              </p>
               <p class="step__note">Four beats. Scroll, or go straight to the case study.</p>
               <p class="step__prov">
                 <b>Materials.</b> Marketplace and login are
-                <span class="m m--shot">shipped screenshots</span>. Everything drawn is an
-                <span class="m m--draw">editorial diagram</span> of the documented system; nothing
-                here is a Storybook screen.
+                <span class="m m--shot">shipped screenshots</span>, now historical. Everything drawn
+                is an <span class="m m--draw">editorial diagram</span> of the documented system;
+                nothing here is a Storybook screen.
               </p>
               <p class="step__go"><a class="btn" href="#case">Read the case study</a></p>
             </div>
@@ -474,7 +357,7 @@
           <article class="step" id="detail" data-beat="detail">
             <div class="step__card">
               <p class="step__k"><span class="step__code ag">1</span> AG-01 → Detail 1</p>
-              <h2 class="step__h">From the interface to its parts</h2>
+              <h2 class="step__h">From interface to shared system</h2>
               <p>
                 Catalog browsing and calls to action sit on top of reusable UI patterns rather than
                 page-specific one-offs.
@@ -676,224 +559,119 @@
           <article class="step" id="gates" data-beat="gates">
             <div class="step__card">
               <p class="step__k">
-                <span class="step__code ag">3</span> AG-03, AG-04 · Contract and gates
+                <span class="step__code ag">3</span> AG-03 · Contract and enforcement
               </p>
-              <h2 class="step__h">Storybook as the contract, CI as the gate</h2>
+              <h2 class="step__h">Storybook contracts. CI enforcement.</h2>
               <p>
-                Treat component APIs as the contract, and Storybook as where that contract is
-                written down, rather than as documentation produced after the fact.
+                <b>Contract.</b> Treat component APIs as the contract, and Storybook as where that
+                contract is written down, rather than as documentation produced after the fact.
               </p>
               <p>
-                Put the design-system baseline behind CI gates instead of relying on reviewers to
-                remember it.
-              </p>
-              <p class="step__src">
-                Wrote the design docs for library and convention changes, and drove their adoption
-                across the teams building the four surfaces.
+                <b>Enforcement.</b> Put the design-system baseline behind CI gates instead of
+                relying on reviewers to remember it.
               </p>
             </div>
             <figure class="step__fig scroll-x">
-              <div class="drawings step__fig--pair">
-                <svg
-                  class="drawing"
-                  viewBox="0 0 1000 646"
-                  preserveAspectRatio="xMidYMid meet"
-                  aria-hidden="true"
-                  focusable="false"
-                  data-label="ag-contract"
-                >
-                  <rect x="12" y="12" width="976" height="572" class="frame" />
-                  <text x="48" y="74" class="t-title">Component contract</text>
-                  <text x="48" y="104" class="t-note">
-                    What each shared component was documented to own, written down in Storybook.
+              <svg
+                class="drawing"
+                viewBox="0 0 1000 780"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+                data-label="ag-chain"
+              >
+                <rect x="12" y="12" width="976" height="706" class="frame" />
+                <path d="M500,12 V470" class="spine ink ag" pathLength="1" />
+                <text x="468" y="128" class="t-title" text-anchor="end">Storybook contract</text>
+                <text x="468" y="160" class="t-note" text-anchor="end">
+                  What each shared component is
+                </text>
+                <text x="468" y="182" class="t-note" text-anchor="end">
+                  documented to own, written down
+                </text>
+                <text x="468" y="204" class="t-note" text-anchor="end">
+                  where engineers look first.
+                </text>
+
+                <g class="clause" data-clause="0">
+                  <path d="M500,150 H536" class="branch ink ag" pathLength="1" />
+                  <circle cx="546" cy="150" r="9" class="tick ink ag" pathLength="1" />
+                  <text x="568" y="156" class="t-cell" text-anchor="start">
+                    Loading, empty, and error states
                   </text>
-                  <line x1="48" y1="124" x2="952" y2="124" class="rule-strong" />
-                  <text x="48" y="152" class="t-col">Part of the contract</text>
-                  <text x="440" y="152" class="t-col">Where it is enforced</text>
-
-                  <g class="row" data-row="0">
-                    <line x1="48" y1="168" x2="952" y2="168" class="hair" />
-                    <circle cx="66" cy="206" r="9" class="tick ink ag" pathLength="1" />
-                    <text x="92" y="200" class="t-cell" text-anchor="start">
-                      Loading, empty, and error
-                    </text>
-                    <text x="92" y="222" class="t-cell" text-anchor="start">states</text>
-                    <text x="440" y="200" class="t-cell t-cell--soft" text-anchor="start">
-                      Loading, empty, and error states defined
-                    </text>
-                    <text x="440" y="222" class="t-cell t-cell--soft" text-anchor="start">
-                      once and reused
-                    </text>
-                  </g>
-                  <g class="row" data-row="1">
-                    <line x1="48" y1="246" x2="952" y2="246" class="hair" />
-                    <circle cx="66" cy="284" r="9" class="tick ink ag" pathLength="1" />
-                    <text x="92" y="278" class="t-cell" text-anchor="start">
-                      Accessibility defaults
-                    </text>
-                    <text x="440" y="278" class="t-cell t-cell--soft" text-anchor="start">
-                      Accessibility defaults built into shared
-                    </text>
-                    <text x="440" y="300" class="t-cell t-cell--soft" text-anchor="start">
-                      components
-                    </text>
-                  </g>
-                  <g class="row" data-row="2">
-                    <line x1="48" y1="324" x2="952" y2="324" class="hair" />
-                    <circle cx="66" cy="362" r="9" class="tick ink ag" pathLength="1" />
-                    <text x="92" y="356" class="t-cell" text-anchor="start">
-                      Component API and escape
-                    </text>
-                    <text x="92" y="378" class="t-cell" text-anchor="start">hatches</text>
-                    <text x="440" y="356" class="t-cell t-cell--soft" text-anchor="start">
-                      Storybook documents each component's states
-                    </text>
-                    <text x="440" y="378" class="t-cell t-cell--soft" text-anchor="start">
-                      and API
-                    </text>
-                  </g>
-                  <g class="row" data-row="3">
-                    <line x1="48" y1="402" x2="952" y2="402" class="hair" />
-                    <circle cx="66" cy="440" r="9" class="tick ink ag" pathLength="1" />
-                    <text x="92" y="434" class="t-cell" text-anchor="start">
-                      Conventions: API shape,
-                    </text>
-                    <text x="92" y="456" class="t-cell" text-anchor="start">
-                      TypeScript rules, review
-                    </text>
-                    <text x="440" y="434" class="t-cell t-cell--soft" text-anchor="start">
-                      CI gates enforce the baseline instead of
-                    </text>
-                    <text x="440" y="456" class="t-cell t-cell--soft" text-anchor="start">
-                      reviewer memory
-                    </text>
-                  </g>
-
-                  <g class="strip">
-                    <rect x="0" y="596" width="1000" height="50" class="strip__bg" />
-                    <line x1="0" y1="596" x2="1000" y2="596" class="hair" />
-                    <text x="24" y="627" class="t-code">AG-03</text>
-                    <text x="111" y="627" class="t-strip">Storybook as the component contract</text>
-                    <text x="976" y="627" class="t-kind" text-anchor="end">Editorial diagram</text>
-                  </g></svg
-                ><svg
-                  class="drawing"
-                  viewBox="0 0 1000 646"
-                  preserveAspectRatio="xMidYMid meet"
-                  aria-hidden="true"
-                  focusable="false"
-                  data-label="ag-gates"
-                >
-                  <rect x="12" y="12" width="976" height="572" class="frame" />
-                  <text x="48" y="74" class="t-title">The same checks from editor to merge</text>
-                  <text x="48" y="104" class="t-note">
-                    Frontend conventions held by CI, not by memory.
+                </g>
+                <g class="clause" data-clause="1">
+                  <path d="M500,214 H536" class="branch ink ag" pathLength="1" />
+                  <circle cx="546" cy="214" r="9" class="tick ink ag" pathLength="1" />
+                  <text x="568" y="220" class="t-cell" text-anchor="start">
+                    Accessibility defaults
+                  </text>
+                </g>
+                <g class="clause" data-clause="2">
+                  <path d="M500,278 H536" class="branch ink ag" pathLength="1" />
+                  <circle cx="546" cy="278" r="9" class="tick ink ag" pathLength="1" />
+                  <text x="568" y="284" class="t-cell" text-anchor="start">
+                    Component API and escape hatches
+                  </text>
+                </g>
+                <g class="clause" data-clause="3">
+                  <path d="M500,342 H536" class="branch ink ag" pathLength="1" />
+                  <circle cx="546" cy="342" r="9" class="tick ink ag" pathLength="1" />
+                  <text x="568" y="348" class="t-cell" text-anchor="start">
+                    Conventions: API shape, TypeScript
+                  </text>
+                  <text x="568" y="370" class="t-cell" text-anchor="start">rules, review</text>
+                </g>
+                <g class="gates">
+                  <path d="M230,470 H770" class="bus ink ag" pathLength="1" />
+                  <text x="115" y="454" class="t-title">CI enforcement</text>
+                  <text x="885" y="454" class="t-ag" text-anchor="end">
+                    one set of lint, type and test scripts
                   </text>
 
                   <g class="gate" data-gate="0">
-                    <rect x="48" y="200" width="196" height="132" class="box ink" pathLength="1" />
-                    <text x="64" y="234" class="t-code">01</text>
-                    <text x="64" y="266" class="t-box" text-anchor="start">Build in editor</text>
-                    <line x1="244" y1="266" x2="276" y2="266" class="wire ink" pathLength="1" />
-                    <path d="M267,260 L276,266 L267,272" class="wire ink" pathLength="1" />
-                    <text x="48" y="372" class="t-small" text-anchor="start">
-                      Engineers work against the
-                    </text>
-                    <text x="48" y="392" class="t-small" text-anchor="start">
-                      shared library with Cursor
-                    </text>
-                    <text x="48" y="412" class="t-small" text-anchor="start">and MCP tooling.</text>
+                    <path d="M230,470 V504" class="bus bus--drop ink ag" pathLength="1" />
+                    <rect x="115" y="504" width="230" height="78" class="box ink" pathLength="1" />
+                    <text x="131" y="532" class="t-code">01</text>
+                    <text x="131" y="562" class="t-box">Editor checks</text>
+                    <path
+                      d="M345,543 H385 M377,537 L385,543 L377,549"
+                      class="wire ink"
+                      pathLength="1"
+                    />
                   </g>
                   <g class="gate" data-gate="1">
-                    <rect x="276" y="200" width="196" height="132" class="box ink" pathLength="1" />
-                    <text x="292" y="234" class="t-code">02</text>
-                    <text x="292" y="266" class="t-box" text-anchor="start">Editor checks</text>
-                    <line x1="472" y1="266" x2="504" y2="266" class="wire ink" pathLength="1" />
-                    <path d="M495,260 L504,266 L495,272" class="wire ink" pathLength="1" />
-                    <text x="276" y="372" class="t-small" text-anchor="start">
-                      MCP tooling runs the same
-                    </text>
-                    <text x="276" y="392" class="t-small" text-anchor="start">
-                      lint, type, and test
-                    </text>
-                    <text x="276" y="412" class="t-small" text-anchor="start">
-                      commands CI runs.
-                    </text>
+                    <path d="M500,470 V504" class="bus bus--drop ink ag" pathLength="1" />
+                    <rect x="385" y="504" width="230" height="78" class="box ink" pathLength="1" />
+                    <text x="401" y="532" class="t-code">02</text>
+                    <text x="401" y="562" class="t-box">CI quality gates</text>
+                    <path
+                      d="M615,543 H655 M647,537 L655,543 L647,549"
+                      class="wire ink"
+                      pathLength="1"
+                    />
                   </g>
                   <g class="gate" data-gate="2">
-                    <rect x="504" y="200" width="196" height="132" class="box ink" pathLength="1" />
-                    <text x="520" y="234" class="t-code">03</text>
-                    <text x="520" y="266" class="t-box" text-anchor="start">CI quality gates</text>
-                    <line x1="700" y1="266" x2="732" y2="266" class="wire ink" pathLength="1" />
-                    <path d="M723,260 L732,266 L723,272" class="wire ink" pathLength="1" />
-                    <text x="504" y="372" class="t-small" text-anchor="start">
-                      The same scripts block the
-                    </text>
-                    <text x="504" y="392" class="t-small" text-anchor="start">
-                      pull request when the
-                    </text>
-                    <text x="504" y="412" class="t-small" text-anchor="start">
-                      baseline breaks.
-                    </text>
+                    <path d="M770,470 V504" class="bus bus--drop ink ag" pathLength="1" />
+                    <rect x="655" y="504" width="230" height="78" class="box ink" pathLength="1" />
+                    <text x="671" y="532" class="t-code">03</text>
+                    <text x="671" y="562" class="t-box">Code review</text>
                   </g>
-                  <g class="gate" data-gate="3">
-                    <rect x="732" y="200" width="196" height="132" class="box ink" pathLength="1" />
-                    <text x="748" y="234" class="t-code">04</text>
-                    <text x="748" y="266" class="t-box" text-anchor="start">Code review</text>
+                </g>
+                <text x="115" y="676" class="t-small" text-anchor="start">
+                  The underlying scripts stay the single source of truth, so editor feedback and CI
+                  cannot
+                </text>
+                <text x="115" y="696" class="t-small" text-anchor="start">drift apart.</text>
 
-                    <text x="732" y="372" class="t-small" text-anchor="start">
-                      With lint-level drift
-                    </text>
-                    <text x="732" y="392" class="t-small" text-anchor="start">
-                      already caught, review
-                    </text>
-                    <text x="732" y="412" class="t-small" text-anchor="start">
-                      time goes to design
-                    </text>
-                    <text x="732" y="432" class="t-small" text-anchor="start">decisions.</text>
-                  </g>
-                  <!-- the shared scripts sit above the first three gates, clear of their notes -->
-                  <path d="M146,166 H602" class="bus ink ag" pathLength="1" />
-                  <line
-                    x1="146"
-                    y1="166"
-                    x2="146"
-                    y2="200"
-                    class="bus bus--drop ink ag"
-                    pathLength="1"
-                  />
-                  <line
-                    x1="374"
-                    y1="166"
-                    x2="374"
-                    y2="200"
-                    class="bus bus--drop ink ag"
-                    pathLength="1"
-                  />
-                  <line
-                    x1="602"
-                    y1="166"
-                    x2="602"
-                    y2="200"
-                    class="bus bus--drop ink ag"
-                    pathLength="1"
-                  />
-                  <text x="146" y="154" class="t-ag">one set of lint, type and test scripts</text>
-                  <text x="48" y="534" class="t-small" text-anchor="start">
-                    The underlying scripts stay the single source of truth, so editor feedback and
-                    CI cannot
-                  </text>
-                  <text x="48" y="554" class="t-small" text-anchor="start">drift apart.</text>
-
-                  <g class="strip">
-                    <rect x="0" y="596" width="1000" height="50" class="strip__bg" />
-                    <line x1="0" y1="596" x2="1000" y2="596" class="hair" />
-                    <text x="24" y="627" class="t-code">AG-04</text>
-                    <text x="111" y="627" class="t-strip">CI quality gates</text>
-                    <text x="976" y="627" class="t-kind" text-anchor="end">Editorial diagram</text>
-                  </g>
-                </svg>
-              </div>
+                <g class="strip">
+                  <rect x="0" y="730" width="1000" height="50" class="strip__bg" />
+                  <line x1="0" y1="730" x2="1000" y2="730" class="hair" />
+                  <text x="24" y="761" class="t-code">AG-03</text>
+                  <text x="111" y="761" class="t-strip">Storybook contract and CI enforcement</text>
+                  <text x="976" y="761" class="t-kind" text-anchor="end">Editorial diagram</text>
+                </g>
+              </svg>
             </figure>
           </article>
           <div class="beat beat--land" data-beat="land"></div>
@@ -901,35 +679,38 @@
       </section>
 
       <section class="case" id="case" aria-labelledby="case-h" data-tone="paper">
-        <header class="case__head">
-          <p class="case__k">
-            <span class="case__code">AG</span> Featured · Senior Frontend Engineer · 2024–2026
-          </p>
-          <h2 class="case__name" id="case-h">AlwaysGeeky Games</h2>
-          <p class="case__title">Shared Design System &amp; Frontend Standards</p>
-        </header>
+        <div class="case__top">
+          <header class="case__head">
+            <p class="case__k">
+              <span class="case__code">AG</span> Featured · Senior Frontend Engineer · 2024–2026
+            </p>
+            <h2 class="case__name" id="case-h">AlwaysGeeky Games</h2>
+            <p class="case__title">Shared Design System &amp; Frontend Standards</p>
+          </header>
 
-        <figure class="plate case__hero" data-slot style="--vt: sheet-ag">
-          <img
-            class="slot-media"
-            src="media/ag-marketplace-960.webp"
-            srcset="media/ag-marketplace-960.webp 960w, media/ag-marketplace-1600.webp 1600w"
-            sizes="(max-width: 899px) 92vw, 64vw"
-            width="1600"
-            height="1003"
-            alt="AlwaysGeeky Games marketplace interface using shared design-system components."
-            loading="lazy"
-            decoding="async"
-          />
-          <figcaption class="strip">
-            <span class="strip__code">AG-01</span><span class="strip__title">Marketplace</span
-            ><span class="strip__kind">Screenshot · shipped product</span>
-          </figcaption>
-          <p class="plate__cap">
-            <b>Marketplace.</b> Catalog browsing and calls to action sit on top of reusable UI
-            patterns rather than page-specific one-offs.
-          </p>
-        </figure>
+          <figure class="plate case__hero" data-slot style="--vt: sheet-ag">
+            <img
+              class="slot-media"
+              src="media/ag-marketplace-960.webp"
+              srcset="media/ag-marketplace-960.webp 960w, media/ag-marketplace-1600.webp 1600w"
+              sizes="(max-width: 899px) 92vw, 64vw"
+              width="1600"
+              height="1003"
+              alt="AlwaysGeeky Games marketplace interface using shared design-system components."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption class="strip">
+              <span class="strip__code">AG-01</span
+              ><span class="strip__title">Voxies marketplace</span
+              ><span class="strip__kind">Screenshot · shipped product, historical</span>
+            </figcaption>
+            <p class="plate__cap">
+              <b>Marketplace.</b> Catalog browsing and calls to action sit on top of reusable UI
+              patterns rather than page-specific one-offs. The marketplace closed in July 2026.
+            </p>
+          </figure>
+        </div>
         <div class="case__body">
           <p class="case__lede">
             Four product surfaces shared one React and TypeScript component library. I built and
@@ -1260,200 +1041,102 @@
             <figure class="scroll-x">
               <svg
                 class="drawing"
-                viewBox="0 0 1000 646"
+                viewBox="0 0 1000 780"
                 preserveAspectRatio="xMidYMid meet"
                 aria-hidden="true"
                 focusable="false"
-                data-label="ag-contract"
+                data-label="ag-chain"
               >
-                <rect x="12" y="12" width="976" height="572" class="frame" />
-                <text x="48" y="74" class="t-title">Component contract</text>
-                <text x="48" y="104" class="t-note">
-                  What each shared component was documented to own, written down in Storybook.
+                <rect x="12" y="12" width="976" height="706" class="frame" />
+                <path d="M500,12 V470" class="spine ink ag" pathLength="1" />
+                <text x="468" y="128" class="t-title" text-anchor="end">Storybook contract</text>
+                <text x="468" y="160" class="t-note" text-anchor="end">
+                  What each shared component is
                 </text>
-                <line x1="48" y1="124" x2="952" y2="124" class="rule-strong" />
-                <text x="48" y="152" class="t-col">Part of the contract</text>
-                <text x="440" y="152" class="t-col">Where it is enforced</text>
+                <text x="468" y="182" class="t-note" text-anchor="end">
+                  documented to own, written down
+                </text>
+                <text x="468" y="204" class="t-note" text-anchor="end">
+                  where engineers look first.
+                </text>
 
-                <g class="row" data-row="0">
-                  <line x1="48" y1="168" x2="952" y2="168" class="hair" />
-                  <circle cx="66" cy="206" r="9" class="tick ink ag" pathLength="1" />
-                  <text x="92" y="200" class="t-cell" text-anchor="start">
-                    Loading, empty, and error
-                  </text>
-                  <text x="92" y="222" class="t-cell" text-anchor="start">states</text>
-                  <text x="440" y="200" class="t-cell t-cell--soft" text-anchor="start">
-                    Loading, empty, and error states defined
-                  </text>
-                  <text x="440" y="222" class="t-cell t-cell--soft" text-anchor="start">
-                    once and reused
+                <g class="clause" data-clause="0">
+                  <path d="M500,150 H536" class="branch ink ag" pathLength="1" />
+                  <circle cx="546" cy="150" r="9" class="tick ink ag" pathLength="1" />
+                  <text x="568" y="156" class="t-cell" text-anchor="start">
+                    Loading, empty, and error states
                   </text>
                 </g>
-                <g class="row" data-row="1">
-                  <line x1="48" y1="246" x2="952" y2="246" class="hair" />
-                  <circle cx="66" cy="284" r="9" class="tick ink ag" pathLength="1" />
-                  <text x="92" y="278" class="t-cell" text-anchor="start">
+                <g class="clause" data-clause="1">
+                  <path d="M500,214 H536" class="branch ink ag" pathLength="1" />
+                  <circle cx="546" cy="214" r="9" class="tick ink ag" pathLength="1" />
+                  <text x="568" y="220" class="t-cell" text-anchor="start">
                     Accessibility defaults
                   </text>
-                  <text x="440" y="278" class="t-cell t-cell--soft" text-anchor="start">
-                    Accessibility defaults built into shared
-                  </text>
-                  <text x="440" y="300" class="t-cell t-cell--soft" text-anchor="start">
-                    components
+                </g>
+                <g class="clause" data-clause="2">
+                  <path d="M500,278 H536" class="branch ink ag" pathLength="1" />
+                  <circle cx="546" cy="278" r="9" class="tick ink ag" pathLength="1" />
+                  <text x="568" y="284" class="t-cell" text-anchor="start">
+                    Component API and escape hatches
                   </text>
                 </g>
-                <g class="row" data-row="2">
-                  <line x1="48" y1="324" x2="952" y2="324" class="hair" />
-                  <circle cx="66" cy="362" r="9" class="tick ink ag" pathLength="1" />
-                  <text x="92" y="356" class="t-cell" text-anchor="start">
-                    Component API and escape
+                <g class="clause" data-clause="3">
+                  <path d="M500,342 H536" class="branch ink ag" pathLength="1" />
+                  <circle cx="546" cy="342" r="9" class="tick ink ag" pathLength="1" />
+                  <text x="568" y="348" class="t-cell" text-anchor="start">
+                    Conventions: API shape, TypeScript
                   </text>
-                  <text x="92" y="378" class="t-cell" text-anchor="start">hatches</text>
-                  <text x="440" y="356" class="t-cell t-cell--soft" text-anchor="start">
-                    Storybook documents each component's states
-                  </text>
-                  <text x="440" y="378" class="t-cell t-cell--soft" text-anchor="start">
-                    and API
-                  </text>
+                  <text x="568" y="370" class="t-cell" text-anchor="start">rules, review</text>
                 </g>
-                <g class="row" data-row="3">
-                  <line x1="48" y1="402" x2="952" y2="402" class="hair" />
-                  <circle cx="66" cy="440" r="9" class="tick ink ag" pathLength="1" />
-                  <text x="92" y="434" class="t-cell" text-anchor="start">
-                    Conventions: API shape,
+                <g class="gates">
+                  <path d="M230,470 H770" class="bus ink ag" pathLength="1" />
+                  <text x="115" y="454" class="t-title">CI enforcement</text>
+                  <text x="885" y="454" class="t-ag" text-anchor="end">
+                    one set of lint, type and test scripts
                   </text>
-                  <text x="92" y="456" class="t-cell" text-anchor="start">
-                    TypeScript rules, review
-                  </text>
-                  <text x="440" y="434" class="t-cell t-cell--soft" text-anchor="start">
-                    CI gates enforce the baseline instead of
-                  </text>
-                  <text x="440" y="456" class="t-cell t-cell--soft" text-anchor="start">
-                    reviewer memory
-                  </text>
-                </g>
 
-                <g class="strip">
-                  <rect x="0" y="596" width="1000" height="50" class="strip__bg" />
-                  <line x1="0" y1="596" x2="1000" y2="596" class="hair" />
-                  <text x="24" y="627" class="t-code">AG-03</text>
-                  <text x="111" y="627" class="t-strip">Storybook as the component contract</text>
-                  <text x="976" y="627" class="t-kind" text-anchor="end">Editorial diagram</text>
+                  <g class="gate" data-gate="0">
+                    <path d="M230,470 V504" class="bus bus--drop ink ag" pathLength="1" />
+                    <rect x="115" y="504" width="230" height="78" class="box ink" pathLength="1" />
+                    <text x="131" y="532" class="t-code">01</text>
+                    <text x="131" y="562" class="t-box">Editor checks</text>
+                    <path
+                      d="M345,543 H385 M377,537 L385,543 L377,549"
+                      class="wire ink"
+                      pathLength="1"
+                    />
+                  </g>
+                  <g class="gate" data-gate="1">
+                    <path d="M500,470 V504" class="bus bus--drop ink ag" pathLength="1" />
+                    <rect x="385" y="504" width="230" height="78" class="box ink" pathLength="1" />
+                    <text x="401" y="532" class="t-code">02</text>
+                    <text x="401" y="562" class="t-box">CI quality gates</text>
+                    <path
+                      d="M615,543 H655 M647,537 L655,543 L647,549"
+                      class="wire ink"
+                      pathLength="1"
+                    />
+                  </g>
+                  <g class="gate" data-gate="2">
+                    <path d="M770,470 V504" class="bus bus--drop ink ag" pathLength="1" />
+                    <rect x="655" y="504" width="230" height="78" class="box ink" pathLength="1" />
+                    <text x="671" y="532" class="t-code">03</text>
+                    <text x="671" y="562" class="t-box">Code review</text>
+                  </g>
                 </g>
-              </svg>
-            </figure>
-            <figure class="scroll-x">
-              <svg
-                class="drawing"
-                viewBox="0 0 1000 646"
-                preserveAspectRatio="xMidYMid meet"
-                aria-hidden="true"
-                focusable="false"
-                data-label="ag-gates"
-              >
-                <rect x="12" y="12" width="976" height="572" class="frame" />
-                <text x="48" y="74" class="t-title">The same checks from editor to merge</text>
-                <text x="48" y="104" class="t-note">
-                  Frontend conventions held by CI, not by memory.
-                </text>
-
-                <g class="gate" data-gate="0">
-                  <rect x="48" y="200" width="196" height="132" class="box ink" pathLength="1" />
-                  <text x="64" y="234" class="t-code">01</text>
-                  <text x="64" y="266" class="t-box" text-anchor="start">Build in editor</text>
-                  <line x1="244" y1="266" x2="276" y2="266" class="wire ink" pathLength="1" />
-                  <path d="M267,260 L276,266 L267,272" class="wire ink" pathLength="1" />
-                  <text x="48" y="372" class="t-small" text-anchor="start">
-                    Engineers work against the
-                  </text>
-                  <text x="48" y="392" class="t-small" text-anchor="start">
-                    shared library with Cursor
-                  </text>
-                  <text x="48" y="412" class="t-small" text-anchor="start">and MCP tooling.</text>
-                </g>
-                <g class="gate" data-gate="1">
-                  <rect x="276" y="200" width="196" height="132" class="box ink" pathLength="1" />
-                  <text x="292" y="234" class="t-code">02</text>
-                  <text x="292" y="266" class="t-box" text-anchor="start">Editor checks</text>
-                  <line x1="472" y1="266" x2="504" y2="266" class="wire ink" pathLength="1" />
-                  <path d="M495,260 L504,266 L495,272" class="wire ink" pathLength="1" />
-                  <text x="276" y="372" class="t-small" text-anchor="start">
-                    MCP tooling runs the same
-                  </text>
-                  <text x="276" y="392" class="t-small" text-anchor="start">
-                    lint, type, and test
-                  </text>
-                  <text x="276" y="412" class="t-small" text-anchor="start">commands CI runs.</text>
-                </g>
-                <g class="gate" data-gate="2">
-                  <rect x="504" y="200" width="196" height="132" class="box ink" pathLength="1" />
-                  <text x="520" y="234" class="t-code">03</text>
-                  <text x="520" y="266" class="t-box" text-anchor="start">CI quality gates</text>
-                  <line x1="700" y1="266" x2="732" y2="266" class="wire ink" pathLength="1" />
-                  <path d="M723,260 L732,266 L723,272" class="wire ink" pathLength="1" />
-                  <text x="504" y="372" class="t-small" text-anchor="start">
-                    The same scripts block the
-                  </text>
-                  <text x="504" y="392" class="t-small" text-anchor="start">
-                    pull request when the
-                  </text>
-                  <text x="504" y="412" class="t-small" text-anchor="start">baseline breaks.</text>
-                </g>
-                <g class="gate" data-gate="3">
-                  <rect x="732" y="200" width="196" height="132" class="box ink" pathLength="1" />
-                  <text x="748" y="234" class="t-code">04</text>
-                  <text x="748" y="266" class="t-box" text-anchor="start">Code review</text>
-
-                  <text x="732" y="372" class="t-small" text-anchor="start">
-                    With lint-level drift
-                  </text>
-                  <text x="732" y="392" class="t-small" text-anchor="start">
-                    already caught, review
-                  </text>
-                  <text x="732" y="412" class="t-small" text-anchor="start">
-                    time goes to design
-                  </text>
-                  <text x="732" y="432" class="t-small" text-anchor="start">decisions.</text>
-                </g>
-                <!-- the shared scripts sit above the first three gates, clear of their notes -->
-                <path d="M146,166 H602" class="bus ink ag" pathLength="1" />
-                <line
-                  x1="146"
-                  y1="166"
-                  x2="146"
-                  y2="200"
-                  class="bus bus--drop ink ag"
-                  pathLength="1"
-                />
-                <line
-                  x1="374"
-                  y1="166"
-                  x2="374"
-                  y2="200"
-                  class="bus bus--drop ink ag"
-                  pathLength="1"
-                />
-                <line
-                  x1="602"
-                  y1="166"
-                  x2="602"
-                  y2="200"
-                  class="bus bus--drop ink ag"
-                  pathLength="1"
-                />
-                <text x="146" y="154" class="t-ag">one set of lint, type and test scripts</text>
-                <text x="48" y="534" class="t-small" text-anchor="start">
+                <text x="115" y="676" class="t-small" text-anchor="start">
                   The underlying scripts stay the single source of truth, so editor feedback and CI
                   cannot
                 </text>
-                <text x="48" y="554" class="t-small" text-anchor="start">drift apart.</text>
+                <text x="115" y="696" class="t-small" text-anchor="start">drift apart.</text>
 
                 <g class="strip">
-                  <rect x="0" y="596" width="1000" height="50" class="strip__bg" />
-                  <line x1="0" y1="596" x2="1000" y2="596" class="hair" />
-                  <text x="24" y="627" class="t-code">AG-04</text>
-                  <text x="111" y="627" class="t-strip">CI quality gates</text>
-                  <text x="976" y="627" class="t-kind" text-anchor="end">Editorial diagram</text>
+                  <rect x="0" y="730" width="1000" height="50" class="strip__bg" />
+                  <line x1="0" y1="730" x2="1000" y2="730" class="hair" />
+                  <text x="24" y="761" class="t-code">AG-03</text>
+                  <text x="111" y="761" class="t-strip">Storybook contract and CI enforcement</text>
+                  <text x="976" y="761" class="t-kind" text-anchor="end">Editorial diagram</text>
                 </g>
               </svg>
             </figure>
@@ -1514,10 +1197,10 @@
           </section>
           <section class="case__sec" aria-labelledby="c-links">
             <h3 class="case__h" id="c-links">Links</h3>
-            <ul class="case__links">
-              <li><a href="https://market.voxies.io" rel="noopener">Marketplace ↗</a></li>
-              <li><a href="https://login.voxies.io/" rel="noopener">Login ↗</a></li>
-            </ul>
+            <p>
+              The Voxies marketplace closed in July 2026, so neither the marketplace nor the login
+              address is linked from this prototype.
+            </p>
           </section>
         </div>
       </section>
@@ -1527,9 +1210,8 @@
           ><span class="sheetnav__k">Previous sheet</span
           ><span class="sheetnav__n"><b>LG</b> LedgerGuard</span></a
         >
-        <a class="sheetnav__a sheetnav__a--mid" href="index.html#register"
-          ><span class="sheetnav__k">Index</span
-          ><span class="sheetnav__n">Drawing register</span></a
+        <a class="sheetnav__a sheetnav__a--mid" href="index.html#work"
+          ><span class="sheetnav__k">Index</span><span class="sheetnav__n">Selected work</span></a
         >
         <a class="sheetnav__a sheetnav__a--next" href="emplifi.html"
           ><span class="sheetnav__k">Next sheet</span
