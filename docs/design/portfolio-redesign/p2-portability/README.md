@@ -12,6 +12,8 @@
 - **AlwaysGeeky** gets the detail callout, in blue. Its scene descends from a part of the shipped (now historical) Voxies marketplace to the shared library, then along one line through the Storybook contract to CI enforcement.
 - **Emplifi** gets the probe and the reference ruler, in ochre. Its scene has no screenshots and shows technique, not magnitude: where the render path was investigated, and how the work was composed to fit a frame. No drawing shows a measured or comparative value.
 
+**Dark only.** After P2.1 the prototype moved to a single dark palette: light ink on a warm near-black paper, screenshots on a deeper void. There is no light theme. The tokens and contrast ratios are in 01. The P1 LedgerGuard pages under `cinematic-exploration/` are unchanged and still light. The stills and storyboards are recaptured in dark; the `compare-*` before/after images record the P2.1 revision and keep the earlier light palette.
+
 The **index** opens on a section through the three featured projects, cut on the A–A line: the interface above, the work behind it below. With motion on, it condenses, pinned, into the register's top row. Every one of the seven projects is one link from the index; scenes are always optional.
 
 > **Provenance.** Shipped screenshots sit on dark plates. Editorial diagrams say "illustrative data" or "schematic" where true. LedgerGuard's design prototypes keep their dashed frames and "fictional data" labels. On the index, the cut band names both materials for every bay. No Storybook screen, Emplifi interface or measured value is shown or implied. No percentage figure appears anywhere.

@@ -12,6 +12,10 @@
 // Then the match cut: the webview drawing lands in the case study's hero.
 AA.scene(function (S) {
   var stage = S.stage;
+  // inks come from the page's tokens, so the timeline follows the palette
+  var ink = function (name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  };
   var q = function (sel) {
     return stage.querySelector(sel);
   };
@@ -63,7 +67,7 @@ AA.scene(function (S) {
     f(0, 0.2)
   );
   S.at(cursor, { attr: { x1: 354, x2: 354 }, ease: "power1.inOut" }, f(0, 0.2), f(0, 0.7));
-  S.at(webview, { stroke: "#a8670a", strokeWidth: 3 }, f(0, 0.1), f(0, 0.3));
+  S.at(webview, { stroke: ink("--em"), strokeWidth: 3 }, f(0, 0.1), f(0, 0.3));
 
   /* 2 · profiling: the line goes down first, then each station in order along the path */
   S.at(phone, Object.assign({ ease: "power2.inOut" }, ASIDE), f(1, 0), f(1, 0.28));
@@ -113,7 +117,7 @@ AA.scene(function (S) {
   S.at([budget, stamp], { autoAlpha: 0 }, L0 + w * 0.12, L0 + w * 0.24);
   if (win) S.at(win, { autoAlpha: 0 }, L0 + w * 0.24, L0 + w * 0.36);
   S.at(cursor, { attr: { x1: CURSOR, x2: CURSOR } }, L0 + w * 0.12, L0 + w * 0.22);
-  S.at(webview, { stroke: "#4b463c", strokeWidth: 1.5 }, L0 + w * 0.12, L0 + w * 0.22);
+  S.at(webview, { stroke: ink("--ink-2"), strokeWidth: 1.5 }, L0 + w * 0.12, L0 + w * 0.22);
   S.at(phone, { autoAlpha: 1 }, L0 + w * 0.18, L0 + w * 0.28);
   S.land(phone, { x: 420, y: 40, w: 360 }, L0 + w * 0.24);
 });

@@ -177,7 +177,7 @@ const shell = ({
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="dark">
 <link rel="icon" href="data:,">
 ${boot(live)}
 <link rel="preconnect" href="https://fonts.googleapis.com">

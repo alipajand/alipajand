@@ -12,31 +12,35 @@
 }
 
 :root {
-  color-scheme: light;
-  --paper: #ebe6da;
-  --paper-2: #e2dccd;
-  --ink: #16140f;
-  --ink-2: #4b463c;
-  --ink-3: #686155;
-  --rule: rgba(22, 20, 15, 0.09);
-  --rule-strong: rgba(22, 20, 15, 0.22);
-  --vellum: #f2ede2;
-  --edge-draw: #bdb39c;
-  --edge-shot: #2a2723;
-  --void: #100f0d;
-  --void-2: #1b1915;
+  /* dark only: a drafting board at night. The paper is dark, ink is light, and shipped
+     screenshots sit on a deeper void so dark-on-dark still separates the real product */
+  color-scheme: dark;
+  --paper: #171612;
+  --paper-2: #201e19;
+  --ink: #ece6d8;
+  --ink-2: #bdb4a2;
+  --ink-3: #9c937f;
+  --rule: rgba(236, 230, 216, 0.07);
+  --rule-strong: rgba(236, 230, 216, 0.2);
+  --vellum: #1f1d18;
+  --edge-draw: #4d4739;
+  --edge-shot: #3a362e;
+  --void: #090807;
+  --void-2: #13120f;
   --on-void: #ede7da;
   --on-void-2: #b2a998;
+  --shade: rgba(0, 0, 0, 0.5);
+  --tint: rgba(236, 230, 216, 0.06);
 
   /* the identity mark and the focus ring; LedgerGuard alone gives red a meaning */
-  --red: #c8321b;
-  --red-ink: #b02a14;
-  /* project inks: one drafting move each */
-  --ag: #2148b8;
-  --ag-wash: rgba(33, 72, 184, 0.07);
-  --em: #a8670a;
-  --em-ink: #7d4c05;
-  --em-wash: rgba(168, 103, 10, 0.14);
+  --red: #f0573c;
+  --red-ink: #f0846e;
+  /* project inks: one drafting move each, lifted for a dark ground */
+  --ag: #8ea4ff;
+  --ag-wash: rgba(142, 164, 255, 0.1);
+  --em: #e3a33f;
+  --em-ink: #ebb560;
+  --em-wash: rgba(227, 163, 63, 0.14);
 
   --display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", Impact, sans-serif;
   --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
@@ -143,7 +147,7 @@ h4 {
   font: 500 0.75rem/1 var(--mono);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: linear-gradient(var(--paper) 72%, rgba(235, 230, 218, 0));
+  background: linear-gradient(var(--paper) 72%, transparent);
 }
 
 .bar a {
@@ -424,7 +428,7 @@ h4 {
 }
 
 .drawing .void-box {
-  fill: rgba(22, 20, 15, 0.035);
+  fill: var(--tint);
   stroke: var(--edge-draw);
   stroke-width: 1.5;
   stroke-dasharray: 8 6;
@@ -1199,8 +1203,9 @@ h4 {
 .contact {
   position: relative;
   z-index: 6;
-  background: var(--ink);
-  color: var(--paper);
+  border-top: 1px solid var(--rule-strong);
+  background: var(--void);
+  color: var(--on-void);
   padding: clamp(56px, 8vw, 104px) var(--gutter-r) calc(40px + env(safe-area-inset-bottom, 0px))
     var(--gutter);
 }
@@ -1212,7 +1217,7 @@ h4 {
 
 .contact__k {
   margin: 0 0 12px;
-  color: #b9b1a1;
+  color: var(--on-void-2);
   font: 500 0.6875rem/1.4 var(--mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1228,7 +1233,7 @@ h4 {
   margin: 0 0 28px;
   padding: 0;
   list-style: none;
-  border-top: 1px solid rgba(235, 230, 218, 0.3);
+  border-top: 1px solid var(--rule-strong);
 }
 
 .contact__list a {
@@ -1237,27 +1242,27 @@ h4 {
   justify-content: space-between;
   gap: 4px 16px;
   padding: 16px 0;
-  border-bottom: 1px solid rgba(235, 230, 218, 0.3);
+  border-bottom: 1px solid var(--rule-strong);
   font: 600 clamp(1.125rem, 1rem + 0.5vw, 1.5rem) / 1.2 var(--sans);
   text-decoration: none;
 }
 
 .contact__list a span {
-  color: #b9b1a1;
+  color: var(--on-void-2);
   font: 400 0.8125rem/1.6 var(--mono);
 }
 
 .contact__list a:hover {
-  color: #f0846e;
+  color: var(--red-ink);
 }
 
 .contact__list a:focus-visible {
-  outline-color: #f0573c;
+  outline-color: var(--red);
 }
 
 .contact__note {
   margin: 0;
-  color: #9a9283;
+  color: var(--on-void-2);
   font: 400 0.75rem/1.5 var(--mono);
 }
 

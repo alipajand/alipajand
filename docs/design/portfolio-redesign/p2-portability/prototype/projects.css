@@ -64,7 +64,7 @@
 }
 
 .drawing .phone__glass {
-  fill: #f8f4ea;
+  fill: #26231d;
 }
 
 .drawing .phone__notch {
@@ -91,7 +91,7 @@
 }
 
 .drawing .area {
-  fill: rgba(22, 20, 15, 0.06);
+  fill: rgba(236, 230, 216, 0.07);
 }
 
 .drawing .line {
@@ -112,7 +112,7 @@
 }
 
 .drawing .bar {
-  fill: rgba(22, 20, 15, 0.2);
+  fill: rgba(236, 230, 216, 0.24);
 }
 
 .drawing .row-box {
@@ -121,7 +121,7 @@
 }
 
 .drawing .row-ink {
-  fill: rgba(22, 20, 15, 0.14);
+  fill: rgba(236, 230, 216, 0.16);
 }
 
 /* EM-02 · the render path: equal stations, an ochre profiling line, two marked stages */
@@ -163,7 +163,7 @@
 }
 
 .drawing .mark-d3 {
-  fill: rgba(22, 20, 15, 0.28);
+  fill: rgba(236, 230, 216, 0.3);
 }
 
 .drawing .update {
@@ -259,7 +259,7 @@
 .ag-tag {
   padding: 8px 12px;
   background: var(--ag);
-  color: #fff;
+  color: var(--void);
 }
 
 .ag-tag b,
@@ -298,7 +298,7 @@
   background: var(--void);
   box-shadow:
     0 0 0 4px var(--ag),
-    0 24px 48px rgba(22, 20, 15, 0.28);
+    0 24px 48px var(--shade);
   transform-origin: 50% 50%;
 }
 
@@ -356,7 +356,7 @@
       var(--edge-draw) 50%,
       transparent calc(50% + 1px)
     ),
-    rgba(22, 20, 15, 0.035);
+    var(--tint);
 }
 
 .ag-surf:has(.ag-surf__void) {
@@ -416,7 +416,7 @@
   position: absolute;
   left: 100px;
   width: 1000px;
-  box-shadow: 0 18px 40px rgba(22, 20, 15, 0.12);
+  box-shadow: 0 18px 40px var(--shade);
 }
 
 /* world coordinates: the chain's spine (local x 500) continues the library's bus at x 600 */
@@ -436,7 +436,7 @@
 
 .em-sheet {
   position: absolute;
-  box-shadow: 0 18px 40px rgba(22, 20, 15, 0.12);
+  box-shadow: 0 18px 40px var(--shade);
   transform-origin: 0 0;
 }
 

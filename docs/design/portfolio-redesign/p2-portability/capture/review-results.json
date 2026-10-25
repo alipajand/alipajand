@@ -147,7 +147,7 @@
   {
     "name": "register: the status line names the marked projects",
     "pass": true,
-    "detail": "Design systems: 2 projects marked, AlwaysGeeky Games, Emplifi."
+    "detail": "\n              Design systems: 2 projects marked, AlwaysGeeky Games, Emplifi."
   },
   {
     "name": "register: the status line is a polite live region",
@@ -172,12 +172,12 @@
   {
     "name": "opening 1440px reduced: static, no transforms",
     "pass": true,
-    "detail": "{\"live\":false,\"height\":2783,\"inline\":0}"
+    "detail": "{\"live\":false,\"height\":2784,\"inline\":0}"
   },
   {
     "name": "opening 390px reduced: static, no transforms, page under 4,200 px",
     "pass": true,
-    "detail": "{\"live\":false,\"height\":3999,\"inline\":0}"
+    "detail": "{\"live\":false,\"height\":4000,\"inline\":0}"
   },
   {
     "name": "no script: 7 case-study links, no dead controls, full schedule",
@@ -187,22 +187,22 @@
   {
     "name": "no script alwaysgeeky.html: stage hidden, every step figure shown",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":null,\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":null,\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7544}"
   },
   {
     "name": "no script emplifi.html: stage hidden, every step figure shown",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":null,\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":null,\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7151}"
   },
   {
     "name": "motion alwaysgeeky.html: live and confirmed",
     "pass": true,
-    "detail": "{\"live\":true,\"ready\":true,\"motion\":\"full\",\"stage\":\"block\",\"figs\":0,\"inlineTransforms\":6,\"height\":10931}"
+    "detail": "{\"live\":true,\"ready\":true,\"motion\":\"full\",\"stage\":\"block\",\"figs\":0,\"inlineTransforms\":6,\"height\":10932}"
   },
   {
     "name": "reduced alwaysgeeky.html: static steps, no inline transforms",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"reduce\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"reduce\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7544}"
   },
   {
     "name": "reduced alwaysgeeky.html: the toggle turns the scene on and off cleanly",
@@ -212,32 +212,32 @@
   {
     "name": "fail-safe alwaysgeeky.html: GSAP blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7544}"
   },
   {
     "name": "fail-safe alwaysgeeky.html: ScrollTrigger blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7544}"
   },
   {
     "name": "fail-safe alwaysgeeky.html: scene script blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7544}"
   },
   {
     "name": "fail-safe alwaysgeeky.html: timeline throws mid-build leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7543}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":3,\"inlineTransforms\":0,\"height\":7544}"
   },
   {
     "name": "motion emplifi.html: live and confirmed",
     "pass": true,
-    "detail": "{\"live\":true,\"ready\":true,\"motion\":\"full\",\"stage\":\"block\",\"figs\":0,\"inlineTransforms\":10,\"height\":11391}"
+    "detail": "{\"live\":true,\"ready\":true,\"motion\":\"full\",\"stage\":\"block\",\"figs\":0,\"inlineTransforms\":10,\"height\":11392}"
   },
   {
     "name": "reduced emplifi.html: static steps, no inline transforms",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"reduce\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"reduce\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7151}"
   },
   {
     "name": "reduced emplifi.html: the toggle turns the scene on and off cleanly",
@@ -247,22 +247,22 @@
   {
     "name": "fail-safe emplifi.html: GSAP blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7151}"
   },
   {
     "name": "fail-safe emplifi.html: ScrollTrigger blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7151}"
   },
   {
     "name": "fail-safe emplifi.html: scene script blocked leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7151}"
   },
   {
     "name": "fail-safe emplifi.html: timeline throws mid-build leaves the static page",
     "pass": true,
-    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7150}"
+    "detail": "{\"live\":false,\"ready\":false,\"motion\":\"full\",\"stage\":\"none\",\"figs\":4,\"inlineTransforms\":0,\"height\":7151}"
   },
   {
     "name": "anchor alwaysgeeky.html#case: the case study is at the top, hero shown",

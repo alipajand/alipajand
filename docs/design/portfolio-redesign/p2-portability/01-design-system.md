@@ -19,11 +19,14 @@ A project never borrows another project's move or ink. The red review boundary s
 
 ### Surfaces
 
-- **Paper exterior.** `--paper #ebe6da` on a 24 px drafting grid. Scenes show the grid; reading pages are plain paper.
-- **Void interior.** `--void #100f0d`. On the scene and case-study pages only shipped screenshots sit on void, so dark means "this is the real product". The index's section is the one exception: below the A–A cut the bays show the system behind each project as a light-ink diagram on void, and the cut band names it ("LG-02 ↓ Diagram") so the material is never left to colour alone. 06 flags this as an open question.
-- **Vellum.** `--vellum #f2ede2` under every editorial drawing and every reading card.
+The prototype is **dark only**: a drafting board at night. There is no light theme and no theme switch; every page sets `color-scheme: dark`.
 
-The paper and void pairing is a concept for this exploration only. It is not a proposed site-wide light theme, and nothing here changes the production theme.
+- **Paper exterior.** `--paper #171612`, a warm near-black, on a 24 px drafting grid drawn in light ink at low alpha. Scenes show the grid; reading pages are plain paper.
+- **Void interior.** `--void #090807`, a deeper black. On the scene and case-study pages only shipped screenshots sit on void. Void and paper are now close (about 1.1:1), so a shipped screenshot is separated by its plate edge (`--edge-shot`) and its sheet strip, not by the ground colour. The index's section is the one exception: below the A–A cut the bays show the system behind each project as a light-ink diagram on void, and the cut band names it ("LG-02 ↓ Diagram") so the material is never left to colour alone. 06 flags this as an open question.
+- **Vellum.** `--vellum #1f1d18`, one step lighter than paper, under every editorial drawing and every reading card.
+- **Contact band.** The contact sheet at the foot of every page sits on void with a strong rule above it.
+
+The dark palette is a concept for this exploration only. It is not a proposed site-wide theme, and nothing here changes the production theme.
 
 ### Type
 
@@ -119,11 +122,11 @@ The capability table is now headed "By discipline": "Explore the work by technic
 
 ### LedgerGuard · the section cut (P1)
 
-Red, `--red #c8321b`. The red line means the human review boundary: suggested values on one side, confirmed values on the other. That meaning is LedgerGuard's alone. P2 changes only the review-state captions (see 04) and adds the flat depth path.
+Red, `--red #f0573c`. The red line means the human review boundary: suggested values on one side, confirmed values on the other. That meaning is LedgerGuard's alone. P2 changes only the review-state captions (see 04) and adds the flat depth path.
 
 ### AlwaysGeeky · the detail callout
 
-Blueprint blue, `--ag #2148b8`, about 6.4:1 on paper; `--ag-v #98adff` on void.
+Blueprint blue, `--ag #8ea4ff`, about 7.7:1 on paper; `--ag-v #98adff` on void.
 
 AlwaysGeeky Games makes Voxies. The marketplace and login shown are Voxies surfaces; the marketplace closed in July 2026, so the screenshots are labelled historical and neither address is linked.
 
@@ -135,7 +138,7 @@ AG-03 is a single drawing so the scene needs one camera move, not two stops. It 
 
 ### Emplifi · the render path and the frame budget
 
-Ochre, `--em #a8670a`, used for lines and fills only. Its text ink is `--em-ink #7d4c05`, about 5.5:1, because the line ochre is too light for small text. On void it is `--em-v #e3a33f`.
+Ochre, `--em #e3a33f`, for lines and fills. Its text ink is `--em-ink #ebb560`, about 9.8:1 on paper. On void it is `--em-v #e3a33f`.
 
 The Emplifi sheet shows **technique, not magnitude**. P2's before/after timelines were removed: their shorter "after" blocks read as a measured gain that no source supports.
 
@@ -154,15 +157,17 @@ The section reuses each project's ink on void (`--lg-v #f0674c` for LedgerGuard'
 All tokens are in `prototype/grammar.css`, except the void inks the index section uses, which are in `prototype/opening.css`. Project inks are used only in `projects.css` and the index section.
 
 ```text
---paper #ebe6da   --paper-2 #e2dccd   --vellum #f2ede2
---ink #16140f     --ink-2 #4b463c     --ink-3 #686155   (4.5:1 or better on paper)
---rule rgba(22,20,15,.09)   --rule-strong rgba(22,20,15,.22)
---edge-draw #bdb39c   --edge-shot #2a2723
---void #100f0d    --void-2 #1b1915   --on-void #ede7da   --on-void-2 #b2a998
---red #c8321b                      identity mark, focus ring, LedgerGuard boundary
---red-ink #b02a14                  red as small text on paper (4.29:1 at --red is too low)
---ag #2148b8  --ag-wash            AlwaysGeeky
---em #a8670a  --em-ink #7d4c05  --em-wash   Emplifi
+color-scheme: dark                 dark only; no light theme
+--paper #171612   --paper-2 #201e19   --vellum #1f1d18
+--ink #ece6d8     --ink-2 #bdb4a2     --ink-3 #9c937f   (14.5, 8.8 and 5.9:1 on paper)
+--rule rgba(236,230,216,.07)   --rule-strong rgba(236,230,216,.2)
+--edge-draw #4d4739   --edge-shot #3a362e
+--void #090807    --void-2 #13120f   --on-void #ede7da   --on-void-2 #b2a998
+--shade rgba(0,0,0,.5)   --tint rgba(236,230,216,.06)   shadows and surface tints
+--red #f0573c                      identity mark, focus ring, LedgerGuard boundary (5.3:1)
+--red-ink #f0846e                  red as small text on paper (7.1:1)
+--ag #8ea4ff  --ag-wash            AlwaysGeeky (7.7:1)
+--em #e3a33f  --em-ink #ebb560  --em-wash   Emplifi (ink 9.8:1)
 --lg-v #f0674c  --ag-v #98adff  --em-v #e3a33f   project inks on void (index section only, opening.css)
 --ease-out cubic-bezier(.16,1,.3,1)   --t-quick 180ms   --t-wipe 280ms
 ```
