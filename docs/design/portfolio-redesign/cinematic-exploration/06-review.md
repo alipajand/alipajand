@@ -93,5 +93,5 @@ These need a source before they can appear anywhere a visitor reads them. The pr
    - The thesis "The interface, and the work behind it." is approved and unchanged.
 2. **LedgerGuard role.** `data/projects.ts` gives the role as "Senior Product Engineer". The prototype does not print it, because LedgerGuard is Ali's own product, not employment. It says "Independent product" instead, which the project's own text supports ("built alone"). Decide whether the data should change. The prototype introduces no title, and the site-wide role stays "Senior Software Engineer".
 3. **Story figure.** The story and case-study hero are back to the shipped dashboard screenshot. Earlier review feedback ("this should be replaced as well") had moved them to the dashboard design prototype. The match cut needs the one real screenshot to persist into the story, and a prototype must not stand in for the shipped UI there. The dashboard prototype states remain in the case study's design-prototype section. Confirm this reversal.
-4. **Paper versus dark** is unchanged from revision 1 and still needs a decision.
+4. **Paper versus dark** was decided after P2.1: the prototype is now dark only.
 5. **Whether to continue.** Next would be the weaknesses above, then real-device, Safari and VoiceOver passes, still as a prototype.

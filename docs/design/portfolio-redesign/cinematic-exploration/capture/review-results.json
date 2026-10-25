@@ -162,7 +162,7 @@
   {
     "name": "anchor full: #contact lands on its section",
     "pass": true,
-    "detail": "{\"top\":338,\"atEnd\":true}"
+    "detail": "{\"top\":336,\"atEnd\":true}"
   },
   {
     "name": "anchor reduce: #work lands on its section",
@@ -187,7 +187,7 @@
   {
     "name": "anchor reduce: #contact lands on its section",
     "pass": true,
-    "detail": "{\"top\":339,\"atEnd\":true}"
+    "detail": "{\"top\":334,\"atEnd\":true}"
   },
   {
     "name": "history full: Back restores the scroll position",
@@ -207,7 +207,7 @@
   {
     "name": "history reduce: Back restores the scroll position",
     "pass": true,
-    "detail": "4821 → 4821"
+    "detail": "4842 → 4842"
   },
   {
     "name": "history reduce: Back skips the arrival animation",
@@ -232,7 +232,7 @@
   {
     "name": "fail-safe, reduced motion: static layout, nothing pinned, story and figure visible",
     "pass": true,
-    "detail": "{\"live\":false,\"motion\":\"reduce\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+    "detail": "{\"live\":false,\"motion\":\"reduce\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6730,\"errors\":0}"
   },
   {
     "name": "fail-safe, reduced motion: workspace states still switch",
@@ -242,7 +242,7 @@
   {
     "name": "fail-safe, JavaScript disabled: static layout, nothing pinned, story and figure visible",
     "pass": true,
-    "detail": "{\"live\":false,\"motion\":null,\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+    "detail": "{\"live\":false,\"motion\":null,\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6730,\"errors\":0}"
   },
   {
     "name": "fail-safe, JavaScript disabled: state and layer buttons are disabled, not dead",
@@ -252,7 +252,7 @@
   {
     "name": "fail-safe, GSAP unavailable: static layout, nothing pinned, story and figure visible",
     "pass": true,
-    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6730,\"errors\":0}"
   },
   {
     "name": "fail-safe, GSAP unavailable: workspace states still switch",
@@ -262,7 +262,7 @@
   {
     "name": "fail-safe, ScrollTrigger unavailable: static layout, nothing pinned, story and figure visible",
     "pass": true,
-    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6730,\"errors\":0}"
   },
   {
     "name": "fail-safe, ScrollTrigger unavailable: workspace states still switch",
@@ -272,7 +272,7 @@
   {
     "name": "fail-safe, sequence.js unavailable: static layout, nothing pinned, story and figure visible",
     "pass": true,
-    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6730,\"errors\":0}"
   },
   {
     "name": "fail-safe, sequence.js unavailable: state and layer buttons are disabled, not dead",
@@ -282,7 +282,7 @@
   {
     "name": "fail-safe, timeline build throws: static layout, nothing pinned, story and figure visible",
     "pass": true,
-    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6708,\"errors\":0}"
+    "detail": "{\"live\":false,\"motion\":\"full\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6730,\"errors\":0}"
   },
   {
     "name": "fail-safe, timeline build throws: workspace states still switch",
@@ -407,7 +407,7 @@
   {
     "name": "webkit: reduced motion keeps the static layout",
     "pass": true,
-    "detail": "{\"live\":false,\"motion\":\"reduce\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6706}"
+    "detail": "{\"live\":false,\"motion\":\"reduce\",\"sticky\":false,\"inlineTransforms\":0,\"story\":\"visible\",\"slot\":\"visible\",\"strata\":true,\"height\":6728}"
   },
   {
     "name": "firefox: not run, the browser did not launch on this machine",

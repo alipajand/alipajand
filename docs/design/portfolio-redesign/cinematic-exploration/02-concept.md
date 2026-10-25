@@ -33,6 +33,8 @@ The stack then collapses back into the interface, the cut closes, and the page i
 
 The accepted creative brief lists "a light theme (unless Ali asks)" as a non-goal, and production is dark-only. Section A–A is built on **paper**: the outside of the cut is light and the inside is dark. This is one committed look, not a theme toggle. It is the central creative bet, and **it needs Ali's explicit decision**. A dark-paper variant (blueprint ground, cream ink) is possible, but it would lose the paper/glass material split that encodes provenance.
 
+**Decision, after P2.1:** the prototype is now **dark only**, to match production. The paper is a warm near-black, ink is light, and the interior behind the cut is a deeper void. Provenance no longer rests on light paper against dark glass: the labels, plate edges and dashed prototype frames carry it. The workspace design prototype (`workspace.html`) keeps its own product styling.
+
 ## Scene 01: opening composition
 
 > **Revised in revision 2.** The cover below is the first proof's closed cover. Revision 2 opens with the cut already open on the shipped interface, and its sequence is four beats; see [03-storyboard.md § The first frame](03-storyboard.md#the-first-frame) and [04-motion-spec.md](04-motion-spec.md).
@@ -78,11 +80,11 @@ All three are OFL on Google Fonts. Production adoption depends on loading cost; 
 
 | Token    | Value     | Use                                                                   |
 | -------- | --------- | --------------------------------------------------------------------- |
-| `paper`  | `#ebe6da` | Sheet ground, outside the cut                                         |
-| `ink`    | `#16140f` | Text and linework on paper                                            |
-| `red`    | `#c8321b` | The section line and the review boundary, and nothing else decorative |
-| `void`   | `#100f0d` | The interior behind the cut                                           |
-| `vellum` | `#f2ede2` | Diagram sheets LG-02 to LG-05                                         |
+| `paper`  | `#171612` | Sheet ground, outside the cut (dark only)                             |
+| `ink`    | `#ece6d8` | Text and linework on paper                                            |
+| `red`    | `#f0573c` | The section line and the review boundary, and nothing else decorative |
+| `void`   | `#090807` | The interior behind the cut                                           |
+| `vellum` | `#1f1d18` | Diagram sheets LG-02 to LG-05                                         |
 
 These tokens are local to the prototype. Global design tokens were not touched.
 

@@ -17,6 +17,8 @@
 
 > **Provenance.** Three materials, always labelled: **shipped product** (screenshots), **editorial diagrams** (paper sheets) and **design prototypes with fictional data** (dashed frames). No prototype is presented as the production UI, and no prototype interaction is claimed to reproduce production behaviour.
 
+> **Dark only.** The prototype now uses the same dark-only palette as P2: light ink on a warm near-black paper, the interior on a deeper void. The stills and storyboards are recaptured in dark; the `before/` images keep the earlier light palette. See [02-concept.md](02-concept.md#palette).
+
 ![Storyboard, desktop](screenshots/storyboard-desktop.webp)
 
 ## Revision 2 deliverables
