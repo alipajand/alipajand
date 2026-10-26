@@ -38,7 +38,6 @@ AA.scene(function (S) {
   var clauses = qa("[data-sheet=chain] .clause");
   var gateGroup = q("[data-sheet=chain] .gates");
   var gateInk = qa("[data-sheet=chain] .gates .ink");
-  var win = q("[data-win]");
 
   gsap.set([world, plate], { transformOrigin: "0 0" });
   gsap.set([lens, lensL, tags, surfs, surfL, band, chain, gateGroup].concat(clauses), {
@@ -129,7 +128,6 @@ AA.scene(function (S) {
   /* 4 · the match cut: the chain holds until its card is mostly read, then gives way */
   var w = 1 - L0;
   S.at([chain, wires], { autoAlpha: 0 }, L0 + w * 0.12, L0 + w * 0.24);
-  if (win) S.at(win, { autoAlpha: 0 }, L0 + w * 0.24, L0 + w * 0.36);
   S.tl.set(world, { x: 0, y: 0, scale: 1 }, L0 + w * 0.25);
   S.at(plate, { autoAlpha: 1 }, L0 + w * 0.24, L0 + w * 0.32);
   S.land(plate, { x: 0, y: 24, w: 1200 }, L0 + w * 0.27);

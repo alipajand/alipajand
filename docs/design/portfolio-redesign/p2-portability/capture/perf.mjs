@@ -1,6 +1,6 @@
 // Rough performance probe for every P2 page: delivered bytes by type, layout shift, main-thread
 // time and frame pacing while the whole page is scrolled, live and under reduced motion.
-//   node capture/perf.mjs
+//   node capture/perf.mjs [page.html ...]
 // Lab numbers from headless Chromium on a laptop. They show relative cost, not field performance.
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
@@ -40,10 +40,24 @@ async function probe(path, label, viewport, cpu, reduce = false) {
     () =>
       new Promise((done) => {
         let cls = 0;
+        const src = {};
         new PerformanceObserver((l) =>
-          l.getEntries().forEach((e) => !e.hadRecentInput && (cls += e.value))
+          l.getEntries().forEach((e) => {
+            if (e.hadRecentInput) return;
+            cls += e.value;
+            // what moved, so a shift can be traced to its element
+            for (const s of e.sources ?? []) {
+              const n = s.node;
+              const k =
+                n?.nodeType === 1
+                  ? n.tagName.toLowerCase() + "." + n.className
+                  : String(n?.nodeName);
+              src[k] = (src[k] ?? 0) + e.value;
+            }
+          })
         ).observe({ type: "layout-shift", buffered: true });
         window.__cls = () => cls;
+        window.__clsSources = () => src;
         setTimeout(() => done(+cls.toFixed(3)), 300);
       })
   );
@@ -73,6 +87,14 @@ async function probe(path, label, viewport, cpu, reduce = false) {
   );
   const m1 = await metric();
   const clsScroll = await page.evaluate(() => +window.__cls().toFixed(3));
+  const clsSources = await page.evaluate(() =>
+    Object.fromEntries(
+      Object.entries(window.__clsSources())
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([k, v]) => [k.slice(0, 60), +v.toFixed(4)])
+    )
+  );
   const ms = (k) => Math.round((m1[k] - m0[k]) * 1000);
   const sorted = [...frames].sort((a, b) => a - b);
   const p = (q) => sorted[Math.floor(q * (sorted.length - 1))].toFixed(1);
@@ -89,6 +111,7 @@ async function probe(path, label, viewport, cpu, reduce = false) {
       totalKb: Object.values(kb).reduce((a, b) => a + b, 0),
       clsLoad: cls0,
       clsAfterScroll: clsScroll,
+      clsSources,
       frames: frames.length,
       medianMs: p(0.5),
       p95Ms: p(0.95),
@@ -102,10 +125,13 @@ async function probe(path, label, viewport, cpu, reduce = false) {
   await ctx.close();
 }
 
-for (const path of ["index.html", "alwaysgeeky.html", "emplifi.html"]) {
+const pages = process.argv.slice(2);
+for (const path of pages.length ? pages : ["index.html", "alwaysgeeky.html", "emplifi.html"]) {
   await probe(path, "desktop", { width: 1440, height: 900 }, 1);
   await probe(path, "desktop, 4x CPU slowdown", { width: 1440, height: 900 }, 4);
+  await probe(path, "phone viewport", { width: 390, height: 844 }, 1);
   await probe(path, "phone viewport, 4x CPU slowdown", { width: 390, height: 844 }, 4);
+  await probe(path, "phone viewport, 6x CPU slowdown", { width: 390, height: 844 }, 6);
   await probe(
     path,
     "desktop reduced motion, 4x CPU slowdown",

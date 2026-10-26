@@ -1,12 +1,14 @@
 {
   "load": 0,
-  "index": 1.66,
-  "condensed": 5.83,
-  "ag": 16.09,
+  "index": 1.7,
+  "condensed": 5.88,
+  "ag": 16.07,
   "ag-land": 26.96,
-  "ag-landed": 31.57,
-  "em": 36.68,
-  "em-land": 50.2,
-  "em-landed": 54.8,
-  "end": 56.81
+  "ag-landed": 31.56,
+  "em-case": 36.65,
+  "return": 41.21,
+  "em": 43.11,
+  "em-land": 56.61,
+  "em-landed": 61.21,
+  "end": 63.23
 }

@@ -7,8 +7,13 @@
    levels: "The interface," above, "and the work behind it." below.
 
    Without script, or under reduced motion, the page is one static column. With motion,
-   register.js pins the opening while the identity block leaves and the bays condense toward
-   the cut, so the opening becomes the register's top row (see 02-motion-grammar.md). */
+   register.js pins the opening while the identity block leaves and the bays close toward the
+   cut, so the opening becomes the register's top row. It does this with transforms and
+   clipping on a stage whose layout box never changes while it runs (see 02-motion-grammar.md).
+
+   Type: names and headings are set in Instrument Serif, in sentence case; Instrument Sans
+   carries titles, body and actions; Martian Mono is kept for what a drawing set numbers and
+   dates (sheet codes, timeframes, materials). */
 
 .reg {
   --key: 0px;
@@ -79,10 +84,9 @@
 }
 
 .op__name {
-  margin: 6px 0 0;
-  font: 900 clamp(2.75rem, 1.7rem + 3.6vw, 5rem) / 0.86 var(--display);
-  letter-spacing: 0;
-  text-transform: uppercase;
+  margin: 8px 0 0;
+  font: 400 clamp(3.25rem, 1.9rem + 4.6vw, 6.25rem) / 0.9 var(--serif);
+  letter-spacing: -0.012em;
 }
 
 .op__role {
@@ -139,14 +143,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 38px;
+  min-height: 40px;
   padding: 0 12px;
   background: var(--ink);
   color: var(--paper);
-  font: 500 0.75rem/1 var(--mono);
-  letter-spacing: 0.06em;
+  font: 600 0.875rem/1 var(--sans);
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 .op__call a::after {
@@ -221,8 +223,8 @@
 .sect__h,
 .sup__h {
   margin: 0;
-  font: 900 clamp(1.5rem, 1.2rem + 1vw, 2rem) / 0.92 var(--display);
-  text-transform: uppercase;
+  font: 400 clamp(1.875rem, 1.5rem + 1.1vw, 2.5rem) / 1 var(--serif);
+  letter-spacing: -0.005em;
 }
 
 .sect__intro {
@@ -239,9 +241,7 @@
   z-index: 2;
   left: 0;
   margin: 0;
-  font: 500 0.625rem/1.3 var(--mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font: italic 400 1rem/1 var(--serif);
   pointer-events: none;
 }
 
@@ -269,12 +269,11 @@
     display: grid;
   }
   .sect__draw {
-    --legend: 34px;
+    --legend: 44px;
   }
   .datum {
     position: static;
-    height: 13px;
-    font-size: 0.5625rem;
+    height: 18px;
   }
   .datum span {
     padding: 0;
@@ -294,8 +293,7 @@
     left: auto;
     right: calc(100% + 24px);
     width: calc(var(--key) - 24px);
-    font: 700 1.25rem/1.02 var(--display);
-    letter-spacing: 0.01em;
+    font: italic 400 1.5rem/1.05 var(--serif);
   }
   .datum span {
     display: flex;
@@ -304,7 +302,7 @@
     background: none;
   }
   .datum span::before {
-    margin-top: 0.22em;
+    margin-top: 0.3em;
     border-left-width: 7px;
     border-right-width: 7px;
     border-top-width: 10px;
@@ -315,13 +313,13 @@
     box-sizing: border-box;
     width: calc(var(--key) - 24px);
   }
+  /* hung from its foot by bottom, not by a translate: the opening animates the datum's
+     transform, and GSAP clears the individual translate property when it does */
   .datum--up {
-    top: calc(var(--dims) + var(--ab) - 10px);
-    transform: translateY(-100%);
+    bottom: calc(100% - var(--dims) - var(--ab) + 10px);
   }
   .datum--down {
     top: calc(var(--dims) + var(--ab) + var(--cut) + 10px);
-    transform: none;
     color: var(--ink-2);
   }
 }
@@ -370,21 +368,9 @@
   background: var(--paper);
 }
 
-.sect__nts {
-  display: none;
-}
-
 @media (min-width: 1000px) {
   .dims {
     font-size: 0.6875rem;
-  }
-  .sect__nts {
-    display: block;
-    margin: 10px 0 0;
-    color: var(--ink-3);
-    font: 500 0.625rem/1.4 var(--mono);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
   }
 }
 
@@ -398,8 +384,11 @@
 }
 
 .bay {
+  --edge: var(--frame-shot);
+  position: relative;
   min-width: 0;
   transition: opacity var(--t-quick);
+  scroll-margin-top: 72px;
 }
 
 .bay__sect {
@@ -417,9 +406,13 @@
   overflow: hidden;
 }
 
+.bay--em {
+  --edge: var(--edge-draw);
+}
+
 .bay__above {
   background: var(--void);
-  box-shadow: inset 0 0 0 1px var(--edge-shot);
+  box-shadow: inset 0 0 0 1px var(--edge);
 }
 
 .bay__img {
@@ -430,8 +423,7 @@
 }
 
 .bay--em .bay__above {
-  background: var(--vellum);
-  box-shadow: inset 0 0 0 1px var(--edge-draw);
+  background-color: var(--vellum);
 }
 
 .bay__above .drawing {
@@ -537,21 +529,23 @@
   }
 }
 
-/* "Scene": the picture is the way into the project's scene */
+/* "Scene": the optional way in, smaller than the case study and kept to the picture's corner */
 .bay__go {
   position: absolute;
+  z-index: 2;
   top: 8px;
   right: 8px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 8px;
+  min-height: 26px;
+  padding: 0 8px;
   background: var(--paper);
-  color: var(--ink);
+  color: var(--ink-2);
   font: 500 0.625rem/1 var(--mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  box-shadow: inset 0 0 0 1px var(--ink);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1px var(--rule-strong);
 }
 
 .bay__go::after {
@@ -564,32 +558,46 @@
   transition: transform var(--t-quick) var(--ease-out);
 }
 
-.bay__sect:focus-visible {
-  outline: 3px solid var(--red);
-  outline-offset: 3px;
+.bay__go:hover,
+.bay__go:focus-visible {
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+
+.bay__go:hover::after {
+  transform: translateX(3px);
+}
+
+.bay__sect:focus {
+  outline: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .bay__sect:hover .bay__below .drawing {
+  .bay:hover .bay__below .drawing {
     opacity: 1;
   }
-  .bay__sect:hover .bay__go {
-    background: var(--ink);
-    color: var(--paper);
-  }
-  .bay__sect:hover .bay__go::after {
-    transform: translateX(3px);
-  }
-  .bays:has(.bay__sect:hover) .bay:not(:has(.bay__sect:hover)) .bay__sect {
+  .bays:has(.bay:hover) .bay:not(:hover) .bay__sect {
     filter: saturate(0.3) brightness(0.9);
   }
   .bay__sect {
     transition: filter var(--t-quick);
   }
+  .bay__sect:hover ~ .bay__title .bay__nm {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+  }
 }
 
-.bays:has(.bay__sect:focus-visible) .bay:not(:has(.bay__sect:focus-visible)) .bay__sect {
+.bays:has(a:focus-visible) .bay:not(:has(a:focus-visible)) .bay__sect {
   filter: saturate(0.3) brightness(0.9);
+}
+
+/* an arrival from a case study's way back marks its own row */
+.bay:target .bay__bubble,
+.srow:target .srow__code {
+  background: var(--ink);
+  color: var(--paper);
 }
 
 /* the drawing title under each bay: bubble, name underlined, then what it is */
@@ -604,12 +612,12 @@
   grid-row: span 2;
   display: grid;
   place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
   margin: 0;
   border: 1.5px solid var(--ink);
   border-radius: 50%;
-  font: 800 1.0625rem/1 var(--display);
+  font: 500 0.75rem/1 var(--mono);
   transition:
     background var(--t-quick),
     color var(--t-quick);
@@ -617,42 +625,55 @@
 
 .bay__name {
   margin: 0;
-  padding-bottom: 6px;
-  border-bottom: 2px solid var(--ink);
-  font: 800 clamp(1.25rem, 0.9rem + 0.9vw, 1.75rem) / 1 var(--display);
-  text-transform: uppercase;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid var(--ink);
+  font: 400 clamp(1.5rem, 1.05rem + 1vw, 2.125rem) / 1 var(--serif);
 }
 
 /* the case-study cue sits under every name, so a long name never changes the block's shape */
 .bay__name a {
   display: grid;
   justify-items: start;
-  gap: 6px;
+  gap: 10px;
   color: inherit;
   text-decoration: none;
 }
 
+/* the case study is the plain, primary action of every bay */
 .bay__cs {
-  color: var(--ink-2);
-  font: 500 0.6875rem/1 var(--mono);
-  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  color: var(--ink);
+  font: 600 0.875rem/1.2 var(--sans);
+  text-decoration: underline;
+  text-decoration-color: var(--ink-3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
   white-space: nowrap;
 }
 
 .bay__cs::after {
-  content: " →";
+  content: "→";
+  text-decoration: none;
+  transition: transform var(--t-quick) var(--ease-out);
 }
 
 .bay__name a:hover .bay__nm,
 .bay__name a:focus-visible .bay__nm {
   text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
 }
 
 .bay__name a:hover .bay__cs,
 .bay__name a:focus-visible .bay__cs {
-  color: var(--ink);
+  text-decoration-color: var(--ink);
+}
+
+.bay__name a:hover .bay__cs::after {
+  transform: translateX(3px);
 }
 
 .bay__sub {
@@ -670,15 +691,15 @@
   }
   .bay__bubble {
     grid-row: auto;
-    width: 2rem;
-    height: 2rem;
+    width: 1.875rem;
+    height: 1.875rem;
     margin-bottom: 6px;
-    font-size: 0.875rem;
+    font-size: 0.625rem;
   }
   .bay__name {
     padding-bottom: 4px;
-    font-size: 0.9375rem;
-    line-height: 1.05;
+    font-size: 1.1875rem;
+    line-height: 1;
   }
   .bay__name a {
     display: grid;
@@ -690,17 +711,21 @@
   }
   .bay__cs {
     display: flex;
-    align-items: center;
-    min-height: 24px;
-    font-size: 0.5625rem;
+    min-height: 32px;
+    font-size: 0.75rem;
+    white-space: normal;
+  }
+  .bay__cs::after {
+    content: none;
   }
   .bay__sub {
     display: none;
   }
   .bay__go {
-    top: 6px;
-    right: 6px;
-    padding: 4px 6px;
+    top: 4px;
+    right: 4px;
+    min-height: 24px;
+    padding: 0 6px;
     font-size: 0.5625rem;
   }
 }
@@ -821,9 +846,25 @@
 }
 
 .brief__code {
-  margin-right: 0.6em;
+  margin-right: 0.8em;
   color: var(--ink);
-  font: 800 0.9375rem/1 var(--display);
+  font-weight: 600;
+}
+
+.brief__nm {
+  display: none;
+}
+
+@media (max-width: 699px) {
+  .brief__code {
+    display: none;
+  }
+  .brief__nm {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--ink);
+    font: 400 1.5rem/1.05 var(--serif);
+  }
 }
 
 .brief__line {
@@ -920,12 +961,11 @@
   width: 2.25rem;
   height: 2.25rem;
   border: 1.5px solid var(--ink);
-  font: 800 0.875rem/1 var(--display);
+  font: 500 0.6875rem/1 var(--mono);
 }
 
 .srow__name {
-  font: 800 1.1875rem/1 var(--display);
-  text-transform: uppercase;
+  font: 400 1.5rem/1 var(--serif);
 }
 
 .srow__title {
@@ -936,11 +976,9 @@
 }
 
 .srow__go {
-  margin-top: 6px;
+  margin-top: 8px;
   color: var(--ink-2);
-  font: 500 0.625rem/1.4 var(--mono);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font: 500 0.8125rem/1.4 var(--sans);
 }
 
 .srow__link::after {
@@ -1163,28 +1201,48 @@
 
 /* ---------- with motion: the opening pins and condenses into the register ---------- */
 
+/* register.js gives the stage its condensed height and the opening its full one, once; the
+   open composition overflows the stage and is closed with transforms and clipping only */
 .op-live .op__stage {
   position: sticky;
   top: 0;
+  overflow: visible;
 }
 
-/* GSAP owns the poses once the timeline is built */
-.op-live .op__id {
-  will-change: margin-top, opacity;
+.op-live .op__id,
+.op-live .sect {
+  will-change: transform;
+}
+
+/* the pane above the cut is clipped from its top as it closes, so its frame's top line is
+   drawn once more by the bay, where the clipped pane's top always is */
+.op-live .bay__sect::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--edge);
+  pointer-events: none;
+}
+
+/* what follows the opening covers it, so a frame of scrub lag never shows the stage's
+   overflow over the briefs */
+.op-live .briefs {
+  position: relative;
+  z-index: 1;
+  background: var(--paper);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .bay,
   .bay__sect,
   .bay__go::after,
+  .bay__cs::after,
   .bay__below .drawing,
   .srow {
     transition: none;
   }
-}
-
-[data-motion="reduce"] .bay__sect,
-[data-motion="reduce"] .bay__go::after,
-[data-motion="reduce"] .bay__below .drawing {
-  transition: none;
 }

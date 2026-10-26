@@ -18,7 +18,12 @@ const strip = (w, h, code, title, kind) => `
     <text x="${w - 24}" y="${h - 19}" class="t-kind" text-anchor="end">${kind}</text>
   </g>`;
 
-const frame = (w, h) => `<rect x="12" y="12" width="${w - 24}" height="${h - 74}" class="frame"/>`;
+// The sheet's frame, with registration ticks just inside each corner.
+const frame = (w, h) => {
+  const b = h - 62;
+  const t = (x, y, dx, dy) => `<path d="M${x + dx},${y} H${x} V${y + dy}" class="reg-tick"/>`;
+  return `<rect x="12" y="12" width="${w - 24}" height="${h - 74}" class="frame"/>${t(20, 20, 14, 14)}${t(w - 20, 20, -14, 14)}${t(20, b - 8, 14, -14)}${t(w - 20, b - 8, -14, -14)}`;
+};
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -142,7 +147,7 @@ export const agAssembly = (surfaces, layers, media) => {
         <rect x="${x0}" y="${y}" width="${W - 2 * x0}" height="70" class="${i === 0 ? "band__box band__box--lib" : "band__box"}"/>
         <text x="${x0 + 18}" y="${y + 30}" class="t-code">${String(i + 1).padStart(2, "0")}</text>
         <text x="${x0 + 64}" y="${y + 30}" class="t-cell">${esc(l.label)}</text>
-        ${lines(x0 + 64, y + 54, l.detail, 92, 18, "t-small")}
+        ${lines(x0 + 64, y + 54, l.detail, 108, 18, "t-small")}
       </g>`;
       })
       .join("")}
@@ -150,6 +155,16 @@ export const agAssembly = (surfaces, layers, media) => {
     "ag-assembly"
   );
 };
+
+// AG-01's two callouts, as an overlay in the screenshot's own coordinates (1200 x 752), with
+// the numbers the key under it reads.
+export const agMarks = () =>
+  `<svg class="drawing ag-marks" viewBox="0 0 1200 752" aria-hidden="true" focusable="false">
+    <circle cx="180.6" cy="663.9" r="150" class="callout ink ag" pathLength="1"/>
+    <circle cx="1086" cy="30" r="60" class="callout ink ag" pathLength="1"/>
+    <circle cx="372" cy="560" r="44" class="mark-n"/><text x="372" y="578" class="mark-t" text-anchor="middle">1</text>
+    <circle cx="960" cy="104" r="44" class="mark-n"/><text x="960" y="122" class="mark-t" text-anchor="middle">2</text>
+  </svg>`;
 
 /* ---------------------------------------------------------------------------------------- */
 /* Emplifi · illustrative data only. No value here is a measurement.                          */
@@ -377,6 +392,265 @@ export const emBudget = (approach) => {
     "em-budget",
     "drawing--em"
   );
+};
+
+/* ---------------------------------------------------------------------------------------- */
+/* Phone sheets. The same drawings, recomposed for a 360-unit-wide sheet drawn at about its own */
+/* size on a phone: one column, short vertical runs, labels at 13–15 px. Every label is the one */
+/* the wide drawing uses; nothing is added and nothing measured.                               */
+/* ---------------------------------------------------------------------------------------- */
+
+const PW = 360;
+
+// A phone sheet has no frame or strip of its own: it sits in an HTML plate, whose strip wraps.
+const psvg = (h, body, label, cls = "") => svg(PW, h, body, label, `drawing--p ${cls}`);
+
+// AG-02 on a phone: the four surfaces in two rows, held in one blue bracket by the library.
+export const agAssemblyPhone = (surfaces, library, media) => {
+  const cw = 152;
+  const ch = 95;
+  const x0 = 22;
+  const gx = 16;
+  let y = 44;
+  const title = lines(22, y, "One library under four product surfaces", 26, 30, "t-title");
+  y += 30 + 26;
+  const top = y - 10;
+  const cells = surfaces
+    .map((s, i) => {
+      const x = x0 + (i % 2) * (cw + gx);
+      const cy = y + Math.floor(i / 2) * (ch + 74);
+      const img = media[i];
+      return `
+      <g class="surf" data-in>
+        ${img ? `<image href="${img}" x="${x}" y="${cy}" width="${cw}" height="${ch}" preserveAspectRatio="xMidYMid slice"/><rect x="${x}" y="${cy}" width="${cw}" height="${ch}" class="shot-edge"/>` : `<rect x="${x}" y="${cy}" width="${cw}" height="${ch}" class="void-box"/><line x1="${x}" y1="${cy}" x2="${x + cw}" y2="${cy + ch}" class="hair"/><line x1="${x + cw}" y1="${cy}" x2="${x}" y2="${cy + ch}" class="hair"/>`}
+        <text x="${x}" y="${cy + ch + 21}" class="t-cell">${esc(s)}</text>
+        ${lines(x, cy + ch + 39, img ? "Screenshot · shipped product" : "No screenshot in this portfolio", 22, 15, "t-small")}
+      </g>`;
+    })
+    .join("");
+  y += 2 * (ch + 74) - 6;
+  const lib = `
+    <path d="M10,${top} V${y} M350,${top} V${y}" class="drop ink ag" pathLength="1"/>
+    <rect x="10" y="${y}" width="340" height="64" class="band__box band__box--lib ink" pathLength="1"/>
+    <text x="24" y="${y + 26}" class="t-code">01</text>
+    ${lines(56, y + 26, library, 30, 20, "t-cell")}`;
+  const h = y + 64 + 18;
+  return psvg(h, `${title}${cells}${lib}`, "ag-assembly-p");
+};
+
+// AG-03 on a phone: the spine runs down the left edge; each clause, then each gate, hangs off it.
+export const agChainPhone = (contract, gates, loop) => {
+  const sx = 24;
+  let y = 46;
+  let body = `<text x="${sx}" y="${y}" class="t-title">Storybook contract</text>`;
+  y += 26;
+  const note = wrap(
+    "What each shared component is documented to own, written down where engineers look first.",
+    42
+  );
+  body += lines(sx, y, note.join(" "), 42, 18, "t-small");
+  y += note.length * 18 + 14;
+  const spineTop = y - 6;
+  for (const [i, r] of contract.entries()) {
+    const ls = wrap(r.part, 30);
+    body += `
+      <g class="clause" data-clause="${i}" data-in>
+        <path d="M${sx},${y + 2} H${sx + 18}" class="branch ink ag" pathLength="1"/>
+        <circle cx="${sx + 26}" cy="${y + 2}" r="7" class="tick ink ag" pathLength="1"/>
+        ${lines(sx + 42, y + 7, r.part, 30, 20, "t-cell")}
+      </g>`;
+    y += ls.length * 20 + 18;
+  }
+  y += 18;
+  body += `<text x="${sx + 18}" y="${y}" class="t-title">CI enforcement</text>`;
+  y += 22;
+  body += `<text x="${sx + 18}" y="${y}" class="t-small t-ag">one set of lint, type and test scripts</text>`;
+  y += 18;
+  const gh = 46;
+  for (const [i, g] of gates.entries()) {
+    body += `
+      <g class="gate" data-gate="${i}" data-in>
+        <path d="M${sx},${y + gh / 2} H${sx + 18}" class="branch ink ag" pathLength="1"/>
+        <rect x="${sx + 18}" y="${y}" width="${PW - sx - 18 - 14}" height="${gh}" class="box ink" pathLength="1"/>
+        <text x="${sx + 32}" y="${y + 28}" class="t-code">${String(i + 1).padStart(2, "0")}</text>
+        <text x="${sx + 64}" y="${y + 29}" class="t-box">${esc(g)}</text>
+        ${i < gates.length - 1 ? `<path d="M${(PW + sx) / 2},${y + gh} V${y + gh + 14} M${(PW + sx) / 2 - 5},${y + gh + 8} L${(PW + sx) / 2},${y + gh + 14} L${(PW + sx) / 2 + 5},${y + gh + 8}" class="wire ink" pathLength="1"/>` : ""}
+      </g>`;
+    y += gh + (i < gates.length - 1 ? 14 : 0);
+  }
+  const spine = `<path d="M${sx},${spineTop} V${y - gh / 2}" class="spine ink ag" pathLength="1"/>`;
+  y += 28;
+  const ll = wrap(loop, 44);
+  body += lines(sx, y, loop, 44, 18, "t-small");
+  y += ll.length * 18;
+  const h = y + 14;
+  return psvg(h, `${spine}${body}`, "ag-chain-p");
+};
+
+const EM_STATIONS = [
+  { label: "Input to the module", sub: "Data or interaction" },
+  { label: "React re-render", sub: "Product composition", find: "unnecessary re-renders" },
+  { label: "D3 chart update", sub: "Chart behavior" },
+  { label: "Style and layout", sub: "Browser work" },
+  { label: "Paint", sub: "Browser work", find: "chart-update paint work" },
+];
+
+// EM-02 on a phone: the stations run down the sheet under the probe, which runs down its edge.
+export const emRenderPathPhone = () => {
+  const px = 20;
+  let y = 46;
+  let body = lines(px, y, "The render path of one chart update", 22, 30, "t-title");
+  y += 30 + 26;
+  body += lines(
+    px,
+    y,
+    "Equal boxes: the stages of an update, not how long each one takes.",
+    44,
+    18,
+    "t-small"
+  );
+  y += 2 * 18 + 10;
+  body += lines(
+    px,
+    y,
+    "Profiled where the cost showed up first: in the embedded webview",
+    44,
+    18,
+    "t-small t-em"
+  );
+  y += 2 * 18 + 6;
+  const probeTop = y;
+  const bx = 44;
+  const bw = PW - bx - 16;
+  const bh = 58;
+  let last = y;
+  for (const [i, st] of EM_STATIONS.entries()) {
+    body += `
+      <g class="station" data-station="${i}" data-in>
+        <path d="M${px},${y + bh / 2} H${bx - 6}" class="probe probe--drop em ink" pathLength="1"/>
+        <rect x="${bx}" y="${y}" width="${bw}" height="${bh}" class="box ink" pathLength="1"/>
+        <text x="${bx + 12}" y="${y + 24}" class="t-code">${String(i + 1).padStart(2, "0")}</text>
+        <text x="${bx + 42}" y="${y + 24}" class="t-box">${esc(st.label)}</text>
+        <text x="${bx + 42}" y="${y + 45}" class="t-small">${esc(st.sub)}</text>
+        ${st.find ? `<g class="find" data-find="${i}"><path d="M${bx},${y + bh + 8} V${y + bh + 14} H${bx + bw} V${y + bh + 8}" class="em ink" pathLength="1"/><text x="${bx + bw / 2}" y="${y + bh + 34}" class="t-cell t-em-ink" text-anchor="middle">${st.find}</text></g>` : ""}
+      </g>`;
+    last = y + bh / 2;
+    const after = st.find ? 48 : 0;
+    if (i < EM_STATIONS.length - 1)
+      body += `<path d="M${bx + bw / 2},${y + bh + after} V${y + bh + after + 16} M${bx + bw / 2 - 5},${y + bh + after + 10} L${bx + bw / 2},${y + bh + after + 16} L${bx + bw / 2 + 5},${y + bh + after + 10}" class="wire ink" pathLength="1"/>`;
+    y += bh + after + (i < EM_STATIONS.length - 1 ? 16 : 0);
+  }
+  const probe = `<path d="M${px},${probeTop} V${last}" class="probe em ink" pathLength="1"/>`;
+  y += 30;
+  body += lines(
+    px,
+    y,
+    "The two marked stages are what the profiling targeted, as the case study names them.",
+    44,
+    18,
+    "t-small"
+  );
+  y += 2 * 18 + 6;
+  body += lines(
+    px,
+    y,
+    "Schematic. No profile, timing or measured value is shown.",
+    44,
+    18,
+    "t-small"
+  );
+  y += 2 * 18;
+  const h = y + 10;
+  return psvg(h, `${probe}${body}`, "em-path-p", "drawing--em");
+};
+
+// EM-03 on a phone: the layers stacked and stepped, with the React and D3 split marked in ochre.
+export const emLayersPhone = (layers) => {
+  let y = 46;
+  let body = lines(20, y, "How a dashboard module is composed", 22, 30, "t-title");
+  y += 30 + 24;
+  const tops = [];
+  for (const [i, l] of layers.entries()) {
+    const dx = i * 8;
+    const ls = wrap(l.detail, 36);
+    const hh = 34 + ls.length * 17 + 10;
+    tops.push([y, y + hh]);
+    body += `
+      <g class="lyr" data-lyr="${i}" data-in>
+        <rect x="${16 + dx}" y="${y}" width="${PW - 56}" height="${hh}" class="lyr__face ink" pathLength="1"/>
+        <text x="${30 + dx}" y="${y + 24}" class="t-cell">${esc(l.label)}</text>
+        ${lines(30 + dx, y + 44, l.detail, 36, 17, "t-small")}
+      </g>`;
+    y += hh + 10;
+  }
+  const [a0] = tops[0];
+  const [, b1] = tops[1];
+  body += `<path d="M${PW - 22},${a0} V${b1} M${PW - 28},${a0} H${PW - 16} M${PW - 28},${b1} H${PW - 16}" class="dim em"/>`;
+  y += 14;
+  const note = "React owns the composition around the chart; D3 owns the chart's own behavior.";
+  body += lines(20, y, note, 38, 20, "t-cell t-em-ink");
+  y += wrap(note, 38).length * 20;
+  const h = y + 14;
+  return psvg(h, `${body}`, "em-layers-p", "drawing--em");
+};
+
+// EM-04 on a phone: the reference ruler, then the tree, then the approach, one under the other.
+export const emBudgetPhone = (approach) => {
+  let y = 46;
+  let body = lines(20, y, "Designing within the frame budget", 22, 30, "t-title");
+  y += 30 + 30;
+  const fw = 100;
+  const fx = 20;
+  body += `<text x="${fx}" y="${y}" class="t-col">Reference budget</text>`;
+  y += 64;
+  const ry = y;
+  body += `<g class="ref" data-in>
+    <path d="M${fx},${ry} H${fx + fw * 3}" class="axis"/>
+    ${[0, 1, 2, 3].map((i) => `<line x1="${fx + i * fw}" y1="${ry - 10}" x2="${fx + i * fw}" y2="${ry + 10}" class="${i ? "frame-tick" : "frame-tick frame-tick--0"}"/>`).join("")}
+    <path d="M${fx},${ry - 26} V${ry - 19} H${fx + fw} V${ry - 26}" class="em dim-ref ink" pathLength="1"/>
+    <text x="${fx + fw / 2}" y="${ry - 34}" class="t-cell t-em-ink" text-anchor="middle">16.7 ms</text>
+    ${[0, 1, 2].map((i) => `<text x="${fx + i * fw + fw / 2}" y="${ry + 28}" class="t-small" text-anchor="middle">frame</text>`).join("")}
+  </g>`;
+  y += 58;
+  const ref =
+    "One frame of a 60 Hz display lasts about 16.7 ms. This is a reference budget, not a measurement; other refresh rates set other budgets.";
+  body += lines(fx, y, ref, 44, 18, "t-small");
+  y += wrap(ref, 44).length * 18 + 30;
+  body += `<text x="${fx}" y="${y}" class="t-col">Illustrative module tree</text>`;
+  y += 18;
+  const node = (x, yy, w, label, cls = "") =>
+    `<rect x="${x}" y="${yy}" width="${w}" height="38" class="box ink ${cls}" pathLength="1"/><text x="${x + w / 2}" y="${yy + 24}" class="t-box t-box--s" text-anchor="middle">${esc(label)}</text>`;
+  const t0 = y;
+  body += `<g class="tree" data-in>
+    ${node(80, t0, 180, "Dashboard module")}
+    <path d="M170,${t0 + 38} V${t0 + 56} H95 V${t0 + 74} M170,${t0 + 56} H255 V${t0 + 74}" class="wire ink" pathLength="1"/>
+    ${node(20, t0 + 74, 150, "Controls")}
+    ${node(180, t0 + 74, 160, "Chart container", "box--em")}
+    <path d="M95,${t0 + 112} V${t0 + 130}" class="wire ink" pathLength="1"/>
+    ${node(20, t0 + 130, 150, "Legend, filters")}
+    <text x="20" y="${t0 + 192}" class="t-small">Not re-rendered</text>
+    <text x="20" y="${t0 + 210}" class="t-small">by a chart update</text>
+    <rect x="180" y="${t0 + 130}" width="160" height="96" class="d3-own"/>
+    <text x="190" y="${t0 + 150}" class="t-small t-em">D3.js owns the</text>
+    <text x="190" y="${t0 + 167}" class="t-small t-em">chart's marks</text>
+    ${[0, 1, 2, 3, 4, 5].map((i) => `<rect x="${192 + i * 24}" y="${t0 + 216 - (14 + ((i * 37) % 36))}" width="14" height="${14 + ((i * 37) % 36)}" class="mark-d3"/>`).join("")}
+  </g>
+  <g data-in>
+    <path d="M350,${t0 - 16} V${t0 + 50} M350,${t0 + 50} C350,${t0 + 62} 300,${t0 + 62} 290,${t0 + 74} M260,${t0 + 112} V${t0 + 130}" class="update em ink" pathLength="1"/>
+    <text x="342" y="${t0 - 22}" class="t-small t-em" text-anchor="end">a chart update</text>
+  </g>`;
+  y = t0 + 226 + 34;
+  body += `<line x1="16" y1="${y - 14}" x2="${PW - 16}" y2="${y - 14}" class="hair"/>`;
+  y += 10;
+  body += `<text x="${fx}" y="${y}" class="t-col">The approach, from the case study</text>`;
+  y += 26;
+  for (const [i, a] of approach.slice(0, 4).entries()) {
+    const ls = wrap(a, 38);
+    body += `<text x="${fx}" y="${y}" class="t-small t-em-ink">${String(i + 1).padStart(2, "0")}</text>${lines(fx + 28, y, a, 38, 18, "t-small")}`;
+    y += ls.length * 18 + 8;
+  }
+  const h = y + 8;
+  return psvg(h, `${body}`, "em-budget-p", "drawing--em");
 };
 
 /* ---------------------------------------------------------------------------------------- */

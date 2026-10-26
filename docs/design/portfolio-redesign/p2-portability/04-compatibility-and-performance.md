@@ -1,6 +1,6 @@
 # 04 · Compatibility and performance risk
 
-This records what was run, in which engine, and what is still open. Nothing here is a claim of browser support, and no headless result is treated as one. **Safari support is not claimed. Firefox support is not claimed.** No shipping Safari, Firefox, screen reader or real device was tested for P2 or P2.1.
+This records what was run, in which engine, and what is still open. Nothing here is a claim of browser support, and no headless result is treated as one. **Safari support is not claimed. Firefox support is not claimed.** No shipping Safari, Firefox, screen reader or real device was tested for P2, P2.1 or P2.2. None of them is available in this environment.
 
 | Environment                         | Status                                                                                      |
 | ----------------------------------- | ------------------------------------------------------------------------------------------- |
@@ -47,8 +47,8 @@ Both P2 scenes use 2D transforms, opacity, SVG stroke draw-in and SVG attribute 
 | `prefers-reduced-motion`                             | Static steps, no transitions                                             | Full motion. The Motion toggle can turn it off per page.                                                                                                                          |
 | Cross-document view transitions (`@view-transition`) | 420 ms shared-element page changes                                       | Plain navigation. Not tested in an engine without it.                                                                                                                             |
 | `:has()`                                             | Index bay focus (quieting the other bays), AG surfaces that are openings | The other bays are not quieted; frames keep their default ground. Cosmetic.                                                                                                       |
-| `position: sticky`                                   | Index opening stage, scene stages                                        | The opening is not pinned. The condensation still scrubs but scrolls away with the page; content stays readable. Not tested in an engine without it.                              |
-| CSS custom properties animated by GSAP               | Index bay heights during the condensation                                | If a browser ignores them, the bays keep their open height and the identity block still slides. Not tested.                                                                       |
+| `position: sticky`                                   | Index opening stage, scene stages (900 px and up)                        | The opening is not pinned. The condensation still scrubs but scrolls away with the page; content stays readable. Not tested in an engine without it.                              |
+| `clip-path: inset()` animated by GSAP                | Index condensation: trimming each bay's panes toward the cut             | If a browser ignores it, the panes still move toward the cut but are not trimmed, so the open panes overlap the condensed row for the length of the scrub. Not tested.            |
 | `text-wrap: balance`                                 | Headings                                                                 | Normal wrapping                                                                                                                                                                   |
 | `svh` units                                          | Stage and step heights                                                   | No `vh` fallback is declared, so a browser without `svh` (Safari before 15.4, Chrome before 108) drops those heights. Not tested. A production version should declare `vh` first. |
 
@@ -56,37 +56,55 @@ Both P2 scenes use 2D transforms, opacity, SVG stroke draw-in and SVG attribute 
 
 Headless Chromium on a laptop, using `capture/perf.mjs`. The whole page is scrolled in 10 s with an rAF loop, and every frame interval is recorded. "4×" is CDP CPU throttling. These numbers show **relative cost between pages and modes**. They are not field performance and say nothing about Safari, Firefox or a real phone.
 
+**Fresh run (P2.2).**
+
 | Page        | Run                                     | Live | Delivered KB | CLS load / after scroll | Frame median / p95 ms | Script ms | Style ms | Layout ms | Task ms |
 | ----------- | --------------------------------------- | ---- | ------------ | ----------------------- | --------------------- | --------- | -------- | --------- | ------- |
-| index       | desktop                                 | yes  | 337          | 0.002 / 0.117           | 16.7 / 16.7           | 85        | 155      | 126       | 672     |
-| index       | desktop, 4x CPU slowdown                | yes  | 337          | 0.001 / 0.116           | 16.7 / 16.8           | 72        | 409      | 318       | 1280    |
-| index       | phone viewport, 4x CPU slowdown         | yes  | 337          | 0.001 / 0.378           | 16.7 / 16.8           | 82        | 222      | 330       | 1013    |
-| index       | desktop reduced motion, 4x CPU slowdown | no   | 324          | 0.002 / 0.002           | 16.7 / 16.8           | 15        | 0        | 0         | 63      |
-| alwaysgeeky | desktop                                 | yes  | 497          | 0.042 / 0.042           | 16.7 / 16.7           | 139       | 27       | 8         | 482     |
-| alwaysgeeky | desktop, 4x CPU slowdown                | yes  | 497          | 0.042 / 0.042           | 16.7 / 16.8           | 72        | 25       | 11        | 289     |
-| alwaysgeeky | phone viewport, 4x CPU slowdown         | yes  | 497          | 0.014 / 0.014           | 16.7 / 16.7           | 63        | 22       | 15        | 279     |
-| alwaysgeeky | desktop reduced motion, 4x CPU slowdown | no   | 497          | 0.010 / 0.010           | 16.7 / 16.7           | 22        | 0        | 0         | 91      |
-| emplifi     | desktop                                 | yes  | 251          | 0.035 / 0.035           | 16.7 / 16.7           | 164       | 30       | 15        | 547     |
-| emplifi     | desktop, 4x CPU slowdown                | yes  | 251          | 0.036 / 0.036           | 16.7 / 16.7           | 109       | 32       | 17        | 466     |
-| emplifi     | phone viewport, 4x CPU slowdown         | yes  | 251          | 0.018 / 0.018           | 16.7 / 16.8           | 128       | 41       | 18        | 576     |
-| emplifi     | desktop reduced motion, 4x CPU slowdown | no   | 251          | 0.003 / 0.003           | 16.7 / 16.8           | 77        | 0        | 0         | 295     |
+| index       | desktop                                 | yes  | 342          | 0.004 / 0.004           | 16.7 / 16.7           | 70        | 31       | 57        | 379     |
+| index       | desktop, 4x CPU slowdown                | yes  | 342          | 0.004 / 0.004           | 16.7 / 16.7           | 71        | 97       | 186       | 641     |
+| index       | phone viewport                          | yes  | 342          | 0.002 / 0.002           | 16.7 / 16.7           | 58        | 11       | 23        | 265     |
+| index       | phone viewport, 4x CPU slowdown         | yes  | 342          | 0.002 / 0.002           | 16.7 / 16.8           | 40        | 41       | 101       | 358     |
+| index       | phone viewport, 6x CPU slowdown         | yes  | 342          | 0.002 / 0.002           | 16.7 / 16.7           | 96        | 53       | 141       | 608     |
+| index       | desktop reduced motion, 4x CPU slowdown | no   | 342          | 0.004 / 0.004           | 16.7 / 16.7           | 31        | 0        | 0         | 131     |
+| alwaysgeeky | desktop                                 | yes  | 490          | 0.042 / 0.042           | 16.7 / 16.7           | 69        | 14       | 5         | 267     |
+| alwaysgeeky | desktop, 4x CPU slowdown                | yes  | 490          | 0.042 / 0.042           | 16.7 / 16.8           | 81        | 30       | 14        | 359     |
+| alwaysgeeky | phone viewport                          | yes  | 490          | 0.039 / 0.039           | 16.7 / 16.7           | 39        | 3        | 1         | 123     |
+| alwaysgeeky | phone viewport, 4x CPU slowdown         | yes  | 490          | 0.039 / 0.039           | 16.7 / 16.7           | 80        | 17       | 3         | 307     |
+| alwaysgeeky | phone viewport, 6x CPU slowdown         | yes  | 490          | 0.04 / 0.04             | 16.7 / 16.7           | 51        | 12       | 3         | 214     |
+| alwaysgeeky | desktop reduced motion, 4x CPU slowdown | no   | 490          | 0.007 / 0.007           | 16.7 / 16.8           | 9         | 0        | 0         | 47      |
+| emplifi     | desktop                                 | yes  | 249          | 0.035 / 0.035           | 16.7 / 16.7           | 109       | 25       | 10        | 399     |
+| emplifi     | desktop, 4x CPU slowdown                | yes  | 245          | 0.035 / 0.035           | 16.7 / 16.7           | 36        | 14       | 8         | 157     |
+| emplifi     | phone viewport                          | yes  | 249          | 0.001 / 0.001           | 16.7 / 16.7           | 88        | 13       | 2         | 319     |
+| emplifi     | phone viewport, 4x CPU slowdown         | yes  | 249          | 0.004 / 0.004           | 16.7 / 16.7           | 36        | 6        | 1         | 151     |
+| emplifi     | phone viewport, 6x CPU slowdown         | yes  | 249          | 0.001 / 0.001           | 16.7 / 16.7           | 61        | 7        | 3         | 234     |
+| emplifi     | desktop reduced motion, 4x CPU slowdown | no   | 249          | 0.003 / 0.003           | 16.7 / 16.7           | 11        | 0        | 0         | 60      |
 
-Raw results: [`capture/perf-results.jsonl`](capture/perf-results.jsonl).
+**Historical, P2.1, the index only** (from [`capture/perf-results-p2.1.jsonl`](capture/perf-results-p2.1.jsonl), for comparison; the P2.1 run had no phone 1× or 6× row):
+
+| Page  | Run                                     | Live | Delivered KB | CLS load / after scroll | Frame median / p95 ms | Script ms | Style ms | Layout ms | Task ms |
+| ----- | --------------------------------------- | ---- | ------------ | ----------------------- | --------------------- | --------- | -------- | --------- | ------- |
+| index | desktop                                 | yes  | 337          | 0.002 / 0.117           | 16.7 / 16.7           | 85        | 155      | 126       | 672     |
+| index | desktop, 4x CPU slowdown                | yes  | 337          | 0.001 / 0.116           | 16.7 / 16.8           | 72        | 409      | 318       | 1280    |
+| index | phone viewport, 4x CPU slowdown         | yes  | 337          | 0.001 / 0.378           | 16.7 / 16.8           | 82        | 222      | 330       | 1013    |
+| index | desktop reduced motion, 4x CPU slowdown | no   | 324          | 0.002 / 0.002           | 16.7 / 16.8           | 15        | 0        | 0         | 63      |
+
+Raw results: [`capture/perf-results.jsonl`](capture/perf-results.jsonl) (P2.2) and [`capture/perf-results-p2.1.jsonl`](capture/perf-results-p2.1.jsonl) (P2.1).
 
 ### Reading the numbers
 
-- **The index opening causes layout shift while scrolling. This is a blocker for production as built.** The condensation animates the identity block's top margin and the bays' heights, which are layout properties, so the browser counts each scrolled frame as a shift. Cumulative layout shift after a full scroll is 0.117 on desktop and **0.378 at phone width**, against 0.031 and 0.023 for the static P2 register. Above 0.1 is "needs improvement" and above 0.25 is "poor" in Core Web Vitals. Under reduced motion it is 0.002. It also costs main-thread time: about 730 ms of style and layout work for a full scroll at 4× slowdown on desktop, against none for the static page. **The fix belongs to the next round:** keep the stage at a fixed layout height and condense with transforms and a clip (the bays' upper and lower panes translate toward the cut, a `clip-path` trims them), moving the following content with a transform until the pin releases. That keeps the same picture without layout work per frame. It was not attempted here because it changes the transition's mechanics and needs its own review.
+- **The index opening no longer shifts the page (resolved in P2.2).** P2.1 animated the identity block's top margin and the bays' heights, so every scrolled frame counted as layout shift: 0.117 after a full scroll on desktop and **0.378 at phone width**, a production blocker. P2.2 fixes the opening's height and gives the sticky stage its condensed height at build, then closes the open composition with transforms and `clip-path` only (02). Fresh lab runs: **0.004 on desktop and 0.002 at phone width**, the same at 1×, 4× and 6× CPU slowdown and the same as before any scroll, so what remains is the font swap at load (the shifted nodes are text in the opening, the Scene chips and the bar, moved as the web fonts replace their fallbacks), not the opening. Under reduced motion it is 0.004. Style plus layout work for a full scroll at 4× slowdown on desktop fell from about 730 ms to about 280 ms, and at phone width from about 550 ms to about 140 ms. The review now asserts that the condensation leaves the page's layout unchanged and keeps CLS at or under 0.1 (05). **The 0.1 target is met in the lab only;** a real phone, Safari and Firefox are untested.
 - **Main-thread time is the useful signal, not frame pacing.** Headless Chromium paces requestAnimationFrame at 60 Hz without a real compositor or GPU, so every run shows a 16.7 ms median and no long frames. That does not mean a real device holds 60 fps.
 - **The scenes cost more than their reduced-motion versions, as expected**, and these runs vary by tens of percent between takes (the AlwaysGeeky 4× run is lower than its 1× run in this take, which is noise, not a gain). Compare orders of magnitude, not single numbers.
 - **AlwaysGeeky's world plane is smaller** (1200 × 1400, from 2300), and its style and layout time stays under 30 ms.
-- **Weight.** The index now delivers about 337 KB, from about 208 KB in P2, because the three bay pictures load on every width and the page loads GSAP, ScrollTrigger and the opening script. AlwaysGeeky delivers about 497 KB and Emplifi about 251 KB.
+- **Scene pages' remaining CLS is at load, not during scroll.** AlwaysGeeky shows 0.039–0.042 and Emplifi up to 0.035, identical before and after the scroll, so it comes from fonts and images settling at load, not from the scenes. AlwaysGeeky's phone value is higher than in P2.1 (0.014): the shifted nodes are the first step's paragraphs (`step__lede`, `step__ctx`, `step__prov`), moving once at load. On desktop they are the stage's plate and world. Reserving the first figure's space or matching fallback font metrics would remove it; that was not done here. All values are under 0.1.
+- **Weight.** The index delivers about 342 KB (P2: about 208 KB), because the three bay pictures load on every width and the page loads GSAP, ScrollTrigger and the opening script. AlwaysGeeky delivers about 490 KB and Emplifi about 249 KB.
 
 ### Risks
 
-1. **Opening seam.** The index stage is sticky, which the compositor handles, while its height is driven from the main thread by the scrubbed timeline. On a slow device or under a long task the two can disagree for a frame, showing a seam or jump between the condensing stage and the briefs below. Headless recordings did not show it; real devices are untested. A production version would need to test this on a mid-range Android phone and an older iPhone, and could fall back to an unpinned opening if it appears.
-2. **Stage images on phones.** The AG stage carries a 1600 px marketplace screenshot and a second crop of it in the lens. On a phone both are drawn at a fraction of their size. A production version should serve a smaller source to the stage on narrow screens.
+1. **Opening lag.** The index stage is sticky (compositor) while its closing is scrubbed from the main thread. In P2.1 the stage's height was scripted, so a slow frame could open a seam between the stage and the briefs. In P2.2 the briefs never move and sit above the stage, so no seam can open; on a slow device the closing can still trail the scroll by a frame. Real devices are untested.
+2. **Stage images on phones.** Phones no longer show the stage, but its markup still loads: the AG stage's 1600 px marketplace screenshot and the lens crop are fetched on every width. A production version should not load stage media below 900 px.
 3. **Rebuild on resize.** Each scene rebuilds its timeline when the width changes or fonts load, because every beat is measured from layout. Phones fire width changes rarely, but a desktop window drag rebuilds often. The rebuild is debounced. A production version should measure the cost on a slow device.
-4. **SVG draw-in on large drawings.** Stroke dash animation repaints the SVG each frame while it runs. AG-03 and EM-04 are the largest drawings. Each draws for 10–20% of one step. This is acceptable in the lab; on low-end Android it has not been measured.
+4. **SVG draw-in on large drawings.** Stroke dash animation repaints the SVG each frame while it runs. AG-03 and EM-04 are the largest drawings. Each draws for 10–20% of one step on wide screens; on phones each phone sheet's parts draw as they enter the viewport. This is acceptable in the lab; on low-end Android it has not been measured.
 5. **Scrub lag.** `scrub: 0.6` smooths motion but means the stage trails a fast flick by up to 0.6 s. That is a deliberate choice, and it should be checked with real touch input.
 6. **Three CDN dependencies.** GSAP, ScrollTrigger and Google Fonts. The fail-safe covers GSAP. A font failure falls back to the declared stacks, which changes the measured layout, and the scene rebuilds when fonts load.
 
@@ -95,5 +113,5 @@ Raw results: [`capture/perf-results.jsonl`](capture/perf-results.jsonl).
 - Shipping Safari, macOS and iOS: index (including the opening condensation), AG, EM, and LedgerGuard's flat path. Decide whether 3D is ever offered.
 - Firefox, desktop and Android: the same set.
 - VoiceOver on macOS and iOS: the opening, the bays' two links, a scene's steps, the discipline marks and their live region.
-- A mid-range Android phone and an older iPhone: the opening seam, frame pacing through each scene, and both match cuts.
+- A mid-range Android phone and an older iPhone: the opening's closing under real touch scrolling, the phone sheets' draw-in, frame pacing through each scene, and the return links' landing position.
 - An embedded webview, if the portfolio is ever opened from inside another app. It is not a stated requirement.

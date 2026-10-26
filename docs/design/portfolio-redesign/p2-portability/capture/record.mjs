@@ -200,7 +200,8 @@ if (mode === "lg-flat" || mode === "webkit-lg-flat") {
   await wait(500);
   await glide(condensed, 1400);
   await wait(400);
-  await tap('.bay[data-row="alwaysgeeky"] .bay__sect');
+  // the optional path: the bay's Scene link
+  await tap('.bay[data-row="alwaysgeeky"] .bay__go');
   await arrive(/alwaysgeeky/);
   await wait(1300);
   mark("ag");
@@ -223,8 +224,20 @@ if (mode === "lg-flat" || mode === "webkit-lg-flat") {
   }
   await glide(".sheetnav", 2400 * slow, M.height * 0.5);
   await wait(400);
+  // the next sheet is Emplifi's case study; its register link returns to Emplifi in the
+  // condensed register, and Emplifi's Scene link opens the scene
   await tap(".sheetnav__a--next");
-  await arrive(/emplifi/);
+  await arrive(/emplifi\.html#case/);
+  await wait(1300);
+  mark("em-case");
+  await glide(".sheetnav", 1800 * slow, M.height * 0.5);
+  await wait(400);
+  await tap('.sheetnav a[href="index.html#project-emplifi"]');
+  await arrive(/index\.html#project-emplifi/);
+  await wait(1500);
+  mark("return");
+  await tap('.bay[data-row="emplifi"] .bay__go');
+  await arrive(/emplifi\.html$/);
   await wait(1300);
   mark("em");
   if (M.reduce) {
@@ -304,11 +317,13 @@ const clips = {
     ["03-alwaysgeeky-match-cut", rel["ag-land"] - 0.3, rel["ag-landed"]],
     ["04-emplifi-scene", rel.em - 0.2, rel["em-land"]],
     ["05-emplifi-match-cut", rel["em-land"] - 0.3, rel["em-landed"]],
+    ["06-case-to-register", rel["em-case"] - 0.2, rel.em],
   ],
   mobile: [
     ["mobile-index", rel.index - 0.2, rel.ag],
     ["mobile-alwaysgeeky", rel.ag - 0.2, rel["ag-landed"]],
     ["mobile-emplifi", rel.em - 0.2, rel["em-landed"]],
+    ["mobile-case-to-register", rel["em-case"] - 0.2, rel.em],
   ],
 }[mode];
 for (const [clip, a, b] of clips ?? []) {

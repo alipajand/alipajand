@@ -152,7 +152,7 @@ const firstSentence = (text) =>
   safe(String(text).match(/.+?[.!?](?=\s+[A-Z]|\s*$)/g) ?? [String(text)])[0].trim();
 
 const FONTS =
-  "https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap";
+  "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap";
 const GSAP = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5";
 
 // Resolves the motion mode before first paint (same rules and storage key as P1). On a page
@@ -198,6 +198,15 @@ const img = (base, alt, sizes, { eager = false, only960 = false, cls = "" } = {}
   only960
     ? `<img class="${cls}" src="${base}-960.webp" width="960" height="600" alt="${esc(alt)}" ${eager ? "" : 'loading="lazy"'} decoding="async">`
     : `<img class="${cls}" src="${base}-960.webp" srcset="${base}-960.webp 960w, ${base}-1600.webp 1600w" sizes="${sizes}" width="1600" height="1003" alt="${esc(alt)}" ${eager ? "" : 'loading="lazy"'} decoding="async">`;
+
+// A step's figure: the wide drawing, and its phone sheet. Exactly one is displayed, so the
+// other is out of the accessibility tree too.
+const fig = (wide, phone, cls = "") =>
+  `<figure class="step__fig ${cls}"><div class="fig-w scroll-x">${wide}</div><div class="fig-p">${phone}</div></figure>`;
+
+// A phone sheet in its drawing plate, with an HTML strip that wraps on any width.
+const pplate = (svg, code, title, kind) =>
+  `<div class="plate plate--draw pplate">${svg}${strip(code, title, kind, "strip--draw")}</div>`;
 
 // The provenance strip under every plate and drawing: sheet number, title, material.
 const strip = (code, title, kind, cls = "") =>
@@ -285,19 +294,22 @@ function indexPage() {
           cls: "bay__img",
         }).replace("<img ", `<img style="object-position: ${b.face.pos}" `)
       : b.face.svg();
+    // The case study is the main way in: the name and the picture both open it. The picture's
+    // link is a pointer convenience, so it is kept out of the tab order and the accessibility
+    // tree. The scene is the optional, smaller link.
     return `
-      <li class="bay bay--${s.code.toLowerCase()}" data-row="${slug}" data-caps="${caps(slug)}"${b.vt ? ` data-vt="${b.vt}"` : ""}>
-        <a class="bay__sect" href="${s.scene}" aria-label="${esc(p.name)}: open the scene">
+      <li class="bay bay--${s.code.toLowerCase()}" id="project-${slug}" data-row="${slug}" data-caps="${caps(slug)}"${b.vt ? ` data-vt="${b.vt}"` : ""}>
+        <a class="bay__sect" href="${s.case}" tabindex="-1" aria-hidden="true">
           <span class="bay__above">${face}</span>
-          <span class="bay__cut" aria-hidden="true"><span class="bay__tag"><b>${s.code}-01</b><i> ${esc(b.face.tag)}</i></span><span class="bay__tag bay__tag--v"><b>${s.code}-02</b><i> Diagram</i></span></span>
+          <span class="bay__cut"><span class="bay__tag"><b>${s.code}-01</b><i> ${esc(b.face.tag)}</i></span><span class="bay__tag bay__tag--v"><b>${s.code}-02</b><i> Diagram</i></span></span>
           <span class="bay__below">${b.interior()}</span>
-          <span class="bay__go" aria-hidden="true">Scene</span>
         </a>
         <div class="bay__title">
           <p class="bay__bubble" aria-hidden="true">${s.code}</p>
-          <h3 class="bay__name"><a href="${s.case}"><span class="bay__nm">${esc(p.name)}</span><span class="bay__cs">Case study<span class="sr-only">: ${esc(p.caseStudyTitle)}</span></span></a></h3>
+          <h3 class="bay__name"><a href="${s.case}"><span class="bay__nm">${esc(p.name)}</span><span class="bay__cs">Read the case study<span class="sr-only">: ${esc(p.caseStudyTitle)}</span></span></a></h3>
           <p class="bay__sub">${esc(p.caseStudyTitle)}</p>
         </div>
+        <a class="bay__go" href="${s.scene}" aria-label="${esc(p.name)}: open the scene">Scene</a>
       </li>`;
   };
 
@@ -306,7 +318,7 @@ function indexPage() {
     const s = SHEETS[slug];
     return `
       <li class="brief" data-row="${slug}">
-        <p class="brief__k"><span class="brief__code">${s.code}</span> ${esc(s.role ?? p.role)} · ${esc(s.time ?? p.timeframe)}</p>
+        <p class="brief__k"><span class="brief__code">${s.code}</span><span class="brief__nm">${esc(p.name)}</span> ${esc(s.role ?? p.role)} · ${esc(s.time ?? p.timeframe)}</p>
         <p class="brief__line">${esc(firstSentence(p.cardProblem))}</p>
         <p class="brief__mat"><b>${s.code}-01</b> above the cut: ${esc(BAYS[slug].face.what)}. <b>${s.code}-02</b> below: editorial diagram, ${esc(BAYS[slug].behind)}.</p>
       </li>`;
@@ -317,7 +329,7 @@ function indexPage() {
     const s = SHEETS[slug];
     const cls = "srow";
     return `
-      <li class="${cls}${mod ? ` ${cls}--${mod}` : ""}" data-row="${slug}" data-caps="${caps(slug)}">
+      <li class="${cls}${mod ? ` ${cls}--${mod}` : ""}" id="project-${slug}" data-row="${slug}" data-caps="${caps(slug)}">
         <a class="${cls}__link" href="${SITE}/portfolio/${slug}" rel="noopener">
           <span class="${cls}__code" aria-hidden="true">${s.code}</span>
           <span class="${cls}__name">${esc(p.name)}</span>
@@ -370,7 +382,7 @@ ${bar([
   <section class="op" aria-labelledby="op-name" data-opening>
     <div class="op__stage" data-op-stage>
       <header class="op__id" data-op-id>
-        <p class="op__k"><span class="op__ap" aria-hidden="true">A–A</span> Section A–A · Sheet 00</p>
+        <p class="op__k"><span class="op__ap" aria-hidden="true">A–A</span> Sheet 00 · Portfolio</p>
         <h1 class="op__name" id="op-name">${esc(PROFILE.name)}</h1>
         <p class="op__role">${esc(PROFILE.role)}</p>
         <p class="op__focus">${esc(PROFILE.focus)}</p>
@@ -386,7 +398,6 @@ ${bar([
         <div class="sect__key">
           <h2 class="sect__h">${esc(COPY.workH)}</h2>
           <p class="sect__intro">${esc(COPY.workIntro)}</p>
-          <p class="sect__nts" aria-hidden="true">Bays dimensioned by time · not to scale</p>
           <p class="sr-only">${esc(THESIS)} Each featured project is drawn cut through: the shipped interface above the line, the system behind it below.</p>
         </div>
         <div class="sect__draw">
@@ -483,7 +494,7 @@ function caseStudy(p, s, hero, drawings = "", links = null) {
 <section class="case" id="case" aria-labelledby="case-h" data-tone="paper">
   <div class="case__top">
     <header class="case__head">
-      <p class="case__k"><span class="case__code">${s.code}</span> Featured · ${esc(p.role)} · ${esc(p.timeframe)}</p>
+      <p class="case__k"><span class="case__code">${s.code}</span> ${esc(p.role)} · ${esc(p.timeframe)}</p>
       <h2 class="case__name" id="case-h">${esc(p.name)}</h2>
       <p class="case__title">${esc(p.caseStudyTitle)}</p>
     </header>
@@ -506,10 +517,10 @@ function caseStudy(p, s, hero, drawings = "", links = null) {
 </section>`;
 }
 
-const sheetNav = (prev, next) => `
+const sheetNav = (slug, prev, next) => `
 <nav class="sheetnav" aria-label="Other sheets">
   <a class="sheetnav__a" href="${prev.href}"><span class="sheetnav__k">Previous sheet</span><span class="sheetnav__n"><b>${prev.code}</b> ${esc(prev.name)}</span></a>
-  <a class="sheetnav__a sheetnav__a--mid" href="index.html#work"><span class="sheetnav__k">Index</span><span class="sheetnav__n">Selected work</span></a>
+  <a class="sheetnav__a sheetnav__a--mid" href="index.html#project-${slug}"><span class="sheetnav__k">Register</span><span class="sheetnav__n">All work</span></a>
   <a class="sheetnav__a sheetnav__a--next" href="${next.href}"><span class="sheetnav__k">Next sheet</span><span class="sheetnav__n"><b>${next.code}</b> ${esc(next.name)}</span></a>
 </nav>`;
 
@@ -517,7 +528,7 @@ const sheetNav = (prev, next) => `
 const openCard = (p, s, note, provenance, ctx = "") => `
   <header class="step step--open" id="top">
     <div class="step__card step__card--open">
-      <p class="step__k"><span class="step__code">${s.code}</span> Featured sheet · ${esc(p.timeframe)}</p>
+      <p class="step__k"><span class="step__code">${s.code}</span> ${esc(p.timeframe)}</p>
       <h1 class="step__name">${esc(p.name)}</h1>
       <p class="step__title">${esc(p.caseStudyTitle)}</p>
       <p class="step__role">${esc(p.role)} · ${esc(PROFILE.role)} today</p>
@@ -540,6 +551,8 @@ function alwaysGeekyPage() {
   const flow = cs.diagrams.find((d) => d.spec.type === "flow").spec;
   const [market, login] = cs.interfaceEvidence;
   const SURFACES = ["Marketplace", "Authentication", "Product", "Account"];
+  const DETAIL_ALT =
+    "Crop of the shipped marketplace screenshot: the Recently listed card, with an item, its price and a Shop call to action.";
   const shared = compare.columns[1].items;
   const contractRows = [
     { part: "Loading, empty, and error states", where: shared[0] },
@@ -564,7 +577,6 @@ function alwaysGeekyPage() {
   const surfX = (i) => 60 + i * 275;
   const stage = `
   <div class="stage" data-stage aria-hidden="true">
-    <div class="stage__win" data-win></div>
     <div class="pic" data-pic>
       <div class="canvas" data-canvas>
         <div class="ag-world" data-world>
@@ -616,10 +628,19 @@ function alwaysGeekyPage() {
         <p>${esc(market.captionBody)}</p>
         <p class="step__src">Case study caption, Marketplace. Detail 1 is a crop of the shipped screenshot, enlarged; the circles are annotations.</p>
       </div>
-      <figure class="step__fig">
-        <div class="lens-static"><img src="media/ag-detail-listing.webp" width="820" height="340" alt="Crop of the shipped marketplace screenshot: the Recently listed card, with an item, its price and a Shop call to action." loading="lazy" decoding="async"></div>
-        ${strip("Detail 1", "Recently listed · from AG-01", "Screenshot crop · shipped product")}
-      </figure>
+      ${fig(
+        `<div class="lens-static"><img src="media/ag-detail-listing.webp" width="820" height="340" alt="${esc(DETAIL_ALT)}" loading="lazy" decoding="async"></div>
+        ${strip("Detail 1", "Recently listed · from AG-01", "Screenshot crop · shipped product")}`,
+        `<div class="plate pshot" data-in>
+          <div class="pshot__img"><img src="media/ag-marketplace-960.webp" width="960" height="602" alt="${esc(market.alt)}" loading="lazy" decoding="async">${draw.agMarks()}</div>
+          ${strip("AG-01", "Voxies marketplace", "Screenshot · shipped product, historical")}
+        </div>
+        <ol class="pshot__key" role="list"><li><b>1</b> Catalog browsing and a call to action</li><li><b>2</b> Sign in</li></ol>
+        <div class="plate pshot" data-in>
+          <div class="lens-static"><img src="media/ag-detail-listing.webp" width="820" height="340" alt="${esc(DETAIL_ALT)}" loading="lazy" decoding="async"></div>
+          ${strip("Detail 1", "Recently listed · from AG-01", "Screenshot crop · shipped product")}
+        </div>`
+      )}
     </article>
     <article class="step" id="assembly" data-beat="assembly">
       <div class="step__card">
@@ -631,7 +652,7 @@ function alwaysGeekyPage() {
         </ol>
         <p class="step__src">${esc(login.captionBody)}</p>
       </div>
-      <figure class="step__fig scroll-x">${assemblyStatic}</figure>
+      ${fig(assemblyStatic, pplate(draw.agAssemblyPhone(SURFACES, under[0].label, ["media/ag-marketplace-960.webp", "media/ag-login-960.webp"]), "AG-02", "Assembly · four surfaces, one library", "Editorial diagram · screenshots are shipped"))}
     </article>
     <article class="step" id="gates" data-beat="gates">
       <div class="step__card">
@@ -640,7 +661,19 @@ function alwaysGeekyPage() {
         <p><b>Contract.</b> ${esc(cs.technicalDecisions[0].decision)}</p>
         <p><b>Enforcement.</b> ${esc(cs.technicalDecisions[1].decision)}</p>
       </div>
-      <figure class="step__fig scroll-x">${chain}</figure>
+      ${fig(
+        chain,
+        pplate(
+          draw.agChainPhone(
+            contractRows,
+            flow.steps.slice(1).map((st) => st.label),
+            flow.loop
+          ),
+          "AG-03",
+          "Storybook contract and CI enforcement",
+          "Editorial diagram"
+        )
+      )}
     </article>
     <div class="beat beat--land" data-beat="land"></div>
   </div>`;
@@ -655,7 +688,7 @@ function alwaysGeekyPage() {
   const body = `
 <a class="skip" href="#case">Skip to the AlwaysGeeky case study</a>
 ${bar([
-  { label: "Index", href: "index.html#work" },
+  { label: "Index", href: `index.html#project-${p.slug}` },
   { label: "Case study", href: "#case" },
   { label: "Contact", href: "#contact" },
 ])}
@@ -671,7 +704,7 @@ ${bar([
     [assemblyStatic, chain].map((d) => `<figure class="scroll-x">${d}</figure>`).join(""),
     `<p>${esc(COPY.agLinks)}</p>`
   )}
-  ${sheetNav({ href: SHEETS.ledgerguard.case, code: "LG", name: "LedgerGuard" }, { href: "emplifi.html", code: "EM", name: "Emplifi" })}
+  ${sheetNav("alwaysgeeky", { href: SHEETS.ledgerguard.case, code: "LG", name: "LedgerGuard" }, { href: SHEETS.emplifi.case, code: "EM", name: "Emplifi" })}
 </main>
 ${contact}`;
 
@@ -707,7 +740,6 @@ function emplifiPage() {
 
   const stage = `
   <div class="stage" data-stage aria-hidden="true">
-    <div class="stage__win" data-win></div>
     <div class="pic" data-pic>
       <div class="canvas" data-canvas>
         <div class="em-phone" data-phone data-vt-subject>${draw.emWebview()}</div>
@@ -728,7 +760,7 @@ function emplifiPage() {
         <h2 class="step__h">${esc(COPY.emChart)}</h2>
         <p>${esc(cs.context)}</p>
       </div>
-      <figure class="step__fig step__fig--phone">${draw.emWebview()}</figure>
+      <figure class="step__fig step__fig--phone plate plate--draw"><div class="step__phone">${draw.emWebview()}</div>${strip("EM-01", "A dense chart in an embedded mobile webview", "Editorial diagram · illustrative data", "strip--draw")}</figure>
     </article>
     <article class="step" id="path" data-beat="path">
       <div class="step__card">
@@ -737,7 +769,7 @@ function emplifiPage() {
         <p>${esc(cs.problem)}</p>
         <p class="step__src">${esc(steps4[0].detail)} ${esc(steps4[1].detail)}</p>
       </div>
-      <figure class="step__fig scroll-x">${draw.emRenderPath()}</figure>
+      ${fig(draw.emRenderPath(), pplate(draw.emRenderPathPhone(), "EM-02", "The render path of one chart update", "Editorial diagram · schematic"))}
     </article>
     <article class="step" id="composition" data-beat="composition">
       <div class="step__card">
@@ -746,7 +778,7 @@ function emplifiPage() {
         <p>${esc(cs.technicalDecisions[0].decision)}</p>
         <p class="step__src">${esc(layersSpec.caption)}</p>
       </div>
-      <figure class="step__fig scroll-x">${draw.emLayers(layersSpec.layers)}</figure>
+      ${fig(draw.emLayers(layersSpec.layers), pplate(draw.emLayersPhone(layersSpec.layers), "EM-03", "Composition of a dashboard module", "Editorial diagram"))}
     </article>
     <article class="step" id="budget" data-beat="budget">
       <div class="step__card">
@@ -755,7 +787,7 @@ function emplifiPage() {
         <p>${esc(compare.caption)}</p>
         <p class="step__src">The 16.7 ms ruler is a reference: one frame of a 60 Hz display, not a measurement. ${esc(monitor.detail)}</p>
       </div>
-      <figure class="step__fig scroll-x">${draw.emBudget(approach)}</figure>
+      ${fig(draw.emBudget(approach), pplate(draw.emBudgetPhone(approach), "EM-04", "Designing within the frame budget", "Editorial diagram · schematic"))}
     </article>
     <div class="beat beat--land" data-beat="land"></div>
   </div>`;
@@ -770,7 +802,7 @@ function emplifiPage() {
   const body = `
 <a class="skip" href="#case">Skip to the Emplifi case study</a>
 ${bar([
-  { label: "Index", href: "index.html#work" },
+  { label: "Index", href: `index.html#project-${p.slug}` },
   { label: "Case study", href: "#case" },
   { label: "Contact", href: "#contact" },
 ])}
@@ -787,7 +819,7 @@ ${bar([
       .map((d) => `<figure class="scroll-x">${d}</figure>`)
       .join("")
   )}
-  ${sheetNav({ href: "alwaysgeeky.html", code: "AG", name: "AlwaysGeeky" }, { href: "index.html#work", code: "00", name: "Back to the register" })}
+  ${sheetNav("emplifi", { href: SHEETS.alwaysgeeky.case, code: "AG", name: "AlwaysGeeky" }, { href: SHEETS.ledgerguard.case, code: "LG", name: "LedgerGuard" })}
 </main>
 ${contact}`;
 
@@ -840,6 +872,12 @@ if (pi > -1) {
     "media",
   ])
     cpSync(join(p1, f), join(out, "lg", f), { recursive: true });
+  // their ways back point at the P2 register, which is the published copy's root
+  for (const f of ["index.html", "ledgerguard.html"])
+    writeFileSync(
+      join(out, "lg", f),
+      readFileSync(join(p1, f), "utf8").replaceAll("../../p2-portability/prototype/", "../")
+    );
   // The Artifact host wraps the main page in its own skeleton.
   const html = relink(readFileSync(join(here, "index.html"), "utf8"));
   const head = html

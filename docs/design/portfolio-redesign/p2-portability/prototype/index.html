@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap"
     />
     <link rel="stylesheet" href="grammar.css" />
     <link rel="stylesheet" href="projects.css" />
@@ -61,7 +61,7 @@
         <div class="op__stage" data-op-stage>
           <header class="op__id" data-op-id>
             <p class="op__k">
-              <span class="op__ap" aria-hidden="true">A–A</span> Section A–A · Sheet 00
+              <span class="op__ap" aria-hidden="true">A–A</span> Sheet 00 · Portfolio
             </p>
             <h1 class="op__name" id="op-name">Ali Pajand</h1>
             <p class="op__role">Senior Software Engineer</p>
@@ -95,7 +95,6 @@
             <div class="sect__key">
               <h2 class="sect__h">Selected work</h2>
               <p class="sect__intro">Seven projects; three explored in depth.</p>
-              <p class="sect__nts" aria-hidden="true">Bays dimensioned by time · not to scale</p>
               <p class="sr-only">
                 The interface, and the work behind it. Each featured project is drawn cut through:
                 the shipped interface above the line, the system behind it below.
@@ -112,11 +111,17 @@
                 ><span class="dims__seg"><span>2022–2023</span></span>
               </p>
               <ol class="bays" role="list">
-                <li class="bay bay--lg" data-row="ledgerguard" data-caps="frontend fullstack ai">
+                <li
+                  class="bay bay--lg"
+                  id="project-ledgerguard"
+                  data-row="ledgerguard"
+                  data-caps="frontend fullstack ai"
+                >
                   <a
                     class="bay__sect"
-                    href="../../cinematic-exploration/prototype/index.html"
-                    aria-label="LedgerGuard: open the scene"
+                    href="../../cinematic-exploration/prototype/ledgerguard.html"
+                    tabindex="-1"
+                    aria-hidden="true"
                   >
                     <span class="bay__above"
                       ><img
@@ -133,7 +138,7 @@
                         alt=""
                         decoding="async"
                     /></span>
-                    <span class="bay__cut" aria-hidden="true"
+                    <span class="bay__cut"
                       ><span class="bay__tag"><b>LG-01</b><i> Shipped screenshot</i></span
                       ><span class="bay__tag bay__tag--v"><b>LG-02</b><i> Diagram</i></span></span
                     >
@@ -225,7 +230,6 @@
                         </text>
                       </svg></span
                     >
-                    <span class="bay__go" aria-hidden="true">Scene</span>
                   </a>
                   <div class="bay__title">
                     <p class="bay__bubble" aria-hidden="true">LG</p>
@@ -233,7 +237,7 @@
                       <a href="../../cinematic-exploration/prototype/ledgerguard.html"
                         ><span class="bay__nm">LedgerGuard</span
                         ><span class="bay__cs"
-                          >Case study<span class="sr-only"
+                          >Read the case study<span class="sr-only"
                             >: Full-Stack AI Contract Intelligence</span
                           ></span
                         ></a
@@ -241,17 +245,25 @@
                     </h3>
                     <p class="bay__sub">Full-Stack AI Contract Intelligence</p>
                   </div>
+                  <a
+                    class="bay__go"
+                    href="../../cinematic-exploration/prototype/index.html"
+                    aria-label="LedgerGuard: open the scene"
+                    >Scene</a
+                  >
                 </li>
                 <li
                   class="bay bay--ag"
+                  id="project-alwaysgeeky"
                   data-row="alwaysgeeky"
                   data-caps="frontend systems a11y dx"
                   data-vt="sheet-ag"
                 >
                   <a
                     class="bay__sect"
-                    href="alwaysgeeky.html"
-                    aria-label="AlwaysGeeky Games: open the scene"
+                    href="alwaysgeeky.html#case"
+                    tabindex="-1"
+                    aria-hidden="true"
                   >
                     <span class="bay__above"
                       ><img
@@ -268,7 +280,7 @@
                         alt=""
                         decoding="async"
                     /></span>
-                    <span class="bay__cut" aria-hidden="true"
+                    <span class="bay__cut"
                       ><span class="bay__tag"><b>AG-01</b><i> Historical screenshot</i></span
                       ><span class="bay__tag bay__tag--v"><b>AG-02</b><i> Diagram</i></span></span
                     >
@@ -362,7 +374,6 @@
                         </text>
                       </svg></span
                     >
-                    <span class="bay__go" aria-hidden="true">Scene</span>
                   </a>
                   <div class="bay__title">
                     <p class="bay__bubble" aria-hidden="true">AG</p>
@@ -370,7 +381,7 @@
                       <a href="alwaysgeeky.html#case"
                         ><span class="bay__nm">AlwaysGeeky Games</span
                         ><span class="bay__cs"
-                          >Case study<span class="sr-only"
+                          >Read the case study<span class="sr-only"
                             >: Shared Design System &amp; Frontend Standards</span
                           ></span
                         ></a
@@ -378,14 +389,21 @@
                     </h3>
                     <p class="bay__sub">Shared Design System &amp; Frontend Standards</p>
                   </div>
+                  <a
+                    class="bay__go"
+                    href="alwaysgeeky.html"
+                    aria-label="AlwaysGeeky Games: open the scene"
+                    >Scene</a
+                  >
                 </li>
                 <li
                   class="bay bay--em"
+                  id="project-emplifi"
                   data-row="emplifi"
                   data-caps="frontend systems dataviz a11y"
                   data-vt="sheet-em"
                 >
-                  <a class="bay__sect" href="emplifi.html" aria-label="Emplifi: open the scene">
+                  <a class="bay__sect" href="emplifi.html#case" tabindex="-1" aria-hidden="true">
                     <span class="bay__above"
                       ><svg
                         class="drawing drawing--em"
@@ -489,7 +507,7 @@
                         <rect x="66" y="666" width="170" height="10" class="row-ink" />
                         <line x1="210" y1="226" x2="210" y2="526" class="cursor em" /></svg
                     ></span>
-                    <span class="bay__cut" aria-hidden="true"
+                    <span class="bay__cut"
                       ><span class="bay__tag"><b>EM-01</b><i> Illustrative diagram</i></span
                       ><span class="bay__tag bay__tag--v"><b>EM-02</b><i> Diagram</i></span></span
                     >
@@ -548,7 +566,6 @@
                         </text>
                       </svg></span
                     >
-                    <span class="bay__go" aria-hidden="true">Scene</span>
                   </a>
                   <div class="bay__title">
                     <p class="bay__bubble" aria-hidden="true">EM</p>
@@ -556,12 +573,17 @@
                       <a href="emplifi.html#case"
                         ><span class="bay__nm">Emplifi</span
                         ><span class="bay__cs"
-                          >Case study<span class="sr-only">: Enterprise Analytics</span></span
+                          >Read the case study<span class="sr-only"
+                            >: Enterprise Analytics</span
+                          ></span
                         ></a
                       >
                     </h3>
                     <p class="bay__sub">Enterprise Analytics</p>
                   </div>
+                  <a class="bay__go" href="emplifi.html" aria-label="Emplifi: open the scene"
+                    >Scene</a
+                  >
                 </li>
               </ol>
               <div class="sect__line" aria-hidden="true"></div>
@@ -576,7 +598,8 @@
         <ol class="briefs__list" role="list">
           <li class="brief" data-row="ledgerguard">
             <p class="brief__k">
-              <span class="brief__code">LG</span> Independent product · 2026–present
+              <span class="brief__code">LG</span
+              ><span class="brief__nm">LedgerGuard</span> Independent product · 2026–present
             </p>
             <p class="brief__line">
               A multi-tenant contract-intelligence SaaS built alone across the Next.js App Router
@@ -590,7 +613,8 @@
           </li>
           <li class="brief" data-row="alwaysgeeky">
             <p class="brief__k">
-              <span class="brief__code">AG</span> Senior Frontend Engineer · 2024–2026
+              <span class="brief__code">AG</span
+              ><span class="brief__nm">AlwaysGeeky Games</span> Senior Frontend Engineer · 2024–2026
             </p>
             <p class="brief__line">
               Four product surfaces, one React and TypeScript component library.
@@ -602,7 +626,8 @@
           </li>
           <li class="brief" data-row="emplifi">
             <p class="brief__k">
-              <span class="brief__code">EM</span> Senior Frontend Engineer · 2022–2023
+              <span class="brief__code">EM</span><span class="brief__nm">Emplifi</span> Senior
+              Frontend Engineer · 2022–2023
             </p>
             <p class="brief__line">
               Data-heavy React and TypeScript analytics modules built on D3.js, assembled from
@@ -624,7 +649,7 @@
           <p class="sect__intro">Case studies on alipajand.com.</p>
         </div>
         <ol class="sup__list" role="list">
-          <li class="srow" data-row="agent-tooling" data-caps="ai dx">
+          <li class="srow" id="project-agent-tooling" data-row="agent-tooling" data-caps="ai dx">
             <a
               class="srow__link"
               href="https://alipajand.com/portfolio/agent-tooling"
@@ -642,7 +667,7 @@
             </a>
             <p class="srow__meta">Independent / Ongoing · Text and diagrams · no screenshot</p>
           </li>
-          <li class="srow" data-row="tallyfolio" data-caps="fullstack">
+          <li class="srow" id="project-tallyfolio" data-row="tallyfolio" data-caps="fullstack">
             <a class="srow__link" href="https://alipajand.com/portfolio/tallyfolio" rel="noopener">
               <span class="srow__code" aria-hidden="true">TF</span>
               <span class="srow__name">TallyFolio</span>
@@ -658,7 +683,7 @@
               Founder · Product Engineer · Designer · Independent · Shipped screenshots
             </p>
           </li>
-          <li class="srow" data-row="controltech" data-caps="frontend dx">
+          <li class="srow" id="project-controltech" data-row="controltech" data-caps="frontend dx">
             <a class="srow__link" href="https://alipajand.com/portfolio/controltech" rel="noopener">
               <span class="srow__code" aria-hidden="true">CT</span>
               <span class="srow__name">ControlTech</span>
@@ -685,7 +710,12 @@
           </p>
         </div>
         <ol class="sup__list" role="list">
-          <li class="srow srow--exp" data-row="mapbylaw" data-caps="fullstack ai">
+          <li
+            class="srow srow--exp"
+            id="project-mapbylaw"
+            data-row="mapbylaw"
+            data-caps="fullstack ai"
+          >
             <a class="srow__link" href="https://alipajand.com/portfolio/mapbylaw" rel="noopener">
               <span class="srow__code" aria-hidden="true">MB</span>
               <span class="srow__name">MapBylaw</span>

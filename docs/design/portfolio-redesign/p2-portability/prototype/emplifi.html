@@ -44,7 +44,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap"
     />
     <link rel="stylesheet" href="grammar.css" />
     <link rel="stylesheet" href="projects.css" />
@@ -58,7 +58,7 @@
         ><span class="bar__name">Ali Pajand</span></a
       >
       <nav class="bar__nav" aria-label="Primary">
-        <a href="index.html#work">Index</a><a href="#case">Case study</a
+        <a href="index.html#project-emplifi">Index</a><a href="#case">Case study</a
         ><a href="#contact">Contact</a>
         <button type="button" class="bar__motion" data-motion-toggle aria-pressed="true">
           <span class="bar__dot" aria-hidden="true"></span><span data-motion-label>Motion on</span>
@@ -73,7 +73,6 @@
         aria-label="Emplifi: rendering a dense chart in an embedded webview"
       >
         <div class="stage" data-stage aria-hidden="true">
-          <div class="stage__win" data-win></div>
           <div class="pic" data-pic>
             <div class="canvas" data-canvas>
               <div class="em-phone" data-phone data-vt-subject>
@@ -193,6 +192,10 @@
                   data-label="em-path"
                 >
                   <rect x="12" y="12" width="976" height="466" class="frame" />
+                  <path d="M34,20 H20 V34" class="reg-tick" />
+                  <path d="M966,20 H980 V34" class="reg-tick" />
+                  <path d="M34,470 H20 V456" class="reg-tick" />
+                  <path d="M966,470 H980 V456" class="reg-tick" />
                   <text x="40" y="58" class="t-title">The render path of one chart update</text>
                   <text x="40" y="88" class="t-note">
                     Equal boxes: the stages of an update, not how long each one takes.
@@ -307,6 +310,10 @@
                   data-label="em-layers"
                 >
                   <rect x="12" y="12" width="976" height="572" class="frame" />
+                  <path d="M34,20 H20 V34" class="reg-tick" />
+                  <path d="M966,20 H980 V34" class="reg-tick" />
+                  <path d="M34,576 H20 V562" class="reg-tick" />
+                  <path d="M966,576 H980 V562" class="reg-tick" />
                   <text x="40" y="58" class="t-title">How a dashboard module is composed</text>
 
                   <g class="lyr" data-lyr="0">
@@ -406,6 +413,10 @@
                   data-label="em-budget"
                 >
                   <rect x="12" y="12" width="976" height="566" class="frame" />
+                  <path d="M34,20 H20 V34" class="reg-tick" />
+                  <path d="M966,20 H980 V34" class="reg-tick" />
+                  <path d="M34,570 H20 V556" class="reg-tick" />
+                  <path d="M966,570 H980 V556" class="reg-tick" />
                   <text x="40" y="58" class="t-title">Designing within the frame budget</text>
                   <g class="ref">
                     <text x="40" y="122" class="t-col">Reference budget</text>
@@ -526,7 +537,7 @@
         <div class="track" data-track>
           <header class="step step--open" id="top">
             <div class="step__card step__card--open">
-              <p class="step__k"><span class="step__code">EM</span> Featured sheet · 2022–2023</p>
+              <p class="step__k"><span class="step__code">EM</span> 2022–2023</p>
               <h1 class="step__name">Emplifi</h1>
               <p class="step__title">Enterprise Analytics</p>
               <p class="step__role">Senior Frontend Engineer · Senior Software Engineer today</p>
@@ -558,105 +569,119 @@
                 they surfaced animation and layout cost that desktop testing never showed.
               </p>
             </div>
-            <figure class="step__fig step__fig--phone">
-              <svg
-                class="drawing drawing--em"
-                viewBox="0 0 420 820"
-                preserveAspectRatio="xMidYMid meet"
-                aria-hidden="true"
-                focusable="false"
-                data-label="em-webview"
-              >
-                <rect
-                  x="18"
-                  y="14"
-                  width="384"
-                  height="728"
-                  rx="46"
-                  class="phone ink"
-                  pathLength="1"
-                />
-                <rect x="34" y="30" width="352" height="696" rx="32" class="phone__glass" />
-                <rect x="164" y="40" width="92" height="22" rx="11" class="phone__notch" />
-                <rect x="34" y="78" width="352" height="58" class="host" />
-                <text x="54" y="114" class="t-small">Host app</text>
-                <rect x="308" y="96" width="58" height="20" rx="10" class="host__pill" />
-                <rect x="44" y="148" width="332" height="568" class="webview ink" pathLength="1" />
-                <text x="58" y="176" class="t-small t-em">Embedded webview</text>
-                <text x="58" y="206" class="t-cell">Dashboard module</text>
+            <figure class="step__fig step__fig--phone plate plate--draw">
+              <div class="step__phone">
+                <svg
+                  class="drawing drawing--em"
+                  viewBox="0 0 420 820"
+                  preserveAspectRatio="xMidYMid meet"
+                  aria-hidden="true"
+                  focusable="false"
+                  data-label="em-webview"
+                >
+                  <rect
+                    x="18"
+                    y="14"
+                    width="384"
+                    height="728"
+                    rx="46"
+                    class="phone ink"
+                    pathLength="1"
+                  />
+                  <rect x="34" y="30" width="352" height="696" rx="32" class="phone__glass" />
+                  <rect x="164" y="40" width="92" height="22" rx="11" class="phone__notch" />
+                  <rect x="34" y="78" width="352" height="58" class="host" />
+                  <text x="54" y="114" class="t-small">Host app</text>
+                  <rect x="308" y="96" width="58" height="20" rx="10" class="host__pill" />
+                  <rect
+                    x="44"
+                    y="148"
+                    width="332"
+                    height="568"
+                    class="webview ink"
+                    pathLength="1"
+                  />
+                  <text x="58" y="176" class="t-small t-em">Embedded webview</text>
+                  <text x="58" y="206" class="t-cell">Dashboard module</text>
 
-                <g class="chart">
-                  <line x1="58" y1="226.0" x2="362" y2="226.0" class="grid" />
-                  <line x1="58" y1="275.5" x2="362" y2="275.5" class="grid" />
-                  <line x1="58" y1="325.0" x2="362" y2="325.0" class="grid" />
-                  <line x1="58" y1="374.5" x2="362" y2="374.5" class="grid" />
-                  <line x1="58" y1="424.0" x2="362" y2="424.0" class="grid" />
-                  <path
-                    d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3 L362,424 L58,424 Z"
-                    class="area"
-                  />
-                  <path
-                    d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3"
-                    class="line ink"
-                    pathLength="1"
-                  />
-                  <path
-                    d="M58.0,365.3 L62.8,364.3 L67.7,364.9 L72.5,359.4 L77.3,362.8 L82.1,365.2 L87.0,356.0 L91.8,346.7 L96.6,337.3 L101.4,330.3 L106.3,331.0 L111.1,323.1 L115.9,316.8 L120.7,313.2 L125.6,320.2 L130.4,327.0 L135.2,323.7 L140.0,330.5 L144.9,335.6 L149.7,341.4 L154.5,337.3 L159.3,347.3 L164.2,355.2 L169.0,355.5 L173.8,365.2 L178.6,375.6 L183.5,374.3 L188.3,377.5 L193.1,372.8 L197.9,376.6 L202.8,380.2 L207.6,380.3 L212.4,371.9 L217.2,364.2 L222.1,354.7 L226.9,356.4 L231.7,361.2 L236.5,360.2 L241.4,351.9 L246.2,341.9 L251.0,335.9 L255.8,330.6 L260.7,324.6 L265.5,325.5 L270.3,326.0 L275.1,327.0 L280.0,334.6 L284.8,330.1 L289.6,336.1 L294.4,340.9 L299.3,342.0 L304.1,351.1 L308.9,353.6 L313.7,361.0 L318.6,359.0 L323.4,367.3 L328.2,374.2 L333.0,383.8 L337.9,389.6 L342.7,396.9 L347.5,403.0 L352.3,402.3 L357.2,397.5 L362.0,403.8"
-                    class="line line--2 ink"
-                    pathLength="1"
-                  />
-                  <path
-                    d="M58.0,299.7 L62.8,305.8 L67.7,306.9 L72.5,310.1 L77.3,308.9 L82.1,303.6 L87.0,302.3 L91.8,306.1 L96.6,309.5 L101.4,300.6 L106.3,292.9 L111.1,295.6 L115.9,289.7 L120.7,293.2 L125.6,289.3 L130.4,289.0 L135.2,284.0 L140.0,287.0 L144.9,282.1 L149.7,288.3 L154.5,283.6 L159.3,288.0 L164.2,293.1 L169.0,290.9 L173.8,296.9 L178.6,301.7 L183.5,299.7 L188.3,305.3 L193.1,302.4 L197.9,301.4 L202.8,306.8 L207.6,306.3 L212.4,311.9 L217.2,312.6 L222.1,308.1 L226.9,311.6 L231.7,308.8 L236.5,307.8 L241.4,302.8 L246.2,302.8 L251.0,298.1 L255.8,296.0 L260.7,294.7 L265.5,294.1 L270.3,295.9 L275.1,297.2 L280.0,294.5 L284.8,294.4 L289.6,294.3 L294.4,293.8 L299.3,290.8 L304.1,287.7 L308.9,290.8 L313.7,292.3 L318.6,299.2 L323.4,306.1 L328.2,314.2 L333.0,312.5 L337.9,319.3 L342.7,316.7 L347.5,325.0 L352.3,325.0 L357.2,331.6 L362.0,327.4"
-                    class="line line--3 ink"
-                    pathLength="1"
-                  />
-                  <g class="bars">
-                    <rect x="59.0" y="503.9" width="7.5" height="22.1" class="bar" />
-                    <rect x="68.5" y="503.7" width="7.5" height="22.3" class="bar" />
-                    <rect x="78.0" y="505.4" width="7.5" height="20.6" class="bar" />
-                    <rect x="87.5" y="503.3" width="7.5" height="22.7" class="bar" />
-                    <rect x="97.0" y="497.9" width="7.5" height="28.1" class="bar" />
-                    <rect x="106.5" y="499.1" width="7.5" height="26.9" class="bar" />
-                    <rect x="116.0" y="505.3" width="7.5" height="20.7" class="bar" />
-                    <rect x="125.5" y="508.6" width="7.5" height="17.4" class="bar" />
-                    <rect x="135.0" y="511.1" width="7.5" height="14.9" class="bar" />
-                    <rect x="144.5" y="513.5" width="7.5" height="12.5" class="bar" />
-                    <rect x="154.0" y="511.1" width="7.5" height="14.9" class="bar" />
-                    <rect x="163.5" y="510.8" width="7.5" height="15.2" class="bar" />
-                    <rect x="173.0" y="504.6" width="7.5" height="21.4" class="bar" />
-                    <rect x="182.5" y="502.0" width="7.5" height="24.0" class="bar" />
-                    <rect x="192.0" y="502.1" width="7.5" height="23.9" class="bar" />
-                    <rect x="201.5" y="495.5" width="7.5" height="30.5" class="bar" />
-                    <rect x="211.0" y="488.0" width="7.5" height="38.0" class="bar" />
-                    <rect x="220.5" y="488.5" width="7.5" height="37.5" class="bar" />
-                    <rect x="230.0" y="487.3" width="7.5" height="38.7" class="bar" />
-                    <rect x="239.5" y="481.0" width="7.5" height="45.0" class="bar" />
-                    <rect x="249.0" y="474.1" width="7.5" height="51.9" class="bar" />
-                    <rect x="258.5" y="473.9" width="7.5" height="52.1" class="bar" />
-                    <rect x="268.0" y="477.2" width="7.5" height="48.8" class="bar" />
-                    <rect x="277.5" y="485.6" width="7.5" height="40.4" class="bar" />
-                    <rect x="287.0" y="489.0" width="7.5" height="37.0" class="bar" />
-                    <rect x="296.5" y="489.0" width="7.5" height="37.0" class="bar" />
-                    <rect x="306.0" y="484.9" width="7.5" height="41.1" class="bar" />
-                    <rect x="315.5" y="493.2" width="7.5" height="32.8" class="bar" />
-                    <rect x="325.0" y="490.5" width="7.5" height="35.5" class="bar" />
-                    <rect x="334.5" y="498.4" width="7.5" height="27.6" class="bar" />
-                    <rect x="344.0" y="506.2" width="7.5" height="19.8" class="bar" />
-                    <rect x="353.5" y="504.8" width="7.5" height="21.2" class="bar" />
+                  <g class="chart">
+                    <line x1="58" y1="226.0" x2="362" y2="226.0" class="grid" />
+                    <line x1="58" y1="275.5" x2="362" y2="275.5" class="grid" />
+                    <line x1="58" y1="325.0" x2="362" y2="325.0" class="grid" />
+                    <line x1="58" y1="374.5" x2="362" y2="374.5" class="grid" />
+                    <line x1="58" y1="424.0" x2="362" y2="424.0" class="grid" />
+                    <path
+                      d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3 L362,424 L58,424 Z"
+                      class="area"
+                    />
+                    <path
+                      d="M58.0,335.1 L62.8,323.9 L67.7,324.5 L72.5,326.4 L77.3,318.1 L82.1,313.7 L87.0,313.4 L91.8,305.3 L96.6,297.5 L101.4,294.5 L106.3,289.4 L111.1,285.9 L115.9,279.7 L120.7,285.3 L125.6,289.2 L130.4,287.3 L135.2,286.1 L140.0,297.9 L144.9,297.9 L149.7,302.3 L154.5,298.0 L159.3,295.9 L164.2,306.6 L169.0,309.5 L173.8,304.1 L178.6,302.5 L183.5,301.1 L188.3,300.3 L193.1,292.3 L197.9,283.5 L202.8,284.4 L207.6,285.2 L212.4,275.9 L217.2,275.9 L222.1,278.9 L226.9,279.0 L231.7,276.5 L236.5,276.8 L241.4,270.4 L246.2,270.4 L251.0,270.4 L255.8,270.4 L260.7,277.7 L265.5,281.6 L270.3,280.8 L275.1,281.8 L280.0,285.1 L284.8,293.4 L289.6,288.6 L294.4,300.5 L299.3,306.8 L304.1,313.6 L308.9,314.3 L313.7,309.8 L318.6,312.8 L323.4,322.1 L328.2,326.3 L333.0,332.1 L337.9,335.6 L342.7,337.3 L347.5,339.9 L352.3,338.0 L357.2,333.8 L362.0,336.3"
+                      class="line ink"
+                      pathLength="1"
+                    />
+                    <path
+                      d="M58.0,365.3 L62.8,364.3 L67.7,364.9 L72.5,359.4 L77.3,362.8 L82.1,365.2 L87.0,356.0 L91.8,346.7 L96.6,337.3 L101.4,330.3 L106.3,331.0 L111.1,323.1 L115.9,316.8 L120.7,313.2 L125.6,320.2 L130.4,327.0 L135.2,323.7 L140.0,330.5 L144.9,335.6 L149.7,341.4 L154.5,337.3 L159.3,347.3 L164.2,355.2 L169.0,355.5 L173.8,365.2 L178.6,375.6 L183.5,374.3 L188.3,377.5 L193.1,372.8 L197.9,376.6 L202.8,380.2 L207.6,380.3 L212.4,371.9 L217.2,364.2 L222.1,354.7 L226.9,356.4 L231.7,361.2 L236.5,360.2 L241.4,351.9 L246.2,341.9 L251.0,335.9 L255.8,330.6 L260.7,324.6 L265.5,325.5 L270.3,326.0 L275.1,327.0 L280.0,334.6 L284.8,330.1 L289.6,336.1 L294.4,340.9 L299.3,342.0 L304.1,351.1 L308.9,353.6 L313.7,361.0 L318.6,359.0 L323.4,367.3 L328.2,374.2 L333.0,383.8 L337.9,389.6 L342.7,396.9 L347.5,403.0 L352.3,402.3 L357.2,397.5 L362.0,403.8"
+                      class="line line--2 ink"
+                      pathLength="1"
+                    />
+                    <path
+                      d="M58.0,299.7 L62.8,305.8 L67.7,306.9 L72.5,310.1 L77.3,308.9 L82.1,303.6 L87.0,302.3 L91.8,306.1 L96.6,309.5 L101.4,300.6 L106.3,292.9 L111.1,295.6 L115.9,289.7 L120.7,293.2 L125.6,289.3 L130.4,289.0 L135.2,284.0 L140.0,287.0 L144.9,282.1 L149.7,288.3 L154.5,283.6 L159.3,288.0 L164.2,293.1 L169.0,290.9 L173.8,296.9 L178.6,301.7 L183.5,299.7 L188.3,305.3 L193.1,302.4 L197.9,301.4 L202.8,306.8 L207.6,306.3 L212.4,311.9 L217.2,312.6 L222.1,308.1 L226.9,311.6 L231.7,308.8 L236.5,307.8 L241.4,302.8 L246.2,302.8 L251.0,298.1 L255.8,296.0 L260.7,294.7 L265.5,294.1 L270.3,295.9 L275.1,297.2 L280.0,294.5 L284.8,294.4 L289.6,294.3 L294.4,293.8 L299.3,290.8 L304.1,287.7 L308.9,290.8 L313.7,292.3 L318.6,299.2 L323.4,306.1 L328.2,314.2 L333.0,312.5 L337.9,319.3 L342.7,316.7 L347.5,325.0 L352.3,325.0 L357.2,331.6 L362.0,327.4"
+                      class="line line--3 ink"
+                      pathLength="1"
+                    />
+                    <g class="bars">
+                      <rect x="59.0" y="503.9" width="7.5" height="22.1" class="bar" />
+                      <rect x="68.5" y="503.7" width="7.5" height="22.3" class="bar" />
+                      <rect x="78.0" y="505.4" width="7.5" height="20.6" class="bar" />
+                      <rect x="87.5" y="503.3" width="7.5" height="22.7" class="bar" />
+                      <rect x="97.0" y="497.9" width="7.5" height="28.1" class="bar" />
+                      <rect x="106.5" y="499.1" width="7.5" height="26.9" class="bar" />
+                      <rect x="116.0" y="505.3" width="7.5" height="20.7" class="bar" />
+                      <rect x="125.5" y="508.6" width="7.5" height="17.4" class="bar" />
+                      <rect x="135.0" y="511.1" width="7.5" height="14.9" class="bar" />
+                      <rect x="144.5" y="513.5" width="7.5" height="12.5" class="bar" />
+                      <rect x="154.0" y="511.1" width="7.5" height="14.9" class="bar" />
+                      <rect x="163.5" y="510.8" width="7.5" height="15.2" class="bar" />
+                      <rect x="173.0" y="504.6" width="7.5" height="21.4" class="bar" />
+                      <rect x="182.5" y="502.0" width="7.5" height="24.0" class="bar" />
+                      <rect x="192.0" y="502.1" width="7.5" height="23.9" class="bar" />
+                      <rect x="201.5" y="495.5" width="7.5" height="30.5" class="bar" />
+                      <rect x="211.0" y="488.0" width="7.5" height="38.0" class="bar" />
+                      <rect x="220.5" y="488.5" width="7.5" height="37.5" class="bar" />
+                      <rect x="230.0" y="487.3" width="7.5" height="38.7" class="bar" />
+                      <rect x="239.5" y="481.0" width="7.5" height="45.0" class="bar" />
+                      <rect x="249.0" y="474.1" width="7.5" height="51.9" class="bar" />
+                      <rect x="258.5" y="473.9" width="7.5" height="52.1" class="bar" />
+                      <rect x="268.0" y="477.2" width="7.5" height="48.8" class="bar" />
+                      <rect x="277.5" y="485.6" width="7.5" height="40.4" class="bar" />
+                      <rect x="287.0" y="489.0" width="7.5" height="37.0" class="bar" />
+                      <rect x="296.5" y="489.0" width="7.5" height="37.0" class="bar" />
+                      <rect x="306.0" y="484.9" width="7.5" height="41.1" class="bar" />
+                      <rect x="315.5" y="493.2" width="7.5" height="32.8" class="bar" />
+                      <rect x="325.0" y="490.5" width="7.5" height="35.5" class="bar" />
+                      <rect x="334.5" y="498.4" width="7.5" height="27.6" class="bar" />
+                      <rect x="344.0" y="506.2" width="7.5" height="19.8" class="bar" />
+                      <rect x="353.5" y="504.8" width="7.5" height="21.2" class="bar" />
+                    </g>
                   </g>
-                </g>
-                <line x1="58" y1="556" x2="362" y2="556" class="hair" />
-                <rect x="58" y="572" width="304" height="30" class="row-box" />
-                <rect x="66" y="582" width="90" height="10" class="row-ink" />
-                <rect x="58" y="614" width="304" height="30" class="row-box" />
-                <rect x="66" y="624" width="130" height="10" class="row-ink" />
-                <rect x="58" y="656" width="304" height="30" class="row-box" />
-                <rect x="66" y="666" width="170" height="10" class="row-ink" />
-                <line x1="210" y1="226" x2="210" y2="526" class="cursor em" />
-                <text x="210" y="776" class="t-kind" text-anchor="middle">
-                  EM-01 · Editorial diagram · illustrative data
-                </text>
-              </svg>
+                  <line x1="58" y1="556" x2="362" y2="556" class="hair" />
+                  <rect x="58" y="572" width="304" height="30" class="row-box" />
+                  <rect x="66" y="582" width="90" height="10" class="row-ink" />
+                  <rect x="58" y="614" width="304" height="30" class="row-box" />
+                  <rect x="66" y="624" width="130" height="10" class="row-ink" />
+                  <rect x="58" y="656" width="304" height="30" class="row-box" />
+                  <rect x="66" y="666" width="170" height="10" class="row-ink" />
+                  <line x1="210" y1="226" x2="210" y2="526" class="cursor em" />
+                  <text x="210" y="776" class="t-kind" text-anchor="middle">
+                    EM-01 · Editorial diagram · illustrative data
+                  </text>
+                </svg>
+              </div>
+              <figcaption class="strip strip--draw">
+                <span class="strip__code">EM-01</span
+                ><span class="strip__title">A dense chart in an embedded mobile webview</span
+                ><span class="strip__kind">Editorial diagram · illustrative data</span>
+              </figcaption>
             </figure>
           </article>
           <article class="step" id="path" data-beat="path">
@@ -674,119 +699,237 @@
                 unnecessary re-renders and chart-update paint work in dense views.
               </p>
             </div>
-            <figure class="step__fig scroll-x">
-              <svg
-                class="drawing drawing--em"
-                viewBox="0 0 1000 540"
-                preserveAspectRatio="xMidYMid meet"
-                aria-hidden="true"
-                focusable="false"
-                data-label="em-path"
-              >
-                <rect x="12" y="12" width="976" height="466" class="frame" />
-                <text x="40" y="58" class="t-title">The render path of one chart update</text>
-                <text x="40" y="88" class="t-note">
-                  Equal boxes: the stages of an update, not how long each one takes.
-                </text>
-                <text x="40" y="132" class="t-small t-em">
-                  Profiled where the cost showed up first: in the embedded webview
-                </text>
-                <path
-                  d="M40,146 H960 M40,138 V154 M960,138 V154"
-                  class="probe em ink"
-                  pathLength="1"
-                />
-
-                <g class="station" data-station="0">
-                  <path d="M120,146 V188" class="probe probe--drop em ink" pathLength="1" />
-                  <rect x="40" y="196" width="160" height="124" class="box ink" pathLength="1" />
-                  <text x="54" y="224" class="t-code">01</text>
-                  <text x="54" y="250" class="t-box" text-anchor="start">Input to the</text>
-                  <text x="54" y="272" class="t-box" text-anchor="start">module</text>
-                  <text x="54" y="308" class="t-small">Data or interaction</text>
-                  <path
-                    d="M200,258 H230 M222,252 L230,258 L222,264"
-                    class="wire ink"
-                    pathLength="1"
-                  />
-                </g>
-                <g class="station" data-station="1">
-                  <path d="M310,146 V188" class="probe probe--drop em ink" pathLength="1" />
-                  <rect x="230" y="196" width="160" height="124" class="box ink" pathLength="1" />
-                  <text x="244" y="224" class="t-code">02</text>
-                  <text x="244" y="250" class="t-box" text-anchor="start">React</text>
-                  <text x="244" y="272" class="t-box" text-anchor="start">re-render</text>
-                  <text x="244" y="308" class="t-small">Product composition</text>
-                  <path
-                    d="M390,258 H420 M412,252 L420,258 L412,264"
-                    class="wire ink"
-                    pathLength="1"
-                  />
-                  <g class="find" data-find="1">
-                    <path d="M230,336 V348 H390 V336" class="em ink" pathLength="1" />
-                    <text x="310" y="374" class="t-cell t-em-ink" text-anchor="middle">
-                      unnecessary re-renders
-                    </text>
-                  </g>
-                </g>
-                <g class="station" data-station="2">
-                  <path d="M500,146 V188" class="probe probe--drop em ink" pathLength="1" />
-                  <rect x="420" y="196" width="160" height="124" class="box ink" pathLength="1" />
-                  <text x="434" y="224" class="t-code">03</text>
-                  <text x="434" y="250" class="t-box" text-anchor="start">D3 chart</text>
-                  <text x="434" y="272" class="t-box" text-anchor="start">update</text>
-                  <text x="434" y="308" class="t-small">Chart behavior</text>
-                  <path
-                    d="M580,258 H610 M602,252 L610,258 L602,264"
-                    class="wire ink"
-                    pathLength="1"
-                  />
-                </g>
-                <g class="station" data-station="3">
-                  <path d="M690,146 V188" class="probe probe--drop em ink" pathLength="1" />
-                  <rect x="610" y="196" width="160" height="124" class="box ink" pathLength="1" />
-                  <text x="624" y="224" class="t-code">04</text>
-                  <text x="624" y="250" class="t-box" text-anchor="start">Style and</text>
-                  <text x="624" y="272" class="t-box" text-anchor="start">layout</text>
-                  <text x="624" y="308" class="t-small">Browser work</text>
-                  <path
-                    d="M770,258 H800 M792,252 L800,258 L792,264"
-                    class="wire ink"
-                    pathLength="1"
-                  />
-                </g>
-                <g class="station" data-station="4">
-                  <path d="M880,146 V188" class="probe probe--drop em ink" pathLength="1" />
-                  <rect x="800" y="196" width="160" height="124" class="box ink" pathLength="1" />
-                  <text x="814" y="224" class="t-code">05</text>
-                  <text x="814" y="250" class="t-box" text-anchor="start">Paint</text>
-                  <text x="814" y="308" class="t-small">Browser work</text>
-
-                  <g class="find" data-find="4">
-                    <path d="M800,336 V348 H960 V336" class="em ink" pathLength="1" />
-                    <text x="880" y="374" class="t-cell t-em-ink" text-anchor="middle">
-                      chart-update paint work
-                    </text>
-                  </g>
-                </g>
-                <text x="40" y="432" class="t-small">
-                  The two marked stages are what the profiling targeted, as the case study names
-                  them.
-                </text>
-                <text x="40" y="456" class="t-small">
-                  Schematic. No profile, timing or measured value is shown.
-                </text>
-
-                <g class="strip">
-                  <rect x="0" y="490" width="1000" height="50" class="strip__bg" />
-                  <line x1="0" y1="490" x2="1000" y2="490" class="hair" />
-                  <text x="24" y="521" class="t-code">EM-02</text>
-                  <text x="111" y="521" class="t-strip">The render path of one chart update</text>
-                  <text x="976" y="521" class="t-kind" text-anchor="end">
-                    Editorial diagram · schematic
+            <figure class="step__fig">
+              <div class="fig-w scroll-x">
+                <svg
+                  class="drawing drawing--em"
+                  viewBox="0 0 1000 540"
+                  preserveAspectRatio="xMidYMid meet"
+                  aria-hidden="true"
+                  focusable="false"
+                  data-label="em-path"
+                >
+                  <rect x="12" y="12" width="976" height="466" class="frame" />
+                  <path d="M34,20 H20 V34" class="reg-tick" />
+                  <path d="M966,20 H980 V34" class="reg-tick" />
+                  <path d="M34,470 H20 V456" class="reg-tick" />
+                  <path d="M966,470 H980 V456" class="reg-tick" />
+                  <text x="40" y="58" class="t-title">The render path of one chart update</text>
+                  <text x="40" y="88" class="t-note">
+                    Equal boxes: the stages of an update, not how long each one takes.
                   </text>
-                </g>
-              </svg>
+                  <text x="40" y="132" class="t-small t-em">
+                    Profiled where the cost showed up first: in the embedded webview
+                  </text>
+                  <path
+                    d="M40,146 H960 M40,138 V154 M960,138 V154"
+                    class="probe em ink"
+                    pathLength="1"
+                  />
+
+                  <g class="station" data-station="0">
+                    <path d="M120,146 V188" class="probe probe--drop em ink" pathLength="1" />
+                    <rect x="40" y="196" width="160" height="124" class="box ink" pathLength="1" />
+                    <text x="54" y="224" class="t-code">01</text>
+                    <text x="54" y="250" class="t-box" text-anchor="start">Input to the</text>
+                    <text x="54" y="272" class="t-box" text-anchor="start">module</text>
+                    <text x="54" y="308" class="t-small">Data or interaction</text>
+                    <path
+                      d="M200,258 H230 M222,252 L230,258 L222,264"
+                      class="wire ink"
+                      pathLength="1"
+                    />
+                  </g>
+                  <g class="station" data-station="1">
+                    <path d="M310,146 V188" class="probe probe--drop em ink" pathLength="1" />
+                    <rect x="230" y="196" width="160" height="124" class="box ink" pathLength="1" />
+                    <text x="244" y="224" class="t-code">02</text>
+                    <text x="244" y="250" class="t-box" text-anchor="start">React</text>
+                    <text x="244" y="272" class="t-box" text-anchor="start">re-render</text>
+                    <text x="244" y="308" class="t-small">Product composition</text>
+                    <path
+                      d="M390,258 H420 M412,252 L420,258 L412,264"
+                      class="wire ink"
+                      pathLength="1"
+                    />
+                    <g class="find" data-find="1">
+                      <path d="M230,336 V348 H390 V336" class="em ink" pathLength="1" />
+                      <text x="310" y="374" class="t-cell t-em-ink" text-anchor="middle">
+                        unnecessary re-renders
+                      </text>
+                    </g>
+                  </g>
+                  <g class="station" data-station="2">
+                    <path d="M500,146 V188" class="probe probe--drop em ink" pathLength="1" />
+                    <rect x="420" y="196" width="160" height="124" class="box ink" pathLength="1" />
+                    <text x="434" y="224" class="t-code">03</text>
+                    <text x="434" y="250" class="t-box" text-anchor="start">D3 chart</text>
+                    <text x="434" y="272" class="t-box" text-anchor="start">update</text>
+                    <text x="434" y="308" class="t-small">Chart behavior</text>
+                    <path
+                      d="M580,258 H610 M602,252 L610,258 L602,264"
+                      class="wire ink"
+                      pathLength="1"
+                    />
+                  </g>
+                  <g class="station" data-station="3">
+                    <path d="M690,146 V188" class="probe probe--drop em ink" pathLength="1" />
+                    <rect x="610" y="196" width="160" height="124" class="box ink" pathLength="1" />
+                    <text x="624" y="224" class="t-code">04</text>
+                    <text x="624" y="250" class="t-box" text-anchor="start">Style and</text>
+                    <text x="624" y="272" class="t-box" text-anchor="start">layout</text>
+                    <text x="624" y="308" class="t-small">Browser work</text>
+                    <path
+                      d="M770,258 H800 M792,252 L800,258 L792,264"
+                      class="wire ink"
+                      pathLength="1"
+                    />
+                  </g>
+                  <g class="station" data-station="4">
+                    <path d="M880,146 V188" class="probe probe--drop em ink" pathLength="1" />
+                    <rect x="800" y="196" width="160" height="124" class="box ink" pathLength="1" />
+                    <text x="814" y="224" class="t-code">05</text>
+                    <text x="814" y="250" class="t-box" text-anchor="start">Paint</text>
+                    <text x="814" y="308" class="t-small">Browser work</text>
+
+                    <g class="find" data-find="4">
+                      <path d="M800,336 V348 H960 V336" class="em ink" pathLength="1" />
+                      <text x="880" y="374" class="t-cell t-em-ink" text-anchor="middle">
+                        chart-update paint work
+                      </text>
+                    </g>
+                  </g>
+                  <text x="40" y="432" class="t-small">
+                    The two marked stages are what the profiling targeted, as the case study names
+                    them.
+                  </text>
+                  <text x="40" y="456" class="t-small">
+                    Schematic. No profile, timing or measured value is shown.
+                  </text>
+
+                  <g class="strip">
+                    <rect x="0" y="490" width="1000" height="50" class="strip__bg" />
+                    <line x1="0" y1="490" x2="1000" y2="490" class="hair" />
+                    <text x="24" y="521" class="t-code">EM-02</text>
+                    <text x="111" y="521" class="t-strip">The render path of one chart update</text>
+                    <text x="976" y="521" class="t-kind" text-anchor="end">
+                      Editorial diagram · schematic
+                    </text>
+                  </g>
+                </svg>
+              </div>
+              <div class="fig-p">
+                <div class="plate plate--draw pplate">
+                  <svg
+                    class="drawing drawing--p drawing--em"
+                    viewBox="0 0 360 758"
+                    preserveAspectRatio="xMidYMid meet"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-label="em-path-p"
+                  >
+                    <path d="M20,190 V563" class="probe em ink" pathLength="1" />
+                    <text x="20" y="46" class="t-title" text-anchor="start">
+                      The render path of one
+                    </text>
+                    <text x="20" y="76" class="t-title" text-anchor="start">chart update</text>
+                    <text x="20" y="102" class="t-small" text-anchor="start">
+                      Equal boxes: the stages of an update, not
+                    </text>
+                    <text x="20" y="120" class="t-small" text-anchor="start">
+                      how long each one takes.
+                    </text>
+                    <text x="20" y="148" class="t-small t-em" text-anchor="start">
+                      Profiled where the cost showed up first: in
+                    </text>
+                    <text x="20" y="166" class="t-small t-em" text-anchor="start">
+                      the embedded webview
+                    </text>
+                    <g class="station" data-station="0" data-in>
+                      <path d="M20,219 H38" class="probe probe--drop em ink" pathLength="1" />
+                      <rect x="44" y="190" width="300" height="58" class="box ink" pathLength="1" />
+                      <text x="56" y="214" class="t-code">01</text>
+                      <text x="86" y="214" class="t-box">Input to the module</text>
+                      <text x="86" y="235" class="t-small">Data or interaction</text>
+                    </g>
+                    <path
+                      d="M194,248 V264 M189,258 L194,264 L199,258"
+                      class="wire ink"
+                      pathLength="1"
+                    />
+                    <g class="station" data-station="1" data-in>
+                      <path d="M20,293 H38" class="probe probe--drop em ink" pathLength="1" />
+                      <rect x="44" y="264" width="300" height="58" class="box ink" pathLength="1" />
+                      <text x="56" y="288" class="t-code">02</text>
+                      <text x="86" y="288" class="t-box">React re-render</text>
+                      <text x="86" y="309" class="t-small">Product composition</text>
+                      <g class="find" data-find="1">
+                        <path d="M44,330 V336 H344 V330" class="em ink" pathLength="1" />
+                        <text x="194" y="356" class="t-cell t-em-ink" text-anchor="middle">
+                          unnecessary re-renders
+                        </text>
+                      </g>
+                    </g>
+                    <path
+                      d="M194,370 V386 M189,380 L194,386 L199,380"
+                      class="wire ink"
+                      pathLength="1"
+                    />
+                    <g class="station" data-station="2" data-in>
+                      <path d="M20,415 H38" class="probe probe--drop em ink" pathLength="1" />
+                      <rect x="44" y="386" width="300" height="58" class="box ink" pathLength="1" />
+                      <text x="56" y="410" class="t-code">03</text>
+                      <text x="86" y="410" class="t-box">D3 chart update</text>
+                      <text x="86" y="431" class="t-small">Chart behavior</text>
+                    </g>
+                    <path
+                      d="M194,444 V460 M189,454 L194,460 L199,454"
+                      class="wire ink"
+                      pathLength="1"
+                    />
+                    <g class="station" data-station="3" data-in>
+                      <path d="M20,489 H38" class="probe probe--drop em ink" pathLength="1" />
+                      <rect x="44" y="460" width="300" height="58" class="box ink" pathLength="1" />
+                      <text x="56" y="484" class="t-code">04</text>
+                      <text x="86" y="484" class="t-box">Style and layout</text>
+                      <text x="86" y="505" class="t-small">Browser work</text>
+                    </g>
+                    <path
+                      d="M194,518 V534 M189,528 L194,534 L199,528"
+                      class="wire ink"
+                      pathLength="1"
+                    />
+                    <g class="station" data-station="4" data-in>
+                      <path d="M20,563 H38" class="probe probe--drop em ink" pathLength="1" />
+                      <rect x="44" y="534" width="300" height="58" class="box ink" pathLength="1" />
+                      <text x="56" y="558" class="t-code">05</text>
+                      <text x="86" y="558" class="t-box">Paint</text>
+                      <text x="86" y="579" class="t-small">Browser work</text>
+                      <g class="find" data-find="4">
+                        <path d="M44,600 V606 H344 V600" class="em ink" pathLength="1" />
+                        <text x="194" y="626" class="t-cell t-em-ink" text-anchor="middle">
+                          chart-update paint work
+                        </text>
+                      </g>
+                    </g>
+                    <text x="20" y="670" class="t-small" text-anchor="start">
+                      The two marked stages are what the profiling
+                    </text>
+                    <text x="20" y="688" class="t-small" text-anchor="start">
+                      targeted, as the case study names them.
+                    </text>
+                    <text x="20" y="712" class="t-small" text-anchor="start">
+                      Schematic. No profile, timing or measured
+                    </text>
+                    <text x="20" y="730" class="t-small" text-anchor="start">value is shown.</text>
+                  </svg>
+                  <figcaption class="strip strip--draw">
+                    <span class="strip__code">EM-02</span
+                    ><span class="strip__title">The render path of one chart update</span
+                    ><span class="strip__kind">Editorial diagram · schematic</span>
+                  </figcaption>
+                </div>
+              </div>
             </figure>
           </article>
           <article class="step" id="composition" data-beat="composition">
@@ -802,104 +945,215 @@
                 losing control of the surrounding dashboard UI.
               </p>
             </div>
-            <figure class="step__fig scroll-x">
-              <svg
-                class="drawing drawing--em"
-                viewBox="0 0 1000 646"
-                preserveAspectRatio="xMidYMid meet"
-                aria-hidden="true"
-                focusable="false"
-                data-label="em-layers"
-              >
-                <rect x="12" y="12" width="976" height="572" class="frame" />
-                <text x="40" y="58" class="t-title">How a dashboard module is composed</text>
+            <figure class="step__fig">
+              <div class="fig-w scroll-x">
+                <svg
+                  class="drawing drawing--em"
+                  viewBox="0 0 1000 646"
+                  preserveAspectRatio="xMidYMid meet"
+                  aria-hidden="true"
+                  focusable="false"
+                  data-label="em-layers"
+                >
+                  <rect x="12" y="12" width="976" height="572" class="frame" />
+                  <path d="M34,20 H20 V34" class="reg-tick" />
+                  <path d="M966,20 H980 V34" class="reg-tick" />
+                  <path d="M34,576 H20 V562" class="reg-tick" />
+                  <path d="M966,576 H980 V562" class="reg-tick" />
+                  <text x="40" y="58" class="t-title">How a dashboard module is composed</text>
 
-                <g class="lyr" data-lyr="0">
-                  <path d="M64,122 L104,100 L704,100 L664,122 Z" class="lyr__top" />
-                  <rect
-                    x="64"
-                    y="122"
-                    width="600"
-                    height="80"
-                    class="lyr__face ink"
-                    pathLength="1"
-                  />
-                  <text x="82" y="148" class="t-cell">React product composition</text>
-                  <text x="82" y="170" class="t-small" text-anchor="start">
-                    The dashboard UI, controls, and layout around each chart.
+                  <g class="lyr" data-lyr="0">
+                    <path d="M64,122 L104,100 L704,100 L664,122 Z" class="lyr__top" />
+                    <rect
+                      x="64"
+                      y="122"
+                      width="600"
+                      height="80"
+                      class="lyr__face ink"
+                      pathLength="1"
+                    />
+                    <text x="82" y="148" class="t-cell">React product composition</text>
+                    <text x="82" y="170" class="t-small" text-anchor="start">
+                      The dashboard UI, controls, and layout around each chart.
+                    </text>
+                  </g>
+                  <g class="lyr" data-lyr="1">
+                    <path d="M90,234 L130,212 L730,212 L690,234 Z" class="lyr__top" />
+                    <rect
+                      x="90"
+                      y="234"
+                      width="600"
+                      height="80"
+                      class="lyr__face ink"
+                      pathLength="1"
+                    />
+                    <text x="108" y="260" class="t-cell">D3.js chart behavior</text>
+                    <text x="108" y="282" class="t-small" text-anchor="start">
+                      Tailored data visualization and chart interactions, tuned on their own terms.
+                    </text>
+                  </g>
+                  <g class="lyr" data-lyr="2">
+                    <path d="M116,346 L156,324 L756,324 L716,346 Z" class="lyr__top" />
+                    <rect
+                      x="116"
+                      y="346"
+                      width="600"
+                      height="80"
+                      class="lyr__face ink"
+                      pathLength="1"
+                    />
+                    <text x="134" y="372" class="t-cell">GSAP motion</text>
+                    <text x="134" y="394" class="t-small" text-anchor="start">
+                      Used where it helps people keep their place in the data, not as decoration.
+                    </text>
+                  </g>
+                  <g class="lyr" data-lyr="3">
+                    <path d="M142,458 L182,436 L782,436 L742,458 Z" class="lyr__top" />
+                    <rect
+                      x="142"
+                      y="458"
+                      width="600"
+                      height="80"
+                      class="lyr__face ink"
+                      pathLength="1"
+                    />
+                    <text x="160" y="484" class="t-cell">Shared accessible components</text>
+                    <text x="160" y="506" class="t-small" text-anchor="start">
+                      The documented baseline dashboard modules were assembled from, instead of
+                    </text>
+                    <text x="160" y="524" class="t-small" text-anchor="start">
+                      starting from scratch.
+                    </text>
+                  </g>
+                  <path d="M728,122 V314" class="dim em" />
+                  <path d="M720,122 H736 M720,314 H736" class="dim em" />
+                  <text x="748" y="168" class="t-cell t-em-ink" text-anchor="start">
+                    React owns the
                   </text>
-                </g>
-                <g class="lyr" data-lyr="1">
-                  <path d="M90,234 L130,212 L730,212 L690,234 Z" class="lyr__top" />
-                  <rect
-                    x="90"
-                    y="234"
-                    width="600"
-                    height="80"
-                    class="lyr__face ink"
-                    pathLength="1"
-                  />
-                  <text x="108" y="260" class="t-cell">D3.js chart behavior</text>
-                  <text x="108" y="282" class="t-small" text-anchor="start">
-                    Tailored data visualization and chart interactions, tuned on their own terms.
+                  <text x="748" y="190" class="t-cell t-em-ink" text-anchor="start">
+                    composition around the
                   </text>
-                </g>
-                <g class="lyr" data-lyr="2">
-                  <path d="M116,346 L156,324 L756,324 L716,346 Z" class="lyr__top" />
-                  <rect
-                    x="116"
-                    y="346"
-                    width="600"
-                    height="80"
-                    class="lyr__face ink"
-                    pathLength="1"
-                  />
-                  <text x="134" y="372" class="t-cell">GSAP motion</text>
-                  <text x="134" y="394" class="t-small" text-anchor="start">
-                    Used where it helps people keep their place in the data, not as decoration.
+                  <text x="748" y="212" class="t-cell t-em-ink" text-anchor="start">
+                    chart; D3 owns the
                   </text>
-                </g>
-                <g class="lyr" data-lyr="3">
-                  <path d="M142,458 L182,436 L782,436 L742,458 Z" class="lyr__top" />
-                  <rect
-                    x="142"
-                    y="458"
-                    width="600"
-                    height="80"
-                    class="lyr__face ink"
-                    pathLength="1"
-                  />
-                  <text x="160" y="484" class="t-cell">Shared accessible components</text>
-                  <text x="160" y="506" class="t-small" text-anchor="start">
-                    The documented baseline dashboard modules were assembled from, instead of
+                  <text x="748" y="234" class="t-cell t-em-ink" text-anchor="start">
+                    chart's own behavior.
                   </text>
-                  <text x="160" y="524" class="t-small" text-anchor="start">
-                    starting from scratch.
-                  </text>
-                </g>
-                <path d="M728,122 V314" class="dim em" />
-                <path d="M720,122 H736 M720,314 H736" class="dim em" />
-                <text x="748" y="168" class="t-cell t-em-ink" text-anchor="start">
-                  React owns the
-                </text>
-                <text x="748" y="190" class="t-cell t-em-ink" text-anchor="start">
-                  composition around the
-                </text>
-                <text x="748" y="212" class="t-cell t-em-ink" text-anchor="start">
-                  chart; D3 owns the
-                </text>
-                <text x="748" y="234" class="t-cell t-em-ink" text-anchor="start">
-                  chart's own behavior.
-                </text>
 
-                <g class="strip">
-                  <rect x="0" y="596" width="1000" height="50" class="strip__bg" />
-                  <line x1="0" y1="596" x2="1000" y2="596" class="hair" />
-                  <text x="24" y="627" class="t-code">EM-03</text>
-                  <text x="111" y="627" class="t-strip">Composition of a dashboard module</text>
-                  <text x="976" y="627" class="t-kind" text-anchor="end">Editorial diagram</text>
-                </g>
-              </svg>
+                  <g class="strip">
+                    <rect x="0" y="596" width="1000" height="50" class="strip__bg" />
+                    <line x1="0" y1="596" x2="1000" y2="596" class="hair" />
+                    <text x="24" y="627" class="t-code">EM-03</text>
+                    <text x="111" y="627" class="t-strip">Composition of a dashboard module</text>
+                    <text x="976" y="627" class="t-kind" text-anchor="end">Editorial diagram</text>
+                  </g>
+                </svg>
+              </div>
+              <div class="fig-p">
+                <div class="plate plate--draw pplate">
+                  <svg
+                    class="drawing drawing--p drawing--em"
+                    viewBox="0 0 360 591"
+                    preserveAspectRatio="xMidYMid meet"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-label="em-layers-p"
+                  >
+                    <text x="20" y="46" class="t-title" text-anchor="start">
+                      How a dashboard module
+                    </text>
+                    <text x="20" y="76" class="t-title" text-anchor="start">is composed</text>
+                    <g class="lyr" data-lyr="0" data-in>
+                      <rect
+                        x="16"
+                        y="100"
+                        width="304"
+                        height="78"
+                        class="lyr__face ink"
+                        pathLength="1"
+                      />
+                      <text x="30" y="124" class="t-cell">React product composition</text>
+                      <text x="30" y="144" class="t-small" text-anchor="start">
+                        The dashboard UI, controls, and
+                      </text>
+                      <text x="30" y="161" class="t-small" text-anchor="start">
+                        layout around each chart.
+                      </text>
+                    </g>
+                    <g class="lyr" data-lyr="1" data-in>
+                      <rect
+                        x="24"
+                        y="188"
+                        width="304"
+                        height="95"
+                        class="lyr__face ink"
+                        pathLength="1"
+                      />
+                      <text x="38" y="212" class="t-cell">D3.js chart behavior</text>
+                      <text x="38" y="232" class="t-small" text-anchor="start">
+                        Tailored data visualization and
+                      </text>
+                      <text x="38" y="249" class="t-small" text-anchor="start">
+                        chart interactions, tuned on their
+                      </text>
+                      <text x="38" y="266" class="t-small" text-anchor="start">own terms.</text>
+                    </g>
+                    <g class="lyr" data-lyr="2" data-in>
+                      <rect
+                        x="32"
+                        y="293"
+                        width="304"
+                        height="95"
+                        class="lyr__face ink"
+                        pathLength="1"
+                      />
+                      <text x="46" y="317" class="t-cell">GSAP motion</text>
+                      <text x="46" y="337" class="t-small" text-anchor="start">
+                        Used where it helps people keep
+                      </text>
+                      <text x="46" y="354" class="t-small" text-anchor="start">
+                        their place in the data, not as
+                      </text>
+                      <text x="46" y="371" class="t-small" text-anchor="start">decoration.</text>
+                    </g>
+                    <g class="lyr" data-lyr="3" data-in>
+                      <rect
+                        x="40"
+                        y="398"
+                        width="304"
+                        height="95"
+                        class="lyr__face ink"
+                        pathLength="1"
+                      />
+                      <text x="54" y="422" class="t-cell">Shared accessible components</text>
+                      <text x="54" y="442" class="t-small" text-anchor="start">
+                        The documented baseline dashboard
+                      </text>
+                      <text x="54" y="459" class="t-small" text-anchor="start">
+                        modules were assembled from, instead
+                      </text>
+                      <text x="54" y="476" class="t-small" text-anchor="start">
+                        of starting from scratch.
+                      </text>
+                    </g>
+                    <path d="M338,100 V283 M332,100 H344 M332,283 H344" class="dim em" />
+                    <text x="20" y="517" class="t-cell t-em-ink" text-anchor="start">
+                      React owns the composition around the
+                    </text>
+                    <text x="20" y="537" class="t-cell t-em-ink" text-anchor="start">
+                      chart; D3 owns the chart's own
+                    </text>
+                    <text x="20" y="557" class="t-cell t-em-ink" text-anchor="start">
+                      behavior.
+                    </text>
+                  </svg>
+                  <figcaption class="strip strip--draw">
+                    <span class="strip__code">EM-03</span
+                    ><span class="strip__title">Composition of a dashboard module</span
+                    ><span class="strip__kind">Editorial diagram</span>
+                  </figcaption>
+                </div>
+              </div>
             </figure>
           </article>
           <article class="step" id="budget" data-beat="budget">
@@ -916,118 +1170,257 @@
                 local testing.
               </p>
             </div>
-            <figure class="step__fig scroll-x">
-              <svg
-                class="drawing drawing--em"
-                viewBox="0 0 1000 640"
-                preserveAspectRatio="xMidYMid meet"
-                aria-hidden="true"
-                focusable="false"
-                data-label="em-budget"
-              >
-                <rect x="12" y="12" width="976" height="566" class="frame" />
-                <text x="40" y="58" class="t-title">Designing within the frame budget</text>
-                <g class="ref">
-                  <text x="40" y="122" class="t-col">Reference budget</text>
-                  <path d="M40,196 H400" class="axis" />
-                  <line x1="40" y1="184" x2="40" y2="208" class="frame-tick frame-tick--0" />
-                  <line x1="160" y1="184" x2="160" y2="208" class="frame-tick" />
-                  <line x1="280" y1="184" x2="280" y2="208" class="frame-tick" />
-                  <line x1="400" y1="184" x2="400" y2="208" class="frame-tick" />
-                  <path d="M40,166 V174 H160 V166" class="em dim-ref ink" pathLength="1" />
-                  <text x="100" y="156" class="t-cell t-em-ink" text-anchor="middle">16.7 ms</text>
-                  <text x="100" y="228" class="t-small" text-anchor="middle">frame</text>
-                  <text x="220" y="228" class="t-small" text-anchor="middle">frame</text>
-                  <text x="340" y="228" class="t-small" text-anchor="middle">frame</text>
-                  <text x="40" y="272" class="t-small" text-anchor="start">
-                    One frame of a 60 Hz display lasts about
+            <figure class="step__fig">
+              <div class="fig-w scroll-x">
+                <svg
+                  class="drawing drawing--em"
+                  viewBox="0 0 1000 640"
+                  preserveAspectRatio="xMidYMid meet"
+                  aria-hidden="true"
+                  focusable="false"
+                  data-label="em-budget"
+                >
+                  <rect x="12" y="12" width="976" height="566" class="frame" />
+                  <path d="M34,20 H20 V34" class="reg-tick" />
+                  <path d="M966,20 H980 V34" class="reg-tick" />
+                  <path d="M34,570 H20 V556" class="reg-tick" />
+                  <path d="M966,570 H980 V556" class="reg-tick" />
+                  <text x="40" y="58" class="t-title">Designing within the frame budget</text>
+                  <g class="ref">
+                    <text x="40" y="122" class="t-col">Reference budget</text>
+                    <path d="M40,196 H400" class="axis" />
+                    <line x1="40" y1="184" x2="40" y2="208" class="frame-tick frame-tick--0" />
+                    <line x1="160" y1="184" x2="160" y2="208" class="frame-tick" />
+                    <line x1="280" y1="184" x2="280" y2="208" class="frame-tick" />
+                    <line x1="400" y1="184" x2="400" y2="208" class="frame-tick" />
+                    <path d="M40,166 V174 H160 V166" class="em dim-ref ink" pathLength="1" />
+                    <text x="100" y="156" class="t-cell t-em-ink" text-anchor="middle">
+                      16.7 ms
+                    </text>
+                    <text x="100" y="228" class="t-small" text-anchor="middle">frame</text>
+                    <text x="220" y="228" class="t-small" text-anchor="middle">frame</text>
+                    <text x="340" y="228" class="t-small" text-anchor="middle">frame</text>
+                    <text x="40" y="272" class="t-small" text-anchor="start">
+                      One frame of a 60 Hz display lasts about
+                    </text>
+                    <text x="40" y="294" class="t-small" text-anchor="start">
+                      16.7 ms. This is a reference budget, not
+                    </text>
+                    <text x="40" y="316" class="t-small" text-anchor="start">
+                      a measurement; other refresh rates set
+                    </text>
+                    <text x="40" y="338" class="t-small" text-anchor="start">other budgets.</text>
+                  </g>
+                  <g class="tree">
+                    <text x="500" y="122" class="t-col">Illustrative module tree</text>
+                    <rect x="610" y="140" width="220" height="40" class="box ink" pathLength="1" />
+                    <text x="720" y="166" class="t-box t-box--s" text-anchor="middle">
+                      Dashboard module
+                    </text>
+                    <path
+                      d="M720,180 V204 H585 V228 M720,204 H835 V228"
+                      class="wire ink"
+                      pathLength="1"
+                    />
+                    <rect x="500" y="228" width="170" height="40" class="box ink" pathLength="1" />
+                    <text x="585" y="254" class="t-box t-box--s" text-anchor="middle">
+                      Controls
+                    </text>
+                    <rect
+                      x="735"
+                      y="228"
+                      width="200"
+                      height="40"
+                      class="box ink box--em"
+                      pathLength="1"
+                    />
+                    <text x="835" y="254" class="t-box t-box--s" text-anchor="middle">
+                      Chart container
+                    </text>
+                    <path d="M585,268 V292" class="wire ink" pathLength="1" />
+                    <rect x="500" y="292" width="170" height="40" class="box ink" pathLength="1" />
+                    <text x="585" y="318" class="t-box t-box--s" text-anchor="middle">
+                      Legend, filters
+                    </text>
+                    <rect x="715" y="300" width="240" height="96" class="d3-own" />
+                    <text x="729" y="322" class="t-small t-em">D3.js owns the chart's marks</text>
+                    <rect x="733" y="370" width="16" height="16" class="mark-d3" />
+                    <rect x="760" y="333" width="16" height="53" class="mark-d3" />
+                    <rect x="787" y="340" width="16" height="46" class="mark-d3" />
+                    <rect x="814" y="347" width="16" height="39" class="mark-d3" />
+                    <rect x="841" y="354" width="16" height="32" class="mark-d3" />
+                    <rect x="868" y="361" width="16" height="25" class="mark-d3" />
+                    <rect x="895" y="368" width="16" height="18" class="mark-d3" />
+                    <rect x="922" y="331" width="16" height="55" class="mark-d3" />
+                    <path
+                      d="M965,104 V160 M965,160 C965,190 900,200 880,228 M835,268 V300"
+                      class="update em ink"
+                      pathLength="1"
+                    />
+                    <path d="M959,112 L965,100 L971,112" class="update em" />
+                    <text x="955" y="96" class="t-small t-em" text-anchor="end">
+                      a chart update
+                    </text>
+                    <text x="500" y="356" class="t-small">Not re-rendered</text>
+                    <text x="500" y="376" class="t-small">by a chart update</text>
+                  </g>
+                  <line x1="40" y1="438" x2="960" y2="438" class="hair" />
+                  <text x="40" y="468" class="t-col">The approach, from the case study</text>
+                  <text x="40" y="500" class="t-small">
+                    <tspan class="t-em-ink">01</tspan>
+                    Keeps dense views intact
                   </text>
-                  <text x="40" y="294" class="t-small" text-anchor="start">
-                    16.7 ms. This is a reference budget, not
+                  <text x="510" y="500" class="t-small">
+                    <tspan class="t-em-ink">02</tspan>
+                    Targets unnecessary re-renders and chart-update paint work
                   </text>
-                  <text x="40" y="316" class="t-small" text-anchor="start">
-                    a measurement; other refresh rates set
+                  <text x="40" y="526" class="t-small">
+                    <tspan class="t-em-ink">03</tspan>
+                    Tunes desktop and embedded webview contexts separately
                   </text>
-                  <text x="40" y="338" class="t-small" text-anchor="start">other budgets.</text>
-                </g>
-                <g class="tree">
-                  <text x="500" y="122" class="t-col">Illustrative module tree</text>
-                  <rect x="610" y="140" width="220" height="40" class="box ink" pathLength="1" />
-                  <text x="720" y="166" class="t-box t-box--s" text-anchor="middle">
-                    Dashboard module
+                  <text x="510" y="526" class="t-small">
+                    <tspan class="t-em-ink">04</tspan>
+                    Treats readability and interaction pacing as part of performance
                   </text>
-                  <path
-                    d="M720,180 V204 H585 V228 M720,204 H835 V228"
-                    class="wire ink"
-                    pathLength="1"
-                  />
-                  <rect x="500" y="228" width="170" height="40" class="box ink" pathLength="1" />
-                  <text x="585" y="254" class="t-box t-box--s" text-anchor="middle">Controls</text>
-                  <rect
-                    x="735"
-                    y="228"
-                    width="200"
-                    height="40"
-                    class="box ink box--em"
-                    pathLength="1"
-                  />
-                  <text x="835" y="254" class="t-box t-box--s" text-anchor="middle">
-                    Chart container
-                  </text>
-                  <path d="M585,268 V292" class="wire ink" pathLength="1" />
-                  <rect x="500" y="292" width="170" height="40" class="box ink" pathLength="1" />
-                  <text x="585" y="318" class="t-box t-box--s" text-anchor="middle">
-                    Legend, filters
-                  </text>
-                  <rect x="715" y="300" width="240" height="96" class="d3-own" />
-                  <text x="729" y="322" class="t-small t-em">D3.js owns the chart's marks</text>
-                  <rect x="733" y="370" width="16" height="16" class="mark-d3" />
-                  <rect x="760" y="333" width="16" height="53" class="mark-d3" />
-                  <rect x="787" y="340" width="16" height="46" class="mark-d3" />
-                  <rect x="814" y="347" width="16" height="39" class="mark-d3" />
-                  <rect x="841" y="354" width="16" height="32" class="mark-d3" />
-                  <rect x="868" y="361" width="16" height="25" class="mark-d3" />
-                  <rect x="895" y="368" width="16" height="18" class="mark-d3" />
-                  <rect x="922" y="331" width="16" height="55" class="mark-d3" />
-                  <path
-                    d="M965,104 V160 M965,160 C965,190 900,200 880,228 M835,268 V300"
-                    class="update em ink"
-                    pathLength="1"
-                  />
-                  <path d="M959,112 L965,100 L971,112" class="update em" />
-                  <text x="955" y="96" class="t-small t-em" text-anchor="end">a chart update</text>
-                  <text x="500" y="356" class="t-small">Not re-rendered</text>
-                  <text x="500" y="376" class="t-small">by a chart update</text>
-                </g>
-                <line x1="40" y1="438" x2="960" y2="438" class="hair" />
-                <text x="40" y="468" class="t-col">The approach, from the case study</text>
-                <text x="40" y="500" class="t-small">
-                  <tspan class="t-em-ink">01</tspan>
-                  Keeps dense views intact
-                </text>
-                <text x="510" y="500" class="t-small">
-                  <tspan class="t-em-ink">02</tspan>
-                  Targets unnecessary re-renders and chart-update paint work
-                </text>
-                <text x="40" y="526" class="t-small">
-                  <tspan class="t-em-ink">03</tspan>
-                  Tunes desktop and embedded webview contexts separately
-                </text>
-                <text x="510" y="526" class="t-small">
-                  <tspan class="t-em-ink">04</tspan>
-                  Treats readability and interaction pacing as part of performance
-                </text>
 
-                <g class="strip">
-                  <rect x="0" y="590" width="1000" height="50" class="strip__bg" />
-                  <line x1="0" y1="590" x2="1000" y2="590" class="hair" />
-                  <text x="24" y="621" class="t-code">EM-04</text>
-                  <text x="111" y="621" class="t-strip">Designing within the frame budget</text>
-                  <text x="976" y="621" class="t-kind" text-anchor="end">
-                    Editorial diagram · schematic
-                  </text>
-                </g>
-              </svg>
+                  <g class="strip">
+                    <rect x="0" y="590" width="1000" height="50" class="strip__bg" />
+                    <line x1="0" y1="590" x2="1000" y2="590" class="hair" />
+                    <text x="24" y="621" class="t-code">EM-04</text>
+                    <text x="111" y="621" class="t-strip">Designing within the frame budget</text>
+                    <text x="976" y="621" class="t-kind" text-anchor="end">
+                      Editorial diagram · schematic
+                    </text>
+                  </g>
+                </svg>
+              </div>
+              <div class="fig-p">
+                <div class="plate plate--draw pplate">
+                  <svg
+                    class="drawing drawing--p drawing--em"
+                    viewBox="0 0 360 810"
+                    preserveAspectRatio="xMidYMid meet"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-label="em-budget-p"
+                  >
+                    <text x="20" y="46" class="t-title" text-anchor="start">
+                      Designing within the
+                    </text>
+                    <text x="20" y="76" class="t-title" text-anchor="start">frame budget</text>
+                    <text x="20" y="106" class="t-col">Reference budget</text>
+                    <g class="ref" data-in>
+                      <path d="M20,170 H320" class="axis" />
+                      <line x1="20" y1="160" x2="20" y2="180" class="frame-tick frame-tick--0" />
+                      <line x1="120" y1="160" x2="120" y2="180" class="frame-tick" />
+                      <line x1="220" y1="160" x2="220" y2="180" class="frame-tick" />
+                      <line x1="320" y1="160" x2="320" y2="180" class="frame-tick" />
+                      <path d="M20,144 V151 H120 V144" class="em dim-ref ink" pathLength="1" />
+                      <text x="70" y="136" class="t-cell t-em-ink" text-anchor="middle">
+                        16.7 ms
+                      </text>
+                      <text x="70" y="198" class="t-small" text-anchor="middle">frame</text>
+                      <text x="170" y="198" class="t-small" text-anchor="middle">frame</text>
+                      <text x="270" y="198" class="t-small" text-anchor="middle">frame</text>
+                    </g>
+                    <text x="20" y="228" class="t-small" text-anchor="start">
+                      One frame of a 60 Hz display lasts about
+                    </text>
+                    <text x="20" y="246" class="t-small" text-anchor="start">
+                      16.7 ms. This is a reference budget, not a
+                    </text>
+                    <text x="20" y="264" class="t-small" text-anchor="start">
+                      measurement; other refresh rates set other
+                    </text>
+                    <text x="20" y="282" class="t-small" text-anchor="start">budgets.</text>
+                    <text x="20" y="330" class="t-col">Illustrative module tree</text>
+                    <g class="tree" data-in>
+                      <rect x="80" y="348" width="180" height="38" class="box ink" pathLength="1" />
+                      <text x="170" y="372" class="t-box t-box--s" text-anchor="middle">
+                        Dashboard module
+                      </text>
+                      <path
+                        d="M170,386 V404 H95 V422 M170,404 H255 V422"
+                        class="wire ink"
+                        pathLength="1"
+                      />
+                      <rect x="20" y="422" width="150" height="38" class="box ink" pathLength="1" />
+                      <text x="95" y="446" class="t-box t-box--s" text-anchor="middle">
+                        Controls
+                      </text>
+                      <rect
+                        x="180"
+                        y="422"
+                        width="160"
+                        height="38"
+                        class="box ink box--em"
+                        pathLength="1"
+                      />
+                      <text x="260" y="446" class="t-box t-box--s" text-anchor="middle">
+                        Chart container
+                      </text>
+                      <path d="M95,460 V478" class="wire ink" pathLength="1" />
+                      <rect x="20" y="478" width="150" height="38" class="box ink" pathLength="1" />
+                      <text x="95" y="502" class="t-box t-box--s" text-anchor="middle">
+                        Legend, filters
+                      </text>
+                      <text x="20" y="540" class="t-small">Not re-rendered</text>
+                      <text x="20" y="558" class="t-small">by a chart update</text>
+                      <rect x="180" y="478" width="160" height="96" class="d3-own" />
+                      <text x="190" y="498" class="t-small t-em">D3.js owns the</text>
+                      <text x="190" y="515" class="t-small t-em">chart's marks</text>
+                      <rect x="192" y="550" width="14" height="14" class="mark-d3" />
+                      <rect x="216" y="549" width="14" height="15" class="mark-d3" />
+                      <rect x="240" y="548" width="14" height="16" class="mark-d3" />
+                      <rect x="264" y="547" width="14" height="17" class="mark-d3" />
+                      <rect x="288" y="546" width="14" height="18" class="mark-d3" />
+                      <rect x="312" y="545" width="14" height="19" class="mark-d3" />
+                    </g>
+                    <g data-in>
+                      <path
+                        d="M350,332 V398 M350,398 C350,410 300,410 290,422 M260,460 V478"
+                        class="update em ink"
+                        pathLength="1"
+                      />
+                      <text x="342" y="326" class="t-small t-em" text-anchor="end">
+                        a chart update
+                      </text>
+                    </g>
+                    <line x1="16" y1="594" x2="344" y2="594" class="hair" />
+                    <text x="20" y="618" class="t-col">The approach, from the case study</text>
+                    <text x="20" y="644" class="t-small t-em-ink">01</text>
+                    <text x="48" y="644" class="t-small" text-anchor="start">
+                      Keeps dense views intact
+                    </text>
+                    <text x="20" y="670" class="t-small t-em-ink">02</text>
+                    <text x="48" y="670" class="t-small" text-anchor="start">
+                      Targets unnecessary re-renders and
+                    </text>
+                    <text x="48" y="688" class="t-small" text-anchor="start">
+                      chart-update paint work
+                    </text>
+                    <text x="20" y="714" class="t-small t-em-ink">03</text>
+                    <text x="48" y="714" class="t-small" text-anchor="start">
+                      Tunes desktop and embedded webview
+                    </text>
+                    <text x="48" y="732" class="t-small" text-anchor="start">
+                      contexts separately
+                    </text>
+                    <text x="20" y="758" class="t-small t-em-ink">04</text>
+                    <text x="48" y="758" class="t-small" text-anchor="start">
+                      Treats readability and interaction
+                    </text>
+                    <text x="48" y="776" class="t-small" text-anchor="start">
+                      pacing as part of performance
+                    </text>
+                  </svg>
+                  <figcaption class="strip strip--draw">
+                    <span class="strip__code">EM-04</span
+                    ><span class="strip__title">Designing within the frame budget</span
+                    ><span class="strip__kind">Editorial diagram · schematic</span>
+                  </figcaption>
+                </div>
+              </div>
             </figure>
           </article>
           <div class="beat beat--land" data-beat="land"></div>
@@ -1038,7 +1431,7 @@
         <div class="case__top">
           <header class="case__head">
             <p class="case__k">
-              <span class="case__code">EM</span> Featured · Senior Frontend Engineer · 2022–2023
+              <span class="case__code">EM</span> Senior Frontend Engineer · 2022–2023
             </p>
             <h2 class="case__name" id="case-h">Emplifi</h2>
             <p class="case__title">Enterprise Analytics</p>
@@ -1320,6 +1713,10 @@
                 data-label="em-path"
               >
                 <rect x="12" y="12" width="976" height="466" class="frame" />
+                <path d="M34,20 H20 V34" class="reg-tick" />
+                <path d="M966,20 H980 V34" class="reg-tick" />
+                <path d="M34,470 H20 V456" class="reg-tick" />
+                <path d="M966,470 H980 V456" class="reg-tick" />
                 <text x="40" y="58" class="t-title">The render path of one chart update</text>
                 <text x="40" y="88" class="t-note">
                   Equal boxes: the stages of an update, not how long each one takes.
@@ -1434,6 +1831,10 @@
                 data-label="em-layers"
               >
                 <rect x="12" y="12" width="976" height="572" class="frame" />
+                <path d="M34,20 H20 V34" class="reg-tick" />
+                <path d="M966,20 H980 V34" class="reg-tick" />
+                <path d="M34,576 H20 V562" class="reg-tick" />
+                <path d="M966,576 H980 V562" class="reg-tick" />
                 <text x="40" y="58" class="t-title">How a dashboard module is composed</text>
 
                 <g class="lyr" data-lyr="0">
@@ -1533,6 +1934,10 @@
                 data-label="em-budget"
               >
                 <rect x="12" y="12" width="976" height="566" class="frame" />
+                <path d="M34,20 H20 V34" class="reg-tick" />
+                <path d="M966,20 H980 V34" class="reg-tick" />
+                <path d="M34,570 H20 V556" class="reg-tick" />
+                <path d="M966,570 H980 V556" class="reg-tick" />
                 <text x="40" y="58" class="t-title">Designing within the frame budget</text>
                 <g class="ref">
                   <text x="40" y="122" class="t-col">Reference budget</text>
@@ -1677,16 +2082,18 @@
       </section>
 
       <nav class="sheetnav" aria-label="Other sheets">
-        <a class="sheetnav__a" href="alwaysgeeky.html"
+        <a class="sheetnav__a" href="alwaysgeeky.html#case"
           ><span class="sheetnav__k">Previous sheet</span
           ><span class="sheetnav__n"><b>AG</b> AlwaysGeeky</span></a
         >
-        <a class="sheetnav__a sheetnav__a--mid" href="index.html#work"
-          ><span class="sheetnav__k">Index</span><span class="sheetnav__n">Selected work</span></a
+        <a class="sheetnav__a sheetnav__a--mid" href="index.html#project-emplifi"
+          ><span class="sheetnav__k">Register</span><span class="sheetnav__n">All work</span></a
         >
-        <a class="sheetnav__a sheetnav__a--next" href="index.html#work"
+        <a
+          class="sheetnav__a sheetnav__a--next"
+          href="../../cinematic-exploration/prototype/ledgerguard.html"
           ><span class="sheetnav__k">Next sheet</span
-          ><span class="sheetnav__n"><b>00</b> Back to the register</span></a
+          ><span class="sheetnav__n"><b>LG</b> LedgerGuard</span></a
         >
       </nav>
     </main>

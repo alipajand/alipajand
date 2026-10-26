@@ -39,10 +39,17 @@ const shot = async (page, name, opts = {}) => {
 };
 
 // A beat is held once its motion has settled: two thirds of the way from the step's start (its top at
-// 55% of the viewport) to the next step's start.
+// 55% of the viewport) to the next step's start. Below 900 px there is no stage: the step's own
+// figure is held near the top of the screen, once it has drawn in.
 const toBeat = (page, i) =>
   page.evaluate((i) => {
     const vh = innerHeight;
+    if (innerWidth < 900) {
+      const steps = [...document.querySelectorAll(".track > .step[data-beat]")];
+      const fig = steps[i].querySelector(".step__fig");
+      scrollTo(0, fig.getBoundingClientRect().top + scrollY - 0.1 * vh);
+      return;
+    }
     const abs = (el) => el.getBoundingClientRect().top + scrollY;
     const steps = [...document.querySelectorAll(".track > .step[data-beat]")];
     const land = document.querySelector(".beat--land");
@@ -79,6 +86,12 @@ for (const [tag, w, h] of [
       scrollTo(0, t ? t.end : document.getElementById("work").offsetTop);
     });
     await shot(page, `${tag}-02-index-condensed`);
+    // halfway through the condensation: transforms and clipping only, the register already in place
+    await page.evaluate(() => {
+      const t = window.ScrollTrigger && ScrollTrigger.getAll()[0];
+      if (t) scrollTo(0, t.start + (t.end - t.start) * 0.5);
+    });
+    await shot(page, `${tag}-06-index-condensing`);
     await page.evaluate(() => document.querySelector(".sup").scrollIntoView());
     await shot(page, `${tag}-03-index-supporting`);
     await page.locator('[data-cap-to="systems"]').click();
@@ -88,6 +101,13 @@ for (const [tag, w, h] of [
       await page.evaluate(() => scrollTo(0, 0));
       await shot(page, `${tag}-05-index-full`, { fullPage: true });
     }
+    await ctx.close();
+  }
+
+  /* a return link from a case study lands on that project in the condensed register */
+  {
+    const { ctx, page } = await open(w, h, false, "index.html#project-emplifi");
+    await shot(page, `${tag}-07-index-return-emplifi`);
     await ctx.close();
   }
 
@@ -102,8 +122,11 @@ for (const [tag, w, h] of [
       await toBeat(page, i);
       await shot(page, `${tag}-${code}-${String(i + 1).padStart(2, "0")}-${beat}`);
     }
-    await toLand(page, 0.55);
-    await shot(page, `${tag}-${code}-08-match-cut`);
+    // the match cut runs from 900 px up; a phone goes straight on to the case study
+    if (w >= 900) {
+      await toLand(page, 0.55);
+      await shot(page, `${tag}-${code}-08-match-cut`);
+    }
     await page.evaluate(() => document.getElementById("case").scrollIntoView());
     await shot(page, `${tag}-${code}-09-case-study`);
     await ctx.close();

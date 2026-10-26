@@ -38,7 +38,6 @@ AA.scene(function (S) {
   var treeInk = qa("[data-budget] .tree .ink:not(.update)");
   var update = qa("[data-budget] .update");
   var stamp = q("[data-stamp]");
-  var win = q("[data-win]");
 
   gsap.set([phone, path, budget], { transformOrigin: "0 0" });
   gsap.set([path, layers, budget, stamp], { autoAlpha: 0 });
@@ -115,7 +114,6 @@ AA.scene(function (S) {
   /* the match cut: the drawing returns to its first state and lands in the hero */
   var w = 1 - L0;
   S.at([budget, stamp], { autoAlpha: 0 }, L0 + w * 0.12, L0 + w * 0.24);
-  if (win) S.at(win, { autoAlpha: 0 }, L0 + w * 0.24, L0 + w * 0.36);
   S.at(cursor, { attr: { x1: CURSOR, x2: CURSOR } }, L0 + w * 0.12, L0 + w * 0.22);
   S.at(webview, { stroke: ink("--ink-2"), strokeWidth: 1.5 }, L0 + w * 0.12, L0 + w * 0.22);
   S.at(phone, { autoAlpha: 1 }, L0 + w * 0.18, L0 + w * 0.28);

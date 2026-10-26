@@ -19,6 +19,8 @@
 
 > **Dark only.** The prototype now uses the same dark-only palette as P2: light ink on a warm near-black paper, the interior on a deeper void. The stills and storyboards are recaptured in dark; the `before/` images keep the earlier light palette. See [02-concept.md](02-concept.md#palette).
 
+> **Part of the P2 set.** These pages are LedgerGuard's sheet in the P2 drawing set ([`../p2-portability/`](../p2-portability/)). The logo goes to the P2 register; "Work" and "Back to the work" return to LedgerGuard in that register; the "other sheets" list and "Next sheet" go to the AlwaysGeeky and Emplifi sheets there. This prototype's own index page is the LedgerGuard scene; it no longer acts as a portfolio index. The pages keep their P1 type (Big Shoulders Display); P2.2 moved AlwaysGeeky and Emplifi to Instrument Serif, so the set's type is not yet consistent (see P2's 06).
+
 ![Storyboard, desktop](screenshots/storyboard-desktop.webp)
 
 ## Revision 2 deliverables

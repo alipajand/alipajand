@@ -10,7 +10,7 @@
 import { mkdirSync, readFileSync, writeFileSync, cpSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { PROJECTS, PORTFOLIO_CASE_STUDY_ORDER } from "../../../../../data/projects.ts";
+import { PROJECTS } from "../../../../../data/projects.ts";
 import * as draw from "./drawings.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -20,6 +20,11 @@ const layers = cs.diagrams.find((d) => d.spec.type === "layers").spec.layers;
 const compare = cs.diagrams.find((d) => d.spec.type === "compare").spec;
 
 const SITE = "https://alipajand.com";
+// The P2 register is the portfolio index for the whole drawing set. Every way back from these
+// pages lands on LedgerGuard's row there; the other featured sheets are P2 pages.
+const P2 = "../../p2-portability/prototype";
+const REGISTER = `${P2}/index.html`;
+const BACK = `${REGISTER}#project-ledgerguard`;
 const PROFILE = {
   name: "Ali Pajand",
   role: "Senior Software Engineer",
@@ -118,10 +123,10 @@ const nav = (
   page
 ) => `<a class="skip" href="${page === "index" ? "#project-ledgerguard" : "#main"}">${page === "index" ? "Skip to the LedgerGuard story" : "Skip to content"}</a>
 <header class="bar" data-bar>
-  <a class="bar__mark" href="${page === "index" ? "#top" : "index.html"}"><span class="bar__ap" aria-hidden="true">A—A</span> <span class="bar__name">Ali Pajand</span></a>
+  <a class="bar__mark" href="${REGISTER}" aria-label="Ali Pajand, portfolio register"><span class="bar__ap" aria-hidden="true">A—A</span> <span class="bar__name">Ali Pajand</span></a>
   <nav class="bar__nav" aria-label="Site">
-    <a href="${page === "index" ? "#work" : "index.html#work"}">Work</a>
-    <a href="ledgerguard.html"${page === "case" ? ' aria-current="page"' : ""}>Case study</a>
+    <a href="${BACK}">Work</a>
+    ${page === "index" ? `<a href="ledgerguard.html">Case study</a>` : `<a href="index.html">Scene</a>`}
     <a href="#contact">Contact</a>
     <button type="button" class="bar__motion" data-motion-toggle aria-pressed="true"><span class="bar__dot" aria-hidden="true"></span><span data-motion-label>Motion on</span></button>
   </nav>
@@ -294,10 +299,14 @@ const boundaryStep = `<article class="beat step" id="boundary" data-beat="bounda
   </div>
 </article>`;
 
-const others = PORTFOLIO_CASE_STUDY_ORDER.filter((s) => s !== "ledgerguard").map((slug, i) => {
-  const p = PROJECTS.find((x) => x.slug === slug);
-  return `<li><a href="${SITE}/portfolio/${slug}"><span class="reg__n">0${i + 2}</span><span class="reg__name">${esc(p.name)}</span><span class="reg__meta">${esc(TIER[slug])} · ${esc(p.role)}${p.timeframe ? " · " + esc(p.timeframe) : ""}</span><span class="reg__go" aria-hidden="true">↗</span></a></li>`;
-});
+// The other sheets in the set: the two P2 featured sheets, then the register for the rest.
+const others = [
+  ...["alwaysgeeky", "emplifi"].map((slug, i) => {
+    const p = PROJECTS.find((x) => x.slug === slug);
+    return `<li><a href="${P2}/${slug}.html#case"><span class="reg__n">0${i + 2}</span><span class="reg__name">${esc(p.name)}</span><span class="reg__meta">${esc(TIER[slug])} · ${esc(p.role)} · ${esc(p.timeframe)}</span><span class="reg__go" aria-hidden="true">→</span></a></li>`;
+  }),
+  `<li><a href="${BACK}"><span class="reg__n">00</span><span class="reg__name">The register</span><span class="reg__meta">All seven projects, with supporting work and the experiment</span><span class="reg__go" aria-hidden="true">→</span></a></li>`,
+];
 
 const contact = `<footer class="contact" id="contact" aria-labelledby="contact-h" data-tone="void">
   <div class="contact__in">
@@ -404,7 +413,7 @@ function indexPage() {
 <section class="register" aria-labelledby="reg-h" data-tone="paper">
   <div class="register__in">
     <h2 id="reg-h" class="register__h">Other sheets in this set</h2>
-    <p class="register__note">Not part of this prototype. These link to the current case studies on alipajand.com.</p>
+    <p class="register__note">The next featured case studies, and the register of all seven projects.</p>
     <ol class="register__list" role="list">${others.join("")}</ol>
   </div>
 </section>
@@ -504,7 +513,7 @@ function casePage() {
   const body = `${nav("case")}
 <main id="main" tabindex="-1" class="cs">
   <header class="cs__head">
-    <a class="cs__back" href="index.html#project-ledgerguard"><span aria-hidden="true">←</span> Back to the work</a>
+    <a class="cs__back" href="${BACK}"><span aria-hidden="true">←</span> Back to the work</a>
     <p class="story__k">${esc(TIER.ledgerguard)} · ${esc(lg.timeframe)} · Independent product</p>
     <h1 class="cs__name"><span class="story__cut story__cut--arrive" aria-hidden="true"></span>${esc(lg.name)}</h1>
     <p class="story__title">${esc(lg.caseStudyTitle)}</p>
@@ -523,7 +532,7 @@ function casePage() {
     <nav class="cs__toc" aria-label="Sections"><ol>${sections.map(([id, label]) => `<li><a href="#${id}">${label}</a></li>`).join("")}</ol></nav>
     <div class="cs__body">
       ${sections.map(([id, label, html]) => `<section id="${id}" aria-labelledby="${id}-h"><h2 id="${id}-h">${label}</h2>${html}</section>`).join("")}
-      <p class="story__cta"><a class="cta" href="index.html#project-ledgerguard"><span aria-hidden="true">←</span> <span>Back to the work</span></a></p>
+      <p class="story__cta"><a class="cta" href="${BACK}"><span aria-hidden="true">←</span> <span>Back to the work</span></a> <a class="cta cta--quiet" href="${P2}/alwaysgeeky.html#case"><span>Next sheet: AlwaysGeeky Games</span> <span aria-hidden="true">→</span></a></p>
     </div>
   </div>
 </main>

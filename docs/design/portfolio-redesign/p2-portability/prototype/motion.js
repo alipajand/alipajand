@@ -15,6 +15,9 @@
 //   - the stage is a 1200 x 800 canvas, scaled to fit, never 3D;
 //   - the last screen is a match cut: the subject lands in the case study's hero and the
 //     stage lets go.
+// The stage needs room beside the cards, so it runs from 900 px up. Narrower screens have no
+// stage: each step's figure is drawn at a size that reads there, and draws itself in as it
+// arrives, piece by piece.
 (function () {
   "use strict";
   var root = document.documentElement;
@@ -91,12 +94,17 @@
   // case study's hero when they asked for the case study, the stage's subject when they asked
   // for the scene. Only one element per page ever carries the name.
   window.addEventListener("pageswap", function (e) {
-    if (e.viewTransition && !motionOn()) e.viewTransition.skipTransition();
+    if (e.viewTransition && !motionOn()) {
+      // a skipped transition rejects its ready promise; nobody waits on it here
+      e.viewTransition.ready.catch(function () {});
+      e.viewTransition.skipTransition();
+    }
   });
 
   window.addEventListener("pagereveal", function (e) {
     if (!e.viewTransition) return;
     if (!motionOn()) {
+      e.viewTransition.ready.catch(function () {});
       e.viewTransition.skipTransition();
       return;
     }
@@ -104,8 +112,8 @@
     if (!hero) return;
     var name = getComputedStyle(hero).getPropertyValue("--vt").trim();
     var subject = document.querySelector("[data-vt-subject]");
-    var target =
-      location.hash === "#case" || !root.classList.contains("motion-live") ? hero : subject;
+    var staged = root.classList.contains("motion-live") && innerWidth >= 900;
+    var target = location.hash === "#case" || !staged ? hero : subject;
     if (name && target) target.style.viewTransitionName = name;
     e.viewTransition.finished.finally(function () {
       if (target) target.style.removeProperty("view-transition-name");
@@ -143,32 +151,21 @@
     root.classList.remove("motion-live", "motion-ready");
     delete root.dataset.landed;
     var stage = document.querySelector("[data-stage]");
-    if (stage) ["--k", "--px", "--py", "--win"].forEach((p) => stage.style.removeProperty(p));
+    if (stage) ["--k", "--px", "--py"].forEach((p) => stage.style.removeProperty(p));
   }
 
-  // The picture area: beside the cards on wide screens, a window above them on narrow ones.
+  // The picture area, beside the cards.
   function fit(stage) {
     var vw = document.documentElement.clientWidth;
     var vh = window.innerHeight;
     var cs = getComputedStyle(root);
     var gl = parseFloat(cs.getPropertyValue("--gutter")) || 16;
-    var k;
-    var px;
-    var py;
-    if (vw >= 900) {
-      var card = Math.min(448, vw * 0.31);
-      var aw = vw - gl - card - gl - 40;
-      var ah = vh - 72 - 28;
-      k = Math.min(aw / W, ah / H);
-      px = gl + (aw - W * k) / 2;
-      py = 72 + (ah - H * k) / 2;
-    } else {
-      var top = 56;
-      k = Math.min((vw - 2 * gl) / W, (vh * 0.52 - top) / H);
-      px = (vw - W * k) / 2;
-      py = top + 4;
-      stage.style.setProperty("--win", py + H * k + 12 + "px");
-    }
+    var card = Math.min(448, vw * 0.31);
+    var aw = vw - gl - card - gl - 40;
+    var ah = vh - 72 - 28;
+    var k = Math.min(aw / W, ah / H);
+    var px = gl + (aw - W * k) / 2;
+    var py = 72 + (ah - H * k) / 2;
     stage.style.setProperty("--k", k);
     stage.style.setProperty("--px", px + "px");
     stage.style.setProperty("--py", py + "px");
@@ -212,7 +209,6 @@
       tl: tl,
       k: f.k,
       vh: vh,
-      narrow: f.vw < 900,
       // where a step's motion starts: as its card begins to enter
       start: function (el) {
         return clamp((topOf(el) - vh * 0.55) / span);
@@ -260,6 +256,52 @@
     };
   }
 
+  // Narrow screens: no stage. Each step's figure draws itself in as it arrives: its pieces
+  // ([data-in]) in reading order, each fading up while its lines draw, scrubbed by its own
+  // position on screen. A figure without pieces draws its lines as one.
+  function figures(seq) {
+    var shown = function (el) {
+      return el && getComputedStyle(el).display !== "none";
+    };
+    seq.querySelectorAll(".step__fig").forEach(function (fig) {
+      var box = [fig.querySelector(".fig-p"), fig.querySelector(".fig-w"), fig].filter(shown)[0];
+      var pieces = Array.prototype.slice.call(box.querySelectorAll("[data-in]"));
+      (pieces.length ? pieces : [box]).forEach(function (piece) {
+        var tl = gsap.timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: { trigger: piece, start: "top 92%", end: "top 55%", scrub: 0.4 },
+        });
+        if (pieces.length) tl.fromTo(piece, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35 }, 0);
+        var inks = piece.querySelectorAll(".ink");
+        if (inks.length) {
+          tl.fromTo(
+            inks,
+            { strokeDashoffset: 1 },
+            { strokeDashoffset: 0, duration: 0.7, stagger: 0.3 / inks.length },
+            0
+          );
+        }
+        tl.set({}, {}, 1);
+      });
+      // lines that run the length of a sheet (a spine, a probe, a bracket) draw as the reader
+      // goes down it
+      var loose = Array.prototype.filter.call(box.querySelectorAll(".ink"), function (el) {
+        return pieces.length && !el.closest("[data-in]");
+      });
+      if (loose.length) {
+        gsap.fromTo(
+          loose,
+          { strokeDashoffset: 1 },
+          {
+            strokeDashoffset: 0,
+            ease: "none",
+            scrollTrigger: { trigger: box, start: "top 85%", end: "bottom 85%", scrub: 0.4 },
+          }
+        );
+      }
+    });
+  }
+
   function build() {
     teardown();
     var seq = document.querySelector("[data-scene]");
@@ -274,10 +316,15 @@
       var failed = null;
       var h = null;
       // the context is kept even when the build throws, so teardown can revert what it set
+      var narrow = document.documentElement.clientWidth < 900;
       ctx = gsap.context(function () {
         try {
-          h = helpers(seq, stage);
-          sceneFn(h);
+          if (narrow) {
+            figures(seq);
+          } else {
+            h = helpers(seq, stage);
+            sceneFn(h);
+          }
         } catch (err) {
           failed = err;
         }
@@ -287,7 +334,7 @@
       // arrivals mid-page (Back, anchors, rebuilds) start at the right frame instead of
       // scrubbing through everything above them
       ScrollTrigger.refresh();
-      h.tl.progress(h.tl.scrollTrigger.progress);
+      if (h) h.tl.progress(h.tl.scrollTrigger.progress);
       return true;
     } catch (err) {
       teardown();

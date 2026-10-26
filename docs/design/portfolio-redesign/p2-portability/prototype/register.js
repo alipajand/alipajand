@@ -5,10 +5,15 @@
 // project is a plain link and the schedule is a plain table.
 //
 // With motion on, the opening pins while it condenses. First the identity block slides up under
-// the bar; then the three bays shorten toward the A–A cut (the screenshot keeps its lower edge,
-// the drawing keeps its upper edge) until they are the register's top row. The stage loses
-// height exactly as fast as the page scrolls, so what follows it rises at reading speed and is
-// never covered or left behind. Under reduced motion none of this runs.
+// the bar; then the three bays close toward the A–A cut (the screenshot keeps its lower edge,
+// the drawing keeps its upper edge) until they are the register's top row.
+//
+// Nothing in the page's layout moves while this runs. At build time the opening keeps its full
+// height and the stage is given its condensed height, so everything after the opening is laid
+// out exactly where it was; the stage's open composition overflows that box and is closed with
+// transforms and clipping only. The stage closes exactly as fast as the page scrolls, so what
+// follows it rises at reading speed and is never covered or left behind, and when the pin
+// releases there is nothing left to move. Under reduced motion none of this runs.
 (function () {
   "use strict";
   var root = document.documentElement;
@@ -22,6 +27,7 @@
   var id = op && op.querySelector("[data-op-id]");
   var sect = op && op.querySelector("[data-sect]");
   var tl = null;
+  var D = 0;
 
   // the bay heights are CSS lengths (clamp() on wide screens): measure them, don't parse them
   function px(el, prop) {
@@ -41,6 +47,12 @@
     }
     root.classList.remove("op-live");
     if (op) op.style.removeProperty("height");
+    if (stage) stage.style.removeProperty("height");
+    D = 0;
+  }
+
+  function all(sel) {
+    return Array.prototype.slice.call(sect.querySelectorAll(sel));
   }
 
   function build() {
@@ -48,49 +60,70 @@
     if (!op || !window.AA || !AA.motionOn() || !window.gsap || !window.ScrollTrigger) return;
     try {
       gsap.registerPlugin(ScrollTrigger);
-      var abA = px(sect, "--ab");
-      var blA = px(sect, "--bl");
-      var abB = px(sect, "--ab-b");
-      var blB = px(sect, "--bl-b");
-      var idH = id.getBoundingClientRect().height;
-      var bays = abA - abB + (blA - blB);
-      var D = idH + bays;
+      var dA = px(sect, "--ab") - px(sect, "--ab-b");
+      var dB = px(sect, "--bl") - px(sect, "--bl-b");
+      // what the identity block gives up, margins included
+      var idH = sect.getBoundingClientRect().top - id.getBoundingClientRect().top;
+      D = idH + dA + dB;
       if (D < 40) return;
+      var H0 = stage.offsetHeight;
       root.classList.add("op-live");
-      op.style.height = stage.offsetHeight + "px";
+      // one layout change, made before anything is animated: the opening keeps its height and
+      // the stage takes its condensed one, so nothing on the page moves
+      op.style.height = H0 + "px";
+      stage.style.height = H0 - D + "px";
       // the identity block and the bays share the scroll in proportion to the height each
-      // gives up, so the stage always shrinks at exactly the scroll rate
+      // gives up, so the stage always closes at exactly the scroll rate
       var a = idH / D;
+      var b = 1 - a;
       tl = gsap.timeline({
         defaults: { ease: "none" },
         scrollTrigger: { trigger: op, start: "top top", end: "+=" + D, scrub: true },
       });
-      tl.fromTo(id, { marginTop: 0 }, { marginTop: -idH, duration: a }, 0);
-      tl.fromTo(id, { opacity: 1 }, { opacity: 0, duration: a * 0.8 }, 0);
+      tl.fromTo([id, sect], { y: 0 }, { y: -idH, duration: a }, 0);
+      tl.fromTo(id, { autoAlpha: 1 }, { autoAlpha: 0, duration: a * 0.8 }, 0);
+      // above the cut: the pane is clipped from the top and lifted by the same amount, so its
+      // lower edge rides the cut up; the picture inside drifts down by half, so the strip that
+      // stays is the middle of the picture, not its foot
       tl.fromTo(
-        sect,
-        { "--ab": abA + "px", "--bl": blA + "px" },
-        { "--ab": abB + "px", "--bl": blB + "px", duration: 1 - a },
+        all(".bay__above"),
+        { y: 0, clipPath: "inset(0px 0px 0px 0px)" },
+        { y: -dA, clipPath: "inset(" + dA + "px 0px 0px 0px)", duration: b },
         a
       );
-      // depth, not layout: the pictures settle onto the cut as the bays close in
       tl.fromTo(
-        sect.querySelectorAll(".bay__img, .bay__above .drawing"),
-        { scale: 1.08 },
-        { scale: 1, duration: 1 - a },
+        all(".bay__img, .bay__above .drawing"),
+        { y: 0, scale: 1.08 },
+        { y: dA / 2, scale: 1, duration: b },
         a
       );
       // wide screens set the datums beside the cut, where the condensed row has no room for
       // them; narrow screens keep them as a legend, and every width keeps the timeframes
-      var side = Array.prototype.filter.call(sect.querySelectorAll(".datum"), function (d) {
+      var side = all(".datum").filter(function (d) {
         return getComputedStyle(d).position === "absolute";
       });
+      // the cut and everything hung from it rise with the closing pane
+      tl.fromTo(
+        all(".bay__cut, .sect__line, .sect__a").concat(side),
+        { y: 0 },
+        { y: -dA, duration: b },
+        a
+      );
+      // below the cut: the pane rises and is clipped from the bottom, keeping its upper edge
+      tl.fromTo(
+        all(".bay__below"),
+        { y: 0, clipPath: "inset(0px 0px 0px 0px)" },
+        { y: -dA, clipPath: "inset(0px 0px " + dB + "px 0px)", duration: b },
+        a
+      );
+      tl.fromTo(all(".bay__title"), { y: 0 }, { y: -(dA + dB), duration: b }, a);
       if (side.length) {
         // the key column's end of the cut goes with them: the condensed row's line would run
         // through the column's own text
         side.push(sect.querySelector(".sect__a--l"));
-        tl.fromTo(side, { autoAlpha: 1 }, { autoAlpha: 0, duration: (1 - a) * 0.4 }, a);
-        tl.fromTo(sect, { "--key-line": 1 }, { "--key-line": 0, duration: (1 - a) * 0.4 }, a);
+        tl.fromTo(side, { autoAlpha: 1 }, { autoAlpha: 0, duration: b * 0.4 }, a);
+        var line = sect.querySelector(".sect__line");
+        tl.fromTo(line, { "--key-line": 1 }, { "--key-line": 0, duration: b * 0.4 }, a);
       }
       tl.set({}, {}, 1);
       ScrollTrigger.refresh();
@@ -98,6 +131,16 @@
       teardown();
       if (window.console) console.warn("Section A–A: opening motion left off.", err);
     }
+  }
+
+  // A project anchor (#project-alwaysgeeky, from a case study's way back) lands on the register:
+  // with the opening live, that is the condensed row, where every bay sits with its brief.
+  // Without motion the anchor is an ordinary one.
+  function toProject() {
+    var hash = location.hash.slice(1);
+    var t = hash && document.getElementById(decodeURIComponent(hash));
+    if (!t || !tl || !op.contains(t)) return;
+    window.scrollTo(0, op.getBoundingClientRect().top + window.scrollY + D);
   }
 
   // Keyboard focus that lands in the identity block once it has slid away brings it back.
@@ -119,17 +162,29 @@
   });
   if (document.fonts && document.fonts.status !== "loaded") document.fonts.ready.then(build);
   build();
+  window.addEventListener("hashchange", toProject);
+  // the browser's own fragment scroll can run until load, so the arrival is placed after it;
+  // a Back or Forward visit keeps the position the browser restores
+  var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+  if (!nav || nav.type !== "back_forward") {
+    if (document.readyState === "complete") toProject();
+    else
+      window.addEventListener("load", function () {
+        requestAnimationFrame(toProject);
+      });
+  }
 
-  /* ---------- leaving for a scene ---------- */
+  /* ---------- leaving for a scene or a case study ---------- */
 
-  // The bay's upper picture carries the scene's shared name, so the scene's subject grows out
-  // of it. LedgerGuard's scene (P1) names its own pictures and is left to cross-fade.
+  // The bay's upper picture carries the sheet's shared name, so the scene's subject, or the
+  // case study's hero, grows out of it. LedgerGuard's pages (P1) name their own pictures and
+  // are left to cross-fade.
   window.addEventListener("pageswap", function (e) {
     if (!e.viewTransition || !e.activation || !e.activation.entry) return;
-    var url = e.activation.entry.url.split("#")[0];
+    var url = e.activation.entry.url;
     document.querySelectorAll(".bay[data-vt]").forEach(function (b) {
-      var a = b.querySelector(".bay__sect");
-      if (a && a.href.split("#")[0] === url && e.activation.entry.url.indexOf("#") < 0) {
+      var page = b.querySelector(".bay__go").href.split("#")[0];
+      if (url.split("#")[0] === page) {
         b.querySelector(".bay__above").style.viewTransitionName = b.getAttribute("data-vt");
       }
     });

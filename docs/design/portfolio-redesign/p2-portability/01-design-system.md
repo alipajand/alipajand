@@ -22,7 +22,7 @@ A project never borrows another project's move or ink. The red review boundary s
 The prototype is **dark only**: a drafting board at night. There is no light theme and no theme switch; every page sets `color-scheme: dark`.
 
 - **Paper exterior.** `--paper #171612`, a warm near-black, on a 24 px drafting grid drawn in light ink at low alpha. Scenes show the grid; reading pages are plain paper.
-- **Void interior.** `--void #090807`, a deeper black. On the scene and case-study pages only shipped screenshots sit on void. Void and paper are now close (about 1.1:1), so a shipped screenshot is separated by its plate edge (`--edge-shot`) and its sheet strip, not by the ground colour. The index's section is the one exception: below the A–A cut the bays show the system behind each project as a light-ink diagram on void, and the cut band names it ("LG-02 ↓ Diagram") so the material is never left to colour alone. 06 flags this as an open question.
+- **Void interior.** `--void #090807`, a deeper black. On the scene and case-study pages only shipped screenshots sit on void. Void and paper are close (about 1.1:1), so the ground colour cannot carry the material: a shipped screenshot is **mounted** (a light solid frame, `--frame-shot`, around a 6 px void mat) and a diagram is a **drawing sheet** (vellum, a fine drafting edge and registration ticks at its corners). See "Provenance materials" below. The index's section is the one exception: below the A–A cut the bays show the system behind each project as a light-ink diagram on void, and the cut band names it ("LG-02 ↓ Diagram") so the material is never left to colour alone. 06 flags this as an open question.
 - **Vellum.** `--vellum #1f1d18`, one step lighter than paper, under every editorial drawing and every reading card.
 - **Contact band.** The contact sheet at the foot of every page sits on void with a strong rule above it.
 
@@ -30,11 +30,13 @@ The dark palette is a concept for this exploration only. It is not a proposed si
 
 ### Type
 
-| Role    | Face                                     | Use                                                |
-| ------- | ---------------------------------------- | -------------------------------------------------- |
-| Display | Big Shoulders Display 700/900, uppercase | Names, sheet titles, step headings, drawing titles |
-| Text    | Instrument Sans 400–600                  | Body, cards, case-study prose, drawing labels      |
-| Mono    | Martian Mono 400/500, uppercase, tracked | Sheet codes, strips, kickers, materials, the bar   |
+| Role  | Face                                       | Use                                                                                          |
+| ----- | ------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| Names | Instrument Serif 400, sentence case        | Project names, sheet and step headings, drawing titles, section heads, the contact line      |
+| Text  | Instrument Sans 400–600                    | Body, cards, case-study prose, drawing labels, every action ("Read the case study →")        |
+| Codes | Martian Mono 400/500, normal case, tracked | Only what a drafting sheet would set in mono: sheet codes, dates, materials, strips, the bar |
+
+P2.2 replaced the condensed uppercase display face (Big Shoulders Display) with a drafting-room serif. The uppercase display read as generic poster type and, with the mono kickers, turned every block into a stack of shouted labels. Now a heading is a name, set like a title on a drawing; mono is kept for the codes, dates and provenance that a sheet would actually carry, in normal case. Kickers that only repeated what the page already said ("Featured", "Featured sheet", the index's notes row) were removed. The P1 LedgerGuard pages keep their own P1 type (see 06).
 
 Running text is held to 40 rem. Headings use `text-wrap: balance`.
 
@@ -42,11 +44,13 @@ Running text is held to 40 rem. Headings use `text-wrap: balance`.
 
 Every image in the set is one of three materials. The material is visible in its frame and named in its strip.
 
-| Material                          | Frame                                | Strip text                                                               | Used for                                                                       |
-| --------------------------------- | ------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| Shipped product                   | Void plate, solid 1 px `--edge-shot` | `Screenshot · shipped product`                                           | LedgerGuard dashboard, AlwaysGeeky marketplace and login, TallyFolio, MapBylaw |
-| Editorial diagram                 | Vellum, drafting edge `--edge-draw`  | `Editorial diagram` (plus `illustrative data` or `schematic` where true) | Every drawing in AlwaysGeeky and Emplifi; LedgerGuard bands LG-02 to LG-05     |
-| Design prototype · fictional data | Dashed frame                         | `Design prototype · fictional data`                                      | LedgerGuard workspace and dashboard prototypes only                            |
+| Material                          | Frame                                                                                   | Strip text                                                               | Used for                                                                       |
+| --------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| Shipped product                   | **Mounted:** solid 1 px `--frame-shot` (light ink at 30%), a 6 px void mat, strip below | `Screenshot · shipped product`                                           | LedgerGuard dashboard, AlwaysGeeky marketplace and login, TallyFolio, MapBylaw |
+| Editorial diagram                 | **Drawing sheet:** vellum, 1 px `--edge-draw`, 12 px registration ticks at each corner  | `Editorial diagram` (plus `illustrative data` or `schematic` where true) | Every drawing in AlwaysGeeky and Emplifi; LedgerGuard bands LG-02 to LG-05     |
+| Design prototype · fictional data | Dashed 1.5 px frame                                                                     | `Design prototype · fictional data`                                      | LedgerGuard workspace and dashboard prototypes only                            |
+
+The three frames differ in line weight and construction, not only in colour: a bright solid line with a mat (a mounted print), a faint edge with corner ticks (a drawing sheet), a dashed line (a proposal). The SVG drawings draw the same registration ticks in their own frame, so a drawing reads as a drawing at any size. On the index the bays carry the same distinction: the screenshot half of each bay has the light mount line, Emplifi's drawn half the drafting edge.
 
 Where there is nothing to show, the drawing convention for an **opening** is used: a dashed box with its two diagonals, labelled "No screenshot in this portfolio". It appears for Agent tooling, ControlTech, and AlwaysGeeky's product and account surfaces. An empty frame is honest; an invented screen is not.
 
@@ -76,7 +80,9 @@ The red section line through the name, and `A–A` in the bar, are the set's ide
 
 - **Bar:** the A–A mark and name (link to the register), two or three section links, and the Motion toggle.
 - **Register (Sheet 00):** the project index. See below.
-- **Sheet navigation:** at the end of every case study: previous sheet, index, next sheet.
+- **Sheet navigation:** at the end of every case study: previous sheet, "Register · All work", next sheet. Previous and next go case study to case study in a loop, LedgerGuard → AlwaysGeeky → Emplifi → LedgerGuard, so a reader can read the set without returning to the index.
+- **Return links land on the project.** Every link back to the index (the bar's "Index", "All work", LedgerGuard's logo, "Work" and "Back to the work") goes to `index.html#project-<slug>`. The index scrolls past the opening to that project's bay in the condensed register, so a reader returns to where they left, not to the top. Browser Back and Forward restore the scroll position the browser kept.
+- **One set, including LedgerGuard.** LedgerGuard's P1 pages (`../cinematic-exploration/prototype/`) link back into this register, and their "other sheets" list and "Next sheet" link go to the AlwaysGeeky and Emplifi sheets here. No link in either prototype sends a featured project to the production site.
 - **Skip link:** first in tab order on every page, to the selected work or the case study.
 
 ## The portfolio index: a section through the work
@@ -94,11 +100,11 @@ The page opens on the name and the title block, and directly under them a **sect
 - **The thesis as two datums**, set in the key column against the cut: "The interface," above the line and "and the work behind it." below it. On narrow screens they become a two-line legend above the bays.
 - **Red A bubbles** at both ends of the cut, the set's identity mark, on wide screens only.
 
-Each bay has a drawing-title block under it: code bubble, name and "Case study →" (one link, straight to the case study), and the case-study title. The picture is a second link, marked "Scene", into the optional scene. Pointing at or focusing a bay quiets the other two; nothing depends on hover.
+Each bay has a drawing-title block under it: code bubble, the name and "Read the case study →" as one link straight to the case study, the case-study title. A small outlined "Scene" chip on the picture's upper corner is a second, secondary link into the optional scene. The bay's picture repeats the case-study link for pointer users; it is out of the tab order and hidden from assistive technology, so a keyboard reader meets the case study first and Scene second in every bay. Pointing at or focusing a bay quiets the other two; nothing depends on hover.
 
 ### The condensation
 
-With motion on, the opening pins while it condenses into the register (see 02): the identity block slides up under the bar, then the bays shorten toward the cut until the row of three is the register's top row. What follows rises at reading speed. Without motion, or without script, the page is the same content as one static column.
+With motion on, the opening pins while it condenses into the register (see 02): the identity block slides up under the bar, then the bays close toward the cut until the row of three is the register's top row. The condensation is drawn with transforms and clipping inside a stage of fixed height, so nothing after the opening moves while it runs. Without motion, or without script, the page is the same content as one static column.
 
 ### Below the section
 
@@ -112,7 +118,7 @@ Every one of the seven destinations is a single link from the index. Featured ca
 
 ### Mobile
 
-At 390 px the bays become three slender cores side by side, each still cut on the line, with the name and "Case study →" under it. There are no inline screenshots beyond the cores, so the page is about 4,000 px tall (P2 was about 5,600). Supporting work starts around 1,500 px down.
+At 390 px the bays become three slender cores side by side, each still cut on the line, with the name and "Read the case study →" (32 px tall) under it, and the Scene chip on the core's upper corner. There are no inline screenshots beyond the cores, so the page is about 4,000 px tall (P2 was about 5,600). Supporting work starts around 1,500 px down.
 
 ### Disciplines
 

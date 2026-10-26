@@ -85,7 +85,11 @@
 
   ["pageswap", "pagereveal"].forEach(function (type) {
     window.addEventListener(type, function (e) {
-      if (e.viewTransition && !motionOn()) e.viewTransition.skipTransition();
+      if (e.viewTransition && !motionOn()) {
+        // a skipped transition rejects its ready promise; nobody waits on it here
+        e.viewTransition.ready.catch(function () {});
+        e.viewTransition.skipTransition();
+      }
     });
   });
 

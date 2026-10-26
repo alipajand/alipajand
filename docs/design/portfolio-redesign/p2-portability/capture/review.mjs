@@ -174,7 +174,15 @@ for (const p of PAGES) {
   const { ctx, page } = await open(P2 + "index.html");
   const dest = await page.evaluate(() => ({
     featured: [...document.querySelectorAll(".bay__name a")].map((a) => a.getAttribute("href")),
-    scenes: [...document.querySelectorAll(".bay__sect")].map((a) => a.getAttribute("href")),
+    scenes: [...document.querySelectorAll(".bay__go")].map((a) => a.getAttribute("href")),
+    pictures: [...document.querySelectorAll(".bay__sect")].map((a) => [
+      a.getAttribute("href"),
+      a.getAttribute("tabindex"),
+      a.getAttribute("aria-hidden"),
+    ]),
+    order: [...document.querySelectorAll(".bay")].map((b) =>
+      [...b.querySelectorAll('a[href]:not([tabindex="-1"])')].map((a) => a.className || "name")
+    ),
     supporting: [...document.querySelectorAll(".sup .srow__link")].length,
     experiment: [...document.querySelectorAll(".exp .srow--exp .srow__link")].map((a) =>
       a.closest("[data-row]").getAttribute("data-row")
@@ -187,6 +195,34 @@ for (const p of PAGES) {
       dest.supporting === 3 &&
       dest.experiment.join() === "mapbylaw",
     JSON.stringify(dest)
+  );
+  check(
+    "register: the picture repeats the case-study link, out of the tab order and hidden",
+    dest.pictures.every(([h, t, a], i) => h === dest.featured[i] && t === "-1" && a === "true"),
+    JSON.stringify(dest.pictures)
+  );
+  check(
+    "register: in each bay the case study is the first tab stop, Scene the second",
+    dest.order.every((o) => o.length === 2 && o[0] === "name" && o[1] === "bay__go"),
+    JSON.stringify(dest.order)
+  );
+  const prom = await page.evaluate(() =>
+    [...document.querySelectorAll(".bay")].map((b) => {
+      const cs = b.querySelector(".bay__cs").getBoundingClientRect();
+      const go = b.querySelector(".bay__go").getBoundingClientRect();
+      const f = (e) => parseFloat(getComputedStyle(b.querySelector(e)).fontSize);
+      return {
+        cs: f(".bay__cs"),
+        go: f(".bay__go"),
+        csH: Math.round(cs.height),
+        goH: Math.round(go.height),
+      };
+    })
+  );
+  check(
+    "register: the case-study action is at least as prominent as Scene",
+    prom.every((b) => b.cs >= b.go),
+    JSON.stringify(prom[0])
   );
   await page.hover('.bay[data-row="emplifi"] .bay__sect');
   await page.waitForTimeout(350);
@@ -237,29 +273,116 @@ for (const p of PAGES) {
   await ctx.close();
 }
 
-/* 3b · the opening: pinned condensation with motion, one static column without */
+/* 3b · the opening: pinned condensation with motion, one static column without. The
+   condensation is transforms and clipping only: nothing after the opening moves. */
 for (const [w, h] of [
   [1440, 900],
   [390, 844],
 ]) {
-  const { ctx, page } = await open(P2 + "index.html", { width: w, height: h });
+  const { ctx, page } = await open(P2 + "index.html", {
+    width: w,
+    height: h,
+    init: () => {
+      window.__cls = 0;
+      new PerformanceObserver((l) => {
+        for (const e of l.getEntries()) if (!e.hadRecentInput) window.__cls += e.value;
+      }).observe({ type: "layout-shift", buffered: true });
+    },
+  });
   const r = await page.evaluate(async () => {
     const sect = document.querySelector("[data-sect]");
-    const bays = () => Math.round(sect.querySelector(".bay__above").getBoundingClientRect().height);
+    const above = sect.querySelector(".bay__above");
+    const below = sect.querySelector(".bay__below");
+    const inset = (el) => (getComputedStyle(el).clipPath.match(/[\d.]+px/g) || []).map(parseFloat);
+    // the height of the section a reader sees: transforms plus clipping
+    const seen = () => {
+      const t = above.getBoundingClientRect().top + (inset(above)[0] || 0);
+      const bt = below.getBoundingClientRect().bottom - (inset(below)[2] || 0);
+      return Math.round(bt - t);
+    };
+    const doc = (sel) =>
+      Math.round(document.querySelector(sel).getBoundingClientRect().top + scrollY);
     const t = ScrollTrigger.getAll()[0];
-    const a = { live: document.documentElement.classList.contains("op-live"), h: bays() };
+    // the upper datum sits wholly above the cut, the lower one below it
+    const cut = sect.querySelector(".bay__cut").getBoundingClientRect();
+    const up = sect.querySelector(".datum--up").getBoundingClientRect();
+    const down = sect.querySelector(".datum--down").getBoundingClientRect();
+    const a = {
+      // (on a phone they are a legend above the bays instead)
+      datums:
+        getComputedStyle(sect.querySelector(".datum--up")).position !== "absolute" ||
+        (up.bottom <= cut.top + 1 && down.top >= cut.bottom - 1),
+      live: document.documentElement.classList.contains("op-live"),
+      h: seen(),
+      briefs0: doc(".briefs"),
+      page0: document.documentElement.scrollHeight,
+      cls0: window.__cls,
+    };
+    for (let y = 0; y <= t.end + 200; y += 60) {
+      scrollTo(0, y);
+      await new Promise((d) => requestAnimationFrame(() => requestAnimationFrame(d)));
+    }
     scrollTo(0, t.end);
     await new Promise((d) => setTimeout(d, 900));
     const briefs = document.querySelector(".briefs").getBoundingClientRect().top;
     const stage = document.querySelector("[data-op-stage]").getBoundingClientRect().bottom;
-    return { ...a, end: Math.round(t.end), condensed: bays(), gap: Math.round(briefs - stage) };
+    const layoutStyles = [...document.querySelectorAll("[data-op] [style]")].filter((e) =>
+      /margin|(^|;\s*)(min-|max-)?height|padding/.test(e.getAttribute("style"))
+    ).length;
+    return {
+      ...a,
+      end: Math.round(t.end),
+      condensed: seen(),
+      gap: Math.round(briefs - stage),
+      briefs1: doc(".briefs"),
+      page1: document.documentElement.scrollHeight,
+      layoutStyles,
+      cls: +window.__cls.toFixed(4),
+    };
   });
   check(
     `opening ${w}px: pins, condenses the bays and keeps the register attached`,
     r.live && r.condensed < r.h && r.gap >= 0 && r.gap <= 40,
-    JSON.stringify(r)
+    JSON.stringify({ h: r.h, condensed: r.condensed, gap: r.gap, end: r.end })
+  );
+  check(`opening ${w}px: the datums sit either side of the cut, not on it`, r.datums);
+  check(
+    `opening ${w}px: condensation moves nothing after it (layout fixed, CLS ${r.cls})`,
+    r.briefs0 === r.briefs1 && r.page0 === r.page1 && r.layoutStyles === 0 && r.cls <= 0.1,
+    JSON.stringify({
+      briefs: [r.briefs0, r.briefs1],
+      page: [r.page0, r.page1],
+      layoutStyles: r.layoutStyles,
+      cls: r.cls,
+    })
   );
   await ctx.close();
+}
+/* 3c · return links land on the project in the register, past the condensation */
+for (const [w, h] of [
+  [1440, 900],
+  [390, 844],
+]) {
+  for (const slug of ["ledgerguard", "alwaysgeeky", "emplifi"]) {
+    const { ctx, page } = await open(P2 + "index.html#project-" + slug, { width: w, height: h });
+    const r = await page.evaluate(() => {
+      const el = document.getElementById(location.hash.slice(1));
+      const box = el.getBoundingClientRect();
+      const t = ScrollTrigger.getAll()[0];
+      return {
+        top: Math.round(box.top),
+        bottom: Math.round(box.bottom),
+        y: Math.round(scrollY),
+        end: Math.round(t.end),
+      };
+    });
+    check(
+      `anchor index.html#project-${slug} ${w}px: the project is on screen, opening condensed`,
+      r.top >= 0 && r.top < h && r.y >= r.end - 2,
+      JSON.stringify(r)
+    );
+    await ctx.close();
+  }
 }
 for (const [w, h] of [
   [1440, 900],
@@ -386,7 +509,56 @@ for (const p of SCENES) {
   }
 }
 
-/* 6 · anchors and the match cut */
+/* 5b · narrow screens: no pinned stage below 900 px; phone sheets below 768 px */
+for (const p of SCENES) {
+  for (const [w, h] of [
+    [390, 844],
+    [820, 1100],
+  ]) {
+    const { ctx, page } = await open(P2 + p, { width: w, height: h });
+    const s = await state(page);
+    const f = await page.evaluate(() => {
+      const shown = (sel) =>
+        [...document.querySelectorAll(sel)].filter((e) => getComputedStyle(e).display !== "none")
+          .length;
+      return { phone: shown(".fig-p"), wide: shown(".fig-w") };
+    });
+    const want = w < 768 ? f.phone >= 3 && f.wide === 0 : f.wide >= 3 && f.phone === 0;
+    check(
+      `narrow ${p} ${w}px: motion on, no stage, ${w < 768 ? "phone sheets" : "wide drawings"} in the steps`,
+      s.live && s.stage === "none" && s.figs >= (p === "alwaysgeeky.html" ? 3 : 4) && want,
+      JSON.stringify({ ...f, stage: s.stage, figs: s.figs })
+    );
+    await ctx.close();
+  }
+  // every label in a phone sheet reads at 12 px or more and stays on its sheet
+  for (const w of [360, 390, 430]) {
+    const { ctx, page } = await open(P2 + p, { width: w, height: 800, reduce: true });
+    const r = await page.evaluate(() => {
+      const out = { min: 99, small: [], over: [] };
+      document.querySelectorAll(".step__fig svg text").forEach((t) => {
+        if (!t.getClientRects().length) return;
+        const svg = t.ownerSVGElement;
+        const k = svg.getBoundingClientRect().width / svg.viewBox.baseVal.width;
+        const px = parseFloat(getComputedStyle(t).fontSize) * k;
+        out.min = Math.min(out.min, +px.toFixed(1));
+        if (px < 12) out.small.push(t.textContent.slice(0, 24) + "=" + px.toFixed(1));
+        const bb = t.getBBox();
+        if (bb.x < 2 || bb.x + bb.width > svg.viewBox.baseVal.width - 2)
+          out.over.push(t.textContent.slice(0, 30));
+      });
+      return out;
+    });
+    check(
+      `phone labels ${p} ${w}px: smallest ${r.min} px, none under 12 px, none past the sheet`,
+      r.small.length === 0 && r.over.length === 0,
+      [...r.small, ...r.over].slice(0, 4).join("; ")
+    );
+    await ctx.close();
+  }
+}
+
+/* 6 · anchors and the match cut (the match cut runs from 900 px up) */
 for (const p of SCENES) {
   {
     const { ctx, page } = await open(P2 + p + "#case");
@@ -402,10 +574,7 @@ for (const p of SCENES) {
     );
     await ctx.close();
   }
-  for (const [w, h] of [
-    [1440, 900],
-    [390, 844],
-  ]) {
+  for (const [w, h] of [[1440, 900]]) {
     const { ctx, page } = await open(P2 + p, { width: w, height: h });
     await toEnd(page);
     await page.waitForTimeout(1600);
