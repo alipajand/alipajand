@@ -84,7 +84,6 @@ export const SiteNavigation = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${NAV_BOOK_CALL_LABEL}${EXTERNAL_LINK_NEW_TAB_HINT}`}
-            data-analytics-event="nav_book_call"
           >
             {NAV_BOOK_CALL_LABEL}
           </a>

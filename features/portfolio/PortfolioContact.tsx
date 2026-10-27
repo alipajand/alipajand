@@ -20,11 +20,7 @@ export const PortfolioContact = () => (
       <p className={styles.body}>{CONTACT_AVAILABILITY}</p>
     </div>
     <div className={styles.links}>
-      <LinkRows
-        links={PROFILE_LINKS}
-        analyticsPrefix="portfolio_profile_link"
-        label={PORTFOLIO_PROFILE_LINKS_ARIA_LABEL}
-      />
+      <LinkRows links={PROFILE_LINKS} label={PORTFOLIO_PROFILE_LINKS_ARIA_LABEL} />
     </div>
   </section>
 );
