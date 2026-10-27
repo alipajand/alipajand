@@ -1,7 +1,11 @@
-.toggle {
+.toggle,
+.status {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+}
+
+.toggle {
   padding: 0;
   font: inherit;
   letter-spacing: inherit;
@@ -20,17 +24,38 @@
   outline-offset: 4px;
 }
 
-/* Two bars while motion runs (pause), a triangle once paused (play). */
+/* Both labels sit in one cell; the inactive one only holds the width. */
+.label {
+  display: inline-grid;
+}
+
+.label > * {
+  grid-area: 1 / 1;
+}
+
+.sizer {
+  visibility: hidden;
+}
+
+/* The mark shows what pressing does: two bars pause, a triangle resumes, a square is off. */
 .mark {
+  flex: none;
   width: 8px;
   height: 9px;
   border-inline: 2px solid currentColor;
 }
 
-.mark[data-paused] {
+.mark[data-state="paused"] {
   border: 0;
   border-left: 8px solid currentColor;
   border-block: 4.5px solid transparent;
   width: 0;
   height: 0;
+}
+
+.mark[data-state="off"] {
+  border: 0;
+  width: 8px;
+  height: 8px;
+  background: currentColor;
 }

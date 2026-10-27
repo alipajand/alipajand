@@ -27,8 +27,9 @@ export interface MotionController {
   /** Runs on coalesced scroll and resize frames while the element is on screen and the tab is visible. */
   onScroll?: (frame: ScrollFrame) => void;
   /**
-   * Runs on every display frame while the element is on screen and the tab is visible, for idle
-   * time-based motion. Providing it holds the shared frame loop open only during that time.
+   * Runs on every display frame while the element is on screen, the tab is visible and idle motion
+   * is allowed, for idle time-based motion. Providing it holds the shared frame loop open only during
+   * that time; it is ignored entirely while `idleMotion` is false.
    */
   onFrame?: (frame: ScrollFrame) => void;
   /** Runs when the element's own box changes size, including the first observation. */
@@ -88,6 +89,9 @@ export const useMotion = <E extends Element>(
     }
     if (!controller) return;
     const motion = controller;
+    // Idle motion only runs while it is allowed, even if a setup returned onFrame regardless, so
+    // reduced motion and the visitor's pause can never be bypassed by one island.
+    const onFrame = idleMotion ? motion.onFrame : undefined;
 
     let stopped = false;
     let intersecting = true;
@@ -111,7 +115,7 @@ export const useMotion = <E extends Element>(
     };
     let releaseFrames: (() => void) | null = null;
     const syncContinuous = () => {
-      const want = Boolean(motion.onFrame) && isActive();
+      const want = Boolean(onFrame) && isActive();
       if (want && !releaseFrames) releaseFrames = holdContinuousFrames();
       else if (!want && releaseFrames) {
         releaseFrames();
@@ -127,8 +131,8 @@ export const useMotion = <E extends Element>(
       guard(() => motion.onActiveChange?.(isActive()));
     };
 
-    if (motion.onScroll || motion.onFrame) {
-      const { onScroll, onFrame } = motion;
+    if (motion.onScroll || onFrame) {
+      const { onScroll } = motion;
       cleanups.push(
         subscribeScroll((frame) => {
           if (!isActive()) return;
