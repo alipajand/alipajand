@@ -90,7 +90,7 @@ const displayParts = (name) => {
 };
 const display = (name) => {
   const [a, b] = displayParts(name);
-  return `<h1 class="name" data-part aria-label="${name}">
+  return `<h1 class="name" data-part data-grow aria-label="${name}">
       <span>${a}</span>
       ${STAR}
       <span>${b}</span>
@@ -181,7 +181,10 @@ const fill = (src, extra = {}) => {
   if (left) throw new Error(`${src}: unfilled ${left.join(", ")}`);
   return s;
 };
-const write = (out, html) => {
+// Every page, hand-built or generated, gets the shared title fitter (kit/fit.js) at the end.
+const FIT = `\n<script>\n${kit("fit.js")}</script>\n`;
+const write = (out, page) => {
+  const html = page.trimEnd() + FIT;
   writeFileSync(join(OUT, out), html);
   if (PREVIEW) {
     const meta = '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n';

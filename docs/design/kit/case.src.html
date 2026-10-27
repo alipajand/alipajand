@@ -9,7 +9,7 @@
   .crumbs a { text-decoration: none; }
   .crumbs a:hover { color: var(--line); text-decoration: underline; text-underline-offset: 4px; }
   .crumbs [aria-current] { color: var(--line); }
-  .name { font-size: var(--fit, 8.8cqi); }
+  .name { font-size: 8.8cqi; }
 
   .intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-bottom: 1px solid var(--rule); }
   .intro__copy { padding: 28px 24px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 20px; }
@@ -287,20 +287,6 @@
   $("rail").innerHTML = SECTIONS.map((s, i) => `<li><a href="#${s.id}"><span class="mono">${pad(i)}</span>${esc(s.title)}</a></li>`).join("");
   if (NEXT) $("pager").insertAdjacentHTML("beforeend", `<a href="${NEXT.href}"><span class="mono">[ Next case study ]</span><strong>${esc(NEXT.name)} ${chev}</strong></a>`);
   else $("pager").classList.add("pager--single");
-
-  // ── Display word fits the frame whatever the project name ──
-  const name = document.querySelector(".name");
-  const fitName = () => {
-    name.style.removeProperty("--fit");
-    const [a, star, b] = name.children, cs2 = getComputedStyle(name);
-    const used = a.offsetWidth + b.offsetWidth + star.getBoundingClientRect().width + 2 * parseFloat(cs2.columnGap || 0);
-    const room = name.clientWidth - parseFloat(cs2.paddingLeft) - parseFloat(cs2.paddingRight);
-    const size = parseFloat(cs2.fontSize) * Math.min(1.5, room / used) * .96;
-    name.style.setProperty("--fit", `${Math.min(size, name.clientWidth * .16).toFixed(1)}px`);
-  };
-  fitName();
-  document.fonts?.ready.then(fitName);
-  addEventListener("resize", fitName);
 
   // ── Lightbox for every screenshot ──
   const lb = $("lb"), lbImg = $("lb-img"), lbTitle = $("lb-title");

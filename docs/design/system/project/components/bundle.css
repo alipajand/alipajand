@@ -63,7 +63,7 @@
 
   /* ── Section heads ── */
   .head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 34px 24px 18px; border-bottom: 1px solid var(--rule); }
-  .head h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5.4vw, 88px); line-height: .9; text-wrap: balance; }
+  .head h2 { margin: 0; min-width: 0; max-width: 100%; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5.4vw, 88px); line-height: .9; text-wrap: balance; }
   .head p { margin: 0; color: var(--mute); max-width: 52ch; }
   .head a { text-decoration: none; display: inline-flex; gap: 10px; align-items: center; }
   .head a:hover { text-decoration: underline; text-underline-offset: 5px; }
@@ -187,7 +187,7 @@
   .crumbs a { text-decoration: none; }
   .crumbs a:hover { color: var(--line); text-decoration: underline; text-underline-offset: 4px; }
   .crumbs [aria-current] { color: var(--line); }
-  .name { font-size: var(--fit, 8.8cqi); }
+  .name { font-size: 8.8cqi; }
 
   .intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-bottom: 1px solid var(--rule); }
   .intro__copy { padding: 28px 24px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 20px; }

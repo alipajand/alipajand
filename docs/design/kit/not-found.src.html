@@ -13,7 +13,8 @@
   .msg h1 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5cqi, 76px); line-height: .9; }
   .msg p { margin: 0; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5; max-width: 46ch; }
   .msg small { color: var(--mute); font-size: 14px; line-height: 1.5; max-width: 52ch; }
-  .ways { display: grid; grid-template-rows: 1fr 1fr; }
+  .ways { display: grid; grid-template-rows: 1fr 1fr; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+  .ways a > span[data-fit] { min-width: 0; flex: 1; }
   .ways a { display: flex; justify-content: space-between; align-items: end; gap: 12px; padding: 22px 24px; text-decoration: none; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(28px, 3.6cqi, 56px); line-height: .9; transition: background .3s, color .3s; }
   .ways a:first-child { border-bottom: 1px solid var(--rule); }
   .ways a span.mono { font-family: var(--mono); font-weight: 400; font-stretch: 100%; align-self: start; color: var(--mute); }
@@ -42,8 +43,8 @@
         <small id="nf-tip"></small>
       </div>
       <nav class="ways" aria-label="Ways back">
-        <a href="@@L:/@@"><span class="mono">[ 01 ]</span><span id="nf-home"></span><span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
-        <a href="@@L:/portfolio@@"><span class="mono">[ 02 ]</span><span id="nf-work"></span><span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        <a href="@@L:/@@"><span class="mono">[ 01 ]</span><span id="nf-home" data-fit></span><span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        <a href="@@L:/portfolio@@"><span class="mono">[ 02 ]</span><span id="nf-work" data-fit></span><span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
       </nav>
     </main>
     @@FOOT@@

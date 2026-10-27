@@ -26,7 +26,7 @@ The lit state is an inversion, not a colour. An active rail chip, a hovered link
 - **Text** (`--font-sans`, Archivo at normal width): lead paragraphs, article prose, list items, captions.
 - **Labels** (`--font-mono`, Geist Mono, 12px, letter-spacing .08em, uppercase): indexes, breadcrumbs, terms, dates.
 
-Display sizes are fluid, in container units (`cqi`) of the shell or `clamp()`. The token values are the 1440px desktop sizes.
+Display sizes are fluid, in container units (`cqi`) of the shell or `clamp()`. The token values are the 1440px desktop sizes. Titles never leave the page. `kit/fit.js` runs on every page and shrinks any title whose longest word would overflow its box: the display word, section heads, card titles and flow steps.
 
 ### Layout
 

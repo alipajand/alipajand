@@ -193,7 +193,7 @@
   .scene__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
   .scene__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
   .scene__head { position: absolute; left: 24px; top: 24px; right: 24px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--mute); }
-  .scene__title { position: absolute; left: 24px; top: 58px; margin: 0; max-width: 14ch; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(26px, 3.6vw, 56px); line-height: .92; }
+  .scene__title { position: absolute; left: 24px; top: 58px; margin: 0; max-width: 17ch; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(26px, 3.6vw, 56px); line-height: .92; overflow-wrap: break-word; }
   .scene__steps { position: absolute; left: 24px; right: 24px; bottom: 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--rule); background: var(--ink); }
   .step { padding: 14px 16px; border-right: 1px solid var(--rule); display: grid; gap: 6px; opacity: .38; transition: opacity .35s; }
   .step:last-child { border-right: 0; }
@@ -828,5 +828,52 @@
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
+})();
+</script>
+<script>
+(() => {
+  // Titles always stay inside the page. Each title is measured at its CSS size and scaled down when
+  // its longest word would run past its box; `data-grow` also lets a title scale up to fill its row
+  // (case study display words), capped at 1.5× and 16% of the row width.
+  const TITLES = ".name, [data-fit], h1, h2, h3, .next strong, .pager strong";
+  const measure = (el, cs) => {
+    if (el.classList.contains("name") && el.children.length) {
+      const kids = [...el.children], gap = parseFloat(cs.columnGap) || 0;
+      return kids.reduce((w, k) => w + parseFloat(getComputedStyle(k).width), 0) + gap * (kids.length - 1);
+    }
+    // Measure with word breaking off, so a word too long for the box shows as overflow.
+    el.style.overflowWrap = "normal";
+    const used = el.scrollWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    el.style.overflowWrap = "";
+    return used;
+  };
+  const fit = (el) => {
+    el.style.removeProperty("font-size");
+    const grow = el.hasAttribute("data-grow");
+    for (let i = 0; i < 4; i++) {
+      const cs = getComputedStyle(el);
+      const room = el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      const used = measure(el, cs);
+      if (room <= 0 || used <= 0) return;
+      if (!grow && used <= room + 0.5) return;
+      const scale = Math.min(grow ? 1.5 : 1, (room / used) * 0.97);
+      const size = parseFloat(cs.fontSize) * scale;
+      el.style.fontSize = `${(grow ? Math.min(size, el.clientWidth * 0.16) : size).toFixed(1)}px`;
+      if (grow) return;
+    }
+  };
+  const fitAll = () => document.querySelectorAll(TITLES).forEach(fit);
+  fitAll();
+  document.fonts?.ready.then(fitAll);
+  document.fonts?.addEventListener?.("loadingdone", fitAll);
+  addEventListener("resize", fitAll);
+  // Pages that render content or swap a title's text after load (the reader, portfolio scenes) refit.
+  let queued = false;
+  new MutationObserver((records) => {
+    const changed = records.some((r) => (r.target.nodeType === 1 && r.target.matches(TITLES)) || [...r.addedNodes].some((n) => n.nodeType === 1));
+    if (queued || !changed) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; fitAll(); });
+  }).observe(document.body, { childList: true, subtree: true });
 })();
 </script>

@@ -41,6 +41,7 @@ The kit in `kit/` turns the site's data into the pages:
 
 - `build.mjs` reads `data/*.ts` and `content/posts`.
 - `base.css`, `base.js`, `chrome.html`, `diagrams.css` and `diagrams.js` are shared by every page.
+- `fit.js` is added to the end of every page. It shrinks any title that would overflow.
 - Each `<page>.src.html` file is one page template, and `static/` holds the hand-built home, portfolio and open-source pages.
 - `img/` holds the case study screenshots, 1728px wide.
 
