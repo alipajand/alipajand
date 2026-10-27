@@ -98,7 +98,11 @@ export const getAllPosts = (): PostSummary[] => {
     .sort((a, b) => b.date.localeCompare(a.date));
 };
 
+/** Same alphabet `toSafeSlug` produces; anything else (e.g. `../`) is not a post. */
+const POST_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
 const readPostFile = (slug: string): string | null => {
+  if (!POST_SLUG_RE.test(slug)) return null;
   try {
     return readFileSync(join(POSTS_DIR, `${slug}.md`), "utf-8");
   } catch {
