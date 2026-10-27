@@ -90,7 +90,7 @@
   .dec dl > div:last-child dd { color: var(--line); }
 
   /* ── Flow band ── */
-  .shell > .band { margin-left: calc(-1 * var(--gutter-l) - 1px); margin-right: calc(-1 * var(--gutter-r) - 1px); padding-left: var(--gutter-l); padding-right: var(--gutter-r); scroll-margin-top: 50px; }
+  .band[data-for] { margin-left: calc(-1 * var(--gutter-l) - 1px); margin-right: calc(-1 * var(--gutter-r) - 1px); padding-left: var(--gutter-l); padding-right: var(--gutter-r); scroll-margin-top: 50px; }
   .band__in { border-left: 1px solid var(--bone-2); border-right: 1px solid var(--bone-2); }
   .intro--plain .intro__shot { align-content: start; gap: 18px; }
   .lives { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: auto; }
