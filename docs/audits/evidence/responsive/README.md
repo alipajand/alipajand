@@ -6,7 +6,7 @@ Everything here comes from the Playwright gate (`e2e/responsive.e2e.ts`, `e2e/in
 real-device evidence: Safari on iOS, Chrome on Android, real touch, dynamic toolbars, safe-area
 insets and field Core Web Vitals are still open and need a check on hardware.
 
-Run on macOS against `main` at 76f8807: 406 tests, all passing.
+Run on macOS against `main` at 14fa46d. The new specs add 406 tests; the full suite (929 tests, macOS visual baselines included) passes.
 
 ## Matrix
 
@@ -49,7 +49,7 @@ Run on macOS against `main` at 76f8807: 406 tests, all passing.
   display word, no target under 24px without spacing, no covered header or footer control, no
   broken or cropped image.
 - Focus is visible on every measured stop.
-- Local vitals (no throttling, so a floor and not field data): LCP 32–72 ms, CLS 0–0.038 (404 at
+- Local vitals (no throttling, so a floor and not field data): LCP 28–88 ms, CLS 0–0.038 (404 at
   1440), INP 32–64 ms. There were no long tasks during page load or during any of the 8 recorded
   scrolls.
 - Reduced motion leaves every scroll-linked transform unset, runs no looping animation, and
