@@ -1,10 +1,30 @@
-import type { Page } from "@playwright/test";
+import {
+  expect,
+  type Page,
+  type PageAssertionsToHaveScreenshotOptions,
+  test,
+} from "@playwright/test";
 
 /**
- * Marks screenshot comparisons. CI runs them only once Linux baselines are committed
- * (`--grep @visual`); every other check runs with `--grep-invert @visual`.
+ * Marks a screenshot comparison (`--grep @visual`) and names its baseline. The name is a test
+ * annotation, so `playwright test --list` shows every expected baseline without running anything;
+ * scripts/__tests__/visualBaselines.spec.ts checks that each one exists for macOS and Linux and that
+ * no other PNG is left behind.
  */
-export const VISUAL_TAG = { tag: "@visual" } as const;
+export const visualBaseline = (name: string) =>
+  ({ tag: "@visual", annotation: { type: "baseline", description: `${name}.png` } }) as const;
+
+/** Compares the page with the baseline its test declared through `visualBaseline`. */
+export const expectBaseline = async (
+  page: Page,
+  options: PageAssertionsToHaveScreenshotOptions = {}
+): Promise<void> => {
+  const baselines = test.info().annotations.filter((annotation) => annotation.type === "baseline");
+  if (baselines.length !== 1 || !baselines[0].description) {
+    throw new Error("Declare exactly one baseline with visualBaseline(name)");
+  }
+  await expect(page).toHaveScreenshot(baselines[0].description, options);
+};
 
 export const PAGES = [
   { name: "home", path: "/" },
