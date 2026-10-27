@@ -1,0 +1,209 @@
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.stats > div {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-width: 0;
+  padding: 16px 20px 18px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.stats > div:last-child {
+  border-right: 0;
+}
+
+.statLabel {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  color: var(--tone-mute);
+}
+
+.stats dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 125%;
+  font-size: clamp(26px, 3.2vw, 52px);
+  line-height: 0.9;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.stats dd.unit {
+  color: var(--tone-mute);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-stretch: 100%;
+  font-size: 14px;
+  line-height: 1.5;
+  text-transform: none;
+}
+
+.graph {
+  overflow-x: auto;
+  padding: 22px 24px 18px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  scrollbar-width: thin;
+}
+
+.graph:focus-visible {
+  outline-offset: -4px;
+}
+
+.graph svg {
+  display: block;
+  width: 100%;
+  min-width: 720px;
+  height: auto;
+}
+
+.graph text {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--color-mute);
+}
+
+.graph rect {
+  fill: var(--color-line);
+  stroke: none;
+}
+
+.graph rect.l0 {
+  fill: none;
+  stroke: var(--color-rule);
+  stroke-width: 1;
+}
+
+.graph rect.l1 {
+  fill-opacity: 0.2;
+}
+
+.graph rect.l2 {
+  fill-opacity: 0.42;
+}
+
+.graph rect.l3 {
+  fill-opacity: 0.7;
+}
+
+.graph rect:hover {
+  stroke: var(--color-line);
+  stroke-width: 1.5;
+}
+
+.week {
+  transition: opacity 0.4s;
+}
+
+.week[data-off] {
+  opacity: 0;
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 14px 24px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.readout {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  min-width: 0;
+  color: var(--tone-mute);
+}
+
+.legend {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--tone-mute);
+}
+
+.legend i {
+  width: 11px;
+  height: 11px;
+  background: var(--color-line);
+}
+
+.legend i[data-l="0"] {
+  background: none;
+  outline: var(--stroke-hairline) solid var(--color-rule);
+  outline-offset: -1px;
+}
+
+.legend i[data-l="1"] {
+  opacity: 0.2;
+}
+
+.legend i[data-l="2"] {
+  opacity: 0.42;
+}
+
+.legend i[data-l="3"] {
+  opacity: 0.7;
+}
+
+.legend b {
+  font-weight: inherit;
+}
+
+.legend b:first-child {
+  margin-right: 6px;
+}
+
+.legend b:last-child {
+  margin-left: 6px;
+}
+
+.github {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  color: var(--color-line);
+  text-underline-offset: 4px;
+}
+
+.srOnly {
+  composes: srOnly from "../../components/hairline/styles/type.module.css";
+}
+
+@media (max-width: 760px) {
+  /* "Contribution" is too long for a phone at the section-head size; the artifact's title fit shrinks it. */
+  .head h2 {
+    font-size: min(34px, 8.5cqi);
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats > div {
+    padding: 14px 16px 16px;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .stats > div:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .stats > div:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .graph {
+    padding: 18px 16px 14px;
+  }
+
+  .foot {
+    padding: 14px 16px;
+  }
+}
