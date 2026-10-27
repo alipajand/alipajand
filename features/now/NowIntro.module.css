@@ -1,0 +1,49 @@
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.over {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 22px 24px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.address {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  color: var(--tone-mute);
+}
+
+.overTitle {
+  composes: display from "../../components/hairline/styles/type.module.css";
+  font-size: clamp(22px, 2.4vw, 34px);
+  line-height: 1;
+}
+
+.lede {
+  margin: 0;
+  padding: 22px 24px;
+  max-width: 36ch;
+  font-size: clamp(20px, 2vw, 30px);
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+@media (max-width: 760px) {
+  .intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .over {
+    padding: 18px 16px;
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .lede {
+    padding: 18px 16px;
+  }
+}

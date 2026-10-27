@@ -1,0 +1,109 @@
+{
+  "note": "Reference heights exclude the artifact's default 8px body margin (file:// capture). Captures use reduced motion so scroll-driven islands are at rest.",
+  "routes": {
+    "open-source-1440": {
+      "viewport": [
+        1440,
+        900
+      ],
+      "referenceHeight": 10435,
+      "actualHeight": 10441,
+      "heightDelta": 6,
+      "status": 200,
+      "h1Count": 1,
+      "horizontalOverflow": 0,
+      "consoleErrors": []
+    },
+    "open-source-390": {
+      "viewport": [
+        390,
+        844
+      ],
+      "referenceHeight": 17840,
+      "actualHeight": 17524,
+      "heightDelta": -316,
+      "status": 200,
+      "h1Count": 1,
+      "horizontalOverflow": 0,
+      "consoleErrors": []
+    },
+    "engineering-principles-1440": {
+      "viewport": [
+        1440,
+        900
+      ],
+      "referenceHeight": 6424,
+      "actualHeight": 6397,
+      "heightDelta": -27,
+      "status": 200,
+      "h1Count": 1,
+      "horizontalOverflow": 0,
+      "consoleErrors": []
+    },
+    "engineering-principles-390": {
+      "viewport": [
+        390,
+        844
+      ],
+      "referenceHeight": 10311,
+      "actualHeight": 10143,
+      "heightDelta": -168,
+      "status": 200,
+      "h1Count": 1,
+      "horizontalOverflow": 0,
+      "consoleErrors": []
+    },
+    "now-1440": {
+      "viewport": [
+        1440,
+        900
+      ],
+      "referenceHeight": 2159,
+      "actualHeight": 2168,
+      "heightDelta": 9,
+      "status": 200,
+      "h1Count": 1,
+      "horizontalOverflow": 0,
+      "consoleErrors": []
+    },
+    "now-390": {
+      "viewport": [
+        390,
+        844
+      ],
+      "referenceHeight": 3655,
+      "actualHeight": 3585,
+      "heightDelta": -70,
+      "status": 200,
+      "h1Count": 1,
+      "horizontalOverflow": 0,
+      "consoleErrors": []
+    },
+    "not-found-1440": {
+      "viewport": [
+        1440,
+        900
+      ],
+      "referenceHeight": 891,
+      "actualHeight": 900,
+      "heightDelta": 9,
+      "status": 404,
+      "h1Count": 1,
+      "horizontalOverflow": 0,
+      "consoleErrors": []
+    },
+    "not-found-390": {
+      "viewport": [
+        390,
+        844
+      ],
+      "referenceHeight": 872,
+      "actualHeight": 919,
+      "heightDelta": 47,
+      "status": 404,
+      "h1Count": 1,
+      "horizontalOverflow": 0,
+      "consoleErrors": []
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.crumbs {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  padding: 14px 24px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  color: var(--tone-mute);
+}
+
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crumbs a {
+  text-decoration: none;
+}
+
+.crumbs a:hover {
+  color: var(--color-line);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.crumbs [aria-current] {
+  color: var(--color-line);
+}
+
+.crumbSep {
+  color: var(--tone-mute);
+}
+
+@media (max-width: 760px) {
+  .crumbs {
+    padding-inline: 16px;
+  }
+}

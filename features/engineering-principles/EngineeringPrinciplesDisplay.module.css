@@ -1,0 +1,45 @@
+/* Two lines, centred at rest, parted to the edges as the page scrolls. */
+.display {
+  composes: display from "../../components/hairline/styles/type.module.css";
+  display: grid;
+  gap: 0.06em;
+  padding: clamp(16px, 2.6vw, 34px) clamp(10px, 2vw, 24px) clamp(12px, 2vw, 26px);
+  overflow: hidden;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  font-size: 10.2cqi;
+  line-height: 0.86;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+}
+
+.line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.18em;
+  width: max-content;
+  justify-self: center;
+  will-change: transform;
+}
+
+.star {
+  flex: none;
+  width: 0.38em;
+  height: 0.38em;
+}
+
+@media (max-width: 760px) {
+  .display {
+    padding-inline: 10px;
+    font-size: 10cqi;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line:first-child {
+    justify-self: start;
+  }
+
+  .line:last-child {
+    justify-self: end;
+  }
+}

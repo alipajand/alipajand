@@ -1,0 +1,113 @@
+.cells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.cell {
+  min-width: 0;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  transition: background 0.35s;
+}
+
+.cell:nth-child(2n) {
+  border-right: 0;
+}
+
+.cell:nth-last-child(-n + 2):nth-child(odd),
+.cell:last-child {
+  border-bottom: 0;
+}
+
+.cell[data-lit] {
+  background: var(--color-ink-2);
+}
+
+.cellInner {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 16px;
+  height: 100%;
+  padding: 24px;
+}
+
+.cellIndex {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  color: var(--tone-mute);
+}
+
+.cellHeading {
+  composes: display from "../../components/hairline/styles/type.module.css";
+  font-size: clamp(30px, 4cqi, 60px);
+  line-height: 0.9;
+}
+
+.cellInner ul {
+  display: grid;
+  align-content: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.cellInner li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  padding: 12px 0;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.cellInner li::before {
+  content: "—";
+  color: var(--tone-mute);
+}
+
+.cellLink {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.cellLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+@media (max-width: 760px) {
+  .cells {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cell {
+    border-right: 0;
+  }
+
+  .cell:nth-last-child(-n + 2):nth-child(odd) {
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .cell:last-child {
+    border-bottom: 0;
+  }
+
+  .cellInner {
+    padding: 20px 16px;
+  }
+
+  .cellHeading {
+    font-size: 10cqi;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell {
+    transition: none;
+  }
+}
