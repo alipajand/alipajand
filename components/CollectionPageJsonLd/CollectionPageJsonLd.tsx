@@ -1,4 +1,5 @@
 import { CANONICAL_URL, PERSON_SCHEMA_ID, WEBSITE_SCHEMA_ID } from "data/site";
+import { serializeJsonLd } from "utils/jsonLd";
 
 export interface CollectionPageJsonLdItem {
   url: string;
@@ -60,7 +61,7 @@ export const CollectionPageJsonLd = ({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 };

@@ -25,4 +25,18 @@ describe("ArticleJsonLd", () => {
     expect(schema.image).toEqual([`${CANONICAL_URL}/writing/test-slug/opengraph-image`]);
     expect(schema.isPartOf.name).toContain(SITE_NAME);
   });
+
+  it("should not let a malicious title close the script element", () => {
+    const title = "</script><script>alert(1)</script>";
+    const { container } = render(
+      <ArticleJsonLd
+        post={{ slug: "test-slug", title, date: "2025-06-01", excerpt: "Test excerpt." }}
+      />
+    );
+    const script = container.querySelector('script[type="application/ld+json"]');
+    const text = script?.textContent ?? "";
+    expect(text).not.toContain("</script");
+    expect(container.querySelectorAll("script")).toHaveLength(1);
+    expect(JSON.parse(text).headline).toBe(title);
+  });
 });
