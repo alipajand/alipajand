@@ -6,6 +6,22 @@ const PORT = Number(process.env.E2E_PORT ?? 3456);
 const CI = Boolean(process.env.CI);
 
 /**
+ * CI compares screenshots and never writes them: `updateSnapshots` is "none" there, and a CI run
+ * that passes `--update-snapshots`/`-u` stops here. The one exception is the manual
+ * update-visual-baselines job, which sets E2E_RENDER_BASELINES and uploads its renders for review.
+ */
+const updateFlagIndex = process.argv.findIndex(
+  (arg) => arg === "-u" || arg.startsWith("--update-snapshots")
+);
+if (CI && updateFlagIndex !== -1 && !process.env.E2E_RENDER_BASELINES) {
+  const flag = process.argv[updateFlagIndex];
+  const value = flag.includes("=") ? flag.split("=")[1] : process.argv[updateFlagIndex + 1];
+  if (flag === "-u" || value !== "none") {
+    throw new Error("CI never writes visual baselines; render them with update-visual-baselines.");
+  }
+}
+
+/**
  * The server renders as of this instant (see e2e/fixed-clock.cjs), so the home page and /writing,
  * which mark posts dated after "today" in Toronto as upcoming, do not change when a scheduled post
  * goes live. It sits the day before the 2026-10-28 post so the baselines show both states. Moving
