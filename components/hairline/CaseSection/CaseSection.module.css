@@ -9,6 +9,13 @@
   border-right: var(--stroke-hairline) solid var(--tone-rule);
 }
 
+/* Zero-height target for an earlier anchor: it sits on the section's top edge and scrolls like it. */
+.legacyAnchor {
+  display: block;
+  height: 0;
+  scroll-margin-top: 50px;
+}
+
 .stick {
   position: sticky;
   top: 50px;

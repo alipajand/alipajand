@@ -14,7 +14,7 @@ interface CaseStudyTextSectionProps {
  * or numbered points (rows, or cells for "What I built"), then any diagrams the data attaches.
  */
 export const CaseStudyTextSection = ({ section, index }: CaseStudyTextSectionProps) => (
-  <CaseSection id={section.id} index={index} title={section.title}>
+  <CaseSection id={section.id} legacyId={section.legacyId} index={index} title={section.title}>
     {section.body.kind === "lead" ? (
       <CaseLead>{section.body.text}</CaseLead>
     ) : (

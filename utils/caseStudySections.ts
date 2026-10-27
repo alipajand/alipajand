@@ -31,6 +31,8 @@ export type CaseSectionBody =
 export interface CaseSectionModel {
   /** In-page anchor, as in the design kit ("context", "role", "technical-decisions"…). */
   id: string;
+  /** The anchor this chapter had before the kit's ids ("ledgerguard-context"), kept for old links. */
+  legacyId: string;
   title: string;
   body: CaseSectionBody;
   /** Layers and compare diagrams set inside the section, after its body. */
@@ -43,6 +45,19 @@ export interface CaseSectionModel {
 const SECTION_ID: Partial<Record<CaseStudySectionKey, string>> = { "ux-decisions": "ux" };
 
 const sectionIdFor = (key: CaseStudySectionKey) => SECTION_ID[key] ?? key;
+
+/** Section ids whose earlier anchor used a different key. */
+const LEGACY_SECTION_KEY: Readonly<Record<string, string>> = { ux: "ux-decisions" };
+
+/**
+ * The anchor a section had before the case studies took the kit's ids: project id, then section
+ * key, as in `ledgerguard-context` or `ledgerguard-ux-decisions`.
+ */
+export const legacySectionId = (projectId: string, id: string): string =>
+  `${projectId}-${LEGACY_SECTION_KEY[id] ?? id}`;
+
+/** The id the case-study title carried before the kit's ids, now kept on the display name. */
+export const legacyTitleId = (projectId: string): string => `${projectId}-heading`;
 
 /**
  * Builds the numbered sections of a case study from its project data. Sections with nothing to
@@ -112,7 +127,7 @@ export const buildCaseSections = (project: Project): CaseSectionModel[] => {
   ];
 
   const sections: CaseSectionModel[] = candidates.flatMap(({ id, title, body }) =>
-    body ? [{ id, title, body, diagrams: [] }] : []
+    body ? [{ id, legacyId: legacySectionId(project.id, id), title, body, diagrams: [] }] : []
   );
 
   for (const { section, spec } of cs.diagrams ?? []) {

@@ -21,6 +21,24 @@ const WITH_HERO: ReadonlySet<string> = new Set([
   "mapbylaw",
 ]);
 
+/**
+ * Section anchors from before the case studies took the design kit's ids (#241), as
+ * `<project>-<key>`, and the chapter each one now lands on. Interface evidence exists only on the
+ * case studies with screenshots.
+ */
+const LEGACY_SECTION_ANCHORS = {
+  context: "context",
+  problem: "problem",
+  role: "role",
+  built: "built",
+  "technical-decisions": "technical-decisions",
+  "ux-decisions": "ux",
+  evidence: "evidence",
+  outcome: "outcome",
+  improve: "improve",
+  related: "related",
+} as const;
+
 const BASELINE_VIEWPORTS = [
   { width: 1440, height: 900 },
   { width: 390, height: 844 },
@@ -281,4 +299,119 @@ test.describe("case-study pager", () => {
       expect(hrefs).toEqual(["/portfolio", ...(next ? [`/portfolio/${next}`] : [])]);
     }
   });
+});
+
+test.describe("anchors from before the kit's ids", () => {
+  for (const slug of CASE_STUDIES) {
+    test(`${slug}: every old section anchor lands on its chapter without JavaScript`, async ({
+      browser,
+    }) => {
+      const context = await browser.newContext({ javaScriptEnabled: false });
+      const page = await context.newPage();
+      const path = `/portfolio/${slug}`;
+      await page.goto(path);
+      for (const [key, chapter] of Object.entries(LEGACY_SECTION_ANCHORS)) {
+        if (key === "evidence" && !WITH_HERO.has(slug)) continue;
+        const marker = page.locator(`#${slug}-${key}`);
+        await expect(marker, `#${slug}-${key}`).toHaveCount(1);
+        expect(await marker.evaluate((element) => element.closest("section")?.id)).toBe(chapter);
+      }
+      await expect(page.locator(`#${slug}-heading`)).toHaveCount(1);
+
+      // A deep link to an old anchor puts its chapter where the new anchor would.
+      await page.goto(`${path}#${slug}-ux-decisions`);
+      const ux = page.locator("#ux");
+      await expect(ux).toBeInViewport();
+      const top = await ux.evaluate((element) => element.getBoundingClientRect().top);
+      expect(Math.abs(top - 50)).toBeLessThanOrEqual(2);
+      await context.close();
+    });
+  }
+
+  test("an old anchor also resolves with JavaScript and the rail follows it", async ({ page }) => {
+    for (const slug of CASE_STUDIES) {
+      await page.goto(`/portfolio/${slug}#${slug}-technical-decisions`);
+      await settle(page);
+      await expect(page.locator("#technical-decisions")).toBeInViewport();
+      const rail = page.getByRole("navigation", { name: /^Table of contents for / });
+      await expect(rail.locator('a[aria-current="true"]')).toHaveAttribute(
+        "href",
+        "#technical-decisions"
+      );
+    }
+  });
+});
+
+test.describe("screenshot dialog on every case study with screenshots", () => {
+  for (const slug of WITH_HERO) {
+    test(`${slug}: takes focus, closes on Escape and the backdrop, and returns focus`, async ({
+      page,
+    }) => {
+      await page.goto(`/portfolio/${slug}`);
+      await settle(page);
+      const openers = page.getByRole("button", { name: /^Enlarge: / });
+      const count = await openers.count();
+      expect(count).toBeGreaterThan(1);
+      for (let index = 0; index < count; index += 1) {
+        const opener = openers.nth(index);
+        const name = (await opener.getAttribute("aria-label"))!.replace(/^Enlarge: /, "");
+        const dialog = page.getByRole("dialog", { name });
+
+        await opener.scrollIntoViewIfNeeded();
+        await opener.focus();
+        await page.keyboard.press("Enter");
+        await expect(dialog).toBeVisible();
+        expect(await dialog.evaluate((element) => element.contains(document.activeElement))).toBe(
+          true
+        );
+        await page.keyboard.press("Escape");
+        await expect(dialog).toBeHidden();
+        await expect(opener).toBeFocused();
+
+        await opener.click();
+        await expect(dialog).toBeVisible();
+        // The backdrop is whatever the viewport shows outside the dialog box.
+        const box = (await dialog.boundingBox())!;
+        const viewport = page.viewportSize()!;
+        const backdrop = { x: viewport.width - 4, y: viewport.height - 4 };
+        expect(backdrop.x > box.x + box.width || backdrop.y > box.y + box.height).toBe(true);
+        await page.mouse.click(backdrop.x, backdrop.y);
+        await expect(dialog).toBeHidden();
+        await expect(opener).toBeFocused();
+      }
+    });
+  }
+});
+
+test.describe("chapter jumps and browser history", () => {
+  for (const slug of CASE_STUDIES) {
+    test(`${slug}: Back and Forward step through the chapters jumped to`, async ({ page }) => {
+      const path = `/portfolio/${slug}`;
+      await page.goto(path);
+      await settle(page);
+      const rail = page.getByRole("navigation", { name: /^Table of contents for / });
+      const current = rail.locator('a[aria-current="true"]');
+      const at = async (hash: string) => {
+        await expect(page).toHaveURL(new RegExp(`${path}${hash}$`));
+        await expect(page.locator(hash)).toBeInViewport();
+        await expect(current).toHaveAttribute("href", hash);
+      };
+
+      await rail.locator('a[href="#role"]').focus();
+      await page.keyboard.press("Enter");
+      await at("#role");
+      await rail.locator('a[href="#outcome"]').focus();
+      await page.keyboard.press("Enter");
+      await at("#outcome");
+
+      await page.goBack();
+      await at("#role");
+      await page.goBack();
+      await expect(page).toHaveURL(new RegExp(`${path}$`));
+      await page.goForward();
+      await at("#role");
+      await page.goForward();
+      await at("#outcome");
+    });
+  }
 });
