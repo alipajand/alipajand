@@ -51,7 +51,10 @@ describe("font coverage", () => {
   it("should only use characters the self-hosted Archivo files carry", () => {
     const outside = new Map<string, string>();
     for (const file of SOURCE_DIRS.flatMap((dir) => sourceFiles(join(ROOT, dir)))) {
-      const text = readFileSync(file, "utf8").replace(/\/\*[\s\S]*?\*\//g, ""); // comments never render
+      // Comments never render: drop block comments and whole-line `//` comments.
+      const text = readFileSync(file, "utf8")
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/^\s*\/\/.*$/gm, "");
       for (const char of text) {
         const codePoint = char.codePointAt(0) ?? 0;
         if (inLatinSlice(codePoint) || SYSTEM_FONT_SYMBOLS.has(char) || outside.has(char)) continue;
