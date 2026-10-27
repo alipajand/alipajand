@@ -29,8 +29,30 @@
   const renderDiagram = (s, label) =>
     s.type === "layers" ? renderLayers(s) : s.type === "compare" ? renderCompare(s) : renderFlow(s, label);
 
+  // A long single word (READINESS) can outgrow a flow column. Shrink that flow's labels together
+  // until every word fits, and refit only when the list's width changes or the fonts finish loading.
+  let fontGen = 0;
+  document.fonts?.addEventListener?.("loadingdone", () => { fontGen++; });
+  document.fonts?.ready.then(() => { fontGen++; });
+  const fitFlowLabels = (ol) => {
+    const key = `${ol.clientWidth}:${fontGen}`;
+    if (ol.dataset.fit === key) return;
+    ol.dataset.fit = key;
+    const labels = [...ol.querySelectorAll("li b")];
+    if (!labels.length) return;
+    // Measure with word breaking off: the CSS break-word fallback would hide the overflow.
+    labels.forEach((b) => { b.style.fontSize = ""; b.style.overflowWrap = "normal"; });
+    let size = parseFloat(getComputedStyle(labels[0]).fontSize);
+    while (size > 14 && labels.some((b) => b.scrollWidth > b.clientWidth + 1)) {
+      size -= 1;
+      labels.forEach((b) => { b.style.fontSize = `${size}px`; });
+    }
+    labels.forEach((b) => { b.style.overflowWrap = ""; });
+  };
+
   // Called every frame: lights the layer or step that matches how far the diagram has crossed the screen.
   const lightDiagrams = (vh) => {
+    document.querySelectorAll(".dg--flow .flow").forEach(fitFlowLabels);
     document.querySelectorAll("[data-light]").forEach((box) => {
       const r = box.getBoundingClientRect(), items = box.children;
       const t = clamp((vh * .75 - r.top) / (r.height + vh * .2), 0, .999);
