@@ -105,6 +105,8 @@
 }
 
 .dialog {
+  /* The preflight reset zeroes every margin; a modal dialog needs the UA's auto margin to centre. */
+  margin: auto;
   width: 96vw;
   max-width: min(1600px, 96vw);
   max-height: 94vh;
@@ -112,10 +114,21 @@
   background: var(--color-ink);
   color: var(--color-line);
   border: var(--stroke-hairline) solid var(--color-rule);
+  overscroll-behavior: contain;
 }
 
 .dialog::backdrop {
   background: rgb(15 15 14 / 86%);
+}
+
+/*
+ * A modal dialog does not stop the page behind it from scrolling, so wheel and touch scrolls on the
+ * backdrop moved the page. Lock it while a screenshot is open; the stable gutter keeps the page from
+ * shifting sideways where scrollbars take up room.
+ */
+:global(:root):has(.dialog[open]) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
 }
 
 .dialogBar {
@@ -149,6 +162,12 @@
 
 .dialogImage {
   overflow: auto;
+  overscroll-behavior: contain;
+}
+
+/* The pane takes focus so arrow keys can pan a wide image; the ring sits inside the dialog edge. */
+.dialogImage:focus-visible {
+  outline-offset: -2px;
 }
 
 .dialogImage img {

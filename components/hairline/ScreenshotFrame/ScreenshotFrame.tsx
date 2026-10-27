@@ -191,7 +191,8 @@ export const ScreenshotFrame = ({
             {closeLabel}
           </button>
         </div>
-        <div className={styles.dialogImage}>
+        {/* Focusable so the keyboard can pan an image wider than the dialog (arrow keys). */}
+        <div className={styles.dialogImage} tabIndex={0}>
           <Image src={src} alt={alt} width={width} height={height} sizes="96vw" loading="lazy" />
         </div>
       </dialog>
