@@ -21,6 +21,8 @@ import { isAllowedUrl, sanitizePostHtml } from "utils/sanitizePostHtml";
 
 const html = (markdown: string): string => renderPostHtml(markdown).html.trim();
 
+const LABELS = { table: "Table", code: "Code" };
+
 /** The pipeline as it was before sanitising: diagram slots, Markdown, heading ids. */
 const unsanitised = (markdown: string): string => {
   const { markdown: withSlots } = extractDiagramBlocks(markdown);
@@ -154,13 +156,13 @@ describe("sanitizePostHtml", () => {
       expect(out).toContain('<div data-diagram-slot="0"></div>');
       expect(out).toContain('<div data-diagram-slot="1"></div>');
       expect(diagrams.map((diagram) => diagram.type)).toEqual(["flow", "mcp-workflow"]);
-      expect(proseSegments(out, "Table").map((segment) => segment.kind)).toEqual([
+      expect(proseSegments(out, LABELS).map((segment) => segment.kind)).toEqual([
         "html",
         "diagram",
         "html",
         "diagram",
       ]);
-      expect(proseSegments(out, "Table")[1]).toEqual({
+      expect(proseSegments(out, LABELS)[1]).toEqual({
         kind: "diagram",
         index: 0,
         sectionId: "first",
@@ -236,6 +238,63 @@ describe("sanitizePostHtml", () => {
       ],
     ])("should neutralise %s", (_name, markdown, expected) => {
       expect(html(markdown)).toBe(expected);
+    });
+
+    it.each([
+      [
+        "pre",
+        '<pre tabindex="0" role="region" aria-label="x"><code>a</code></pre>\n',
+        "<pre><code>a</code></pre>",
+      ],
+      [
+        "pre with another value",
+        '<pre tabindex="-1"><code>a</code></pre>\n',
+        "<pre><code>a</code></pre>",
+      ],
+      ["div", '<div tabindex="0" role="region" aria-label="x">a</div>\n', "<div>a</div>"],
+      [
+        "table",
+        '<table tabindex="0" role="presentation"><tr><td>a</td></tr></table>\n',
+        "<table><tr><td>a</td></tr></table>",
+      ],
+      ["link", '<a href="/x" tabindex="5" aria-hidden="true">x</a>\n', '<p><a href="/x">x</a></p>'],
+      ["code", '<code tabindex="0" class="hljs">x</code>\n', '<p><code class="hljs">x</code></p>'],
+      ["span", '<span tabindex="0" role="button">x</span>\n', "<p><span>x</span></p>"],
+    ])(
+      "should drop authored tabindex, role and aria attributes on %s",
+      (_name, markdown, expected) => {
+        expect(html(markdown)).toBe(expected);
+      }
+    );
+
+    it("should leave focus only on the scroll regions it adds itself, with tabindex 0", () => {
+      const probe = [
+        '<pre tabindex="1"><code>a</code></pre>',
+        '<p tabindex="0">b</p>',
+        '<div tabindex="0" role="region">c</div>',
+        "```diagram\ntype: mcp-workflow\n```",
+        "```ts\nconst a = 1;\n```",
+        "| a |\n| - |\n| 1 |",
+      ].join("\n\n");
+      const render = (markdown: string) =>
+        proseSegments(renderPostHtml(markdown).html, LABELS)
+          .map((segment) => (segment.kind === "html" ? segment.html : ""))
+          .join("");
+      const probed = render(probe);
+      expect(probed.match(/<pre role="region" tabindex="0" aria-label="Code">/g)).toHaveLength(2);
+      expect(probed.match(/<div data-table="" role="region" tabindex="0"/g)).toHaveLength(1);
+      for (const markdown of [probe, ...postBodies.map(([, body]) => body)]) {
+        const out = render(markdown);
+        const focusable = [...out.matchAll(/<([a-z0-9]+)([^>]*)\stabindex="([^"]*)"/g)];
+        for (const [, tag, before, value] of focusable) {
+          expect(value).toBe("0");
+          expect(tag === "pre" || (tag === "div" && before.includes("data-table"))).toBe(true);
+        }
+        expect(out.match(/tabindex/g)?.length ?? 0).toBe(focusable.length);
+        expect(out.match(/<pre[\s>]/g)?.length ?? 0).toBe(
+          out.match(/<pre role="region" tabindex="0" aria-label="Code">/g)?.length ?? 0
+        );
+      }
     });
 
     it("should fail the build on a diagram slot written by hand", () => {
