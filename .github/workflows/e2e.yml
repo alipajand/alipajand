@@ -27,7 +27,7 @@ env:
   NEXT_TELEMETRY_DISABLED: "1"
 
 jobs:
-  e2e:
+  e2e-shard:
     if: github.event_name != 'workflow_dispatch'
     name: Playwright e2e (Chromium, Linux, shard ${{ matrix.shard }}/2)
     runs-on: ubuntu-latest
@@ -102,6 +102,19 @@ jobs:
             playwright-report/
             test-results/
           retention-days: 7
+
+  # Keeps the check name the main ruleset requires, and passes only when every shard passed.
+  e2e:
+    if: always() && github.event_name != 'workflow_dispatch'
+    name: Playwright e2e (Chromium, Linux)
+    needs: e2e-shard
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require every shard to pass
+        env:
+          SHARDS: ${{ needs.e2e-shard.result }}
+        run: test "$SHARDS" = "success"
 
   update-visual-baselines:
     # Manual only, on the dispatched ref itself (no inputs). It reads and saves no cache and keeps no
