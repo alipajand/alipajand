@@ -8,6 +8,59 @@
   height: 132px;
 }
 
+/*
+ * The server-drawn ruler, laid over the canvas with the canvas's geometry: 24px side margins, the
+ * baseline 26px above the bottom, ticks up to 46px above it, the cursor from 44px down to 8px below
+ * the baseline. Hidden, not removed, once the canvas has drawn, so the swap moves nothing.
+ */
+.static {
+  position: absolute;
+  inset: 0;
+  color: var(--color-line);
+  pointer-events: none;
+}
+
+.ruler[data-drawn] .static {
+  visibility: hidden;
+}
+
+.ticks {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 18px;
+  width: calc(100% - 48px);
+  height: 54px;
+  overflow: visible;
+}
+
+.ticks line {
+  stroke: currentColor;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.cursor {
+  position: absolute;
+  top: 44px;
+  bottom: 18px;
+  left: calc(24px + (var(--week) - 0.5) * (100% - 48px) / 52);
+  width: 2px;
+  background: currentColor;
+  transform: translateX(-50%);
+}
+
+.quarter {
+  position: absolute;
+  bottom: 6px;
+  left: calc(24px + (var(--quarter) * 13 + 6.5) * (100% - 48px) / 52);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  opacity: 0.6;
+  transform: translateX(-50%);
+}
+
 .rulerLabel {
   composes: mono from "../../components/hairline/styles/type.module.css";
   position: absolute;
