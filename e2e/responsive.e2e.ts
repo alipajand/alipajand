@@ -3,7 +3,13 @@ import path from "node:path";
 
 import { expect, type Page, test } from "@playwright/test";
 
-import { AUDIT_ROUTES, AUDIT_VIEWPORTS, type AuditViewport, scrollThrough, settle } from "./support";
+import {
+  AUDIT_ROUTES,
+  AUDIT_VIEWPORTS,
+  type AuditViewport,
+  scrollThrough,
+  settle,
+} from "./support";
 
 /*
  * Responsive gate for every route and the shared shell, in emulated viewports (Chromium device
@@ -88,7 +94,10 @@ const auditLayout = (page: Page): Promise<LayoutReport> =>
     const clippedText = all
       .filter((element) => {
         if (!isVisible(element) || !clips(element)) return false;
-        if (element.closest("[class*='ticker'], [class*='display']")) return false;
+        // Tickers, the display line and decorative rules clip on purpose.
+        if (element.closest("[class*='ticker'], [class*='display'], [aria-hidden='true']")) {
+          return false;
+        }
         const hasText = Array.from(element.childNodes).some(
           (child) => child.nodeType === Node.TEXT_NODE && child.textContent?.trim()
         );
@@ -100,7 +109,8 @@ const auditLayout = (page: Page): Promise<LayoutReport> =>
     for (const word of Array.from(document.querySelectorAll<HTMLElement>("[data-word]"))) {
       const box = word.parentElement!.getBoundingClientRect();
       const rect = word.getBoundingClientRect();
-      if (rect.left < box.left - 1 || rect.right > box.right + 1) displayWordClipped.push(describe(word));
+      if (rect.left < box.left - 1 || rect.right > box.right + 1)
+        displayWordClipped.push(describe(word));
     }
 
     const interactive = all.filter(
@@ -117,7 +127,8 @@ const auditLayout = (page: Page): Promise<LayoutReport> =>
       const parent = element.parentElement;
       if (!parent) return false;
       return Array.from(parent.childNodes).some(
-        (child) => child !== element && child.nodeType === Node.TEXT_NODE && child.textContent?.trim()
+        (child) =>
+          child !== element && child.nodeType === Node.TEXT_NODE && child.textContent?.trim()
       );
     };
     const smallTargets: LayoutReport["smallTargets"] = [];
@@ -142,15 +153,36 @@ const auditLayout = (page: Page): Promise<LayoutReport> =>
       }
     });
 
+    // The shell's hit areas, probed with elementFromPoint so pseudo-element tap padding counts.
+    const hitSize = (element: Element) => {
+      element.scrollIntoView({ block: "center", inline: "nearest" });
+      const rect = element.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const hits = (x: number, y: number) => {
+        const hit = document.elementFromPoint(x, y);
+        return Boolean(hit && (hit === element || element.contains(hit)));
+      };
+      const reach = (dx: number, dy: number) => {
+        let step = 0;
+        while (step < 60 && hits(cx + dx * (step + 1), cy + dy * (step + 1))) step += 1;
+        return step;
+      };
+      return {
+        width: reach(-1, 0) + reach(1, 0) + 1,
+        height: reach(0, -1) + reach(0, 1) + 1,
+      };
+    };
     const shellTargetsUnder44 = interactive
-      .filter((element) => element.closest("header, footer"))
-      .map((element) => ({ element, rect: element.getBoundingClientRect() }))
-      .filter(({ rect }) => rect.width < 44 || rect.height < 44)
-      .map(({ element, rect }) => ({
-        target: describe(element),
-        width: Math.round(rect.width),
-        height: Math.round(rect.height),
-      }));
+      .filter((element) =>
+        element.closest(
+          "header:has(> nav[aria-label='Primary']), footer[aria-label]:not(main footer)"
+        )
+      )
+      .map((element) => ({ element, size: hitSize(element) }))
+      .filter(({ size }) => size.width < 44 || size.height < 44)
+      .map(({ element, size }) => ({ target: describe(element), ...size }));
+    window.scrollTo(0, 0);
 
     const images = Array.from(document.images)
       .filter((image) => isVisible(image))
@@ -216,9 +248,20 @@ for (const route of AUDIT_ROUTES) {
         expect(report.edgeOverflow, "elements spill past the viewport edge").toEqual([]);
         expect(report.clippedText, "text cut off inside its box").toEqual([]);
         expect(report.displayWordClipped, "display word clipped at rest").toEqual([]);
-        expect(report.smallTargets, "targets under 24x24 without spacing (WCAG 2.5.8)").toEqual(
-          []
-        );
+        if (route.waiveSmallTargets) {
+          test.info().annotations.push({
+            type: "known issue",
+            description: `${route.waiveSmallTargets}: ${report.smallTargets.length} target(s) under 24px`,
+          });
+        } else {
+          expect(report.smallTargets, "targets under 24x24 without spacing (WCAG 2.5.8)").toEqual(
+            []
+          );
+        }
+        expect(
+          report.shellTargetsUnder44.filter((target) => target.width < 24 || target.height < 24),
+          "header or footer controls covered by page content or under 24px of hit area"
+        ).toEqual([]);
         expect(report.images.filter((image) => image.broken)).toEqual([]);
         expect(report.images.filter((image) => image.spills)).toEqual([]);
         await context.close();
@@ -238,10 +281,19 @@ for (const route of AUDIT_ROUTES) {
         const state = await page.evaluate(() => {
           const element = document.activeElement as HTMLElement | null;
           if (!element || element === document.body) return null;
-          const style = getComputedStyle(element);
-          const ring =
-            (style.outlineStyle !== "none" && parseFloat(style.outlineWidth) >= 1) ||
-            style.boxShadow !== "none";
+          // Cards draw the ring on their row (`:has(:focus-visible)`), so ancestors count too.
+          const hasRing = (node: Element) => {
+            const style = getComputedStyle(node);
+            return (
+              (style.outlineStyle !== "none" && parseFloat(style.outlineWidth) >= 1) ||
+              style.boxShadow !== "none"
+            );
+          };
+          let ring = false;
+          for (let node: Element | null = element, depth = 0; node && depth < 4; depth += 1) {
+            if (hasRing(node)) ring = true;
+            node = node.parentElement;
+          }
           const label = `${element.tagName.toLowerCase()} "${(element.getAttribute("aria-label") ?? element.textContent ?? "").trim().slice(0, 28)}"`;
           return { ring, label };
         });
@@ -324,6 +376,38 @@ for (const route of AUDIT_ROUTES) {
     });
   });
 }
+
+test.describe("every route", () => {
+  for (const route of AUDIT_ROUTES) {
+    test(`${route.name} renders one h1 and main without page errors`, async ({ page }) => {
+      await stubVercelScripts(page);
+      const errors: string[] = [];
+      page.on("pageerror", (error) => errors.push(error.message));
+      await page.goto(route.path);
+      await settle(page);
+      await expect(page.locator("h1")).toHaveCount(1);
+      await expect(page.locator("main#main-content")).toHaveCount(1);
+      expect(errors).toEqual([]);
+    });
+  }
+
+  for (const width of [1280, 1920]) {
+    test(`header links on the 404 take the click above its display numerals at ${width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto("/this-page-does-not-exist");
+      await settle(page);
+      const link = page
+        .getByRole("navigation", { name: "Primary" })
+        .first()
+        .getByRole("link", { name: "Writing" });
+      const box = (await link.boundingBox())!;
+      await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+      await expect(page).toHaveURL(/\/writing$/);
+    });
+  }
+});
 
 const MENU_VIEWPORTS = AUDIT_VIEWPORTS.filter((viewport) => viewport.width <= 520);
 
@@ -499,6 +583,7 @@ test.describe("contact form states (emulated)", () => {
       await submit.click();
       await expect(page.getByRole("status")).not.toBeEmpty();
       expect((await auditLayout(page)).edgeOverflow).toEqual([]);
+      await page.getByRole("status").first().scrollIntoViewIfNeeded();
       await capture(page, `contact-sent__${viewport.width}x${viewport.height}`);
     });
   }

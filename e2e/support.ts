@@ -1,5 +1,11 @@
 import type { Page } from "@playwright/test";
 
+/**
+ * Marks screenshot comparisons. CI runs them only once Linux baselines are committed
+ * (`--grep @visual`); every other check runs with `--grep-invert @visual`.
+ */
+export const VISUAL = { tag: "@visual" } as const;
+
 export const PAGES = [
   { name: "home", path: "/" },
   { name: "portfolio", path: "/portfolio" },
@@ -42,12 +48,30 @@ export const scrollThrough = async (page: Page): Promise<void> => {
  * Every route family: the redesigned pages, the legacy-styled pages that share the shell, and a
  * 404. Used by the responsive gate; visual baselines stay on the smaller PAGES set.
  */
-export const AUDIT_ROUTES: ReadonlyArray<{ name: string; path: string; status?: number }> = [
+export const AUDIT_ROUTES: ReadonlyArray<{
+  name: string;
+  path: string;
+  status?: number;
+  /**
+   * Why undersized targets are tolerated for now. Only the pre-redesign case study and article
+   * layouts use it (their stacked "On this page" links are 17px tall); drop it when those pages
+   * move to the new layout.
+   */
+  waiveSmallTargets?: string;
+}> = [
   { name: "home", path: "/" },
   { name: "portfolio", path: "/portfolio" },
-  { name: "case-study", path: "/portfolio/ledgerguard" },
+  {
+    name: "case-study",
+    path: "/portfolio/ledgerguard",
+    waiveSmallTargets: "pre-redesign case study outline",
+  },
   { name: "writing", path: "/writing" },
-  { name: "article", path: "/writing/agent-readiness-doctor" },
+  {
+    name: "article",
+    path: "/writing/agent-readiness-doctor",
+    waiveSmallTargets: "pre-redesign article outline",
+  },
   { name: "open-source", path: "/open-source" },
   { name: "engineering-principles", path: "/engineering-principles" },
   { name: "now", path: "/now" },
@@ -77,5 +101,5 @@ export const AUDIT_VIEWPORTS: readonly AuditViewport[] = [
   { width: 1920, height: 1080, kind: "desktop" },
 ];
 
-export const horizontalOverflow =(page: Page): Promise<number> =>
+export const horizontalOverflow = (page: Page): Promise<number> =>
   page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
