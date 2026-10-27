@@ -1,10 +1,11 @@
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 
 import { ProjectCaseStudyJsonLd } from "components/ProjectCaseStudyJsonLd/ProjectCaseStudyJsonLd";
 import { PortfolioWorks } from "features/portfolio/PortfolioWorks";
 import { ProjectCaseStudyPageContent } from "features/portfolio/ProjectCaseStudyPageContent";
+import { HOMEPAGE_CASE_STUDIES } from "data/homepage";
 import { PORTFOLIO_CASE_STUDY_ORDER, PROJECTS } from "data/projects";
 import { buildCaseSections } from "utils/caseStudySections";
 import {
@@ -147,6 +148,12 @@ describe.each(PORTFOLIO_CASE_STUDY_ORDER.map((slug) => [slug]))("/portfolio/%s",
   });
 });
 
+/** Unedited dashboard captures that showed the signed-in account; only the redacted copies ship. */
+const UNREDACTED_ORIGINALS = [
+  "/portfolio-media/ledgerguard-dashboard.png",
+  "/portfolio-media/mapbylaw-dashboard.png",
+];
+
 describe("case-study screenshots", () => {
   const pngSize = (src: string) => {
     const buffer = readFileSync(join(process.cwd(), "public", src));
@@ -165,20 +172,52 @@ describe("case-study screenshots", () => {
     }
   });
 
-  it("uses the redacted dashboard copies and keeps the originals on disk", () => {
-    const sources = PROJECTS.flatMap((p) => p.caseStudy.interfaceEvidence ?? []).map((f) => f.src);
+  it("uses the redacted dashboard copies and no longer ships the originals", () => {
+    const sources = [
+      ...PROJECTS.flatMap((p) => p.caseStudy.interfaceEvidence ?? []).map((f) => f.src),
+      ...HOMEPAGE_CASE_STUDIES.map((caseStudy) => caseStudy.image?.src),
+    ];
     expect(sources).toContain("/portfolio-media/ledgerguard-dashboard-redacted.png");
     expect(sources).toContain("/portfolio-media/mapbylaw-dashboard-redacted.png");
-    expect(sources).not.toContain("/portfolio-media/ledgerguard-dashboard.png");
-    expect(sources).not.toContain("/portfolio-media/mapbylaw-dashboard.png");
-    expect(pngSize("/portfolio-media/ledgerguard-dashboard.png").width).toBe(3456);
-    expect(pngSize("/portfolio-media/mapbylaw-dashboard.png").width).toBe(3452);
+    for (const original of UNREDACTED_ORIGINALS) {
+      expect(sources).not.toContain(original);
+      expect(existsSync(join(process.cwd(), "public", original))).toBe(false);
+    }
   });
 
-  it("labels the TallyFolio dashboard as sample data", () => {
-    renderCase("tallyfolio");
-    const evidence = screen.getByRole("region", { name: "Interface evidence" });
-    expect(within(evidence).getByText("Sample data")).toBeVisible();
+  it("says which screenshot details are edited or sample data, in caption and alt text", () => {
+    const figure = (slug: string, src: string) =>
+      getProjectBySlug(slug)!.caseStudy.interfaceEvidence!.find((f) => f.src === src)!;
+    const ledgerguard = figure(
+      "ledgerguard",
+      "/portfolio-media/ledgerguard-dashboard-redacted.png"
+    );
+    expect(ledgerguard.provenance).toBe("Account details replaced");
+    expect(ledgerguard.captionBody).toMatch(/workspace name and account email are replaced/);
+    expect(ledgerguard.alt).toMatch(/DEMO WORKSPACE and demo@example\.com/);
+    const mapbylaw = figure("mapbylaw", "/portfolio-media/mapbylaw-dashboard-redacted.png");
+    expect(mapbylaw.provenance).toBe("Account row blurred");
+    expect(mapbylaw.captionBody).toMatch(/account name and email are blurred/);
+    expect(mapbylaw.alt).toMatch(/account name and email in the sidebar are blurred/);
+    const tallyfolio = figure("tallyfolio", "/portfolio-media/tallyfolio-dashboard.png");
+    expect(tallyfolio.provenance).toBe("Sample data");
+    expect(tallyfolio.alt).toMatch(/with sample data/);
+    const home = HOMEPAGE_CASE_STUDIES.find((caseStudy) => caseStudy.id === "ledgerguard")!.image!;
+    expect(home.caption).toMatch(/account details replaced/);
+    expect(home.alt).toMatch(/replaced by demo placeholders/);
+  });
+
+  it("shows the provenance note beside each edited or sample screenshot", () => {
+    for (const [slug, note] of [
+      ["tallyfolio", "Sample data"],
+      ["ledgerguard", "Account details replaced"],
+      ["mapbylaw", "Account row blurred"],
+    ] as const) {
+      const { unmount } = renderCase(slug);
+      const evidence = screen.getByRole("region", { name: "Interface evidence" });
+      expect(within(evidence).getByText(note)).toBeVisible();
+      unmount();
+    }
   });
 
   it("frames each screenshot with its own host", () => {

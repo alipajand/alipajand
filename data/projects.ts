@@ -226,10 +226,11 @@ export const PROJECTS: Project[] = [
           width: 3456,
           height: 2234,
           trimTop: 67,
-          alt: "LedgerGuard Contracts list with portfolio filters, a priority breakdown, and contracts showing notice deadlines, renewal dates, committed values, and decision status.",
+          provenance: "Account details replaced",
+          alt: "LedgerGuard Contracts list with portfolio filters, a priority breakdown, and contracts showing notice deadlines, renewal dates, committed values, and decision status. The workspace name and account email are replaced with DEMO WORKSPACE and demo@example.com.",
           captionLead: "Dashboard.",
           captionBody:
-            "The dashboard keeps review state, contract visibility, and renewal workflows legible without treating extraction output as final by default.",
+            "The dashboard keeps review state, contract visibility, and renewal workflows legible without treating extraction output as final by default. Captured from the live product; the workspace name and account email are replaced with demo placeholders.",
         },
       ],
       outcome: [
@@ -441,7 +442,7 @@ export const PROJECTS: Project[] = [
           height: 2234,
           trimTop: 66,
           provenance: "Sample data",
-          alt: "TallyFolio dashboard showing monthly income, spending, and net cash flow, a 12-month cash-flow chart, spending by category, and bills and subscriptions, with navigation into reports, budgets, forecast, and import.",
+          alt: "TallyFolio dashboard with sample data, showing monthly income, spending, and net cash flow, a 12-month cash-flow chart, spending by category, and bills and subscriptions, with navigation into reports, budgets, forecast, and import.",
           captionLead: "Dashboard.",
           captionBody:
             "The authenticated home surface orients everyday personal finance work around deterministic totals and clear paths into import review, budgets, and reporting.",
@@ -1329,10 +1330,11 @@ export const PROJECTS: Project[] = [
           src: "/portfolio-media/mapbylaw-dashboard-redacted.png",
           width: 3452,
           height: 1980,
-          alt: "MapBylaw signed-in dashboard showing purchased-report totals, a Montreal zoning alerts panel for following a borough, and report cards with development signal scores.",
+          provenance: "Account row blurred",
+          alt: "MapBylaw signed-in dashboard showing purchased-report totals, a Montreal zoning alerts panel for following a borough, and report cards with development signal scores. The account name and email in the sidebar are blurred.",
           captionLead: "Dashboard.",
           captionBody:
-            "The signed-in overview summarizes purchased reports, lets the user follow a borough for zoning alerts, and lists each report with its development signal score and download.",
+            "The signed-in overview summarizes purchased reports, lets the user follow a borough for zoning alerts, and lists each report with its development signal score and download. Captured from the live product; the account name and email are blurred.",
         },
       ],
       outcome: [
