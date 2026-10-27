@@ -1,7 +1,10 @@
 /**
- * A dated snapshot of the public GitHub contribution calendar for github.com/alipajand: one count and
- * one GitHub intensity level (0–4) per day, starting at `from`. Refresh it with
- * `node --no-warnings docs/design/kit/build.mjs --activity` and copy the new `activity.json` here.
+ * A dated snapshot of the contribution calendar shown publicly on github.com/alipajand: one count and
+ * one GitHub intensity level (0–4) per day, starting at `from`, exactly as GitHub draws them. The
+ * calendar includes private contributions as anonymous counts, so these are not all public or
+ * open-source work. Refresh it with `node --no-warnings docs/design/kit/build.mjs --activity`, which
+ * reads the signed-out calendar HTML at github.com/users/alipajand/contributions, and copy the new
+ * `activity.json` here.
  */
 export interface ContributionSnapshot {
   user: string;
