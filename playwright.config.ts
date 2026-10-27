@@ -1,7 +1,17 @@
+import { resolve } from "path";
+
 import { defineConfig, devices } from "@playwright/test";
 
 const PORT = Number(process.env.E2E_PORT ?? 3456);
 const CI = Boolean(process.env.CI);
+
+/**
+ * The server renders as of this instant (see e2e/fixed-clock.cjs), so the home page and /writing,
+ * which mark posts dated after "today" in Toronto as upcoming, do not change when a scheduled post
+ * goes live. It sits the day before the 2026-10-28 post so the baselines show both states. Moving
+ * it is a content change: re-record the home and writing baselines with it.
+ */
+const SERVER_NOW = "2026-10-27T16:00:00.000Z";
 
 /**
  * Browser checks for every route, run against a production build (`pnpm build` first).
@@ -33,7 +43,17 @@ export default defineConfig({
   webServer: {
     command: `pnpm start -p ${PORT}`,
     url: `http://127.0.0.1:${PORT}`,
+    // A server started by hand does not get the pinned clock; stop it before recording baselines.
     reuseExistingServer: !CI,
     timeout: 120_000,
+    env: {
+      E2E_NOW: process.env.E2E_NOW ?? SERVER_NOW,
+      NODE_OPTIONS: [
+        process.env.NODE_OPTIONS,
+        `--require=${JSON.stringify(resolve("e2e/fixed-clock.cjs"))}`,
+      ]
+        .filter(Boolean)
+        .join(" "),
+    },
   },
 });

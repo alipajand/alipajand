@@ -15,10 +15,68 @@ interface NowWeekRulerProps {
   initialWeek: number;
 }
 
+/** Tick heights above the baseline: quarter starts, roughly month starts, then every other week. */
+const QUARTER_TICK = 46;
+const MONTH_TICK = 26;
+const WEEK_TICK = 14;
+/** How far the cursor runs below the baseline. */
+const BELOW_BASE = 8;
+
+/** The height of tick `i`, shared by the canvas and the server ruler so both draw the same artwork. */
+export const rulerTickHeight = (i: number): number =>
+  i % 13 === 0 ? QUARTER_TICK : i % 4.33 < 1 ? MONTH_TICK : WEEK_TICK;
+
+const TICKS = Array.from({ length: WEEKS_IN_RULER + 1 }, (_, i) => i);
+const QUARTERS = [0, 1, 2, 3];
+
+/**
+ * The ruler drawn on the server as SVG ticks and positioned boxes, so it shows without JavaScript.
+ * It sits over the blank canvas and is hidden once the canvas has drawn, so only one ruler shows at
+ * a time and nothing moves when they swap.
+ */
+const StaticRuler = ({ week }: { week: number }) => (
+  <div className={styles.static} data-static-ruler="">
+    <svg
+      className={styles.ticks}
+      viewBox={`0 0 ${WEEKS_IN_RULER} ${QUARTER_TICK + BELOW_BASE}`}
+      preserveAspectRatio="none"
+      focusable="false"
+    >
+      {TICKS.map((i) => (
+        <line
+          key={i}
+          x1={i}
+          x2={i}
+          y1={QUARTER_TICK}
+          y2={QUARTER_TICK - rulerTickHeight(i)}
+          strokeOpacity={i < week ? 0.9 : 0.32}
+        />
+      ))}
+      <line
+        x1={0}
+        x2={WEEKS_IN_RULER}
+        y1={QUARTER_TICK + 0.5}
+        y2={QUARTER_TICK + 0.5}
+        strokeOpacity={0.5}
+      />
+    </svg>
+    <span className={styles.cursor} />
+    {QUARTERS.map((quarter) => (
+      <span
+        key={quarter}
+        className={styles.quarter}
+        style={{ "--quarter": quarter } as CSSProperties}
+      >
+        Q{quarter + 1}
+      </span>
+    ))}
+  </div>
+);
+
 /**
  * A ruler of the year's 52 weeks with a cursor on the current week. Weeks already passed are drawn
- * solid. The ruler drifts a little with scroll. Without JavaScript the label still sits over this
- * week, positioned in CSS.
+ * solid. The ruler drifts a little with scroll. Without JavaScript, a server-drawn copy of the ruler
+ * and the label show the week the page was built in; the canvas replaces that copy once it draws.
  */
 export const NowWeekRuler = ({ year, initialWeek }: NowWeekRulerProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -48,12 +106,11 @@ export const NowWeekRuler = ({ year, initialWeek }: NowWeekRulerProps) => {
       ctx.textAlign = "center";
       for (let i = 0; i <= WEEKS_IN_RULER; i++) {
         const x = left + i * step + shift * step;
-        const month = i % 4.33 < 1;
         ctx.strokeStyle = `rgba(${LINE_RGB},${i < week ? 0.9 : 0.32})`;
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(x, base);
-        ctx.lineTo(x, base - (i % 13 === 0 ? 46 : month ? 26 : 14));
+        ctx.lineTo(x, base - rulerTickHeight(i));
         ctx.stroke();
         if (i % 13 === 0 && i < WEEKS_IN_RULER) {
           ctx.fillStyle = `rgba(${LINE_RGB},.6)`;
@@ -70,11 +127,13 @@ export const NowWeekRuler = ({ year, initialWeek }: NowWeekRulerProps) => {
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(cx, 44);
-      ctx.lineTo(cx, base + 8);
+      ctx.lineTo(cx, base + BELOW_BASE);
       ctx.stroke();
       // Keep the whole label inside the ruler near the first and last steps.
       const half = Math.min(label.offsetWidth / 2, w / 2);
       label.style.left = `${clamp(cx, half, w - half)}px`;
+      // The canvas now shows the ruler, so the server copy under it steps aside.
+      element.setAttribute("data-drawn", "");
     }
 
     let live = true;
@@ -104,6 +163,7 @@ export const NowWeekRuler = ({ year, initialWeek }: NowWeekRulerProps) => {
   return (
     <div ref={ref} className={styles.ruler} style={style} aria-hidden="true">
       <canvas />
+      <StaticRuler week={initialWeek} />
       <span className={styles.rulerLabel} data-label="">
         {label}
       </span>
