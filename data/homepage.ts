@@ -43,9 +43,9 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
     tags: ["Next.js", "TypeScript", "Node.js", "Fastify", "PostgreSQL", "Redis/BullMQ", "AI"],
     href: "/portfolio/ledgerguard",
     image: {
-      src: "/portfolio-media/ledgerguard-dashboard.png",
-      alt: "LedgerGuard dashboard showing contract status, renewal risk, and review workflows.",
-      caption: "Product screenshot",
+      src: "/portfolio-media/ledgerguard-dashboard-redacted.png",
+      alt: "LedgerGuard Contracts dashboard showing contract status, renewal risk, and review workflows, with the workspace name and account email replaced by demo placeholders.",
+      caption: "Product screenshot, account details replaced",
     },
   },
   {
