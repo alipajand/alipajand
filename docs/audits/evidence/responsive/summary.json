@@ -1,0 +1,2717 @@
+{
+  "generatedFrom": "e2e/responsive.e2e.ts",
+  "emulated": true,
+  "layout": [
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "1024x768",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        },
+        {
+          "target": "a \"Keep the review small enough to \"",
+          "width": 312,
+          "height": 17
+        },
+        {
+          "target": "a \"Where the MCP server and plugins\"",
+          "width": 259,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "1180x820",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        },
+        {
+          "target": "a \"Keep the review small enough to \"",
+          "width": 312,
+          "height": 17
+        },
+        {
+          "target": "a \"Where the MCP server and plugins\"",
+          "width": 259,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "1280x800",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        },
+        {
+          "target": "a \"Keep the review small enough to \"",
+          "width": 312,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "1440x900",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        },
+        {
+          "target": "a \"Keep the review small enough to \"",
+          "width": 312,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "1920x1080",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        },
+        {
+          "target": "a \"During onboarding: turn confusio\"",
+          "width": 413,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "320x568",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "375x812",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "390x844",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "430x932",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "568x320",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "768x1024",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        },
+        {
+          "target": "a \"Try it on one maintenance task\"",
+          "width": 214,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "820x1180",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        },
+        {
+          "target": "a \"Try it on one maintenance task\"",
+          "width": 214,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "viewport": "844x390",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"What the bot does\"",
+          "width": 128,
+          "height": 17
+        },
+        {
+          "target": "a \"Try it on one maintenance task\"",
+          "width": 214,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 1,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "1024x768",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        },
+        {
+          "target": "a \"Outcome\"",
+          "width": 66,
+          "height": 17
+        },
+        {
+          "target": "a \"What I would improve\"",
+          "width": 151,
+          "height": 17
+        },
+        {
+          "target": "a \"Related work\"",
+          "width": 93,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "1180x820",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        },
+        {
+          "target": "a \"Outcome\"",
+          "width": 66,
+          "height": 17
+        },
+        {
+          "target": "a \"What I would improve\"",
+          "width": 151,
+          "height": 17
+        },
+        {
+          "target": "a \"Related work\"",
+          "width": 93,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "1280x800",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        },
+        {
+          "target": "a \"Interface evidence\"",
+          "width": 130,
+          "height": 17
+        },
+        {
+          "target": "a \"Outcome\"",
+          "width": 66,
+          "height": 17
+        },
+        {
+          "target": "a \"What I would improve\"",
+          "width": 151,
+          "height": 17
+        },
+        {
+          "target": "a \"Related work\"",
+          "width": 93,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "1440x900",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        },
+        {
+          "target": "a \"Interface evidence\"",
+          "width": 130,
+          "height": 17
+        },
+        {
+          "target": "a \"Outcome\"",
+          "width": 66,
+          "height": 17
+        },
+        {
+          "target": "a \"What I would improve\"",
+          "width": 151,
+          "height": 17
+        },
+        {
+          "target": "a \"Related work\"",
+          "width": 93,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "1920x1080",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        },
+        {
+          "target": "a \"Interface evidence\"",
+          "width": 130,
+          "height": 17
+        },
+        {
+          "target": "a \"Outcome\"",
+          "width": 66,
+          "height": 17
+        },
+        {
+          "target": "a \"What I would improve\"",
+          "width": 151,
+          "height": 17
+        },
+        {
+          "target": "a \"Related work\"",
+          "width": 93,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "320x568",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "375x812",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "390x844",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "430x932",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "568x320",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        },
+        {
+          "target": "a \"Related work\"",
+          "width": 93,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "768x1024",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        },
+        {
+          "target": "a \"What I would improve\"",
+          "width": 151,
+          "height": 17
+        },
+        {
+          "target": "a \"Related work\"",
+          "width": 93,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "820x1180",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        },
+        {
+          "target": "a \"What I would improve\"",
+          "width": 151,
+          "height": 17
+        },
+        {
+          "target": "a \"Related work\"",
+          "width": 93,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "viewport": "844x390",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [
+        {
+          "target": "a \"Context\"",
+          "width": 56,
+          "height": 17
+        },
+        {
+          "target": "a \"What I would improve\"",
+          "width": 151,
+          "height": 17
+        },
+        {
+          "target": "a \"Related work\"",
+          "width": 93,
+          "height": 17
+        }
+      ],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 3,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "1024x768",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "1180x820",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "1280x800",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "1440x900",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "1920x1080",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "320x568",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "375x812",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "390x844",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "430x932",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "568x320",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "768x1024",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "820x1180",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/engineering-principles",
+      "viewport": "844x390",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "1024x768",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "1180x820",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "1280x800",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "1440x900",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "1920x1080",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "320x568",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "375x812",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "390x844",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "430x932",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "568x320",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "768x1024",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "820x1180",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/",
+      "viewport": "844x390",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "1024x768",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "1180x820",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "1280x800",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "1440x900",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "1920x1080",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "320x568",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "375x812",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "390x844",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "430x932",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "568x320",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "768x1024",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "820x1180",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "viewport": "844x390",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "1024x768",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "1180x820",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "1280x800",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "1440x900",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "1920x1080",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "320x568",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "375x812",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "390x844",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "430x932",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "568x320",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "768x1024",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "820x1180",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/now",
+      "viewport": "844x390",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "1024x768",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "1180x820",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "1280x800",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "1440x900",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "1920x1080",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "320x568",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "375x812",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "390x844",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "430x932",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "568x320",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "768x1024",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "820x1180",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/open-source",
+      "viewport": "844x390",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "1024x768",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "1180x820",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "1280x800",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "1440x900",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "1920x1080",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "320x568",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "375x812",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "390x844",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "430x932",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "568x320",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "768x1024",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "820x1180",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "844x390",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "1024x768",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "1180x820",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "1280x800",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "1440x900",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "1920x1080",
+      "kind": "desktop",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "320x568",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "375x812",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "390x844",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "430x932",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "568x320",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "768x1024",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "820x1180",
+      "kind": "tablet",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    },
+    {
+      "route": "/writing",
+      "viewport": "844x390",
+      "kind": "mobile",
+      "docOverflow": 0,
+      "edgeOverflow": 0,
+      "clippedText": 0,
+      "displayWordClipped": 0,
+      "smallTargets": [],
+      "shellTargetsUnder44": [
+        {
+          "target": "a \"Book a call\"",
+          "width": 121,
+          "height": 28
+        }
+      ],
+      "images": 0,
+      "maxImageCrop": 0
+    }
+  ],
+  "focus": [
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "stops": 18,
+      "missing": []
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "stops": 18,
+      "missing": []
+    },
+    {
+      "route": "/engineering-principles",
+      "stops": 18,
+      "missing": []
+    },
+    {
+      "route": "/",
+      "stops": 18,
+      "missing": []
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "stops": 16,
+      "missing": []
+    },
+    {
+      "route": "/now",
+      "stops": 17,
+      "missing": []
+    },
+    {
+      "route": "/open-source",
+      "stops": 18,
+      "missing": []
+    },
+    {
+      "route": "/portfolio",
+      "stops": 18,
+      "missing": []
+    },
+    {
+      "route": "/writing",
+      "stops": 18,
+      "missing": []
+    }
+  ],
+  "stability": [
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "width": 1440,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/writing/agent-readiness-doctor",
+      "width": 390,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "width": 1440,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/portfolio/ledgerguard",
+      "width": 390,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/engineering-principles",
+      "width": 1440,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/engineering-principles",
+      "width": 390,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/",
+      "width": 1440,
+      "cls": 0.0001,
+      "longTasks": []
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "cls": 0.0011,
+      "longTasks": []
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "width": 1440,
+      "cls": 0.038,
+      "longTasks": []
+    },
+    {
+      "route": "/this-page-does-not-exist",
+      "width": 390,
+      "cls": 0.0041,
+      "longTasks": []
+    },
+    {
+      "route": "/now",
+      "width": 1440,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/now",
+      "width": 390,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/open-source",
+      "width": 1440,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/open-source",
+      "width": 390,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/portfolio",
+      "width": 1440,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/portfolio",
+      "width": 390,
+      "cls": 0.015,
+      "longTasks": []
+    },
+    {
+      "route": "/writing",
+      "width": 1440,
+      "cls": 0,
+      "longTasks": []
+    },
+    {
+      "route": "/writing",
+      "width": 390,
+      "cls": 0,
+      "longTasks": []
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { expect, type Page, test } from "@playwright/test";
 
-import { horizontalOverflow, scrollThrough, settle, VIEWPORTS } from "./support";
+import { horizontalOverflow, scrollThrough, settle, VIEWPORTS, VISUAL_TAG } from "./support";
 
 /*
  * Browser checks and visual baselines for the open-source, engineering-principles, now and 404
@@ -311,7 +311,7 @@ test.describe("open-source keyboard", () => {
   });
 });
 
-test.describe("remaining pages visual baselines", () => {
+test.describe("remaining pages visual baselines", VISUAL_TAG, () => {
   test.use({ reducedMotion: "reduce" });
 
   for (const { name, path } of ROUTES) {

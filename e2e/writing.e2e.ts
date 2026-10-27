@@ -3,7 +3,7 @@ import { join } from "path";
 
 import { expect, type Page, test } from "@playwright/test";
 
-import { horizontalOverflow, scrollThrough, settle, VIEWPORTS } from "./support";
+import { horizontalOverflow, scrollThrough, settle, VIEWPORTS, VISUAL_TAG } from "./support";
 
 const SLUGS = readdirSync(join(process.cwd(), "content", "posts"))
   .filter((file) => file.endsWith(".md"))
@@ -210,7 +210,7 @@ test.describe("writing: contents keyboard", () => {
   });
 });
 
-test.describe("writing: visual baselines", () => {
+test.describe("writing: visual baselines", VISUAL_TAG, () => {
   test.use({ reducedMotion: "reduce" });
 
   for (const name of VISUAL) {
