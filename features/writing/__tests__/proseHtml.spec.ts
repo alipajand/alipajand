@@ -1,4 +1,4 @@
-import { proseSegments, wrapTables } from "features/writing/proseHtml";
+import { focusableCode, proseSegments, wrapTables } from "features/writing/proseHtml";
 import { longestWordEm, titleFitStyle } from "features/writing/titleFit";
 import { renderHighlightedCode, resolveCodeLanguage } from "utils/highlightCode";
 
@@ -13,10 +13,38 @@ describe("proseHtml", () => {
     expect(html.match(/<\/table><\/div>/g)).toHaveLength(2);
   });
 
+  it("should make every code block a labelled, focusable scroll region", () => {
+    const html = focusableCode(
+      renderHighlightedCode("a", "bash") + "<p>x</p>" + renderHighlightedCode("b", undefined),
+      'Code "wide"'
+    );
+    expect(
+      html.match(/<pre role="region" tabindex="0" aria-label="Code &quot;wide&quot;">/g)
+    ).toHaveLength(2);
+    expect(html).not.toContain("<pre>");
+  });
+
+  it("should give tables and code blocks their own labels in each segment", () => {
+    const [segment] = proseSegments(renderHighlightedCode("a", "bash") + "<table></table>", {
+      table: "Table",
+      code: "Code",
+    });
+    expect(segment).toEqual({
+      kind: "html",
+      html: expect.stringContaining('<pre role="region" tabindex="0" aria-label="Code">'),
+    });
+    expect(segment).toEqual({
+      kind: "html",
+      html: expect.stringContaining(
+        '<div data-table="" role="region" tabindex="0" aria-label="Table">'
+      ),
+    });
+  });
+
   it("should split at diagram slots and tag each diagram with the section before it", () => {
     const segments = proseSegments(
       '<p>Intro</p><div data-diagram-slot="0"></div><h2 id="one">One</h2><p>a</p><div data-diagram-slot="1"></div><h2 id="two">Two</h2><table></table>',
-      "Table"
+      { table: "Table", code: "Code" }
     );
     expect(segments.map((segment) => segment.kind)).toEqual([
       "html",

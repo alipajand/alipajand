@@ -104,7 +104,7 @@
   border: var(--stroke-hairline) solid var(--tone-rule);
 }
 
-.segment [data-table]:focus-visible {
+.segment :is(pre, [data-table]):focus-visible {
   outline-offset: -2px;
 }
 
