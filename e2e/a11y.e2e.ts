@@ -27,12 +27,6 @@ interface KnownFinding {
 
 const KNOWN_FINDINGS: KnownFinding[] = [
   {
-    id: "RG-A1",
-    rule: "color-contrast",
-    within: "[data-step]",
-    note: "Scroll scenes dim the steps that are not current to 38% opacity (portfolio operating model, ARD launch steps). Needs a design decision.",
-  },
-  {
     id: "RG-A2",
     rule: "scrollable-region-focusable",
     within: "pre, dialog [class*='dialogImage']",
@@ -62,12 +56,24 @@ const coveredByFinding = async (
 };
 
 const scan = async (page: Page, label: string) => {
-  // Colours caught mid-transition after a click are not the colours a reader sees.
+  // Colours caught mid-transition after a click are not the colours a reader sees. A click can
+  // scroll the page, and scroll scenes only change state on the next frames, so let those frames
+  // run before collecting the transitions to wait for.
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+      )
+  );
   await page.evaluate(() =>
     Promise.all(
       document
         .getAnimations()
-        .filter((animation) => animation.effect?.getTiming().iterations !== Infinity)
+        .filter(
+          (animation) =>
+            animation.playState === "running" &&
+            animation.effect?.getTiming().iterations !== Infinity
+        )
         .map((animation) => animation.finished.catch(() => undefined))
     )
   );
