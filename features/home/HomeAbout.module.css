@@ -71,6 +71,7 @@
   margin-bottom: 10px;
   font-family: var(--font-mono);
   font-size: 12px;
+  line-height: 1.65;
   letter-spacing: 0.08em;
   color: var(--tone-mute);
 }
