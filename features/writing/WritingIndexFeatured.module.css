@@ -1,0 +1,119 @@
+.mono {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+}
+
+/* Featured: one link; a bone fill rises from the bottom on hover and focus. */
+.feature {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  text-decoration: none;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  transition: color 0.4s var(--ease-hairline);
+}
+
+.feature::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-bone);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.55s var(--ease-hairline);
+}
+
+.feature:hover,
+.feature:focus-visible {
+  color: var(--color-ink);
+}
+
+.feature:hover::before,
+.feature:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.feature:focus-visible {
+  outline-color: var(--color-ink);
+  outline-offset: -4px;
+}
+
+.title {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  padding: 26px 24px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.title h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.4cqi, 72px);
+  font-weight: 800;
+  font-stretch: 120%;
+  line-height: 0.92;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 26px 24px;
+}
+
+.body p {
+  max-width: 46ch;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.tagline {
+  font-size: 14px;
+}
+
+.feature .mono,
+.feature .tagline {
+  color: var(--color-mute);
+  transition: color 0.4s;
+}
+
+.feature:hover .mono,
+.feature:hover .tagline,
+.feature:focus-visible .mono,
+.feature:focus-visible .tagline {
+  color: var(--color-mute-ink);
+}
+
+.go {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: var(--stroke-hairline) solid currentColor;
+}
+
+@media (max-width: 760px) {
+  .feature {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .title {
+    padding: 22px 16px 8px;
+    border-right: 0;
+  }
+
+  .title h3 {
+    font-size: 8cqi;
+  }
+
+  .body {
+    padding: 8px 16px 22px;
+  }
+}
