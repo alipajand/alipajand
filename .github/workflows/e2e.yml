@@ -89,7 +89,7 @@ jobs:
           retention-days: 7
 
   update-visual-baselines:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request'
     name: update-visual-baselines
     runs-on: ubuntu-latest
     timeout-minutes: 20
