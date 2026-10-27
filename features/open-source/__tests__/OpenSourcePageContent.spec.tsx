@@ -19,16 +19,6 @@ import {
   OPEN_SOURCE_SHARED_PRINCIPLES_HEADING,
 } from "data/openSourcePage";
 
-jest.mock("features/open-source/hooks/useOpenSourcePageContent", () => ({
-  useOpenSourcePageContent: jest.fn(() => ({
-    selectors: {
-      headerRef: { current: null },
-      contentRef: { current: null },
-      projects: OPEN_SOURCE_PROJECTS,
-    },
-  })),
-}));
-
 describe("OpenSourcePageContent", () => {
   it("should show the bot listing date without inventing a release version", () => {
     render(<OpenSourcePageContent />);

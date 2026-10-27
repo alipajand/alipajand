@@ -1,5 +1,3 @@
-export const PROJECT_CARD_READ_CASE_STUDY = "Read case study";
-
 export const PORTFOLIO_ADDITIONAL_EXPERIENCE_HEADING = "Additional experience";
 
 export const PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_LABEL = "More contributed projects on LinkedIn";

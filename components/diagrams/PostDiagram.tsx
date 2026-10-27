@@ -15,11 +15,9 @@ export const PostDiagram = ({ spec }: { spec: DiagramSpec }) => {
       return <CompareDiagram spec={spec} />;
     case "mcp-workflow":
       return (
-        <figure className="not-prose my-10 space-y-2">
+        <figure>
           <McpWorkflowDiagram />
-          <figcaption className="text-muted text-sm leading-snug">
-            {spec.caption ?? WRITING_POST_MCP_FIGCAPTION}
-          </figcaption>
+          <figcaption>{spec.caption ?? WRITING_POST_MCP_FIGCAPTION}</figcaption>
         </figure>
       );
   }

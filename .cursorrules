@@ -5,7 +5,7 @@ Detailed rules live in `.cursor/rules/`. This file summarises the most important
 
 ## Stack
 
-Next.js 15 App Router · TypeScript · Tailwind CSS v4 · GSAP + Lenis · Resend · Jest
+Next.js 15 App Router · TypeScript · Tailwind CSS v4 · Resend · Jest
 
 ## Module responsibilities
 
@@ -19,11 +19,11 @@ Next.js 15 App Router · TypeScript · Tailwind CSS v4 · GSAP + Lenis · Resend
 ## Hard rules
 
 1. All copy strings belong in `data/*.ts` — never hard-code text in JSX.
-2. Default to React Server Components; add `"use client"` only for hooks/browser APIs/animations.
+2. Default to React Server Components; add `"use client"` only for hooks and browser APIs.
 3. Named exports only — no default exports for components.
 4. Tests colocated in `__tests__/` next to their subject; run `pnpm test` before finishing.
 5. Use path aliases (`components/`, `data/`, `utils/`) — no relative `../../` climbs.
-6. Import shared CTA styles from `utils/visual`, design tokens from Tailwind config.
+6. Define design tokens in `app/globals.css` via Tailwind `@theme`.
 
 ## Forbidden without explicit approval
 

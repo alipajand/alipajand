@@ -3,14 +3,6 @@ import type { WritingPost } from "components/Writing/WritingPost";
 import { Writing } from "components/Writing/Writing";
 import { WRITING_ALL_POSTS_CTA, WRITING_SECTION_LEDE, WRITING_WHY_IT_MATTERS } from "data/writing";
 
-jest.mock("utils/hooks/useScrollReveal", () => ({
-  useScrollReveal: jest.fn(() => ({
-    selectors: {
-      sectionRef: { current: null },
-    },
-  })),
-}));
-
 const mockPosts: WritingPost[] = [
   {
     slug: "test-post-1",
@@ -109,12 +101,6 @@ describe("Writing", () => {
       expect(post1Link).toHaveAttribute("href", "/writing/test-post-1");
       expect(post2Link).toHaveAttribute("href", "/writing/test-post-2");
     });
-
-    it("should have correct structure for post links", () => {
-      render(<Writing featured={null} posts={mockPosts} />);
-      const postLink = screen.getByText("Test Post 1").closest("a");
-      expect(postLink).toHaveClass("group", "block");
-    });
   });
 
   describe("date formatting", () => {
@@ -167,27 +153,6 @@ describe("Writing", () => {
       render(<Writing featured={null} posts={mockPosts} />);
       const heading = screen.getByText("Writing");
       expect(heading).toHaveAttribute("id", "writing-heading");
-    });
-  });
-
-  describe("data-reveal attributes", () => {
-    it("should stage the heading as a cinematic title and the lede as a reveal", () => {
-      render(<Writing featured={null} posts={mockPosts} />);
-      const lede = screen.getByText(WRITING_SECTION_LEDE);
-      expect(lede).toHaveAttribute("data-reveal");
-      expect(screen.getByRole("heading", { level: 2 })).toHaveAttribute("data-cine-title");
-    });
-
-    it("should have data-reveal on posts list", () => {
-      const { container } = render(<Writing featured={null} posts={mockPosts} />);
-      const list = container.querySelector("ul[data-reveal]");
-      expect(list).toBeInTheDocument();
-    });
-
-    it("should have data-reveal on archive row", () => {
-      render(<Writing featured={null} posts={mockPosts} />);
-      const link = screen.getByRole("link", { name: WRITING_ALL_POSTS_CTA });
-      expect(link.closest("div")).toHaveAttribute("data-reveal");
     });
   });
 });

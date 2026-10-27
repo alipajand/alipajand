@@ -1,5 +1,4 @@
 import type { HiringFitCard as HiringFitCardModel } from "data/hiringFit";
-import { CARD_SURFACE_HOVER } from "utils/visual";
 
 interface HiringFitCardProps {
   card: HiringFitCardModel;
@@ -7,9 +6,9 @@ interface HiringFitCardProps {
 
 export const HiringFitCard = ({ card }: HiringFitCardProps) => {
   return (
-    <article data-cine-card className={`cine-card ${CARD_SURFACE_HOVER} p-5 sm:p-6 h-full`}>
-      <h3 className="font-display font-semibold text-lg text-foreground">{card.title}</h3>
-      <p className="mt-2 text-muted text-sm leading-relaxed">{card.body}</p>
+    <article>
+      <h3>{card.title}</h3>
+      <p>{card.body}</p>
     </article>
   );
 };
