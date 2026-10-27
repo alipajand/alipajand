@@ -177,6 +177,42 @@ test.describe("site menu", () => {
   });
 });
 
+test.describe("shell tap areas", () => {
+  /** Hit-tests 21px above and below the centre, so a 44px-tall tap area passes. */
+  const tapsAt44 = (locator: import("@playwright/test").Locator) =>
+    locator.evaluate((element) => {
+      element.scrollIntoView({ block: "center" });
+      const rect = element.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      return [-21, 0, 21].every((dy) => {
+        const hit = document.elementFromPoint(x, y + dy);
+        return Boolean(hit && (hit === element || element.contains(hit)));
+      });
+    });
+
+  for (const viewport of [
+    { width: 1280, height: 800 },
+    { width: 768, height: 1024 },
+  ]) {
+    test(`gives each header link a 44px-tall tap area at ${viewport.width}px`, async ({ page }) => {
+      await page.setViewportSize(viewport);
+      await page.goto("/");
+      await settle(page);
+      const links = page.getByRole("navigation", { name: "Primary" }).first().getByRole("link");
+      for (const link of await links.all())
+        expect(await tapsAt44(link), await link.innerText()).toBe(true);
+    });
+  }
+
+  test("gives the footer motion control a 44px-tall tap area", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    await settle(page);
+    expect(await tapsAt44(page.getByRole("button", { name: "Pause automatic motion" }))).toBe(true);
+  });
+});
+
 test.describe("contact form", () => {
   test("posts the same payload to /api/contact and announces success", async ({ page }) => {
     let payload: unknown = null;
