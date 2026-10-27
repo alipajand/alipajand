@@ -1,0 +1,121 @@
+.writing {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Each post is one link target: the title link stretches over the card. */
+.post {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+
+.post:hover,
+.post:focus-within {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.post:has(.link:focus-visible) {
+  outline: 2px solid var(--color-ink);
+  outline-offset: -4px;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.link:focus-visible {
+  outline: none;
+}
+
+.meta {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  margin: 0;
+  color: var(--color-mute);
+}
+
+.post h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.excerpt {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--color-mute);
+}
+
+.post:hover .meta,
+.post:hover .excerpt,
+.post:focus-within .meta,
+.post:focus-within .excerpt {
+  color: var(--color-mute-ink);
+}
+
+.feature {
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.feature h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 118%;
+  font-size: clamp(28px, 3.2vw, 50px);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.feature > :last-child {
+  margin-top: auto;
+}
+
+.feature:hover svg,
+.feature:focus-within svg {
+  transform: translateX(8px);
+}
+
+.list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list .post + .post {
+  border-top: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+@media (max-width: 760px) {
+  .writing {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .post {
+    padding: 22px 16px;
+  }
+
+  .feature {
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+}

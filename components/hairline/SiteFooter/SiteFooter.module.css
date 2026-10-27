@@ -1,0 +1,35 @@
+.foot {
+  composes: mono from "../styles/type.module.css";
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 16px;
+  border-bottom: var(--stroke-hairline) solid var(--color-rule);
+}
+
+.foot > * {
+  padding: 14px 24px;
+  border-right: var(--stroke-hairline) solid var(--color-rule);
+  color: var(--color-mute);
+}
+
+.foot > :last-child {
+  border-right: 0;
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .foot {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .foot > * {
+    padding-inline: 16px;
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--color-rule);
+  }
+
+  .foot > :last-child {
+    border-bottom: 0;
+    text-align: left;
+  }
+}

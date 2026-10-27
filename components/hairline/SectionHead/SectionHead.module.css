@@ -1,0 +1,64 @@
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 34px 24px 18px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.title {
+  composes: pageHead from "../styles/type.module.css";
+}
+
+.aside {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  max-width: 52ch;
+}
+
+.lede {
+  display: grid;
+  gap: 8px;
+  max-width: 52ch;
+}
+
+.lede p {
+  margin: 0;
+  color: var(--tone-mute);
+}
+
+.note {
+  composes: mono from "../styles/type.module.css";
+  margin: 0;
+}
+
+.action {
+  composes: mono from "../styles/type.module.css";
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.action:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.foot {
+  padding-block: 14px;
+}
+
+.count {
+  composes: mono from "../styles/type.module.css";
+  color: var(--tone-mute);
+}
+
+@media (max-width: 760px) {
+  .head {
+    padding-inline: 16px;
+  }
+}

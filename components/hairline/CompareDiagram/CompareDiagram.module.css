@@ -1,0 +1,75 @@
+.compare {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr));
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.compare > div {
+  min-width: 0;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.compare > div:last-child {
+  border-right: 0;
+}
+
+.compare h4 {
+  composes: mono from "../styles/type.module.css";
+  margin: 0;
+  padding: 12px 16px;
+  font-weight: 500;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.chosen h4 {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.compare ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compare li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 6px;
+  padding: 12px 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--tone-mute);
+  border-bottom: var(--stroke-hairline) solid var(--color-ink-2);
+}
+
+.compare li:last-child {
+  border-bottom: 0;
+}
+
+.chosen li {
+  color: inherit;
+}
+
+.mark {
+  font-family: var(--font-mono);
+}
+
+.srOnly {
+  composes: srOnly from "../styles/type.module.css";
+}
+
+@media (max-width: 760px) {
+  .compare {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .compare > div {
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .compare > div:last-child {
+    border-bottom: 0;
+  }
+}

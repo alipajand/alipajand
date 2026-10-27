@@ -1,38 +1,30 @@
-import { LINKS } from "data/links";
+import styles from "components/Contact/Contact.module.css";
+import { ContactForm } from "components/Contact/ContactForm";
+import { LinkRows } from "components/hairline/LinkRows/LinkRows";
 import {
   CONTACT_AVAILABILITY,
   CONTACT_DIRECT_LABEL,
-  CONTACT_FORM_SECTION_HEADING,
   CONTACT_SECTION_BODY,
   CONTACT_SECTION_HEADING,
 } from "data/contact";
-import { CONTACT_FORM_LEDE } from "data/site";
-import { ContactChannelCard } from "components/Contact/ContactChannelCard";
-import { ContactForm } from "components/Contact/ContactForm";
+import { HOMEPAGE_CONTACT_EYEBROW } from "data/homepage";
+import { LINKS } from "data/links";
 
-export const Contact = () => {
-  return (
-    <section id="contact" aria-labelledby="contact-heading">
-      <div>
-        <h2 id="contact-heading">{CONTACT_SECTION_HEADING}</h2>
-        <p>{CONTACT_SECTION_BODY}</p>
-        <p>{CONTACT_AVAILABILITY}</p>
-
-        <div>
-          <p>{CONTACT_DIRECT_LABEL}</p>
-          <ul>
-            {LINKS.map((c) => (
-              <ContactChannelCard key={c.label} channel={c} />
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 id="contact-form-heading">{CONTACT_FORM_SECTION_HEADING}</h3>
-          <p>{CONTACT_FORM_LEDE}</p>
-          <ContactForm />
-        </div>
-      </div>
-    </section>
-  );
-};
+/** Homepage contact: the pitch and form on the left, direct channels on the right. */
+export const Contact = () => (
+  <section id="contact" className={styles.contact} aria-labelledby="contact-heading">
+    <div className={styles.lead}>
+      <span className={styles.eyebrow}>{HOMEPAGE_CONTACT_EYEBROW}</span>
+      <h2 id="contact-heading" className={styles.title}>
+        {CONTACT_SECTION_HEADING}
+      </h2>
+      <p className={styles.body}>{CONTACT_SECTION_BODY}</p>
+      <p className={styles.availability}>{CONTACT_AVAILABILITY}</p>
+      <ContactForm />
+    </div>
+    <div className={styles.links}>
+      <span className={styles.eyebrow}>{CONTACT_DIRECT_LABEL}</span>
+      <LinkRows links={LINKS} analyticsPrefix="contact_link" label={CONTACT_DIRECT_LABEL} />
+    </div>
+  </section>
+);

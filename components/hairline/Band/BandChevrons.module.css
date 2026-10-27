@@ -1,0 +1,51 @@
+.row,
+.cell {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.row {
+  padding: 10px 12px;
+  border-top: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.cell {
+  padding-inline: 12px;
+}
+
+.row svg,
+.cell svg {
+  flex: none;
+  height: auto;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+
+.row svg {
+  width: clamp(40px, 5vw, 76px);
+}
+
+.cell svg {
+  width: clamp(48px, 7vw, 104px);
+}
+
+.row path,
+.cell path {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 7;
+}
+
+.row [data-off],
+.cell [data-off] {
+  opacity: 0.16;
+  transform: translateX(-6px);
+}
+
+@media (max-width: 760px) {
+  .cell {
+    padding-block: 10px;
+  }
+}

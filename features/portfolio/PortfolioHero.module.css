@@ -1,0 +1,143 @@
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 500px) minmax(0, 1fr);
+  min-height: min(84vh, 860px);
+  overflow: hidden;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 28px 24px 24px;
+  background: var(--color-ink);
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.eyebrow {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--color-mute);
+}
+
+/* The page's <h1> reads as the bracketed eyebrow. */
+.title {
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.lede {
+  margin: 0;
+  max-width: 30ch;
+  font-size: clamp(22px, 2.3vw, 32px);
+  font-weight: 400;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+.lede b {
+  font-weight: 700;
+  font-stretch: 112%;
+}
+
+.meta {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  color: var(--color-mute);
+}
+
+.meta strong {
+  color: var(--color-line);
+  font-weight: 500;
+}
+
+.coords {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  gap: 2px;
+  color: var(--color-mute);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.cue {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  position: absolute;
+  z-index: 1;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background: var(--color-ink);
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+/* Two passes, then still: a hint, not a loop. */
+.cue i {
+  display: block;
+  width: 1px;
+  height: 18px;
+  background: var(--color-line);
+  transform-origin: top;
+  animation: cue 1.8s ease-in-out 2;
+}
+
+@keyframes cue {
+  0% {
+    transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 380px;
+    min-height: 0;
+  }
+
+  .copy {
+    padding: 22px 16px;
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .coords {
+    display: none;
+  }
+}

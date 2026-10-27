@@ -1,0 +1,17 @@
+.band {
+  --tone-fg: var(--color-ink);
+  --tone-mute: var(--color-mute-ink);
+  --tone-rule: var(--color-ink);
+  background: var(--color-bone);
+  color: var(--color-ink);
+  margin-left: calc(-1 * var(--gutter-l) - var(--stroke-hairline));
+  margin-right: calc(-1 * var(--gutter-r) - var(--stroke-hairline));
+  padding-left: var(--gutter-l);
+  padding-right: var(--gutter-r);
+}
+
+.inner {
+  border-left: var(--stroke-hairline) solid var(--color-bone-2);
+  border-right: var(--stroke-hairline) solid var(--color-bone-2);
+  container-type: inline-size;
+}

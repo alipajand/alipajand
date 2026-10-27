@@ -1,0 +1,147 @@
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  scroll-margin-top: 50px;
+}
+
+.side {
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.stick {
+  position: sticky;
+  top: 50px;
+  display: grid;
+  gap: 12px;
+  padding: 26px 24px;
+}
+
+.number {
+  composes: mono from "../styles/type.module.css";
+  color: var(--color-mute);
+}
+
+.title {
+  composes: display from "../styles/type.module.css";
+  font-stretch: 120%;
+  font-size: clamp(28px, 3vw, 50px);
+  line-height: 0.92;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.main {
+  display: grid;
+  align-content: start;
+  min-width: 0;
+}
+
+.main > * {
+  min-width: 0;
+  margin: 0;
+  padding: 26px 24px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.main > *:last-child {
+  border-bottom: 0;
+}
+
+.lead {
+  max-width: 58ch;
+  font-size: clamp(19px, 1.6vw, 23px);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.items,
+.cells {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.items {
+  display: grid;
+}
+
+.items li {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.items li:last-child {
+  border-bottom: 0;
+}
+
+.cells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cells li {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 18px 16px 20px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.cells li:nth-child(2n) {
+  border-right: 0;
+}
+
+.cells li:last-child {
+  grid-column: 1 / -1;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.itemNumber {
+  padding-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-mute);
+}
+
+@media (max-width: 760px) {
+  .section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .side {
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .stick {
+    position: static;
+    padding: 22px 16px 18px;
+  }
+
+  .title {
+    font-size: 9cqi;
+  }
+
+  .main > * {
+    padding: 20px 16px;
+  }
+
+  .cells {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cells li {
+    border-right: 0;
+  }
+}

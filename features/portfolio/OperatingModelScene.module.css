@@ -1,0 +1,150 @@
+/*
+ * Without JavaScript every step is shown at full strength (the `data-on` dimming only applies once
+ * the scene script has marked a step), so the content never depends on scrolling.
+ */
+.scene {
+  position: relative;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.stage {
+  position: relative;
+  height: 640px;
+  overflow: hidden;
+}
+
+.scene[data-ready] {
+  height: 260vh;
+}
+
+.scene[data-ready] .stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--stroke-progress);
+  background: var(--color-line);
+  transform-origin: left;
+  transform: scaleX(var(--t, 1));
+}
+
+.head {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--color-mute);
+}
+
+.title {
+  composes: display from "../../components/hairline/styles/type.module.css";
+  position: absolute;
+  top: 58px;
+  left: 24px;
+  max-width: 17ch;
+  font-size: clamp(26px, 3.6vw, 56px);
+  line-height: 0.92;
+  overflow-wrap: break-word;
+}
+
+.steps {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--color-ink);
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.step {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+  transition: opacity 0.35s;
+}
+
+.steps:has([data-on]) .step:not([data-on]) {
+  opacity: 0.38;
+}
+
+.step:last-child {
+  border-right: 0;
+}
+
+.stepLabel {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+}
+
+.step strong {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.step p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-mute);
+}
+
+@media (max-width: 760px) {
+  .scene[data-ready] {
+    height: 220vh;
+  }
+
+  .head,
+  .title {
+    left: 16px;
+    right: 16px;
+  }
+
+  .title {
+    max-width: none;
+    font-size: 7.2cqi;
+  }
+
+  .steps {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .step {
+    padding: 10px 14px;
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .step:last-child {
+    border-bottom: 0;
+  }
+
+  .steps:has([data-on]) .step:not([data-on]) p {
+    display: none;
+  }
+}

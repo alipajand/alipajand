@@ -3,9 +3,10 @@
 interface SkipLinkProps {
   href: string;
   label: string;
+  className?: string;
 }
 
-export const SkipLink = ({ href, label }: SkipLinkProps) => {
+export const SkipLink = ({ href, label, className }: SkipLinkProps) => {
   const handleClick = () => {
     const targetId = href.startsWith("#") ? href.slice(1) : href;
     const target = document.getElementById(targetId);
@@ -16,7 +17,7 @@ export const SkipLink = ({ href, label }: SkipLinkProps) => {
     });
   };
   return (
-    <a href={href} onClick={handleClick}>
+    <a className={className} href={href} onClick={handleClick}>
       {label}
     </a>
   );

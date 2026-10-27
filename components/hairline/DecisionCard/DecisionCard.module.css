@@ -1,0 +1,79 @@
+.card {
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.head {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 10px;
+  padding: 16px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.label {
+  composes: mono from "../styles/type.module.css";
+  padding-top: 4px;
+  color: var(--color-mute);
+}
+
+.head p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+}
+
+.details > div {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 14px 16px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.details > div:last-child {
+  border-right: 0;
+}
+
+.details dt {
+  composes: mono from "../styles/type.module.css";
+  color: var(--color-mute);
+}
+
+.details dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.details > div:last-child dd {
+  color: var(--color-line);
+}
+
+@media (max-width: 960px) {
+  .details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .details > div {
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .details > div:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+}

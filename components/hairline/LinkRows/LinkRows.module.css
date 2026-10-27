@@ -1,0 +1,42 @@
+.links {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.links li + li {
+  border-top: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.links a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  text-decoration: none;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.links a:hover,
+.links a:focus-visible {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.links a:focus-visible {
+  outline-color: var(--color-ink);
+  outline-offset: -4px;
+}
+
+.value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  opacity: 0.75;
+  overflow-wrap: anywhere;
+  text-align: right;
+}

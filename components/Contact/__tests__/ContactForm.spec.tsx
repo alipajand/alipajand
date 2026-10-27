@@ -75,6 +75,17 @@ describe("ContactForm", () => {
     });
   });
 
+  it("should move focus to the field when an error summary link is followed", async () => {
+    render(<ContactForm />);
+    fillForm("Jane", "bad-email", "Hello");
+    fireEvent.click(screen.getByRole("button", { name: /send message/i }));
+
+    const summaryLink = await screen.findByRole("link", { name: "Use a valid email address" });
+    expect(summaryLink).toHaveAttribute("href", "#contact-email");
+    fireEvent.click(summaryLink);
+    expect(document.activeElement).toBe(screen.getByLabelText(/email/i));
+  });
+
   it("should show validation error when message is empty", async () => {
     render(<ContactForm />);
     fillForm("Jane", "jane@example.com", "");
