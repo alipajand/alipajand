@@ -19,13 +19,14 @@ Severity: P0 Critical, P1 High, P2 Medium, P3 Low, Info (no defect, or accepted 
 | SEC-05 | P3   | `isValidEmail` accepts address-list syntax (`"x",other@example.com`) which is passed as `replyTo`                                | Fixed in #231 (merged)                              |
 | SEC-06 | P3   | Resend error messages and setup hints are shown to visitors                                                                      | Fixed in #232 (merged)                              |
 | SEC-07 | P3   | Path traversal in post slug: `/writing/..%2F..%2FREADME/opengraph-image` reads `README.md`                                       | Fixed in #233 (merged)                              |
-| SEC-08 | P2   | No rate limiting or bot check on `/api/contact`; documented edge rate limit could not be confirmed                               | Open, proposal below                                |
-| SEC-09 | P2   | Google Analytics loads on every visit with no consent step; it is live in production                                             | Open, owner decision (DEC-8)                        |
+| SEC-08 | P2   | No rate limiting or bot check on `/api/contact`; documented edge rate limit could not be confirmed                               | Open; owner decided: Vercel Firewall rate limit     |
+| SEC-09 | P2   | Google Analytics script loads on every visit before any consent decision; it is live in production                               | Open; owner decided: remove GA, keep Vercel         |
 | SEC-10 | P3   | Dependency advisories (brace-expansion pinned to a vulnerable 5.0.9, source-map-js, zod); build/lint-time only                   | Fixed in #234 (merged)                              |
 | SEC-11 | P3   | Post Markdown is rendered without sanitising: raw HTML, `<script>`, event handlers and `javascript:` links pass through          | Open, accepted risk while content is owner-authored |
-| SEC-12 | P3   | Inbound mail forwarding re-sends external mail from the owner's own domain without the original sender or authentication result  | Open, proposal (contract change)                    |
+| SEC-19 | P3   | JSON-LD is inlined with `JSON.stringify` only, so a `</script>` in any value would end the script element                        | Open; owner decided: fix in a small PR              |
+| SEC-12 | P3   | Inbound mail forwarding re-sends external mail from the owner's own domain without the original sender or authentication result  | Open; owner decided: fix in a separate PR           |
 | SEC-13 | Info | Resend webhook signature verification is sound; two non-exploitable robustness gaps                                              | No action needed                                    |
-| SEC-14 | Info | Screenshots: owner login email in LedgerGuard and MapBylaw dashboards; LedgerGuard workspace name                                | Known, replacement in another branch                |
+| SEC-14 | Info | Screenshots: owner login email in LedgerGuard and MapBylaw dashboards; LedgerGuard workspace name                                | Owner decided: redact before assets are final       |
 | SEC-15 | Info | Build output and `public/`: no source maps, no secrets, only the public contact email                                            | No action needed                                    |
 | SEC-16 | Info | External links all carry `rel="noopener noreferrer"`; no `http://` links                                                         | No action needed                                    |
 | SEC-17 | Info | Scheduled posts reachable by URL, RSS, sitemap and `llms-full.txt` before their date                                             | By design ("Preview article"); see audit A-01       |
@@ -91,16 +92,16 @@ Severity: P0 Critical, P1 High, P2 Medium, P3 Low, Info (no defect, or accepted 
   1. A Vercel Firewall rate-limit rule on `POST /api/contact`, for example 5 requests per 10 minutes per IP, returning 429. This is configuration only, with no code or contract change. The owner should confirm whether such a rule already exists and fix `docs/ARCHITECTURE.md` to match.
   2. Optionally, a hidden honeypot field (for example `website`) that the server silently accepts and drops when filled. This changes the request contract (new field) and the form markup, so it needs its own PR with tests and an impact note.
   3. An in-memory limiter in the route is not recommended: serverless instances do not share memory. A shared store (Upstash/Vercel KV) would work but adds a dependency.
-- **Status.** Open.
+- **Status.** Open. Owner decision: add a Vercel Firewall rate-limit rule on `POST /api/contact` rather than an in-memory limiter in the function. Starting policy to evaluate: 5 submissions per 10 minutes per client IP, answered with HTTP 429. Check the existing firewall configuration and plan support first, and test valid submissions, repeated submissions and shared-network behaviour. Add a honeypot only if edge controls prove insufficient. `docs/ARCHITECTURE.md` currently states that rate limiting exists; correct it in the same change.
 
 ### SEC-09 · P2 · Analytics load without consent
 
 - **Evidence.** `components/Analytics/GatedGoogleAnalytics.tsx:7-31` renders `gtag.js` with `strategy="afterInteractive"` whenever `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set. "Gated" means environment-gated only. `app/layout.tsx:112-114` renders all three analytics components on every page. Production HTML includes `googletagmanager.com/gtag/js?id=G-Y5WGFLJSLR`, so GA is live. Nothing in `app/`, `components/`, `utils/` or `data/` mentions consent, `doNotTrack` or `globalPrivacyControl`. Vercel Web Analytics and Speed Insights are cookieless.
-- **Exploit scenario / impact.** Every visitor gets GA4's `_ga*` first-party cookies and a request to Google before any choice is offered. The owner is in Quebec (Law 25) and the site has EU visitors (GDPR/ePrivacy). This is a compliance risk, not a vulnerability, and this review does not give legal advice.
+- **Exploit scenario / impact.** The third-party `gtag.js` script is requested and executed before any consent decision is offered. Whether a given visitor then receives GA4's `_ga*` cookies was not observed in a real browser and depends on browser settings and blockers; the verified problem is the script loading before consent. The owner is in Quebec (Law 25) and the site has EU visitors (GDPR/ePrivacy). This is a compliance risk, not a vulnerability, and this review does not give legal advice.
 - **Remedy options** (owner decision, tracked as DEC-8 / Q-13 in `docs/design/implementation-audit/`):
   1. Drop GA and rely on Vercel Web Analytics (no cookies). This is the smallest change and removes the issue.
   2. Keep GA behind an explicit opt-in: no `gtag.js` request and no cookie until consent, Consent Mode v2 defaulting to `denied`, GPC/DNT honoured, and a short privacy note.
-- **Status.** Open; not changed here because it is a product/policy decision.
+- **Status.** Open. Owner decision: option 1, remove GA and keep Vercel Web Analytics and Speed Insights. Any future GA integration needs its own consent design and privacy review. Fix in a separate PR.
 
 ### SEC-10 · P3 · Dependency advisories
 
@@ -111,17 +112,24 @@ Severity: P0 Critical, P1 High, P2 Medium, P3 Low, Info (no defect, or accepted 
 
 ### SEC-11 · P3 · Unsanitised Markdown rendering
 
-- **Evidence.** `utils/posts.ts` passes post bodies to `marked.parse`, and `features/writing/WritingPostPageContent.tsx:47` injects the result with `dangerouslySetInnerHTML`. `marked` 18 does not sanitise: `marked.parse("[x](javascript:alert(1)) <img src=x onerror=alert(1)> <script>alert(1)</script>")` returns all three unchanged. The JSON-LD components (`components/*JsonLd*`, `HomeStructuredData`, `StructuredData`) inline `JSON.stringify(...)` in `<script>` without escaping `<`, so a title containing `</script>` would break out.
+- **Evidence.** `utils/posts.ts` passes post bodies to `marked.parse`, and `features/writing/WritingPostPageContent.tsx:47` injects the result with `dangerouslySetInnerHTML`. `marked` 18 does not sanitise: `marked.parse("[x](javascript:alert(1)) <img src=x onerror=alert(1)> <script>alert(1)</script>")` returns all three unchanged.
 - **Current exposure.** None of the 16 posts in `content/posts/` contains raw `<script>`, `<iframe>`, event handlers, `javascript:` or `target=` (checked with grep). All rendered content is authored in the repo, so exploiting this needs a merged change to `content/`.
-- **Remedy (hardening, optional).** Add a small `marked` renderer hook that drops `javascript:`/`data:` link and image URLs, and either strip raw HTML blocks or run the output through a sanitiser at build time (pages are static, so there is no runtime cost). Escape `<` as `<` in the JSON-LD serialisation. Neither is urgent while all content is owner-authored.
-- **Status.** Open, accepted risk.
+- **Remedy (hardening, optional).** Add a small `marked` renderer hook that drops `javascript:`/`data:` link and image URLs, and either strip raw HTML blocks or run the output through a sanitiser at build time (pages are static, so there is no runtime cost). Not urgent while all content is owner-authored.
+- **Status.** Open, accepted risk: the trust boundary is owner-authored Markdown in the repo.
+
+### SEC-19 · P3 · JSON-LD serialisation
+
+- **Evidence.** The JSON-LD components (`components/*JsonLd*`, `HomeStructuredData`, `StructuredData`) inline `JSON.stringify(...)` in `<script type="application/ld+json">` through `dangerouslySetInnerHTML`. `JSON.stringify` does not escape `<`, so a value containing `</script>` (for example a post title) would end the script element early, and the rest would be parsed as HTML.
+- **Current exposure.** Values come from repo-owned content and data, so exploiting this needs a merged change. It is listed separately from SEC-11 because the fix is cheap and should not stay an accepted risk.
+- **Remedy.** Serialise with a helper that runs `JSON.stringify` and then escapes `<` as `\u003c` (and `>`, `&`, U+2028, U+2029 likewise), which stays valid JSON that parses back to the same object.
+- **Status.** Open. Owner decision: fix in a small independent PR.
 
 ### SEC-12 · P3 · Forwarded inbound mail hides the original sender
 
 - **Evidence.** `app/api/webhooks/resend/route.ts:84-100` re-sends inbound mail with `from: getFromEmail()` (the owner's verified domain), the original subject and the original HTML. The original sender appears only as `replyTo`, and no SPF/DKIM/DMARC result is passed on.
 - **Exploit scenario.** Someone sends spoofed mail to `info@alipajand.com` (for example pretending to be a bank or a recruiter). It arrives in the owner's inbox DKIM-signed by the owner's own domain, with the provider's spam signals lost, and is more convincing than the original.
 - **Proposed remedy (not implemented; changes the forwarded email contract).** Prepend a short header block to the forwarded body: original From, To, Date and, if Resend exposes them, the authentication results. Optionally prefix the subject (for example `[info@]`). This needs a separate PR with a webhook test and an impact note.
-- **Status.** Open, proposal.
+- **Status.** Open. Owner decision: fix in a separate PR. Prepend a labelled forwarding header with the original From, To and Date when available. Include authentication results only when the provider supplies them in a trustworthy field. Preserve Reply-To, attachments and idempotency. Never present the forwarded message as authenticated just because Resend re-sent it.
 
 ### SEC-13 · Info · Webhook verification
 
@@ -144,13 +152,13 @@ Robustness notes, not exploitable without the secret:
 
 Every image under `public/` was viewed:
 
-- `portfolio-media/ledgerguard-dashboard.png`, bottom left: `ali.pajand@gmail.c…` (owner login email, which differs from the public `alipajand@gmail.com`). The workspace switcher reads `RAHINO`; the owner should confirm this is not a client or employer name. Vendor rows (Salesforce, Shopify, BP) and amounts look like sample contracts.
-- `portfolio-media/mapbylaw-dashboard.png`, bottom left: `Ali Pajand` / `ali.pajand@gmail.com`. The report cards show a bridge/area address (Pont Île-des-Sœurs, H3C 5K4) and `0.00 CAD` amounts, not a home address or real payments.
+- `portfolio-media/ledgerguard-dashboard.png`, bottom left: the owner's private login email (not the public contact address). The workspace switcher shows a real workspace name that has no documented permission to publish. Vendor rows (Salesforce, Shopify, BP) and amounts look like sample contracts.
+- `portfolio-media/mapbylaw-dashboard.png`, bottom left: the owner's name and private login email. The report cards show a bridge/area address (Pont Île-des-Sœurs, H3C 5K4) and `0.00 CAD` amounts, not a home address or real payments.
 - `portfolio-media/tallyfolio-dashboard.png`: income, spending and card balances. The owner has confirmed this is demo data.
 - `tallyfolio-landing.png` ("Sample workspace"), `ledgerguard-landing.png`, `ledgerguard-login.png`, `mapbylaw-landing.png`, `alwaysgeeky-login.png`, `alwaysgeeky-marketplace.png`, `data-flow.png`, `writing/agent-readiness-doctor-poster.png`: no personal data beyond the owner's public name and handle.
 - PNG metadata: every screenshot carries only an XMP block with pixel dimensions and `UserComment: Screenshot`. There are no paths, usernames, GPS or device fields.
 
-Status: the two login-email screenshots are known and being replaced with redacted copies in another branch. They are still present on `main` at `03b0539`.
+Status: owner decision. Redact before the assets are treated as final: replace the login email with a fictional account and the workspace name with a clearly fictional one, and keep the labels that distinguish real product screenshots from editorial or demo images. Being a file in a public repository is not evidence that its contents are safe to publish. Redacted copies are being made in the case-study branch; the originals are still present on `main` at `03b0539`.
 
 ### SEC-15 · Info · Build output, `public/` and environment variables
 
