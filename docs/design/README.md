@@ -53,6 +53,12 @@ node --no-warnings docs/design/kit/build.mjs
 
 This writes `pages/*.html` and `system/project/components/bundle.css`.
 
+The open-source page's contribution graph comes from `kit/activity.json`, a dated snapshot of the public GitHub contribution calendar. Artifact pages can't request GitHub, so the snapshot is built in. Refresh it with:
+
+```bash
+node --no-warnings docs/design/kit/build.mjs --activity
+```
+
 ### Links between pages
 
 `kit/urls.json` maps site routes to the published preview of each page, so links between pages stay inside the previews. Any route it does not map points at alipajand.com. The `"/writing/*"` entry is the reader, and post links become `<reader>#<slug>`.

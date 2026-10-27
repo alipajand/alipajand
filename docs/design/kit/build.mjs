@@ -1,5 +1,5 @@
 // Assembles the design pages in docs/design/pages from this kit and the site's own content
-// (data/*.ts and content/posts). Usage: node docs/design/kit/build.mjs [--preview <dir>]
+// (data/*.ts and content/posts). Usage: node docs/design/kit/build.mjs [--preview <dir>] [--activity]
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -193,8 +193,37 @@ const write = (out, page) => {
   console.log(out.padEnd(34), `${Math.round(html.length / 1024)} KB`);
 };
 
+// ── GitHub activity ──
+// The artifact sandbox blocks requests to GitHub, so the open-source page carries a dated snapshot of the
+// public contribution calendar. `--activity` refreshes kit/activity.json; other builds reuse it.
+const ACTIVITY_USER = "alipajand";
+const refreshActivity = async () => {
+  const res = await fetch(`https://github.com/users/${ACTIVITY_USER}/contributions`, { headers: { Accept: "text/html" } });
+  if (!res.ok) throw new Error(`GitHub contributions: HTTP ${res.status}`);
+  const html = await res.text();
+  const tips = new Map([...html.matchAll(/<tool-tip[^>]*for="([^"]+)"[^>]*>([^<]*)/g)].map((m) => [m[1], m[2]]));
+  const days = [...html.matchAll(/data-date="([\d-]+)" id="(contribution-day-component-\d+-\d+)" data-level="(\d)"/g)]
+    .map(([, date, id, level]) => [date, +(tips.get(id) || "").match(/^(\d+) contribution/)?.[1] || 0, +level])
+    .sort((a, b) => a[0].localeCompare(b[0]));
+  if (days.length < 300) throw new Error(`GitHub contributions: only ${days.length} days parsed`);
+  const total = +html.match(/([\d,]+)\s+contributions\s+in the last year/)[1].replace(/,/g, "");
+  const snapshot = {
+    user: ACTIVITY_USER,
+    taken: new Date().toISOString().slice(0, 10),
+    from: days[0][0],
+    total,
+    counts: days.map((d) => d[1]),
+    levels: days.map((d) => d[2]).join(""),
+  };
+  writeFileSync(join(KIT, "activity.json"), JSON.stringify(snapshot, null, 2) + "\n");
+};
+if (process.argv.includes("--activity")) await refreshActivity();
+const ACTIVITY = JSON.parse(kit("activity.json"));
+
 mkdirSync(OUT, { recursive: true });
-for (const page of ["home", "portfolio", "open-source"]) write(`${page}.html`, resolveLinks(kit(`static/${page}.html`)));
+for (const page of ["home", "portfolio", "open-source"]) {
+  write(`${page}.html`, resolveLinks(kit(`static/${page}.html`)).replace("@@ACTIVITY_JSON@@", json(ACTIVITY)));
+}
 
 write("writing.html", fill("writing.src.html", { POSTS_JSON: json(posts.map(({ body, ...summary }) => summary)) }));
 write("agent-readiness-doctor.html", fill("post.src.html", { POSTER: dataUri(join(ROOT, "public/writing/agent-readiness-doctor-poster.png"), "image/png") }));

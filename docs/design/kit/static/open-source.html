@@ -172,6 +172,37 @@
   .badges li.on { background: var(--line); color: var(--ink); }
   .badges li.on .mono { color: var(--mute-ink); }
 
+  /* ── Contribution activity ── */
+  .act__stats { margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+  .act__stats > div { display: grid; gap: 10px; align-content: start; padding: 16px 20px 18px; border-right: 1px solid var(--rule); min-width: 0; }
+  .act__stats > div:last-child { border-right: 0; }
+  .act__stats dt { color: var(--mute); }
+  .act__stats dd { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(26px, 3.2vw, 52px); line-height: .9; overflow-wrap: anywhere; }
+  .act__stats span { color: var(--mute); font-size: 14px; }
+  .act__graph { overflow-x: auto; padding: 22px 24px 18px; border-bottom: 1px solid var(--rule); scrollbar-width: thin; }
+  .act__graph svg { display: block; width: 100%; min-width: 720px; height: auto; }
+  .act__graph text { font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; fill: var(--mute); }
+  .act__graph rect { fill: var(--line); stroke: none; }
+  .act__graph rect.l0 { fill: none; stroke: var(--rule); stroke-width: 1; }
+  .act__graph rect.l1 { fill-opacity: .2; }
+  .act__graph rect.l2 { fill-opacity: .42; }
+  .act__graph rect.l3 { fill-opacity: .7; }
+  .act__graph rect:hover { stroke: var(--line); stroke-width: 1.5; }
+  .act__graph .wk { transition: opacity .4s; }
+  .act__graph .wk.off { opacity: 0; }
+  .act__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 14px 24px; border-bottom: 1px solid var(--rule); }
+  .act__readout { min-width: 0; }
+  .act__legend { display: flex; align-items: center; gap: 4px; }
+  .act__legend i { width: 11px; height: 11px; background: var(--line); }
+  .act__legend i[data-l="0"] { background: none; outline: 1px solid var(--rule); outline-offset: -1px; }
+  .act__legend i[data-l="1"] { opacity: .2; }
+  .act__legend i[data-l="2"] { opacity: .42; }
+  .act__legend i[data-l="3"] { opacity: .7; }
+  .act__legend b { font-weight: inherit; }
+  .act__legend b:first-child { margin-right: 6px; }
+  .act__legend b:last-child { margin-left: 6px; }
+  .act__foot a { color: var(--line); text-underline-offset: 4px; }
+
   /* ── CTA ── */
   .cta { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); border-bottom: 1px solid var(--rule); }
   .cta__lead { padding: 30px 24px; border-right: 1px solid var(--rule); display: grid; gap: 18px; align-content: start; }
@@ -226,6 +257,12 @@
     .code { font-size: 13px; }
     .band__head { padding: 24px 16px 18px; }
     .principle { padding: 22px 16px 24px; }
+    .act__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .act__stats > div { padding: 14px 16px 16px; border-bottom: 1px solid var(--rule); }
+    .act__stats > div:nth-child(2n) { border-right: 0; }
+    .act__stats > div:nth-last-child(-n + 2) { border-bottom: 0; }
+    .act__graph { padding: 18px 16px 14px; }
+    .act__foot { padding: 14px 16px; }
     .badges { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .badges li { padding: 14px 16px 16px; font-size: 15px; border-right: 1px solid var(--rule) !important; border-bottom: 1px solid var(--rule) !important; }
     .badges li:nth-child(2n) { border-right: 0 !important; }
@@ -366,6 +403,20 @@
         <h2 id="tech-title">Technology and scope</h2>
       </div>
       <ul class="badges" id="badges"></ul>
+    </section>
+
+    <section id="activity" aria-labelledby="activity-title">
+      <div class="head">
+        <h2 id="activity-title">Contribution activity</h2>
+        <p>A snapshot of public GitHub contributions over the last year, taken from github.com/alipajand when this page was built.</p>
+      </div>
+      <dl class="act__stats" id="act-stats"></dl>
+      <div class="act__graph" id="act-graph"></div>
+      <div class="act__foot">
+        <span class="mono mute act__readout" id="act-readout"></span>
+        <span class="mono mute act__legend" aria-hidden="true"><b>Less</b><i data-l="0"></i><i data-l="1"></i><i data-l="2"></i><i data-l="3"></i><i data-l="4"></i><b>More</b></span>
+        <a class="mono" href="https://github.com/alipajand">View on GitHub</a>
+      </div>
     </section>
 
     <div class="ticker" aria-hidden="true">
@@ -596,6 +647,51 @@
     try { navigator.clipboard.writeText(text).then(() => done("Copied"), select); } catch { select(); }
   });
 
+  // ── Contribution activity: a dated snapshot of the public GitHub calendar, one column per week. ──
+  const ACTIVITY = @@ACTIVITY_JSON@@;
+  const actGraph = document.getElementById("act-graph");
+  const actReadout = document.getElementById("act-readout");
+  const dayOf = (i) => new Date(Date.parse(`${ACTIVITY.from}T00:00:00Z`) + i * 864e5);
+  const fmtDay = (d) => d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+  const plural = (n, word) => `${n.toLocaleString("en-US")} ${word}${n === 1 ? "" : "s"}`;
+  {
+    const counts = ACTIVITY.counts;
+    const last = dayOf(counts.length - 1);
+    let best = 0, run = 0, top = 0;
+    counts.forEach((n, i) => { run = n ? run + 1 : 0; best = Math.max(best, run); if (n > counts[top]) top = i; });
+    const active = counts.filter(Boolean).length;
+    const stats = [
+      ["Last year", ACTIVITY.total.toLocaleString("en-US"), "contributions"],
+      ["Active days", active.toLocaleString("en-US"), `of ${counts.length}`],
+      ["Longest streak", String(best), best === 1 ? "day" : "days"],
+      ["Busiest day", String(counts[top]), fmtDay(dayOf(top))],
+    ];
+    document.getElementById("act-stats").innerHTML = stats.map(([k, v, u]) => `<div><dt class="mono">${k}</dt><dd>${v}</dd><span>${esc(u)}</span></div>`).join("");
+
+    const PITCH = 15, CELL = 12, LEFT = 30, TOP = 18;
+    const lead = dayOf(0).getUTCDay();
+    const weeks = Math.ceil((counts.length + lead) / 7);
+    const cols = Array.from({ length: weeks }, () => []);
+    const months = [];
+    counts.forEach((n, i) => {
+      const at = i + lead, c = Math.floor(at / 7), r = at % 7, d = dayOf(i);
+      cols[c].push(`<rect class="l${ACTIVITY.levels[i]}" data-i="${i}" x="${LEFT + c * PITCH}" y="${TOP + r * PITCH}" width="${CELL}" height="${CELL}"/>`);
+      if (d.getUTCDate() === 1 && c < weeks - 1) months.push(`<text x="${LEFT + c * PITCH}" y="10">${d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" })}</text>`);
+    });
+    const days = [[1, "Mon"], [3, "Wed"], [5, "Fri"]].map(([r, t]) => `<text x="0" y="${TOP + r * PITCH + 9}">${t}</text>`).join("");
+    const summary = `${plural(ACTIVITY.total, "contribution")} on GitHub between ${fmtDay(dayOf(0))} and ${fmtDay(last)}`;
+    actGraph.innerHTML = `<svg viewBox="0 0 ${LEFT + weeks * PITCH - (PITCH - CELL)} ${TOP + 7 * PITCH - (PITCH - CELL)}" role="img" aria-label="${summary}">${months.join("")}${days}${cols.map((c) => `<g class="wk">${c.join("")}</g>`).join("")}</svg>`;
+    actGraph.scrollLeft = actGraph.scrollWidth;
+
+    const rest = `[ Snapshot · ${fmtDay(new Date(`${ACTIVITY.taken}T00:00:00Z`))} ]`;
+    actReadout.textContent = rest;
+    actGraph.addEventListener("pointerover", (e) => {
+      const i = e.target.dataset?.i;
+      actReadout.textContent = i == null ? rest : `${fmtDay(dayOf(+i))} · ${plural(counts[+i], "contribution")}`;
+    });
+    actGraph.addEventListener("pointerleave", () => { actReadout.textContent = rest; });
+  }
+
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const LINE = "236,236,230";
@@ -776,6 +872,7 @@
   const idx = [...document.querySelectorAll(".index a")];
   const badges = [...document.querySelectorAll(".badges li")];
   const badgeBox = document.getElementById("badges");
+  const weekCols = [...actGraph.querySelectorAll(".wk")];
   const progress = document.getElementById("progress");
   let lastY = scrollY, vel = 0, heroVisible = true;
   new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; }).observe(hero);
@@ -819,6 +916,11 @@
     const bt = (vh - br.top) / (vh + br.height);
     const bi = bt > 0 && bt < 1 ? Math.floor(bt * badges.length) : -1;
     badges.forEach((b, i) => b.classList.toggle("on", i === bi));
+
+    // Activity: weeks fill in left to right as the graph scrolls up the screen.
+    const ar = actGraph.getBoundingClientRect();
+    const weeksLit = Math.round(clamp((vh - ar.top) / (vh * .55), 0, 1) * weekCols.length);
+    weekCols.forEach((g, i) => g.classList.toggle("off", i >= weeksLit));
 
     if (heroVisible) {
       const active = Math.floor(heroProgress() * SURFACES.length);
