@@ -56,6 +56,18 @@ const UNREDACTED_IMAGES: Record<string, string> = {
     "752b6cc6508aefe748579470efee120e6b6fbad6c7af3703aaf6ee4d188e019d",
   "docs/design/implementation/case-studies/mapbylaw-390-reference.jpg (before redaction)":
     "b97e4752e02ca3e64855e95b00c927259b41b83340ec2d7e6f446cfbcf2c8557",
+  "portfolio-redesign artifacts/shared/media/ledgerguard-dashboard-1280.webp (unmerged branch)":
+    "b9911c9772c1342fe63fe939a15357ad12bb0763a9bf7a163a4ba5058f02a391",
+  "portfolio-redesign artifacts/shared/media/ledgerguard-dashboard-640.webp (unmerged branch)":
+    "a3e9efd19714f090c2aaace16f33ad2226332b3c0f5a09e890f4444fb82cc601",
+  "portfolio-redesign artifacts/shared/media/mapbylaw-dashboard-1280.webp (unmerged branch)":
+    "facfaacd68e99b5155b5b36e08f7dc40e0c9f66de3b1bdff33eea7d6d092952a",
+  "portfolio-redesign artifacts/shared/media/mapbylaw-dashboard-640.webp (unmerged branch)":
+    "d02f1a4d2838f2b94a5e1c548db5e02bb0b8bcf9899de5dcbc28c7c3f91837eb",
+  "portfolio-redesign cinematic-exploration/prototype/media/ledgerguard-dashboard-1600.webp (unmerged branch)":
+    "0ef5e23d3b79b00e635a5213a9f1868c8166baa1517644858fc0799a44c7afd2",
+  "portfolio-redesign cinematic-exploration/prototype/media/ledgerguard-dashboard-960.webp (unmerged branch)":
+    "05425f70df9898ce69f45d27eee7b19c846fc91bb364f9a70a761c6d9a705fbe",
 };
 
 const DATA_URI = /data:image\/[a-z0-9.+-]+;base64,([A-Za-z0-9+/=\s]+)/gi;
