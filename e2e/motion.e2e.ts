@@ -132,6 +132,20 @@ const framesDuring = async (page: Page, ms: number) => {
 /** The display-type stack ticker on /now (CSS module class names keep their local name). */
 const NOW_TICKER = "main [class$='_ticker']";
 
+/**
+ * Every family with an idle `onFrame` loop, and the island to bring on screen (null when it is at
+ * the top): the open-source scan line, the principles alignment, the now and article tickers, the
+ * writing index timeline and the case-study hero tilt.
+ */
+const IDLE_LOOPS: ReadonlyArray<readonly [string, string | null]> = [
+  ["/open-source", null],
+  ["/engineering-principles", null],
+  ["/now", NOW_TICKER],
+  ["/writing", "main [class$='_time']"],
+  ["/writing/agent-instructions-are-code", "main [class$='_ticker']"],
+  ["/portfolio/ledgerguard", null],
+];
+
 const footerControl = (page: Page): Locator => page.locator("footer [data-motion-control]");
 
 /** Toggles without scrolling, so islands at the top of the page stay on screen. */
@@ -263,16 +277,17 @@ test.describe("automatic motion loop", () => {
     await installProbe(page);
   });
 
-  for (const path of ["/open-source", "/engineering-principles", "/now"]) {
+  for (const [path, island] of IDLE_LOOPS) {
     test(`${path}: one shared loop that stops on pause and while the tab is hidden`, async ({
       page,
     }) => {
       await page.goto(path);
       await settle(page);
-      // Bring an idle-motion island on screen (the now ticker sits below the fold).
-      if (path === "/now") {
+      // Bring an idle-motion island on screen when it sits below the fold.
+      if (island) {
         await page
-          .locator(NOW_TICKER)
+          .locator(island)
+          .first()
           .evaluate((element) => element.scrollIntoView({ block: "center" }));
         await page.waitForTimeout(300);
       }
@@ -299,6 +314,55 @@ test.describe("automatic motion loop", () => {
       expect(resumed.maxPending).toBeLessThanOrEqual(1);
     });
   }
+
+  test("reduced motion keeps every idle loop still, with no pause stored", async ({ browser }) => {
+    const context = await browser.newContext({
+      reducedMotion: "reduce",
+      viewport: { width: 1440, height: 900 },
+    });
+    for (const [path, island] of IDLE_LOOPS) {
+      const page = await context.newPage();
+      await installProbe(page);
+      await page.goto(path);
+      await settle(page);
+      expect(await page.evaluate(() => localStorage.getItem("motion-paused"))).toBeNull();
+      if (island) {
+        await page
+          .locator(island)
+          .first()
+          .evaluate((element) => element.scrollIntoView({ block: "center" }));
+      }
+      // Scroll-linked frames decay to rest within about 40 frames; idle loops would keep going.
+      await page.waitForTimeout(1500);
+      expect((await framesDuring(page, 800)).requested, path).toBe(0);
+      await page.close();
+    }
+    await context.close();
+  });
+
+  test("a pause in one tab stops the loop in another, and a resume starts it again", async ({
+    context,
+    page,
+  }) => {
+    const other = await context.newPage();
+    await installProbe(other);
+    await page.goto("/open-source");
+    await other.goto("/open-source");
+    await settle(page);
+    await settle(other);
+    expect((await framesDuring(other, 500)).requested).toBeGreaterThan(5);
+
+    await toggleInPlace(page);
+    await expect(footerControl(other)).toHaveAccessibleName(RESUME);
+    await expect(other.locator("html")).toHaveAttribute("data-motion-paused", "");
+    expect(await dotAnimation(other)).toBe("none");
+    await other.waitForTimeout(100);
+    expect((await framesDuring(other, 800)).requested).toBe(0);
+
+    await toggleInPlace(page);
+    await expect(footerControl(other)).toHaveAccessibleName(PAUSE);
+    expect((await framesDuring(other, 500)).requested).toBeGreaterThan(5);
+  });
 
   test("scroll-linked motion keeps working while paused", async ({ page }) => {
     await page.goto("/");
@@ -421,6 +485,35 @@ test.describe("navigation lifecycle", () => {
       }
     });
   }
+
+  test("twenty client navigations leave no frames, listeners or observers behind", async ({
+    page,
+  }) => {
+    await page.goto("/open-source");
+    await settle(page);
+    await page.waitForTimeout(500);
+    const baseline = await snapshot(page);
+    const cycle = ["/portfolio", "/writing", "/engineering-principles", "/open-source"];
+    for (let index = 0; index < 20; index += 1) {
+      await clickNav(page, cycle[index % cycle.length]);
+      // Never more than the one shared frame in flight, whatever was left behind.
+      expect(
+        await page.evaluate(() => (window as unknown as ProbeWindow).__probe.pending.size)
+      ).toBeLessThanOrEqual(1);
+    }
+    expect(new URL(page.url()).pathname).toBe("/open-source");
+    await page.waitForTimeout(500);
+    expect(await snapshot(page)).toEqual(baseline);
+
+    // With the only idle loop paused, nothing may still be asking for frames.
+    await toggleInPlace(page);
+    await expect(footerControl(page)).toHaveAccessibleName(RESUME);
+    await page.waitForTimeout(1500);
+    expect((await framesDuring(page, 1000)).requested).toBe(0);
+    expect(await page.evaluate(() => (window as unknown as ProbeWindow).__probe.pending.size)).toBe(
+      0
+    );
+  });
 
   test("leaving the 404 client-side tears its islands down", async ({ page }) => {
     await page.goto("/");
