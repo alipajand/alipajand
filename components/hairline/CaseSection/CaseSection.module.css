@@ -50,6 +50,7 @@
 
 .lead {
   max-width: 58ch;
+  margin: 0;
   font-size: clamp(19px, 1.6vw, 23px);
   line-height: 1.5;
   text-wrap: pretty;
