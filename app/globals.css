@@ -4,6 +4,16 @@
  * Pajand Hairline tokens (docs/design/system/project/tokens.json).
  * One dark theme on purpose: ink ground, line text, rule hairlines, a single bone band.
  */
+/* Arial sized to Archivo's metrics, shown until Archivo loads (see app/fonts.ts). */
+@font-face {
+  font-family: "Archivo Fallback";
+  src: local("Arial");
+  ascent-override: 88.96%;
+  descent-override: 21.28%;
+  line-gap-override: 0%;
+  size-adjust: 98.7%;
+}
+
 @theme static {
   --color-ink: #0f0f0e;
   --color-ink-2: #1b1b19;
