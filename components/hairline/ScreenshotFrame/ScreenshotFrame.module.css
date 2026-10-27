@@ -123,12 +123,17 @@
 
 /*
  * A modal dialog does not stop the page behind it from scrolling, so wheel and touch scrolls on the
- * backdrop moved the page. Lock it while a screenshot is open; the stable gutter keeps the page from
- * shifting sideways where scrollbars take up room.
+ * backdrop moved the page. Lock it while a screenshot is open. Where scrollbars take up room, hiding
+ * the page's scrollbar would widen the page, so the body is padded by the scrollbar's width (set on
+ * open). A reserved gutter instead would sit outside the backdrop: unshaded, not clickable, and the
+ * dialog would centre on the page beside it rather than on the window.
  */
 :global(:root):has(.dialog[open]) {
   overflow: hidden;
-  scrollbar-gutter: stable;
+}
+
+:global(:root):has(.dialog[open]) :global(body) {
+  padding-right: var(--scroll-lock-gap, 0px);
 }
 
 .dialogBar {

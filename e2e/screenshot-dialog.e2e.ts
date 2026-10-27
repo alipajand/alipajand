@@ -100,16 +100,25 @@ for (const viewport of VIEWPORTS) {
         const wide = await pane(page).evaluate(
           (element) => element.scrollWidth > element.clientWidth
         );
+        // Raw touch points: Chromium on Linux ignores synthesized scroll gestures, even on a bare
+        // scrolling div, but scrolls for real touch sequences.
         const cdp = await context.newCDPSession(page);
-        const swipe = (x: number, y: number, xDistance: number, yDistance: number) =>
-          cdp.send("Input.synthesizeScrollGesture", {
-            x,
-            y,
-            xDistance,
-            yDistance,
-            gestureSourceType: "touch",
-            speed: 800,
+        const swipe = async (x: number, y: number, xDistance: number, yDistance: number) => {
+          const steps = 20;
+          await cdp.send("Input.dispatchTouchEvent", {
+            type: "touchStart",
+            touchPoints: [{ x, y }],
           });
+          for (let step = 1; step <= steps; step += 1) {
+            await cdp.send("Input.dispatchTouchEvent", {
+              type: "touchMove",
+              touchPoints: [
+                { x: x + (xDistance * step) / steps, y: y + (yDistance * step) / steps },
+              ],
+            });
+          }
+          await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+        };
 
         await swipe(box.x + box.width * 0.7, box.y + box.height / 2, -200, 0);
         if (wide) {
