@@ -1,0 +1,32 @@
+.code {
+  position: relative;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.code b {
+  display: block;
+  padding: 10px 24px 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-stretch: 125%;
+  font-size: 24cqi;
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.code canvas {
+  width: 100%;
+  height: 120px;
+}
+
+@media (max-width: 760px) {
+  .code b {
+    padding-inline: 16px;
+  }
+
+  .code canvas {
+    height: 90px;
+  }
+}

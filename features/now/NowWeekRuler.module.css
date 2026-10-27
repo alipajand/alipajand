@@ -1,0 +1,29 @@
+.ruler {
+  position: relative;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.ruler canvas {
+  width: 100%;
+  height: 132px;
+}
+
+.rulerLabel {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  position: absolute;
+  top: 14px;
+  /* Server position of this week's cursor; the island replaces it with the drawn cursor's x. */
+  left: clamp(70px, calc(24px + (var(--week) - 0.5) * (100% - 48px) / 52), calc(100% - 70px));
+  padding: 4px 8px;
+  background: var(--color-line);
+  color: var(--color-ink);
+  white-space: nowrap;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .ruler canvas {
+    height: 110px;
+  }
+}

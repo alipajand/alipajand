@@ -1,0 +1,4 @@
+/* The shared display word at this page's 12.6cqi size. */
+.display > h1 {
+  font-size: 12.6cqi;
+}

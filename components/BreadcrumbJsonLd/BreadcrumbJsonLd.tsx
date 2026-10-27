@@ -1,3 +1,5 @@
+import { serializeJsonLd } from "utils/jsonLd";
+
 interface BreadcrumbItem {
   name: string;
   url: string;
@@ -22,7 +24,7 @@ export const BreadcrumbJsonLd = ({ items }: BreadcrumbJsonLdProps) => {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 };

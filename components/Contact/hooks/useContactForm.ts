@@ -13,7 +13,6 @@ import {
   CONTACT_FORM_ERROR_NETWORK,
   CONTACT_FORM_ERROR_RATE_LIMITED,
 } from "data/contactForm";
-import { trackGtagEvent } from "utils/analytics";
 
 export type ContactFormStatus = "idle" | "loading" | "success" | "error";
 
@@ -101,16 +100,13 @@ export const useContactForm = (): ContactFormHook => {
             ? CONTACT_FORM_ERROR_RATE_LIMITED
             : (body.error ?? CONTACT_FORM_ERROR_GENERIC)
         );
-        trackGtagEvent("contact_form_submit", { outcome: "error" });
         return;
       }
       setStatus("success");
-      trackGtagEvent("contact_form_submit", { outcome: "success" });
       form.reset(DEFAULT_VALUES);
     } catch {
       setStatus("error");
       setErrorMessage(CONTACT_FORM_ERROR_NETWORK);
-      trackGtagEvent("contact_form_submit", { outcome: "network_error" });
     }
   };
   return {
