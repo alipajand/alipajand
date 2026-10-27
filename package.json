@@ -18,19 +18,14 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "classnames": "^2.5.1",
     "geist": "^1.7.2",
-    "gsap": "^3.15.0",
-    "highlight.js": "^11.12.0",
     "js-yaml": "5.5.0",
-    "lenis": "^1.3.26",
-    "marked": "^18.0.14",
-    "marked-highlight": "^2.2.4",
-    "next": "^16.4.2",
+    "marked": "^18.1.1",
+    "next": "^16.4.3",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-hook-form": "^7.90.0",
-    "resend": "^6.32.1"
+    "resend": "^6.34.1"
   },
   "overrides": {
     "brace-expansion": "5.0.9",
@@ -42,7 +37,7 @@
     "sharp@<0.35.0": "0.35.0"
   },
   "devDependencies": {
-    "@asamuzakjp/css-color": "^7.1.3",
+    "@asamuzakjp/css-color": "^7.1.7",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",

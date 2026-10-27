@@ -13,20 +13,6 @@ import {
 import { LINKS } from "data/links";
 import { HERO_PROOF_ROW, HERO_SOCIAL_LINKS_ARIA_LABEL } from "data/site";
 
-jest.mock("components/Hero/HeroBackground", () => ({
-  HeroBackground: () => null,
-}));
-
-jest.mock("gsap", () => ({
-  set: jest.fn(),
-  to: jest.fn().mockReturnValue({}),
-  fromTo: jest.fn().mockReturnValue({}),
-  timeline: jest.fn(() => ({
-    set: jest.fn().mockReturnThis(),
-    to: jest.fn().mockReturnThis(),
-  })),
-}));
-
 describe("Hero", () => {
   describe("default rendering", () => {
     it("should render the accessible name, hero heading, and location copy", () => {

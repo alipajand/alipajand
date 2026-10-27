@@ -1,5 +1,3 @@
-"use client";
-
 import type { ReactNode } from "react";
 import Link from "next/link";
 
@@ -29,16 +27,6 @@ import {
   projectLiveLinksAriaLabel,
 } from "data/projectsUi";
 import type { PostHeading } from "utils/headings";
-import {
-  ARTICLE_BODY_TEXT,
-  ARTICLE_SECTION,
-  ARTICLE_SECTION_TITLE,
-  ARTICLE_TOC_ASIDE,
-  ARTICLE_TOC_GRID,
-  CTA_PRIMARY,
-  INLINE_LINK,
-  LABEL_OVERLINE,
-} from "utils/visual";
 
 type ProjectCaseStudyArticleProps = {
   project: Project;
@@ -54,33 +42,17 @@ interface CaseStudySection {
   body: ReactNode;
 }
 
-const Paragraph = ({ children }: { children: ReactNode }) => (
-  <p className={`max-w-3xl ${ARTICLE_BODY_TEXT}`}>{children}</p>
-);
+const Paragraph = ({ children }: { children: ReactNode }) => <p>{children}</p>;
 
 const BulletList = ({ items }: { items: string[] }) => (
-  <ul className="max-w-3xl space-y-2.5">
+  <ul>
     {items.map((item) => (
-      <li key={item} className={`flex gap-3 ${ARTICLE_BODY_TEXT}`}>
-        <span
-          aria-hidden="true"
-          className="mt-[0.7em] size-1.5 shrink-0 rounded-full bg-[var(--organic-orange)]"
-        />
-        <span>{item}</span>
-      </li>
+      <li key={item}>{item}</li>
     ))}
   </ul>
 );
 
-const RelatedItem = ({ children }: { children: ReactNode }) => (
-  <li className={`flex gap-3 ${ARTICLE_BODY_TEXT}`}>
-    <span
-      aria-hidden="true"
-      className="mt-[0.7em] size-1.5 shrink-0 rounded-full bg-[var(--organic-orange)]"
-    />
-    <span>{children}</span>
-  </li>
-);
+const RelatedItem = ({ children }: { children: ReactNode }) => <li>{children}</li>;
 
 export const caseStudySectionId = (projectId: string, key: SectionKey): string =>
   `${projectId}-${key}`;
@@ -117,7 +89,7 @@ export const ProjectCaseStudyArticle = ({
       key: "technical-decisions",
       title: PROJECT_CASE_STUDY_SECTION_TECHNICAL_DECISIONS,
       body: (
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div>
           {caseStudy.technicalDecisions.map((decision) => (
             <ProjectDecisionCard key={decision.decision} decision={decision} />
           ))}
@@ -135,7 +107,7 @@ export const ProjectCaseStudyArticle = ({
             key: "evidence" as const,
             title: PROJECT_CASE_STUDY_SECTION_EVIDENCE,
             body: (
-              <div className="space-y-8">
+              <div>
                 {evidenceFigures.map((figure) => (
                   <ProjectFigure key={`${figure.alt}-${figure.captionLead}`} figure={figure} />
                 ))}
@@ -158,10 +130,10 @@ export const ProjectCaseStudyArticle = ({
       key: "related",
       title: PROJECT_SECTION_RELATED_HEADING,
       body: (
-        <ul className="max-w-3xl space-y-2.5">
+        <ul>
           {project.relatedLinks.map((link) => (
             <RelatedItem key={link.href}>
-              <ProjectLinkAnchor href={link.href} label={link.label} className={INLINE_LINK}>
+              <ProjectLinkAnchor href={link.href} label={link.label}>
                 {link.label}
               </ProjectLinkAnchor>
             </RelatedItem>
@@ -172,17 +144,13 @@ export const ProjectCaseStudyArticle = ({
                 href={
                   isDedicatedPage ? `/portfolio/${nextProject.slug}` : `#project-${nextProject.id}`
                 }
-                className={INLINE_LINK}
               >
                 {PROJECT_SECTION_LINK_NEXT}: {nextProject.name}
               </Link>
             </RelatedItem>
           ) : null}
           <RelatedItem>
-            <Link
-              href={isDedicatedPage ? "/portfolio#case-studies" : "#case-studies"}
-              className={INLINE_LINK}
-            >
+            <Link href={isDedicatedPage ? "/portfolio#case-studies" : "#case-studies"}>
               {PROJECT_SECTION_LINK_BACK}
             </Link>
           </RelatedItem>
@@ -201,48 +169,28 @@ export const ProjectCaseStudyArticle = ({
   return (
     <article
       {...(isDedicatedPage ? {} : { id: `project-${project.id}` })}
-      className={
-        isDedicatedPage
-          ? undefined
-          : "scroll-mt-28 border-t border-border py-16 first:border-t-0 first:pt-0 sm:py-20"
-      }
       aria-labelledby={`${project.id}-heading`}
     >
-      <header data-reveal className="mb-10 space-y-6">
-        <div className="space-y-3">
-          <p className={LABEL_OVERLINE}>{project.employerContext}</p>
-          <TitleTag
-            id={`${project.id}-heading`}
-            className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
-          >
-            {project.name}
-          </TitleTag>
-          <p className="text-xl font-medium leading-snug text-foreground/90">
-            {project.caseStudyTitle}
-          </p>
-          <p className={`max-w-3xl ${ARTICLE_BODY_TEXT}`}>{caseStudy.overview}</p>
-          <div className="flex flex-wrap gap-x-3 gap-y-2 text-sm text-muted">
+      <header>
+        <div>
+          <p>{project.employerContext}</p>
+          <TitleTag id={`${project.id}-heading`}>{project.name}</TitleTag>
+          <p>{project.caseStudyTitle}</p>
+          <p>{caseStudy.overview}</p>
+          <div>
             <span>{project.role}</span>
             {project.timeframe ? <span>· {project.timeframe}</span> : null}
           </div>
-          <ul className="flex flex-wrap gap-2" aria-label={`${project.name} capabilities`}>
+          <ul aria-label={`${project.name} capabilities`}>
             {project.capabilityTags.slice(0, 5).map((tag) => (
-              <li
-                key={tag}
-                className="rounded-full border border-border bg-card/60 px-3 py-1.5 text-sm text-foreground/85"
-              >
-                {tag}
-              </li>
+              <li key={tag}>{tag}</li>
             ))}
           </ul>
           {project.liveLinks.length > 0 ? (
-            <ul
-              aria-label={projectLiveLinksAriaLabel(project.name)}
-              className="flex flex-wrap gap-3 pt-2"
-            >
+            <ul aria-label={projectLiveLinksAriaLabel(project.name)}>
               {project.liveLinks.map((link) => (
                 <li key={link.href}>
-                  <ProjectLinkAnchor href={link.href} label={link.label} className={CTA_PRIMARY}>
+                  <ProjectLinkAnchor href={link.href} label={link.label}>
                     {link.label}
                   </ProjectLinkAnchor>
                 </li>
@@ -251,35 +199,23 @@ export const ProjectCaseStudyArticle = ({
           ) : null}
         </div>
         {isDedicatedPage && heroFigure ? (
-          <div className="max-w-4xl">
+          <div>
             <ProjectFigure figure={heroFigure} />
           </div>
         ) : null}
       </header>
 
-      <div className={ARTICLE_TOC_GRID}>
-        <div className="min-w-0">
-          <TableOfContentsDisclosure
-            headings={headings}
-            ariaLabel={tocLabel}
-            className="mb-10 lg:hidden"
-          />
-          <div className="space-y-12">
+      <div>
+        <div>
+          <TableOfContentsDisclosure headings={headings} ariaLabel={tocLabel} />
+          <div>
             {sections.map((section) => {
               const id = caseStudySectionId(project.id, section.key);
               const diagrams =
                 caseStudy.diagrams?.filter((diagram) => diagram.section === section.key) ?? [];
               return (
-                <section
-                  key={section.key}
-                  data-reveal
-                  id={id}
-                  aria-labelledby={`${id}-title`}
-                  className={`${ARTICLE_SECTION} space-y-4`}
-                >
-                  <h2 id={`${id}-title`} className={ARTICLE_SECTION_TITLE}>
-                    {section.title}
-                  </h2>
+                <section key={section.key} id={id} aria-labelledby={`${id}-title`}>
+                  <h2 id={`${id}-title`}>{section.title}</h2>
                   {section.body}
                   {diagrams.map((diagram) => (
                     <PostDiagram key={diagram.spec.title} spec={diagram.spec} />
@@ -289,8 +225,8 @@ export const ProjectCaseStudyArticle = ({
             })}
           </div>
         </div>
-        <aside className="hidden lg:block">
-          <TableOfContents headings={headings} ariaLabel={tocLabel} className={ARTICLE_TOC_ASIDE} />
+        <aside>
+          <TableOfContents headings={headings} ariaLabel={tocLabel} />
         </aside>
       </div>
     </article>

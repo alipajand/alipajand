@@ -1,15 +1,7 @@
+"use client";
+
 import { trackContactLinkClick } from "components/Contact/trackContactLinkClick";
 import { EXTERNAL_LINK_NEW_TAB_HINT } from "data/pageChrome";
-import { CARD_SURFACE_HOVER } from "utils/visual";
-
-const ICON_SRC = {
-  Email: "/icons/email.svg",
-  "Book a call": "/icons/calendar.svg",
-  LinkedIn: "/icons/linkedin.svg",
-  GitHub: "/icons/github.svg",
-} as const;
-
-type IconLabel = keyof typeof ICON_SRC;
 
 export interface ContactChannel {
   label: string;
@@ -22,9 +14,6 @@ interface ContactChannelCardProps {
 }
 
 export const ContactChannelCard = ({ channel }: ContactChannelCardProps) => {
-  const isEmail = channel.label === "Email";
-  const iconSrc = ICON_SRC[channel.label as IconLabel];
-
   return (
     <li>
       <a
@@ -38,46 +27,8 @@ export const ContactChannelCard = ({ channel }: ContactChannelCardProps) => {
             : `${channel.label}: ${channel.value}`
         }
         onClick={() => trackContactLinkClick(channel.label)}
-        className={
-          isEmail
-            ? "hover-lift flex flex-col sm:flex-row sm:items-center gap-3 p-4 sm:p-5 rounded-xl bg-foreground text-background border border-transparent transition-colors hover:bg-accent-muted hover:text-background focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            : `hover-lift flex flex-col sm:flex-row sm:items-center gap-3 p-4 sm:p-5 ${CARD_SURFACE_HOVER} text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background`
-        }
       >
-        <span
-          className={
-            isEmail
-              ? "inline-block size-6 bg-background shrink-0"
-              : "inline-block size-6 bg-current text-foreground shrink-0"
-          }
-          style={{
-            maskImage: iconSrc ? `url(${iconSrc})` : undefined,
-            maskSize: "contain",
-            maskRepeat: "no-repeat",
-            maskPosition: "center",
-            WebkitMaskImage: iconSrc ? `url(${iconSrc})` : undefined,
-            WebkitMaskSize: "contain",
-            WebkitMaskRepeat: "no-repeat",
-            WebkitMaskPosition: "center",
-          }}
-          aria-hidden
-        />
-        <span className="min-w-0 text-left">
-          <span
-            className={
-              isEmail
-                ? "block text-xs font-semibold uppercase tracking-wider text-background/80"
-                : "block text-xs font-semibold uppercase tracking-wider text-muted"
-            }
-          >
-            {channel.label}
-          </span>
-          <span
-            className={`mt-0.5 block text-sm font-medium truncate ${isEmail ? "text-background" : "text-foreground"}`}
-          >
-            {channel.value}
-          </span>
-        </span>
+        <span>{channel.label}</span> <span>{channel.value}</span>
       </a>
     </li>
   );

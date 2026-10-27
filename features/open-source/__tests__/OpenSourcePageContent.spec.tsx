@@ -2,6 +2,11 @@ import { render, screen, within } from "@testing-library/react";
 
 import { OpenSourcePageContent } from "features/open-source/OpenSourcePageContent";
 import {
+  OPEN_SOURCE_ACTIVITY_HEADING,
+  OPEN_SOURCE_ACTIVITY_IMAGE_ALT,
+  OPEN_SOURCE_ACTIVITY_IMAGE_SRC,
+  OPEN_SOURCE_ACTIVITY_PROFILE_HREF,
+  OPEN_SOURCE_ACTIVITY_PROFILE_LABEL,
   OPEN_SOURCE_CTA_PRIMARY_HREF,
   OPEN_SOURCE_CTA_PRIMARY_LABEL,
   OPEN_SOURCE_CTA_SECONDARY_HREF,
@@ -13,16 +18,6 @@ import {
   OPEN_SOURCE_SHARED_PRINCIPLES,
   OPEN_SOURCE_SHARED_PRINCIPLES_HEADING,
 } from "data/openSourcePage";
-
-jest.mock("features/open-source/hooks/useOpenSourcePageContent", () => ({
-  useOpenSourcePageContent: jest.fn(() => ({
-    selectors: {
-      headerRef: { current: null },
-      contentRef: { current: null },
-      projects: OPEN_SOURCE_PROJECTS,
-    },
-  })),
-}));
 
 describe("OpenSourcePageContent", () => {
   it("should show the bot listing date without inventing a release version", () => {
@@ -127,6 +122,20 @@ describe("OpenSourcePageContent", () => {
 
     expect(container.querySelectorAll("[data-open-source-principle]")).toHaveLength(
       OPEN_SOURCE_SHARED_PRINCIPLES.length
+    );
+  });
+
+  it("should render the Algora contribution card and profile link", () => {
+    render(<OpenSourcePageContent />);
+
+    expect(screen.getByRole("heading", { name: OPEN_SOURCE_ACTIVITY_HEADING })).toBeInTheDocument();
+    expect(screen.getByAltText(OPEN_SOURCE_ACTIVITY_IMAGE_ALT)).toHaveAttribute(
+      "src",
+      OPEN_SOURCE_ACTIVITY_IMAGE_SRC
+    );
+    expect(screen.getByRole("link", { name: OPEN_SOURCE_ACTIVITY_PROFILE_LABEL })).toHaveAttribute(
+      "href",
+      OPEN_SOURCE_ACTIVITY_PROFILE_HREF
     );
   });
 

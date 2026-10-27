@@ -1,7 +1,3 @@
-"use client";
-
-import type React from "react";
-
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
 import type { WritingIndexPost } from "features/writing/WritingIndexPost";
 import { WritingIndexPostListItem } from "features/writing/WritingIndexPostListItem";
@@ -12,53 +8,27 @@ import {
   WRITING_SECTION_LEDE,
   WRITING_WHY_IT_MATTERS,
 } from "data/writing";
-import { usePageHeader } from "utils/hooks/usePageHeader";
-import { useScrollReveal } from "utils/hooks/useScrollReveal";
-import { PAGE_MAIN_SHELL, SECTION_INNER } from "utils/visual";
 
 interface WritingIndexPageContentProps {
   posts: WritingIndexPost[];
 }
 
 export const WritingIndexPageContent = ({ posts }: WritingIndexPageContentProps) => {
-  const {
-    selectors: { headerRef },
-  } = usePageHeader();
-
-  const {
-    selectors: { sectionRef: listRef },
-  } = useScrollReveal({ y: 36, stagger: 0.09 });
-
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <main id="main-content" tabIndex={-1} className={`outline-none ${PAGE_MAIN_SHELL}`}>
-        <div className={SECTION_INNER}>
-          <Breadcrumbs items={writingIndexBreadcrumbs()} className="mb-8" />
-          <header ref={headerRef as React.RefObject<HTMLElement>} className="mb-12 sm:mb-16">
-            <h1
-              data-header-title
-              className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-3"
-            >
-              {WRITING_SECTION_HEADING}
-            </h1>
-            <p data-header-lede className="text-muted text-base sm:text-lg leading-relaxed">
-              {WRITING_SECTION_LEDE}
-            </p>
-            <p
-              data-header-meta
-              className="mt-4 text-[15px] sm:text-base text-foreground/85 leading-relaxed border-l-2 border-border pl-4 sm:pl-5"
-            >
-              {WRITING_WHY_IT_MATTERS}
-            </p>
+    <div>
+      <main id="main-content" tabIndex={-1}>
+        <div>
+          <Breadcrumbs items={writingIndexBreadcrumbs()} />
+          <header>
+            <h1>{WRITING_SECTION_HEADING}</h1>
+            <p>{WRITING_SECTION_LEDE}</p>
+            <p>{WRITING_WHY_IT_MATTERS}</p>
           </header>
 
           {posts.length === 0 ? (
-            <p className="text-muted">{WRITING_INDEX_EMPTY_MESSAGE}</p>
+            <p>{WRITING_INDEX_EMPTY_MESSAGE}</p>
           ) : (
-            <ul
-              ref={listRef as React.RefObject<HTMLUListElement>}
-              className="space-y-6 sm:space-y-8 list-none p-0 m-0"
-            >
+            <ul>
               {posts.map((post) => (
                 <WritingIndexPostListItem key={post.slug} post={post} />
               ))}

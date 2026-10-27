@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 
 import { SelectedWorkCard } from "components/SelectedWork/SelectedWorkCard";
@@ -9,63 +7,26 @@ import {
   HOMEPAGE_CASE_STUDIES_LEDE,
 } from "data/homepage";
 import { SELECTED_WORK_SECTION_CTA_HREF, SELECTED_WORK_SECTION_CTA_LABEL } from "data/selectedWork";
-import type React from "react";
-
-import { useCinematicCards } from "utils/hooks/useCinematicCards";
-import { useScrollReveal } from "utils/hooks/useScrollReveal";
-import {
-  CTA_PRIMARY,
-  SECTION_INNER,
-  SECTION_LEDE_LG,
-  SECTION_SHELL,
-  SECTION_TITLE,
-} from "utils/visual";
 
 export const SelectedWork = () => {
-  const {
-    selectors: { sectionRef },
-  } = useScrollReveal({ y: 32, stagger: 0.08 });
-
-  const {
-    selectors: { containerRef: cardsRef },
-  } = useCinematicCards();
-
   return (
-    <section
-      id="case-studies"
-      ref={sectionRef}
-      aria-labelledby="selected-work-heading"
-      className={SECTION_SHELL}
-    >
-      <div className={SECTION_INNER}>
-        <header className="mb-10 sm:mb-12">
-          <h2
-            data-cine-title
-            id="selected-work-heading"
-            className={`${SECTION_TITLE} mb-4 sm:mb-5`}
-          >
-            {HOMEPAGE_CASE_STUDIES_HEADING}
-          </h2>
-          <p data-reveal className={SECTION_LEDE_LG}>
-            {HOMEPAGE_CASE_STUDIES_LEDE}
-          </p>
+    <section id="case-studies" aria-labelledby="selected-work-heading">
+      <div>
+        <header>
+          <h2 id="selected-work-heading">{HOMEPAGE_CASE_STUDIES_HEADING}</h2>
+          <p>{HOMEPAGE_CASE_STUDIES_LEDE}</p>
         </header>
 
-        <ul
-          ref={cardsRef as React.RefObject<HTMLUListElement>}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0"
-        >
+        <ul>
           {HOMEPAGE_CASE_STUDIES.map((caseStudy) => (
-            <li key={caseStudy.id} data-reveal className="h-full">
+            <li key={caseStudy.id}>
               <SelectedWorkCard caseStudy={caseStudy} />
             </li>
           ))}
         </ul>
 
-        <div className="mt-10 sm:mt-12" data-reveal>
-          <Link href={SELECTED_WORK_SECTION_CTA_HREF} className={`${CTA_PRIMARY} w-full sm:w-auto`}>
-            {SELECTED_WORK_SECTION_CTA_LABEL}
-          </Link>
+        <div>
+          <Link href={SELECTED_WORK_SECTION_CTA_HREF}>{SELECTED_WORK_SECTION_CTA_LABEL}</Link>
         </div>
       </div>
     </section>

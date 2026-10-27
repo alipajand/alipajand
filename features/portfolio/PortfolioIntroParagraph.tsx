@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 
-import { INLINE_LINK } from "utils/visual";
-
 interface IntroLink {
   text: string;
   href: string;
@@ -11,15 +9,10 @@ interface IntroLink {
 interface PortfolioIntroParagraphProps {
   text: string;
   links: readonly IntroLink[];
-  className?: string;
 }
 
 /** Renders a paragraph, linking the first occurrence of each phrase in `links`. */
-export const PortfolioIntroParagraph = ({
-  text,
-  links,
-  className,
-}: PortfolioIntroParagraphProps) => {
+export const PortfolioIntroParagraph = ({ text, links }: PortfolioIntroParagraphProps) => {
   const matches = links
     .map((link) => ({ ...link, index: text.indexOf(link.text) }))
     .filter((match) => match.index >= 0)
@@ -31,7 +24,7 @@ export const PortfolioIntroParagraph = ({
     if (match.index < cursor) continue;
     parts.push(text.slice(cursor, match.index));
     parts.push(
-      <Link key={`${match.href}-${match.index}`} href={match.href} className={INLINE_LINK}>
+      <Link key={`${match.href}-${match.index}`} href={match.href}>
         {match.text}
       </Link>
     );
@@ -39,5 +32,5 @@ export const PortfolioIntroParagraph = ({
   }
   parts.push(text.slice(cursor));
 
-  return <p className={className}>{parts}</p>;
+  return <p>{parts}</p>;
 };

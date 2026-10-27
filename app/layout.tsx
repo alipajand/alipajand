@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import {
   CANONICAL_URL,
@@ -16,7 +15,6 @@ import { Footer } from "components/Footer/Footer";
 import { FOOTER_LATEST_WRITINGS_COUNT } from "data/footer";
 import { getLatestPosts } from "utils/posts";
 import { Nav } from "components/Nav/Nav";
-import { SmoothScroll } from "components/SmoothScroll/SmoothScroll";
 import { SKIP_TO_CONTENT_LABEL } from "data/pageChrome";
 import { StructuredData } from "components/StructuredData/StructuredData";
 import { GatedGoogleAnalytics } from "components/Analytics/GatedGoogleAnalytics";
@@ -93,21 +91,14 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: "#000000",
-  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
   const latestWritings = getLatestPosts(FOOTER_LATEST_WRITINGS_COUNT);
 
   return (
-    <html lang="en" className="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en">
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.add("js")`,
-          }}
-        />
         <link
           rel="alternate"
           type="application/rss+xml"
@@ -121,9 +112,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           href={`${CANONICAL_URL}${LLMS_TXT_PATH}`}
         />
       </head>
-      <body
-        className={`${GeistSans.variable} ${GeistSans.className} antialiased bg-background text-foreground`}
-      >
+      <body>
         <GatedGoogleAnalytics />
         <GatedVercelAnalytics />
         <GatedVercelSpeedInsights />
@@ -131,12 +120,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <SkipLink href="#main-content" label={SKIP_TO_CONTENT_LABEL} />
 
         <StructuredData />
-        <SmoothScroll>
-          <RouteChangeFocus />
-          <Nav />
-          {children}
-          <Footer latestWritings={latestWritings} />
-        </SmoothScroll>
+        <RouteChangeFocus />
+        <Nav />
+        {children}
+        <Footer latestWritings={latestWritings} />
       </body>
     </html>
   );

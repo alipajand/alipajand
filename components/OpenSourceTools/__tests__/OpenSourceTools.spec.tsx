@@ -8,14 +8,6 @@ import {
   OPEN_SOURCE_TOOLS_HEADING,
 } from "data/openSourceTools";
 
-jest.mock("utils/hooks/useScrollReveal", () => ({
-  useScrollReveal: jest.fn(() => ({
-    selectors: {
-      sectionRef: { current: null },
-    },
-  })),
-}));
-
 describe("OpenSourceTools", () => {
   it("should show the latest four releases and omit older CLIs", () => {
     render(<OpenSourceTools />);

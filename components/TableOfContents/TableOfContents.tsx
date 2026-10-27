@@ -1,17 +1,14 @@
 "use client";
 
-import classNames from "classnames";
 import type { MouseEvent } from "react";
 import { useRef } from "react";
 
 import { useActiveHeading } from "components/TableOfContents/hooks/useActiveHeading";
 import { WRITING_TOC_ARIA_LABEL, WRITING_TOC_HEADING } from "data/writing";
 import type { PostHeading } from "utils/headings";
-import { FOCUS_RING, LABEL_OVERLINE } from "utils/visual";
 
 interface TableOfContentsProps {
   headings: PostHeading[];
-  className?: string;
   ariaLabel?: string;
 }
 
@@ -24,7 +21,7 @@ const TocLinks = ({
   activeId: string | null;
   onNavigate: (event: MouseEvent<HTMLAnchorElement>, id: string) => void;
 }) => (
-  <ol className="flex flex-col border-l border-border">
+  <ol>
     {headings.map((heading) => {
       const isActive = heading.id === activeId;
       return (
@@ -33,14 +30,6 @@ const TocLinks = ({
             href={`#${heading.id}`}
             aria-current={isActive ? "location" : undefined}
             onClick={(event) => onNavigate(event, heading.id)}
-            className={classNames(
-              "-ml-px block border-l py-1.5 pr-2 text-[13px] leading-snug transition-colors duration-200",
-              heading.level === 3 ? "pl-7" : "pl-4",
-              FOCUS_RING,
-              isActive
-                ? "border-[var(--organic-orange)] text-foreground"
-                : "border-transparent text-muted hover:border-foreground/40 hover:text-foreground"
-            )}
           >
             {heading.text}
           </a>
@@ -53,7 +42,6 @@ const TocLinks = ({
 /** Sticky outline for wide screens. */
 export const TableOfContents = ({
   headings,
-  className,
   ariaLabel = WRITING_TOC_ARIA_LABEL,
 }: TableOfContentsProps) => {
   const {
@@ -64,8 +52,8 @@ export const TableOfContents = ({
   if (headings.length < 2) return null;
 
   return (
-    <nav aria-label={ariaLabel} className={className}>
-      <p className={`${LABEL_OVERLINE} mb-3`}>{WRITING_TOC_HEADING}</p>
+    <nav aria-label={ariaLabel}>
+      <p>{WRITING_TOC_HEADING}</p>
       <TocLinks headings={headings} activeId={activeId} onNavigate={handleNavigate} />
     </nav>
   );
@@ -74,7 +62,6 @@ export const TableOfContents = ({
 /** Collapsible outline for narrow screens. */
 export const TableOfContentsDisclosure = ({
   headings,
-  className,
   ariaLabel = WRITING_TOC_ARIA_LABEL,
 }: TableOfContentsProps) => {
   const detailsRef = useRef<HTMLDetailsElement>(null);
@@ -86,23 +73,16 @@ export const TableOfContentsDisclosure = ({
   if (headings.length < 2) return null;
 
   return (
-    <nav aria-label={ariaLabel} className={className}>
-      <details ref={detailsRef} className="group rounded-xl border border-border/70 bg-card">
-        <summary
-          className={`flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-4 text-sm font-medium text-foreground [&::-webkit-details-marker]:hidden ${FOCUS_RING}`}
-        >
+    <nav aria-label={ariaLabel}>
+      <details ref={detailsRef}>
+        <summary>
           <span>
             {WRITING_TOC_HEADING}
-            <span className="ml-2 text-muted tabular-nums">{headings.length}</span>
+            <span>{headings.length}</span>
           </span>
-          <span
-            aria-hidden="true"
-            className="text-xs text-muted transition-transform duration-200 group-open:rotate-180 motion-reduce:transition-none"
-          >
-            ▾
-          </span>
+          <span aria-hidden="true">▾</span>
         </summary>
-        <div className="px-4 pb-4">
+        <div>
           <TocLinks
             headings={headings}
             activeId={activeId}
