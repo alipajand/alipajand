@@ -50,7 +50,30 @@
   outline-offset: -4px;
 }
 
+/* Case-study pager: index and next case side by side, with the larger kit title. */
+.pager {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pager[data-count="1"] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.pager .link {
+  gap: 14px;
+}
+
+.pager .title {
+  font-size: clamp(22px, 2.6vw, 40px);
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 760px) {
+  .pager {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .next {
     grid-template-columns: minmax(0, 1fr);
   }

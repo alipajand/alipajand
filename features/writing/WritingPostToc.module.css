@@ -1,0 +1,208 @@
+.toc {
+  min-width: 0;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.stick {
+  position: sticky;
+  top: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.eyebrow {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  color: var(--color-mute);
+}
+
+.list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.list a {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.list li:last-child a {
+  border-bottom: 0;
+}
+
+.index {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  padding-top: 2px;
+}
+
+.list a[aria-current] {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.list a:focus-visible {
+  outline-offset: -3px;
+}
+
+.list a[aria-current]:focus-visible {
+  outline-color: var(--color-ink);
+}
+
+.sub a {
+  padding-left: 24px;
+}
+
+.fold {
+  display: none;
+}
+
+/* ── Reader: muted entries with a reading-progress hairline each ── */
+.reader .stick {
+  max-height: 100vh;
+  overflow: auto;
+  padding: 22px 24px;
+}
+
+.reader .list a {
+  grid-template-columns: 30px minmax(0, 1fr);
+  line-height: 1.4;
+  color: var(--color-mute);
+}
+
+.reader .index {
+  font-size: 11px;
+}
+
+.reader .list a:hover {
+  color: var(--color-line);
+}
+
+.reader .list a[aria-current] {
+  color: var(--color-ink);
+}
+
+.reader .list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: var(--stroke-progress);
+  background: var(--color-line);
+  transform: scaleX(var(--p, 0));
+  transform-origin: left;
+}
+
+.reader .list a[aria-current]::after {
+  background: var(--color-ink);
+}
+
+/* ── Launch: plain entries; below 960px the list folds into a disclosure ── */
+.launch .stick {
+  padding: 26px 24px;
+}
+
+.launch .list a {
+  grid-template-columns: 26px minmax(0, 1fr);
+  line-height: 1.35;
+}
+
+.launch .index {
+  color: var(--color-mute);
+}
+
+.launch .list a:hover {
+  background: var(--color-ink-2);
+}
+
+.launch .list a[aria-current]:hover {
+  background: var(--color-line);
+}
+
+.launch .list a[aria-current] .index {
+  color: var(--color-mute-ink);
+}
+
+@media (max-width: 960px) {
+  .toc {
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .stick {
+    position: static;
+  }
+
+  .reader .stick {
+    max-height: none;
+  }
+
+  .launch .stick {
+    padding: 0;
+  }
+
+  .launch .stick > .eyebrow,
+  .launch .stick > .list {
+    display: none;
+  }
+
+  .launch .fold {
+    display: block;
+  }
+
+  .fold summary {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 24px;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .fold summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .fold summary::after {
+    content: "+" / "";
+  }
+
+  .fold[open] summary::after {
+    content: "−" / "";
+  }
+
+  .fold summary:focus-visible {
+    outline-offset: -3px;
+  }
+
+  .fold .list {
+    margin: 0 24px 18px;
+  }
+}
+
+@media (max-width: 760px) {
+  .reader .stick {
+    padding: 18px 16px;
+  }
+
+  .fold summary {
+    padding-inline: 16px;
+  }
+
+  .fold .list {
+    margin-inline: 16px;
+  }
+}

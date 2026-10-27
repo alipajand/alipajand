@@ -1,3 +1,7 @@
+import { CONTACT_MESSAGE_MAX_LENGTH, CONTACT_NAME_MAX_LENGTH } from "utils/contactFields";
+
+const formatCount = (value: number): string => new Intl.NumberFormat("en-US").format(value);
+
 export const CONTACT_FORM_REQUIRED_MARKER = "(required)";
 export const CONTACT_FORM_OPTIONAL_MARKER = "(optional)";
 
@@ -5,6 +9,7 @@ export const CONTACT_FIELD_NAME_LABEL = "Name";
 export const CONTACT_FIELD_NAME_HINT = "How you’d like to be addressed.";
 export const CONTACT_FIELD_NAME_PLACEHOLDER = "Jane Doe";
 export const CONTACT_VALIDATION_NAME_REQUIRED = "Enter your name";
+export const CONTACT_VALIDATION_NAME_TOO_LONG = `Keep your name to ${formatCount(CONTACT_NAME_MAX_LENGTH)} characters or fewer`;
 
 export const CONTACT_FIELD_EMAIL_LABEL = "Work email";
 export const CONTACT_FIELD_EMAIL_HINT = "I only use this to reply. No mailing lists.";
@@ -22,6 +27,14 @@ export const CONTACT_FIELD_MESSAGE_HINT =
 export const CONTACT_FIELD_MESSAGE_PLACEHOLDER =
   "e.g. Full-stack product role, remote within Canada, React and Node.js…";
 export const CONTACT_VALIDATION_MESSAGE_REQUIRED = "Add a short message";
+export const CONTACT_VALIDATION_MESSAGE_TOO_LONG = `Keep your message to ${formatCount(CONTACT_MESSAGE_MAX_LENGTH)} characters or fewer`;
+export const CONTACT_VALIDATION_MESSAGE_WITH_COMPANY_TOO_LONG = `Keep your message and company to ${formatCount(CONTACT_MESSAGE_MAX_LENGTH)} characters combined`;
+
+/** e.g. "1,234 / 10,000 characters", with "including company" once a company is entered. */
+export const contactMessageCountLabel = (length: number, includesCompany: boolean): string =>
+  `${formatCount(length)} / ${formatCount(CONTACT_MESSAGE_MAX_LENGTH)} characters${
+    includesCompany ? ", including company" : ""
+  }`;
 
 export const CONTACT_FORM_SUBMIT_IDLE = "Send message";
 export const CONTACT_FORM_SUBMIT_LOADING = "Sending…";
@@ -29,5 +42,7 @@ export const CONTACT_FORM_SUCCESS_MESSAGE = "Message sent. Thanks for reaching o
 
 export const CONTACT_FORM_ERROR_GENERIC = "Something went wrong. Please try again.";
 export const CONTACT_FORM_ERROR_NETWORK = "Failed to send. Please try again or email directly.";
+export const CONTACT_FORM_ERROR_RATE_LIMITED =
+  "Too many messages in a short time. Please wait a few minutes or email directly.";
 
 export const CONTACT_FORM_ERROR_SUMMARY_HEADING = "Please fix the following before sending:";

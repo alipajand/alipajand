@@ -1,0 +1,44 @@
+.mono {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+}
+
+/* Why it matters: a bone band with the quote beside its label. */
+.why {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+}
+
+.whySide {
+  padding: 28px 24px;
+  border-right: var(--stroke-hairline) solid var(--color-ink);
+}
+
+.whySide .mono {
+  color: var(--color-mute-ink);
+}
+
+.quote {
+  max-width: 34ch;
+  margin: 0;
+  padding: 28px 24px 34px;
+  font-size: clamp(24px, 2.8cqi, 44px);
+  font-weight: 500;
+  line-height: 1.14;
+  text-wrap: balance;
+}
+
+@media (max-width: 760px) {
+  .why {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .whySide {
+    padding: 22px 16px 0;
+    border-right: 0;
+  }
+
+  .quote {
+    padding: 16px 16px 26px;
+    font-size: 22px;
+  }
+}

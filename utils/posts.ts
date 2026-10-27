@@ -8,6 +8,14 @@ import { isPostPublished } from "utils/date";
 
 import { extractDiagramBlocks, type DiagramSpec } from "utils/diagramBlocks";
 import { addHeadingIds, type PostHeading } from "utils/headings";
+import { renderHighlightedCode } from "utils/highlightCode";
+
+// Fenced code is highlighted at build time; the article ships finished HTML and no highlighter.
+marked.use({
+  renderer: {
+    code: ({ text, lang }: { text: string; lang?: string }) => renderHighlightedCode(text, lang),
+  },
+});
 
 const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
 

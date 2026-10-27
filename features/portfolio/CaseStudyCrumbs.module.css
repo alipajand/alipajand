@@ -1,0 +1,43 @@
+.crumbs {
+  padding: 14px 24px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.crumbs ol {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-mute);
+}
+
+.crumbs li {
+  display: flex;
+  gap: 8px;
+}
+
+.crumbs a {
+  text-decoration: none;
+}
+
+.crumbs a:hover {
+  color: var(--color-line);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.crumbs [aria-current] {
+  color: var(--color-line);
+}
+
+@media (max-width: 760px) {
+  .crumbs {
+    padding-inline: 16px;
+  }
+}

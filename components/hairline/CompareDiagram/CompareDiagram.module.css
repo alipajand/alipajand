@@ -13,15 +13,18 @@
   border-right: 0;
 }
 
-.compare h4 {
-  composes: mono from "../styles/type.module.css";
+.compare h3 {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   margin: 0;
   padding: 12px 16px;
   font-weight: 500;
   border-bottom: var(--stroke-hairline) solid var(--tone-rule);
 }
 
-.chosen h4 {
+.chosen h3 {
   background: var(--color-line);
   color: var(--color-ink);
 }

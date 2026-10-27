@@ -1,0 +1,23 @@
+.body {
+  display: grid;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.reader {
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+}
+
+.launch {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+}
+
+/* A post without sections is all prose. */
+.body:not(:has(aside)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (max-width: 960px) {
+  .body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

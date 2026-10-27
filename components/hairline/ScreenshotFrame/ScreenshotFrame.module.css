@@ -62,6 +62,26 @@
   background: #151515;
 }
 
+/* Hides the empty browser strip some captures carry, keeping the image's own aspect below it. */
+.crop {
+  display: block;
+  overflow: hidden;
+  background: #151515;
+}
+
+.crop img {
+  margin-top: var(--trim, 0);
+}
+
+.provenance {
+  composes: mono from "../styles/type.module.css";
+  display: inline-block;
+  padding: 1px 6px;
+  border: var(--stroke-hairline) solid var(--tone-rule);
+  color: var(--color-line);
+  vertical-align: 1px;
+}
+
 .shot figcaption {
   max-width: 72ch;
   font-size: 15px;

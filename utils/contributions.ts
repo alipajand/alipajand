@@ -61,7 +61,7 @@ export interface CalendarCell {
   y: number;
   level: number;
   count: number;
-  /** "Oct 20, 2026 · 574 contributions", for the readout and the cell's title. */
+  /** "Oct 20, 2026 · 574 contributions", for the readout under the calendar. */
   label: string;
 }
 

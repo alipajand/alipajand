@@ -1,5 +1,7 @@
+/* Stacked above the page so oversized display type below it can never swallow header clicks. */
 .nav {
   position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
   margin-top: 16px;
@@ -44,6 +46,22 @@
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
+}
+
+/*
+ * On one row (wider than 520px) the words stay small but the tap area grows to 44px tall, inside
+ * the 56px (46px from 960px down) row, without moving a pixel.
+ */
+@media (min-width: 521px) {
+  .links a {
+    position: relative;
+  }
+
+  .links a::after {
+    content: "";
+    position: absolute;
+    inset: -15px 0;
+  }
 }
 
 .links a:hover {
