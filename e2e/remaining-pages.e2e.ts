@@ -199,6 +199,88 @@ test.describe("not-found focus", () => {
   }
 });
 
+/*
+ * The 404 code is set far larger than its line height, so its text box reaches up over the header.
+ * Every shared header link must still take a click there, with or without JavaScript.
+ */
+const MISSING_PATH = "/this-page-does-not-exist";
+
+const HEADER_LINKS = [
+  { name: "Ali Pajand", url: /\/$/ },
+  { name: "Portfolio", url: /\/portfolio$/ },
+  { name: "Open Source", url: /\/open-source$/ },
+  { name: "Writing", url: /\/writing$/ },
+  { name: "Principles", url: /\/engineering-principles$/ },
+  { name: "Contact", url: /\/#contact$/ },
+] as const;
+
+const headerLink = (page: Page, name: string) =>
+  page.getByRole("banner").getByRole("link", { name, exact: true });
+
+test.describe("not-found header navigation", () => {
+  for (const viewport of [
+    { width: 1440, height: 900 },
+    { width: 960, height: 900 },
+  ]) {
+    test.describe(`at ${viewport.width}px`, () => {
+      test.use({ viewport });
+
+      for (const { name, url } of HEADER_LINKS) {
+        test(`a click on ${name} leaves the 404`, async ({ page }) => {
+          await page.goto(MISSING_PATH);
+          await settle(page);
+          await headerLink(page, name).click();
+          await expect(page).toHaveURL(url);
+        });
+      }
+    });
+  }
+
+  test.describe("at 390px (emulated phone)", () => {
+    test.use({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+
+    test("a tap on the name leaves the 404", async ({ page }) => {
+      await page.goto(MISSING_PATH);
+      await settle(page);
+      await headerLink(page, "Ali Pajand").tap();
+      await expect(page).toHaveURL(/\/$/);
+    });
+
+    for (const { name, url } of HEADER_LINKS.slice(1)) {
+      test(`a tap on ${name} in the menu leaves the 404`, async ({ page }) => {
+        await page.goto(MISSING_PATH);
+        await settle(page);
+        await page.getByRole("button", { name: "Open menu" }).tap();
+        await page.locator("#site-menu").getByRole("link", { name }).tap();
+        await expect(page).toHaveURL(url);
+      });
+    }
+  });
+
+  test.describe("without JavaScript", () => {
+    test.use({ javaScriptEnabled: false, viewport: { width: 1440, height: 900 } });
+
+    for (const { name, url } of HEADER_LINKS) {
+      test(`a click on ${name} leaves the 404`, async ({ page }) => {
+        await page.goto(MISSING_PATH);
+        await headerLink(page, name).click();
+        await expect(page).toHaveURL(url);
+      });
+    }
+  });
+
+  test("Back from a header link returns to the 404", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(MISSING_PATH);
+    await settle(page);
+    await headerLink(page, "Portfolio").click();
+    await expect(page).toHaveURL(/\/portfolio$/);
+    await page.goBack();
+    await expect(page).toHaveURL(new RegExp(`${MISSING_PATH}$`));
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Page not found");
+  });
+});
+
 test.describe("open-source keyboard", () => {
   test("reaches the project index, install commands and copy buttons from the keyboard", async ({
     page,

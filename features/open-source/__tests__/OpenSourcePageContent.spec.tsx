@@ -6,7 +6,7 @@ import { OPEN_SOURCE_CONTRIBUTION_SNAPSHOT } from "data/openSourceActivity";
 import {
   OPEN_SOURCE_ACTIVITY_GRAPH_LABEL,
   OPEN_SOURCE_ACTIVITY_HEADING,
-  OPEN_SOURCE_ACTIVITY_TABLE_CAPTION,
+  OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE,
   OPEN_SOURCE_CTA_CONTACT_HREF,
   OPEN_SOURCE_CTA_CONTACT_LABEL,
   OPEN_SOURCE_CTA_PRIMARY_HREF,
@@ -186,12 +186,33 @@ describe("OpenSourcePageContent", () => {
     expect(graph.querySelectorAll("rect")).toHaveLength(
       OPEN_SOURCE_CONTRIBUTION_SNAPSHOT.counts.length
     );
-    const table = screen.getByRole("table", { name: OPEN_SOURCE_ACTIVITY_TABLE_CAPTION });
+    const table = screen.getByRole("table", {
+      name: "Contributions per month, Oct 26, 2025 to Oct 27, 2026",
+    });
+    // The visually-hidden box sits on a wrapper: a table grows past it to fit its content.
+    expect(table).not.toHaveAttribute("class");
+    expect(table.parentElement?.className).toMatch(/srOnly/);
+    expect(
+      within(table)
+        .getAllByRole("columnheader")
+        .map((th) => th.textContent)
+    ).toEqual(["Month", "Contributions"]);
+    expect(within(table).getByRole("rowheader", { name: "October 2026" })).toBeInTheDocument();
     const total = within(table)
       .getAllByRole("cell")
       .reduce((sum, cell) => sum + Number(cell.textContent?.replace(/,/g, "")), 0);
     expect(total).toBe(OPEN_SOURCE_CONTRIBUTION_SNAPSHOT.total);
     expect(screen.getByText("[ Snapshot · Oct 27, 2026 ]")).toBeInTheDocument();
+  });
+
+  it("should call the snapshot contributions and say it includes private ones", () => {
+    renderPage();
+
+    const section = screen.getByRole("region", { name: OPEN_SOURCE_ACTIVITY_HEADING });
+    expect(within(section).getByText(OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE)).toBeInTheDocument();
+    expect(OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE).toMatch(/private contributions/);
+    expect(OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE).not.toMatch(/when this page was built/);
+    expect(section.textContent).not.toMatch(/\bcommits?\b/i);
   });
 
   it("should name the day under the pointer in the readout", () => {
