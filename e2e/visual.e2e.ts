@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { PAGES, settle, VIEWPORTS, VISUAL } from "./support";
+import { PAGES, settle, VIEWPORTS, VISUAL_TAG } from "./support";
 
 /*
  * Full-page baselines at every required viewport. Reduced motion keeps scroll-driven islands at
@@ -12,7 +12,7 @@ for (const { name, path } of PAGES) {
   for (const viewport of VIEWPORTS) {
     test(
       `${name} matches its baseline at ${viewport.width}x${viewport.height}`,
-      VISUAL,
+      VISUAL_TAG,
       async ({ page }) => {
         await page.setViewportSize(viewport);
         await page.goto(path);
@@ -24,7 +24,7 @@ for (const { name, path } of PAGES) {
     );
   }
 
-  test(`${name} matches its no-JavaScript baseline`, VISUAL, async ({ browser }) => {
+  test(`${name} matches its no-JavaScript baseline`, VISUAL_TAG, async ({ browser }) => {
     const context = await browser.newContext({
       javaScriptEnabled: false,
       viewport: { width: 1440, height: 900 },

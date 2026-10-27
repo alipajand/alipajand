@@ -4,7 +4,7 @@ import type { Page } from "@playwright/test";
  * Marks screenshot comparisons. CI runs them only once Linux baselines are committed
  * (`--grep @visual`); every other check runs with `--grep-invert @visual`.
  */
-export const VISUAL = { tag: "@visual" } as const;
+export const VISUAL_TAG = { tag: "@visual" } as const;
 
 export const PAGES = [
   { name: "home", path: "/" },

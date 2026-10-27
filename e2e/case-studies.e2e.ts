@@ -1,6 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 
-import { horizontalOverflow, scrollThrough, settle, VIEWPORTS } from "./support";
+import { horizontalOverflow, scrollThrough, settle, VIEWPORTS, VISUAL_TAG } from "./support";
 
 /** Every dedicated case study, in portfolio order. */
 const CASE_STUDIES = [
@@ -219,18 +219,22 @@ for (const slug of CASE_STUDIES) {
     });
 
     for (const viewport of BASELINE_VIEWPORTS) {
-      test(`matches its baseline at ${viewport.width}x${viewport.height}`, async ({ browser }) => {
-        const context = await browser.newContext({ viewport, reducedMotion: "reduce" });
-        const page = await context.newPage();
-        await page.goto(path);
-        await settle(page);
-        await loadImages(page);
-        await settle(page);
-        await expect(page).toHaveScreenshot(`${slug}-${viewport.width}x${viewport.height}.png`, {
-          fullPage: true,
-        });
-        await context.close();
-      });
+      test(
+        `matches its baseline at ${viewport.width}x${viewport.height}`,
+        VISUAL_TAG,
+        async ({ browser }) => {
+          const context = await browser.newContext({ viewport, reducedMotion: "reduce" });
+          const page = await context.newPage();
+          await page.goto(path);
+          await settle(page);
+          await loadImages(page);
+          await settle(page);
+          await expect(page).toHaveScreenshot(`${slug}-${viewport.width}x${viewport.height}.png`, {
+            fullPage: true,
+          });
+          await context.close();
+        }
+      );
     }
   });
 }
