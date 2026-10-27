@@ -1,5 +1,7 @@
+/* Stacked above the page so oversized display type below it can never swallow header clicks. */
 .nav {
   position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
   margin-top: 16px;

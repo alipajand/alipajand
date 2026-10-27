@@ -181,6 +181,22 @@ test.describe("not-found focus", () => {
       page.getByRole("navigation", { name: "Ways back" }).getByRole("link").first()
     ).toBeFocused();
   });
+
+  // The 404 numerals' text box reaches up into the header row on wide screens.
+  for (const width of [1280, 1920]) {
+    test(`header links take a pointer click above the numerals at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto("/this-page-does-not-exist");
+      await settle(page);
+      const link = page
+        .getByRole("navigation", { name: "Primary" })
+        .first()
+        .getByRole("link", { name: "Writing" });
+      const box = (await link.boundingBox())!;
+      await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+      await expect(page).toHaveURL(/\/writing$/);
+    });
+  }
 });
 
 test.describe("open-source keyboard", () => {
