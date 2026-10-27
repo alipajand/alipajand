@@ -10,7 +10,7 @@ import { settle } from "./support";
 
 const PAUSE = "Pause automatic motion";
 const RESUME = "Resume automatic motion";
-const REDUCED = "Automatic motion off (system setting)";
+const REDUCED = "Automatic motion off";
 
 /** Every route with a motion island, including the idle loops on open-source, principles and now. */
 const ROUTES = [
@@ -21,6 +21,7 @@ const ROUTES = [
   "/now",
   "/this-page-does-not-exist",
 ] as const;
+const NOT_FOUND = "/this-page-does-not-exist";
 
 interface MotionProbe {
   requested: number;
@@ -306,9 +307,9 @@ test.describe("automatic motion loop", () => {
     await expect(footerControl(page)).toHaveAccessibleName(RESUME);
     const progress = () =>
       page.evaluate(() => {
-        const line = Array.from(document.querySelectorAll<HTMLElement>("header [aria-hidden]")).find(
-          (element) => element.style.getPropertyValue("--p") !== ""
-        );
+        const line = Array.from(
+          document.querySelectorAll<HTMLElement>("header [aria-hidden]")
+        ).find((element) => element.style.getPropertyValue("--p") !== "");
         return Number(line?.style.getPropertyValue("--p") ?? 0);
       });
     expect(await progress()).toBe(0);
@@ -326,7 +327,9 @@ test.describe("automatic motion loop", () => {
     await page.goto("/now");
     await settle(page);
     const trackTransform = () =>
-      page.locator(`${NOW_TICKER} > div`).evaluate((track) => (track as HTMLElement).style.transform);
+      page
+        .locator(`${NOW_TICKER} > div`)
+        .evaluate((track) => (track as HTMLElement).style.transform);
     await page
       .locator(NOW_TICKER)
       .evaluate((element) => element.scrollIntoView({ block: "center" }));
@@ -341,7 +344,8 @@ test.describe("automatic motion loop", () => {
     await page.waitForTimeout(800);
     expect(await trackTransform()).toBe(still);
 
-    await page.mouse.wheel(0, 300);
+    // The ticker sits near the end of the page, so scroll up to move it.
+    await page.mouse.wheel(0, -300);
     await page.waitForTimeout(300);
     expect(await trackTransform()).not.toBe(still);
   });
@@ -391,7 +395,7 @@ test.describe("navigation lifecycle", () => {
     await expect(footerControl(page)).toHaveAccessibleName(PAUSE);
   });
 
-  for (const path of ROUTES) {
+  for (const path of ROUTES.filter((route) => route !== NOT_FOUND)) {
     test(`${path}: client navigation away and back restores the same listener and observer counts`, async ({
       page,
     }) => {
@@ -417,4 +421,23 @@ test.describe("navigation lifecycle", () => {
       }
     });
   }
+
+  test("leaving the 404 client-side tears its islands down", async ({ page }) => {
+    await page.goto("/");
+    await settle(page);
+    await page.waitForTimeout(500);
+    const home = await snapshot(page);
+
+    await page.goto(NOT_FOUND);
+    await settle(page);
+    // Header links on the 404 do not navigate client-side (a separate, pre-existing issue), so
+    // leave through the page's own "Home" link.
+    await page.locator("main a[href='/']").first().click();
+    await page.waitForURL((url) => url.pathname === "/");
+    await settle(page);
+    await page.waitForTimeout(500);
+    expect(await snapshot(page)).toEqual(home);
+    await page.waitForTimeout(1000);
+    expect((await framesDuring(page, 1000)).requested).toBe(0);
+  });
 });
