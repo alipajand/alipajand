@@ -8,6 +8,12 @@ import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
 import { useOpenSourcePageContent } from "features/open-source/hooks/useOpenSourcePageContent";
 import { openSourceBreadcrumbs } from "data/breadcrumbs";
 import {
+  OPEN_SOURCE_ACTIVITY_HEADING,
+  OPEN_SOURCE_ACTIVITY_IMAGE_ALT,
+  OPEN_SOURCE_ACTIVITY_IMAGE_SRC,
+  OPEN_SOURCE_ACTIVITY_LEDE,
+  OPEN_SOURCE_ACTIVITY_PROFILE_HREF,
+  OPEN_SOURCE_ACTIVITY_PROFILE_LABEL,
   OPEN_SOURCE_ARTICLES_LABEL,
   OPEN_SOURCE_CONTRIBUTION_LABEL,
   OPEN_SOURCE_CTA_BODY,
@@ -234,6 +240,42 @@ export const OpenSourcePageContent = () => {
                 <ProjectCardBadge key={badge}>{badge}</ProjectCardBadge>
               ))}
             </ul>
+          </div>
+        </section>
+
+        <section aria-labelledby="open-source-activity-heading" className={SECTION_BLOCK}>
+          <div className={SECTION_INNER}>
+            <header className="mb-8 sm:mb-10" data-reveal>
+              <h2 id="open-source-activity-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
+                {OPEN_SOURCE_ACTIVITY_HEADING}
+              </h2>
+              <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_ACTIVITY_LEDE}</p>
+            </header>
+
+            <div data-reveal className="space-y-4">
+              {/* The card's content sits in the top band of a 1200×630 image; crop the empty rest. */}
+              <div className="aspect-[1200/252] overflow-hidden rounded-xl border border-border bg-[#0a0a0c]">
+                {/* eslint-disable-next-line @next/next/no-img-element -- live external card, not worth proxying */}
+                <img
+                  src={OPEN_SOURCE_ACTIVITY_IMAGE_SRC}
+                  alt={OPEN_SOURCE_ACTIVITY_IMAGE_ALT}
+                  width={1200}
+                  height={630}
+                  loading="lazy"
+                  decoding="async"
+                  className="block h-full w-full object-cover object-top"
+                />
+              </div>
+              <Link
+                href={OPEN_SOURCE_ACTIVITY_PROFILE_HREF}
+                className={`inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 decoration-foreground/40 hover:decoration-foreground rounded-sm ${FOCUS_RING}`}
+              >
+                <span>{OPEN_SOURCE_ACTIVITY_PROFILE_LABEL}</span>
+                <span aria-hidden className="text-muted">
+                  ↗
+                </span>
+              </Link>
+            </div>
           </div>
         </section>
 
