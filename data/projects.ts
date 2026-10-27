@@ -9,6 +9,14 @@ export interface ProjectFigure {
   captionLead: string;
   captionBody: string;
   disclosureLabel?: string;
+  /** Host printed in the screenshot frame. Defaults to the project's first live link. */
+  host?: string;
+  /** Short note on where the pixels come from, such as "Sample data", shown with the caption. */
+  provenance?: string;
+  /** Rows of empty browser chrome at the top of the source image, hidden inside the frame. */
+  trimTop?: number;
+  /** `side` sets the caption in a column beside the screenshot on wide screens. */
+  layout?: "stacked" | "side";
 }
 
 export interface ProjectDecision {
@@ -194,6 +202,7 @@ export const PROJECTS: Project[] = [
           src: "/portfolio-media/ledgerguard-landing.png",
           width: 3456,
           height: 2234,
+          trimTop: 67,
           alt: "LedgerGuard landing page introducing AI-assisted contract intelligence for renewals and commitments.",
           captionLead: "Landing page.",
           captionBody:
@@ -202,8 +211,10 @@ export const PROJECTS: Project[] = [
         {
           type: "image",
           src: "/portfolio-media/ledgerguard-login.png",
+          layout: "side",
           width: 3456,
           height: 2234,
+          trimTop: 67,
           alt: "LedgerGuard sign-in screen for tenant-aware contract workflows.",
           captionLead: "Authentication.",
           captionBody:
@@ -211,10 +222,11 @@ export const PROJECTS: Project[] = [
         },
         {
           type: "image",
-          src: "/portfolio-media/ledgerguard-dashboard.png",
+          src: "/portfolio-media/ledgerguard-dashboard-redacted.png",
           width: 3456,
           height: 2234,
-          alt: "LedgerGuard dashboard showing contract status, renewal visibility, and review workflows.",
+          trimTop: 67,
+          alt: "LedgerGuard Contracts list with portfolio filters, a priority breakdown, and contracts showing notice deadlines, renewal dates, committed values, and decision status.",
           captionLead: "Dashboard.",
           captionBody:
             "The dashboard keeps review state, contract visibility, and renewal workflows legible without treating extraction output as final by default.",
@@ -425,9 +437,11 @@ export const PROJECTS: Project[] = [
         {
           type: "image",
           src: "/portfolio-media/tallyfolio-dashboard.png",
-          width: 3454,
-          height: 1982,
-          alt: "TallyFolio dashboard showing manual-first finance summaries, recent activity, and navigation into budgets, reports, and import workflows.",
+          width: 3456,
+          height: 2234,
+          trimTop: 66,
+          provenance: "Sample data",
+          alt: "TallyFolio dashboard showing monthly income, spending, and net cash flow, a 12-month cash-flow chart, spending by category, and bills and subscriptions, with navigation into reports, budgets, forecast, and import.",
           captionLead: "Dashboard.",
           captionBody:
             "The authenticated home surface orients everyday personal finance work around deterministic totals and clear paths into import review, budgets, and reporting.",
@@ -624,6 +638,7 @@ export const PROJECTS: Project[] = [
           src: "/portfolio-media/alwaysgeeky-marketplace.png",
           width: 3456,
           height: 2234,
+          trimTop: 67,
           alt: "AlwaysGeeky Games marketplace interface using shared design-system components.",
           captionLead: "Marketplace.",
           captionBody:
@@ -632,8 +647,11 @@ export const PROJECTS: Project[] = [
         {
           type: "image",
           src: "/portfolio-media/alwaysgeeky-login.png",
+          host: "login.voxies.io",
+          layout: "side",
           width: 3456,
           height: 2234,
+          trimTop: 67,
           alt: "AlwaysGeeky Games login flow using shared form and recovery patterns.",
           captionLead: "Authentication.",
           captionBody:
@@ -1300,6 +1318,7 @@ export const PROJECTS: Project[] = [
           src: "/portfolio-media/mapbylaw-landing.png",
           width: 3456,
           height: 2234,
+          trimTop: 67,
           alt: "MapBylaw landing page introducing a zoning and bylaw exploration product experiment.",
           captionLead: "Landing page.",
           captionBody:
@@ -1307,13 +1326,13 @@ export const PROJECTS: Project[] = [
         },
         {
           type: "image",
-          src: "/portfolio-media/mapbylaw-dashboard.png",
+          src: "/portfolio-media/mapbylaw-dashboard-redacted.png",
           width: 3452,
           height: 1980,
-          alt: "MapBylaw dashboard showing map context, property details, and filtered zoning information.",
+          alt: "MapBylaw signed-in dashboard showing purchased-report totals, a Montreal zoning alerts panel for following a borough, and report cards with development signal scores.",
           captionLead: "Dashboard.",
           captionBody:
-            "The workflow emphasizes map context, filtering, and progressive disclosure to make dense information easier to follow.",
+            "The signed-in overview summarizes purchased reports, lets the user follow a borough for zoning alerts, and lists each report with its development signal score and download.",
         },
       ],
       outcome: [

@@ -1,6 +1,10 @@
 /** @jest-environment node */
 
-import { generateStaticParams } from "../[slug]/page";
+import { renderToStaticMarkup } from "react-dom/server";
+
+import { generateMetadata, generateStaticParams } from "../[slug]/page";
+import { ProjectCaseStudyJsonLd } from "components/ProjectCaseStudyJsonLd/ProjectCaseStudyJsonLd";
+import { PORTFOLIO_CASE_STUDY_ORDER } from "data/projects";
 import { CANONICAL_URL } from "data/site";
 import { getDedicatedCaseStudySlugs, getProjectBySlug } from "utils/projects";
 import { buildPortfolioCaseStudyMetadata } from "utils/metadata";
@@ -45,5 +49,50 @@ describe("portfolio case-study routes", () => {
     for (const slug of getDedicatedCaseStudySlugs()) {
       expect(`${CANONICAL_URL}/portfolio/${slug}`).toContain(`/portfolio/${slug}`);
     }
+  });
+});
+
+describe.each(PORTFOLIO_CASE_STUDY_ORDER.map((slug) => [slug]))(
+  "/portfolio/%s metadata",
+  (slug) => {
+    const project = getProjectBySlug(slug)!;
+    const url = `${CANONICAL_URL}/portfolio/${slug}`;
+
+    it("sets the title, description, canonical URL and Open Graph article", async () => {
+      const metadata = await generateMetadata({ params: Promise.resolve({ slug }) });
+      expect(metadata.title).toEqual({ absolute: project.caseStudyMetaTitle });
+      expect(metadata.title).toEqual({ absolute: expect.stringContaining(project.name) });
+      expect(metadata.description).toBe(project.caseStudyMetaDescription);
+      expect(metadata.alternates?.canonical).toBe(url);
+      expect(metadata.openGraph).toEqual(
+        expect.objectContaining({
+          type: "article",
+          url,
+          title: project.caseStudyMetaTitle,
+          description: project.caseStudyMetaDescription,
+        })
+      );
+    });
+
+    it("describes the case study as a schema.org Article", () => {
+      const markup = renderToStaticMarkup(<ProjectCaseStudyJsonLd project={project} />);
+      expect(markup.startsWith('<script type="application/ld+json">')).toBe(true);
+      const schema = JSON.parse(markup.slice(markup.indexOf(">") + 1, markup.lastIndexOf("<")));
+      expect(schema).toEqual(
+        expect.objectContaining({
+          "@type": "Article",
+          headline: project.caseStudyTitle,
+          description: project.caseStudyMetaDescription,
+          url,
+          mainEntityOfPage: { "@type": "WebPage", "@id": url },
+        })
+      );
+    });
+  }
+);
+
+it("returns not-found metadata for an unknown slug", async () => {
+  expect(await generateMetadata({ params: Promise.resolve({ slug: "nope" }) })).toEqual({
+    title: "Not found",
   });
 });
