@@ -16,6 +16,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: CI,
   retries: CI ? 1 : 0,
+  // GitHub's Linux runners have 4 vCPUs; the default (half of them) left the job at 12 minutes.
+  workers: CI ? 4 : undefined,
   // CI never writes a baseline on its own; new ones come from the update-visual-baselines run.
   updateSnapshots: CI ? "none" : "missing",
   reporter: CI ? [["list"], ["github"], ["html", { open: "never" }]] : [["list"]],
