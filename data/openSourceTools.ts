@@ -16,8 +16,6 @@ export const OPEN_SOURCE_TOOLS_CTA_HREF = "/open-source";
 
 export const OPEN_SOURCE_TOOL_REPOSITORY_LINK_LABEL = "Repository";
 
-export const OPEN_SOURCE_TOOL_PAGE_LINK_LABEL = "Open source page";
-
 export const openSourceToolRepositoryAriaLabel = (toolName: string): string =>
   `Open ${toolName} repository on GitHub`;
 
