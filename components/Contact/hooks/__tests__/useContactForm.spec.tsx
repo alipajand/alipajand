@@ -236,6 +236,35 @@ describe("useContactForm", () => {
       expect(result.current.selectors.errorMessage).toBe("Something went wrong. Please try again.");
     });
 
+    it("should show the rate-limit message when the firewall answers 429", async () => {
+      jest.mocked(fetch).mockResolvedValueOnce({
+        ok: false,
+        status: 429,
+        json: async () => {
+          throw new SyntaxError("Unexpected token <");
+        },
+      } as unknown as Response);
+
+      const { result } = renderHook(() => useContactForm());
+
+      const handleSubmit = result.current.actions.handleSubmit;
+      await act(async () => {
+        await handleSubmit({
+          name: "Test User",
+          email: "test@example.com",
+          message: "Test message",
+        } as unknown as React.BaseSyntheticEvent);
+      });
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 0));
+      });
+
+      expect(result.current.selectors.status).toBe("error");
+      expect(result.current.selectors.errorMessage).toBe(
+        "Too many messages in a short time. Please wait a few minutes or email directly."
+      );
+    });
+
     it("should handle fetch errors", async () => {
       jest.mocked(fetch).mockRejectedValueOnce(new Error("Network error"));
 
