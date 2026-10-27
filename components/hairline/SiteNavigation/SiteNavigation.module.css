@@ -98,8 +98,18 @@
   margin-right: 9px;
   border-radius: 50%;
   background: var(--color-line);
-  /* Two blinks, under five seconds, then it rests (WCAG 2.2.2). */
-  animation: blink 2.4s ease-in-out 2;
+  animation: blink 2.4s ease-in-out infinite;
+}
+
+/* The blink is idle motion: the footer's pause control and reduced motion both stop it. */
+:global(:root[data-motion-paused]) .dot {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none;
+  }
 }
 
 @keyframes blink {

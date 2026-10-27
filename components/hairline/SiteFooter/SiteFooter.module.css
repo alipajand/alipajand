@@ -1,7 +1,7 @@
 .foot {
   composes: mono from "../styles/type.module.css";
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr)) auto minmax(0, 1fr);
   margin-bottom: 16px;
   border-bottom: var(--stroke-hairline) solid var(--color-rule);
 }

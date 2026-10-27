@@ -1,6 +1,7 @@
 import { act, render } from "@testing-library/react";
 import { useRef } from "react";
 
+import { resetMotionPreferenceForTests, setMotionPaused } from "utils/motion/motionPreference";
 import { getScrollSubscriberCount } from "utils/motion/scrollScheduler";
 import {
   installManualFrames,
@@ -26,6 +27,8 @@ let media: MediaControl;
 let frames: ReturnType<typeof installManualFrames>;
 
 beforeEach(() => {
+  window.localStorage.clear();
+  resetMotionPreferenceForTests();
   media = installMatchMedia(false);
   installObservers();
   frames = installManualFrames();
@@ -124,5 +127,51 @@ describe("useMotion", () => {
     rerender(<Island setup={setup} options={{ resetKey: "/portfolio" }} />);
     expect(destroy).toHaveBeenCalledTimes(1);
     expect(setup).toHaveBeenCalledTimes(2);
+  });
+
+  it("should run onFrame every frame while active and go idle once it unmounts", () => {
+    const onFrame = jest.fn();
+    const { unmount } = render(
+      <Island setup={({ idleMotion }) => (idleMotion ? { onFrame } : undefined)} />
+    );
+    for (let index = 0; index < 3; index += 1) {
+      act(() => {
+        frames.flush();
+      });
+    }
+    expect(onFrame).toHaveBeenCalledTimes(3);
+    expect(frames.pending()).toBe(1);
+    expect(onFrame.mock.calls[2][0]).toEqual(
+      expect.objectContaining({ step: expect.any(Number), time: expect.any(Number) })
+    );
+
+    unmount();
+    act(() => {
+      frames.flush();
+    });
+    expect(frames.pending()).toBe(0);
+  });
+
+  it("should turn idle motion off when the visitor pauses motion", () => {
+    const setup = jest.fn(() => ({}));
+    render(<Island setup={setup} />);
+    expect(setup).toHaveBeenLastCalledWith(expect.objectContaining({ idleMotion: true }));
+
+    act(() => setMotionPaused(true));
+    expect(setup).toHaveBeenLastCalledWith(expect.objectContaining({ idleMotion: false }));
+    expect(document.documentElement).toHaveAttribute("data-motion-paused");
+    expect(window.localStorage.getItem("motion-paused")).toBe("1");
+
+    act(() => setMotionPaused(false));
+    expect(document.documentElement).not.toHaveAttribute("data-motion-paused");
+  });
+
+  it("should report idle motion as off under reduced motion", () => {
+    installMatchMedia(true);
+    const setup = jest.fn(() => ({}));
+    render(<Island setup={setup} />);
+    expect(setup).toHaveBeenLastCalledWith(
+      expect.objectContaining({ reducedMotion: true, idleMotion: false })
+    );
   });
 });
