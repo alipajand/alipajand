@@ -240,9 +240,9 @@ describe("useContactForm", () => {
       jest.mocked(fetch).mockResolvedValueOnce({
         ok: false,
         status: 429,
-        json: async () => {
-          throw new SyntaxError("Unexpected token <");
-        },
+        json: async () => ({
+          error: { code: "429", message: "Too Many Requests", id: "yul1::abc" },
+        }),
       } as unknown as Response);
 
       const { result } = renderHook(() => useContactForm());
