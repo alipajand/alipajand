@@ -54,6 +54,22 @@ export const NOW_SECTIONS: NowSection[] = [
   },
 ];
 
+/**
+ * The date this page's content was last revised (`YYYY-MM-DD`), set by hand whenever `NOW_LEDE` or
+ * `NOW_SECTIONS` changes. It drives the "Now <year>" title, the visible "Updated" line, the page's
+ * `dateModified` and its sitemap `lastmod`. Nothing updates it automatically, and a deploy alone
+ * does not change it.
+ *
+ * 2026-05-08 is the last commit that changed the section text (ef48e66). Later commits only
+ * reformatted the lede (a66f466) or added display labels (c0f783a).
+ */
+export const NOW_UPDATED = "2026-05-08";
+
+/** The year in the display title, taken from `NOW_UPDATED` rather than the build clock. */
+export const NOW_YEAR = Number(NOW_UPDATED.slice(0, 4));
+
+export const NOW_UPDATED_PREFIX = "Updated";
+
 /** The section shown as the stack band instead of a numbered cell. */
 export const NOW_STACK_SECTION_ID = "current-stack";
 
