@@ -1,0 +1,109 @@
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.meta {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 26px 24px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.meta dl {
+  display: grid;
+  margin: 0;
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.meta dl > div {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.meta dl > div:last-child {
+  border-bottom: 0;
+}
+
+.meta dt {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+.meta dd {
+  margin: 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  border: var(--stroke-hairline) solid var(--tone-rule);
+  border-radius: var(--radius-pill);
+}
+
+.titleCell {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  padding: 26px 24px 30px;
+  /* The cell is the title's measuring box; its own font size is the title's largest size. */
+  container-type: inline-size;
+  font-size: clamp(32px, 5.2cqi, 76px);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  /* Shrinks only when the longest word (--fit-em, set from the text) would not fit the cell. */
+  font-size: min(1em, calc(100cqi / var(--fit-em, 1)));
+  font-weight: 800;
+  font-stretch: 112%;
+  line-height: 0.92;
+  text-transform: uppercase;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.lede {
+  max-width: 60ch;
+  margin: 0;
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.5;
+  color: var(--color-mute);
+}
+
+@media (max-width: 760px) {
+  .head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .meta {
+    order: 2;
+    padding: 20px 16px;
+    border-right: 0;
+  }
+
+  .titleCell {
+    padding: 22px 16px 24px;
+    font-size: 8.4cqi;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+}

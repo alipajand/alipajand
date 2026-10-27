@@ -1,0 +1,60 @@
+.crumbs {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  padding: 14px 24px;
+  color: var(--color-mute);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.crumbs ol {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crumbs li {
+  flex: none;
+}
+
+.crumbs a {
+  text-decoration: none;
+}
+
+.crumbs a:hover {
+  color: var(--color-line);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.current {
+  flex: 0 1 auto !important;
+  min-width: 0;
+  max-width: 46ch;
+  overflow: hidden;
+  color: var(--color-line);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.current span {
+  display: inline;
+}
+
+/* The launch layout lets the current title take its own line instead of truncating early. */
+.wrap ol {
+  flex-wrap: wrap;
+}
+
+.wrap .current {
+  flex: 1 1 200px !important;
+  max-width: 100%;
+}
+
+@media (max-width: 760px) {
+  .crumbs {
+    padding-inline: 16px;
+  }
+}
