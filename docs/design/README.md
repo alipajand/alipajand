@@ -42,7 +42,7 @@ The kit in `kit/` turns the site's data into the pages:
 - `build.mjs` reads `data/*.ts` and `content/posts`.
 - `base.css`, `base.js`, `chrome.html`, `diagrams.css` and `diagrams.js` are shared by every page.
 - Each `<page>.src.html` file is one page template, and `static/` holds the hand-built home, portfolio and open-source pages.
-- `img/` holds screenshots, resized and with the capture bar cropped off.
+- `img/` holds the case study screenshots, 1728px wide.
 
 Build with Node 24 from the repository root:
 
@@ -60,4 +60,4 @@ This writes `pages/*.html` and `system/project/components/bundle.css`.
 
 - Text comes from the site's data unchanged.
 - Lines with 80% or 90% coverage figures are left out: the LedgerGuard testing outcome, and the Emplifi outcome item and flow-step detail.
-- The LedgerGuard dashboard screenshot shows the account email, as it does on the live site.
+- The LedgerGuard landing and dashboard screenshots come from the current LedgerGuard design pages in dark mode, not from `public/portfolio-media`. They use the site's captions unchanged. The sign-in screenshot is still the site's own.

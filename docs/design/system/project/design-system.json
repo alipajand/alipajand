@@ -59,8 +59,8 @@
       "files": {
         "ledgerguard-dashboard.jpg": {
           "name": "ledgerguard-dashboard.jpg",
-          "blob": "ef94aeec91922057c49dca1484a77050",
-          "size": 119191,
+          "blob": "c923e037fdb6db4a877fd5b0d125602e",
+          "size": 176794,
           "type": "image/jpeg"
         }
       }
@@ -73,8 +73,8 @@
   },
   "lastChange": {
     "by": "Ali Pajand",
-    "at": "2026-10-27T17:50:00Z",
+    "at": "2026-10-27T18:40:00Z",
     "via": "docs/design/kit",
-    "note": "First version, built from the page kit at main@6f43749."
+    "note": "LedgerGuard dashboard screenshot replaced with the dark-mode dashboard design."
   }
 }
