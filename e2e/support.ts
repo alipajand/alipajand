@@ -40,7 +40,29 @@ export const scrollThrough = async (page: Page): Promise<void> => {
     await page.mouse.wheel(0, step);
     await page.waitForTimeout(60);
   }
-  await page.evaluate(() => window.scrollTo(0, 0));
+  // Chromium animates wheel scrolling, and the tail of that animation can land after a jump to the
+  // top: pages ended 10–90px down with the header's scroll-progress line partly drawn. Jump again
+  // until the page rests at the top.
+  await page.evaluate(async () => {
+    const rest = async () => {
+      let last = Number.NaN;
+      while (last !== window.scrollY) {
+        last = window.scrollY;
+        await new Promise((resolve) => setTimeout(resolve, 150));
+      }
+    };
+    for (let attempt = 0; attempt < 10; attempt += 1) {
+      await rest();
+      if (window.scrollY === 0) return;
+      window.scrollTo(0, 0);
+    }
+  });
+  await page.waitForFunction(() => {
+    const progress = document.querySelector<HTMLElement>('header [style*="--p"]');
+    return (
+      window.scrollY === 0 && (!progress || Number(progress.style.getPropertyValue("--p")) === 0)
+    );
+  });
   await page.waitForTimeout(200);
 };
 
