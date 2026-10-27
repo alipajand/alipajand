@@ -177,7 +177,10 @@ describe("ContactForm limits shared with the API", () => {
   const company = () => screen.getByLabelText(/company/i);
   const count = () => document.getElementById("contact-message-count")!;
   const okResponse = () =>
-    (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({}) });
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({}),
+    });
 
   const expectBlocked = async (message: string) => {
     submit();

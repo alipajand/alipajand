@@ -9,8 +9,11 @@ import {
   useWatch,
 } from "react-hook-form";
 
-import { CONTACT_FORM_ERROR_GENERIC, CONTACT_FORM_ERROR_NETWORK } from "data/contactForm";
-import { trackGtagEvent } from "utils/analytics";
+import {
+  CONTACT_FORM_ERROR_GENERIC,
+  CONTACT_FORM_ERROR_NETWORK,
+  CONTACT_FORM_ERROR_RATE_LIMITED,
+} from "data/contactForm";
 import { composeContactMessage, contactMessageLength } from "utils/contactFields";
 
 export type ContactFormStatus = "idle" | "loading" | "success" | "error";
@@ -98,21 +101,23 @@ export const useContactForm = (): ContactFormHook => {
       const body = await res.json().catch(() => ({}));
       if (!res.ok) {
         setStatus("error");
-        // The form applies the server's rules first, so a 400 means the two have drifted or the
+        // 429 comes from the Vercel Firewall rule on this route, not from the handler. The form
+        // applies the server's field rules first, so a 400 means the two have drifted or the
         // request was altered; the server's wording is not shown.
         setErrorMessage(
-          res.status === 400 ? CONTACT_FORM_ERROR_GENERIC : (body.error ?? CONTACT_FORM_ERROR_GENERIC)
+          res.status === 429
+            ? CONTACT_FORM_ERROR_RATE_LIMITED
+            : res.status === 400
+              ? CONTACT_FORM_ERROR_GENERIC
+              : (body.error ?? CONTACT_FORM_ERROR_GENERIC)
         );
-        trackGtagEvent("contact_form_submit", { outcome: "error" });
         return;
       }
       setStatus("success");
-      trackGtagEvent("contact_form_submit", { outcome: "success" });
       form.reset(DEFAULT_VALUES);
     } catch {
       setStatus("error");
       setErrorMessage(CONTACT_FORM_ERROR_NETWORK);
-      trackGtagEvent("contact_form_submit", { outcome: "network_error" });
     }
   };
   return {

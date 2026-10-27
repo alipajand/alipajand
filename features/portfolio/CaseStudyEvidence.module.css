@@ -1,0 +1,21 @@
+/* The row itself is flush; each screenshot carries the section's row padding and rule. */
+div.evidence {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0;
+}
+
+.evidence > figure {
+  padding: 26px 24px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.evidence > figure:last-child {
+  border-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  .evidence > figure {
+    padding: 20px 16px;
+  }
+}

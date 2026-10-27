@@ -1,62 +1,24 @@
-import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import { NextLinks } from "components/hairline/NextLinks/NextLinks";
+import { Ticker } from "components/hairline/Ticker/Ticker";
+import { EngineeringPrinciplesDisplay } from "features/engineering-principles/EngineeringPrinciplesDisplay";
+import { EngineeringPrinciplesHero } from "features/engineering-principles/EngineeringPrinciplesHero";
+import { EngineeringPrinciplesList } from "features/engineering-principles/EngineeringPrinciplesList";
+import { EngineeringPrinciplesReview } from "features/engineering-principles/EngineeringPrinciplesReview";
 import {
-  TableOfContents,
-  TableOfContentsDisclosure,
-} from "components/TableOfContents/TableOfContents";
-import { EngineeringPrinciplesSectionBlock } from "features/engineering-principles/EngineeringPrinciplesSectionBlock";
-import { engineeringPrinciplesBreadcrumbs } from "data/breadcrumbs";
-import {
-  ENGINEERING_PRINCIPLES_HEADER_OVERLINE,
-  ENGINEERING_PRINCIPLES_LEDE,
-  ENGINEERING_PRINCIPLES_PAGE_TITLE,
+  ENGINEERING_PRINCIPLES_DISPLAY_LINES,
   ENGINEERING_PRINCIPLES_SECTIONS,
-  ENGINEERING_PRINCIPLES_TOC_ARIA_LABEL,
 } from "data/engineeringPrinciples";
-import type { PostHeading } from "utils/headings";
+import { PAGE_NEXT_LINKS, PAGE_NEXT_LINKS_ARIA_LABEL } from "data/pageChrome";
 
-const PRINCIPLE_HEADINGS: PostHeading[] = ENGINEERING_PRINCIPLES_SECTIONS.map((section) => ({
-  id: section.id,
-  text: section.title,
-  level: 2,
-}));
+const TITLES = ENGINEERING_PRINCIPLES_SECTIONS.map((section) => section.title);
 
-export const EngineeringPrinciplesPageContent = () => {
-  return (
-    <main id="main-content" tabIndex={-1}>
-      <header>
-        <div>
-          <Breadcrumbs items={engineeringPrinciplesBreadcrumbs()} />
-          <p>{ENGINEERING_PRINCIPLES_HEADER_OVERLINE}</p>
-          <h1>{ENGINEERING_PRINCIPLES_PAGE_TITLE}</h1>
-          <p>{ENGINEERING_PRINCIPLES_LEDE}</p>
-        </div>
-      </header>
-
-      <div>
-        <article>
-          <div>
-            <TableOfContentsDisclosure
-              headings={PRINCIPLE_HEADINGS}
-              ariaLabel={ENGINEERING_PRINCIPLES_TOC_ARIA_LABEL}
-            />
-            <div>
-              {ENGINEERING_PRINCIPLES_SECTIONS.map((section, index) => (
-                <EngineeringPrinciplesSectionBlock
-                  key={section.id}
-                  section={section}
-                  number={index + 1}
-                />
-              ))}
-            </div>
-          </div>
-          <aside>
-            <TableOfContents
-              headings={PRINCIPLE_HEADINGS}
-              ariaLabel={ENGINEERING_PRINCIPLES_TOC_ARIA_LABEL}
-            />
-          </aside>
-        </article>
-      </div>
-    </main>
-  );
-};
+export const EngineeringPrinciplesPageContent = () => (
+  <main id="main-content" tabIndex={-1}>
+    <EngineeringPrinciplesDisplay lines={ENGINEERING_PRINCIPLES_DISPLAY_LINES} />
+    <EngineeringPrinciplesHero />
+    <Ticker items={TITLES} icon="spark" direction={1} />
+    <EngineeringPrinciplesList />
+    <EngineeringPrinciplesReview />
+    <NextLinks links={PAGE_NEXT_LINKS} label={PAGE_NEXT_LINKS_ARIA_LABEL} />
+  </main>
+);

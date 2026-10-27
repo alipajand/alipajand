@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { type CSSProperties, useRef } from "react";
 
 import styles from "components/hairline/ScreenshotFrame/ScreenshotFrame.module.css";
 import { clamp } from "utils/motion/canvas";
-import { createEasedPointer } from "utils/motion/easedPointer";
+import { createEasedPointer, type EasedPointer } from "utils/motion/easedPointer";
 import { useMotion } from "utils/motion/useMotion";
 
 export interface ScreenshotFrameProps {
@@ -16,12 +16,17 @@ export interface ScreenshotFrameProps {
   /** Bold lead of the caption; also the window title and the dialog title. */
   captionLead: string;
   captionBody?: string;
-  /** Host shown in the window bar, such as "ledgerguard.app". */
+  /** Host shown in the window bar: the host the captured page was served from. */
   host: string;
+  /** Short provenance note shown after the caption, such as "Sample data". */
+  provenance?: string;
+  /** Rows of empty browser chrome at the top of the source image, hidden inside the window. */
+  trimTop?: number;
   /** `side` puts the caption in a column beside the image on wide screens. */
   layout?: "stacked" | "side";
   /** The hero shot starts tipped back and flattens as the page scrolls. */
   tilt?: boolean;
+  /** Load eagerly with high priority; only for the first screenshot on the page. */
   priority?: boolean;
   sizes?: string;
   enlargeLabel?: string;
@@ -30,9 +35,14 @@ export interface ScreenshotFrameProps {
 
 const trimStop = (text: string) => text.replace(/\.$/, "");
 
+/** Pointer easing per 60 Hz frame and the tilt formula from the design kit's case-study script. */
+const POINTER_EASE = 0.08;
+const tiltTransform = (flatness: number, x: number, y: number) =>
+  `rotateX(${((1 - flatness) * 14 - y * 4).toFixed(2)}deg) rotateY(${(x * 5).toFixed(2)}deg) scale(${(0.94 + flatness * 0.06).toFixed(3)})`;
+
 /**
  * A product screenshot in a hairline browser window. Clicking it opens the full-size image in a
- * native modal `<dialog>`, which handles focus, Escape and the backdrop.
+ * native modal `<dialog>`, which handles focus and Escape; closing returns focus to the opener.
  */
 export const ScreenshotFrame = ({
   src,
@@ -42,6 +52,8 @@ export const ScreenshotFrame = ({
   captionLead,
   captionBody,
   host,
+  provenance,
+  trimTop = 0,
   layout = "stacked",
   tilt = false,
   priority = false,
@@ -51,37 +63,64 @@ export const ScreenshotFrame = ({
 }: ScreenshotFrameProps) => {
   const windowRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const openerRef = useRef<HTMLButtonElement>(null);
   const title = trimStop(captionLead);
 
   useMotion(
     windowRef,
-    ({ element, reducedMotion }) => {
+    ({ element, reducedMotion, idleMotion }) => {
       if (reducedMotion) return;
       let flatness = 0;
-      const apply = () => {
-        element.style.transform = `rotateX(${((1 - flatness) * 14 - pointer.y * 4).toFixed(2)}deg) rotateY(${(pointer.x * 5).toFixed(2)}deg) scale(${(0.94 + flatness * 0.06).toFixed(3)})`;
-      };
-      const pointer = createEasedPointer(apply, { smoothing: 0.08 });
+      let pointer: EasedPointer | null = null;
+      const target = { x: 0, y: 0 };
       const onMove = (event: PointerEvent) => {
         const box = element.getBoundingClientRect();
-        pointer.follow(
-          (event.clientX - box.left) / box.width - 0.5,
-          (event.clientY - box.top) / box.height - 0.5
-        );
+        target.x = (event.clientX - box.left) / box.width - 0.5;
+        target.y = (event.clientY - box.top) / box.height - 0.5;
+        pointer?.follow(target.x, target.y);
       };
-      const onLeave = () => pointer.follow(0, 0);
+      const onLeave = () => {
+        target.x = 0;
+        target.y = 0;
+        pointer?.follow(0, 0);
+      };
       element.addEventListener("pointermove", onMove);
       element.addEventListener("pointerleave", onLeave);
+      const listeners = () => {
+        element.removeEventListener("pointermove", onMove);
+        element.removeEventListener("pointerleave", onLeave);
+        element.style.transform = "";
+      };
+
+      if (idleMotion) {
+        // The kit eases the pointer on every display frame while the shot is on screen.
+        const eased = { x: 0, y: 0 };
+        return {
+          onFrame: ({ y, vh, step }) => {
+            flatness = clamp(y / (vh * 0.55), 0, 1);
+            const ease = Math.min(1, POINTER_EASE * step);
+            eased.x += (target.x - eased.x) * ease;
+            eased.y += (target.y - eased.y) * ease;
+            element.style.transform = tiltTransform(flatness, eased.x, eased.y);
+          },
+          destroy: listeners,
+        };
+      }
+
+      // Motion paused: scroll still flattens the shot and the pointer eases, then everything rests.
+      const apply = () => {
+        element.style.transform = tiltTransform(flatness, eased.x, eased.y);
+      };
+      const eased = createEasedPointer(apply, { smoothing: POINTER_EASE });
+      pointer = eased;
       return {
         onScroll: ({ y, vh }) => {
           flatness = clamp(y / (vh * 0.55), 0, 1);
           apply();
         },
         destroy: () => {
-          pointer.stop();
-          element.removeEventListener("pointermove", onMove);
-          element.removeEventListener("pointerleave", onLeave);
-          element.style.transform = "";
+          eased.stop();
+          listeners();
         },
       };
     },
@@ -89,6 +128,12 @@ export const ScreenshotFrame = ({
   );
 
   const close = () => dialogRef.current?.close();
+  const cropStyle = trimTop
+    ? ({
+        aspectRatio: `${width} / ${height - trimTop}`,
+        "--trim": `${((-trimTop / width) * 100).toFixed(4)}%`,
+      } as CSSProperties)
+    : undefined;
 
   return (
     <figure className={layout === "side" ? `${styles.shot} ${styles.side}` : styles.shot}>
@@ -101,30 +146,41 @@ export const ScreenshotFrame = ({
           <b>{title}</b>
         </div>
         <button
+          ref={openerRef}
           type="button"
           className={styles.open}
           aria-label={`${enlargeLabel}: ${title}`}
           aria-haspopup="dialog"
           onClick={() => dialogRef.current?.showModal()}
         >
-          <Image
-            src={src}
-            alt={alt}
-            width={width}
-            height={height}
-            sizes={sizes}
-            priority={priority}
-          />
+          <span className={trimTop ? styles.crop : undefined} style={cropStyle}>
+            <Image
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              sizes={sizes}
+              priority={priority}
+              loading={priority ? undefined : "lazy"}
+            />
+          </span>
         </button>
       </div>
       <figcaption>
         <b>{captionLead}</b>
         {captionBody ? ` ${captionBody}` : null}
+        {provenance ? (
+          <>
+            {" "}
+            <span className={styles.provenance}>{provenance}</span>
+          </>
+        ) : null}
       </figcaption>
       <dialog
         ref={dialogRef}
         className={styles.dialog}
         aria-label={title}
+        onClose={() => openerRef.current?.focus()}
         onClick={(event) => {
           if (event.target === event.currentTarget) close();
         }}

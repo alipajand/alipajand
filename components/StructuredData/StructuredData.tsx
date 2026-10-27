@@ -5,6 +5,7 @@ import {
   SITE_NAME,
   WEBSITE_SCHEMA_ID,
 } from "data/site";
+import { serializeJsonLd } from "utils/jsonLd";
 
 export const StructuredData = () => {
   const websiteSchema = {
@@ -21,7 +22,7 @@ export const StructuredData = () => {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(websiteSchema) }}
     />
   );
 };

@@ -31,7 +31,10 @@ All three fields are required. Invalid payloads return `400 Bad Request`.
 | --------------------------- | -------------------- | ------------------------- |
 | `200 OK`                    | `{ "ok": true }`     | Email sent successfully   |
 | `400 Bad Request`           | `{ "error": "..." }` | Missing or invalid fields |
+| `429 Too Many Requests`     | Firewall response    | Rate limit exceeded       |
 | `500 Internal Server Error` | `{ "error": "..." }` | Resend API failure        |
+
+`429` is returned by a Vercel Firewall rule before the request reaches the handler, so its body is not JSON. The form shows `CONTACT_FORM_ERROR_RATE_LIMITED` for it. See [CONTACT_RATE_LIMIT.md](CONTACT_RATE_LIMIT.md).
 
 ### Environment variables required
 

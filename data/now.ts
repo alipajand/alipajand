@@ -53,3 +53,18 @@ export const NOW_SECTIONS: NowSection[] = [
     ],
   },
 ];
+
+/** The section shown as the stack band instead of a numbered cell. */
+export const NOW_STACK_SECTION_ID = "current-stack";
+
+export const NOW_INTRO_ARIA_LABEL = "About this page";
+
+export const NOW_ADDRESS_LABEL = "[ alipajand.com/now ]";
+
+/** The stack band's count, for example "[ 05 ] · 13 tools". */
+export const nowStackCountLabel = (position: number, toolCount: number): string =>
+  `[ ${String(position).padStart(2, "0")} ] · ${toolCount} tools`;
+
+/** The week ruler's cursor label, for example "Now · wk 43 / 52". */
+export const nowWeekLabel = (week: number): string =>
+  `Now · wk ${String(week).padStart(2, "0")} / 52`;

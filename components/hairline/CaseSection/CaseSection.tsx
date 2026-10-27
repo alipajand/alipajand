@@ -30,9 +30,11 @@ export const CaseSection = ({ id, index, title, children }: CaseSectionProps) =>
   </section>
 );
 
-/** The opening paragraph of a section, set larger. */
+/** The opening paragraph of a section, set larger. Its row spans the column; the text keeps its measure. */
 export const CaseLead = ({ children }: { children: ReactNode }) => (
-  <p className={styles.lead}>{children}</p>
+  <div>
+    <p className={styles.lead}>{children}</p>
+  </div>
 );
 
 interface CaseItemsProps {
