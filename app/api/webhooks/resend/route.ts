@@ -1,9 +1,18 @@
 import { NextResponse } from "next/server";
-import type { Attachment, GetReceivingEmailResponseSuccess, WebhookEventPayload } from "resend";
+import type { Attachment, GetReceivingEmailResponseSuccess } from "resend";
 import { getFromEmail, getResend, getToEmail } from "utils/resend";
 
 /** Only mail addressed to this domain is forwarded; the Resend account also receives for other domains. */
 const FORWARD_DOMAIN = "alipajand.com";
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/** The string entries of a list field; anything that is not an array counts as empty. */
+function stringList(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((v): v is string => typeof v === "string") : [];
+}
 
 function isForForwardDomain(address: string): boolean {
   const at = address.lastIndexOf("@");
@@ -77,8 +86,8 @@ function providerAuthentication(email: GetReceivingEmailResponseSuccess): string
  */
 function provenanceFields(email: GetReceivingEmailResponseSuccess): ProvenanceField[] {
   const fields: ProvenanceField[] = [
-    { label: "From", value: email.from ?? "" },
-    { label: "To", value: (email.to ?? []).join(", ") },
+    { label: "From", value: typeof email.from === "string" ? email.from : "" },
+    { label: "To", value: stringList(email.to).join(", ") },
   ];
   const date = headerValue(email.headers, "date");
   if (date) fields.push({ label: "Date", value: date });
@@ -136,7 +145,7 @@ export async function POST(request: Request) {
 
   const payload = await request.text();
 
-  let event: WebhookEventPayload;
+  let event: unknown;
   try {
     event = resend.webhooks.verify({
       payload,
@@ -151,18 +160,28 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
+  // A correctly signed body can still be empty (verify then returns undefined)
+  // or not the documented shape; answer 400 instead of throwing a TypeError.
+  if (!isRecord(event) || typeof event.type !== "string") {
+    return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+  }
+
   if (event.type !== "email.received") {
     return NextResponse.json({ ignored: event.type });
   }
 
-  const receivedFor = event.data.received_for ?? [];
+  const data = isRecord(event.data) ? event.data : {};
+  const emailId = typeof data.email_id === "string" && data.email_id.trim() ? data.email_id : "";
+  if (!emailId) {
+    return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+  }
+
+  const receivedFor = stringList(data.received_for);
   const recipients =
-    receivedFor.length > 0 ? receivedFor : [...(event.data.to ?? []), ...(event.data.cc ?? [])];
+    receivedFor.length > 0 ? receivedFor : [...stringList(data.to), ...stringList(data.cc)];
   if (!recipients.some(isForForwardDomain)) {
     return NextResponse.json({ ignored: "recipient-domain" });
   }
-
-  const emailId = event.data.email_id;
 
   const { data: email, error: getError } = await resend.emails.receiving.get(emailId);
   if (getError || !email) {
@@ -170,11 +189,11 @@ export async function POST(request: Request) {
   }
 
   let attachments: Attachment[] | undefined;
-  if (email.attachments.length > 0) {
+  if (Array.isArray(email.attachments) && email.attachments.length > 0) {
     const { data: list, error: listError } = await resend.emails.receiving.attachments.list({
       emailId,
     });
-    if (listError || !list) {
+    if (listError || !list || !Array.isArray(list.data)) {
       return NextResponse.json({ error: "Failed to load attachments" }, { status: 500 });
     }
     attachments = list.data.map((a) => ({

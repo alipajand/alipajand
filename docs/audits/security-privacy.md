@@ -145,7 +145,7 @@ Verified sound:
 Robustness notes, not exploitable without the secret:
 
 - A malformed `RESEND_WEBHOOK_SECRET` makes the `Webhook` constructor throw inside the `try`, so a misconfiguration shows as `400 Invalid signature` rather than a 5xx.
-- A correctly signed empty body makes `verify` return `undefined`, and `event.type` then throws an unhandled `TypeError` (500).
+- A correctly signed empty body makes `verify` return `undefined`, and `event.type` then threw an unhandled `TypeError` (500). The same happened for a signed `null`, an `email.received` event without `data`, non-array recipient lists, and an inbound email or attachment listing without its array. Fixed: the route now answers `400 Invalid payload` to a signed body that is not an event with a string `type` (and, for `email.received`, a non-empty `email_id`), and treats missing or non-array lists as empty. Tests in `app/api/webhooks/resend/__tests__/route.spec.ts` sign real payloads and verify them with the SDK.
 - If `CONTACT_EMAIL` were ever set to an `@alipajand.com` address, forwarded mail would come back through the webhook (a forwarding loop). The default is a Gmail address.
 
 ### SEC-14 · Info · Personal data in screenshots
