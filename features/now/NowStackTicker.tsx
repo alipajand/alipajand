@@ -29,19 +29,25 @@ const Run = ({ items, hidden }: { items: readonly string[]; hidden?: boolean }) 
  */
 export const NowStackTicker = ({ items }: NowStackTickerProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  // Outlives a re-setup, which runs when the visitor pauses or resumes motion, so the band stays put.
+  const offset = useRef(0);
 
   useMotion(ref, ({ element, reducedMotion, idleMotion }) => {
     if (reducedMotion) return;
     const track = element.firstElementChild as HTMLElement | null;
     if (!track) return;
-    let x = 0;
     let half = 0;
+    const place = () => {
+      track.style.transform = `translate3d(${offset.current.toFixed(1)}px,0,0)`;
+    };
+    if (offset.current !== 0) place();
     const move = (delta: number) => {
       if (!half) return;
-      x -= delta;
+      let x = offset.current - delta;
       if (x <= -half) x += half;
       if (x > 0) x -= half;
-      track.style.transform = `translate3d(${x.toFixed(1)}px,0,0)`;
+      offset.current = x;
+      place();
     };
     return {
       onResize: () => {
