@@ -1,11 +1,7 @@
-"use client";
-
 import Link from "next/link";
 
 import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
-import { MainReveal } from "components/MainReveal/MainReveal";
 import { ProjectCardBadge } from "components/Projects/ProjectCardBadge";
-import { useOpenSourcePageContent } from "features/open-source/hooks/useOpenSourcePageContent";
 import { openSourceBreadcrumbs } from "data/breadcrumbs";
 import {
   OPEN_SOURCE_ACTIVITY_HEADING,
@@ -22,6 +18,7 @@ import {
   OPEN_SOURCE_CTA_PRIMARY_LABEL,
   OPEN_SOURCE_CTA_SECONDARY_HREF,
   OPEN_SOURCE_CTA_SECONDARY_LABEL,
+  OPEN_SOURCE_PROJECTS,
   OPEN_SOURCE_PROJECTS_HEADING,
   OPEN_SOURCE_PROJECTS_LEDE,
   OPEN_SOURCE_FORMAT_LABEL,
@@ -42,106 +39,67 @@ import {
   openSourceReleaseLabel,
   openSourceRepositoryAriaLabel,
 } from "data/openSourcePage";
-import {
-  CARD_SURFACE_HOVER,
-  CTA_PRIMARY,
-  CTA_SECONDARY,
-  FOCUS_RING,
-  LABEL_OVERLINE,
-  PAGE_HEADER_SHELL,
-  SECTION_INNER,
-  SECTION_LEDE,
-  SECTION_LEDE_LG,
-  SECTION_TITLE,
-  SECTION_X,
-} from "utils/visual";
-
-const SECTION_BLOCK = `${SECTION_X} border-t border-border bg-background py-14 sm:py-16 lg:py-20`;
-const CARD_TITLE = "font-display font-semibold text-xl text-foreground leading-tight";
-const CARD_TEXT = "text-muted text-[15px] leading-relaxed";
-const FIELD_LABEL = "text-[11px] font-semibold uppercase tracking-[0.12em] text-muted";
 
 const OpenSourceProjectCard = ({ project }: { project: OpenSourceProject }) => {
   return (
-    <article className={`${CARD_SURFACE_HOVER} flex h-full flex-col gap-6 p-6 sm:p-8`}>
-      <div className="space-y-3">
-        <h3 className={CARD_TITLE}>{project.title}</h3>
-        <p className={CARD_TEXT}>{project.summary}</p>
+    <article>
+      <div>
+        <h3>{project.title}</h3>
+        <p>{project.summary}</p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-2">
-          <p className={FIELD_LABEL}>{OPEN_SOURCE_RELEASE_LABEL}</p>
-          <p className="text-sm leading-relaxed text-foreground/85">
-            {openSourceReleaseLabel(project)}
-          </p>
+      <div>
+        <div>
+          <p>{OPEN_SOURCE_RELEASE_LABEL}</p>
+          <p>{openSourceReleaseLabel(project)}</p>
         </div>
-        <div className="space-y-2">
-          <p className={FIELD_LABEL}>{OPEN_SOURCE_FORMAT_LABEL}</p>
-          <p className="text-sm leading-relaxed text-foreground/85">{project.format}</p>
+        <div>
+          <p>{OPEN_SOURCE_FORMAT_LABEL}</p>
+          <p>{project.format}</p>
         </div>
       </div>
 
-      <div className="space-y-3">
-        <p className={FIELD_LABEL}>{project.testedCapabilitiesLabel}</p>
-        <ul
-          className="flex flex-col gap-2 list-none p-0 m-0"
-          aria-label={`${project.title} capabilities`}
-        >
+      <div>
+        <p>{project.testedCapabilitiesLabel}</p>
+        <ul aria-label={`${project.title} capabilities`}>
           {project.testedCapabilities.map((item) => (
-            <li
-              key={item}
-              className="relative pl-4 text-foreground/85 text-[15px] leading-relaxed before:absolute before:left-0 before:top-[0.6em] before:size-1.5 before:-translate-y-1/2 before:rounded-full before:bg-foreground/40"
-            >
-              {item}
-            </li>
+            <li key={item}>{item}</li>
           ))}
         </ul>
       </div>
 
-      <div className="space-y-2">
-        <p className={FIELD_LABEL}>{OPEN_SOURCE_INSTALL_LABEL}</p>
-        <pre className="whitespace-pre-wrap break-all rounded-md border border-border bg-background px-3 py-2 text-[13px] leading-relaxed text-foreground/85">
+      <div>
+        <p>{OPEN_SOURCE_INSTALL_LABEL}</p>
+        <pre>
           <code>{project.install}</code>
         </pre>
       </div>
 
-      <div className="space-y-2">
-        <p className={FIELD_LABEL}>{OPEN_SOURCE_CONTRIBUTION_LABEL}</p>
-        <p className={CARD_TEXT}>{project.contribution}</p>
+      <div>
+        <p>{OPEN_SOURCE_CONTRIBUTION_LABEL}</p>
+        <p>{project.contribution}</p>
       </div>
 
       {project.articles?.length ? (
-        <div className="space-y-2">
-          <p className={FIELD_LABEL}>{OPEN_SOURCE_ARTICLES_LABEL}</p>
-          <ul
-            className="flex flex-col gap-1 list-none p-0 m-0"
-            aria-label={`Writing about ${project.title}`}
-          >
+        <div>
+          <p>{OPEN_SOURCE_ARTICLES_LABEL}</p>
+          <ul aria-label={`Writing about ${project.title}`}>
             {project.articles.map((article) => (
               <li key={article.href}>
-                <Link
-                  href={article.href}
-                  className={`inline-block py-1 text-[15px] leading-relaxed text-foreground/85 underline underline-offset-4 decoration-foreground/30 hover:text-foreground hover:decoration-foreground rounded-sm ${FOCUS_RING}`}
-                >
-                  {article.title}
-                </Link>
+                <Link href={article.href}>{article.title}</Link>
               </li>
             ))}
           </ul>
         </div>
       ) : null}
 
-      <div className="mt-auto pt-1">
+      <div>
         <Link
           href={project.repositoryUrl}
           aria-label={openSourceRepositoryAriaLabel(project.title)}
-          className={`inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 decoration-foreground/40 hover:decoration-foreground rounded-sm ${FOCUS_RING}`}
         >
           <span>{OPEN_SOURCE_REPOSITORY_LINK_LABEL}</span>
-          <span aria-hidden className="text-muted">
-            ↗
-          </span>
+          <span aria-hidden>↗</span>
         </Link>
       </div>
     </article>
@@ -150,54 +108,38 @@ const OpenSourceProjectCard = ({ project }: { project: OpenSourceProject }) => {
 
 const OpenSourcePrincipleCard = ({ principle }: { principle: OpenSourcePrinciple }) => {
   return (
-    <article className={`${CARD_SURFACE_HOVER} h-full p-5 sm:p-6`}>
-      <h3 className="font-display font-semibold text-lg text-foreground">{principle.title}</h3>
-      <p className="mt-2 text-muted text-sm leading-relaxed">{principle.body}</p>
+    <article>
+      <h3>{principle.title}</h3>
+      <p>{principle.body}</p>
     </article>
   );
 };
 
 export const OpenSourcePageContent = () => {
-  const {
-    selectors: { headerRef, contentRef, projects },
-  } = useOpenSourcePageContent();
-
   return (
-    <MainReveal>
-      <header ref={headerRef} className={PAGE_HEADER_SHELL}>
-        <div className={SECTION_INNER}>
-          <Breadcrumbs items={openSourceBreadcrumbs()} className="mb-6" />
-          <p data-header-overline className={`${LABEL_OVERLINE} mb-2`}>
-            {OPEN_SOURCE_HEADER_OVERLINE}
-          </p>
-          <h1 data-header-title className={SECTION_TITLE}>
-            {OPEN_SOURCE_HEADER_HEADING}
-          </h1>
-          <p data-header-lede className={`${SECTION_LEDE} mt-4 max-w-3xl`}>
-            {OPEN_SOURCE_HEADER_LEDE}
-          </p>
-          <p className="mt-4 max-w-3xl text-[15px] sm:text-base text-foreground/85 leading-relaxed border-l-2 border-border pl-4 sm:pl-5">
-            {OPEN_SOURCE_HEADER_INTRO}
-          </p>
+    <main id="main-content" tabIndex={-1}>
+      <header>
+        <div>
+          <Breadcrumbs items={openSourceBreadcrumbs()} />
+          <p>{OPEN_SOURCE_HEADER_OVERLINE}</p>
+          <h1>{OPEN_SOURCE_HEADER_HEADING}</h1>
+          <p>{OPEN_SOURCE_HEADER_LEDE}</p>
+          <p>{OPEN_SOURCE_HEADER_INTRO}</p>
         </div>
       </header>
 
-      <div ref={contentRef as React.Ref<HTMLDivElement>}>
-        <section aria-labelledby="open-source-projects-heading" className={SECTION_BLOCK}>
-          <div className={SECTION_INNER}>
-            <header className="mb-10 sm:mb-12" data-reveal>
-              <h2 id="open-source-projects-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
-                {OPEN_SOURCE_PROJECTS_HEADING}
-              </h2>
-              <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_PROJECTS_LEDE}</p>
-              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted">
-                {OPEN_SOURCE_INSTALL_NOTE}
-              </p>
+      <div>
+        <section aria-labelledby="open-source-projects-heading">
+          <div>
+            <header>
+              <h2 id="open-source-projects-heading">{OPEN_SOURCE_PROJECTS_HEADING}</h2>
+              <p>{OPEN_SOURCE_PROJECTS_LEDE}</p>
+              <p>{OPEN_SOURCE_INSTALL_NOTE}</p>
             </header>
 
-            <ul className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">
-              {projects.map((project) => (
-                <li key={project.title} data-reveal data-open-source-project className="h-full">
+            <ul>
+              {OPEN_SOURCE_PROJECTS.map((project) => (
+                <li key={project.title} data-open-source-project>
                   <OpenSourceProjectCard project={project} />
                 </li>
               ))}
@@ -205,17 +147,15 @@ export const OpenSourcePageContent = () => {
           </div>
         </section>
 
-        <section aria-labelledby="open-source-principles-heading" className={SECTION_BLOCK}>
-          <div className={SECTION_INNER}>
-            <header className="mb-10 sm:mb-12" data-reveal>
-              <h2 id="open-source-principles-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
-                {OPEN_SOURCE_SHARED_PRINCIPLES_HEADING}
-              </h2>
+        <section aria-labelledby="open-source-principles-heading">
+          <div>
+            <header>
+              <h2 id="open-source-principles-heading">{OPEN_SOURCE_SHARED_PRINCIPLES_HEADING}</h2>
             </header>
 
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 list-none p-0 m-0">
+            <ul>
               {OPEN_SOURCE_SHARED_PRINCIPLES.map((principle) => (
-                <li key={principle.title} data-reveal data-open-source-principle className="h-full">
+                <li key={principle.title} data-open-source-principle>
                   <OpenSourcePrincipleCard principle={principle} />
                 </li>
               ))}
@@ -223,19 +163,13 @@ export const OpenSourcePageContent = () => {
           </div>
         </section>
 
-        <section aria-labelledby="open-source-technology-heading" className={SECTION_BLOCK}>
-          <div className={SECTION_INNER}>
-            <header className="mb-8 sm:mb-10" data-reveal>
-              <h2 id="open-source-technology-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
-                {OPEN_SOURCE_TECHNOLOGY_HEADING}
-              </h2>
+        <section aria-labelledby="open-source-technology-heading">
+          <div>
+            <header>
+              <h2 id="open-source-technology-heading">{OPEN_SOURCE_TECHNOLOGY_HEADING}</h2>
             </header>
 
-            <ul
-              aria-label={OPEN_SOURCE_TECHNOLOGY_HEADING}
-              className="flex flex-wrap gap-2 list-none p-0 m-0"
-              data-reveal
-            >
+            <ul aria-label={OPEN_SOURCE_TECHNOLOGY_HEADING}>
               {OPEN_SOURCE_TECHNOLOGY_BADGES.map((badge) => (
                 <ProjectCardBadge key={badge}>{badge}</ProjectCardBadge>
               ))}
@@ -243,18 +177,15 @@ export const OpenSourcePageContent = () => {
           </div>
         </section>
 
-        <section aria-labelledby="open-source-activity-heading" className={SECTION_BLOCK}>
-          <div className={SECTION_INNER}>
-            <header className="mb-8 sm:mb-10" data-reveal>
-              <h2 id="open-source-activity-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
-                {OPEN_SOURCE_ACTIVITY_HEADING}
-              </h2>
-              <p className={SECTION_LEDE_LG}>{OPEN_SOURCE_ACTIVITY_LEDE}</p>
+        <section aria-labelledby="open-source-activity-heading">
+          <div>
+            <header>
+              <h2 id="open-source-activity-heading">{OPEN_SOURCE_ACTIVITY_HEADING}</h2>
+              <p>{OPEN_SOURCE_ACTIVITY_LEDE}</p>
             </header>
 
-            <div data-reveal className="space-y-4">
-              {/* The card's content sits in the top band of a 1200×630 image; crop the empty rest. */}
-              <div className="aspect-[1200/252] overflow-hidden rounded-xl border border-border bg-[#0a0a0c]">
+            <div>
+              <div>
                 {/* eslint-disable-next-line @next/next/no-img-element -- live external card, not worth proxying */}
                 <img
                   src={OPEN_SOURCE_ACTIVITY_IMAGE_SRC}
@@ -263,47 +194,29 @@ export const OpenSourcePageContent = () => {
                   height={630}
                   loading="lazy"
                   decoding="async"
-                  className="block h-full w-full object-cover object-top"
                 />
               </div>
-              <Link
-                href={OPEN_SOURCE_ACTIVITY_PROFILE_HREF}
-                className={`inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-foreground underline underline-offset-4 decoration-foreground/40 hover:decoration-foreground rounded-sm ${FOCUS_RING}`}
-              >
+              <Link href={OPEN_SOURCE_ACTIVITY_PROFILE_HREF}>
                 <span>{OPEN_SOURCE_ACTIVITY_PROFILE_LABEL}</span>
-                <span aria-hidden className="text-muted">
-                  ↗
-                </span>
+                <span aria-hidden>↗</span>
               </Link>
             </div>
           </div>
         </section>
 
-        <section aria-labelledby="open-source-cta-heading" className={SECTION_BLOCK}>
-          <div className={SECTION_INNER}>
-            <div className={`${CARD_SURFACE_HOVER} p-6 sm:p-8`} data-reveal>
-              <h2 id="open-source-cta-heading" className={`${SECTION_TITLE} mb-4 sm:mb-5`}>
-                {OPEN_SOURCE_CTA_HEADING}
-              </h2>
-              <p className={`${SECTION_LEDE_LG} max-w-3xl`}>{OPEN_SOURCE_CTA_BODY}</p>
-              <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-4">
-                <Link
-                  href={OPEN_SOURCE_CTA_PRIMARY_HREF}
-                  className={`${CTA_PRIMARY} w-full sm:w-auto`}
-                >
-                  {OPEN_SOURCE_CTA_PRIMARY_LABEL}
-                </Link>
-                <Link
-                  href={OPEN_SOURCE_CTA_SECONDARY_HREF}
-                  className={`${CTA_SECONDARY} w-full sm:w-auto`}
-                >
-                  {OPEN_SOURCE_CTA_SECONDARY_LABEL}
-                </Link>
+        <section aria-labelledby="open-source-cta-heading">
+          <div>
+            <div>
+              <h2 id="open-source-cta-heading">{OPEN_SOURCE_CTA_HEADING}</h2>
+              <p>{OPEN_SOURCE_CTA_BODY}</p>
+              <div>
+                <Link href={OPEN_SOURCE_CTA_PRIMARY_HREF}>{OPEN_SOURCE_CTA_PRIMARY_LABEL}</Link>
+                <Link href={OPEN_SOURCE_CTA_SECONDARY_HREF}>{OPEN_SOURCE_CTA_SECONDARY_LABEL}</Link>
               </div>
             </div>
           </div>
         </section>
       </div>
-    </MainReveal>
+    </main>
   );
 };

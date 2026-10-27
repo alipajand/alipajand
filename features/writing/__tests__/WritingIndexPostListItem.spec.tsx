@@ -10,20 +10,18 @@ const post = {
 };
 
 describe("WritingIndexPostListItem", () => {
-  it("labels upcoming previews and gives them a distinct border", () => {
+  it("labels upcoming previews", () => {
     render(<WritingIndexPostListItem post={{ ...post, upcoming: true }} />);
     expect(screen.getByText("Upcoming")).toBeInTheDocument();
     expect(screen.getByText("Preview article →")).toBeInTheDocument();
     expect(screen.queryByText("Featured")).not.toBeInTheDocument();
-    expect(screen.getByRole("link")).toHaveClass("border-dashed");
     expect(screen.getByRole("link")).toHaveAttribute("href", "/writing/scheduled-post");
   });
 
-  it("shows the normal article style once published", () => {
+  it("shows the published article labels", () => {
     render(<WritingIndexPostListItem post={{ ...post, upcoming: false }} />);
     expect(screen.queryByText("Upcoming")).not.toBeInTheDocument();
     expect(screen.getByText("Featured")).toBeInTheDocument();
     expect(screen.getByText("Read article →")).toBeInTheDocument();
-    expect(screen.getByRole("link")).not.toHaveClass("border-dashed");
   });
 });

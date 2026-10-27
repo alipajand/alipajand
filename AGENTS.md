@@ -13,7 +13,6 @@ There are no databases, no auth, and no multi-tenant concerns. All content is st
 | Framework | Next.js 15 App Router                       |
 | Language  | TypeScript                                  |
 | Styling   | Tailwind CSS v4                             |
-| Animation | GSAP + Lenis                                |
 | Email     | Resend (`app/api/contact`)                  |
 | Testing   | Jest + @testing-library/react               |
 | Lint/fmt  | ESLint + Prettier                           |

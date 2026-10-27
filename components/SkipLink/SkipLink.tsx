@@ -16,7 +16,7 @@ export const SkipLink = ({ href, label }: SkipLinkProps) => {
     });
   };
   return (
-    <a href={href} className="skip-link" onClick={handleClick}>
+    <a href={href} onClick={handleClick}>
       {label}
     </a>
   );

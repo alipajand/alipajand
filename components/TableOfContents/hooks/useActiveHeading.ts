@@ -3,7 +3,6 @@
 import type { MouseEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { onScrollFrame } from "utils/cinematic";
 import { SCROLL_TARGET_OFFSET, scrollToElement } from "utils/scrollToTop";
 
 /** How long scroll-spy defers to a heading the reader just clicked. */
@@ -37,10 +36,13 @@ export const useActiveHeading = (
   useEffect(() => {
     const list = idsKey ? idsKey.split("|") : [];
     if (list.length === 0) return;
-    return onScrollFrame(() => {
+    const onScroll = () => {
       if (Date.now() < lockedUntil.current) return;
       setActiveId(findActiveHeadingId(list));
-    });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, [idsKey]);
 
   const handleNavigate = useCallback((event: MouseEvent<HTMLAnchorElement>, id: string) => {

@@ -12,13 +12,8 @@ import {
 
 export const McpWorkflowDiagram = () => {
   return (
-    <div className="w-full overflow-x-auto rounded-lg border border-border/70 bg-background/40 px-2 py-3 sm:px-4 sm:py-4">
-      <svg
-        viewBox="0 0 440 200"
-        className="mx-auto block h-auto w-full max-w-[440px] text-foreground"
-        role="img"
-        aria-labelledby="mcp-workflow-title"
-      >
+    <div>
+      <svg viewBox="0 0 440 200" role="img" aria-labelledby="mcp-workflow-title">
         <title id="mcp-workflow-title">{MCP_WORKFLOW_DIAGRAM_TITLE}</title>
         <defs>
           <marker

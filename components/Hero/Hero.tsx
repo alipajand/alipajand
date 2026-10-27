@@ -1,15 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import { FooterDirectChannel } from "components/Footer/FooterDirectChannel";
-import { useHero } from "components/Hero/hooks/useHero";
 import { LINKS } from "data/links";
-import {
-  HERO_PROOF_ROW,
-  HERO_SCROLL_INDICATOR,
-  HERO_SECTION_ARIA_LABEL,
-  HERO_SOCIAL_LINKS_ARIA_LABEL,
-} from "data/site";
+import { HERO_PROOF_ROW, HERO_SECTION_ARIA_LABEL, HERO_SOCIAL_LINKS_ARIA_LABEL } from "data/site";
 import {
   HOMEPAGE_HERO_BODY,
   HOMEPAGE_HERO_EYEBROW,
@@ -21,103 +13,37 @@ import {
   HOMEPAGE_HERO_SECONDARY_CTA_LABEL,
   HOMEPAGE_HERO_TITLE,
 } from "data/homepage";
-import { HeroBackground } from "components/Hero/HeroBackground";
-import { HeroTitle } from "components/Hero/HeroTitle";
-import { CTA_PRIMARY, CTA_SECONDARY } from "utils/visual";
 
 export const Hero = () => {
-  const {
-    selectors: {
-      containerRef,
-      stageRef,
-      eyebrowRef,
-      line2Ref,
-      subRef,
-      ctaRef,
-      locationRef,
-      scrollIndicatorRef,
-    },
-  } = useHero();
-
   return (
-    <section
-      id="hero"
-      ref={containerRef}
-      aria-label={HERO_SECTION_ARIA_LABEL}
-      className="relative min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-20 pt-24 pb-32 overflow-hidden bg-background"
-    >
-      <HeroBackground />
-      <div ref={stageRef} className="cine-stage relative z-10 max-w-5xl mx-auto w-full">
-        <p
-          ref={eyebrowRef}
-          className="mb-4 sm:mb-5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] text-muted"
-        >
-          {HOMEPAGE_HERO_EYEBROW}
-        </p>
-        <p className="mb-3 text-base sm:text-lg font-medium text-foreground">
-          <span className="sr-only">{HOMEPAGE_HERO_NAME}</span>
-        </p>
-        <HeroTitle
-          headingRef={line2Ref}
-          text={HOMEPAGE_HERO_TITLE}
-          className="max-w-4xl font-display font-bold text-4xl sm:text-5xl md:text-5xl leading-[1.05] text-foreground hero-lcp"
-        />
-        <p
-          ref={subRef}
-          data-hero-animate="slide-up"
-          className="mt-6 sm:mt-7 max-w-3xl text-muted text-[15px] sm:text-lg leading-relaxed"
-        >
-          {HOMEPAGE_HERO_BODY}
-        </p>
-        <p ref={locationRef} className="mt-4 text-sm font-medium text-foreground/85">
-          {HOMEPAGE_HERO_LOCATION}
-        </p>
+    <section id="hero" aria-label={HERO_SECTION_ARIA_LABEL}>
+      <p>{HOMEPAGE_HERO_EYEBROW}</p>
+      <p>{HOMEPAGE_HERO_NAME}</p>
+      <h1>{HOMEPAGE_HERO_TITLE}</h1>
+      <p>{HOMEPAGE_HERO_BODY}</p>
+      <p>{HOMEPAGE_HERO_LOCATION}</p>
 
-        <div ref={ctaRef} className="mt-8 sm:mt-10 flex flex-col gap-4 sm:items-start">
-          <div
-            data-hero-animate="slide-up"
-            className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
-          >
-            <Link
-              href={HOMEPAGE_HERO_PRIMARY_CTA_HREF}
-              className={`hover-scale ${CTA_PRIMARY} w-full sm:w-auto`}
-            >
-              {HOMEPAGE_HERO_PRIMARY_CTA_LABEL}
-            </Link>
-            <Link
-              href={HOMEPAGE_HERO_SECONDARY_CTA_HREF}
-              className={`hover-scale ${CTA_SECONDARY} w-full sm:w-auto`}
-            >
-              {HOMEPAGE_HERO_SECONDARY_CTA_LABEL}
-            </Link>
+      <div>
+        <Link href={HOMEPAGE_HERO_PRIMARY_CTA_HREF}>{HOMEPAGE_HERO_PRIMARY_CTA_LABEL}</Link>
+        <Link href={HOMEPAGE_HERO_SECONDARY_CTA_HREF}>{HOMEPAGE_HERO_SECONDARY_CTA_LABEL}</Link>
+      </div>
+      <nav aria-label={HERO_SOCIAL_LINKS_ARIA_LABEL}>
+        <ul>
+          {LINKS.map((channel) => (
+            <li key={channel.label}>
+              <FooterDirectChannel label={channel.label} href={channel.href} />
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <dl>
+        {HERO_PROOF_ROW.map((proof) => (
+          <div key={proof.value}>
+            <dt>{proof.value}</dt>
+            <dd>{proof.label}</dd>
           </div>
-          <nav aria-label={HERO_SOCIAL_LINKS_ARIA_LABEL} data-hero-animate="slide-up">
-            <ul className="m-0 flex list-none gap-3 p-0">
-              {LINKS.map((channel) => (
-                <li key={channel.label}>
-                  <FooterDirectChannel label={channel.label} href={channel.href} />
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <dl className="mt-5 grid w-full grid-cols-1 gap-x-6 gap-y-4 pt-6 sm:grid-cols-2 lg:grid-cols-4">
-            {HERO_PROOF_ROW.map((proof) => (
-              <div key={proof.value} className="space-y-1">
-                <dt className="text-md font-semibold text-foreground">{proof.value}</dt>
-                <dd className="text-sm leading-relaxed text-muted">{proof.label}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
-      <div
-        ref={scrollIndicatorRef}
-        data-hero-animate
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted text-sm z-10"
-        aria-hidden
-      >
-        {HERO_SCROLL_INDICATOR}
-      </div>
+        ))}
+      </dl>
     </section>
   );
 };

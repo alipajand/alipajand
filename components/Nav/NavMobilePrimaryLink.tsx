@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { navLinkAriaCurrent } from "utils/navAriaCurrent";
-import { FOCUS_RING } from "utils/visual";
 
 interface NavMobilePrimaryLinkProps {
   pathname: string | null;
@@ -16,12 +15,7 @@ export const NavMobilePrimaryLink = ({
   onNavigate,
 }: NavMobilePrimaryLinkProps) => {
   return (
-    <Link
-      href={href}
-      aria-current={navLinkAriaCurrent(href, pathname)}
-      className={`font-medium text-foreground hover:text-muted transition-colors py-3 min-h-11 inline-flex items-center rounded-sm ${FOCUS_RING}`}
-      onClick={onNavigate}
-    >
+    <Link href={href} aria-current={navLinkAriaCurrent(href, pathname)} onClick={onNavigate}>
       {label}
     </Link>
   );

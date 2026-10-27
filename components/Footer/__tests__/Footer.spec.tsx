@@ -33,7 +33,7 @@ describe("Footer", () => {
     }
   });
 
-  it("should render direct links with large icons and safe target/rel attributes", () => {
+  it("should render direct links with safe target/rel attributes", () => {
     render(<Footer latestWritings={[...LATEST_WRITINGS]} />);
     const external = LINKS.find((channel) => channel.href.startsWith("http"));
     const internal = LINKS.find((channel) => !channel.href.startsWith("http"));
@@ -46,11 +46,9 @@ describe("Footer", () => {
     });
     expect(externalLink).toHaveAttribute("target", "_blank");
     expect(externalLink).toHaveAttribute("rel", "noopener noreferrer");
-    expect(externalLink.querySelector("span[aria-hidden='true']")).toHaveClass("size-5");
 
     const internalLink = screen.getByRole("link", { name: internal!.label });
     expect(internalLink).not.toHaveAttribute("target");
-    expect(internalLink.querySelector("span[aria-hidden='true']")).toHaveClass("size-5");
   });
 
   it("should render the current year in the copyright line", () => {

@@ -57,9 +57,8 @@ Resend webhook ──► app/api/webhooks/resend ──► Resend API  (forward 
 
 ## Rendering strategy
 
-- **Default: React Server Components.** Use `"use client"` only for interactivity (hooks, browser APIs, animations).
+- **Default: React Server Components.** Use `"use client"` only for interactivity (hooks, browser APIs).
 - Static pages use `generateStaticParams` / `generateMetadata` for SEO.
-- GSAP animations and Lenis scroll are client-side only, wrapped in `"use client"` components.
 
 ## Environment variables
 

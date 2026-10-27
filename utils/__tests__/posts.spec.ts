@@ -11,10 +11,6 @@ jest.mock("marked", () => ({
   },
 }));
 
-jest.mock("marked-highlight", () => ({
-  markedHighlight: jest.fn(() => ({})),
-}));
-
 jest.mock("fs", () => {
   const actual = jest.requireActual("fs");
   return {
