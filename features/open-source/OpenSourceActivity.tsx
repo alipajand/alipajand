@@ -6,12 +6,12 @@ import {
   OPEN_SOURCE_ACTIVITY_HEADING,
   OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE,
   OPEN_SOURCE_ACTIVITY_STAT_LABELS,
-  OPEN_SOURCE_ACTIVITY_TABLE_CAPTION,
   OPEN_SOURCE_ACTIVITY_TABLE_HEADERS,
   openSourceActivityDaysLabel,
   openSourceActivitySnapshotLabel,
   openSourceActivityStreakUnit,
   openSourceActivitySummary,
+  openSourceActivityTableCaption,
 } from "data/openSourcePage";
 import {
   calendarLayout,
@@ -54,11 +54,9 @@ export const OpenSourceActivity = () => {
       unit: formatSnapshotDay(stats.busiestDay),
     },
   ];
-  const summary = openSourceActivitySummary(
-    pluralize(stats.total, "contribution"),
-    formatSnapshotDay(stats.first),
-    formatSnapshotDay(stats.last)
-  );
+  const first = formatSnapshotDay(stats.first);
+  const last = formatSnapshotDay(stats.last);
+  const summary = openSourceActivitySummary(pluralize(stats.total, "contribution"), first, last);
   const restLabel = openSourceActivitySnapshotLabel(
     formatSnapshotDay(new Date(`${snapshot.taken}T00:00:00Z`))
   );
@@ -82,23 +80,26 @@ export const OpenSourceActivity = () => {
         ))}
       </dl>
       <OpenSourceActivityGraph calendar={calendar} summary={summary} restLabel={restLabel} />
-      <table className={styles.srOnly}>
-        <caption>{OPEN_SOURCE_ACTIVITY_TABLE_CAPTION}</caption>
-        <thead>
-          <tr>
-            <th scope="col">{OPEN_SOURCE_ACTIVITY_TABLE_HEADERS.month}</th>
-            <th scope="col">{OPEN_SOURCE_ACTIVITY_TABLE_HEADERS.total}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {months.map((month) => (
-            <tr key={month.month}>
-              <th scope="row">{month.month}</th>
-              <td>{formatCount(month.total)}</td>
+      {/* A table ignores the 1px box of the visually-hidden class, so a wrapper carries it. */}
+      <div className={styles.srOnly}>
+        <table>
+          <caption>{openSourceActivityTableCaption(first, last)}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{OPEN_SOURCE_ACTIVITY_TABLE_HEADERS.month}</th>
+              <th scope="col">{OPEN_SOURCE_ACTIVITY_TABLE_HEADERS.total}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {months.map((month) => (
+              <tr key={month.month}>
+                <th scope="row">{month.month}</th>
+                <td>{formatCount(month.total)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 };
