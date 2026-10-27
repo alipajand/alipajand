@@ -6,10 +6,12 @@ import {
   useForm,
   type UseFormHandleSubmit,
   type UseFormRegister,
+  useWatch,
 } from "react-hook-form";
 
 import { CONTACT_FORM_ERROR_GENERIC, CONTACT_FORM_ERROR_NETWORK } from "data/contactForm";
 import { trackGtagEvent } from "utils/analytics";
+import { composeContactMessage, contactMessageLength } from "utils/contactFields";
 
 export type ContactFormStatus = "idle" | "loading" | "success" | "error";
 
@@ -27,6 +29,9 @@ export interface ContactFormSelectors {
   formState: FormState<ContactFormValues>;
   validationErrors: string[];
   errorSummaryRef: RefObject<HTMLDivElement | null>;
+  /** Message length as the server counts it, company line included. */
+  messageLength: number;
+  hasCompany: boolean;
 }
 
 export interface ContactFormActions {
@@ -46,13 +51,6 @@ const DEFAULT_VALUES: ContactFormValues = {
   message: "",
 };
 
-const composeMessage = (message: string, company: string): string => {
-  const trimmedMessage = message.trim();
-  const trimmedCompany = company.trim();
-  if (!trimmedCompany) return trimmedMessage;
-  return `Company: ${trimmedCompany}\n\n${trimmedMessage}`;
-};
-
 export const useContactForm = (): ContactFormHook => {
   const [status, setStatus] = useState<ContactFormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -64,6 +62,15 @@ export const useContactForm = (): ContactFormHook => {
   const {
     formState: { errors, submitCount },
   } = form;
+  const [message, company] = useWatch({ control: form.control, name: ["message", "company"] });
+  const messageLength = contactMessageLength(message, company);
+  const hasCompany = company.trim().length > 0;
+  // The company shares the message's length budget, so a message already checked is checked again.
+  useEffect(() => {
+    if (form.getFieldState("message").isTouched || form.formState.submitCount > 0) {
+      void form.trigger("message");
+    }
+  }, [company, form]);
   const validationErrors = useMemo(
     () =>
       [errors.name?.message, errors.email?.message, errors.message?.message].filter(
@@ -85,13 +92,17 @@ export const useContactForm = (): ContactFormHook => {
         body: JSON.stringify({
           name: data.name.trim(),
           email: data.email.trim(),
-          message: composeMessage(data.message, data.company),
+          message: composeContactMessage(data.message, data.company),
         }),
       });
       const body = await res.json().catch(() => ({}));
       if (!res.ok) {
         setStatus("error");
-        setErrorMessage(body.error ?? CONTACT_FORM_ERROR_GENERIC);
+        // The form applies the server's rules first, so a 400 means the two have drifted or the
+        // request was altered; the server's wording is not shown.
+        setErrorMessage(
+          res.status === 400 ? CONTACT_FORM_ERROR_GENERIC : (body.error ?? CONTACT_FORM_ERROR_GENERIC)
+        );
         trackGtagEvent("contact_form_submit", { outcome: "error" });
         return;
       }
@@ -112,6 +123,8 @@ export const useContactForm = (): ContactFormHook => {
       formState: form.formState,
       validationErrors,
       errorSummaryRef,
+      messageLength,
+      hasCompany,
     },
     actions: {
       register: form.register,

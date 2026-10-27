@@ -2,6 +2,7 @@
 
 import type { MouseEvent } from "react";
 
+import { contactFieldRules } from "components/Contact/contactFieldRules";
 import styles from "components/Contact/ContactForm.module.css";
 import { type ContactFormHook, useContactForm } from "components/Contact/hooks/useContactForm";
 import { Chev } from "components/hairline/Icons/Icons";
@@ -24,13 +25,11 @@ import {
   CONTACT_FORM_SUBMIT_IDLE,
   CONTACT_FORM_SUBMIT_LOADING,
   CONTACT_FORM_SUCCESS_MESSAGE,
-  CONTACT_VALIDATION_EMAIL_PATTERN,
-  CONTACT_VALIDATION_EMAIL_REQUIRED,
-  CONTACT_VALIDATION_MESSAGE_REQUIRED,
-  CONTACT_VALIDATION_NAME_REQUIRED,
+  contactMessageCountLabel,
 } from "data/contactForm";
 import { CONTACT_FORM_SECTION_HEADING } from "data/contact";
 import { CONTACT_FORM_LEDE } from "data/site";
+import { CONTACT_MESSAGE_MAX_LENGTH } from "utils/contactFields";
 
 const focusField = (event: MouseEvent<HTMLAnchorElement>) => {
   const field = document.getElementById(event.currentTarget.hash.slice(1));
@@ -52,6 +51,8 @@ export const ContactForm = () => {
       formState: { errors },
       validationErrors,
       errorSummaryRef,
+      messageLength,
+      hasCompany,
     },
     actions: { handleSubmit, register },
   }: ContactFormHook = useContactForm();
@@ -110,7 +111,7 @@ export const ContactForm = () => {
             placeholder={CONTACT_FIELD_NAME_PLACEHOLDER}
             autoComplete="name"
             disabled={isSubmitting}
-            {...register("name", { required: CONTACT_VALIDATION_NAME_REQUIRED })}
+            {...register("name", contactFieldRules.name)}
             aria-invalid={errors.name ? "true" : "false"}
             aria-required
             aria-describedby={
@@ -138,13 +139,7 @@ export const ContactForm = () => {
             placeholder={CONTACT_FIELD_EMAIL_PLACEHOLDER}
             autoComplete="email"
             disabled={isSubmitting}
-            {...register("email", {
-              required: CONTACT_VALIDATION_EMAIL_REQUIRED,
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: CONTACT_VALIDATION_EMAIL_PATTERN,
-              },
-            })}
+            {...register("email", contactFieldRules.email)}
             aria-invalid={errors.email ? "true" : "false"}
             aria-required
             aria-describedby={
@@ -191,15 +186,25 @@ export const ContactForm = () => {
             rows={5}
             placeholder={CONTACT_FIELD_MESSAGE_PLACEHOLDER}
             disabled={isSubmitting}
-            {...register("message", { required: CONTACT_VALIDATION_MESSAGE_REQUIRED })}
+            {...register("message", contactFieldRules.message)}
             aria-invalid={errors.message ? "true" : "false"}
             aria-required
             aria-describedby={
-              errors.message ? "contact-message-hint contact-message-error" : "contact-message-hint"
+              errors.message
+                ? "contact-message-hint contact-message-count contact-message-error"
+                : "contact-message-hint contact-message-count"
             }
           />
           <p id="contact-message-hint" className={styles.hint}>
             {CONTACT_FIELD_MESSAGE_HINT}
+          </p>
+          {/* Read with the field through aria-describedby, not announced on every keystroke. */}
+          <p
+            id="contact-message-count"
+            className={styles.count}
+            data-over={messageLength > CONTACT_MESSAGE_MAX_LENGTH ? "" : undefined}
+          >
+            {contactMessageCountLabel(messageLength, hasCompany)}
           </p>
           {errors.message && (
             <p id="contact-message-error" className={styles.error} role="alert">
