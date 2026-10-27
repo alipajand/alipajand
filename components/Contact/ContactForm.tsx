@@ -63,9 +63,14 @@ export const ContactForm = () => {
     { id: "contact-message", message: errors.message?.message },
   ].filter((item): item is { id: string; message: string } => Boolean(item.message));
 
+  // Without JavaScript (or before hydration) the browser submits natively. POST keeps the fields
+  // out of the URL, history and request logs; the home page answers it like a GET and ignores the
+  // body, so nothing is sent. The API stays JSON-only.
   return (
     <form
       id="contact-form"
+      method="post"
+      action="/#contact"
       className={styles.form}
       onSubmit={handleSubmit}
       aria-labelledby="contact-form-heading"

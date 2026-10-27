@@ -69,7 +69,9 @@ export const useContactForm = (): ContactFormHook => {
   const messageLength = contactMessageLength(message, company);
   const hasCompany = company.trim().length > 0;
   // The company shares the message's length budget, so a message already checked is checked again.
+  // The reset after a successful send clears the message first, so nothing is flagged then.
   useEffect(() => {
+    if (!form.getValues("message").trim()) return;
     if (form.getFieldState("message").isTouched || form.formState.submitCount > 0) {
       void form.trigger("message");
     }

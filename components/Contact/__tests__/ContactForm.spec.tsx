@@ -212,6 +212,22 @@ describe("ContactForm limits shared with the API", () => {
     await expectBlocked(CONTACT_VALIDATION_MESSAGE_REQUIRED);
   });
 
+  it("should clear the form without flagging the message after a send that had a company", async () => {
+    okResponse();
+    render(<ContactForm />);
+    fillForm("Jane", "jane@example.com", "Hello");
+    fireEvent.change(company(), { target: { value: "Acme" } });
+    fireEvent.blur(screen.getByLabelText(/message/i));
+    submit();
+    await waitFor(() => {
+      expect(screen.getByText(CONTACT_FORM_SUCCESS_MESSAGE)).toBeInTheDocument();
+    });
+    expect(company()).toHaveValue("");
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(screen.queryByText(CONTACT_VALIDATION_MESSAGE_REQUIRED)).toBeNull();
+    expect(count()).toHaveTextContent("0 / 10,000 characters");
+  });
+
   it("should send a 200-character name and refuse 201", async () => {
     okResponse();
     render(<ContactForm />);
@@ -315,6 +331,13 @@ describe("ContactForm limits shared with the API", () => {
         "contact-message-hint contact-message-count contact-message-error"
       );
     });
+  });
+
+  it("should post natively to the contact section so a no-JS submit never puts fields in the URL", () => {
+    render(<ContactForm />);
+    const form = document.getElementById("contact-form")!;
+    expect(form).toHaveAttribute("method", "post");
+    expect(form).toHaveAttribute("action", "/#contact");
   });
 
   it("should show the generic message, not the server's wording, for a 400", async () => {
