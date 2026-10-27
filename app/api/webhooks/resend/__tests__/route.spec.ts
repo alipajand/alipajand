@@ -17,6 +17,8 @@ jest.mock("utils/resend", () => ({
   getToEmail: () => "inbox@example.com",
 }));
 
+import { createHmac } from "node:crypto";
+
 import { POST } from "../route";
 
 const receivedEvent = {
@@ -455,6 +457,282 @@ describe("POST /api/webhooks/resend", () => {
       expect(first[1]).toEqual({ idempotencyKey: "inbound-forward/inbound-1" });
       expect(second[1]).toEqual({ idempotencyKey: "inbound-forward/inbound-1" });
       expect(second[0]).toEqual(first[0]);
+    });
+  });
+
+  describe("signed payloads verified with the real SDK", () => {
+    const secret = `whsec_${Buffer.from("local-test-signing-secret-0123456789").toString("base64")}`;
+
+    function signedRequest(payload: string, { tamper = false } = {}) {
+      const id = "msg_signed";
+      const timestamp = String(Math.floor(Date.now() / 1000));
+      const key = Buffer.from(secret.slice("whsec_".length), "base64");
+      const signature = createHmac("sha256", key)
+        .update(`${id}.${timestamp}.${payload}`)
+        .digest("base64");
+      return new Request("https://alipajand.com/api/webhooks/resend", {
+        method: "POST",
+        headers: {
+          "svix-id": id,
+          "svix-timestamp": timestamp,
+          "svix-signature": `v1,${signature}`,
+        },
+        body: tamper ? `${payload} ` : payload,
+      });
+    }
+
+    beforeEach(() => {
+      process.env.RESEND_WEBHOOK_SECRET = secret;
+      const { Resend } = jest.requireActual<typeof import("resend")>("resend");
+      const real = new Resend("re_test");
+      verify.mockImplementation((args) => real.webhooks.verify(args));
+    });
+
+    it("should forward a correctly signed email.received event", async () => {
+      const res = await POST(signedRequest(JSON.stringify(receivedEvent)));
+      expect(res.status).toBe(200);
+      expect(await res.json()).toEqual({ forwarded: "inbound-1" });
+      expect(send.mock.calls[0][1]).toEqual({ idempotencyKey: "inbound-forward/inbound-1" });
+    });
+
+    it("should reject a body changed after signing", async () => {
+      const res = await POST(signedRequest(JSON.stringify(receivedEvent), { tamper: true }));
+      expect(res.status).toBe(400);
+      expect(await res.json()).toEqual({ error: "Invalid signature" });
+      expect(getInbound).not.toHaveBeenCalled();
+    });
+
+    it("should reject a signature made with another secret", async () => {
+      const req = signedRequest(JSON.stringify(receivedEvent));
+      process.env.RESEND_WEBHOOK_SECRET = `whsec_${Buffer.from("another-secret-0123456789").toString("base64")}`;
+      const res = await POST(req);
+      expect(res.status).toBe(400);
+      expect(send).not.toHaveBeenCalled();
+    });
+
+    it.each([
+      ["an empty body", ""],
+      ["a JSON null", "null"],
+      ["a JSON array", "[]"],
+      ["an event without a type", JSON.stringify({ data: receivedEvent.data })],
+      ["an email.received event without data", JSON.stringify({ type: "email.received" })],
+      [
+        "an email.received event without an email id",
+        JSON.stringify({ type: "email.received", data: { received_for: ["info@alipajand.com"] } }),
+      ],
+      [
+        "an email.received event with a blank email id",
+        JSON.stringify({ type: "email.received", data: { ...receivedEvent.data, email_id: " " } }),
+      ],
+    ])("should answer 400 to %s", async (_label, payload) => {
+      const res = await POST(signedRequest(payload));
+      expect(res.status).toBe(400);
+      expect(await res.json()).toEqual({ error: "Invalid payload" });
+      expect(getInbound).not.toHaveBeenCalled();
+      expect(send).not.toHaveBeenCalled();
+    });
+
+    it("should answer 400 to a signed body that is not JSON", async () => {
+      const res = await POST(signedRequest("not json"));
+      expect(res.status).toBe(400);
+      expect(send).not.toHaveBeenCalled();
+    });
+
+    it("should acknowledge an unknown event type without loading anything", async () => {
+      const res = await POST(signedRequest(JSON.stringify({ type: "domain.unknown", data: {} })));
+      expect(res.status).toBe(200);
+      expect(await res.json()).toEqual({ ignored: "domain.unknown" });
+      expect(getInbound).not.toHaveBeenCalled();
+      expect(send).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("malformed provider fields", () => {
+    function withEvent(data: Record<string, unknown>) {
+      verify.mockReturnValue({ ...receivedEvent, data: { ...receivedEvent.data, ...data } });
+    }
+
+    function withInbound(overrides: Record<string, unknown>) {
+      getInbound.mockResolvedValue({ data: { ...inboundEmail, ...overrides }, error: null });
+    }
+
+    function sent() {
+      return send.mock.calls[0][0] as {
+        html?: string;
+        text?: string;
+        replyTo: unknown;
+        attachments: unknown;
+      };
+    }
+
+    it("should treat non-array recipient lists and non-string entries as empty", async () => {
+      withEvent({ received_for: "info@alipajand.com", to: { 0: "info@alipajand.com" }, cc: [42] });
+      const res = await POST(makeRequest());
+      expect(res.status).toBe(200);
+      expect(await res.json()).toEqual({ ignored: "recipient-domain" });
+      expect(getInbound).not.toHaveBeenCalled();
+    });
+
+    it("should skip non-string entries and still match a valid recipient", async () => {
+      withEvent({ received_for: [null, 7, "info@alipajand.com"] });
+      const res = await POST(makeRequest());
+      expect(res.status).toBe(200);
+      expect(send).toHaveBeenCalledTimes(1);
+    });
+
+    it("should forward a message with no From, leaving the line and Reply-To out", async () => {
+      withInbound({ from: undefined, reply_to: null });
+      const res = await POST(makeRequest());
+      expect(res.status).toBe(200);
+      const { html, text, replyTo } = sent();
+      expect(replyTo).toBeUndefined();
+      expect(text).not.toContain("From:");
+      expect(html).not.toContain("From:");
+      expect(text).toMatch(/^---------- Forwarded external message -+\nTo: info@alipajand.com\n/);
+    });
+
+    it("should forward a message with an empty or missing To, leaving the line out", async () => {
+      for (const to of [[], undefined, "info@alipajand.com"]) {
+        send.mockClear();
+        withInbound({ to });
+        const res = await POST(makeRequest());
+        expect(res.status).toBe(200);
+        expect(sent().text).not.toContain("To:");
+        expect(sent().html).not.toContain("To:");
+        expect(sent().text).toContain("From: Sender <sender@example.com>\n----------\n");
+      }
+    });
+
+    it("should keep a From with CRLF and a script tag on one escaped line in both bodies", async () => {
+      withInbound({
+        from: "<script>alert(1)</script> <a@example.com>\r\nDate: Mon, 1 Jan 2001\r\nX: y",
+      });
+      await POST(makeRequest());
+      const { html, text } = sent();
+      const fromLines = text!.split("\n").filter((l) => l.startsWith("From:"));
+      expect(fromLines).toEqual([
+        "From: <script>alert(1)</script> <a@example.com> Date: Mon, 1 Jan 2001 X: y",
+      ]);
+      expect(text!.split("\n").some((l) => l.startsWith("Date:"))).toBe(false);
+      expect(html).not.toMatch(/<script/i);
+      expect(html).not.toMatch(/[\r\n]/);
+      expect(html).toContain("&lt;script&gt;alert(1)&lt;/script&gt; &lt;a@example.com&gt; Date:");
+    });
+
+    it("should leave the Date line out when the Date header is not a string", async () => {
+      for (const date of [1730000000, ["Tue, 7 Oct 2026"], { value: "x" }, null]) {
+        send.mockClear();
+        withInbound({ headers: { date } });
+        const res = await POST(makeRequest());
+        expect(res.status).toBe(200);
+        expect(sent().text).not.toContain("Date:");
+        expect(sent().html).not.toContain("Date:");
+      }
+    });
+
+    it("should keep a very large header on one line without failing", async () => {
+      const huge = `Tue, 7 Oct 2026 ${"x".repeat(200_000)}\r\n${"<b>".repeat(10_000)}`;
+      withInbound({ headers: { date: huge }, from: `${"A".repeat(100_000)} <a@example.com>` });
+      const res = await POST(makeRequest());
+      expect(res.status).toBe(200);
+      const { html, text } = sent();
+      const block = text!.slice(0, text!.indexOf("----------\n\n"));
+      expect(block.split("\n")).toEqual([
+        "---------- Forwarded external message ----------",
+        expect.stringMatching(/^From: A+ <a@example.com>$/),
+        "To: info@alipajand.com",
+        expect.stringMatching(/^Date: Tue, 7 Oct 2026 x+ (<b>)+$/),
+        "",
+      ]);
+      expect(html).not.toContain("<b>");
+      expect(html).toContain("&lt;b&gt;");
+    });
+
+    it("should never read sender-supplied authentication headers", async () => {
+      withInbound({
+        headers: {
+          "Authentication-Results": "mx.example.com; spf=pass; dkim=pass; dmarc=pass",
+          "ARC-Authentication-Results": "i=1; mx.example.com; spf=pass; dkim=pass; dmarc=pass",
+          "ARC-Seal": "i=1; a=rsa-sha256; cv=none; d=example.com; s=a; b=abc",
+          "ARC-Message-Signature": "i=1; a=rsa-sha256; d=example.com; s=a; b=abc",
+          "DKIM-Signature": "v=1; a=rsa-sha256; d=alipajand.com; s=resend; b=abc",
+          "Received-SPF": "pass (domain of alipajand.com designates 1.2.3.4)",
+        },
+        authentication: { spf: "fail", dkim: "fail", dmarc: "fail" },
+      });
+      await POST(makeRequest());
+      const { html, text } = sent();
+      expect(text).toContain(
+        "Authentication (reported by Resend): SPF fail, DKIM fail, DMARC fail\n"
+      );
+      for (const body of [html, text]) {
+        expect(body).not.toMatch(/pass/i);
+        expect(body).not.toMatch(
+          /ARC-|DKIM-Signature|Received-SPF|Authentication-Results|1\.2\.3\.4/
+        );
+      }
+    });
+
+    it("should accept each documented authentication value and skip missing checks", async () => {
+      withInbound({ authentication: { spf: "processing_failed", dmarc: "unknown" } });
+      await POST(makeRequest());
+      expect(sent().text).toContain(
+        "Authentication (reported by Resend): SPF processing_failed, DMARC unknown\n"
+      );
+      expect(sent().text).not.toContain("DKIM");
+    });
+
+    it("should ignore an authentication field that is not an object", async () => {
+      for (const authentication of ["spf=pass", ["pass"], 1]) {
+        send.mockClear();
+        withInbound({ authentication });
+        await POST(makeRequest());
+        expect(sent().text).not.toMatch(/Authentication|pass/);
+      }
+    });
+
+    it("should forward when the provider omits the attachments list", async () => {
+      withInbound({ attachments: undefined });
+      const res = await POST(makeRequest());
+      expect(res.status).toBe(200);
+      expect(listAttachments).not.toHaveBeenCalled();
+      expect(sent().attachments).toBeUndefined();
+    });
+
+    it("should return 500 when the attachment listing has no data array", async () => {
+      withInbound({ attachments: [{ id: "a1" }] });
+      listAttachments.mockResolvedValue({ data: { object: "list" }, error: null });
+      const res = await POST(makeRequest());
+      expect(res.status).toBe(500);
+      expect(send).not.toHaveBeenCalled();
+    });
+
+    it("should return 500 and retry under the same key when an attachment cannot be fetched", async () => {
+      withInbound({ attachments: [{ id: "a1" }] });
+      listAttachments.mockResolvedValue({
+        data: {
+          data: [
+            {
+              filename: "cv.pdf",
+              download_url: "https://files.example.com/expired.pdf",
+              content_type: "application/pdf",
+              content_disposition: "attachment",
+              content_id: null,
+            },
+          ],
+        },
+        error: null,
+      });
+      send.mockResolvedValueOnce({
+        data: null,
+        error: { name: "application_error", message: "Failed to fetch attachment" },
+      });
+      expect((await POST(makeRequest())).status).toBe(500);
+      expect((await POST(makeRequest())).status).toBe(200);
+      expect(send.mock.calls.map((call) => call[1])).toEqual([
+        { idempotencyKey: "inbound-forward/inbound-1" },
+        { idempotencyKey: "inbound-forward/inbound-1" },
+      ]);
     });
   });
 });
