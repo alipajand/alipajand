@@ -135,6 +135,21 @@ export const extractDiagramBlocks = (
   return { markdown: output, diagrams };
 };
 
+/**
+ * Every diagram slot in rendered post HTML must be one that `extractDiagramBlocks` created: slots
+ * numbered 0, 1, 2, … in order, one per diagram. A slot written by hand in the Markdown would
+ * otherwise render a second copy of a diagram, so it fails the build instead.
+ */
+export const assertDiagramSlots = (html: string, count: number): void => {
+  const slots = [...html.matchAll(DIAGRAM_SLOT_RE)].map((match) => Number(match[1]));
+  const expected = Array.from({ length: count }, (_, index) => index);
+  if (slots.length !== count || slots.some((slot, index) => slot !== expected[index])) {
+    throw new Error(
+      `Diagram slots out of order: found [${slots.join(", ")}], expected [${expected.join(", ")}]`
+    );
+  }
+};
+
 export type ContentSegment = { kind: "html"; html: string } | { kind: "diagram"; index: number };
 
 export const splitContentAtDiagramSlots = (html: string): ContentSegment[] => {

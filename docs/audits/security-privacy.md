@@ -22,7 +22,7 @@ Severity: P0 Critical, P1 High, P2 Medium, P3 Low, Info (no defect, or accepted 
 | SEC-08 | P2   | No rate limiting or bot check on `/api/contact`; documented edge rate limit could not be confirmed                               | Fixed: Vercel Firewall rule (verified live)         |
 | SEC-09 | P2   | Google Analytics script loads on every visit before any consent decision; it is live in production                               | Open; owner decided: remove GA, keep Vercel         |
 | SEC-10 | P3   | Dependency advisories (brace-expansion pinned to a vulnerable 5.0.9, source-map-js, zod); build/lint-time only                   | Fixed in #234 (merged)                              |
-| SEC-11 | P3   | Post Markdown is rendered without sanitising: raw HTML, `<script>`, event handlers and `javascript:` links pass through          | Open, accepted risk while content is owner-authored |
+| SEC-11 | P3   | Post Markdown is rendered without sanitising: raw HTML, `<script>`, event handlers and `javascript:` links pass through          | Fix in #256 (draft): build-time allowlist sanitiser |
 | SEC-19 | P3   | JSON-LD is inlined with `JSON.stringify` only, so a `</script>` in any value would end the script element                        | Open; owner decided: fix in a small PR              |
 | SEC-12 | P3   | Inbound mail forwarding re-sends external mail from the owner's own domain without the original sender or authentication result  | Open; owner decided: fix in a separate PR           |
 | SEC-13 | Info | Resend webhook signature verification is sound; two non-exploitable robustness gaps                                              | No action needed                                    |
@@ -112,10 +112,11 @@ Severity: P0 Critical, P1 High, P2 Medium, P3 Low, Info (no defect, or accepted 
 
 ### SEC-11 · P3 · Unsanitised Markdown rendering
 
-- **Evidence.** `utils/posts.ts` passes post bodies to `marked.parse`, and `features/writing/WritingPostPageContent.tsx:47` injects the result with `dangerouslySetInnerHTML`. `marked` 18 does not sanitise: `marked.parse("[x](javascript:alert(1)) <img src=x onerror=alert(1)> <script>alert(1)</script>")` returns all three unchanged.
+- **Evidence.** `utils/posts.ts` passes post bodies to `marked.parse`, and `features/writing/WritingPostProse.tsx` injects the result with `dangerouslySetInnerHTML` (at `780cd8f` this was `WritingPostPageContent.tsx:47`). `marked` 18 does not sanitise: `marked.parse("[x](javascript:alert(1)) <img src=x onerror=alert(1)> <script>alert(1)</script>")` returns all three unchanged.
 - **Current exposure.** None of the 16 posts in `content/posts/` contains raw `<script>`, `<iframe>`, event handlers, `javascript:` or `target=` (checked with grep). All rendered content is authored in the repo, so exploiting this needs a merged change to `content/`.
 - **Remedy (hardening, optional).** Add a small `marked` renderer hook that drops `javascript:`/`data:` link and image URLs, and either strip raw HTML blocks or run the output through a sanitiser at build time (pages are static, so there is no runtime cost). Not urgent while all content is owner-authored.
-- **Status.** Open, accepted risk: the trust boundary is owner-authored Markdown in the repo.
+- **Fix.** #256 (draft) sanitises the rendered Markdown at build time with `sanitize-html` 2.18.0 against an explicit allowlist (`utils/sanitizePostHtml.ts`, called from `renderPostHtml` in `utils/posts.ts`). Nothing reaches the client bundle. Link URLs are limited to http, https, mailto, relative and `#` fragments, and image URLs to http, https and relative. Entity-encoded schemes (`javascript&colon;`, `&#x6A;avascript:`) are rejected by `isAllowedUrl`, because the library does not decode entities in the byte-preserving mode used here. Hand-written diagram slots fail the build. The rendered HTML of all 16 posts is unchanged. Probes and tests: `utils/__tests__/sanitizePostHtml.spec.ts`.
+- **Status.** Fix open in #256 (draft), pending owner review. Until it merges, the trust boundary is still owner-authored Markdown in the repo.
 
 ### SEC-19 · P3 · JSON-LD serialisation
 

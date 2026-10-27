@@ -5,7 +5,7 @@ import { WRITING_TABLE_REGION_LABEL } from "data/writing";
 import type { DiagramSpec } from "utils/diagramBlocks";
 
 interface WritingPostProseProps {
-  /** Sanitised post HTML from the Markdown pipeline, with heading ids and diagram slots. */
+  /** Post HTML from `renderPostHtml`: allowlist-sanitised at build, with heading ids and diagram slots. */
   contentHtml: string;
   diagrams: readonly DiagramSpec[];
   /** `reader` is the standard article; `launch` is the Agent Readiness Doctor article. */

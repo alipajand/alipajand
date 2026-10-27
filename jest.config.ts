@@ -28,4 +28,28 @@ const config: Config = {
   },
 };
 
-export default createJestConfig(config);
+/**
+ * ESM-only packages under `sanitize-html` (used by the build-time post sanitiser). `next/jest`
+ * leaves all of `node_modules` untransformed, so these are let through to its SWC transform.
+ */
+const ESM_PACKAGES = [
+  "htmlparser2",
+  "domhandler",
+  "domutils",
+  "dom-serializer",
+  "domelementtype",
+  "entities",
+];
+
+const jestConfig = async (): Promise<Config> => {
+  const resolved = await createJestConfig(config)();
+  return {
+    ...resolved,
+    transformIgnorePatterns: [
+      `/node_modules/(?!(?:\\.pnpm/)?(?:${ESM_PACKAGES.join("|")})[@/])`,
+      "^.+\\.module\\.(css|sass|scss)$",
+    ],
+  };
+};
+
+export default jestConfig;

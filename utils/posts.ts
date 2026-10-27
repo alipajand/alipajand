@@ -6,9 +6,10 @@ import { marked } from "marked";
 
 import { isPostPublished } from "utils/date";
 
-import { extractDiagramBlocks, type DiagramSpec } from "utils/diagramBlocks";
+import { assertDiagramSlots, extractDiagramBlocks, type DiagramSpec } from "utils/diagramBlocks";
 import { addHeadingIds, type PostHeading } from "utils/headings";
 import { renderHighlightedCode } from "utils/highlightCode";
+import { sanitizePostHtml } from "utils/sanitizePostHtml";
 
 // Fenced code is highlighted at build time; the article ships finished HTML and no highlighter.
 marked.use({
@@ -118,16 +119,27 @@ const readPostFile = (slug: string): string | null => {
   }
 };
 
+/**
+ * Post Markdown to article HTML: diagram fences become slots, Markdown is rendered with highlighted
+ * code, the result is sanitised against an allowlist, and h2/h3 get generated ids. Runs at build.
+ */
+export const renderPostHtml = (
+  markdown: string
+): { html: string; headings: PostHeading[]; diagrams: DiagramSpec[] } => {
+  const { markdown: withSlots, diagrams } = extractDiagramBlocks(markdown);
+  const safe = sanitizePostHtml(marked.parse(withSlots, { async: false }) as string);
+  assertDiagramSlots(safe, diagrams.length);
+  const { html, headings } = addHeadingIds(safe);
+  return { html, headings, diagrams };
+};
+
 export const getPostBySlug = (slug: string): Post | null => {
   const raw = readPostFile(slug);
   if (raw === null) return null;
 
   const { data, content } = parseFrontmatter(raw);
   const fm = data as unknown as PostFrontmatter;
-  const { markdown, diagrams } = extractDiagramBlocks(content);
-  const { html: contentHtml, headings } = addHeadingIds(
-    marked.parse(markdown, { async: false }) as string
-  );
+  const { html: contentHtml, headings, diagrams } = renderPostHtml(content);
   return {
     slug,
     title: fm.title ?? slug,
