@@ -1,0 +1,11 @@
+.main {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+@media (max-width: 760px) {
+  .main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

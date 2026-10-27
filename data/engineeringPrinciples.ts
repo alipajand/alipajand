@@ -170,3 +170,35 @@ export const ENGINEERING_PRINCIPLES_SECTIONS: EngineeringPrinciplesSection[] = [
     ],
   },
 ];
+
+/** Display-only copy for the page's hero, index and closing band. */
+export const ENGINEERING_PRINCIPLES_DISPLAY_LINES = ["Engineering", "Principles"] as const;
+
+/** The page `h1` id, which also names the introduction. */
+export const ENGINEERING_PRINCIPLES_TITLE_ID = "principles-title";
+
+export const engineeringPrinciplesCountLabel = (count: number): string => `${count} principles`;
+
+export const ENGINEERING_PRINCIPLES_CTAS = [
+  { label: "Principles on this page", href: "#principles" },
+  { label: "Discuss a role", href: "/#contact" },
+] as const;
+
+/** The hero diagram's readout, for example "Settled 04 / 10". */
+export const engineeringPrinciplesSettledLabel = (settled: number, total: number): string =>
+  `Settled ${String(settled).padStart(2, "0")} / ${total}`;
+
+export const ENGINEERING_PRINCIPLES_EVIDENCE_KIND_CASE_STUDY = "Case study";
+
+export const ENGINEERING_PRINCIPLES_EVIDENCE_KIND_WRITING = "Writing";
+
+export const engineeringPrinciplesEvidenceKind = (href: string): string =>
+  href.startsWith("/portfolio")
+    ? ENGINEERING_PRINCIPLES_EVIDENCE_KIND_CASE_STUDY
+    : ENGINEERING_PRINCIPLES_EVIDENCE_KIND_WRITING;
+
+export const ENGINEERING_PRINCIPLES_REVIEW_LABEL = "In a design review";
+
+/** The closing band quotes the last sentence of the lede. */
+export const ENGINEERING_PRINCIPLES_REVIEW_QUOTE =
+  "They're also a fair preview of what I'll argue for in a design review.";

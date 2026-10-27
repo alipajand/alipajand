@@ -1,0 +1,94 @@
+.stackHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  padding: 26px 24px 16px;
+  border-bottom: var(--stroke-hairline) solid var(--color-ink);
+}
+
+.stackTitle {
+  composes: display from "../../components/hairline/styles/type.module.css";
+  font-size: clamp(30px, 5.6cqi, 88px);
+  line-height: 0.9;
+}
+
+.stackCount {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  color: var(--tone-mute);
+}
+
+.ticker {
+  overflow: hidden;
+  padding-block: 9px;
+  border-bottom: var(--stroke-hairline) solid var(--color-ink);
+}
+
+.tickerTrack {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.tickerRun {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding-right: 26px;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 118%;
+  text-transform: uppercase;
+  font-size: clamp(28px, 4.4cqi, 64px);
+}
+
+.tickerItem {
+  /* Names and sparks are separate flex items, so either can start a wrapped line. */
+  display: contents;
+}
+
+.tickerMark {
+  flex: none;
+  width: 0.4em;
+  height: 0.4em;
+}
+
+.stackList {
+  padding: 16px 24px 20px;
+  border-top: var(--stroke-hairline) solid var(--color-ink);
+}
+
+.stackList ul li {
+  padding: 3px 9px;
+  border-color: var(--color-ink);
+  opacity: 1;
+}
+
+@media (max-width: 760px) {
+  .stackHead {
+    padding: 22px 16px 14px;
+  }
+
+  .stackList {
+    padding: 14px 16px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tickerRun[data-duplicate] {
+    display: none;
+  }
+
+  .tickerTrack {
+    width: auto;
+  }
+
+  .tickerRun {
+    flex-wrap: wrap;
+    /* The band's 26px gap outranks the base 4px row gap in the artifact, so rows sit 26px apart. */
+    row-gap: 26px;
+    white-space: normal;
+  }
+}

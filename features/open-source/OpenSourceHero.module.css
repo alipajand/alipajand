@@ -1,0 +1,145 @@
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px 24px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.eyebrow {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  color: var(--tone-mute);
+}
+
+.title {
+  composes: display from "../../components/hairline/styles/type.module.css";
+  font-stretch: 118%;
+  font-size: clamp(30px, 3.4vw, 52px);
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.lede {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 500;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.body {
+  margin: 0;
+  max-width: 58ch;
+  color: var(--tone-mute);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.ctas {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: auto;
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.ctas a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.ctas a:first-child {
+  background: var(--color-line);
+  color: var(--color-ink);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.ctas a:first-child:hover {
+  background: var(--color-bone-2);
+}
+
+.ctas a:first-child:focus-visible {
+  outline-color: var(--color-ink);
+  outline-offset: -4px;
+}
+
+.ctas a:last-child:hover {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.route {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+}
+
+.route canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.readout {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  pointer-events: none;
+}
+
+.readout span {
+  padding: 6px 10px;
+  background: var(--color-ink);
+  border: var(--stroke-hairline) solid var(--tone-rule);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 760px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .copy {
+    padding: 22px 16px;
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .route {
+    min-height: 520px;
+  }
+
+  .readout {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+}

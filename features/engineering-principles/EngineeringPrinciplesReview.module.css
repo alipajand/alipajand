@@ -1,0 +1,39 @@
+.close {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+}
+
+.side {
+  padding: 28px 24px;
+  border-right: var(--stroke-hairline) solid var(--color-ink);
+}
+
+.label {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  color: var(--tone-mute);
+}
+
+.quote {
+  composes: display from "../../components/hairline/styles/type.module.css";
+  padding: 26px 24px 34px;
+  font-stretch: 118%;
+  font-size: clamp(30px, 4.6cqi, 80px);
+  line-height: 0.94;
+  text-wrap: balance;
+}
+
+@media (max-width: 760px) {
+  .close {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .side {
+    padding: 22px 16px 0;
+    border-right: 0;
+  }
+
+  .quote {
+    padding: 14px 16px 26px;
+    font-size: 8.4cqi;
+  }
+}
