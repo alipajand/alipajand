@@ -41,19 +41,11 @@
 }
 
 .links a {
-  position: relative;
   font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-}
-
-/* The words stay small; the tap area grows to the row height without moving anything. */
-.links a::after {
-  content: "";
-  position: absolute;
-  inset: -15px 0;
 }
 
 .links a:hover {

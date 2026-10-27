@@ -6,7 +6,6 @@
 }
 
 .toggle {
-  position: relative;
   padding: 0;
   font: inherit;
   letter-spacing: inherit;
@@ -15,13 +14,6 @@
   background: none;
   border: 0;
   cursor: pointer;
-}
-
-/* A 44px-tall tap area around the mono label, without changing the footer row. */
-.toggle::after {
-  content: "";
-  position: absolute;
-  inset: -13px 0;
 }
 
 .toggle:hover {
