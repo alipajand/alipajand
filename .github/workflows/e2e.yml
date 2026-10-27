@@ -29,9 +29,15 @@ env:
 jobs:
   e2e:
     if: github.event_name != 'workflow_dispatch'
-    name: Playwright e2e (Chromium, Linux)
+    name: Playwright e2e (Chromium, Linux, shard ${{ matrix.shard }}/2)
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # One job passed 8 minutes once the visual comparison ran (937 + 46 tests, 481-512 s), so the
+    # suite runs as two shards. Each shard runs its half of every check, visual ones included.
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
     container:
       image: mcr.microsoft.com/playwright:v1.64.0-noble@sha256:06a9939e57531807f8d5fd76ce44b53165ffb7d7501d87ab10e285c20b1e971f
       options: --ipc=host
@@ -73,12 +79,12 @@ jobs:
         run: find e2e/__screenshots__ -type f -exec sha256sum {} + | sort > "$RUNNER_TEMP/baselines.sha256"
 
       - name: Run behavioural, responsive and accessibility checks
-        run: sh .github/scripts/sample-resources.sh "Behavioural checks" pnpm exec playwright test --grep-invert @visual
+        run: sh .github/scripts/sample-resources.sh "Behavioural checks" pnpm exec playwright test --grep-invert @visual --shard=${{ matrix.shard }}/2
 
       # Runs even when a behavioural check failed, so one push reports both.
       - name: Compare visual baselines
         if: (success() || failure()) && steps.build.outcome == 'success'
-        run: sh .github/scripts/sample-resources.sh "Visual comparison" pnpm exec playwright test --grep @visual
+        run: sh .github/scripts/sample-resources.sh "Visual comparison" pnpm exec playwright test --grep @visual --shard=${{ matrix.shard }}/2
 
       # CI compares only; new baselines come from the reviewed update-visual-baselines artifact.
       - name: Check that no baseline was written
@@ -91,7 +97,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: playwright-report
+          name: playwright-report-shard-${{ matrix.shard }}
           path: |
             playwright-report/
             test-results/
