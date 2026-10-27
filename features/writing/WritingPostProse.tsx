@@ -1,8 +1,10 @@
 import styles from "features/writing/WritingPostProse.module.css";
 import { WritingPostDiagram } from "features/writing/WritingPostDiagram";
 import { proseSegments } from "features/writing/proseHtml";
-import { WRITING_TABLE_REGION_LABEL } from "data/writing";
+import { WRITING_CODE_REGION_LABEL, WRITING_TABLE_REGION_LABEL } from "data/writing";
 import type { DiagramSpec } from "utils/diagramBlocks";
+
+const PROSE_LABELS = { table: WRITING_TABLE_REGION_LABEL, code: WRITING_CODE_REGION_LABEL };
 
 interface WritingPostProseProps {
   /** Post HTML from `renderPostHtml`: allowlist-sanitised at build, with heading ids and diagram slots. */
@@ -22,7 +24,7 @@ export const WritingPostProse = ({
   variant = "reader",
 }: WritingPostProseProps) => (
   <div className={`${styles.prose} ${styles[variant]}`} data-prose="">
-    {proseSegments(contentHtml, WRITING_TABLE_REGION_LABEL).map((segment, index) =>
+    {proseSegments(contentHtml, PROSE_LABELS).map((segment, index) =>
       segment.kind === "html" ? (
         <div
           key={index}

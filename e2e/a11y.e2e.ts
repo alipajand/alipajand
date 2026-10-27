@@ -29,8 +29,8 @@ const KNOWN_FINDINGS: KnownFinding[] = [
   {
     id: "RG-A2",
     rule: "scrollable-region-focusable",
-    within: "pre, dialog [class*='dialogImage']",
-    note: "Wide code blocks and the enlarged screenshot scroll sideways but cannot take keyboard focus outside Chromium.",
+    within: "dialog [class*='dialogImage']",
+    note: "The enlarged screenshot scrolls but cannot take keyboard focus outside Chromium. Owned with the screenshot dialog (ScreenshotFrame); code blocks and tables are covered by e2e/scroll-regions.e2e.ts.",
   },
   {
     id: "RG-A3",

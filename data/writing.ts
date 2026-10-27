@@ -88,6 +88,7 @@ export const WRITING_MORE_HEADING = "More writing";
 export const WRITING_MORE_ACTION = "All writing";
 export const WRITING_BACK_TO_INDEX = "Back to writing";
 export const WRITING_TABLE_REGION_LABEL = "Table, scrolls sideways";
+export const WRITING_CODE_REGION_LABEL = "Code, scrolls sideways";
 export const writingDiagramBandLabel = (title: string): string => `Diagram: ${title}`;
 
 export const WRITING_ARTICLE_NEXT_LABEL = "More from the site";
