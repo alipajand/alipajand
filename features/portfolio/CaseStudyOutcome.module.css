@@ -1,0 +1,40 @@
+.outcome {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.outcome li {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  padding: 22px 0;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  font-size: clamp(20px, 1.9vw, 28px);
+  font-weight: 500;
+  line-height: 1.3;
+  text-wrap: pretty;
+}
+
+.outcome li:first-child {
+  padding-top: 0;
+}
+
+.outcome li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.number {
+  padding-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-mute);
+}
+
+@media (max-width: 760px) {
+  .outcome li {
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+}
