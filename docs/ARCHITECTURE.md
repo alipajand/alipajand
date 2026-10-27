@@ -75,4 +75,4 @@ See `.env.example` for the full list. Never commit real values.
 - The `app/api/contact` route is the only external API call surface. It uses server-side secrets only.
 - No authentication or authorization is required for this site.
 - All environment variables are server-side only; none are exposed to the client bundle.
-- Rate limiting for the contact form is handled at the Vercel edge level.
+- `POST /api/contact` is rate limited by a Vercel Firewall custom rule (5 requests per 10 minutes per client IP, answered with `429`). The rule lives in the Vercel project, not in this repository; [CONTACT_RATE_LIMIT.md](CONTACT_RATE_LIMIT.md) has its definition and how to verify it.

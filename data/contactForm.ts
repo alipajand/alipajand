@@ -29,5 +29,7 @@ export const CONTACT_FORM_SUCCESS_MESSAGE = "Message sent. Thanks for reaching o
 
 export const CONTACT_FORM_ERROR_GENERIC = "Something went wrong. Please try again.";
 export const CONTACT_FORM_ERROR_NETWORK = "Failed to send. Please try again or email directly.";
+export const CONTACT_FORM_ERROR_RATE_LIMITED =
+  "Too many messages in a short time. Please wait a few minutes or email directly.";
 
 export const CONTACT_FORM_ERROR_SUMMARY_HEADING = "Please fix the following before sending:";
