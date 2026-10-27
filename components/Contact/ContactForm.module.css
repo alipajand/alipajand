@@ -50,6 +50,13 @@
   padding-left: 18px;
 }
 
+/* Each link is a 24px target (WCAG 2.5.8); at the text's own height the rows sat 21px apart. */
+.summary a {
+  display: inline-block;
+  min-height: 24px;
+  line-height: 24px;
+}
+
 .summary a:focus-visible {
   outline-color: var(--color-ink);
 }
