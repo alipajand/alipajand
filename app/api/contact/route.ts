@@ -71,13 +71,9 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      const isResendRestriction = /only send testing emails|verify a domain|from address/i.test(
-        error.message ?? ""
-      );
-      const userMessage = isResendRestriction
-        ? "Verify a domain at resend.com/domains and set RESEND_FROM to an email on that domain."
-        : error.message;
-      return NextResponse.json({ error: userMessage }, { status: 500 });
+      // Provider details (account limits, sender setup hints) stay in the server log.
+      console.error("Contact email send failed", { name: error.name, message: error.message });
+      return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
