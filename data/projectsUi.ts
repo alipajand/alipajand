@@ -1,10 +1,3 @@
-export const PORTFOLIO_ADDITIONAL_EXPERIENCE_HEADING = "Additional experience";
-
-export const PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_LABEL = "More contributed projects on LinkedIn";
-
-export const PORTFOLIO_ADDITIONAL_EXPERIENCE_LINK_HREF =
-  "https://www.linkedin.com/in/alipajand/details/projects/";
-
 export const PROJECT_MY_ROLE_HEADING = "My role";
 
 export const PROJECT_SECTION_LINK_BACK = "Back to all case studies";
@@ -40,11 +33,6 @@ export const projectCaseStudyTocAriaLabel = (projectName: string): string =>
 
 export const projectLiveLinksAriaLabel = (projectName: string): string =>
   `${projectName} live links`;
-
-export const PORTFOLIO_CASE_STUDIES_TOC_ARIA_LABEL = "Case studies on this page";
-
-export const projectReadCaseStudyLabel = (projectName: string): string =>
-  `Read the ${projectName} case study`;
 
 export const PORTFOLIO_PROFILE_LINKS_ARIA_LABEL = "Profiles and booking";
 

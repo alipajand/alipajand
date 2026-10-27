@@ -26,11 +26,6 @@ export interface ProjectDecision {
   result: string;
 }
 
-export interface ProjectTechnicalHighlight {
-  title: string;
-  description: string;
-}
-
 export interface ProjectLink {
   label: string;
   href: string;
