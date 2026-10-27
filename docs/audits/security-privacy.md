@@ -1,6 +1,6 @@
 # Security and privacy review
 
-Date: 2026-10-27. Baseline: `main` at `780cd8f` (before any fix below). Re-checked against `main` at `03b0539` and against production (`https://alipajand.com`) after the owner merged #229 to #232.
+Date: 2026-10-27. Baseline: `main` at `780cd8f` (before any fix below). Re-checked against `main` at `03b0539` and against production (`https://alipajand.com`) after the owner merged #229 to #234.
 
 Scope: contact API, Resend integration, Resend webhook, Markdown/HTML rendering, analytics and consent, security headers, build output and `public/`, images in `public/`, external links, dependencies. The visual redesign is out of scope.
 
@@ -18,10 +18,10 @@ Severity: P0 Critical, P1 High, P2 Medium, P3 Low, Info (no defect, or accepted 
 | SEC-04 | P3   | Contact `name` keeps CR/LF into the email subject; `name` and `message` have no length cap                                       | Fixed in #231 (merged)                              |
 | SEC-05 | P3   | `isValidEmail` accepts address-list syntax (`"x",other@example.com`) which is passed as `replyTo`                                | Fixed in #231 (merged)                              |
 | SEC-06 | P3   | Resend error messages and setup hints are shown to visitors                                                                      | Fixed in #232 (merged)                              |
-| SEC-07 | P3   | Path traversal in post slug: `/writing/..%2F..%2FREADME/opengraph-image` reads `README.md`                                       | Fix in #233 (draft)                                 |
+| SEC-07 | P3   | Path traversal in post slug: `/writing/..%2F..%2FREADME/opengraph-image` reads `README.md`                                       | Fixed in #233 (merged)                              |
 | SEC-08 | P2   | No rate limiting or bot check on `/api/contact`; documented edge rate limit could not be confirmed                               | Open, proposal below                                |
 | SEC-09 | P2   | Google Analytics loads on every visit with no consent step; it is live in production                                             | Open, owner decision (DEC-8)                        |
-| SEC-10 | P3   | Dependency advisories (brace-expansion pinned to a vulnerable 5.0.9, source-map-js, zod); build/lint-time only                   | Fix in #234 (draft)                                 |
+| SEC-10 | P3   | Dependency advisories (brace-expansion pinned to a vulnerable 5.0.9, source-map-js, zod); build/lint-time only                   | Fixed in #234 (merged)                              |
 | SEC-11 | P3   | Post Markdown is rendered without sanitising: raw HTML, `<script>`, event handlers and `javascript:` links pass through          | Open, accepted risk while content is owner-authored |
 | SEC-12 | P3   | Inbound mail forwarding re-sends external mail from the owner's own domain without the original sender or authentication result  | Open, proposal (contract change)                    |
 | SEC-13 | Info | Resend webhook signature verification is sound; two non-exploitable robustness gaps                                              | No action needed                                    |
@@ -81,7 +81,7 @@ Severity: P0 Critical, P1 High, P2 Medium, P3 Low, Info (no defect, or accepted 
 - **Evidence.** `utils/posts.ts:101-107` (at `780cd8f`) built the path with ``readFileSync(join(POSTS_DIR, `${slug}.md`))`` from the decoded route parameter. `app/writing/[slug]` allows dynamic params. `GET /writing/..%2F..%2FREADME/opengraph-image` → 200, an "ARTICLE" card titled `../../README`. `GET /writing/..%2F..%2FREADME` → 404 body, but `<title>../../README | Ali Pajand</title>`.
 - **Exploit scenario.** Any `*.md` file the server can read is parsed with js-yaml, and its frontmatter `title`, `excerpt` and `seoDescription` leak into metadata and the OG image. On Vercel only traced files exist, so exposure is small. Self-hosted, it reaches any readable `.md` file.
 - **Remedy.** `readPostFile` only opens slugs matching `^[a-z0-9]+(?:-[a-z0-9]+)*$` (what `toSafeSlug` produces). Test: `utils/__tests__/posts.slugs.spec.ts`.
-- **Status.** Fix in #233 (draft). Verified locally: traversal OG image identical to the unknown-slug fallback, title "Page not found", real posts unchanged.
+- **Status.** Fixed in #233 (merged). Verified locally: traversal OG image identical to the unknown-slug fallback, title "Page not found", real posts unchanged.
 
 ### SEC-08 · P2 · No rate limiting or bot protection on the contact API
 
@@ -107,7 +107,7 @@ Severity: P0 Critical, P1 High, P2 Medium, P3 Low, Info (no defect, or accepted 
 - **Evidence.** `pnpm audit --prod`: 1 high (source-map-js 1.2.1, GHSA-68fv-2mgg-jv7q, via `next>postcss`). `pnpm audit`: 4 high and 1 moderate. brace-expansion 5.0.9 has GHSA-6j4f-fj2g-mc7p, GHSA-qhr7-859c-m2p7 and GHSA-q2hr-2g5m-vwhr. zod 4.4.3 has GHSA-mrhx-c7xc-m3w5. The `brace-expansion: 5.0.9` override in `pnpm-workspace.yaml` is what pinned the vulnerable version.
 - **Reachability.** brace-expansion is reached through eslint → minimatch, and zod through eslint-config-next → eslint-plugin-react-hooks. Both run at lint time only. source-map-js is reached through postcss, which reads source maps of repo-authored CSS at build time. None takes input from a site visitor.
 - **Remedy.** Overrides `brace-expansion: 5.0.12`, `source-map-js: ">=1.2.2"`, `zod: "^4.6.6"`, mirrored in `package.json`. Afterwards both `pnpm audit` runs report no known vulnerabilities.
-- **Status.** Fix in #234 (draft).
+- **Status.** Fixed in #234 (merged).
 
 ### SEC-11 · P3 · Unsanitised Markdown rendering
 
