@@ -1,6 +1,12 @@
 .code {
   position: relative;
   border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  /*
+   * Decorative only. The code's line height is far below its font size, so its text box reaches
+   * up over the header and would take the header's clicks. The gap follows the pointer through a
+   * window listener, so nothing here needs pointer events.
+   */
+  pointer-events: none;
 }
 
 .code b {

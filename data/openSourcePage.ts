@@ -323,7 +323,7 @@ export const OPEN_SOURCE_TECHNOLOGY_TICKER = [
 export const OPEN_SOURCE_SHARED_PRINCIPLES_NOTE = "[ Shared across every tool ]";
 
 export const OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE =
-  "A snapshot of public GitHub contributions over the last year, taken from github.com/alipajand when this page was built.";
+  "A dated snapshot of the GitHub contribution calendar on github.com/alipajand, refreshed by hand. GitHub counts private contributions there too, so it shows when I was active, not how much open-source work shipped.";
 export const OPEN_SOURCE_ACTIVITY_STAT_LABELS = {
   total: "Last year",
   totalUnit: "contributions",
@@ -335,7 +335,6 @@ export const OPEN_SOURCE_ACTIVITY_GITHUB_LABEL = "View on GitHub";
 export const OPEN_SOURCE_ACTIVITY_GITHUB_HREF = "https://github.com/alipajand";
 export const OPEN_SOURCE_ACTIVITY_LEGEND = { less: "Less", more: "More" } as const;
 export const OPEN_SOURCE_ACTIVITY_GRAPH_LABEL = "Contribution calendar, scrollable";
-export const OPEN_SOURCE_ACTIVITY_TABLE_CAPTION = "Contributions per month";
 
 export const OPEN_SOURCE_CTA_EYEBROW = "[ Source ]";
 export const OPEN_SOURCE_CTA_LINKS_LABEL = "Next";
@@ -444,6 +443,8 @@ export const openSourceActivityDaysLabel = (days: number): string => `of ${days}
 export const openSourceActivityStreakUnit = (days: number): string => (days === 1 ? "day" : "days");
 export const openSourceActivitySummary = (total: string, first: string, last: string): string =>
   `${total} on GitHub between ${first} and ${last}`;
+export const openSourceActivityTableCaption = (first: string, last: string): string =>
+  `Contributions per month, ${first} to ${last}`;
 export const OPEN_SOURCE_ACTIVITY_TABLE_HEADERS = {
   month: "Month",
   total: "Contributions",
