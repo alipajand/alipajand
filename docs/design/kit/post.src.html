@@ -1,0 +1,302 @@
+<title>Agent Readiness Doctor Article</title>
+@@HEAD@@
+<style>
+@@BASE_CSS@@
+  /* Layout: display title over a boxed meta row; a sticky three-step scene plays the post's own refactor example; then a TOC rail beside the prose. */
+  .crumbs { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 24px; border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .crumbs a { text-decoration: none; }
+  .crumbs a:hover { color: var(--line); text-decoration: underline; text-underline-offset: 4px; }
+  .crumbs [aria-current] { color: var(--line); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; flex: 1 1 200px; }
+  .title { margin: 0; padding: 30px 24px 26px; border-bottom: 1px solid var(--rule); font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5.8cqi, 104px); line-height: .9; letter-spacing: -.01em; text-wrap: balance; }
+  .title span { display: inline-block; will-change: transform; }
+  .meta { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 3fr) minmax(0, 6fr); border-bottom: 1px solid var(--rule); }
+  .meta > div { padding: 14px 24px; border-right: 1px solid var(--rule); display: grid; gap: 6px; align-content: start; }
+  .meta > div:last-child { border-right: 0; }
+  .meta dt { color: var(--mute); }
+  .meta dd { margin: 0; }
+  .meta .dek { font-size: 18px; line-height: 1.45; }
+
+  /* ── Scene ── */
+  .scene { height: 260vh; border-bottom: 1px solid var(--rule); }
+  .scene__stick { position: sticky; top: 0; height: 100vh; min-height: 560px; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+  .steps li { list-style: none; padding: 14px 24px; border-right: 1px solid var(--rule); color: var(--mute); display: grid; gap: 4px; transition: background .4s, color .4s; }
+  .steps li:last-child { border-right: 0; }
+  .steps li b { font-weight: 500; font-size: 15px; letter-spacing: 0; text-transform: none; font-family: var(--sans); }
+  .steps ol { margin: 0; padding: 0; display: contents; }
+  .scene[data-step="1"] .steps li:nth-child(1), .scene[data-step="2"] .steps li:nth-child(2), .scene[data-step="3"] .steps li:nth-child(3) { background: var(--line); color: var(--ink); }
+  .stage { display: grid; grid-template-columns: minmax(0, 1fr) 120px minmax(0, 1fr); align-items: center; padding: 24px; gap: 0; min-height: 0; }
+  .panel { border: 1px solid var(--rule); background: var(--ink); min-width: 0; }
+  .panel__head { display: flex; justify-content: space-between; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .row { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; padding: 14px; border-bottom: 1px solid var(--ink-2); font-family: var(--mono); font-size: clamp(13px, 1.25vw, 18px); min-height: clamp(84px, 13vh, 140px); align-content: center; }
+  .row:last-child { border-bottom: 0; }
+  .row .n { color: var(--mute); }
+  .val { position: relative; display: inline-grid; }
+  .val > * { grid-area: 1 / 1; transition: opacity .45s, transform .45s cubic-bezier(.6, .05, .2, 1); }
+  .val .new { opacity: 0; transform: translateY(8px); }
+  .row small { display: block; margin-top: 4px; font-family: var(--sans); font-size: 13px; color: var(--mute); }
+  .scene[data-step="2"] .repo .val .old, .scene[data-step="3"] .repo .val .old { opacity: 0; transform: translateY(-8px); }
+  .scene[data-step="2"] .repo .val .new, .scene[data-step="3"] .repo .val .new { opacity: 1; transform: none; }
+  .guide .del, .guide .add { display: none; }
+  .guide .row > span:last-child { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+  .scene[data-step="2"] .guide .stale { text-decoration: line-through; text-decoration-thickness: 1px; color: var(--mute); }
+  .scene[data-step="3"] .guide .stale { display: none; }
+  .scene[data-step="3"] .guide .del, .scene[data-step="3"] .guide .add { display: inline-block; }
+  .guide .del { color: var(--mute); text-decoration: line-through; }
+  .guide .del::before { content: "− "; text-decoration: none; display: inline-block; }
+  .guide .add { background: var(--line); color: var(--ink); padding: 1px 5px; }
+  .guide .add::before { content: "+ "; }
+  .links { position: relative; height: 100%; }
+  .links svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .links path { fill: none; stroke: var(--line); stroke-width: 1.2; transition: stroke-dasharray .3s, opacity .3s; }
+  .scene[data-step="2"] .links path { stroke-dasharray: 3 6; opacity: .55; }
+  .links .x { position: absolute; left: 50%; transform: translate(-50%, -50%); font-family: var(--mono); font-size: 13px; background: var(--ink); border: 1px solid var(--line); width: 22px; height: 22px; display: grid; place-items: center; opacity: 0; transition: opacity .3s; }
+  .scene[data-step="2"] .links .x { opacity: 1; }
+  .status { margin-top: 0; padding: 10px 14px; border-top: 1px solid var(--rule); color: var(--mute); }
+  .status [data-s] { display: none; }
+  .scene[data-step="1"] [data-s="1"], .scene[data-step="2"] [data-s="2"], .scene[data-step="3"] [data-s="3"] { display: inline; }
+  .scene__foot { display: flex; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; padding: 12px 24px; border-top: 1px solid var(--rule); color: var(--mute); }
+  .scene__foot span:first-child { text-transform: none; letter-spacing: .02em; }
+
+  /* ── Article ── */
+  .body { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); border-bottom: 1px solid var(--rule); }
+  .toc { border-right: 1px solid var(--rule); }
+  .toc__stick { position: sticky; top: 0; padding: 26px 24px; display: grid; gap: 12px; }
+  .toc ol { list-style: none; margin: 0; padding: 0; display: grid; border: 1px solid var(--rule); }
+  .toc a { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 6px; padding: 10px 12px; text-decoration: none; font-size: 14px; line-height: 1.35; border-bottom: 1px solid var(--rule); transition: background .25s, color .25s; }
+  .toc li:last-child a { border-bottom: 0; }
+  .toc a .mono { color: var(--mute); padding-top: 2px; }
+  .toc a:hover { background: var(--ink-2); }
+  .toc a.on { background: var(--line); color: var(--ink); }
+  .toc a.on .mono { color: var(--mute-ink); }
+  .toc details { display: none; }
+  .prose { padding: 34px 24px 48px; min-width: 0; }
+  .prose > * { max-width: 68ch; }
+  .prose p, .prose li { font-size: 18px; line-height: 1.72; }
+  .prose p { margin: 0 0 1.1em; }
+  .prose h2 { margin: 2.2em 0 .8em; max-width: none; padding-top: 18px; border-top: 1px solid var(--rule); font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(24px, 2.4vw, 36px); line-height: .98; text-wrap: balance; scroll-margin-top: 16px; }
+  .prose h2::before { content: attr(data-n); display: block; margin-bottom: 12px; font-family: var(--mono); font-weight: 400; font-stretch: 100%; font-size: 12px; letter-spacing: .08em; color: var(--mute); }
+  .prose a { text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--mute); transition: text-decoration-color .2s; }
+  .prose a:hover { text-decoration-color: var(--line); }
+  .prose code { font-family: var(--mono); font-size: .86em; border: 1px solid var(--rule); background: var(--ink-2); padding: 1px 6px; }
+  .prose blockquote { margin: 1.4em 0; padding: 18px 20px; border: 1px solid var(--line); font-size: 20px; line-height: 1.45; font-style: italic; }
+  .prose blockquote p { font-size: inherit; line-height: inherit; margin: 0; }
+  .prose ul { margin: 0 0 1.2em; padding: 0; list-style: none; border: 1px solid var(--rule); }
+  .prose ul li { display: grid; grid-template-columns: 28px minmax(0, 1fr); padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+  .prose ul li:last-child { border-bottom: 0; }
+  .prose ul li::before { content: "?"; font-family: var(--mono); color: var(--mute); }
+  .poster { margin: 2em 0 0; max-width: 520px; border: 1px solid var(--rule); }
+  .poster a { display: block; }
+  .poster img { display: block; width: 100%; height: auto; }
+  .back { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 24px; border-bottom: 1px solid var(--rule); text-decoration: none; transition: background .25s, color .25s; }
+  .back:hover, .back:focus-visible { background: var(--line); color: var(--ink); }
+  .back:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+
+  @media (max-width: 960px) {
+    .meta { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .meta > div:nth-child(2) { border-right: 0; }
+    .meta > div:last-child { grid-column: 1 / -1; border-top: 1px solid var(--rule); }
+    .body { grid-template-columns: minmax(0, 1fr); }
+    .toc { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .toc__stick { position: static; padding: 0; }
+    .toc__stick > .mono, .toc__stick > ol { display: none; }
+    .toc details { display: block; }
+    .toc summary { cursor: pointer; padding: 14px 24px; list-style: none; display: flex; justify-content: space-between; }
+    .toc summary::after { content: "+"; }
+    .toc details[open] summary::after { content: "−"; }
+    .toc details ol { margin: 0 24px 18px; }
+  }
+  @media (max-width: 760px) {
+    .crumbs, .title, .meta > div, .back { padding-inline: 16px; }
+    .title { font-size: 8.4cqi; padding-block: 22px 20px; }
+    .meta { grid-template-columns: minmax(0, 1fr); }
+    .meta > div { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .meta > div:last-child { border-bottom: 0; border-top: 0; }
+    .steps li { padding: 10px 10px; }
+    .steps li b { font-size: 13px; }
+    .stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 44px auto; padding: 14px 16px; align-content: center; }
+    .row { min-height: 0; padding: 9px 12px; font-size: 12.5px; }
+    .row small { font-size: 12px; }
+    .links svg { display: none; }
+    .links::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px solid var(--line); }
+    .scene[data-step="2"] .links::before { border-left-style: dashed; opacity: .55; }
+    .links .x { top: 50% !important; transform: translate(-50%, -50%) !important; }
+    .links .x + .x { display: none; }
+    .scene__foot { padding: 10px 16px; }
+    .toc summary { padding-inline: 16px; }
+    .toc details ol { margin-inline: 16px; }
+    .prose { padding: 26px 16px 36px; }
+    .prose p, .prose li { font-size: 17px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scene { height: auto; }
+    .scene__stick { position: static; height: auto; }
+  }
+</style>
+@@CHROME@@
+<div class="frame">
+  <div class="shell">
+    @@NAV:writing@@
+    <nav class="crumbs mono" aria-label="Breadcrumb">
+      <a href="@@U_HOME@@">Home</a><span aria-hidden="true">/</span>
+      <a href="@@U_WRITING@@">Writing</a><span aria-hidden="true">/</span>
+      <span aria-current="page">Keeping repository instructions useful with Agent Readiness Doctor</span>
+    </nav>
+
+    <article aria-labelledby="post-title">
+      <h1 class="title" id="post-title">Keeping repository instructions useful with Agent Readiness Doctor</h1>
+      <dl class="meta">
+        <div><dt class="mono">Published</dt><dd><time datetime="2026-10-12">October 12, 2026</time></dd></div>
+        <div><dt class="mono">Topics</dt><dd>DX · Tooling · Open Source</dd></div>
+        <div><dt class="mono">Summary</dt><dd class="dek">A refactor can leave the code healthy and its instructions wrong. How I would use Agent Readiness Doctor to make instruction maintenance part of the development workflow.</dd></div>
+      </dl>
+
+      <section class="scene" id="scene" data-step="1" aria-label="Illustration: instructions drifting after a refactor">
+        <div class="scene__stick">
+          <ol class="steps mono">
+            <li><span>Step 01</span><b>Before the refactor</b></li>
+            <li><span>Step 02</span><b>Tests green, guidance stale</b></li>
+            <li><span>Step 03</span><b>Smallest edit, for review</b></li>
+          </ol>
+          <div class="stage">
+            <div class="panel guide">
+              <div class="panel__head mono"><span>Repository guidance</span><span>Instructions</span></div>
+              <div class="row"><span class="n">01</span><span>Shared components: <span class="stale">src/ui</span><span class="del">src/ui</span><span class="add">components</span></span></div>
+              <div class="row"><span class="n">02</span><span>Validate with: <span class="stale">verify</span><span class="del">verify</span><span class="add">check</span></span></div>
+              <div class="status mono"><span data-s="1">Matches the code</span><span data-s="2">2 outdated references</span><span data-s="3">Proposed diff · awaiting maintainer</span></div>
+            </div>
+            <div class="links" aria-hidden="true">
+              <svg id="wires"><path/><path/></svg>
+              <span class="x">×</span><span class="x">×</span>
+            </div>
+            <div class="panel repo">
+              <div class="panel__head mono"><span>Repository</span><span>Code</span></div>
+              <div class="row"><span class="n">01</span><span><span class="val"><span class="old">src/ui/</span><span class="new">components/</span></span><small>Shared components move</small></span></div>
+              <div class="row"><span class="n">02</span><span><span class="val"><span class="old">scripts: verify</span><span class="new">scripts: check</span></span><small>Validation script is renamed</small></span></div>
+              <div class="status mono"><span data-s="1">Build passing</span><span data-s="2">Build passing · tests green</span><span data-s="3">Build passing · tests green</span></div>
+            </div>
+          </div>
+          <div class="scene__foot mono"><span>The example from this post, not a report from a measured deployment.</span><span id="scene-n">01 / 03</span></div>
+        </div>
+      </section>
+
+      <div class="body">
+        <aside class="toc" aria-label="Table of contents">
+          <div class="toc__stick">
+            <span class="mono mute">On this page</span>
+            <ol id="toc"></ol>
+            <details><summary class="mono">On this page</summary><ol id="toc-m"></ol></details>
+          </div>
+        </aside>
+        <div class="prose" id="prose">
+          <p>A refactor can leave every test green while making the next developer's first hour harder. A setup command still points to a removed script. An architecture note names a directory that no longer exists. Two instruction files describe different validation steps.</p>
+          <p>Those are maintenance bugs. They deserve a place in the development workflow alongside the code changes that caused them.</p>
+          <p>My <a href="@@U_OS@@">Agent Readiness Doctor contribution</a> is now available in GitBot's in-app Marketplace. The <a href="https://gitbot.codeongrass.com/bots/agent-readiness-doctor/">public listing</a> credits me as its creator and links to the <a href="https://github.com/gitbot-hq/Library/tree/main/bots/agent-readiness-doctor">MIT-licensed source</a>.</p>
+
+          <h2 id="what-the-bot-does">What the bot does</h2>
+          <p>It compares instruction files and agent settings with repository evidence, proposes minimal edits, and applies approved changes before repeating its checks. It can use <code>acd</code> and <code>ark</code> if installed, or continue without them. The <a href="https://gitbot.codeongrass.com/bots/agent-readiness-doctor/">published workflow</a> describes those boundaries.</p>
+
+          <h2 id="after-a-refactor-check-the-instructions-people-will-follow">After a refactor: check the instructions people will follow</h2>
+          <p>Imagine moving shared components from <code>src/ui</code> to <code>components</code>, then renaming a validation script from <code>verify</code> to <code>check</code>. The application may build successfully. Neither change necessarily breaks a test that would remind you to update the onboarding instructions.</p>
+          <p>I would make instruction review part of closing that refactor. Give the bot a narrow task:</p>
+          <blockquote><p>Compare our repository guidance with the component move and script rename. Show evidence for any outdated references and propose the smallest edits.</p></blockquote>
+          <p>This is an example prompt, not a report from a measured deployment. The useful outcome would be a short diff that a maintainer can evaluate alongside the refactor, while the reasons for the changes are still fresh.</p>
+
+          <h2 id="during-onboarding-turn-confusion-into-a-concrete-question">During onboarding: turn confusion into a concrete question</h2>
+          <p>An unfamiliar repository often has several plausible sources of truth: a README, a contributor guide, package scripts, and editor-specific rules. If they disagree, a new contributor has to reconstruct the intended workflow before doing useful work.</p>
+          <p>I would start with a specific question: which documented validation steps correspond to commands that actually exist? Then I would ask a maintainer to resolve anything the code cannot explain.</p>
+          <p>For example, finding both a unit-test command and an integration-test command does not establish which one is required for a documentation change. That is a team decision. A useful audit makes the ambiguity visible; the team still needs to settle the policy.</p>
+
+          <h2 id="keep-the-review-small-enough-to-understand">Keep the review small enough to understand</h2>
+          <p>I would separate factual corrections from policy changes. Updating a verified directory reference is easy to assess. Changing when contributors may skip a check needs a different conversation.</p>
+          <p>The review questions I would use are:</p>
+          <ul>
+            <li>Does the replacement command or path exist?</li>
+            <li>Does the edit preserve the reason the original instruction was written?</li>
+            <li>Are we resolving a contradiction or merely making the wording more uniform?</li>
+            <li>Will the next contributor understand what to do when validation fails?</li>
+          </ul>
+          <p>The last question matters especially. A command alone does not explain whether a failure is expected locally, requires a service, or should stop the work. Good instructions make those decisions explicit.</p>
+
+          <h2 id="where-the-mcp-server-and-plugins-fit">Where the MCP server and plugins fit</h2>
+          <p>Agent Readiness Doctor is the GitBot contribution. The separate <a href="@@U_OS@@">Agent Readiness integrations</a>, released as v0.1.2, expose the underlying audits through an <a href="https://www.npmjs.com/package/@alipajand/agent-readiness-mcp">MCP server</a>, a portable skill, and editor plugins. They share a read-only, offline scanner; the GitBot workflow can propose and apply approved instruction edits. Installing one does not establish that the other is installed or connected.</p>
+          <p>The scanner uses deterministic rules rather than model-generated scores. Its host client may still send reports and files it reads to its model provider. The <a href="https://github.com/alipajand/agent-readiness-action/blob/main/docs/integrations/MCP-SERVER.md">integration documentation</a> describes the MCP tools and tested clients, and the <a href="https://github.com/alipajand/agent-readiness-action/blob/main/docs/PUBLISHING-MATRIX.md">publishing matrix</a> separates released packages from pending directory reviews.</p>
+
+          <h2 id="try-it-on-one-maintenance-task">Try it on one maintenance task</h2>
+          <p>In GitBot, open Marketplace and install Agent Readiness Doctor, then start a thread in your repository. The <a href="https://gitbot.codeongrass.com/bots/agent-readiness-doctor/">public page</a> includes setup details and the full instructions.</p>
+          <p>I would begin with one recently changed area, review the proposed diff, and record unresolved decisions for the maintainer. That gives the exercise a clear finish: accurate guidance for a real task, rather than a more impressive-looking document.</p>
+          <p>For the deterministic checks behind this work, read <a href="https://alipajand.com/writing/agent-instructions-are-code">Agent instruction files are code. Lint them like code.</a>. My <a href="@@U_OS@@">open-source page</a> brings the bot contribution and related tools together.</p>
+          <p>For the packaging and acceptance work behind those integrations, read <a href="https://alipajand.com/writing/preparing-integrations-for-anthropic-and-cursor-directories">How to prepare integrations for the Anthropic and Cursor directories</a>.</p>
+
+          <figure class="poster">
+            <a href="https://gitbot.codeongrass.com/bots/agent-readiness-doctor/" rel="nofollow">
+              <img src="@@POSTER@@" width="1080" height="1080" alt="Agent Readiness Doctor launch poster from GitBot" loading="lazy" decoding="async">
+            </a>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <a class="back mono" href="@@U_WRITING@@">Back to writing <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+    <nav class="next" aria-label="More">
+      <a href="@@U_OS@@"><span class="mono">[ Tools ]</span><strong>Open source <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+      <a href="@@U_PRINCIPLES@@"><span class="mono">[ Operating model ]</span><strong>Principles <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+      <a href="@@U_HOME@@#contact"><span class="mono">[ Contact ]</span><strong>Get in touch <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+    </nav>
+    @@FOOT@@
+  </div>
+</div>
+
+<script>
+(() => {
+@@BASE_JS@@
+  // Table of contents from the article's own headings, numbered in order.
+  const heads = [...document.querySelectorAll("#prose h2")];
+  heads.forEach((h, i) => h.setAttribute("data-n", `[ ${pad(i)} ]`));
+  const items = heads.map((h, i) => `<li><a href="#${h.id}"><span class="mono">${pad(i)}</span><span>${esc(h.textContent)}</span></a></li>`).join("");
+  document.getElementById("toc").innerHTML = items;
+  document.getElementById("toc-m").innerHTML = items;
+  const tocLinks = [...document.querySelectorAll("#toc a")];
+
+  // Scene: scroll through the tall section to step 01 → 03.
+  const scene = document.getElementById("scene");
+  const sceneN = document.getElementById("scene-n");
+  const sceneStep = () => {
+    const r = scene.getBoundingClientRect();
+    const t = clamp(-r.top / Math.max(1, r.height - innerHeight), 0, 1);
+    return t < .3 ? 1 : t < .64 ? 2 : 3;
+  };
+  // Wires join each instruction row to the code row it describes.
+  const wires = document.getElementById("wires");
+  const marks = [...document.querySelectorAll(".links .x")];
+  const gRows = [...document.querySelectorAll(".guide .row")], rRows = [...document.querySelectorAll(".repo .row")];
+  const drawWires = () => {
+    const b = wires.getBoundingClientRect();
+    if (!b.width) return;
+    wires.setAttribute("viewBox", `0 0 ${b.width} ${b.height}`);
+    [...wires.children].forEach((path, i) => {
+      const g = gRows[i].getBoundingClientRect(), r = rRows[i].getBoundingClientRect();
+      const y1 = g.top + g.height / 2 - b.top, y2 = r.top + r.height / 2 - b.top, mx = b.width / 2;
+      path.setAttribute("d", `M0 ${y1} C${mx} ${y1} ${mx} ${y2} ${b.width} ${y2}`);
+      marks[i].style.top = `${(y1 + y2) / 2}px`;
+    });
+  };
+  addEventListener("resize", drawWires);
+  document.fonts && document.fonts.ready.then(drawWires);
+  const setStep = (s) => {
+    if (scene.dataset.step === String(s)) return;
+    scene.dataset.step = String(s);
+    drawWires();
+    sceneN.textContent = `0${s} / 03`;
+  };
+
+  drawWires();
+  if (reduce) { setStep(3); return; }
+  runPortal((time, { vh }) => {
+    setStep(sceneStep());
+    let cur = 0;
+    heads.forEach((h, i) => { if (h.getBoundingClientRect().top < vh * .35) cur = i; });
+    tocLinks.forEach((a, i) => a.classList.toggle("on", i === cur));
+  });
+})();
+</script>

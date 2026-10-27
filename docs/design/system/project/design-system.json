@@ -1,0 +1,80 @@
+{
+  "v": 3,
+  "layout": "files",
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-27T17:50:00Z"
+  },
+  "title": "Pajand Hairline",
+  "namespace": "PajandHairline",
+  "libraries": [],
+  "sections": {},
+  "groups": [
+    "Icons",
+    "Screenshots"
+  ],
+  "assetGroups": {
+    "Icons": {
+      "name": "Icons",
+      "tile": "s",
+      "order": [
+        "spark.svg",
+        "ring.svg",
+        "chev.svg",
+        "chevron-band.svg"
+      ],
+      "files": {
+        "spark.svg": {
+          "name": "spark.svg",
+          "blob": "dc98853276ded11a1dbe54866b6ed74c",
+          "size": 210,
+          "type": "image/svg+xml"
+        },
+        "ring.svg": {
+          "name": "ring.svg",
+          "blob": "a4eb869e7afc61cfb381f2e9434551ea",
+          "size": 264,
+          "type": "image/svg+xml"
+        },
+        "chev.svg": {
+          "name": "chev.svg",
+          "blob": "98e848dd1b24a93e2a2ddb97a5c4dc34",
+          "size": 208,
+          "type": "image/svg+xml"
+        },
+        "chevron-band.svg": {
+          "name": "chevron-band.svg",
+          "blob": "1cad738dfc1362e04975f2a5a0e24bc2",
+          "size": 170,
+          "type": "image/svg+xml"
+        }
+      }
+    },
+    "Screenshots": {
+      "name": "Screenshots",
+      "tile": "l",
+      "order": [
+        "ledgerguard-dashboard.jpg"
+      ],
+      "files": {
+        "ledgerguard-dashboard.jpg": {
+          "name": "ledgerguard-dashboard.jpg",
+          "blob": "c923e037fdb6db4a877fd5b0d125602e",
+          "size": 176794,
+          "type": "image/jpeg"
+        }
+      }
+    }
+  },
+  "blobs": {},
+  "docs": {
+    "readme": "project/README.md",
+    "sections": []
+  },
+  "lastChange": {
+    "by": "Ali Pajand",
+    "at": "2026-10-27T18:40:00Z",
+    "via": "docs/design/kit",
+    "note": "LedgerGuard dashboard screenshot replaced with the dark-mode dashboard design."
+  }
+}

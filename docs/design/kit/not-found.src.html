@@ -1,0 +1,102 @@
+<title>Page Not Found</title>
+@@HEAD@@
+<style>
+@@BASE_CSS@@
+  /* Layout: the status code as the display, drawn as a route line with one missing segment that follows the
+     pointer, then the message and two boxed ways back. Focus moves into the main region on load. */
+  .code { position: relative; border-bottom: 1px solid var(--rule); }
+  .code b { display: block; padding: 10px 24px 0; font-family: var(--display); font-weight: 900; font-stretch: 125%; font-size: 24cqi; line-height: .8; letter-spacing: -.02em; text-align: center; font-variant-numeric: tabular-nums; }
+  .code canvas { width: 100%; height: 120px; }
+  main { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); border-bottom: 1px solid var(--rule); outline: none; }
+  .msg { padding: 28px 24px; border-right: 1px solid var(--rule); display: grid; gap: 16px; align-content: start; }
+  .msg .mono { color: var(--mute); }
+  .msg h1 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5cqi, 76px); line-height: .9; }
+  .msg p { margin: 0; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5; max-width: 46ch; }
+  .msg small { color: var(--mute); font-size: 14px; line-height: 1.5; max-width: 52ch; }
+  .ways { display: grid; grid-template-rows: 1fr 1fr; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+  .ways a > span[data-fit] { min-width: 0; flex: 1; }
+  .ways a { display: flex; justify-content: space-between; align-items: end; gap: 12px; padding: 22px 24px; text-decoration: none; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(28px, 3.6cqi, 56px); line-height: .9; transition: background .3s, color .3s; }
+  .ways a:first-child { border-bottom: 1px solid var(--rule); }
+  .ways a span.mono { font-family: var(--mono); font-weight: 400; font-stretch: 100%; align-self: start; color: var(--mute); }
+  .ways a:hover, .ways a:focus-visible { background: var(--line); color: var(--ink); }
+  .ways a:hover span.mono, .ways a:focus-visible span.mono { color: var(--mute-ink); }
+  .ways a:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .ways .chev, .ways .chev svg { width: 56px; height: 22px; }
+  @media (max-width: 760px) {
+    .code b { padding-inline: 16px; }
+    .code canvas { height: 90px; }
+    main { grid-template-columns: minmax(0, 1fr); }
+    .msg { border-right: 0; border-bottom: 1px solid var(--rule); padding: 22px 16px; }
+    .ways a { padding: 20px 16px; }
+  }
+</style>
+@@CHROME@@
+<div class="frame">
+  <div class="shell">
+    @@NAV:none@@
+    <div class="code" aria-hidden="true"><b id="code"></b><canvas id="route"></canvas></div>
+    <main id="main" tabindex="-1" aria-labelledby="nf-title">
+      <div class="msg">
+        <span class="mono">[ Status ] · <span id="nf-code"></span></span>
+        <h1 id="nf-title"></h1>
+        <p id="nf-desc"></p>
+        <small id="nf-tip"></small>
+      </div>
+      <nav class="ways" aria-label="Ways back">
+        <a href="@@L:/@@"><span class="mono">[ 01 ]</span><span id="nf-home" data-fit></span><span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        <a href="@@L:/portfolio@@"><span class="mono">[ 02 ]</span><span id="nf-work" data-fit></span><span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+      </nav>
+    </main>
+    @@FOOT@@
+  </div>
+</div>
+
+<script>
+(() => {
+@@BASE_JS@@
+  // Copy is data/notFound.ts.
+  const NF = @@NOT_FOUND_JSON@@;
+  const $ = (id) => document.getElementById(id);
+  $("code").textContent = NF.NOT_FOUND_CODE;
+  $("nf-code").textContent = NF.NOT_FOUND_CODE;
+  $("nf-title").textContent = NF.NOT_FOUND_TITLE;
+  $("nf-desc").textContent = NF.NOT_FOUND_DESCRIPTION;
+  $("nf-tip").textContent = NF.NOT_FOUND_KEYBOARD_TIP;
+  $("nf-home").textContent = NF.NOT_FOUND_LINK_HOME;
+  $("nf-work").textContent = NF.NOT_FOUND_LINK_PORTFOLIO;
+  $("main").focus({ preventScroll: true });
+
+  // The code scrambles through digits once, then settles.
+  const code = $("code"), target = NF.NOT_FOUND_CODE;
+  if (!reduce) {
+    let n = 0;
+    const tick = setInterval(() => {
+      n++;
+      code.textContent = [...target].map((c, i) => n > 6 + i * 4 ? c : String(Math.floor(Math.random() * 10))).join("");
+      if (n > 6 + target.length * 4) clearInterval(tick);
+    }, 45);
+  }
+
+  // A route line across the frame with one missing segment; the gap follows the pointer.
+  const canvas = $("route");
+  let gx = .5, sx = .5;
+  addEventListener("pointermove", (e) => { gx = clamp(e.clientX / innerWidth, .1, .9); });
+  const draw = () => {
+    const { ctx, w, h } = fitCanvas(canvas);
+    ctx.clearRect(0, 0, w, h);
+    const y = h / 2, gap = Math.min(140, w * .18), cx = sx * w;
+    ctx.strokeStyle = `rgba(${LINE},.85)`; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(24, y); ctx.lineTo(cx - gap / 2, y); ctx.moveTo(cx + gap / 2, y); ctx.lineTo(w - 24, y); ctx.stroke();
+    ctx.setLineDash([3, 5]); ctx.strokeStyle = `rgba(${LINE},.35)`;
+    ctx.beginPath(); ctx.moveTo(cx - gap / 2, y); ctx.lineTo(cx + gap / 2, y); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = `rgb(${LINE})`;
+    [[24, y], [cx - gap / 2, y], [cx + gap / 2, y], [w - 24, y]].forEach(([x, yy], i) => { ctx.beginPath(); ctx.arc(x, yy, i === 1 || i === 2 ? 4 : 3, 0, Math.PI * 2); i === 1 || i === 2 ? ctx.stroke() : ctx.fill(); });
+    ctx.font = "11px 'Geist Mono', monospace"; ctx.textAlign = "center"; ctx.fillStyle = `rgba(${LINE},.6)`;
+    ctx.fillText("NO ROUTE", cx, y - 16);
+  };
+  draw();
+  addEventListener("resize", draw);
+  if (reduce) return;
+  runPortal(() => { sx += (gx - sx) * .08; draw(); });
+})();
+</script>

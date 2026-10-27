@@ -1,0 +1,12 @@
+<!-- @dsCard group="Diagrams" height=330 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Geist+Mono:wght@400;500&display=swap">
+<div class="shell" style="border:0">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="spark" viewBox="0 0 20 20"><path d="M10 0 C10.6 7 13 9.4 20 10 C13 10.6 10.6 13 10 20 C9.4 13 7 10.6 0 10 C7 9.4 9.4 7 10 0Z" fill="currentColor"/></symbol>
+<symbol id="chev" viewBox="0 0 40 16"><path d="M2 2 L8 8 L2 14 M13 2 L19 8 L13 14 M24 2 L30 8 L24 14"/></symbol>
+</defs></svg>
+<figure class="dg dg--layers" style="padding:24px"><figcaption class="dg__head mono"><span>[ Diagram ]</span><span>LedgerGuard system layers</span></figcaption>
+<ol class="layers"><li><span class="mono">01</span><b>Next.js App Router product</b><span>Server-rendered product surfaces, with client components only where review interactions need them.</span></li><li class="on"><span class="mono">02</span><b>Node.js/Fastify API</b><span>Owns deterministic contract data, API rules, authentication, and tenant scoping.</span></li><li><span class="mono">03</span><b>Supabase PostgreSQL, Auth, Storage</b><span>The tenant-scoped data model, where suggested and confirmed values are stored differently.</span></li><li><span class="mono">04</span><b>Redis/BullMQ orchestration</b><span>Explicit job contracts that let document processing retry or fail independently.</span></li><li><span class="mono">05</span><b>Python extraction worker</b><span>AWS Textract and OpenAI extraction, isolated from deterministic contract state.</span></li></ol>
+<p class="dg__cap">Probabilistic extraction sits at the bottom of the stack, behind job contracts, so it cannot bypass authentication, tenant boundaries, or review.</p></figure>
+</div>
+<script></script>

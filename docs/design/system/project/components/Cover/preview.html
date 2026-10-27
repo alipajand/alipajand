@@ -1,0 +1,32 @@
+<!-- @dsCard height=288 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+  .cv { position: relative; width: 960px; height: 288px; background: var(--ink); overflow: hidden; }
+  .cv svg { position: absolute; inset: 0; }
+  .ink2 { fill: var(--ink-2); } .bone { fill: var(--bone); } .line { fill: var(--line); } .mute { fill: var(--mute); }
+  .hair { stroke: var(--rule); stroke-width: 1; fill: none; }
+  .chev { fill: none; stroke: var(--ink); stroke-width: 7; }
+  .cv__text { position: absolute; left: 34px; bottom: 30px; max-width: 440px; display: grid; gap: 12px; }
+  .cv__name { margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: 72px; line-height: .92; color: var(--line); }
+  .cv__tag { margin: 0; font-family: var(--font-sans); font-size: 14px; color: var(--mute); }
+</style>
+<div class="cv">
+  <svg viewBox="0 0 960 288" width="960" height="288" aria-hidden="true">
+    <!-- blocks: bone 456×168 (the band), line 96×120, ink-2 216×120, mute 96×48; spacing steps 24/48, radius-none on all
+         arrangement: one wide bone slab bleeding off the right edge, a strip of unequal blocks beneath it, all right of x = 480
+         pattern: chevrons at a 48px pitch on the bone slab, from "loud, bold poster type"; the chevron row is how every band on the site ends
+         scales: space-4 24px gaps, 48px chevron pitch, radius-none, stroke-hairline frame rules -->
+    <line class="hair" x1="480" y1="0" x2="480" y2="288"/>
+    <line class="hair" x1="480" y1="192" x2="960" y2="192"/>
+    <rect class="bone" x="504" y="0" width="456" height="168"/>
+    <g>
+      <path class="chev" d="M540 40 L566 84 L540 128"/><path class="chev" d="M588 40 L614 84 L588 128"/><path class="chev" d="M636 40 L662 84 L636 128"/>
+      <path class="chev" d="M684 40 L710 84 L684 128"/><path class="chev" d="M732 40 L758 84 L732 128"/><path class="chev" d="M780 40 L806 84 L780 128"/>
+      <path class="chev" d="M828 40 L854 84 L828 128" opacity=".3"/><path class="chev" d="M876 40 L902 84 L876 128" opacity=".3"/><path class="chev" d="M924 40 L950 84 L924 128" opacity=".3"/>
+    </g>
+    <rect class="line" x="504" y="216" width="96" height="72"/>
+    <rect class="ink2" x="624" y="216" width="216" height="72"/>
+    <rect class="mute" x="864" y="216" width="96" height="48"/>
+  </svg>
+  <div class="cv__text"><h1 class="cv__name">Pajand<br>Hairline</h1><p class="cv__tag">Ink, one bone band, wide uppercase type and hairlines. Motion follows the scroll.</p></div>
+</div>

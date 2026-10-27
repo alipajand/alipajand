@@ -1,0 +1,933 @@
+<title>Ali Pajand Open Source</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: same boxed hairline grid as home and portfolio; hero is a routing diagram from inputs through the audit engines to each surface. */
+  :root {
+    --ink: #0f0f0e;
+    --ink-2: #1b1b19;
+    --bone: #d8d8d3;
+    --bone-2: #c9c9c3;
+    --line: #ecece6;
+    --rule: #5b5b56;
+    --mute: #a3a39c;
+    --mute-ink: #4b4b46;
+    --display: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+    --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ink); }
+  body { background: var(--ink); color: var(--line); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--line); outline-offset: 3px; }
+  .frame { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+  .shell { border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); container-type: inline-size; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .mute { color: var(--mute); }
+  canvas { display: block; }
+  .chev { display: inline-flex; overflow: hidden; width: 40px; flex: none; }
+  .chev svg { flex: none; width: 40px; height: 16px; transition: transform .45s cubic-bezier(.6, .05, .2, 1); }
+  .chev path { fill: none; stroke: currentColor; stroke-width: 2.2; }
+  a:hover .chev svg, a:focus-visible .chev svg { transform: translateX(8px); }
+
+  /* ── Nav ── */
+  .nav { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-top: 16px; }
+  .nav > * { border-right: 1px solid var(--rule); min-height: 56px; display: flex; align-items: center; }
+  .nav > *:nth-child(3) { border-right: 0; }
+  .nav__name { padding-inline: 16px; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; text-decoration: none; }
+  .nav__links { gap: 22px; padding-inline: 20px; }
+  .nav__links a { text-decoration: none; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+  .nav__links a:hover { text-decoration: underline; text-underline-offset: 5px; }
+  .nav__links a[aria-current] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+  .nav__cta { display: grid; grid-template-rows: 1fr 1fr; align-items: stretch; min-width: 200px; }
+  .nav__cta > * { display: flex; align-items: center; justify-content: center; padding-inline: 18px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+  .nav__cta > :first-child { border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .nav__cta a { transition: background .25s, color .25s; }
+  .nav__cta a:hover { background: var(--line); color: var(--ink); }
+  .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; min-height: 0 !important; border: 0 !important; background: var(--line); transform-origin: left; transform: scaleX(var(--p, 0)); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line); margin-right: 9px; animation: blink 2.4s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+
+  /* ── Display ── */
+  .name {
+    margin: 0;
+    padding: clamp(16px, 2.6vw, 34px) clamp(10px, 2vw, 24px) clamp(12px, 2vw, 26px);
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between; gap: .15em;
+    overflow: hidden;
+    font-family: var(--display); font-weight: 800; font-stretch: 125%;
+    font-size: 10.4cqi; line-height: .82; letter-spacing: -.015em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .name > span { display: block; will-change: transform; }
+  .name .star { width: .38em; height: .38em; flex: none; }
+
+  /* ── Hero ── */
+  .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-bottom: 1px solid var(--rule); }
+  .hero__copy { padding: 28px 24px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 22px; }
+  .hero__eyebrow { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--mute); }
+  .hero h1 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(30px, 3.4vw, 52px); line-height: .92; text-wrap: balance; }
+  .hero__lede { margin: 0; font-size: clamp(20px, 1.8vw, 26px); line-height: 1.25; font-weight: 500; text-wrap: balance; max-width: 34ch; }
+  .hero__body { margin: 0; color: var(--mute); font-size: 16px; line-height: 1.6; max-width: 58ch; }
+  .ctas { display: grid; grid-template-columns: minmax(0, 1fr); border: 1px solid var(--rule); margin-top: auto; }
+  .ctas a { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 16px; text-decoration: none; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; transition: background .25s, color .25s; }
+  .ctas a:first-child { background: var(--line); color: var(--ink); border-bottom: 1px solid var(--rule); }
+  .ctas a:first-child:hover { background: var(--bone-2); }
+  .ctas a:last-child:hover { background: var(--line); color: var(--ink); }
+  .route { position: relative; min-height: 560px; overflow: hidden; }
+  .route canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .route__readout { position: absolute; left: 16px; right: 16px; bottom: 14px; display: flex; justify-content: space-between; gap: 6px 16px; flex-wrap: wrap; pointer-events: none; }
+  .route__readout span { background: var(--ink); border: 1px solid var(--rule); padding: 6px 10px; font-variant-numeric: tabular-nums; }
+
+  /* ── Ticker ── */
+  .ticker { overflow: hidden; border-bottom: 1px solid var(--rule); padding-block: 9px; }
+  .ticker__track { display: flex; width: max-content; will-change: transform; }
+  .ticker__run { display: flex; align-items: center; gap: 18px; padding-right: 18px; white-space: nowrap; font-style: italic; font-size: 15px; }
+  .ticker__run .sep { font-style: normal; color: var(--mute); }
+  .ticker__run svg { width: 14px; height: 14px; flex: none; }
+
+  /* ── Section heads ── */
+  .head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 34px 24px 18px; border-bottom: 1px solid var(--rule); }
+  .head h2 { margin: 0; min-width: 0; max-width: 100%; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5.4vw, 88px); line-height: .9; text-wrap: balance; }
+  .head p { margin: 0; color: var(--mute); max-width: 52ch; }
+
+  /* ── Project index ── */
+  .index { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--rule); }
+  .index a { display: grid; grid-template-columns: 56px minmax(0, 4fr) minmax(0, 5fr) 120px; gap: 16px; align-items: baseline; padding: 12px 24px; text-decoration: none; border-bottom: 1px solid var(--rule); transition: background .35s, color .35s; }
+  .index li:last-child a { border-bottom: 0; }
+  .index .t { font-size: 18px; font-weight: 600; overflow-wrap: anywhere; }
+  .index .f { color: var(--mute); font-size: 14px; transition: color .35s; }
+  .index .v { text-align: right; font-variant-numeric: tabular-nums; }
+  .index a:hover, .index a:focus-visible, .index a.on { background: var(--line); color: var(--ink); }
+  .index a:hover .f, .index a:focus-visible .f, .index a.on .f { color: var(--mute-ink); }
+  .index a:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .note { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 16px; padding: 18px 24px; border-bottom: 1px solid var(--rule); }
+  .note p { margin: 0; color: var(--mute); max-width: 82ch; font-size: 15px; line-height: 1.6; }
+
+  /* ── Project ── */
+  .proj { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); border-bottom: 1px solid var(--rule); scroll-margin-top: 16px; }
+  .proj__side { border-right: 1px solid var(--rule); }
+  .proj__stick { position: sticky; top: 0; padding: 26px 24px; display: grid; gap: 18px; }
+  .proj__n { font-family: var(--display); font-weight: 800; font-stretch: 125%; font-size: clamp(64px, 8cqi, 132px); line-height: .8; letter-spacing: -.02em; color: transparent; -webkit-text-stroke: 1px var(--line); transition: color .5s; }
+  .proj.on .proj__n { color: var(--line); }
+  .proj h3 { margin: 0; font-family: var(--display); font-weight: 700; font-stretch: 112%; font-size: clamp(26px, 2.6vw, 40px); line-height: 1; letter-spacing: -.01em; overflow-wrap: anywhere; text-wrap: balance; }
+  .meta { margin: 0; display: grid; border: 1px solid var(--rule); }
+  .meta > div { display: grid; gap: 4px; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+  .meta > div:last-child { border-bottom: 0; }
+  .meta dt { color: var(--mute); }
+  .meta dd { margin: 0; font-size: 15px; }
+  .meta dd b { font-family: var(--mono); font-weight: 500; }
+  .repo { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 13px 14px; border: 1px solid var(--rule); text-decoration: none; transition: background .25s, color .25s; }
+  .repo:hover, .repo:focus-visible { background: var(--line); color: var(--ink); }
+  .proj__main { min-width: 0; display: grid; align-content: start; }
+  .proj__main > * { padding: 22px 24px; border-bottom: 1px solid var(--rule); min-width: 0; }
+  .proj__main > *:last-child { border-bottom: 0; }
+  .summary { margin: 0; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.35; font-weight: 500; max-width: 46ch; text-wrap: pretty; }
+  .block { display: grid; gap: 12px; }
+  .block__label { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--mute); }
+  .code { margin: 0; overflow-x: auto; padding: 14px 16px; border: 1px solid var(--rule); background: var(--ink-2); font-family: var(--mono); font-size: 14px; line-height: 1.6; white-space: pre; tab-size: 2; }
+  .code::before { content: "$ "; color: var(--mute); }
+  .code[data-steps]::before { content: none; }
+  .copy { font: inherit; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--line); background: transparent; border: 1px solid var(--rule); padding: 5px 10px; cursor: pointer; transition: background .2s, color .2s; }
+  .copy:hover { background: var(--line); color: var(--ink); }
+  .why { list-style: none; margin: 0; padding: 0; display: grid; }
+  .why li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; padding: 12px 0; border-top: 1px solid var(--ink-2); line-height: 1.55; max-width: 78ch; }
+  .why li:first-child { border-top: 0; padding-top: 0; }
+  .why li::before { content: attr(data-n); font-family: var(--mono); font-size: 12px; color: var(--mute); padding-top: 3px; }
+  .demo { margin: 0; padding: 16px 18px; border: 1px solid var(--line); font-size: clamp(18px, 1.5vw, 21px); line-height: 1.35; font-style: italic; max-width: 60ch; }
+  .reads { list-style: none; margin: 0; padding: 0; display: grid; border: 1px solid var(--rule); }
+  .reads a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; text-decoration: none; border-bottom: 1px solid var(--rule); transition: background .25s, color .25s; }
+  .reads li:last-child a { border-bottom: 0; }
+  .reads a:hover, .reads a:focus-visible { background: var(--line); color: var(--ink); }
+
+  /* ── Working principles (light band) ── */
+  .band { background: var(--bone); color: var(--ink); }
+  .band .shell { border-color: var(--bone-2); }
+  .band__head { padding: 30px 24px 22px; border-bottom: 1px solid var(--ink); display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; }
+  .band__head h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5.4vw, 88px); line-height: .9; }
+  .band__head .mono { color: var(--mute-ink); }
+  .principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .principle { padding: 26px 24px 30px; border-right: 1px solid var(--ink); display: grid; gap: 14px; align-content: start; }
+  .principle:last-child { border-right: 0; }
+  .principle .mono { color: var(--mute-ink); }
+  .principle h3 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 115%; text-transform: uppercase; font-size: clamp(22px, 2.2vw, 32px); line-height: .98; text-wrap: balance; }
+  .principle p { margin: 0; font-size: 16px; line-height: 1.6; max-width: 46ch; }
+  .chevrons { display: flex; align-items: center; overflow: hidden; padding: 10px 12px; border-top: 1px solid var(--ink); }
+  .chevrons svg { flex: none; width: clamp(40px, 5vw, 76px); height: auto; transition: opacity .3s, transform .3s; }
+  .chevrons svg path { fill: none; stroke: var(--ink); stroke-width: 7; }
+  .chevrons svg.off { opacity: .16; transform: translateX(-6px); }
+
+  /* ── Technology and scope ── */
+  .badges { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+  .badges li { display: grid; gap: 22px; padding: 16px 20px 18px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 17px; font-weight: 500; line-height: 1.25; transition: background .4s, color .4s; }
+  .badges li:nth-child(4n) { border-right: 0; }
+  .badges li:nth-last-child(-n + 4) { border-bottom: 0; }
+  .badges li .mono { color: var(--mute); transition: color .4s; }
+  .badges li.on { background: var(--line); color: var(--ink); }
+  .badges li.on .mono { color: var(--mute-ink); }
+
+  /* ── Contribution activity ── */
+  .act__stats { margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+  .act__stats > div { display: grid; gap: 10px; align-content: start; padding: 16px 20px 18px; border-right: 1px solid var(--rule); min-width: 0; }
+  .act__stats > div:last-child { border-right: 0; }
+  .act__stats dt { color: var(--mute); }
+  .act__stats dd { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(26px, 3.2vw, 52px); line-height: .9; overflow-wrap: anywhere; }
+  .act__stats span { color: var(--mute); font-size: 14px; }
+  .act__graph { overflow-x: auto; padding: 22px 24px 18px; border-bottom: 1px solid var(--rule); scrollbar-width: thin; }
+  .act__graph svg { display: block; width: 100%; min-width: 720px; height: auto; }
+  .act__graph text { font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; fill: var(--mute); }
+  .act__graph rect { fill: var(--line); stroke: none; }
+  .act__graph rect.l0 { fill: none; stroke: var(--rule); stroke-width: 1; }
+  .act__graph rect.l1 { fill-opacity: .2; }
+  .act__graph rect.l2 { fill-opacity: .42; }
+  .act__graph rect.l3 { fill-opacity: .7; }
+  .act__graph rect:hover { stroke: var(--line); stroke-width: 1.5; }
+  .act__graph .wk { transition: opacity .4s; }
+  .act__graph .wk.off { opacity: 0; }
+  .act__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 14px 24px; border-bottom: 1px solid var(--rule); }
+  .act__readout { min-width: 0; }
+  .act__legend { display: flex; align-items: center; gap: 4px; }
+  .act__legend i { width: 11px; height: 11px; background: var(--line); }
+  .act__legend i[data-l="0"] { background: none; outline: 1px solid var(--rule); outline-offset: -1px; }
+  .act__legend i[data-l="1"] { opacity: .2; }
+  .act__legend i[data-l="2"] { opacity: .42; }
+  .act__legend i[data-l="3"] { opacity: .7; }
+  .act__legend b { font-weight: inherit; }
+  .act__legend b:first-child { margin-right: 6px; }
+  .act__legend b:last-child { margin-left: 6px; }
+  .act__foot a { color: var(--line); text-underline-offset: 4px; }
+
+  /* ── CTA ── */
+  .cta { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); border-bottom: 1px solid var(--rule); }
+  .cta__lead { padding: 30px 24px; border-right: 1px solid var(--rule); display: grid; gap: 18px; align-content: start; }
+  .cta__lead h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5cqi, 92px); line-height: .88; text-wrap: balance; }
+  .cta__lead p { margin: 0; color: var(--mute); max-width: 52ch; }
+  .cta__links { padding: 30px 24px; display: flex; flex-direction: column; gap: 14px; }
+  .links { display: grid; border: 1px solid var(--rule); }
+  .links a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px; text-decoration: none; border-bottom: 1px solid var(--rule); transition: background .25s, color .25s; }
+  .links a:last-child { border-bottom: 0; }
+  .links a:first-child { background: var(--line); color: var(--ink); }
+  .links a:first-child:hover { background: var(--bone-2); }
+  .links a:not(:first-child):hover, .links a:not(:first-child):focus-visible { background: var(--line); color: var(--ink); }
+  .links .v { font-family: var(--mono); font-size: 13px; opacity: .75; overflow-wrap: anywhere; text-align: right; }
+  .foot { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); margin-bottom: 16px; }
+  .foot > * { padding: 14px 24px; border-right: 1px solid var(--rule); color: var(--mute); }
+  .foot > *:last-child { border-right: 0; text-align: right; }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .index a { grid-template-columns: 40px minmax(0, 1fr) 90px; }
+    .index .f { grid-column: 2 / -1; grid-row: 2; }
+    .badges { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .badges li { border-right: 1px solid var(--rule) !important; border-bottom: 1px solid var(--rule) !important; }
+    .badges li:nth-child(3n) { border-right: 0 !important; }
+    .badges li:nth-last-child(-n + 3) { border-bottom: 0 !important; }
+    .principles { grid-template-columns: minmax(0, 1fr); }
+    .principle { border-right: 0; border-bottom: 1px solid var(--ink); }
+    .principle:last-child { border-bottom: 0; }
+  }
+  @media (max-width: 760px) {
+    .nav { grid-template-columns: minmax(0, 1fr) auto; }
+    .nav > *:nth-child(2) { border-right: 0; }
+    .nav__links { grid-column: 1 / -1; grid-row: 2; border-top: 1px solid var(--rule); min-height: 46px; justify-content: space-between; gap: 8px; padding-inline: 16px; }
+    .nav__links a { font-size: 12px; letter-spacing: .06em; white-space: nowrap; }
+    .nav__cta { min-width: 0; border-right: 0 !important; }
+    .nav__cta > * { padding-inline: 12px; }
+    .nav__name { padding-inline: 12px; font-size: 13px; }
+    .name { font-size: 10.2cqi; padding-inline: 10px; }
+    .hero, .proj, .cta { grid-template-columns: minmax(0, 1fr); }
+    .hero__copy, .proj__side, .cta__lead { border-right: 0; }
+    .hero__copy { padding: 22px 16px; border-bottom: 1px solid var(--rule); }
+    .route { min-height: 520px; }
+    .route__readout { left: 12px; right: 12px; bottom: 12px; }
+    .head { padding-inline: 16px; }
+    .head h2, .band__head h2 { font-size: min(34px, 9cqi); }
+    .index a { grid-template-columns: 26px minmax(0, 1fr) auto; padding: 12px 16px; gap: 4px 12px; }
+    .note { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 16px; }
+    .proj__side { border-bottom: 1px solid var(--rule); }
+    .proj__stick { position: static; padding: 22px 16px; }
+    .proj__n { font-size: 64px; }
+    .proj__main > * { padding: 20px 16px; }
+    .code { font-size: 13px; }
+    .band__head { padding: 24px 16px 18px; }
+    .principle { padding: 22px 16px 24px; }
+    .act__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .act__stats > div { padding: 14px 16px 16px; border-bottom: 1px solid var(--rule); }
+    .act__stats > div:nth-child(2n) { border-right: 0; }
+    .act__stats > div:nth-last-child(-n + 2) { border-bottom: 0; }
+    .act__graph { padding: 18px 16px 14px; }
+    .act__foot { padding: 14px 16px; }
+    .badges { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .badges li { padding: 14px 16px 16px; font-size: 15px; border-right: 1px solid var(--rule) !important; border-bottom: 1px solid var(--rule) !important; }
+    .badges li:nth-child(2n) { border-right: 0 !important; }
+    .badges li:nth-last-child(-n + 2) { border-bottom: 0 !important; }
+    .cta__lead { border-bottom: 1px solid var(--rule); padding: 24px 16px; }
+    .cta__lead h2 { font-size: 8.4cqi; }
+    .cta__links { padding: 24px 16px; }
+    .foot { grid-template-columns: minmax(0, 1fr); }
+    .foot > * { border-right: 0; border-bottom: 1px solid var(--rule); padding-inline: 16px; text-align: left !important; }
+    .foot > *:last-child { border-bottom: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .ticker__run[aria-hidden] { display: none; }
+    .ticker__track { width: auto; }
+    .ticker__run { white-space: normal; flex-wrap: wrap; row-gap: 4px; }
+    .proj__n { color: var(--line); }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="spark" viewBox="0 0 20 20"><path d="M10 0 C10.6 7 13 9.4 20 10 C13 10.6 10.6 13 10 20 C9.4 13 7 10.6 0 10 C7 9.4 9.4 7 10 0Z" fill="currentColor"/></symbol>
+    <symbol id="ring" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="10" r="4.5"/><ellipse cx="10" cy="10" rx="9" ry="3" transform="rotate(-20 10 10)"/></g></symbol>
+    <symbol id="chev" viewBox="0 0 40 16"><path d="M2 2 L8 8 L2 14 M13 2 L19 8 L13 14 M24 2 L30 8 L24 14"/></symbol>
+  </defs>
+</svg>
+
+<div class="frame">
+  <div class="shell">
+    <header class="nav" aria-label="Site">
+      <a class="nav__name" href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6">Ali Pajand</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5">Work</a>
+        <a href="https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB">Writing</a>
+        <a href="#projects" aria-current="page">Open source</a>
+        <a href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6#contact">Contact</a>
+      </nav>
+      <div class="nav__cta">
+        <span><span class="dot" aria-hidden="true"></span>Open to roles</span>
+        <a href="https://calendly.com/alipajand/intro">Book a call</a>
+      </div>
+      <span class="progress" id="progress" aria-hidden="true"></span>
+    </header>
+
+    <p class="name" id="name" aria-hidden="true">
+      <span>Open</span>
+      <svg class="star" viewBox="0 0 20 20"><use href="#spark"/></svg>
+      <span>Source</span>
+    </p>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero__copy">
+        <div class="hero__eyebrow mono"><span>[ Open source ]</span><span>7 projects</span></div>
+        <h1 id="page-title">Open Source &amp; Tooling</h1>
+        <p class="hero__lede">I build open-source tools for repository readiness and code review, and contributed Agent Readiness Doctor to the GitBot Library.</p>
+        <p class="hero__body">The audit engines use deterministic checks without LLM scoring. The integration scanner is read-only and offline; a host client may send reports or files it reads to its model provider. The GitBot contribution adds a review workflow for instruction maintenance.</p>
+        <div class="ctas">
+          <a href="#projects">See the projects <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+          <a href="https://github.com/alipajand">Browse GitHub profile <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        </div>
+      </div>
+      <div class="route" aria-hidden="true">
+        <canvas id="route"></canvas>
+        <div class="route__readout mono"><span id="readout">Surface 01 / 05</span><span>No LLM scoring</span></div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" data-dir="1">
+        <div class="ticker__run">
+          <span>TypeScript</span><span class="sep">///</span><span>Node.js</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>CLI design</span><span class="sep">///</span><span>MCP server</span><span class="sep">///</span>
+          <span>Agent Skills</span><span class="sep">///</span><span>Editor plugins</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>GitHub Actions</span><span class="sep">///</span><span>SARIF / code scanning</span><span class="sep">///</span>
+          <span>Static analysis</span><span class="sep">///</span><span>Developer experience</span><span class="sep">///</span>
+        </div>
+        <div class="ticker__run" aria-hidden="true">
+          <span>TypeScript</span><span class="sep">///</span><span>Node.js</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>CLI design</span><span class="sep">///</span><span>MCP server</span><span class="sep">///</span>
+          <span>Agent Skills</span><span class="sep">///</span><span>Editor plugins</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>GitHub Actions</span><span class="sep">///</span><span>SARIF / code scanning</span><span class="sep">///</span>
+          <span>Static analysis</span><span class="sep">///</span><span>Developer experience</span><span class="sep">///</span>
+        </div>
+      </div>
+    </div>
+
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="head">
+        <h2 id="projects-title">Projects</h2>
+        <p>Three CLIs, a GitHub Action, an MCP server, a portable skill and plugins, plus a contribution to the GitBot Library. The same readiness and context engines serve CI and editor workflows.</p>
+      </div>
+      <ol class="index" id="index"></ol>
+      <div class="note">
+        <span class="mono mute">[ Install note ]</span>
+        <p>Install the three standalone CLIs from their GitHub release tags; unscoped npm packages sharing their names are unrelated. The MCP server is published as @alipajand/agent-readiness-mcp. The skill and Claude Code plugin install from GitHub; the GitBot bot installs through its Marketplace. Release and directory status follows the October 14, 2026 publishing record.</p>
+      </div>
+      <div id="list"></div>
+    </section>
+  </div>
+</div>
+
+<section class="band" aria-labelledby="principles-title">
+  <div class="frame">
+    <div class="shell">
+      <div class="band__head">
+        <h2 id="principles-title">Working principles</h2>
+        <span class="mono">[ Shared across every tool ]</span>
+      </div>
+      <div class="principles">
+        <div class="principle">
+          <span class="mono">[ 01 ]</span>
+          <h3>Context is part of the system</h3>
+          <p>Agent output quality depends heavily on the instructions, constraints, and repository guidance that exist before implementation starts.</p>
+        </div>
+        <div class="principle">
+          <span class="mono">[ 02 ]</span>
+          <h3>Feedback should be actionable</h3>
+          <p>Review tools are most useful when they produce categorized output that tells people what changed, why it matters, and where to look.</p>
+        </div>
+        <div class="principle">
+          <span class="mono">[ 03 ]</span>
+          <h3>Developer experience is product work</h3>
+          <p>Teams adopt tools more successfully when the workflow feels coherent and the friction is reduced intentionally.</p>
+        </div>
+      </div>
+      <div class="chevrons" id="chevrons" aria-hidden="true">
+        <svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="frame">
+  <div class="shell">
+    <section aria-labelledby="tech-title">
+      <div class="head">
+        <h2 id="tech-title">Technology and scope</h2>
+      </div>
+      <ul class="badges" id="badges"></ul>
+    </section>
+
+    <section id="activity" aria-labelledby="activity-title">
+      <div class="head">
+        <h2 id="activity-title">Contribution activity</h2>
+        <p>A snapshot of public GitHub contributions over the last year, taken from github.com/alipajand when this page was built.</p>
+      </div>
+      <dl class="act__stats" id="act-stats"></dl>
+      <div class="act__graph" id="act-graph"></div>
+      <div class="act__foot">
+        <span class="mono mute act__readout" id="act-readout"></span>
+        <span class="mono mute act__legend" aria-hidden="true"><b>Less</b><i data-l="0"></i><i data-l="1"></i><i data-l="2"></i><i data-l="3"></i><i data-l="4"></i><b>More</b></span>
+        <a class="mono" href="https://github.com/alipajand">View on GitHub</a>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" data-dir="-1">
+        <div class="ticker__run">
+          <span>agent-context-doctor</span><span class="sep">///</span><svg><use href="#spark"/></svg><span>agent-pr-reviewer-lite</span><span class="sep">///</span>
+          <span>agent-readiness-kit</span><span class="sep">///</span><svg><use href="#spark"/></svg><span>agent-readiness-action</span><span class="sep">///</span>
+          <span>Agent Readiness MCP</span><span class="sep">///</span><svg><use href="#spark"/></svg><span>Agent Readiness Doctor</span><span class="sep">///</span>
+        </div>
+        <div class="ticker__run" aria-hidden="true">
+          <span>agent-context-doctor</span><span class="sep">///</span><svg><use href="#spark"/></svg><span>agent-pr-reviewer-lite</span><span class="sep">///</span>
+          <span>agent-readiness-kit</span><span class="sep">///</span><svg><use href="#spark"/></svg><span>agent-readiness-action</span><span class="sep">///</span>
+          <span>Agent Readiness MCP</span><span class="sep">///</span><svg><use href="#spark"/></svg><span>Agent Readiness Doctor</span><span class="sep">///</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="cta" aria-labelledby="cta-title">
+      <div class="cta__lead">
+        <span class="mono mute">[ Source ]</span>
+        <h2 id="cta-title">Explore the repositories</h2>
+        <p>Browse the repositories directly for source, usage, and current status. The writing section covers the engineering ideas behind these tools.</p>
+      </div>
+      <div class="cta__links">
+        <span class="mono mute">Next</span>
+        <div class="links">
+          <a href="https://github.com/alipajand"><span>Browse GitHub profile</span><span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+          <a href="https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB"><span>Read my writing</span><span class="v">alipajand.com/writing</span></a>
+          <a href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6#contact"><span>Get in touch</span><span class="v">Contact</span></a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot mono">
+      <span>Ali Pajand</span>
+      <span>Montreal, Quebec, Canada</span>
+      <span>alipajand.com · 2026</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+(() => {
+  const SITE = "https://alipajand.com";
+  const POST = "https://claude.ai/artifact/3Sx5hgAkussh86nMQuy1e7";
+  const W = {
+    integrations: { title: "How to prepare integrations for the Anthropic and Cursor directories", href: "/writing/preparing-integrations-for-anthropic-and-cursor-directories" },
+    lint: { title: "Agent instruction files are code. Lint them like code.", href: "/writing/agent-instructions-are-code" },
+    untrusted: { title: "Building CI tools for pull requests you don't trust", href: "/writing/ci-tools-for-untrusted-pull-requests" },
+    doctor: { title: "Keeping repository instructions useful with Agent Readiness Doctor", href: "/writing/agent-readiness-doctor" },
+    triage: { title: "Which agent-written changes does a human need to read?", href: "/writing/deterministic-review-triage-for-agent-prs" },
+  };
+  // Content mirrors data/openSourcePage.ts.
+  const PROJECTS = [
+    {
+      title: "Agent Readiness MCP",
+      repositoryUrl: "https://github.com/alipajand/agent-readiness-action/tree/main/integrations/mcp-package",
+      summary: "A local stdio MCP server that exposes repository readiness and agent-context audits to an editor or other MCP host. Published on npm and in the official MCP Registry.",
+      version: "0.1.2",
+      releasedOn: "October 13, 2026 · integrations release",
+      format: "MCP server · Node.js 22.13+ (23.5+ on Node.js 23)",
+      install: "npx -y @alipajand/agent-readiness-mcp@0.1.2 --root /path/to/projects",
+      why: [
+        "Exposes audit_repository, audit_agent_context, and get_audit_report, with structured findings, engine commits, and paginated reports.",
+        "The scanner writes nothing, runs no repository scripts, and makes no network requests. Workers have read access confined to the selected directory and their own script.",
+        "Credential masking is pattern-based and applies to scanner output only; paths remain visible. The host client may send results and files it reads to its model provider.",
+        "Verified with the MCP SDK, Inspector, and signed-in headless Claude Code. MCP in Cursor and Windows remain untested.",
+        "The October 14 publishing record also lists mcpserver.dev and MCPRush; MCPRush auto-indexed the package and its ownership claim awaits review. Glama remains submitted, awaiting review.",
+      ],
+      contribution: "I made the same pinned audit engines available through MCP, with bounded workers and structured reports instead of model-generated scores.",
+      articles: [W.integrations, W.lint, W.untrusted],
+    },
+    {
+      title: "Agent Readiness skill and plugins",
+      repositoryUrl: "https://github.com/alipajand/agent-readiness-action/tree/main/plugins/agent-readiness",
+      summary: "A portable agent-readiness-audit skill and plugins for Claude Code and Cursor, using the same bundled audit engines as the MCP server.",
+      version: "0.1.2",
+      releasedOn: "October 13, 2026 · integrations release",
+      format: "Agent Skill · Claude Code and Cursor plugins · Node.js 22.12+",
+      install: "npx skills add alipajand/agent-readiness-action --skill agent-readiness-audit\n\nclaude plugin marketplace add alipajand/agent-readiness-action\nclaude plugin install agent-readiness@agent-readiness",
+      why: [
+        "The skill and Claude Code plugin install directly from the public repository. The plugin adds no hooks, MCP servers, or executables to PATH.",
+        "Invoke /agent-readiness:audit in Claude Code or the agent-readiness-audit command in Cursor. Named invocation is the tested path; plain-language discovery is not verified as reliable.",
+        "Signed-in headless Claude Code and the local Cursor plugin were tested, including denied execution. If the scanner cannot run, the loaded command must report that no audit ran and give no scores.",
+        "As recorded October 14, the official plugin directory submission is scanning and the Cursor Marketplace submission awaits review. Local Cursor installation is tested; marketplace approval is not claimed.",
+      ],
+      contribution: "I packaged deterministic audits for existing editor workflows while keeping scanner behavior separate from the host client's data handling.",
+      articles: [W.integrations, W.lint, W.untrusted],
+    },
+    {
+      title: "Agent Readiness Doctor",
+      repositoryUrl: "https://github.com/gitbot-hq/Library/tree/main/bots/agent-readiness-doctor",
+      summary: "My open-source contribution to the GitBot Library, available in its in-app Marketplace.",
+      releasedOn: "Added to the Library · October 12, 2026",
+      format: "GitBot bot · MIT license",
+      install: "GitBot → Marketplace → Agent Readiness Doctor → Install",
+      steps: true,
+      why: [
+        "Checks repository instructions against the code.",
+        "Proposes fixes for review before editing.",
+        "Uses agent-context-doctor and agent-readiness-kit when available.",
+      ],
+      contribution: "I contributed a repeatable workflow for maintaining the instructions developers rely on between refactors.",
+      articles: [W.doctor],
+    },
+    {
+      title: "agent-context-doctor",
+      repositoryUrl: "https://github.com/alipajand/agent-context-doctor",
+      summary: "Audits the files that steer AI coding agents: AGENTS.md, CLAUDE.md, Cursor and Copilot rules, and committed Claude Code and MCP settings. Reports each problem with a severity and scores the repository from 0 to 100.",
+      version: "1.0.0",
+      releasedOn: "September 2026",
+      format: "TypeScript CLI (acd)",
+      install: "npm install -g github:alipajand/agent-context-doctor#v1.0.0",
+      why: [
+        "Agents follow their instruction files literally. A stray “skip tests if they’re slow,” a TODO placeholder, or two files that contradict each other quietly steer the agent toward bad changes.",
+        "Committed agent settings run on every contributor’s machine. A bypassPermissions default, a hook that pipes a download into a shell, or an unpinned MCP server is reported as high severity.",
+        "Also catches stale commands, broken file references, pasted secrets (redacted in the report), and hidden Unicode that can smuggle instructions past reviewers.",
+        "Outputs terminal, JSON, Markdown, SARIF for code scanning, or pull-request annotations, with baselines and score or severity gates for CI.",
+      ],
+      contribution: "I treat agent instructions and agent settings as code: reviewed, linted, and gated in CI like anything else that changes behavior.",
+      articles: [W.lint, W.untrusted],
+    },
+    {
+      title: "agent-pr-reviewer-lite",
+      repositoryUrl: "https://github.com/alipajand/agent-pr-reviewer-lite",
+      summary: "A deterministic risk pre-screen for pull requests. It reads the git diff and flags the files that deserve human review before merge: authentication, billing, migrations, CI pipelines, committed secrets, and agent permissions.",
+      version: "1.0.0",
+      releasedOn: "September 2026",
+      format: "TypeScript CLI",
+      install: "pnpm add -D github:alipajand/agent-pr-reviewer-lite#v1.0.0",
+      why: [
+        "Agent-written pull requests touch many files. An offline pre-screen that runs in about 100 ms tells reviewers, or an LLM reviewer, where attention is actually needed.",
+        "It reads added lines too: skipped or focused tests, new lint suppressions, new dependencies, and agent commands that run shell without asking.",
+        "Each finding names its CODEOWNERS, read from the base branch, and the config can be read from a trusted ref, so a pull request cannot change the rules that review it.",
+        "Outputs text, Markdown, JSON, SARIF, JUnit, or pull-request annotations, and exits non-zero at a configurable risk level.",
+      ],
+      contribution: "It is deliberately not an AI reviewer: fixed, readable rules, conservative by design, and identical output for identical input.",
+      articles: [W.triage, W.untrusted],
+    },
+    {
+      title: "agent-readiness-kit",
+      repositoryUrl: "https://github.com/alipajand/agent-readiness-kit",
+      summary: "Scores how ready a repository is for AI coding agents, from 0 to 100 across 13 categories: instruction files, architecture docs, scripts, tests, safety boundaries, and more.",
+      version: "1.0.0",
+      releasedOn: "September 2026",
+      format: "TypeScript CLI (ark)",
+      install: "npm install -g github:alipajand/agent-readiness-kit#v1.0.0",
+      why: [
+        "Teams often adopt AI-assisted development before their conventions, documentation, and validation paths can carry it. The score makes those gaps concrete.",
+        "ark init, ark generate, and ark fix scaffold starter files for Cursor, Claude Code, Codex, Copilot, and CI, including least-privilege Claude Code settings that pre-approve nothing.",
+        "Writes JSON, JUnit, SARIF, Markdown, or HTML reports, keeps a score history, and gates CI with a minimum score.",
+      ],
+      contribution: "I treat developer experience as a product problem: the score explains itself, and the fix is one command away.",
+      articles: [W.untrusted],
+    },
+    {
+      title: "agent-readiness-action",
+      repositoryUrl: "https://github.com/alipajand/agent-readiness-action",
+      summary: "A GitHub Action that runs agent-readiness-kit and agent-context-doctor in CI. It scores the repository, checks its instruction files and agent settings, and reports the result on pull requests.",
+      version: "1.2.0",
+      releasedOn: "October 12, 2026",
+      format: "GitHub Action",
+      install: "uses: alipajand/agent-readiness-action@v1",
+      yaml: true,
+      why: [
+        "Fails the build below a minimum score or when a pull request lowers the score from the base branch, writes a Markdown report, and can post a summary comment.",
+        "Published in the GitHub Actions Marketplace as v1.2.0, with the v1 tag pointing to it. Both engines are bundled at pinned commits; no registry downloads at run time or LLM scoring.",
+        "Built for pull requests you don’t trust: file names cannot inject workflow commands, reports are never written through symlinks, and only the action’s own comment is ever updated.",
+      ],
+      contribution: "I design CI tooling on the assumption that the repository it runs on may be hostile, because on a pull request it can be.",
+      articles: [W.untrusted, W.lint],
+    },
+  ];
+  const BADGES = ["TypeScript", "Node.js", "CLI design", "MCP server", "Agent Skills", "Editor plugins", "GitHub Actions", "SARIF / code scanning", "Claude Code & MCP settings", "CI/CD", "Static analysis", "Developer experience"];
+
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const pad = (i) => String(i + 1).padStart(2, "0");
+  const slug = (s) => "p-" + s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  const chev = `<span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span>`;
+
+  document.getElementById("index").innerHTML = PROJECTS.map((p, i) => `
+    <li><a href="#${slug(p.title)}">
+      <span class="mono">${pad(i)}</span><span class="t">${esc(p.title)}</span><span class="f">${esc(p.format)}</span><span class="v mono">${p.version ? "v" + p.version : "Library"}</span>
+    </a></li>`).join("");
+
+  document.getElementById("list").innerHTML = PROJECTS.map((p, i) => `
+    <article class="proj" id="${slug(p.title)}" aria-labelledby="${slug(p.title)}-t">
+      <div class="proj__side"><div class="proj__stick">
+        <span class="proj__n" aria-hidden="true">${pad(i)}</span>
+        <h3 id="${slug(p.title)}-t">${esc(p.title)}</h3>
+        <dl class="meta">
+          <div><dt class="mono">Latest release</dt><dd>${p.version ? `<b>v${p.version}</b> · ` : ""}${esc(p.releasedOn)}</dd></div>
+          <div><dt class="mono">Format</dt><dd>${esc(p.format)}</dd></div>
+        </dl>
+        <a class="repo mono" href="${p.repositoryUrl}">Repository ${chev}</a>
+      </div></div>
+      <div class="proj__main">
+        <p class="summary">${esc(p.summary)}</p>
+        <div class="block">
+          <div class="block__label mono"><span>Install</span>${p.steps ? "" : `<button class="copy" type="button" data-copy="${i}">Copy</button>`}</div>
+          <pre class="code" tabindex="0"${p.steps || p.yaml ? " data-steps" : ""}><code>${esc(p.install)}</code></pre>
+        </div>
+        <div class="block">
+          <span class="block__label mono">Why it matters</span>
+          <ul class="why">${p.why.map((w, j) => `<li data-n="${pad(j)}">${esc(w)}</li>`).join("")}</ul>
+        </div>
+        <div class="block">
+          <span class="block__label mono">What it demonstrates</span>
+          <p class="demo">${esc(p.contribution)}</p>
+        </div>
+        <div class="block">
+          <span class="block__label mono">Related writing</span>
+          <ul class="reads">${p.articles.map((a) => `<li><a href="${a.href === "/writing/agent-readiness-doctor" ? POST : SITE + a.href}"><span>${esc(a.title)}</span>${chev}</a></li>`).join("")}</ul>
+        </div>
+      </div>
+    </article>`).join("");
+
+  document.getElementById("badges").innerHTML = BADGES.map((b, i) => `<li><span class="mono">${pad(i)}</span>${esc(b)}</li>`).join("");
+
+  // Copy buttons: clipboard inside the click; fall back to selecting the command.
+  document.getElementById("list").addEventListener("click", (e) => {
+    const btn = e.target.closest(".copy");
+    if (!btn) return;
+    const text = PROJECTS[+btn.dataset.copy].install;
+    const pre = btn.closest(".block").querySelector("pre");
+    const done = (label) => { btn.textContent = label; setTimeout(() => { btn.textContent = "Copy"; }, 1600); };
+    const select = () => { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done("Selected"); };
+    try { navigator.clipboard.writeText(text).then(() => done("Copied"), select); } catch { select(); }
+  });
+
+  // ── Contribution activity: a dated snapshot of the public GitHub calendar, one column per week. ──
+  const ACTIVITY = @@ACTIVITY_JSON@@;
+  const actGraph = document.getElementById("act-graph");
+  const actReadout = document.getElementById("act-readout");
+  const dayOf = (i) => new Date(Date.parse(`${ACTIVITY.from}T00:00:00Z`) + i * 864e5);
+  const fmtDay = (d) => d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+  const plural = (n, word) => `${n.toLocaleString("en-US")} ${word}${n === 1 ? "" : "s"}`;
+  {
+    const counts = ACTIVITY.counts;
+    const last = dayOf(counts.length - 1);
+    let best = 0, run = 0, top = 0;
+    counts.forEach((n, i) => { run = n ? run + 1 : 0; best = Math.max(best, run); if (n > counts[top]) top = i; });
+    const active = counts.filter(Boolean).length;
+    const stats = [
+      ["Last year", ACTIVITY.total.toLocaleString("en-US"), "contributions"],
+      ["Active days", active.toLocaleString("en-US"), `of ${counts.length}`],
+      ["Longest streak", String(best), best === 1 ? "day" : "days"],
+      ["Busiest day", String(counts[top]), fmtDay(dayOf(top))],
+    ];
+    document.getElementById("act-stats").innerHTML = stats.map(([k, v, u]) => `<div><dt class="mono">${k}</dt><dd>${v}</dd><span>${esc(u)}</span></div>`).join("");
+
+    const PITCH = 15, CELL = 12, LEFT = 30, TOP = 18;
+    const lead = dayOf(0).getUTCDay();
+    const weeks = Math.ceil((counts.length + lead) / 7);
+    const cols = Array.from({ length: weeks }, () => []);
+    const months = [];
+    counts.forEach((n, i) => {
+      const at = i + lead, c = Math.floor(at / 7), r = at % 7, d = dayOf(i);
+      cols[c].push(`<rect class="l${ACTIVITY.levels[i]}" data-i="${i}" x="${LEFT + c * PITCH}" y="${TOP + r * PITCH}" width="${CELL}" height="${CELL}"/>`);
+      if (d.getUTCDate() === 1 && c < weeks - 1) months.push(`<text x="${LEFT + c * PITCH}" y="10">${d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" })}</text>`);
+    });
+    const days = [[1, "Mon"], [3, "Wed"], [5, "Fri"]].map(([r, t]) => `<text x="0" y="${TOP + r * PITCH + 9}">${t}</text>`).join("");
+    const summary = `${plural(ACTIVITY.total, "contribution")} on GitHub between ${fmtDay(dayOf(0))} and ${fmtDay(last)}`;
+    actGraph.innerHTML = `<svg viewBox="0 0 ${LEFT + weeks * PITCH - (PITCH - CELL)} ${TOP + 7 * PITCH - (PITCH - CELL)}" role="img" aria-label="${summary}">${months.join("")}${days}${cols.map((c) => `<g class="wk">${c.join("")}</g>`).join("")}</svg>`;
+    actGraph.scrollLeft = actGraph.scrollWidth;
+
+    const rest = `[ Snapshot · ${fmtDay(new Date(`${ACTIVITY.taken}T00:00:00Z`))} ]`;
+    actReadout.textContent = rest;
+    actGraph.addEventListener("pointerover", (e) => {
+      const i = e.target.dataset?.i;
+      actReadout.textContent = i == null ? rest : `${fmtDay(dayOf(+i))} · ${plural(counts[+i], "contribution")}`;
+    });
+    actGraph.addEventListener("pointerleave", () => { actReadout.textContent = rest; });
+  }
+
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const LINE = "236,236,230";
+
+  const fitCanvas = (c) => {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const w = c.clientWidth, h = c.clientHeight;
+    if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
+    const ctx = c.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx, w, h };
+  };
+
+  // ── Hero: inputs → engines → surfaces. Scroll walks the lit surface; packets speed up with scroll velocity. ──
+  const route = document.getElementById("route");
+  const routeBox = route.parentElement;
+  const readout = document.getElementById("readout");
+  // Slots: 0–3 are the readiness lane, 5 is the review lane; 4 is the gap between them.
+  const NODES = {
+    repo: { col: 0, slot: 1.5, label: "Repository", short: "Repo", files: ["AGENTS.md", "CLAUDE.md", ".cursor/rules", ".mcp.json"] },
+    diff: { col: 0, slot: 5, label: "Pull request diff", short: "PR diff" },
+    ark: { col: 1, slot: 1, label: "agent-readiness-kit", short: "ark" },
+    acd: { col: 1, slot: 2, label: "agent-context-doctor", short: "acd" },
+    apr: { col: 1, slot: 5, label: "agent-pr-reviewer-lite", short: "pr-reviewer" },
+    action: { col: 2, slot: 0, label: "GitHub Action", short: "Action", full: "agent-readiness-action" },
+    mcp: { col: 2, slot: 1, label: "MCP server", short: "MCP", full: "Agent Readiness MCP" },
+    skill: { col: 2, slot: 2, label: "Skill + plugins", short: "Skill", full: "Skill and plugins" },
+    gitbot: { col: 2, slot: 3, label: "GitBot bot", short: "GitBot", full: "Agent Readiness Doctor" },
+    review: { col: 2, slot: 5, label: "Files to review", short: "Review", full: "agent-pr-reviewer-lite" },
+  };
+  const SURFACES = ["action", "mcp", "skill", "gitbot", "review"];
+  const EDGES = [["repo", "ark"], ["repo", "acd"], ["diff", "apr"], ["apr", "review"]];
+  ["action", "mcp", "skill", "gitbot"].forEach((s) => { EDGES.push(["ark", s], ["acd", s]); });
+  const COLS = ["Input", "Engine", "Surface"];
+  const pointer = { y: .5, sy: .5 };
+  routeBox.addEventListener("pointermove", (e) => {
+    const r = routeBox.getBoundingClientRect();
+    pointer.y = clamp((e.clientY - r.top) / r.height, 0, 1);
+  });
+  routeBox.addEventListener("pointerleave", () => { pointer.y = .5; });
+
+  let layout = null;
+  const doLayout = (ctx, w, h) => {
+    // Pick the largest type size whose three columns fit; short labels when even that fails.
+    let fs = 12, useShort = false, widths;
+    const measure = () => [0, 1, 2].map((c) => Math.max(...Object.values(NODES).filter((n) => n.col === c).map((n) => {
+      ctx.font = `500 ${fs}px "Geist Mono", ui-monospace, monospace`;
+      return ctx.measureText(useShort ? n.short : n.label).width + fs * 2;
+    })));
+    for (;;) {
+      widths = measure();
+      if (widths.reduce((a, b) => a + b, 0) + 3 * 28 <= w) break;
+      if (fs > 10) { fs--; continue; }
+      if (!useShort) { useShort = true; fs = 12; continue; }
+      break;
+    }
+    // Tight outer margins so the space goes to the fans between columns.
+    const spare = w - widths.reduce((a, b) => a + b, 0);
+    const outer = Math.min(20, spare / 6), gap = (spare - outer * 2) / 2;
+    const xs = [outer, outer + widths[0] + gap, outer + widths[0] + widths[1] + gap * 2];
+    const top = 56, bottom = w < 520 ? 104 : 70, slotH = (h - top - bottom) / 6;
+    const boxH = Math.min(34, slotH * .62);
+    const nodes = {};
+    for (const [k, n] of Object.entries(NODES)) {
+      const showFiles = k === "repo" && !useShort && slotH > 52;
+      const bh = showFiles ? boxH + n.files.length * (fs + 7) + 6 : boxH;
+      nodes[k] = { ...n, x: xs[n.col], w: widths[n.col], h: bh, y: top + (n.slot + .5) * slotH - bh / 2, showFiles };
+    }
+    layout = { fs, useShort, xs, widths, nodes, top, slotH, w, h };
+  };
+
+  const bez = (a, b, t) => {
+    const x0 = a.x + a.w, y0 = a.y + a.h / 2, x3 = b.x, y3 = b.y + b.h / 2;
+    const mx = (x3 - x0) * .5, u = 1 - t;
+    return [u * u * u * x0 + 3 * u * u * t * (x0 + mx) + 3 * u * t * t * (x3 - mx) + t * t * t * x3, u * u * u * y0 + 3 * u * u * t * y0 + 3 * u * t * t * y3 + t * t * t * y3];
+  };
+
+  let flow = 0;
+  const drawRoute = (time, active, speed) => {
+    const { ctx, w, h } = fitCanvas(route);
+    if (!layout || layout.w !== w || layout.h !== h) doLayout(ctx, w, h);
+    const { fs, useShort, nodes, xs, widths, top, slotH } = layout;
+    ctx.clearRect(0, 0, w, h);
+    pointer.sy += (pointer.y - pointer.sy) * .08;
+    flow += speed;
+
+    const activeKey = SURFACES[active];
+    const litEdge = ([a, b]) => b === activeKey || (activeKey === "review" ? a === "diff" || b === "apr" : (a === "repo"));
+
+    // Column headers and the dashed lane divider.
+    ctx.font = `500 11px "Geist Mono", ui-monospace, monospace`;
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "rgba(163,163,156,1)";
+    COLS.forEach((c, i) => {
+      const t = `[0${i + 1}] ${c.toUpperCase()}`;
+      ctx.fillText(t, Math.min(xs[i], w - 8 - ctx.measureText(t).width), 26);
+    });
+    ctx.strokeStyle = `rgba(${LINE},.22)`;
+    ctx.beginPath(); ctx.moveTo(0, 42.5); ctx.lineTo(w, 42.5); ctx.stroke();
+    const divY = Math.round(top + 4.5 * slotH) + .5;
+    ctx.setLineDash([3, 5]);
+    ctx.beginPath(); ctx.moveTo(0, divY); ctx.lineTo(w, divY); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Faint grid that drifts with the pointer, like a plotter bed.
+    ctx.strokeStyle = `rgba(${LINE},.05)`;
+    const off = (pointer.sy - .5) * 24;
+    for (let y = 60 + off % 24; y < h; y += 24) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+
+    // Edges and packets.
+    EDGES.forEach((e, ei) => {
+      const a = nodes[e[0]], b = nodes[e[1]], on = litEdge(e) && (e[0] !== "repo" || activeKey !== "review");
+      ctx.strokeStyle = `rgba(${LINE},${on ? .9 : .22})`;
+      ctx.lineWidth = on ? 1.4 : 1;
+      ctx.beginPath();
+      for (let t = 0; t <= 1.0001; t += .05) { const [x, y] = bez(a, b, t); t ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+      ctx.stroke();
+      const n = on ? 3 : 1;
+      for (let k = 0; k < n; k++) {
+        const t = ((flow * .004 + ei * .137 + k / n) % 1 + 1) % 1;
+        const [x, y] = bez(a, b, t);
+        ctx.fillStyle = `rgba(${LINE},${on ? 1 : .5})`;
+        ctx.fillRect(x - 2.5, y - 2.5, 5, 5);
+      }
+    });
+
+    // Nodes.
+    for (const [k, n] of Object.entries(nodes)) {
+      const on = k === activeKey || (activeKey === "review" ? k === "diff" || k === "apr" : k === "repo" || k === "ark" || k === "acd");
+      const solid = k === activeKey;
+      ctx.fillStyle = solid ? "#ecece6" : "#0f0f0e";
+      ctx.fillRect(n.x, n.y, n.w, n.h);
+      ctx.strokeStyle = `rgba(${LINE},${on ? 1 : .45})`;
+      ctx.lineWidth = 1;
+      ctx.strokeRect(n.x + .5, n.y + .5, n.w - 1, n.h - 1);
+      ctx.font = `500 ${fs}px "Geist Mono", ui-monospace, monospace`;
+      ctx.fillStyle = solid ? "#0f0f0e" : `rgba(${LINE},${on ? 1 : .6})`;
+      const rowH = Math.min(34, slotH * .62);
+      ctx.fillText(useShort ? n.short : n.label, n.x + fs, n.y + rowH / 2);
+      if (n.showFiles) {
+        // A scan line steps through the instruction files the engines read.
+        const scan = Math.floor(time / 700) % n.files.length;
+        n.files.forEach((f, j) => {
+          const fy = n.y + rowH + j * (fs + 7) + 2;
+          if (j === scan) { ctx.fillStyle = `rgba(${LINE},.14)`; ctx.fillRect(n.x + 4, fy - 1, n.w - 8, fs + 6); }
+          ctx.fillStyle = `rgba(163,163,156,${j === scan ? 1 : .8})`;
+          ctx.font = `400 ${fs - 1}px "Geist Mono", ui-monospace, monospace`;
+          ctx.fillText(f, n.x + fs, fy + (fs + 4) / 2);
+        });
+        ctx.strokeStyle = `rgba(${LINE},.35)`;
+        ctx.beginPath(); ctx.moveTo(n.x + 4, n.y + rowH + .5); ctx.lineTo(n.x + n.w - 4, n.y + rowH + .5); ctx.stroke();
+      }
+    }
+    const s = NODES[activeKey];
+    readout.textContent = `${pad(active)} / 05 · ${s.full}`;
+  };
+
+  const hero = routeBox.closest(".hero");
+  const heroProgress = () => {
+    const r = hero.getBoundingClientRect();
+    return clamp((-r.top + innerHeight * .2) / (r.height + innerHeight * .05), 0, .999);
+  };
+
+  if (reduce) {
+    const still = () => { layout = null; drawRoute(0, 0, 0); };
+    still();
+    document.fonts && document.fonts.ready.then(still);
+    addEventListener("resize", still);
+    return;
+  }
+
+  const tracks = [...document.querySelectorAll(".ticker__track")].map((el) => ({ el, dir: +el.dataset.dir, x: 0 }));
+  const name = document.getElementById("name");
+  const [w1, star, w2] = name.children;
+  const chevrons = [...document.querySelectorAll("#chevrons svg")];
+  const chevBand = document.getElementById("chevrons");
+  const projs = [...document.querySelectorAll(".proj")];
+  const idx = [...document.querySelectorAll(".index a")];
+  const badges = [...document.querySelectorAll(".badges li")];
+  const badgeBox = document.getElementById("badges");
+  const weekCols = [...actGraph.querySelectorAll(".wk")];
+  const progress = document.getElementById("progress");
+  let lastY = scrollY, vel = 0, heroVisible = true;
+  new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; }).observe(hero);
+  document.fonts && document.fonts.ready.then(() => { layout = null; });
+
+  const frame = (time) => {
+    const y = scrollY, vh = innerHeight;
+    vel += ((y - lastY) - vel) * .18; lastY = y;
+    const max = document.documentElement.scrollHeight - vh;
+    progress.style.setProperty("--p", (max > 0 ? y / max : 0).toFixed(4));
+
+    tracks.forEach((tr) => {
+      const half = tr.el.scrollWidth / 2;
+      tr.x -= (0.45 + Math.abs(vel) * .35) * tr.dir * (vel < -0.5 ? -1 : 1);
+      if (tr.x <= -half) tr.x += half;
+      if (tr.x > 0) tr.x -= half;
+      tr.el.style.transform = `translate3d(${tr.x.toFixed(1)}px,0,0)`;
+    });
+
+    // Display: the two words pull apart from the star as you scroll down, within the free space.
+    const cs = getComputedStyle(name);
+    const free = name.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - w1.offsetWidth - w2.offsetWidth - star.getBoundingClientRect().width;
+    const k = clamp(y / (vh * .6), 0, 1);
+    const shift = (1 - k) * Math.max(0, free) * .42;
+    w1.style.transform = `translateX(${shift.toFixed(1)}px)`;
+    w2.style.transform = `translateX(${(-shift).toFixed(1)}px)`;
+    star.style.transform = `rotate(${(y * .35).toFixed(1)}deg)`;
+
+    // Projects: the one crossing the upper third is lit, here and in the index.
+    let cur = -1;
+    projs.forEach((p, i) => { const r = p.getBoundingClientRect(); if (r.top < vh * .4 && r.bottom > vh * .4) cur = i; });
+    projs.forEach((p, i) => p.classList.toggle("on", i === cur));
+    idx.forEach((a, i) => a.classList.toggle("on", i === cur));
+
+    const cr = chevBand.getBoundingClientRect();
+    const lit = Math.round(clamp((vh - cr.top) / (vh * .75), 0, 1) * chevrons.length);
+    chevrons.forEach((c, i) => c.classList.toggle("off", i >= lit));
+
+    // Badges: a single lit cell walks the grid as it scrolls through the screen.
+    const br = badgeBox.getBoundingClientRect();
+    const bt = (vh - br.top) / (vh + br.height);
+    const bi = bt > 0 && bt < 1 ? Math.floor(bt * badges.length) : -1;
+    badges.forEach((b, i) => b.classList.toggle("on", i === bi));
+
+    // Activity: weeks fill in left to right as the graph scrolls up the screen.
+    const ar = actGraph.getBoundingClientRect();
+    const weeksLit = Math.round(clamp((vh - ar.top) / (vh * .55), 0, 1) * weekCols.length);
+    weekCols.forEach((g, i) => g.classList.toggle("off", i >= weeksLit));
+
+    if (heroVisible) {
+      const active = Math.floor(heroProgress() * SURFACES.length);
+      drawRoute(time, active, 1 + Math.abs(vel) * .6);
+    }
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+})();
+</script>

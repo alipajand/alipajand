@@ -1,0 +1,487 @@
+<title>Page Not Found</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ink: #0f0f0e;
+    --ink-2: #1b1b19;
+    --bone: #d8d8d3;
+    --bone-2: #c9c9c3;
+    --line: #ecece6;
+    --rule: #5b5b56;
+    --mute: #a3a39c;
+    --mute-ink: #4b4b46;
+    --display: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+    --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ink); }
+  body { background: var(--ink); color: var(--line); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--line); outline-offset: 3px; }
+  .frame { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+  .shell { border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); container-type: inline-size; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .mute { color: var(--mute); }
+  canvas { display: block; }
+  .chev { display: inline-flex; overflow: hidden; width: 40px; flex: none; }
+  .chev svg { flex: none; width: 40px; height: 16px; transition: transform .45s cubic-bezier(.6, .05, .2, 1); }
+  .chev path { fill: none; stroke: currentColor; stroke-width: 2.2; }
+  a:hover .chev svg, a:focus-visible .chev svg { transform: translateX(8px); }
+
+  /* ── Nav ── */
+  .nav { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-top: 16px; }
+  .nav > * { border-right: 1px solid var(--rule); min-height: 56px; display: flex; align-items: center; }
+  .nav > *:nth-child(3) { border-right: 0; }
+  .nav__name { padding-inline: 16px; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; text-decoration: none; }
+  .nav__links { gap: 22px; padding-inline: 20px; }
+  .nav__links a { text-decoration: none; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+  .nav__links a:hover { text-decoration: underline; text-underline-offset: 5px; }
+  .nav__links a[aria-current] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+  .nav__cta { display: grid; grid-template-rows: 1fr 1fr; align-items: stretch; min-width: 200px; }
+  .nav__cta > * { display: flex; align-items: center; justify-content: center; padding-inline: 18px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+  .nav__cta > :first-child { border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .nav__cta a { transition: background .25s, color .25s; }
+  .nav__cta a:hover { background: var(--line); color: var(--ink); }
+  .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; min-height: 0 !important; border: 0 !important; background: var(--line); transform-origin: left; transform: scaleX(var(--p, 0)); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line); margin-right: 9px; animation: blink 2.4s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+
+  /* ── Display ── */
+  .name {
+    margin: 0;
+    padding: clamp(16px, 2.6vw, 34px) clamp(10px, 2vw, 24px) clamp(12px, 2vw, 26px);
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between; gap: .15em;
+    overflow: hidden;
+    font-family: var(--display); font-weight: 800; font-stretch: 125%;
+    font-size: 11.6cqi; line-height: .82; letter-spacing: -.015em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .name > span { display: block; will-change: transform; }
+  .name .star { width: .38em; height: .38em; flex: none; }
+
+  /* ── Ticker ── */
+  .ticker { overflow: hidden; border-bottom: 1px solid var(--rule); padding-block: 9px; }
+  .ticker__track { display: flex; width: max-content; will-change: transform; }
+  .ticker__run { display: flex; align-items: center; gap: 18px; padding-right: 18px; white-space: nowrap; font-style: italic; font-size: 15px; }
+  .ticker__run .sep { font-style: normal; color: var(--mute); }
+  .ticker__run svg { width: 14px; height: 14px; flex: none; }
+
+  /* ── Section heads ── */
+  .head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 34px 24px 18px; border-bottom: 1px solid var(--rule); }
+  .head h2 { margin: 0; min-width: 0; max-width: 100%; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5.4vw, 88px); line-height: .9; text-wrap: balance; }
+  .head p { margin: 0; color: var(--mute); max-width: 52ch; }
+  .head a { text-decoration: none; display: inline-flex; gap: 10px; align-items: center; }
+  .head a:hover { text-decoration: underline; text-underline-offset: 5px; }
+
+  /* ── Light band ── */
+  .band { background: var(--bone); color: var(--ink); }
+  .band .shell { border-color: var(--bone-2); }
+  .band .mono { color: var(--mute-ink); }
+  .chevrons { display: flex; align-items: center; overflow: hidden; padding: 10px 12px; border-top: 1px solid var(--ink); }
+  .chevrons svg { flex: none; width: clamp(40px, 5vw, 76px); height: auto; transition: opacity .3s, transform .3s; }
+  .chevrons svg path { fill: none; stroke: var(--ink); stroke-width: 7; }
+  .chevrons svg.off { opacity: .16; transform: translateX(-6px); }
+
+  /* ── Next links + footer ── */
+  .next { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+  .next a { display: flex; flex-direction: column; gap: 22px; padding: 22px 24px; border-right: 1px solid var(--rule); text-decoration: none; transition: background .3s, color .3s; }
+  .next a:last-child { border-right: 0; }
+  .next a .mono { color: var(--mute); transition: color .3s; }
+  .next a strong { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--display); font-stretch: 118%; font-weight: 800; text-transform: uppercase; font-size: clamp(20px, 2vw, 30px); line-height: 1; }
+  .next a:hover, .next a:focus-visible { background: var(--line); color: var(--ink); }
+  .next a:hover .mono, .next a:focus-visible .mono { color: var(--mute-ink); }
+  .next a:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .foot { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); margin-bottom: 16px; }
+  .foot > * { padding: 14px 24px; border-right: 1px solid var(--rule); color: var(--mute); }
+  .foot > *:last-child { border-right: 0; text-align: right; }
+
+  @media (max-width: 760px) {
+    .nav { grid-template-columns: minmax(0, 1fr) auto; }
+    .nav > *:nth-child(2) { border-right: 0; }
+    .nav__links { grid-column: 1 / -1; grid-row: 2; border-top: 1px solid var(--rule); min-height: 46px; justify-content: space-between; gap: 8px; padding-inline: 16px; }
+    .nav__links a { font-size: 12px; letter-spacing: .06em; white-space: nowrap; }
+    .nav__cta { min-width: 0; border-right: 0 !important; }
+    .nav__cta > * { padding-inline: 12px; }
+    .nav__name { padding-inline: 12px; font-size: 13px; }
+    .name { padding-inline: 10px; }
+    .head { padding-inline: 16px; }
+    .head h2 { font-size: min(34px, 9cqi); }
+    .next { grid-template-columns: minmax(0, 1fr); }
+    .next a { border-right: 0; border-bottom: 1px solid var(--rule); padding: 20px 16px; }
+    .next a:last-child { border-bottom: 0; }
+    .foot { grid-template-columns: minmax(0, 1fr); }
+    .foot > * { border-right: 0; border-bottom: 1px solid var(--rule); padding-inline: 16px; text-align: left !important; }
+    .foot > *:last-child { border-bottom: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .ticker__run[aria-hidden] { display: none; }
+    .ticker__track { width: auto; }
+    .ticker__run { white-space: normal; flex-wrap: wrap; row-gap: 4px; }
+  }
+  /* ── Diagrams (layers, compare, flow) ── */
+  .dg { margin: 0; min-width: 0; }
+  .dg__head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--mute); margin-bottom: 14px; }
+  .dg__cap { margin: 14px 0 0; color: var(--mute); font-size: 15px; line-height: 1.5; max-width: 70ch; }
+
+  .layers { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .layers li { display: grid; grid-template-columns: 40px minmax(0, 5fr) minmax(0, 7fr); gap: 12px; align-items: baseline; padding: 14px 16px; border: 1px solid var(--rule); transition: background .4s, color .4s; }
+  .layers li:nth-child(2) { margin-inline: 2%; } .layers li:nth-child(3) { margin-inline: 4%; } .layers li:nth-child(4) { margin-inline: 6%; } .layers li:nth-child(n+5) { margin-inline: 8%; }
+  .layers li:last-child { border-style: dashed; }
+  .layers b { font-weight: 600; font-size: 17px; }
+  .layers span { color: var(--mute); font-size: 15px; line-height: 1.45; transition: color .4s; }
+  .layers .mono { padding-top: 2px; }
+  .layers li.on { background: var(--line); color: var(--ink); }
+  .layers li.on span { color: var(--mute-ink); }
+
+  .compare { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); border: 1px solid var(--rule); }
+  .compare > div { min-width: 0; border-right: 1px solid var(--rule); }
+  .compare > div:last-child { border-right: 0; }
+  .compare h4 { margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .compare > div:last-child h4 { background: var(--line); color: var(--ink); }
+  .compare ul { list-style: none; margin: 0; padding: 0; }
+  .compare li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--ink-2); font-size: 15px; line-height: 1.5; }
+  .compare li:last-child { border-bottom: 0; }
+  .compare > div:not(:last-child) li { color: var(--mute); }
+  .compare > div:not(:last-child) li::before { content: "×"; font-family: var(--mono); }
+  .compare > div:last-child li::before { content: "✓"; font-family: var(--mono); }
+
+  /* The flow always sits on bone. Steps become columns when the figure is wide enough. */
+  .dg--flow { background: var(--bone); color: var(--ink); container-type: inline-size; }
+  .dg--flow .mono { color: var(--mute-ink); }
+  .dg__band-head { display: grid; gap: 10px; padding: 26px 24px 18px; border-bottom: 1px solid var(--ink); }
+  .dg__title { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase; font-size: clamp(24px, 5.2cqi, 68px); line-height: .9; text-wrap: balance; }
+  .flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); }
+  .flow li { padding: 16px 20px; border-bottom: 1px solid var(--ink); display: grid; grid-template-columns: 76px minmax(0, 1fr); column-gap: 12px; row-gap: 8px; align-content: start; transition: background .4s, color .4s; }
+  .flow li:last-child { border-bottom: 0; }
+  .flow li .mono { grid-row: span 2; padding-top: 4px; }
+  .flow li b { font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(19px, 2.4cqi, 30px); line-height: 1; min-width: 0; overflow-wrap: break-word; }
+  .flow li p { margin: 0; font-size: 15px; line-height: 1.5; }
+  .flow li.on { background: var(--ink); color: var(--line); }
+  .flow li.on .mono { color: var(--mute); }
+  .flow li.done .mono::after { content: " ✓"; }
+  @container (min-width: 1000px) {
+    .flow { grid-template-columns: repeat(var(--steps, 5), minmax(0, 1fr)); }
+    .flow li { grid-template-columns: minmax(0, 1fr); padding: 20px 20px 24px; border-bottom: 0; border-right: 1px solid var(--ink); }
+    .flow li:last-child { border-right: 0; }
+    .flow li .mono { grid-row: auto; padding-top: 0; }
+  }
+  .flow__loop { display: flex; gap: 12px; align-items: center; padding: 14px 24px; border-top: 1px solid var(--ink); font-size: 15px; }
+  .flow__loop svg { width: 22px; height: 22px; flex: none; }
+  .flow__loop svg path { fill: none; stroke: currentColor; stroke-width: 1.6; }
+  .flow__cap { margin: 0; padding: 0 24px 18px; font-size: 15px; color: var(--mute-ink); max-width: 80ch; }
+  .flow__loop + .flow__cap { padding-top: 0; }
+  .flow + .flow__cap { padding-top: 16px; border-top: 1px solid var(--ink); }
+
+  @media (max-width: 760px) {
+    .layers li { grid-template-columns: 30px minmax(0, 1fr); margin-inline: 0 !important; }
+    .layers li > span:last-child:not(.mono) { grid-column: 2; }
+    .compare { grid-template-columns: minmax(0, 1fr); }
+    .compare > div { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .compare > div:last-child { border-bottom: 0; }
+    .dg__band-head { padding: 22px 16px 16px; }
+    .flow li { padding: 16px; grid-template-columns: 66px minmax(0, 1fr); }
+    .flow__loop { padding: 14px 16px; }
+    .flow__cap { padding: 0 16px 16px; }
+  }
+
+  /* Layout: the status code as the display, drawn as a route line with one missing segment that follows the
+     pointer, then the message and two boxed ways back. Focus moves into the main region on load. */
+  .code { position: relative; border-bottom: 1px solid var(--rule); }
+  .code b { display: block; padding: 10px 24px 0; font-family: var(--display); font-weight: 900; font-stretch: 125%; font-size: 24cqi; line-height: .8; letter-spacing: -.02em; text-align: center; font-variant-numeric: tabular-nums; }
+  .code canvas { width: 100%; height: 120px; }
+  main { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); border-bottom: 1px solid var(--rule); outline: none; }
+  .msg { padding: 28px 24px; border-right: 1px solid var(--rule); display: grid; gap: 16px; align-content: start; }
+  .msg .mono { color: var(--mute); }
+  .msg h1 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5cqi, 76px); line-height: .9; }
+  .msg p { margin: 0; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.5; max-width: 46ch; }
+  .msg small { color: var(--mute); font-size: 14px; line-height: 1.5; max-width: 52ch; }
+  .ways { display: grid; grid-template-rows: 1fr 1fr; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+  .ways a > span[data-fit] { min-width: 0; flex: 1; }
+  .ways a { display: flex; justify-content: space-between; align-items: end; gap: 12px; padding: 22px 24px; text-decoration: none; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(28px, 3.6cqi, 56px); line-height: .9; transition: background .3s, color .3s; }
+  .ways a:first-child { border-bottom: 1px solid var(--rule); }
+  .ways a span.mono { font-family: var(--mono); font-weight: 400; font-stretch: 100%; align-self: start; color: var(--mute); }
+  .ways a:hover, .ways a:focus-visible { background: var(--line); color: var(--ink); }
+  .ways a:hover span.mono, .ways a:focus-visible span.mono { color: var(--mute-ink); }
+  .ways a:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .ways .chev, .ways .chev svg { width: 56px; height: 22px; }
+  @media (max-width: 760px) {
+    .code b { padding-inline: 16px; }
+    .code canvas { height: 90px; }
+    main { grid-template-columns: minmax(0, 1fr); }
+    .msg { border-right: 0; border-bottom: 1px solid var(--rule); padding: 22px 16px; }
+    .ways a { padding: 20px 16px; }
+  }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="spark" viewBox="0 0 20 20"><path d="M10 0 C10.6 7 13 9.4 20 10 C13 10.6 10.6 13 10 20 C9.4 13 7 10.6 0 10 C7 9.4 9.4 7 10 0Z" fill="currentColor"/></symbol>
+    <symbol id="ring" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="10" r="4.5"/><ellipse cx="10" cy="10" rx="9" ry="3" transform="rotate(-20 10 10)"/></g></symbol>
+    <symbol id="chev" viewBox="0 0 40 16"><path d="M2 2 L8 8 L2 14 M13 2 L19 8 L13 14 M24 2 L30 8 L24 14"/></symbol>
+  </defs>
+</svg>
+
+<div class="frame">
+  <div class="shell">
+    <header class="nav" aria-label="Site">
+      <a class="nav__name" href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6">Ali Pajand</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5">Work</a>
+        <a href="https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB">Writing</a>
+        <a href="https://claude.ai/artifact/31CgkES3BDjxyGvxFQ2FNa">Open source</a>
+        <a href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6#contact">Contact</a>
+      </nav>
+      <div class="nav__cta">
+        <span><span class="dot" aria-hidden="true"></span>Open to roles</span>
+        <a href="https://calendly.com/alipajand/intro">Book a call</a>
+      </div>
+      <span class="progress" id="progress" aria-hidden="true"></span>
+    </header>
+    <div class="code" aria-hidden="true"><b id="code"></b><canvas id="route"></canvas></div>
+    <main id="main" tabindex="-1" aria-labelledby="nf-title">
+      <div class="msg">
+        <span class="mono">[ Status ] · <span id="nf-code"></span></span>
+        <h1 id="nf-title"></h1>
+        <p id="nf-desc"></p>
+        <small id="nf-tip"></small>
+      </div>
+      <nav class="ways" aria-label="Ways back">
+        <a href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6"><span class="mono">[ 01 ]</span><span id="nf-home" data-fit></span><span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        <a href="https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5"><span class="mono">[ 02 ]</span><span id="nf-work" data-fit></span><span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+      </nav>
+    </main>
+    <footer class="foot mono">
+      <span>Ali Pajand</span>
+      <span>Montreal, Quebec, Canada</span>
+      <span>alipajand.com · 2026</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+(() => {
+  // Shared motion: tickers react to scroll velocity, the display words part on load and close as you scroll,
+  // chevrons light with progress, and the nav hairline tracks the page. Pages add their own work per frame.
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const LINE = "236,236,230";
+  const pad = (i) => String(i + 1).padStart(2, "0");
+  const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const fitCanvas = (c) => {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const w = c.clientWidth, h = c.clientHeight;
+    if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
+    const ctx = c.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx, w, h };
+  };
+  const runPortal = (onFrame) => {
+    const tracks = [...document.querySelectorAll(".ticker__track")].map((el) => ({ el, dir: +el.dataset.dir, x: 0 }));
+    const name = document.querySelector(".name[data-part]");
+    const chevrons = [...document.querySelectorAll("#chevrons svg")];
+    const chevBand = document.getElementById("chevrons");
+    const progress = document.getElementById("progress");
+    let lastY = scrollY, vel = 0;
+    const frame = (time) => {
+      const y = scrollY, vh = innerHeight;
+      vel += ((y - lastY) - vel) * .18; lastY = y;
+      const max = document.documentElement.scrollHeight - vh;
+      progress.style.setProperty("--p", (max > 0 ? y / max : 0).toFixed(4));
+      tracks.forEach((tr) => {
+        const half = tr.el.scrollWidth / 2;
+        tr.x -= (0.45 + Math.abs(vel) * .35) * tr.dir * (vel < -0.5 ? -1 : 1);
+        if (tr.x <= -half) tr.x += half;
+        if (tr.x > 0) tr.x -= half;
+        tr.el.style.transform = `translate3d(${tr.x.toFixed(1)}px,0,0)`;
+      });
+      if (name) {
+        const [w1, star, w2] = name.children;
+        const cs = getComputedStyle(name);
+        const free = name.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - w1.offsetWidth - w2.offsetWidth - star.getBoundingClientRect().width;
+        const shift = (1 - clamp(y / (vh * .6), 0, 1)) * Math.max(0, free) * .42;
+        w1.style.transform = `translateX(${shift.toFixed(1)}px)`;
+        w2.style.transform = `translateX(${(-shift).toFixed(1)}px)`;
+        star.style.transform = `rotate(${(y * .35).toFixed(1)}deg)`;
+      }
+      if (chevBand) {
+        const cr = chevBand.getBoundingClientRect();
+        const lit = Math.round(clamp((vh - cr.top) / (vh * .75), 0, 1) * chevrons.length);
+        chevrons.forEach((c, i) => c.classList.toggle("off", i >= lit));
+      }
+      onFrame(time, { y, vh, vel });
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  };
+  const LINKS = {"/":"https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6","/portfolio":"https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5","/portfolio/ledgerguard":"https://claude.ai/artifact/4sdB8697b2qpfmQArEkZ6v","/portfolio/alwaysgeeky":"https://claude.ai/artifact/5pYFq8zkJSZzkkYwxyBwhw","/portfolio/emplifi":"https://claude.ai/artifact/A9nYf9R1Ltk32JYjQMNEaq","/portfolio/agent-tooling":"https://claude.ai/artifact/UrP9eUpSXDJAoto7SM46Yn","/portfolio/tallyfolio":"https://claude.ai/artifact/PJzBMyJ9vQJ9u9Wpk4jiw9","/portfolio/controltech":"https://claude.ai/artifact/8sBpRgjrXNsK313wjNaBrj","/portfolio/mapbylaw":"https://claude.ai/artifact/Ez5bX39cieti12y95JwNP9","/open-source":"https://claude.ai/artifact/31CgkES3BDjxyGvxFQ2FNa","/writing":"https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB","/writing/agent-readiness-doctor":"https://claude.ai/artifact/3Sx5hgAkussh86nMQuy1e7","/writing/*":"https://claude.ai/artifact/EwmjeKW4abUewm7znxnD6X","/engineering-principles":"https://claude.ai/artifact/UEJn3JNHs6gMWhVjaYPT9a","/now":"https://claude.ai/artifact/NWAFxKDy1pf5wT617NFaHZ","/404":"https://claude.ai/artifact/1rKSHAEmNatbGeEdAsQnNU"};
+  const link = (p) => LINKS[p] || (/^\/writing\/[a-z0-9-]+$/.test(p) && LINKS["/writing/*"] ? LINKS["/writing/*"] + "#" + p.slice(9) : "https://alipajand.com" + p);
+  // Diagram blocks shared by case studies and articles. Specs follow utils/diagramBlocks.ts:
+  // layers stack and light one layer at a time, compare sets a dim column beside a lit one,
+  // flow runs numbered steps that light in order and keep a check once passed.
+  const dgHead = (title, label = "Diagram") => `<figcaption class="dg__head mono"><span>[ ${esc(label)} ]</span><span>${esc(title)}</span></figcaption>`;
+  const dgCap = (caption) => caption ? `<p class="dg__cap">${esc(caption)}</p>` : "";
+  const loopIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>`;
+
+  const renderLayers = (s) => `
+    <figure class="dg dg--layers">${dgHead(s.title)}
+      <ol class="layers" data-light>${s.layers.map((l, i) => `<li><span class="mono">${pad(i)}</span><b>${esc(l.label)}</b>${l.detail ? `<span>${esc(l.detail)}</span>` : ""}</li>`).join("")}</ol>
+      ${dgCap(s.caption)}
+    </figure>`;
+
+  const renderCompare = (s) => `
+    <figure class="dg dg--compare">${dgHead(s.title)}
+      <div class="compare" style="--cols:${s.columns.length}">${s.columns.map((c) => `<div><h4>${esc(c.label)}</h4><ul>${c.items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}</div>
+      ${dgCap(s.caption)}
+    </figure>`;
+
+  // The flow sits on the light band. `wide` lays the steps out as columns once the band has room.
+  const renderFlow = (s, label = "Diagram") => `
+    <figure class="dg dg--flow" data-flow>
+      <figcaption class="dg__band-head"><span class="mono">[ ${esc(label)} ]</span><span class="dg__title">${esc(s.title)}</span></figcaption>
+      <ol class="flow" style="--steps:${s.steps.length}">${s.steps.map((st, i) => `<li><span class="mono">Step ${pad(i)}</span><b>${esc(st.label)}</b>${st.detail ? `<p>${esc(st.detail)}</p>` : ""}</li>`).join("")}</ol>
+      ${s.loop ? `<div class="flow__loop">${loopIcon}<span>${esc(s.loop)}</span></div>` : ""}
+      ${s.caption ? `<p class="flow__cap">${esc(s.caption)}</p>` : ""}
+    </figure>`;
+
+  const renderDiagram = (s, label) =>
+    s.type === "layers" ? renderLayers(s) : s.type === "compare" ? renderCompare(s) : renderFlow(s, label);
+
+  // A long single word (READINESS) can outgrow a flow column. Shrink that flow's labels together
+  // until every word fits, and refit only when the list's width changes or the fonts finish loading.
+  let fontGen = 0;
+  document.fonts?.addEventListener?.("loadingdone", () => { fontGen++; });
+  document.fonts?.ready.then(() => { fontGen++; });
+  const fitFlowLabels = (ol) => {
+    const key = `${ol.clientWidth}:${fontGen}`;
+    if (ol.dataset.fit === key) return;
+    ol.dataset.fit = key;
+    const labels = [...ol.querySelectorAll("li b")];
+    if (!labels.length) return;
+    // Measure with word breaking off: the CSS break-word fallback would hide the overflow.
+    labels.forEach((b) => { b.style.fontSize = ""; b.style.overflowWrap = "normal"; });
+    let size = parseFloat(getComputedStyle(labels[0]).fontSize);
+    while (size > 14 && labels.some((b) => b.scrollWidth > b.clientWidth + 1)) {
+      size -= 1;
+      labels.forEach((b) => { b.style.fontSize = `${size}px`; });
+    }
+    labels.forEach((b) => { b.style.overflowWrap = ""; });
+  };
+
+  // Called every frame: lights the layer or step that matches how far the diagram has crossed the screen.
+  const lightDiagrams = (vh) => {
+    document.querySelectorAll(".dg--flow .flow").forEach(fitFlowLabels);
+    document.querySelectorAll("[data-light]").forEach((box) => {
+      const r = box.getBoundingClientRect(), items = box.children;
+      const t = clamp((vh * .75 - r.top) / (r.height + vh * .2), 0, .999);
+      const on = r.top < vh && r.bottom > 0 ? Math.floor(t * items.length) : -1;
+      [...items].forEach((el, i) => el.classList.toggle("on", i === on));
+    });
+    document.querySelectorAll("[data-flow]").forEach((fig) => {
+      const r = fig.getBoundingClientRect(), steps = fig.querySelectorAll(".flow li");
+      const t = clamp((vh * .8 - r.top) / (r.height + vh * .1), 0, .999);
+      const on = r.bottom <= 0 ? steps.length : r.top < vh ? Math.floor(t * steps.length) : -1;
+      steps.forEach((el, i) => { el.classList.toggle("on", i === on); el.classList.toggle("done", i < on); });
+    });
+  };
+
+  // Copy is data/notFound.ts.
+  const NF = {"NOT_FOUND_CODE":"404","NOT_FOUND_DESCRIPTION":"That URL doesn’t exist or may have moved. Try the homepage or full portfolio.","NOT_FOUND_KEYBOARD_TIP":"Keyboard tip: focus is moved into this page region automatically so you can tab to the actions below.","NOT_FOUND_LINK_HOME":"Home","NOT_FOUND_LINK_PORTFOLIO":"Portfolio","NOT_FOUND_TITLE":"Page not found"};
+  const $ = (id) => document.getElementById(id);
+  $("code").textContent = NF.NOT_FOUND_CODE;
+  $("nf-code").textContent = NF.NOT_FOUND_CODE;
+  $("nf-title").textContent = NF.NOT_FOUND_TITLE;
+  $("nf-desc").textContent = NF.NOT_FOUND_DESCRIPTION;
+  $("nf-tip").textContent = NF.NOT_FOUND_KEYBOARD_TIP;
+  $("nf-home").textContent = NF.NOT_FOUND_LINK_HOME;
+  $("nf-work").textContent = NF.NOT_FOUND_LINK_PORTFOLIO;
+  $("main").focus({ preventScroll: true });
+
+  // The code scrambles through digits once, then settles.
+  const code = $("code"), target = NF.NOT_FOUND_CODE;
+  if (!reduce) {
+    let n = 0;
+    const tick = setInterval(() => {
+      n++;
+      code.textContent = [...target].map((c, i) => n > 6 + i * 4 ? c : String(Math.floor(Math.random() * 10))).join("");
+      if (n > 6 + target.length * 4) clearInterval(tick);
+    }, 45);
+  }
+
+  // A route line across the frame with one missing segment; the gap follows the pointer.
+  const canvas = $("route");
+  let gx = .5, sx = .5;
+  addEventListener("pointermove", (e) => { gx = clamp(e.clientX / innerWidth, .1, .9); });
+  const draw = () => {
+    const { ctx, w, h } = fitCanvas(canvas);
+    ctx.clearRect(0, 0, w, h);
+    const y = h / 2, gap = Math.min(140, w * .18), cx = sx * w;
+    ctx.strokeStyle = `rgba(${LINE},.85)`; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(24, y); ctx.lineTo(cx - gap / 2, y); ctx.moveTo(cx + gap / 2, y); ctx.lineTo(w - 24, y); ctx.stroke();
+    ctx.setLineDash([3, 5]); ctx.strokeStyle = `rgba(${LINE},.35)`;
+    ctx.beginPath(); ctx.moveTo(cx - gap / 2, y); ctx.lineTo(cx + gap / 2, y); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = `rgb(${LINE})`;
+    [[24, y], [cx - gap / 2, y], [cx + gap / 2, y], [w - 24, y]].forEach(([x, yy], i) => { ctx.beginPath(); ctx.arc(x, yy, i === 1 || i === 2 ? 4 : 3, 0, Math.PI * 2); i === 1 || i === 2 ? ctx.stroke() : ctx.fill(); });
+    ctx.font = "11px 'Geist Mono', monospace"; ctx.textAlign = "center"; ctx.fillStyle = `rgba(${LINE},.6)`;
+    ctx.fillText("NO ROUTE", cx, y - 16);
+  };
+  draw();
+  addEventListener("resize", draw);
+  if (reduce) return;
+  runPortal(() => { sx += (gx - sx) * .08; draw(); });
+})();
+</script>
+<script>
+(() => {
+  // Titles always stay inside the page. Each title is measured at its CSS size and scaled down when
+  // its longest word would run past its box; `data-grow` also lets a title scale up to fill its row
+  // (case study display words), capped at 1.5× and 16% of the row width.
+  const TITLES = ".name, [data-fit], h1, h2, h3, .next strong, .pager strong";
+  const measure = (el, cs) => {
+    if (el.classList.contains("name") && el.children.length) {
+      const kids = [...el.children], gap = parseFloat(cs.columnGap) || 0;
+      return kids.reduce((w, k) => w + parseFloat(getComputedStyle(k).width), 0) + gap * (kids.length - 1);
+    }
+    // Measure with word breaking off, so a word too long for the box shows as overflow.
+    el.style.overflowWrap = "normal";
+    const used = el.scrollWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    el.style.overflowWrap = "";
+    return used;
+  };
+  const fit = (el) => {
+    el.style.removeProperty("font-size");
+    const grow = el.hasAttribute("data-grow");
+    for (let i = 0; i < 4; i++) {
+      const cs = getComputedStyle(el);
+      const room = el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      const used = measure(el, cs);
+      if (room <= 0 || used <= 0) return;
+      if (!grow && used <= room + 0.5) return;
+      const scale = Math.min(grow ? 1.5 : 1, (room / used) * 0.97);
+      const size = parseFloat(cs.fontSize) * scale;
+      el.style.fontSize = `${(grow ? Math.min(size, el.clientWidth * 0.16) : size).toFixed(1)}px`;
+      if (grow) return;
+    }
+  };
+  const fitAll = () => document.querySelectorAll(TITLES).forEach(fit);
+  fitAll();
+  document.fonts?.ready.then(fitAll);
+  document.fonts?.addEventListener?.("loadingdone", fitAll);
+  addEventListener("resize", fitAll);
+  // Pages that render content or swap a title's text after load (the reader, portfolio scenes) refit.
+  let queued = false;
+  new MutationObserver((records) => {
+    const changed = records.some((r) => (r.target.nodeType === 1 && r.target.matches(TITLES)) || [...r.addedNodes].some((n) => n.nodeType === 1));
+    if (queued || !changed) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; fitAll(); });
+  }).observe(document.body, { childList: true, subtree: true });
+})();
+</script>

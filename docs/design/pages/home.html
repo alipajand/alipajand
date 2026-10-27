@@ -1,0 +1,861 @@
+<title>Ali Pajand Home</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: full-width boxed hairline grid; black ground, one light band; strata cross-section as the hero image. */
+  :root {
+    --ink: #0f0f0e;
+    --ink-2: #1b1b19;
+    --bone: #d8d8d3;
+    --bone-2: #c9c9c3;
+    --line: #ecece6;
+    --rule: #5b5b56;
+    --mute: #a3a39c;
+    --mute-ink: #4b4b46;
+    --display: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+    --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ink); }
+  body { background: var(--ink); color: var(--line); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--line); outline-offset: 3px; }
+  .frame { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+  .shell { border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); container-type: inline-size; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .mute { color: var(--mute); }
+  canvas { display: block; }
+  .chev { display: inline-flex; overflow: hidden; width: 40px; flex: none; }
+  .chev svg { flex: none; width: 40px; height: 16px; transition: transform .45s cubic-bezier(.6, .05, .2, 1); }
+  .chev path { fill: none; stroke: currentColor; stroke-width: 2.2; }
+  a:hover .chev svg, a:focus-visible .chev svg { transform: translateX(8px); }
+
+  /* ── Nav ── */
+  .nav { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-top: 16px; }
+  .nav > * { border-right: 1px solid var(--rule); min-height: 56px; display: flex; align-items: center; }
+  .nav > *:nth-child(3) { border-right: 0; }
+  .nav__name { padding-inline: 16px; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; text-decoration: none; }
+  .nav__links { gap: 22px; padding-inline: 20px; }
+  .nav__links a { text-decoration: none; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+  .nav__links a:hover { text-decoration: underline; text-underline-offset: 5px; }
+  .nav__cta { display: grid; grid-template-rows: 1fr 1fr; align-items: stretch; min-width: 200px; }
+  .nav__cta > * { display: flex; align-items: center; justify-content: center; padding-inline: 18px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+  .nav__cta > :first-child { border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .nav__cta a { transition: background .25s, color .25s; }
+  .nav__cta a:hover { background: var(--line); color: var(--ink); }
+  .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; min-height: 0 !important; border: 0 !important; background: var(--line); transform-origin: left; transform: scaleX(var(--p, 0)); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line); margin-right: 9px; animation: blink 2.4s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+
+  /* ── Name display ── */
+  .name {
+    margin: 0;
+    padding: clamp(16px, 2.6vw, 34px) clamp(10px, 2vw, 24px) clamp(12px, 2vw, 26px);
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between; gap: .15em;
+    overflow: hidden;
+    font-family: var(--display); font-weight: 800; font-stretch: 125%;
+    font-size: 11.6cqi; line-height: .82; letter-spacing: -.015em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .name > span { display: block; will-change: transform; }
+  .name .star { width: .38em; height: .38em; flex: none; }
+
+  /* ── Hero ── */
+  .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-bottom: 1px solid var(--rule); }
+  .hero__copy { padding: 28px 24px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 22px; }
+  .hero__eyebrow { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--mute); }
+  .hero__lede { margin: 0; font-size: clamp(23px, 2.3vw, 34px); line-height: 1.16; font-weight: 500; text-wrap: balance; max-width: 26ch; }
+  .hero__body { margin: 0; color: var(--mute); font-size: 16px; line-height: 1.6; max-width: 58ch; }
+  .ctas { display: grid; grid-template-columns: minmax(0, 1fr); border: 1px solid var(--rule); margin-top: auto; }
+  .ctas a { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 16px; text-decoration: none; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; transition: background .25s, color .25s; }
+  .ctas a:first-child { background: var(--line); color: var(--ink); border-bottom: 1px solid var(--rule); }
+  .ctas a:first-child:hover { background: var(--bone-2); }
+  .ctas a:last-child:hover { background: var(--line); color: var(--ink); }
+  .strata { position: relative; min-height: 540px; overflow: hidden; }
+  .strata canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .strata__readout { position: absolute; right: 16px; top: 14px; background: var(--ink); border: 1px solid var(--rule); padding: 6px 10px; font-variant-numeric: tabular-nums; }
+
+  /* ── Proof row ── */
+  .proof { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+  .proof > div { padding: 18px 24px 22px; border-right: 1px solid var(--rule); display: grid; gap: 8px; align-content: start; }
+  .proof > div:last-child { border-right: 0; }
+  .proof strong { font-family: var(--display); font-stretch: 112%; font-weight: 700; font-size: clamp(18px, 1.7vw, 24px); line-height: 1.05; text-transform: uppercase; }
+  .proof span { color: var(--mute); font-size: 14px; }
+
+  /* ── Ticker ── */
+  .ticker { overflow: hidden; border-bottom: 1px solid var(--rule); padding-block: 9px; }
+  .ticker__track { display: flex; width: max-content; will-change: transform; }
+  .ticker__run { display: flex; align-items: center; gap: 18px; padding-right: 18px; white-space: nowrap; font-style: italic; font-size: 15px; }
+  .ticker__run .sep { font-style: normal; color: var(--mute); }
+  .ticker__run svg { width: 14px; height: 14px; flex: none; }
+
+  /* ── Section heads ── */
+  .head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 34px 24px 18px; border-bottom: 1px solid var(--rule); }
+  .head h2 { margin: 0; min-width: 0; max-width: 100%; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5.4vw, 88px); line-height: .9; text-wrap: balance; }
+  .head p { margin: 0; color: var(--mute); max-width: 52ch; }
+  .head a { text-decoration: none; display: inline-flex; gap: 10px; align-items: center; }
+  .head a:hover { text-decoration: underline; text-underline-offset: 5px; }
+
+  /* ── Selected work ── */
+  .cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+  .case { position: relative; isolation: isolate; display: flex; flex-direction: column; gap: 18px; padding: 26px 24px 24px; text-decoration: none; border-right: 1px solid var(--rule); transition: color .35s cubic-bezier(.6, .05, .2, 1); }
+  .case:last-child { border-right: 0; }
+  .case::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--bone); transform: scaleY(0); transform-origin: bottom; transition: transform .5s cubic-bezier(.6, .05, .2, 1); }
+  .case:hover, .case:focus-visible { color: var(--ink); }
+  .case:hover::before, .case:focus-visible::before { transform: scaleY(1); }
+  .case:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .case__top { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+  .case__label { color: var(--mute); transition: color .35s; }
+  .case svg.glyph { width: 92px; height: 72px; flex: none; }
+  .case svg.glyph * { fill: none; stroke: currentColor; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+  .case h3 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase; font-size: clamp(30px, 3.6vw, 56px); line-height: .9; }
+  .case h3 small { display: block; margin-top: 12px; font-family: var(--sans); font-stretch: 100%; font-weight: 500; text-transform: none; font-size: 17px; line-height: 1.3; }
+  .case p { margin: 0; max-width: 58ch; line-height: 1.6; }
+  .case p.support { color: var(--mute); font-style: italic; transition: color .35s; }
+  .case:hover .case__label, .case:hover p.support, .case:focus-visible .case__label, .case:focus-visible p.support { color: var(--mute-ink); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags span { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; border: 1px solid currentColor; padding: 2px 7px; border-radius: 99px; opacity: .85; }
+  .case__go { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid currentColor; }
+
+  /* ── How I work (light band) ── */
+  .band { background: var(--bone); color: var(--ink); }
+  .band .shell { border-color: var(--bone-2); }
+  .about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .about__side { padding: 28px 24px; border-right: 1px solid var(--ink); display: flex; flex-direction: column; gap: 22px; }
+  .about__side h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5vw, 80px); line-height: .9; }
+  .about__side .mono { color: var(--mute-ink); }
+  .pull { margin: auto 0 0; padding: 16px; border: 1px solid var(--ink); font-size: clamp(20px, 1.8vw, 26px); line-height: 1.25; font-style: italic; }
+  .pull cite { display: block; margin-top: 10px; font-style: normal; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute-ink); }
+  .about__text { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .about__text p { margin: 0; padding: 28px 24px; font-size: 16px; line-height: 1.65; border-bottom: 1px solid var(--ink); border-right: 1px solid var(--ink); }
+  .about__text p:nth-child(2n) { border-right: 0; }
+  .about__text p:nth-last-child(-n + 2) { border-bottom: 0; }
+  .about__text p::before { content: attr(data-n); display: block; margin-bottom: 10px; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; color: var(--mute-ink); }
+  .chevrons { display: flex; align-items: center; overflow: hidden; padding: 10px 12px; border-top: 1px solid var(--ink); }
+  .chevrons svg { flex: none; width: clamp(40px, 5vw, 76px); height: auto; transition: opacity .3s, transform .3s; }
+  .chevrons svg path { fill: none; stroke: var(--ink); stroke-width: 7; }
+  .chevrons svg.off { opacity: .16; transform: translateX(-6px); }
+
+  /* ── Capabilities ── */
+  .caps { list-style: none; margin: 0; padding: 0; }
+  .cap { display: grid; grid-template-columns: 64px minmax(0, 5fr) minmax(0, 7fr); gap: 20px; padding: 24px; border-bottom: 1px solid var(--rule); transition: background .4s, color .4s; }
+  .cap__idx { font-family: var(--mono); font-size: 14px; padding-top: 4px; }
+  .cap h3 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(22px, 2.4vw, 36px); line-height: .95; }
+  .cap__list { display: flex; flex-wrap: wrap; gap: 6px 8px; align-content: start; }
+  .cap__list span { font-size: 15px; color: var(--mute); transition: color .4s; }
+  .cap__list span:not(:last-child)::after { content: " ·"; color: var(--rule); }
+  .cap.on { background: var(--line); color: var(--ink); }
+  .cap.on .cap__list span { color: var(--mute-ink); }
+
+  /* ── Open source ── */
+  .tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+  .tool { padding: 24px; display: flex; flex-direction: column; gap: 14px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); min-width: 0; }
+  .tool:nth-child(2n) { border-right: 0; }
+  .tool:nth-last-child(-n + 2) { border-bottom: 0; }
+  .tool__top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .tool h3 { margin: 0; font-family: var(--mono); font-size: clamp(18px, 1.7vw, 22px); font-weight: 500; letter-spacing: -.01em; overflow-wrap: anywhere; }
+  .tool p { margin: 0; color: var(--mute); max-width: 60ch; }
+  .tool ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .tool li { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 10px; font-size: 15px; line-height: 1.5; }
+  .tool li svg { width: 10px; height: 10px; margin-top: 7px; color: var(--line); }
+  .tool a { margin-top: auto; display: inline-flex; gap: 10px; align-items: center; text-decoration: none; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .tool a:hover { text-decoration: underline; text-underline-offset: 5px; }
+
+  /* ── Writing ── */
+  .writing { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); border-bottom: 1px solid var(--rule); }
+  .post { display: flex; flex-direction: column; gap: 12px; padding: 24px; text-decoration: none; transition: background .3s, color .3s; }
+  .post:hover, .post:focus-visible { background: var(--line); color: var(--ink); }
+  .post:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .post .mono { color: var(--mute); }
+  .post:hover .mono, .post:hover p, .post:focus-visible .mono, .post:focus-visible p { color: var(--mute-ink); }
+  .post h3 { margin: 0; font-size: 22px; line-height: 1.2; font-weight: 600; text-wrap: balance; }
+  .post p { margin: 0; color: var(--mute); max-width: 60ch; }
+  .post--feature { border-right: 1px solid var(--rule); }
+  .post--feature h3 { font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(28px, 3.2vw, 50px); line-height: .95; }
+  .post--feature .chev { margin-top: auto; }
+  .writing__list { display: grid; }
+  .writing__list .post + .post { border-top: 1px solid var(--rule); }
+
+  /* ── Contact ── */
+  .contact { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); border-bottom: 1px solid var(--rule); }
+  .contact__lead { padding: 30px 24px; border-right: 1px solid var(--rule); display: grid; gap: 18px; align-content: space-between; }
+  .contact__lead h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(44px, 8.6cqi, 150px); line-height: .86; }
+  .contact__lead p { margin: 0; color: var(--mute); max-width: 52ch; }
+  .contact__lead p.avail { color: var(--line); }
+  .contact__lead { align-content: start; }
+  .form { margin-top: 10px; border: 1px solid var(--rule); }
+  .form__head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; padding: 14px 16px; border-bottom: 1px solid var(--rule); }
+  .form__head h3 { margin: 0; font-size: 18px; font-weight: 600; }
+  .form__head .mono { text-transform: none; letter-spacing: .02em; }
+  .form__summary { padding: 12px 16px; border-bottom: 1px solid var(--rule); background: var(--line); color: var(--ink); font-size: 14px; }
+  .form__summary ul { margin: 6px 0 0; padding-left: 18px; }
+  .form__summary a { color: inherit; }
+  .form__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .field { display: grid; gap: 6px; padding: 14px 16px; border-bottom: 1px solid var(--rule); min-width: 0; }
+  .field:nth-child(1) { border-right: 1px solid var(--rule); }
+  .field--wide { grid-column: 1 / -1; }
+  .field label { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .field .req { color: var(--mute); letter-spacing: .02em; text-transform: none; }
+  .field input, .field textarea {
+    width: 100%; min-width: 0; font: inherit; font-size: 16px; color: var(--line);
+    background: transparent; border: 0; border-bottom: 1px solid var(--rule); border-radius: 0;
+    padding: 8px 0; resize: vertical; transition: border-color .2s;
+  }
+  .field input::placeholder, .field textarea::placeholder { color: #6f6f69; }
+  .field input:focus, .field textarea:focus { outline: none; border-bottom-color: var(--line); }
+  .field input:focus-visible, .field textarea:focus-visible { box-shadow: 0 2px 0 0 var(--line); }
+  .field small { color: var(--mute); font-size: 13px; }
+  .field small.err { color: var(--line); font-weight: 600; }
+  .field small.err::before { content: "× "; }
+  .field[data-invalid] input, .field[data-invalid] textarea { border-bottom-color: var(--line); border-bottom-width: 2px; }
+  .form__foot { display: flex; justify-content: space-between; align-items: stretch; gap: 0; flex-wrap: wrap; }
+  .form__status { margin: 0; flex: 1 1 240px; padding: 14px 16px; color: var(--mute); text-transform: none; letter-spacing: .02em; }
+  .form button {
+    display: inline-flex; align-items: center; justify-content: space-between; gap: 16px; flex: 0 1 auto;
+    padding: 14px 18px; border: 0; border-left: 1px solid var(--rule); cursor: pointer;
+    background: var(--line); color: var(--ink); font: inherit; font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+    transition: background .25s;
+  }
+  .form button:hover { background: var(--bone-2); }
+  .form button:hover .chev svg { transform: translateX(8px); }
+  .contact__links { padding: 30px 24px; display: flex; flex-direction: column; justify-content: flex-start; gap: 14px; }
+  .links { display: grid; border: 1px solid var(--rule); }
+  .links a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px; text-decoration: none; border-bottom: 1px solid var(--rule); transition: background .25s, color .25s; }
+  .links a:last-child { border-bottom: 0; }
+  .links a:hover, .links a:focus-visible { background: var(--line); color: var(--ink); }
+  .links .v { font-family: var(--mono); font-size: 13px; opacity: .75; overflow-wrap: anywhere; text-align: right; }
+  .foot { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); margin-bottom: 16px; }
+  .foot > * { padding: 14px 24px; border-right: 1px solid var(--rule); color: var(--mute); }
+  .foot > *:last-child { border-right: 0; text-align: right; }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .proof > div:nth-child(2) { border-right: 0; }
+    .proof > div:nth-child(-n + 2) { border-bottom: 1px solid var(--rule); }
+    .about__text { grid-template-columns: minmax(0, 1fr); }
+    .about__text p { border-right: 0; }
+    .about__text p:nth-last-child(2) { border-bottom: 1px solid var(--ink); }
+  }
+  @media (max-width: 760px) {
+    .nav { grid-template-columns: minmax(0, 1fr) auto; }
+    .nav > *:nth-child(2) { border-right: 0; }
+    .nav__links { grid-column: 1 / -1; grid-row: 2; border-top: 1px solid var(--rule); min-height: 46px; justify-content: space-between; gap: 8px; padding-inline: 16px; }
+    .nav__links a { font-size: 12px; letter-spacing: .06em; white-space: nowrap; }
+    .nav__cta { min-width: 0; border-right: 0 !important; }
+    .nav__cta > * { padding-inline: 12px; }
+    .nav__name { padding-inline: 12px; font-size: 13px; }
+    .name { font-size: 11.4cqi; padding-inline: 10px; }
+    .hero, .cases, .about, .tools, .writing, .contact { grid-template-columns: minmax(0, 1fr); }
+    .hero__copy, .about__side, .post--feature, .contact__lead { border-right: 0; }
+    .hero__copy { padding: 22px 16px; border-bottom: 1px solid var(--rule); }
+    .strata { min-height: 440px; }
+    .strata__readout { top: auto; bottom: 12px; right: 12px; }
+    .proof > div { padding: 16px; }
+    .head { padding-inline: 16px; }
+    .case { border-right: 0; border-bottom: 1px solid var(--rule); padding: 22px 16px; }
+    .case:last-child { border-bottom: 0; }
+    .about__side { border-bottom: 1px solid var(--ink); padding: 22px 16px; }
+    .about__text p { padding: 22px 16px; }
+    .cap { grid-template-columns: 36px minmax(0, 1fr); gap: 10px 14px; padding: 20px 16px; }
+    .cap__list { grid-column: 2; }
+    .tool { border-right: 0 !important; border-bottom: 1px solid var(--rule) !important; padding: 22px 16px; }
+    .tool:last-child { border-bottom: 0 !important; }
+    .post { padding: 22px 16px; }
+    .post--feature { border-bottom: 1px solid var(--rule); }
+    .contact__lead { border-bottom: 1px solid var(--rule); padding: 24px 16px; }
+    .contact__links { padding: 24px 16px; }
+    .form__grid { grid-template-columns: minmax(0, 1fr); }
+    .field:nth-child(1) { border-right: 0; }
+    .form button { flex: 1 1 100%; border-left: 0; border-top: 1px solid var(--rule); }
+    .foot { grid-template-columns: minmax(0, 1fr); }
+    .foot > * { border-right: 0; border-bottom: 1px solid var(--rule); padding-inline: 16px; text-align: left !important; }
+    .foot > *:last-child { border-bottom: 0; }
+  }
+  @media (max-width: 420px) {
+    .proof { grid-template-columns: minmax(0, 1fr); }
+    .proof > div { border-right: 0 !important; border-bottom: 1px solid var(--rule); }
+    .proof > div:last-child { border-bottom: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .ticker__run[aria-hidden] { display: none; }
+    .ticker__track { width: auto; }
+    .ticker__run { white-space: normal; flex-wrap: wrap; row-gap: 4px; }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="spark" viewBox="0 0 20 20"><path d="M10 0 C10.6 7 13 9.4 20 10 C13 10.6 10.6 13 10 20 C9.4 13 7 10.6 0 10 C7 9.4 9.4 7 10 0Z" fill="currentColor"/></symbol>
+    <symbol id="ring" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="10" r="4.5"/><ellipse cx="10" cy="10" rx="9" ry="3" transform="rotate(-20 10 10)"/></g></symbol>
+    <symbol id="chev" viewBox="0 0 40 16"><path d="M2 2 L8 8 L2 14 M13 2 L19 8 L13 14 M24 2 L30 8 L24 14"/></symbol>
+  </defs>
+</svg>
+
+<div class="frame">
+  <div class="shell">
+    <header class="nav" aria-label="Site">
+      <a class="nav__name" href="https://alipajand.com" aria-current="page">Ali Pajand</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5">Work</a>
+        <a href="https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB">Writing</a>
+        <a href="https://claude.ai/artifact/31CgkES3BDjxyGvxFQ2FNa">Open source</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav__cta">
+        <span><span class="dot" aria-hidden="true"></span>Open to roles</span>
+        <a href="https://calendly.com/alipajand/intro">Book a call</a>
+      </div>
+      <span class="progress" id="progress" aria-hidden="true"></span>
+    </header>
+
+    <h1 class="name" id="name">
+      <span>Ali</span>
+      <svg class="star" viewBox="0 0 20 20" aria-hidden="true"><use href="#spark"/></svg>
+      <span>Pajand</span>
+    </h1>
+
+    <section class="hero" aria-labelledby="hero-lede">
+      <div class="hero__copy">
+        <div class="hero__eyebrow mono"><span>Senior Software Engineer</span><span>Montreal, Quebec, Canada</span></div>
+        <p class="hero__lede" id="hero-lede">I build product systems from the interface down: frontend architecture, design systems, and the APIs behind them.</p>
+        <p class="hero__body">Nine-plus years in React, TypeScript, and Next.js, mostly on SaaS, analytics, and marketplace products. I own frontend architecture and the standards around it: component APIs, accessibility, rendering performance, and review conventions, written up as design docs, taught through mentoring, and adopted across teams. When a product needs more than the interface, I build the Node.js APIs, data models, auth, and background workers behind it.</p>
+        <div class="ctas">
+          <a href="https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5">View selected work <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+          <a href="#contact">Discuss a role <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        </div>
+      </div>
+      <div class="strata" aria-hidden="true">
+        <canvas id="strata"></canvas>
+        <div class="strata__readout mono" id="readout">Depth 01 / 05</div>
+      </div>
+    </section>
+
+    <section class="proof" aria-label="At a glance">
+      <div><strong>9+ years</strong><span>React, TypeScript, and Next.js in production</span></div>
+      <div><strong>Frontend architecture</strong><span>Component APIs, design systems, accessibility, rendering performance</span></div>
+      <div><strong>Technical leadership</strong><span>Design docs, mentoring, cross-team standards, CI quality gates</span></div>
+      <div><strong>End-to-end delivery</strong><span>Node.js APIs, PostgreSQL, auth, background workers</span></div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" data-dir="1">
+        <div class="ticker__run">
+          <span>Frontend architecture</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>Design systems &amp; UI engineering</span><span class="sep">///</span>
+          <span>Full-stack &amp; product systems</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>Quality &amp; developer experience</span><span class="sep">///</span>
+          <span>Performance &amp; observability</span><span class="sep">///</span>
+        </div>
+        <div class="ticker__run" aria-hidden="true">
+          <span>Frontend architecture</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>Design systems &amp; UI engineering</span><span class="sep">///</span>
+          <span>Full-stack &amp; product systems</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>Quality &amp; developer experience</span><span class="sep">///</span>
+          <span>Performance &amp; observability</span><span class="sep">///</span>
+        </div>
+      </div>
+    </div>
+
+    <section id="work" aria-labelledby="work-title">
+      <div class="head">
+        <h2 id="work-title">Selected work</h2>
+        <p>Two projects that show the range: one product I own end to end, and one shared frontend system four product surfaces were built on.</p>
+      </div>
+      <div class="cases">
+        <a class="case" href="https://claude.ai/artifact/4sdB8697b2qpfmQArEkZ6v">
+          <div class="case__top">
+            <span class="case__label mono">[01] Senior Product Engineer · 2026–Present</span>
+            <svg class="glyph" viewBox="0 0 92 72" aria-hidden="true">
+              <rect x="22" y="4" width="44" height="58"/><rect x="16" y="8" width="44" height="58"/><rect x="10" y="12" width="44" height="58"/>
+              <path d="M18 26 H46 M18 34 H46 M18 42 H36"/><circle cx="66" cy="50" r="12"/><path d="M60 50 L64.5 54.5 L72 46"/>
+            </svg>
+          </div>
+          <h3>LedgerGuard<small>Full-Stack AI Contract Intelligence</small></h3>
+          <p>A multi-tenant contract-intelligence SaaS I designed and built alone: Next.js App Router product, Node.js/Fastify API, PostgreSQL data model, authentication, billing, and a queue-backed document pipeline.</p>
+          <p class="support">The hard part wasn't the model call. It was keeping probabilistic extraction from ever becoming confirmed contract data without a human reviewing the evidence.</p>
+          <span class="tags"><span>Next.js</span><span>TypeScript</span><span>Node.js</span><span>Fastify</span><span>PostgreSQL</span><span>Redis/BullMQ</span><span>AI</span></span>
+          <span class="case__go mono">Read case study <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></span>
+        </a>
+        <a class="case" href="https://claude.ai/artifact/5pYFq8zkJSZzkkYwxyBwhw">
+          <div class="case__top">
+            <span class="case__label mono">[02] Senior Frontend Engineer · 2024–2026</span>
+            <svg class="glyph" viewBox="0 0 92 72" aria-hidden="true">
+              <rect x="6" y="6" width="80" height="60"/><path d="M6 18 H86 M30 18 V66"/>
+              <rect x="38" y="26" width="18" height="14"/><rect x="62" y="26" width="18" height="14"/><rect x="38" y="46" width="18" height="14"/><rect x="62" y="46" width="18" height="14"/>
+              <circle cx="18" cy="30" r="4"/><circle cx="18" cy="42" r="4"/><circle cx="18" cy="54" r="4"/>
+            </svg>
+          </div>
+          <h3>AlwaysGeeky Games<small>Shared Design System &amp; Frontend Standards</small></h3>
+          <p>Built and owned the React and TypeScript component library four product surfaces were built on, documented in Storybook, while shipping marketplace, authentication, and account workflows in Next.js.</p>
+          <p class="support">Component APIs, accessibility, TypeScript and code-review conventions, and CI gates that kept the four surfaces from drifting apart.</p>
+          <span class="tags"><span>React</span><span>Next.js</span><span>TypeScript</span><span>Storybook</span><span>GraphQL</span><span>Accessibility</span></span>
+          <span class="case__go mono">Read case study <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></span>
+        </a>
+      </div>
+      <div class="head" style="padding-block:14px">
+        <span class="mono mute">2 of 7 case studies</span>
+        <a class="mono" href="https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5">View all case studies <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<section class="band" aria-labelledby="about-title">
+  <div class="frame">
+    <div class="shell">
+      <div class="about">
+        <div class="about__side">
+          <span class="mono">[ About ]</span>
+          <h2 id="about-title">How I work</h2>
+          <blockquote class="pull">Frontend architecture is still where I'm strongest. What changed is that I can follow a feature past the browser when the product needs it.<cite>— Ali Pajand</cite></blockquote>
+        </div>
+        <div>
+          <div class="about__text">
+            <p data-n="[ 01 ] Start">I started out doing frontend work and kept going deeper into the hard parts of it: component architecture, design systems, accessibility, and keeping dense interfaces fast on the devices people actually use.</p>
+            <p data-n="[ 02 ] Scope">The scope widened from there. Owning an interface properly means owning what it depends on, so I took on API contracts, data models, testing strategy, CI, and the async workflows sitting behind the screens. LedgerGuard is the clearest version of that: I built the product, the API, the schema, and the queue-backed document pipeline myself.</p>
+            <p data-n="[ 03 ] Strength">Frontend architecture is still where I'm strongest. What changed is that I can follow a feature past the browser when the product needs it.</p>
+            <p data-n="[ 04 ] Leadership">Technical leadership, for me, is mostly unglamorous work: making the architecture explainable in design docs before it gets expensive, mentoring engineers on the patterns, cutting accidental complexity, turning one-off patterns into shared ones, reviewing the decisions that are expensive to reverse, and still writing production code.</p>
+          </div>
+          <div class="chevrons" id="chevrons" aria-hidden="true">
+            <svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="frame">
+  <div class="shell">
+    <section aria-labelledby="caps-title">
+      <div class="head">
+        <h2 id="caps-title">Engineering capabilities</h2>
+        <p class="mono">5 areas</p>
+      </div>
+      <ol class="caps" id="caps">
+        <li class="cap"><span class="cap__idx">[01]</span><h3>Frontend Architecture</h3>
+          <div class="cap__list"><span>React</span><span>Next.js App Router</span><span>TypeScript</span><span>Server Components</span><span>SSR and static rendering</span><span>Component architecture</span><span>State and data-flow boundaries</span></div></li>
+        <li class="cap"><span class="cap__idx">[02]</span><h3>Design Systems &amp; UI Engineering</h3>
+          <div class="cap__list"><span>Shared component libraries</span><span>Component APIs</span><span>Storybook</span><span>Semantic HTML</span><span>WCAG and keyboard behaviour</span><span>Responsive systems</span><span>Tailwind CSS</span><span>Figma</span></div></li>
+        <li class="cap"><span class="cap__idx">[03]</span><h3>Full-Stack &amp; Product Systems</h3>
+          <div class="cap__list"><span>Node.js</span><span>Fastify</span><span>REST and GraphQL APIs</span><span>PostgreSQL</span><span>Prisma</span><span>Supabase Auth and Storage</span><span>Redis/BullMQ background jobs</span><span>Python workers</span><span>Stripe</span><span>Docker</span><span>AWS</span></div></li>
+        <li class="cap"><span class="cap__idx">[04]</span><h3>Quality &amp; Developer Experience</h3>
+          <div class="cap__list"><span>Jest</span><span>React Testing Library</span><span>Playwright</span><span>Cypress</span><span>GitHub Actions</span><span>CI quality gates</span><span>Code review</span><span>AI-assisted development with Cursor and custom MCP tooling</span></div></li>
+        <li class="cap"><span class="cap__idx">[05]</span><h3>Performance &amp; Observability</h3>
+          <div class="cap__list"><span>D3.js</span><span>GSAP</span><span>Rendering and paint optimization</span><span>Mobile webview constraints</span><span>Web Vitals</span><span>Sentry</span><span>Hotjar</span></div></li>
+      </ol>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" data-dir="-1">
+        <div class="ticker__run">
+          <span>Deterministic rules</span><span class="sep">///</span>
+          <svg><use href="#spark"/></svg><span>Human review in charge</span><span class="sep">///</span>
+          <span>CLIs · CI · MCP · editor plugins</span><span class="sep">///</span>
+          <svg><use href="#spark"/></svg><span>Checks you run, not assume</span><span class="sep">///</span>
+        </div>
+        <div class="ticker__run" aria-hidden="true">
+          <span>Deterministic rules</span><span class="sep">///</span>
+          <svg><use href="#spark"/></svg><span>Human review in charge</span><span class="sep">///</span>
+          <span>CLIs · CI · MCP · editor plugins</span><span class="sep">///</span>
+          <svg><use href="#spark"/></svg><span>Checks you run, not assume</span><span class="sep">///</span>
+        </div>
+      </div>
+    </div>
+
+    <section id="open-source" aria-labelledby="os-title">
+      <div class="head">
+        <h2 id="os-title">Tooling &amp; open source</h2>
+        <p>Repository audits across CLIs, CI, MCP, and editor skills and plugins. The audit engines use deterministic rules; host clients have their own data handling.</p>
+      </div>
+      <div class="tools">
+        <article class="tool">
+          <div class="tool__top"><h3>agent-context-doctor</h3><span class="mono mute">Sep 2026</span></div>
+          <p>Audits agent instruction files and committed Claude Code and MCP settings for quality and safety problems.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Flags placeholders, contradictions, stale commands, broken references, pasted secrets, and hidden Unicode</li>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Catches risky agent settings such as bypassPermissions, hooks that run remote scripts, and unpinned MCP servers</li>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Scores the repository from 0 to 100 and reports to the terminal, SARIF, or pull-request annotations</li>
+          </ul>
+          <a href="https://github.com/alipajand/agent-context-doctor">Repository <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        </article>
+        <article class="tool">
+          <div class="tool__top"><h3>agent-pr-reviewer-lite</h3><span class="mono mute">Sep 2026</span></div>
+          <p>Deterministic risk pre-screen that flags the files in a pull request that need human review before merge.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Flags auth, billing, migrations, CI, secrets, and agent-permission changes from fixed, readable rules</li>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Reads added lines for skipped tests, lint suppressions, new dependencies, and auto-run agent commands</li>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Names CODEOWNERS from the base branch so a pull request cannot pick its own reviewers</li>
+          </ul>
+          <a href="https://github.com/alipajand/agent-pr-reviewer-lite">Repository <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        </article>
+        <article class="tool">
+          <div class="tool__top"><h3>agent-readiness-kit</h3><span class="mono mute">Sep 2026</span></div>
+          <p>Scores how ready a repository is for AI coding agents across 13 categories, from 0 to 100.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Checks instruction files, architecture docs, scripts, tests, and safety boundaries</li>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Scaffolds starter files for Cursor, Claude Code, Codex, Copilot, and CI with init, generate, and fix</li>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Gates CI on a minimum score and writes JSON, JUnit, SARIF, Markdown, or HTML reports</li>
+          </ul>
+          <a href="https://github.com/alipajand/agent-readiness-kit">Repository <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        </article>
+        <article class="tool">
+          <div class="tool__top"><h3>agent-readiness-action</h3><span class="mono mute">Oct 2026 · v1.2.0</span></div>
+          <p>Runs agent-readiness-kit and agent-context-doctor on pull requests; published in the GitHub Actions Marketplace with the v1 tag.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Fails below a minimum score or when a pull request lowers the score from the base branch</li>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Bundles both engines at pinned commits, so nothing is downloaded from a registry at run time</li>
+            <li><svg aria-hidden="true"><use href="#spark"/></svg>Hardened for untrusted pull requests: no workflow-command injection and no writes through symlinks</li>
+          </ul>
+          <a href="https://github.com/alipajand/agent-readiness-action">Repository <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        </article>
+      </div>
+      <div class="head" style="padding-block:14px">
+        <span class="mono mute">4 of 7 tools</span>
+        <a class="mono" href="https://claude.ai/artifact/31CgkES3BDjxyGvxFQ2FNa">Explore all open-source work <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+      </div>
+    </section>
+
+    <section id="writing" aria-labelledby="writing-title">
+      <div class="head">
+        <h2 id="writing-title">Writing</h2>
+        <a class="mono" href="https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB">All writing <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+      </div>
+      <div class="writing">
+        <a class="post post--feature" href="https://claude.ai/artifact/EwmjeKW4abUewm7znxnD6X#how-i-structure-a-frontend-that-owns-almost-no-truth">
+          <span class="mono">Featured · Jun 29, 2026</span>
+          <h3>How I structure a frontend that owns almost no truth</h3>
+          <p>Frontend architecture is not a folder layout or a state library. It is deciding which kind of state each piece of data is, giving it exactly one owner, and making the second owner hard to create.</p>
+          <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span>
+        </a>
+        <div class="writing__list">
+          <a class="post" href="https://claude.ai/artifact/3Sx5hgAkussh86nMQuy1e7">
+            <span class="mono">Oct 12, 2026</span>
+            <h3>Keeping repository instructions useful with Agent Readiness Doctor</h3>
+            <p>A refactor can leave the code healthy and its instructions wrong.</p>
+          </a>
+          <a class="post" href="https://claude.ai/artifact/EwmjeKW4abUewm7znxnD6X#how-i-would-design-a-document-review-workspace">
+            <span class="mono">Oct 8, 2026</span>
+            <h3>How I would design a document review workspace</h3>
+            <p>Bounded queues, PDF-field selection, server-enforced leases, recoverable drafts, and accessible review workflows.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact__lead">
+        <span class="mono mute">[ Contact ]</span>
+        <h2 id="contact-title">Open to new work</h2>
+        <p>Use this for a role, contract work, or a specific technical problem you want a second opinion on. Hiring managers and technical interviewers: happy to go deep on any case study here.</p>
+        <p class="avail">Open to lead frontend, senior frontend, and senior full-stack roles in Montreal or remote within Canada.</p>
+        <form class="form" id="contact-form" novalidate aria-labelledby="form-title">
+          <div class="form__head">
+            <h3 id="form-title">Send context</h3>
+            <span class="mono mute">Share enough context to make the conversation useful.</span>
+          </div>
+          <div class="form__summary" id="form-summary" role="alert" hidden></div>
+          <div class="form__grid">
+            <div class="field">
+              <label for="cf-name">Name <span class="req">(required)</span></label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Jane Doe" aria-describedby="cf-name-hint cf-name-err" required>
+              <small id="cf-name-hint">How you’d like to be addressed.</small>
+              <small class="err" id="cf-name-err" hidden>Enter your name</small>
+            </div>
+            <div class="field">
+              <label for="cf-email">Work email <span class="req">(required)</span></label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" aria-describedby="cf-email-hint cf-email-err" required>
+              <small id="cf-email-hint">I only use this to reply. No mailing lists.</small>
+              <small class="err" id="cf-email-err" hidden></small>
+            </div>
+            <div class="field field--wide">
+              <label for="cf-company">Company <span class="req">(optional)</span></label>
+              <input id="cf-company" name="company" type="text" autocomplete="organization" placeholder="Company or team" aria-describedby="cf-company-hint">
+              <small id="cf-company-hint">Company or team you’re hiring for.</small>
+            </div>
+            <div class="field field--wide">
+              <label for="cf-message">Message <span class="req">(required)</span></label>
+              <textarea id="cf-message" name="message" rows="5" placeholder="e.g. Full-stack product role, remote within Canada, React and Node.js…" aria-describedby="cf-message-hint cf-message-err" required></textarea>
+              <small id="cf-message-hint">Role, team, location, working model, timeline, stack, or the problem you’re solving—short is fine.</small>
+              <small class="err" id="cf-message-err" hidden>Add a short message</small>
+            </div>
+          </div>
+          <div class="form__foot">
+            <p class="form__status mono" id="form-status" role="status">Design preview · not connected to the site’s mail endpoint</p>
+            <button type="submit">Send message <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></button>
+          </div>
+        </form>
+      </div>
+      <div class="contact__links">
+        <span class="mono mute">Direct</span>
+        <div class="links">
+          <a href="https://calendly.com/alipajand/intro"><span>Book an intro call</span><span class="v">calendly.com/alipajand/intro</span></a>
+          <a href="https://linkedin.com/in/alipajand"><span>LinkedIn</span><span class="v">linkedin.com/in/alipajand</span></a>
+          <a href="https://github.com/alipajand"><span>GitHub</span><span class="v">github.com/alipajand</span></a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot mono">
+      <span>Ali Pajand</span>
+      <span>Montreal, Quebec, Canada</span>
+      <span>alipajand.com · 2026</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const LINE = "236,236,230";
+
+  // Contact form: validates like the site's form; this preview has nowhere to send, so it says so.
+  const form = document.getElementById("contact-form");
+  const summary = document.getElementById("form-summary");
+  const status = document.getElementById("form-status");
+  const rules = [
+    { id: "cf-name", check: (v) => v.trim() ? "" : "Enter your name" },
+    { id: "cf-email", check: (v) => !v.trim() ? "Enter your email" : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? "" : "Use a valid email address" },
+    { id: "cf-message", check: (v) => v.trim() ? "" : "Add a short message" },
+  ];
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const errors = [];
+    rules.forEach(({ id, check }) => {
+      const input = document.getElementById(id), msg = check(input.value);
+      const err = document.getElementById(`${id}-err`), field = input.closest(".field");
+      err.textContent = msg; err.hidden = !msg;
+      input.setAttribute("aria-invalid", msg ? "true" : "false");
+      msg ? field.setAttribute("data-invalid", "") : field.removeAttribute("data-invalid");
+      if (msg) errors.push({ id, msg });
+    });
+    if (errors.length) {
+      summary.innerHTML = `<strong>Please fix the following before sending:</strong><ul>${errors.map((x) => `<li><a href="#${x.id}">${x.msg}</a></li>`).join("")}</ul>`;
+      summary.hidden = false;
+      summary.querySelectorAll("a").forEach((a) => a.addEventListener("click", (ev) => { ev.preventDefault(); document.getElementById(a.hash.slice(1)).focus(); }));
+      document.getElementById(errors[0].id).focus();
+      status.textContent = "Design preview · not connected to the site’s mail endpoint";
+      return;
+    }
+    summary.hidden = true;
+    status.textContent = "Nothing was sent: this preview isn’t connected. On alipajand.com this goes to the contact endpoint.";
+  });
+
+  const fitCanvas = (c) => {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const w = c.clientWidth, h = c.clientHeight;
+    if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
+    const ctx = c.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx, w, h };
+  };
+
+  // ── Hero: a cross-section from the interface down. Scroll drives a probe through the strata. ──
+  const strata = document.getElementById("strata");
+  const strataBox = strata.parentElement;
+  const readout = document.getElementById("readout");
+  const LAYERS = [
+    { name: "Interface", stack: "React · Next.js · TypeScript" },
+    { name: "Design system", stack: "Component APIs · a11y · Storybook" },
+    { name: "API", stack: "Node.js · Fastify · REST and GraphQL" },
+    { name: "Data", stack: "PostgreSQL · Prisma · auth" },
+    { name: "Workers", stack: "Redis/BullMQ · background jobs" },
+  ];
+  const pointer = { x: .62, sx: .62 };
+  strataBox.addEventListener("pointermove", (e) => {
+    const r = strataBox.getBoundingClientRect();
+    pointer.x = clamp((e.clientX - r.left) / r.width, .3, .92);
+  });
+  strataBox.addEventListener("pointerleave", () => { pointer.x = .62; });
+
+  const drawStrata = (time, depthT) => {
+    const { ctx, w, h } = fitCanvas(strata);
+    ctx.clearRect(0, 0, w, h);
+    const narrow = w < 520;
+    pointer.sx += (pointer.x - pointer.sx) * .07;
+    const n = LAYERS.length, bandH = h / n;
+    const px = w * pointer.sx;
+    const tipY = 8 + depthT * (h - 22);
+    const active = clamp(Math.floor(tipY / bandH), 0, n - 1);
+    const sy = scrollY;
+
+    for (let i = 0; i < n; i++) {
+      const top = i * bandH, on = i === active, reached = tipY >= top;
+      const lines = 4 + i * 2;
+      const amp = 3 + i * 2.2;
+      const freq = .006 + i * .0018;
+      const drift = sy * (.35 - i * .06) + time * .01 * (i % 2 ? -1 : 1);
+      for (let j = 0; j < lines; j++) {
+        const base = top + (j + .5) * bandH / lines;
+        ctx.beginPath();
+        for (let x = 0; x <= w + 8; x += 8) {
+          const dx = x - px;
+          // Strata part around the probe as it passes through them.
+          const part = reached ? Math.exp(-(dx * dx) / (2 * 26 * 26)) * Math.max(0, 1 - Math.abs(base - tipY) / (bandH * 1.2)) * 14 * Math.sign(base - tipY || 1) : 0;
+          const y = base + Math.sin((x + drift) * freq + j * .9) * amp + part;
+          x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        }
+        ctx.strokeStyle = `rgba(${LINE},${on ? .85 : reached ? .42 : .2})`;
+        ctx.lineWidth = on && j === 0 ? 1.4 : 1;
+        ctx.stroke();
+      }
+      // Band boundary.
+      if (i) { ctx.strokeStyle = `rgba(${LINE},.55)`; ctx.beginPath(); ctx.moveTo(0, top + .5); ctx.lineTo(w, top + .5); ctx.stroke(); }
+      // Label on a solid chip so it reads over the lines.
+      const L = LAYERS[i];
+      ctx.font = `500 12px "Geist Mono", ui-monospace, monospace`;
+      ctx.textBaseline = "top";
+      const t1 = `[0${i + 1}] ${L.name.toUpperCase()}`;
+      ctx.font = `400 13px "Archivo", Arial, sans-serif`;
+      const w2 = narrow ? 0 : ctx.measureText(L.stack).width;
+      ctx.font = `500 12px "Geist Mono", ui-monospace, monospace`;
+      const w1 = ctx.measureText(t1).width;
+      const chipW = Math.max(w1, w2) + 20, chipH = narrow ? 28 : 46;
+      ctx.fillStyle = on ? "#ecece6" : "#0f0f0e";
+      ctx.fillRect(14, top + 12, chipW, chipH);
+      ctx.strokeStyle = `rgba(${LINE},${on ? 1 : .45})`; ctx.strokeRect(14.5, top + 12.5, chipW - 1, chipH - 1);
+      ctx.fillStyle = on ? "#0f0f0e" : `rgba(${LINE},${reached ? 1 : .6})`;
+      ctx.fillText(t1, 24, top + 20);
+      if (!narrow) {
+        ctx.font = `400 13px "Archivo", Arial, sans-serif`;
+        ctx.fillStyle = on ? "#4b4b46" : "rgba(163,163,156,1)";
+        ctx.fillText(L.stack, 24, top + 37);
+      }
+    }
+
+    // The probe: a line from the surface to the current depth, with a tip.
+    ctx.strokeStyle = `rgba(${LINE},1)`; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(px, 0); ctx.lineTo(px, tipY); ctx.stroke();
+    ctx.fillStyle = `rgba(${LINE},.16)`; ctx.beginPath(); ctx.arc(px, tipY, 14, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#ecece6";
+    ctx.beginPath(); ctx.moveTo(px, tipY + 8); ctx.lineTo(px - 6, tipY - 2); ctx.lineTo(px + 6, tipY - 2); ctx.closePath(); ctx.fill();
+    // Depth ticks along the probe.
+    ctx.strokeStyle = `rgba(${LINE},.8)`; ctx.lineWidth = 1;
+    for (let y = 20; y < tipY - 10; y += 20) { ctx.beginPath(); ctx.moveTo(px - 4, y); ctx.lineTo(px + 4, y); ctx.stroke(); }
+
+    readout.textContent = `Depth 0${active + 1} / 0${n} · ${LAYERS[active].name}`;
+  };
+
+  // How far the probe has gone: starts in the interface, reaches the workers as the hero scrolls away.
+  const hero = strataBox.closest(".hero");
+  const heroDepth = () => {
+    const r = hero.getBoundingClientRect();
+    return clamp(.08 + (-r.top + innerHeight * .25) / (r.height + innerHeight * .1), .08, .97);
+  };
+
+  if (reduce) {
+    const still = () => drawStrata(0, .97);
+    still();
+    document.fonts && document.fonts.ready.then(still);
+    addEventListener("resize", still);
+    return;
+  }
+
+  const tracks = [...document.querySelectorAll(".ticker__track")].map((el) => ({ el, dir: +el.dataset.dir, x: 0 }));
+  const name = document.getElementById("name");
+  const [w1, star, w2] = name.children;
+  const chevrons = [...document.querySelectorAll("#chevrons svg")];
+  const chevBand = document.getElementById("chevrons");
+  const caps = [...document.querySelectorAll(".cap")];
+  const progress = document.getElementById("progress");
+  let lastY = scrollY, vel = 0, heroVisible = true;
+  new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; }).observe(hero);
+
+  const frame = (time) => {
+    const y = scrollY, vh = innerHeight;
+    vel += ((y - lastY) - vel) * .18; lastY = y;
+    const max = document.documentElement.scrollHeight - vh;
+    progress.style.setProperty("--p", (max > 0 ? y / max : 0).toFixed(4));
+
+    tracks.forEach((tr) => {
+      const half = tr.el.scrollWidth / 2;
+      tr.x -= (0.45 + Math.abs(vel) * .35) * tr.dir * (vel < -0.5 ? -1 : 1);
+      if (tr.x <= -half) tr.x += half;
+      if (tr.x > 0) tr.x -= half;
+      tr.el.style.transform = `translate3d(${tr.x.toFixed(1)}px,0,0)`;
+    });
+
+    // Name: the two words pull apart from the star as you scroll down, within the free space.
+    const cs = getComputedStyle(name);
+    const free = name.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - w1.offsetWidth - w2.offsetWidth - star.getBoundingClientRect().width;
+    const k = clamp(y / (vh * .6), 0, 1);
+    const shift = (1 - k) * Math.max(0, free) * .42;
+    w1.style.transform = `translateX(${shift.toFixed(1)}px)`;
+    w2.style.transform = `translateX(${(-shift).toFixed(1)}px)`;
+    star.style.transform = `rotate(${(y * .35).toFixed(1)}deg)`;
+
+    const cr = chevBand.getBoundingClientRect();
+    const lit = Math.round(clamp((vh - cr.top) / (vh * .75), 0, 1) * chevrons.length);
+    chevrons.forEach((c, i) => c.classList.toggle("off", i >= lit));
+
+    // Capabilities: the row crossing the middle of the screen is lit.
+    let best = -1, bestD = Infinity;
+    caps.forEach((c, i) => {
+      const r = c.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - vh * .5);
+      if (r.bottom > 0 && r.top < vh && d < bestD) { bestD = d; best = i; }
+    });
+    caps.forEach((c, i) => c.classList.toggle("on", i === best && bestD < vh * .3));
+
+    if (heroVisible) drawStrata(time, heroDepth());
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+})();
+</script>
+<script>
+(() => {
+  // Titles always stay inside the page. Each title is measured at its CSS size and scaled down when
+  // its longest word would run past its box; `data-grow` also lets a title scale up to fill its row
+  // (case study display words), capped at 1.5× and 16% of the row width.
+  const TITLES = ".name, [data-fit], h1, h2, h3, .next strong, .pager strong";
+  const measure = (el, cs) => {
+    if (el.classList.contains("name") && el.children.length) {
+      const kids = [...el.children], gap = parseFloat(cs.columnGap) || 0;
+      return kids.reduce((w, k) => w + parseFloat(getComputedStyle(k).width), 0) + gap * (kids.length - 1);
+    }
+    // Measure with word breaking off, so a word too long for the box shows as overflow.
+    el.style.overflowWrap = "normal";
+    const used = el.scrollWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    el.style.overflowWrap = "";
+    return used;
+  };
+  const fit = (el) => {
+    el.style.removeProperty("font-size");
+    const grow = el.hasAttribute("data-grow");
+    for (let i = 0; i < 4; i++) {
+      const cs = getComputedStyle(el);
+      const room = el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      const used = measure(el, cs);
+      if (room <= 0 || used <= 0) return;
+      if (!grow && used <= room + 0.5) return;
+      const scale = Math.min(grow ? 1.5 : 1, (room / used) * 0.97);
+      const size = parseFloat(cs.fontSize) * scale;
+      el.style.fontSize = `${(grow ? Math.min(size, el.clientWidth * 0.16) : size).toFixed(1)}px`;
+      if (grow) return;
+    }
+  };
+  const fitAll = () => document.querySelectorAll(TITLES).forEach(fit);
+  fitAll();
+  document.fonts?.ready.then(fitAll);
+  document.fonts?.addEventListener?.("loadingdone", fitAll);
+  addEventListener("resize", fitAll);
+  // Pages that render content or swap a title's text after load (the reader, portfolio scenes) refit.
+  let queued = false;
+  new MutationObserver((records) => {
+    const changed = records.some((r) => (r.target.nodeType === 1 && r.target.matches(TITLES)) || [...r.addedNodes].some((n) => n.nodeType === 1));
+    if (queued || !changed) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; fitAll(); });
+  }).observe(document.body, { childList: true, subtree: true });
+})();
+</script>

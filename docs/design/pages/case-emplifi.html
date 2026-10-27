@@ -1,0 +1,733 @@
+<title>Emplifi Case Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ink: #0f0f0e;
+    --ink-2: #1b1b19;
+    --bone: #d8d8d3;
+    --bone-2: #c9c9c3;
+    --line: #ecece6;
+    --rule: #5b5b56;
+    --mute: #a3a39c;
+    --mute-ink: #4b4b46;
+    --display: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+    --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ink); }
+  body { background: var(--ink); color: var(--line); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--line); outline-offset: 3px; }
+  .frame { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+  .shell { border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); container-type: inline-size; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .mute { color: var(--mute); }
+  canvas { display: block; }
+  .chev { display: inline-flex; overflow: hidden; width: 40px; flex: none; }
+  .chev svg { flex: none; width: 40px; height: 16px; transition: transform .45s cubic-bezier(.6, .05, .2, 1); }
+  .chev path { fill: none; stroke: currentColor; stroke-width: 2.2; }
+  a:hover .chev svg, a:focus-visible .chev svg { transform: translateX(8px); }
+
+  /* ── Nav ── */
+  .nav { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-top: 16px; }
+  .nav > * { border-right: 1px solid var(--rule); min-height: 56px; display: flex; align-items: center; }
+  .nav > *:nth-child(3) { border-right: 0; }
+  .nav__name { padding-inline: 16px; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; text-decoration: none; }
+  .nav__links { gap: 22px; padding-inline: 20px; }
+  .nav__links a { text-decoration: none; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+  .nav__links a:hover { text-decoration: underline; text-underline-offset: 5px; }
+  .nav__links a[aria-current] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+  .nav__cta { display: grid; grid-template-rows: 1fr 1fr; align-items: stretch; min-width: 200px; }
+  .nav__cta > * { display: flex; align-items: center; justify-content: center; padding-inline: 18px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+  .nav__cta > :first-child { border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .nav__cta a { transition: background .25s, color .25s; }
+  .nav__cta a:hover { background: var(--line); color: var(--ink); }
+  .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; min-height: 0 !important; border: 0 !important; background: var(--line); transform-origin: left; transform: scaleX(var(--p, 0)); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line); margin-right: 9px; animation: blink 2.4s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+
+  /* ── Display ── */
+  .name {
+    margin: 0;
+    padding: clamp(16px, 2.6vw, 34px) clamp(10px, 2vw, 24px) clamp(12px, 2vw, 26px);
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between; gap: .15em;
+    overflow: hidden;
+    font-family: var(--display); font-weight: 800; font-stretch: 125%;
+    font-size: 11.6cqi; line-height: .82; letter-spacing: -.015em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .name > span { display: block; will-change: transform; }
+  .name .star { width: .38em; height: .38em; flex: none; }
+
+  /* ── Ticker ── */
+  .ticker { overflow: hidden; border-bottom: 1px solid var(--rule); padding-block: 9px; }
+  .ticker__track { display: flex; width: max-content; will-change: transform; }
+  .ticker__run { display: flex; align-items: center; gap: 18px; padding-right: 18px; white-space: nowrap; font-style: italic; font-size: 15px; }
+  .ticker__run .sep { font-style: normal; color: var(--mute); }
+  .ticker__run svg { width: 14px; height: 14px; flex: none; }
+
+  /* ── Section heads ── */
+  .head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 34px 24px 18px; border-bottom: 1px solid var(--rule); }
+  .head h2 { margin: 0; min-width: 0; max-width: 100%; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5.4vw, 88px); line-height: .9; text-wrap: balance; }
+  .head p { margin: 0; color: var(--mute); max-width: 52ch; }
+  .head a { text-decoration: none; display: inline-flex; gap: 10px; align-items: center; }
+  .head a:hover { text-decoration: underline; text-underline-offset: 5px; }
+
+  /* ── Light band ── */
+  .band { background: var(--bone); color: var(--ink); }
+  .band .shell { border-color: var(--bone-2); }
+  .band .mono { color: var(--mute-ink); }
+  .chevrons { display: flex; align-items: center; overflow: hidden; padding: 10px 12px; border-top: 1px solid var(--ink); }
+  .chevrons svg { flex: none; width: clamp(40px, 5vw, 76px); height: auto; transition: opacity .3s, transform .3s; }
+  .chevrons svg path { fill: none; stroke: var(--ink); stroke-width: 7; }
+  .chevrons svg.off { opacity: .16; transform: translateX(-6px); }
+
+  /* ── Next links + footer ── */
+  .next { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+  .next a { display: flex; flex-direction: column; gap: 22px; padding: 22px 24px; border-right: 1px solid var(--rule); text-decoration: none; transition: background .3s, color .3s; }
+  .next a:last-child { border-right: 0; }
+  .next a .mono { color: var(--mute); transition: color .3s; }
+  .next a strong { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--display); font-stretch: 118%; font-weight: 800; text-transform: uppercase; font-size: clamp(20px, 2vw, 30px); line-height: 1; }
+  .next a:hover, .next a:focus-visible { background: var(--line); color: var(--ink); }
+  .next a:hover .mono, .next a:focus-visible .mono { color: var(--mute-ink); }
+  .next a:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .foot { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); margin-bottom: 16px; }
+  .foot > * { padding: 14px 24px; border-right: 1px solid var(--rule); color: var(--mute); }
+  .foot > *:last-child { border-right: 0; text-align: right; }
+
+  @media (max-width: 760px) {
+    .nav { grid-template-columns: minmax(0, 1fr) auto; }
+    .nav > *:nth-child(2) { border-right: 0; }
+    .nav__links { grid-column: 1 / -1; grid-row: 2; border-top: 1px solid var(--rule); min-height: 46px; justify-content: space-between; gap: 8px; padding-inline: 16px; }
+    .nav__links a { font-size: 12px; letter-spacing: .06em; white-space: nowrap; }
+    .nav__cta { min-width: 0; border-right: 0 !important; }
+    .nav__cta > * { padding-inline: 12px; }
+    .nav__name { padding-inline: 12px; font-size: 13px; }
+    .name { padding-inline: 10px; }
+    .head { padding-inline: 16px; }
+    .head h2 { font-size: min(34px, 9cqi); }
+    .next { grid-template-columns: minmax(0, 1fr); }
+    .next a { border-right: 0; border-bottom: 1px solid var(--rule); padding: 20px 16px; }
+    .next a:last-child { border-bottom: 0; }
+    .foot { grid-template-columns: minmax(0, 1fr); }
+    .foot > * { border-right: 0; border-bottom: 1px solid var(--rule); padding-inline: 16px; text-align: left !important; }
+    .foot > *:last-child { border-bottom: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .ticker__run[aria-hidden] { display: none; }
+    .ticker__track { width: auto; }
+    .ticker__run { white-space: normal; flex-wrap: wrap; row-gap: 4px; }
+  }
+  /* ── Diagrams (layers, compare, flow) ── */
+  .dg { margin: 0; min-width: 0; }
+  .dg__head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--mute); margin-bottom: 14px; }
+  .dg__cap { margin: 14px 0 0; color: var(--mute); font-size: 15px; line-height: 1.5; max-width: 70ch; }
+
+  .layers { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .layers li { display: grid; grid-template-columns: 40px minmax(0, 5fr) minmax(0, 7fr); gap: 12px; align-items: baseline; padding: 14px 16px; border: 1px solid var(--rule); transition: background .4s, color .4s; }
+  .layers li:nth-child(2) { margin-inline: 2%; } .layers li:nth-child(3) { margin-inline: 4%; } .layers li:nth-child(4) { margin-inline: 6%; } .layers li:nth-child(n+5) { margin-inline: 8%; }
+  .layers li:last-child { border-style: dashed; }
+  .layers b { font-weight: 600; font-size: 17px; }
+  .layers span { color: var(--mute); font-size: 15px; line-height: 1.45; transition: color .4s; }
+  .layers .mono { padding-top: 2px; }
+  .layers li.on { background: var(--line); color: var(--ink); }
+  .layers li.on span { color: var(--mute-ink); }
+
+  .compare { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); border: 1px solid var(--rule); }
+  .compare > div { min-width: 0; border-right: 1px solid var(--rule); }
+  .compare > div:last-child { border-right: 0; }
+  .compare h4 { margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .compare > div:last-child h4 { background: var(--line); color: var(--ink); }
+  .compare ul { list-style: none; margin: 0; padding: 0; }
+  .compare li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--ink-2); font-size: 15px; line-height: 1.5; }
+  .compare li:last-child { border-bottom: 0; }
+  .compare > div:not(:last-child) li { color: var(--mute); }
+  .compare > div:not(:last-child) li::before { content: "×"; font-family: var(--mono); }
+  .compare > div:last-child li::before { content: "✓"; font-family: var(--mono); }
+
+  /* The flow always sits on bone. Steps become columns when the figure is wide enough. */
+  .dg--flow { background: var(--bone); color: var(--ink); container-type: inline-size; }
+  .dg--flow .mono { color: var(--mute-ink); }
+  .dg__band-head { display: grid; gap: 10px; padding: 26px 24px 18px; border-bottom: 1px solid var(--ink); }
+  .dg__title { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase; font-size: clamp(24px, 5.2cqi, 68px); line-height: .9; text-wrap: balance; }
+  .flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); }
+  .flow li { padding: 16px 20px; border-bottom: 1px solid var(--ink); display: grid; grid-template-columns: 76px minmax(0, 1fr); column-gap: 12px; row-gap: 8px; align-content: start; transition: background .4s, color .4s; }
+  .flow li:last-child { border-bottom: 0; }
+  .flow li .mono { grid-row: span 2; padding-top: 4px; }
+  .flow li b { font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(19px, 2.4cqi, 30px); line-height: 1; min-width: 0; overflow-wrap: break-word; }
+  .flow li p { margin: 0; font-size: 15px; line-height: 1.5; }
+  .flow li.on { background: var(--ink); color: var(--line); }
+  .flow li.on .mono { color: var(--mute); }
+  .flow li.done .mono::after { content: " ✓"; }
+  @container (min-width: 1000px) {
+    .flow { grid-template-columns: repeat(var(--steps, 5), minmax(0, 1fr)); }
+    .flow li { grid-template-columns: minmax(0, 1fr); padding: 20px 20px 24px; border-bottom: 0; border-right: 1px solid var(--ink); }
+    .flow li:last-child { border-right: 0; }
+    .flow li .mono { grid-row: auto; padding-top: 0; }
+  }
+  .flow__loop { display: flex; gap: 12px; align-items: center; padding: 14px 24px; border-top: 1px solid var(--ink); font-size: 15px; }
+  .flow__loop svg { width: 22px; height: 22px; flex: none; }
+  .flow__loop svg path { fill: none; stroke: currentColor; stroke-width: 1.6; }
+  .flow__cap { margin: 0; padding: 0 24px 18px; font-size: 15px; color: var(--mute-ink); max-width: 80ch; }
+  .flow__loop + .flow__cap { padding-top: 0; }
+  .flow + .flow__cap { padding-top: 16px; border-top: 1px solid var(--ink); }
+
+  @media (max-width: 760px) {
+    .layers li { grid-template-columns: 30px minmax(0, 1fr); margin-inline: 0 !important; }
+    .layers li > span:last-child:not(.mono) { grid-column: 2; }
+    .compare { grid-template-columns: minmax(0, 1fr); }
+    .compare > div { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .compare > div:last-child { border-bottom: 0; }
+    .dg__band-head { padding: 22px 16px 16px; }
+    .flow li { padding: 16px; grid-template-columns: 66px minmax(0, 1fr); }
+    .flow__loop { padding: 14px 16px; }
+    .flow__cap { padding: 0 16px 16px; }
+  }
+
+  /* Layout: name display, intro beside a framed hero screenshot that flattens on scroll (or beside the facts
+     when a project has no screenshots), a sticky chapter rail, then numbered sections. Layers and compare
+     diagrams sit inside their section; a flow diagram breaks out into a full-bleed light band after it. */
+  .crumbs { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 24px; border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .crumbs a { text-decoration: none; }
+  .crumbs a:hover { color: var(--line); text-decoration: underline; text-underline-offset: 4px; }
+  .crumbs [aria-current] { color: var(--line); }
+  .name { font-size: 8.8cqi; }
+
+  .intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-bottom: 1px solid var(--rule); }
+  .intro__copy { padding: 28px 24px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 20px; }
+  .intro__copy .over { color: var(--mute); max-width: 48ch; text-transform: none; letter-spacing: .02em; font-size: 13px; line-height: 1.5; }
+  .intro h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(30px, 3.2vw, 52px); line-height: .92; text-wrap: balance; }
+  .intro__overview { margin: 0; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.5; max-width: 52ch; }
+  .facts { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--rule); }
+  .facts > div { padding: 10px 12px; display: grid; gap: 4px; border-bottom: 1px solid var(--rule); }
+  .facts > div:nth-child(odd) { border-right: 1px solid var(--rule); }
+  .facts > div:last-child { grid-column: 1 / -1; border-right: 0; border-bottom: 0; }
+  .facts--stack > div { grid-column: 1 / -1; border-right: 0 !important; }
+  .intro__meta { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: auto; min-width: 0; }
+  .intro--plain .intro__meta { margin-top: 0; }
+  .facts dt { color: var(--mute); }
+  .facts dd { margin: 0; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags span { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; border: 1px solid var(--rule); padding: 2px 8px; border-radius: 99px; }
+  .live { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; background: var(--line); color: var(--ink); text-decoration: none; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; transition: background .25s; }
+  .live:hover { background: var(--bone-2); }
+  .live small { font-family: var(--mono); letter-spacing: .02em; text-transform: none; font-size: 13px; margin-left: auto; min-width: 0; overflow-wrap: anywhere; text-align: right; }
+  .intro__shot { padding: 28px 24px 22px; display: grid; gap: 14px; align-content: center; perspective: 1400px; overflow: hidden; }
+
+  /* ── Screenshot frame ── */
+  .shot { margin: 0; display: grid; gap: 12px; }
+  .shot__win { position: relative; border: 1px solid var(--rule); background: var(--ink-2); transform-origin: 50% 100%; will-change: transform; }
+  .shot__bar { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .shot__bar i { width: 7px; height: 7px; border: 1px solid var(--rule); border-radius: 50%; }
+  .shot__bar span { margin-left: 6px; }
+  .shot__bar b { margin-left: auto; font-weight: 400; }
+  .shot button { all: unset; display: block; width: 100%; cursor: zoom-in; }
+  .shot button:focus-visible { outline: 2px solid var(--line); outline-offset: 3px; }
+  .shot img { display: block; width: 100%; height: auto; aspect-ratio: 1728 / 1084; background: #151515; }
+  .shot figcaption { font-size: 15px; line-height: 1.5; color: var(--mute); max-width: 72ch; }
+  .shot figcaption b { color: var(--line); font-weight: 600; }
+
+  /* ── Chapter rail ── */
+  .rail { position: sticky; top: 0; z-index: 5; background: var(--ink); border-bottom: 1px solid var(--rule); }
+  .rail ol { list-style: none; margin: 0; padding: 0; display: flex; overflow-x: auto; scrollbar-width: none; }
+  .rail ol::-webkit-scrollbar { display: none; }
+  .rail a { display: flex; gap: 8px; padding: 12px 16px; white-space: nowrap; text-decoration: none; border-right: 1px solid var(--rule); transition: background .25s, color .25s; }
+  .rail a span { color: var(--mute); }
+  .rail a:hover { background: var(--ink-2); }
+  .rail a.on { background: var(--line); color: var(--ink); }
+  .rail a.on span { color: var(--mute-ink); }
+  .rail__p { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--line); transform-origin: left; transform: scaleX(var(--p, 0)); }
+
+  /* ── Sections ── */
+  .sec { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); border-bottom: 1px solid var(--rule); scroll-margin-top: 50px; }
+  .sec__side { border-right: 1px solid var(--rule); }
+  .sec__stick { position: sticky; top: 50px; padding: 26px 24px; display: grid; gap: 12px; }
+  .sec__n { color: var(--mute); }
+  .sec h3 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase; font-size: clamp(28px, 3vw, 50px); line-height: .92; text-wrap: balance; }
+  .sec__main { min-width: 0; display: grid; align-content: start; }
+  .sec__main > * { padding: 26px 24px; border-bottom: 1px solid var(--rule); min-width: 0; }
+  .sec__main > *:last-child { border-bottom: 0; }
+  .lead { margin: 0; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.5; max-width: 58ch; text-wrap: pretty; }
+  .items { list-style: none; margin: 0; padding: 0; display: grid; border: 1px solid var(--rule); }
+  .items li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 8px; padding: 14px 16px; border-bottom: 1px solid var(--rule); font-size: 17px; line-height: 1.55; }
+  .items li:last-child { border-bottom: 0; }
+  .items li::before { content: attr(data-n); font-family: var(--mono); font-size: 12px; color: var(--mute); padding-top: 4px; }
+  .cells { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--rule); }
+  .cells li { padding: 18px 16px 20px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); display: grid; gap: 14px; align-content: start; font-size: 16px; line-height: 1.55; }
+  .cells li:nth-child(2n) { border-right: 0; }
+  .cells li:last-child { grid-column: 1 / -1; border-right: 0; border-bottom: 0; }
+  .cells li::before { content: attr(data-n); font-family: var(--mono); font-size: 12px; color: var(--mute); }
+
+  /* Decisions. */
+  .decisions { display: grid; gap: 16px; }
+  .dec { border: 1px solid var(--rule); }
+  .dec__head { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 10px; padding: 16px; border-bottom: 1px solid var(--rule); }
+  .dec__head .mono { color: var(--mute); padding-top: 4px; }
+  .dec__head p { margin: 0; font-size: 18px; line-height: 1.45; font-weight: 500; }
+  .dec dl { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dec dl > div { padding: 14px 16px; border-right: 1px solid var(--rule); display: grid; gap: 8px; align-content: start; }
+  .dec dl > div:last-child { border-right: 0; }
+  .dec dt { color: var(--mute); }
+  .dec dd { margin: 0; font-size: 15px; line-height: 1.55; }
+  .dec dl > div:last-child dd { color: var(--line); }
+
+  /* ── Flow band ── */
+  .band[data-for] { margin-left: calc(-1 * var(--gutter-l) - 1px); margin-right: calc(-1 * var(--gutter-r) - 1px); padding-left: var(--gutter-l); padding-right: var(--gutter-r); scroll-margin-top: 50px; }
+  .band__in { border-left: 1px solid var(--bone-2); border-right: 1px solid var(--bone-2); }
+  .intro--plain .intro__shot { align-content: start; gap: 18px; }
+  .lives { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: auto; }
+  .lives .live { margin: 0; }
+  .facts dd .tags { margin-top: 2px; }
+
+  /* ── Evidence ── */
+  .evidence { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .evidence > .shot { padding: 26px 24px; border-bottom: 1px solid var(--rule); }
+  .evidence > .shot:last-child { border-bottom: 0; }
+  .shot--side { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: end; gap: 24px; }
+  .shot--side figcaption { order: -1; }
+
+  /* ── Outcome ── */
+  .outcome { list-style: none; margin: 0; padding: 0; display: grid; }
+  .outcome li { padding: 22px 0; border-bottom: 1px solid var(--rule); font-size: clamp(20px, 1.9vw, 28px); line-height: 1.3; font-weight: 500; text-wrap: pretty; display: grid; grid-template-columns: 56px minmax(0, 1fr); }
+  .outcome li:first-child { padding-top: 0; }
+  .outcome li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .outcome li::before { content: attr(data-n); font-family: var(--mono); font-size: 12px; color: var(--mute); padding-top: 8px; }
+
+  .related { display: grid; border: 1px solid var(--rule); }
+  .related a { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px; text-decoration: none; border-bottom: 1px solid var(--rule); transition: background .25s, color .25s; }
+  .related a:last-child { border-bottom: 0; }
+  .related a:hover, .related a:focus-visible { background: var(--line); color: var(--ink); }
+  .related a > span:first-child { display: grid; gap: 4px; }
+  .related small { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+  .related a:hover small { color: var(--mute-ink); }
+  .pager { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-bottom: 1px solid var(--rule); }
+  .pager a { display: grid; gap: 14px; padding: 22px 24px; text-decoration: none; transition: background .3s, color .3s; }
+  .pager a:first-child { border-right: 1px solid var(--rule); }
+  .pager a .mono { color: var(--mute); }
+  .pager a strong { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(22px, 2.6vw, 40px); line-height: .95; }
+  .pager a:hover, .pager a:focus-visible { background: var(--line); color: var(--ink); }
+  .pager a:hover .mono { color: var(--mute-ink); }
+  .pager--single { grid-template-columns: minmax(0, 1fr); }
+  .pager--single a { border-right: 0 !important; }
+  .sec__main > .evidence { padding: 0; }
+
+  /* ── Lightbox ── */
+  .lb { padding: 0; border: 1px solid var(--rule); background: var(--ink); color: var(--line); max-width: min(1600px, 96vw); width: 96vw; max-height: 94vh; }
+  .lb::backdrop { background: rgba(15, 15, 14, .86); }
+  .lb__bar { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--rule); background: var(--ink); }
+  .lb__bar button { font: inherit; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--line); background: transparent; border: 1px solid var(--rule); padding: 6px 10px; cursor: pointer; }
+  .lb__bar button:hover { background: var(--line); color: var(--ink); }
+  .lb__img { overflow: auto; }
+  .lb img { display: block; width: 100%; min-width: 900px; height: auto; }
+
+  @media (max-width: 960px) {
+    .dec dl { grid-template-columns: minmax(0, 1fr); }
+    .dec dl > div { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .dec dl > div:last-child { border-bottom: 0; }
+    .shot--side { grid-template-columns: minmax(0, 1fr); }
+    .shot--side figcaption { order: 0; }
+  }
+  @media (max-width: 760px) {
+    .crumbs { padding-inline: 16px; }
+    .intro, .sec { grid-template-columns: minmax(0, 1fr); }
+    .intro__copy, .sec__side { border-right: 0; }
+    .intro__copy { padding: 22px 16px; border-bottom: 1px solid var(--rule); }
+    .intro__shot { padding: 18px 16px; }
+    .sec__side { border-bottom: 1px solid var(--rule); }
+    .sec__stick { position: static; padding: 22px 16px 18px; }
+    .sec h3 { font-size: 9cqi; }
+    .sec__main > * { padding: 20px 16px; }
+    .cells { grid-template-columns: minmax(0, 1fr); }
+    .cells li { border-right: 0; }
+    .dec__head { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+    .evidence > .shot { padding: 20px 16px; }
+    .outcome li { grid-template-columns: 40px minmax(0, 1fr); }
+    .pager { grid-template-columns: minmax(0, 1fr); }
+    .pager a { padding: 20px 16px; }
+    .pager a:first-child { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .shot__bar b { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .shot__win { transform: none !important; }
+  }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="spark" viewBox="0 0 20 20"><path d="M10 0 C10.6 7 13 9.4 20 10 C13 10.6 10.6 13 10 20 C9.4 13 7 10.6 0 10 C7 9.4 9.4 7 10 0Z" fill="currentColor"/></symbol>
+    <symbol id="ring" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="10" r="4.5"/><ellipse cx="10" cy="10" rx="9" ry="3" transform="rotate(-20 10 10)"/></g></symbol>
+    <symbol id="chev" viewBox="0 0 40 16"><path d="M2 2 L8 8 L2 14 M13 2 L19 8 L13 14 M24 2 L30 8 L24 14"/></symbol>
+  </defs>
+</svg>
+
+<div class="frame">
+  <div class="shell">
+    <header class="nav" aria-label="Site">
+      <a class="nav__name" href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6">Ali Pajand</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5" aria-current="page">Work</a>
+        <a href="https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB">Writing</a>
+        <a href="https://claude.ai/artifact/31CgkES3BDjxyGvxFQ2FNa">Open source</a>
+        <a href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6#contact">Contact</a>
+      </nav>
+      <div class="nav__cta">
+        <span><span class="dot" aria-hidden="true"></span>Open to roles</span>
+        <a href="https://calendly.com/alipajand/intro">Book a call</a>
+      </div>
+      <span class="progress" id="progress" aria-hidden="true"></span>
+    </header>
+    <nav class="crumbs mono" aria-label="Breadcrumb">
+      <a href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6">Home</a><span aria-hidden="true">/</span>
+      <a href="https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5">Portfolio</a><span aria-hidden="true">/</span>
+      <span aria-current="page">Emplifi</span>
+    </nav>
+    <h1 class="name" data-part data-grow aria-label="Emplifi">
+      <span>Emplifi</span>
+      <svg class="star" viewBox="0 0 20 20" aria-hidden="true"><use href="#spark"/></svg>
+      <span>Case study</span>
+    </h1>
+
+    <section class="intro" id="intro" aria-labelledby="cs-title">
+      <div class="intro__copy">
+        <p class="over mono" id="employer"></p>
+        <h2 id="cs-title"></h2>
+        <p class="intro__overview" id="overview"></p>
+        <div class="intro__meta" id="meta">
+          <dl class="facts" id="facts"></dl>
+          <div class="lives" id="lives"></div>
+        </div>
+      </div>
+      <div class="intro__shot" id="hero-shot"></div>
+    </section>
+
+    <nav class="rail" aria-label="Table of contents for Emplifi">
+      <ol id="rail"></ol>
+      <span class="rail__p" id="rail-p" aria-hidden="true"></span>
+    </nav>
+    <div id="sections"></div>
+
+    <nav class="pager" id="pager" aria-label="Case studies">
+      <a href="https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5"><span class="mono">[ Index ]</span><strong>Back to all case studies <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+    </nav>
+    <footer class="foot mono">
+      <span>Ali Pajand</span>
+      <span>Montreal, Quebec, Canada</span>
+      <span>alipajand.com · 2026</span>
+    </footer>
+  </div>
+</div>
+
+<dialog class="lb" id="lb" aria-label="Screenshot">
+  <div class="lb__bar"><span class="mono" id="lb-title"></span><button type="button" id="lb-close">Close</button></div>
+  <div class="lb__img"><img id="lb-img" alt=""></div>
+</dialog>
+
+<script>
+(() => {
+  // Shared motion: tickers react to scroll velocity, the display words part on load and close as you scroll,
+  // chevrons light with progress, and the nav hairline tracks the page. Pages add their own work per frame.
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const LINE = "236,236,230";
+  const pad = (i) => String(i + 1).padStart(2, "0");
+  const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const fitCanvas = (c) => {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const w = c.clientWidth, h = c.clientHeight;
+    if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
+    const ctx = c.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx, w, h };
+  };
+  const runPortal = (onFrame) => {
+    const tracks = [...document.querySelectorAll(".ticker__track")].map((el) => ({ el, dir: +el.dataset.dir, x: 0 }));
+    const name = document.querySelector(".name[data-part]");
+    const chevrons = [...document.querySelectorAll("#chevrons svg")];
+    const chevBand = document.getElementById("chevrons");
+    const progress = document.getElementById("progress");
+    let lastY = scrollY, vel = 0;
+    const frame = (time) => {
+      const y = scrollY, vh = innerHeight;
+      vel += ((y - lastY) - vel) * .18; lastY = y;
+      const max = document.documentElement.scrollHeight - vh;
+      progress.style.setProperty("--p", (max > 0 ? y / max : 0).toFixed(4));
+      tracks.forEach((tr) => {
+        const half = tr.el.scrollWidth / 2;
+        tr.x -= (0.45 + Math.abs(vel) * .35) * tr.dir * (vel < -0.5 ? -1 : 1);
+        if (tr.x <= -half) tr.x += half;
+        if (tr.x > 0) tr.x -= half;
+        tr.el.style.transform = `translate3d(${tr.x.toFixed(1)}px,0,0)`;
+      });
+      if (name) {
+        const [w1, star, w2] = name.children;
+        const cs = getComputedStyle(name);
+        const free = name.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - w1.offsetWidth - w2.offsetWidth - star.getBoundingClientRect().width;
+        const shift = (1 - clamp(y / (vh * .6), 0, 1)) * Math.max(0, free) * .42;
+        w1.style.transform = `translateX(${shift.toFixed(1)}px)`;
+        w2.style.transform = `translateX(${(-shift).toFixed(1)}px)`;
+        star.style.transform = `rotate(${(y * .35).toFixed(1)}deg)`;
+      }
+      if (chevBand) {
+        const cr = chevBand.getBoundingClientRect();
+        const lit = Math.round(clamp((vh - cr.top) / (vh * .75), 0, 1) * chevrons.length);
+        chevrons.forEach((c, i) => c.classList.toggle("off", i >= lit));
+      }
+      onFrame(time, { y, vh, vel });
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  };
+  const LINKS = {"/":"https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6","/portfolio":"https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5","/portfolio/ledgerguard":"https://claude.ai/artifact/4sdB8697b2qpfmQArEkZ6v","/portfolio/alwaysgeeky":"https://claude.ai/artifact/5pYFq8zkJSZzkkYwxyBwhw","/portfolio/emplifi":"https://claude.ai/artifact/A9nYf9R1Ltk32JYjQMNEaq","/portfolio/agent-tooling":"https://claude.ai/artifact/UrP9eUpSXDJAoto7SM46Yn","/portfolio/tallyfolio":"https://claude.ai/artifact/PJzBMyJ9vQJ9u9Wpk4jiw9","/portfolio/controltech":"https://claude.ai/artifact/8sBpRgjrXNsK313wjNaBrj","/portfolio/mapbylaw":"https://claude.ai/artifact/Ez5bX39cieti12y95JwNP9","/open-source":"https://claude.ai/artifact/31CgkES3BDjxyGvxFQ2FNa","/writing":"https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB","/writing/agent-readiness-doctor":"https://claude.ai/artifact/3Sx5hgAkussh86nMQuy1e7","/writing/*":"https://claude.ai/artifact/EwmjeKW4abUewm7znxnD6X","/engineering-principles":"https://claude.ai/artifact/UEJn3JNHs6gMWhVjaYPT9a","/now":"https://claude.ai/artifact/NWAFxKDy1pf5wT617NFaHZ","/404":"https://claude.ai/artifact/1rKSHAEmNatbGeEdAsQnNU"};
+  const link = (p) => LINKS[p] || (/^\/writing\/[a-z0-9-]+$/.test(p) && LINKS["/writing/*"] ? LINKS["/writing/*"] + "#" + p.slice(9) : "https://alipajand.com" + p);
+  // Diagram blocks shared by case studies and articles. Specs follow utils/diagramBlocks.ts:
+  // layers stack and light one layer at a time, compare sets a dim column beside a lit one,
+  // flow runs numbered steps that light in order and keep a check once passed.
+  const dgHead = (title, label = "Diagram") => `<figcaption class="dg__head mono"><span>[ ${esc(label)} ]</span><span>${esc(title)}</span></figcaption>`;
+  const dgCap = (caption) => caption ? `<p class="dg__cap">${esc(caption)}</p>` : "";
+  const loopIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>`;
+
+  const renderLayers = (s) => `
+    <figure class="dg dg--layers">${dgHead(s.title)}
+      <ol class="layers" data-light>${s.layers.map((l, i) => `<li><span class="mono">${pad(i)}</span><b>${esc(l.label)}</b>${l.detail ? `<span>${esc(l.detail)}</span>` : ""}</li>`).join("")}</ol>
+      ${dgCap(s.caption)}
+    </figure>`;
+
+  const renderCompare = (s) => `
+    <figure class="dg dg--compare">${dgHead(s.title)}
+      <div class="compare" style="--cols:${s.columns.length}">${s.columns.map((c) => `<div><h4>${esc(c.label)}</h4><ul>${c.items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}</div>
+      ${dgCap(s.caption)}
+    </figure>`;
+
+  // The flow sits on the light band. `wide` lays the steps out as columns once the band has room.
+  const renderFlow = (s, label = "Diagram") => `
+    <figure class="dg dg--flow" data-flow>
+      <figcaption class="dg__band-head"><span class="mono">[ ${esc(label)} ]</span><span class="dg__title">${esc(s.title)}</span></figcaption>
+      <ol class="flow" style="--steps:${s.steps.length}">${s.steps.map((st, i) => `<li><span class="mono">Step ${pad(i)}</span><b>${esc(st.label)}</b>${st.detail ? `<p>${esc(st.detail)}</p>` : ""}</li>`).join("")}</ol>
+      ${s.loop ? `<div class="flow__loop">${loopIcon}<span>${esc(s.loop)}</span></div>` : ""}
+      ${s.caption ? `<p class="flow__cap">${esc(s.caption)}</p>` : ""}
+    </figure>`;
+
+  const renderDiagram = (s, label) =>
+    s.type === "layers" ? renderLayers(s) : s.type === "compare" ? renderCompare(s) : renderFlow(s, label);
+
+  // A long single word (READINESS) can outgrow a flow column. Shrink that flow's labels together
+  // until every word fits, and refit only when the list's width changes or the fonts finish loading.
+  let fontGen = 0;
+  document.fonts?.addEventListener?.("loadingdone", () => { fontGen++; });
+  document.fonts?.ready.then(() => { fontGen++; });
+  const fitFlowLabels = (ol) => {
+    const key = `${ol.clientWidth}:${fontGen}`;
+    if (ol.dataset.fit === key) return;
+    ol.dataset.fit = key;
+    const labels = [...ol.querySelectorAll("li b")];
+    if (!labels.length) return;
+    // Measure with word breaking off: the CSS break-word fallback would hide the overflow.
+    labels.forEach((b) => { b.style.fontSize = ""; b.style.overflowWrap = "normal"; });
+    let size = parseFloat(getComputedStyle(labels[0]).fontSize);
+    while (size > 14 && labels.some((b) => b.scrollWidth > b.clientWidth + 1)) {
+      size -= 1;
+      labels.forEach((b) => { b.style.fontSize = `${size}px`; });
+    }
+    labels.forEach((b) => { b.style.overflowWrap = ""; });
+  };
+
+  // Called every frame: lights the layer or step that matches how far the diagram has crossed the screen.
+  const lightDiagrams = (vh) => {
+    document.querySelectorAll(".dg--flow .flow").forEach(fitFlowLabels);
+    document.querySelectorAll("[data-light]").forEach((box) => {
+      const r = box.getBoundingClientRect(), items = box.children;
+      const t = clamp((vh * .75 - r.top) / (r.height + vh * .2), 0, .999);
+      const on = r.top < vh && r.bottom > 0 ? Math.floor(t * items.length) : -1;
+      [...items].forEach((el, i) => el.classList.toggle("on", i === on));
+    });
+    document.querySelectorAll("[data-flow]").forEach((fig) => {
+      const r = fig.getBoundingClientRect(), steps = fig.querySelectorAll(".flow li");
+      const t = clamp((vh * .8 - r.top) / (r.height + vh * .1), 0, .999);
+      const on = r.bottom <= 0 ? steps.length : r.top < vh ? Math.floor(t * steps.length) : -1;
+      steps.forEach((el, i) => { el.classList.toggle("on", i === on); el.classList.toggle("done", i < on); });
+    });
+  };
+
+  // Content is the project's entry in data/projects.ts; screenshots come from public/portfolio-media.
+  const P = {"id":"emplifi","slug":"emplifi","hasDedicatedCaseStudy":true,"name":"Emplifi","caseStudyTitle":"Enterprise Analytics","caseStudyMetaTitle":"Emplifi — Enterprise Analytics · Ali Pajand","caseStudyMetaDescription":"Case study: React, TypeScript, and D3.js enterprise analytics modules built on shared accessible components, with an 80% reduction in unnecessary rendering and chart-update paint work. Senior Frontend Engineer — Ali Pajand.","employerContext":"Enterprise analytics dashboards with dense data views and embedded contexts.","cardProblem":"Data-heavy React and TypeScript analytics modules built on D3.js, assembled from shared accessible components and their documentation, running in both desktop browsers and embedded mobile webviews. Profiling the webview path led to an 80% reduction in unnecessary re-renders and chart-update paint cost on lower-powered devices.","role":"Senior Frontend Engineer","timeframe":"2022–2023","capabilityTags":["React","TypeScript","D3.js","Design systems","Performance","Accessibility","Sentry"],"caseStudy":{"overview":"Enterprise social analytics: metric-heavy dashboards that had to stay readable and responsive while rendering a lot of data at once. Most of my work sat where chart behaviour, React composition, and the rendering budget meet.","context":"The dashboards were React, TypeScript, D3.js, and GSAP, shipped to standard browsers and to embedded mobile webviews. The webviews were the constraint that mattered: they surfaced animation and layout cost that desktop testing never showed.","problem":"Dense analytics degrade quietly. Interaction cost, layout pressure, and host constraints each look tolerable on their own, and then a customer opens the dashboard in a webview on a mid-range phone and the charts stop being usable. Cutting the data down would have solved the symptom and broken the product.","myRole":["Built dashboard modules in React, TypeScript, and D3.js.","Profiled and reduced rendering cost in dense views, focusing on the embedded webview path where problems showed up first.","Built the reusable, accessible components the dashboard modules were assembled from, and wrote the documentation that let other engineers use them without asking.","Used Sentry and Hotjar to understand how the dashboards behaved after release rather than only in local testing."],"whatIBuilt":["Metric-heavy dashboard modules with chart interactions and the UI around them.","Shared, accessible UI components and the usage documentation around them, so dashboard work started from an existing baseline instead of from scratch.","Responsive behaviour tuned separately for desktop and embedded mobile webview contexts.","GSAP motion used where it helped people keep their place in the data, not as decoration."],"technicalDecisions":[{"decision":"Use D3.js for chart behavior and React for surrounding product composition rather than trying to collapse the whole dashboard into a single abstraction.","why":"The product needed both tailored data visualization behavior and maintainable UI composition around it.","tradeOff":"This requires careful coordination between chart rendering and the broader React surface.","result":"The team could tune chart-specific behavior without losing control of the surrounding dashboard UI."},{"decision":"Work on rendering performance specifically for embedded and mobile webview paths instead of assuming desktop behavior would translate well.","why":"Those contexts expose animation and layout problems earlier than standard desktop testing does.","tradeOff":"Host-specific tuning adds more QA complexity and more edge conditions to account for.","result":"Dashboard modules stayed more usable in constrained contexts where performance issues would otherwise surface first."}],"uxDecisions":["Treated readability and interaction pacing as part of performance work, not as separate concerns.","Used production monitoring with Sentry and Hotjar to understand how dense dashboard UI behaved after release.","Made motion serve orientation and hierarchy rather than decorative movement."],"outcome":["Left behind reusable accessible components and documentation that colleagues credited with helping the team ship faster.","Left behind patterns for balancing chart interaction against readability in dense product surfaces.","Kept performance work anchored to the environments the dashboards actually ran in."],"nextImprovements":["Document clearer motion and rendering budgets so new modules inherit the same constraints more consistently.","Capture more product-specific evidence around embedded edge cases as part of the portfolio narrative."],"diagrams":[{"section":"problem","spec":{"type":"compare","title":"Cutting the data vs cutting the rendering cost","caption":"Reducing what the dashboard shows would have fixed the symptom and broken the product, so the cost had to come out of rendering instead.","columns":[{"label":"Reduce what the dashboard shows","items":["Makes charts usable again on lower-powered devices","Removes the dense data the product exists to show","Leaves interaction and layout cost unexamined"]},{"label":"Reduce what rendering costs","items":["Keeps dense views intact","Targets unnecessary re-renders and chart-update paint work","Tunes desktop and embedded webview contexts separately","Treats readability and interaction pacing as part of performance"]}]}},{"section":"built","spec":{"type":"layers","title":"How a dashboard module is composed","caption":"Splitting chart behavior from product composition let chart tuning happen without losing control of the surrounding dashboard UI.","layers":[{"label":"React product composition","detail":"The dashboard UI, controls, and layout around each chart."},{"label":"D3.js chart behavior","detail":"Tailored data visualization and chart interactions, tuned on their own terms."},{"label":"GSAP motion","detail":"Used where it helps people keep their place in the data, not as decoration."},{"label":"Shared accessible components","detail":"The documented baseline dashboard modules were assembled from, instead of starting from scratch."}]}},{"section":"technical-decisions","spec":{"type":"flow","title":"Performance work anchored to the webview path","caption":"Embedded mobile webviews surfaced animation and layout cost that desktop testing never showed, so that is where profiling started.","steps":[{"label":"Run in webview","detail":"Test dashboard modules in embedded mobile webviews, not only desktop browsers."},{"label":"Profile rendering","detail":"Find unnecessary re-renders and chart-update paint work in dense views."},{"label":"Reduce cost"},{"label":"Monitor release","detail":"Use Sentry and Hotjar to see how dense dashboards behave after release, not only in local testing."}]}}]},"liveLinks":[{"label":"Company website","href":"https://emplifi.io"}],"relatedLinks":[]};
+  const IMG = {};
+  const NEXT = {"name":"Agent Engineering Tools","href":"https://claude.ai/artifact/UrP9eUpSXDJAoto7SM46Yn"};
+  const cs = P.caseStudy;
+  const $ = (id) => document.getElementById(id);
+  const chev = `<span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span>`;
+  const evidence = cs.interfaceEvidence ?? [];
+  const imgFor = (f) => IMG[f.src.split("/").pop().replace(/\.png$/, "")];
+  const host = (href) => href.replace(/^https?:\/\/|\/$/g, "");
+  const shot = (f, i, cls = "") => `
+    <figure class="shot ${cls}">
+      <div class="shot__win" data-tilt="${i === 0 ? 1 : 0}">
+        <div class="shot__bar mono" aria-hidden="true"><i></i><i></i><i></i><span>${esc(host(P.liveLinks?.[0]?.href ?? P.name))}</span><b>${esc(f.captionLead.replace(/\.$/, ""))}</b></div>
+        <button type="button" data-shot="${i}" aria-label="Enlarge: ${esc(f.captionLead.replace(/\.$/, ""))}"><img src="${imgFor(f)}" width="1728" height="1084" alt="${esc(f.alt)}"${i ? ' loading="lazy"' : ""} decoding="async"></button>
+      </div>
+      <figcaption><b>${esc(f.captionLead)}</b> ${esc(f.captionBody)}</figcaption>
+    </figure>`;
+
+  // ── Intro ──
+  $("employer").textContent = P.employerContext;
+  $("cs-title").textContent = P.caseStudyTitle;
+  $("overview").textContent = cs.overview;
+  const facts = [["Role", esc(P.role)], P.timeframe && ["Timeframe", esc(P.timeframe)], ["Stack", `<span class="tags">${P.capabilityTags.map((t) => `<span>${esc(t)}</span>`).join("")}</span>`]].filter(Boolean);
+  $("facts").innerHTML = facts.map(([k, v]) => `<div><dt class="mono">${k}</dt><dd>${v}</dd></div>`).join("");
+  $("facts").classList.toggle("facts--stack", facts.length % 2 === 0);
+  const lives = P.liveLinks ?? [];
+  $("lives").innerHTML = lives.map((l) => `<a class="live" href="${l.href}">${esc(l.label)} <small>${esc(host(l.href))}</small>${chev}</a>`).join("");
+  $("lives").hidden = !lives.length;
+  if (evidence.length) {
+    $("hero-shot").innerHTML = shot(evidence[0], 0);
+  } else {
+    // No screenshots: the facts and links take the right-hand column.
+    $("intro").classList.add("intro--plain");
+    $("hero-shot").append($("meta"));
+  }
+
+  // ── Sections, in the order of the site's case study page ──
+  const list = (arr, cls = "items") => `<ul class="${cls}">${arr.map((x, i) => `<li data-n="${pad(i)}">${esc(x)}</li>`).join("")}</ul>`;
+  const kindOf = (href) => href.startsWith("/writing") ? "Writing" : href.startsWith("/portfolio") ? "Case study" : href.startsWith("/") ? "Page" : host(href).split("/")[0];
+  const SECTIONS = [
+    { id: "context", title: "Context", blocks: cs.context && [`<p class="lead">${esc(cs.context)}</p>`] },
+    { id: "problem", title: "Problem", blocks: cs.problem && [`<p class="lead">${esc(cs.problem)}</p>`] },
+    { id: "role", title: "My role", blocks: cs.myRole?.length && [list(cs.myRole)] },
+    { id: "built", title: "What I built", blocks: cs.whatIBuilt?.length && [list(cs.whatIBuilt, "cells")] },
+    { id: "technical-decisions", title: "Technical decisions", blocks: cs.technicalDecisions?.length && [`<div class="decisions">${cs.technicalDecisions.map((d, i) => `
+      <article class="dec">
+        <div class="dec__head"><span class="mono">Decision ${pad(i)}</span><p>${esc(d.decision)}</p></div>
+        <dl><div><dt class="mono">Why</dt><dd>${esc(d.why)}</dd></div><div><dt class="mono">Trade-off</dt><dd>${esc(d.tradeOff)}</dd></div><div><dt class="mono">Result</dt><dd>${esc(d.result)}</dd></div></dl>
+      </article>`).join("")}</div>`] },
+    { id: "ux", title: "UX and detail decisions", blocks: cs.uxDecisions?.length && [list(cs.uxDecisions)] },
+    { id: "evidence", title: "Interface evidence", flush: true, blocks: evidence.length > 1 && [`<div class="evidence">${evidence.slice(1).map((f, i) => shot(f, i + 1, f.src.includes("login") ? "shot--side" : "")).join("")}</div>`] },
+    { id: "outcome", title: "Outcome", blocks: cs.outcome?.length && [`<ul class="outcome">${cs.outcome.map((x, i) => `<li data-n="${pad(i)}">${esc(x)}</li>`).join("")}</ul>`] },
+    { id: "improve", title: "What I would improve", blocks: cs.nextImprovements?.length && [list(cs.nextImprovements)] },
+    { id: "related", title: "Related work", blocks: (P.relatedLinks?.length || lives.length) && [`<div class="related">${[...(P.relatedLinks ?? []), ...lives].map((l) => `<a href="${link(l.href)}"><span><small>${esc(l.href.startsWith("/") ? kindOf(l.href) : l.label)}</small>${esc(l.href.startsWith("/") ? l.label : host(l.href))}</span>${chev}</a>`).join("")}</div>`] },
+  ].filter((s) => s.blocks);
+  // Diagrams attach to the section the data names; flows become a light band after that section.
+  const bands = {};
+  (cs.diagrams ?? []).forEach(({ section, spec }) => {
+    const s = SECTIONS.find((x) => x.id === section);
+    if (!s) return;
+    if (spec.type === "flow") bands[s.id] = renderDiagram(spec, `Diagram · ${s.title}`);
+    else s.blocks.push(renderDiagram(spec));
+  });
+  $("sections").innerHTML = SECTIONS.map((s, i) => `
+    <section class="sec" id="${s.id}" aria-labelledby="${s.id}-t">
+      <div class="sec__side"><div class="sec__stick"><span class="sec__n mono">[ ${pad(i)} ]</span><h3 id="${s.id}-t">${esc(s.title)}</h3></div></div>
+      <div class="sec__main">${s.flush ? s.blocks.join("") : s.blocks.map((b) => `<div>${b}</div>`).join("")}</div>
+    </section>${bands[s.id] ? `
+    <section class="band" data-for="${s.id}" aria-label="${esc(s.title)} diagram"><div class="band__in">${bands[s.id]}<div class="chevrons" id="chevrons" aria-hidden="true"><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg></div></div></section>` : ""}`).join("");
+  $("rail").innerHTML = SECTIONS.map((s, i) => `<li><a href="#${s.id}"><span class="mono">${pad(i)}</span>${esc(s.title)}</a></li>`).join("");
+  if (NEXT) $("pager").insertAdjacentHTML("beforeend", `<a href="${NEXT.href}"><span class="mono">[ Next case study ]</span><strong>${esc(NEXT.name)} ${chev}</strong></a>`);
+  else $("pager").classList.add("pager--single");
+
+  // ── Lightbox for every screenshot ──
+  const lb = $("lb"), lbImg = $("lb-img"), lbTitle = $("lb-title");
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-shot]");
+    if (!b) return;
+    const f = evidence[+b.dataset.shot];
+    lbImg.src = imgFor(f); lbImg.alt = f.alt; lbTitle.textContent = f.captionLead.replace(/\.$/, "");
+    lb.showModal();
+  });
+  $("lb-close").addEventListener("click", () => lb.close());
+  lb.addEventListener("click", (e) => { if (e.target === lb) lb.close(); });
+
+  if (reduce) {
+    document.querySelectorAll(".flow li").forEach((li) => li.classList.add("done"));
+    return;
+  }
+
+  const railLinks = [...document.querySelectorAll("#rail a")];
+  const secs = SECTIONS.map((s) => $(s.id));
+  const railP = $("rail-p");
+  const band = document.querySelector(".band[data-for]");
+  const bandIndex = band ? SECTIONS.findIndex((s) => s.id === band.dataset.for) : -1;
+  const heroWin = document.querySelector('[data-tilt="1"]');
+  const tilt = { x: 0, y: 0, sx: 0, sy: 0 };
+  heroWin?.addEventListener("pointermove", (e) => { const r = heroWin.getBoundingClientRect(); tilt.x = (e.clientX - r.left) / r.width - .5; tilt.y = (e.clientY - r.top) / r.height - .5; });
+  heroWin?.addEventListener("pointerleave", () => { tilt.x = tilt.y = 0; });
+  let lastCur = -1;
+
+  runPortal((time, { y, vh }) => {
+    // Hero screenshot starts tipped back and flattens as you scroll into the page.
+    if (heroWin) {
+      const k = clamp(y / (vh * .55), 0, 1);
+      tilt.sx += (tilt.x - tilt.sx) * .08; tilt.sy += (tilt.y - tilt.sy) * .08;
+      heroWin.style.transform = `rotateX(${((1 - k) * 14 - tilt.sy * 4).toFixed(2)}deg) rotateY(${(tilt.sx * 5).toFixed(2)}deg) scale(${(.94 + k * .06).toFixed(3)})`;
+    }
+
+    // Chapter rail follows the section under the rail; the flow band counts as its section.
+    let cur = 0;
+    secs.forEach((s, i) => { if (s.getBoundingClientRect().top < vh * .3) cur = i; });
+    if (band) { const br = band.getBoundingClientRect(); if (br.top < vh * .3 && br.bottom > vh * .3) cur = bandIndex; }
+    if (y + vh >= document.documentElement.scrollHeight - 4) cur = secs.length - 1;
+    if (cur !== lastCur) {
+      lastCur = cur;
+      railLinks.forEach((a, i) => a.classList.toggle("on", i === cur));
+      const a = railLinks[cur], ol = a.closest("ol");
+      ol.scrollTo({ left: a.offsetLeft - ol.clientWidth / 2 + a.offsetWidth / 2, behavior: "smooth" });
+    }
+    const first = secs[0].getBoundingClientRect().top + y, last = secs[secs.length - 1].getBoundingClientRect().bottom + y;
+    railP.style.setProperty("--p", clamp((y + vh * .3 - first) / (last - first), 0, 1).toFixed(4));
+
+    lightDiagrams(vh);
+  });
+})();
+</script>
+<script>
+(() => {
+  // Titles always stay inside the page. Each title is measured at its CSS size and scaled down when
+  // its longest word would run past its box; `data-grow` also lets a title scale up to fill its row
+  // (case study display words), capped at 1.5× and 16% of the row width.
+  const TITLES = ".name, [data-fit], h1, h2, h3, .next strong, .pager strong";
+  const measure = (el, cs) => {
+    if (el.classList.contains("name") && el.children.length) {
+      const kids = [...el.children], gap = parseFloat(cs.columnGap) || 0;
+      return kids.reduce((w, k) => w + parseFloat(getComputedStyle(k).width), 0) + gap * (kids.length - 1);
+    }
+    // Measure with word breaking off, so a word too long for the box shows as overflow.
+    el.style.overflowWrap = "normal";
+    const used = el.scrollWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    el.style.overflowWrap = "";
+    return used;
+  };
+  const fit = (el) => {
+    el.style.removeProperty("font-size");
+    const grow = el.hasAttribute("data-grow");
+    for (let i = 0; i < 4; i++) {
+      const cs = getComputedStyle(el);
+      const room = el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      const used = measure(el, cs);
+      if (room <= 0 || used <= 0) return;
+      if (!grow && used <= room + 0.5) return;
+      const scale = Math.min(grow ? 1.5 : 1, (room / used) * 0.97);
+      const size = parseFloat(cs.fontSize) * scale;
+      el.style.fontSize = `${(grow ? Math.min(size, el.clientWidth * 0.16) : size).toFixed(1)}px`;
+      if (grow) return;
+    }
+  };
+  const fitAll = () => document.querySelectorAll(TITLES).forEach(fit);
+  fitAll();
+  document.fonts?.ready.then(fitAll);
+  document.fonts?.addEventListener?.("loadingdone", fitAll);
+  addEventListener("resize", fitAll);
+  // Pages that render content or swap a title's text after load (the reader, portfolio scenes) refit.
+  let queued = false;
+  new MutationObserver((records) => {
+    const changed = records.some((r) => (r.target.nodeType === 1 && r.target.matches(TITLES)) || [...r.addedNodes].some((n) => n.nodeType === 1));
+    if (queued || !changed) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; fitAll(); });
+  }).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
