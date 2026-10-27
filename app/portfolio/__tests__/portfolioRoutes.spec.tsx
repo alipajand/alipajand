@@ -76,7 +76,8 @@ describe.each(PORTFOLIO_CASE_STUDY_ORDER.map((slug) => [slug]))(
 
     it("describes the case study as a schema.org Article", () => {
       const markup = renderToStaticMarkup(<ProjectCaseStudyJsonLd project={project} />);
-      const schema = JSON.parse(markup.replace(/^<script[^>]*>|<\/script>$/g, ""));
+      expect(markup.startsWith('<script type="application/ld+json">')).toBe(true);
+      const schema = JSON.parse(markup.slice(markup.indexOf(">") + 1, markup.lastIndexOf("<")));
       expect(schema).toEqual(
         expect.objectContaining({
           "@type": "Article",
