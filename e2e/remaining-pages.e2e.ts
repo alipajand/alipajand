@@ -1,6 +1,13 @@
 import { expect, type Page, test } from "@playwright/test";
 
-import { horizontalOverflow, scrollThrough, settle, VIEWPORTS, VISUAL_TAG } from "./support";
+import {
+  expectBaseline,
+  horizontalOverflow,
+  scrollThrough,
+  settle,
+  VIEWPORTS,
+  visualBaseline,
+} from "./support";
 
 /*
  * Browser checks and visual baselines for the open-source, engineering-principles, now and 404
@@ -311,23 +318,25 @@ test.describe("open-source keyboard", () => {
   });
 });
 
-test.describe("remaining pages visual baselines", VISUAL_TAG, () => {
+test.describe("remaining pages visual baselines", () => {
   test.use({ reducedMotion: "reduce" });
 
   for (const { name, path } of ROUTES) {
     for (const viewport of BASELINE_VIEWPORTS) {
-      test(`${name} matches its baseline at ${viewport.width}x${viewport.height}`, async ({
-        page,
-      }) => {
-        await page.setViewportSize(viewport);
-        await page.goto(path);
-        await settle(page);
-        await expect(page).toHaveScreenshot(`${name}-${viewport.width}x${viewport.height}.png`, {
-          fullPage: true,
-          // The week ruler follows the visitor's calendar week; everything else is fixed.
-          mask: [page.locator("[data-label]").locator("..")],
-        });
-      });
+      test(
+        `${name} matches its baseline at ${viewport.width}x${viewport.height}`,
+        visualBaseline(`${name}-${viewport.width}x${viewport.height}`),
+        async ({ page }) => {
+          await page.setViewportSize(viewport);
+          await page.goto(path);
+          await settle(page);
+          await expectBaseline(page, {
+            fullPage: true,
+            // The week ruler follows the visitor's calendar week; everything else is fixed.
+            mask: [page.locator("[data-label]").locator("..")],
+          });
+        }
+      );
     }
   }
 });
