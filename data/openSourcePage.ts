@@ -260,6 +260,15 @@ export const OPEN_SOURCE_TECHNOLOGY_BADGES = [
   "Developer experience",
 ] as const;
 
+export const OPEN_SOURCE_ACTIVITY_HEADING = "Contribution activity";
+export const OPEN_SOURCE_ACTIVITY_LEDE =
+  "A live snapshot of public GitHub contributions over the last year, rendered by Algora.";
+export const OPEN_SOURCE_ACTIVITY_IMAGE_SRC = "https://algora.io/og/user/alipajand";
+export const OPEN_SOURCE_ACTIVITY_IMAGE_ALT =
+  "Ali Pajand's Algora profile card showing GitHub contributions over the last year";
+export const OPEN_SOURCE_ACTIVITY_PROFILE_HREF = "https://algora.io/profile/alipajand";
+export const OPEN_SOURCE_ACTIVITY_PROFILE_LABEL = "View Algora profile";
+
 export const OPEN_SOURCE_CTA_HEADING = "Explore the repositories";
 export const OPEN_SOURCE_CTA_BODY =
   "Browse the repositories directly for source, usage, and current status. The writing section covers the engineering ideas behind these tools.";
