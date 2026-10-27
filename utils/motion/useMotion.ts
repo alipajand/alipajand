@@ -2,8 +2,10 @@
 
 import { type RefObject, useEffect, useEffectEvent } from "react";
 
+import { useMotionPaused } from "utils/motion/motionPreference";
 import { useReducedMotion } from "utils/motion/reducedMotion";
 import {
+  holdContinuousFrames,
   requestScrollFrame,
   type ScrollFrame,
   subscribeScroll,
@@ -13,12 +15,22 @@ export interface MotionContext<E extends Element> {
   element: E;
   /** The live operating-system preference. Setup runs again when it changes. */
   reducedMotion: boolean;
+  /**
+   * Whether idle, time-based motion may run: false under reduced motion or when the visitor paused
+   * motion. Setup runs again when it changes. Return `onFrame` only when this is true.
+   */
+  idleMotion: boolean;
 }
 
 /** What a motion island does once its element exists. Every callback is optional. */
 export interface MotionController {
   /** Runs on coalesced scroll and resize frames while the element is on screen and the tab is visible. */
   onScroll?: (frame: ScrollFrame) => void;
+  /**
+   * Runs on every display frame while the element is on screen and the tab is visible, for idle
+   * time-based motion. Providing it holds the shared frame loop open only during that time.
+   */
+  onFrame?: (frame: ScrollFrame) => void;
   /** Runs when the element's own box changes size, including the first observation. */
   onResize?: () => void;
   /** Runs when the element enters or leaves the screen, or the tab is hidden or shown. */
@@ -59,6 +71,8 @@ export const useMotion = <E extends Element>(
   { enabled = true, rootMargin = "0px", alwaysActive = false, resetKey }: MotionOptions = {}
 ): void => {
   const reducedMotion = useReducedMotion();
+  const motionPaused = useMotionPaused();
+  const idleMotion = !reducedMotion && !motionPaused;
   const runSetup = useEffectEvent((context: MotionContext<E>) => setup(context));
 
   useEffect(() => {
@@ -67,7 +81,7 @@ export const useMotion = <E extends Element>(
 
     let controller: MotionController | void;
     try {
-      controller = runSetup({ element, reducedMotion });
+      controller = runSetup({ element, reducedMotion, idleMotion });
     } catch (error) {
       markFailed(element, error);
       return;
@@ -95,16 +109,37 @@ export const useMotion = <E extends Element>(
         teardown();
       }
     };
-    const notifyActive = () => guard(() => motion.onActiveChange?.(isActive()));
+    let releaseFrames: (() => void) | null = null;
+    const syncContinuous = () => {
+      const want = Boolean(motion.onFrame) && isActive();
+      if (want && !releaseFrames) releaseFrames = holdContinuousFrames();
+      else if (!want && releaseFrames) {
+        releaseFrames();
+        releaseFrames = null;
+      }
+    };
+    cleanups.push(() => {
+      releaseFrames?.();
+      releaseFrames = null;
+    });
+    const notifyActive = () => {
+      syncContinuous();
+      guard(() => motion.onActiveChange?.(isActive()));
+    };
 
-    if (motion.onScroll) {
-      const onScroll = motion.onScroll;
+    if (motion.onScroll || motion.onFrame) {
+      const { onScroll, onFrame } = motion;
       cleanups.push(
         subscribeScroll((frame) => {
-          if (isActive()) guard(() => onScroll(frame));
+          if (!isActive()) return;
+          guard(() => {
+            onScroll?.(frame);
+            onFrame?.(frame);
+          });
         })
       );
     }
+    syncContinuous();
 
     if (!alwaysActive && typeof IntersectionObserver !== "undefined") {
       const observer = new IntersectionObserver(
@@ -147,5 +182,5 @@ export const useMotion = <E extends Element>(
     cleanups.push(() => window.removeEventListener("pageshow", onPageShow));
 
     return teardown;
-  }, [ref, enabled, reducedMotion, rootMargin, alwaysActive, resetKey]);
+  }, [ref, enabled, reducedMotion, idleMotion, rootMargin, alwaysActive, resetKey]);
 };
