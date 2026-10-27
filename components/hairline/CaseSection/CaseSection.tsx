@@ -4,6 +4,11 @@ import styles from "components/hairline/CaseSection/CaseSection.module.css";
 
 interface CaseSectionProps {
   id: string;
+  /**
+   * An earlier anchor for the same chapter, kept on an empty marker at the top of the section so
+   * links made before the anchors changed still land here, with or without JavaScript.
+   */
+  legacyId?: string;
   /** Zero-based position, shown as "[ 01 ]". */
   index: number;
   title: string;
@@ -14,9 +19,10 @@ interface CaseSectionProps {
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
 /** A numbered case-study chapter: a sticky title column beside ruled content rows. */
-export const CaseSection = ({ id, index, title, children }: CaseSectionProps) => (
+export const CaseSection = ({ id, legacyId, index, title, children }: CaseSectionProps) => (
   <section id={id} className={styles.section} aria-labelledby={`${id}-heading`}>
     <div className={styles.side}>
+      {legacyId ? <span id={legacyId} className={styles.legacyAnchor} aria-hidden="true" /> : null}
       <div className={styles.stick}>
         <span className={styles.number} aria-hidden="true">
           [ {pad(index)} ]

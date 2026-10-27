@@ -1,5 +1,11 @@
 import { PROJECTS, type Project } from "data/projects";
-import { buildCaseSections, figureHost, hostOf } from "utils/caseStudySections";
+import {
+  buildCaseSections,
+  figureHost,
+  hostOf,
+  legacySectionId,
+  legacyTitleId,
+} from "utils/caseStudySections";
 import { getProjectBySlug } from "utils/projects";
 
 const KIT_ORDER = [
@@ -16,6 +22,26 @@ const KIT_ORDER = [
 ];
 
 describe("buildCaseSections", () => {
+  it("keeps each section's anchor from before the kit's ids", () => {
+    const ledgerguard = getProjectBySlug("ledgerguard")!;
+    expect(
+      Object.fromEntries(buildCaseSections(ledgerguard).map((s) => [s.legacyId, s.id]))
+    ).toEqual({
+      "ledgerguard-context": "context",
+      "ledgerguard-problem": "problem",
+      "ledgerguard-role": "role",
+      "ledgerguard-built": "built",
+      "ledgerguard-technical-decisions": "technical-decisions",
+      "ledgerguard-ux-decisions": "ux",
+      "ledgerguard-evidence": "evidence",
+      "ledgerguard-outcome": "outcome",
+      "ledgerguard-improve": "improve",
+      "ledgerguard-related": "related",
+    });
+    expect(legacySectionId("agent-tooling", "ux")).toBe("agent-tooling-ux-decisions");
+    expect(legacyTitleId("mapbylaw")).toBe("mapbylaw-heading");
+  });
+
   it("keeps the design kit's section order for every case study", () => {
     for (const project of PROJECTS.filter((p) => p.hasDedicatedCaseStudy)) {
       const ids = buildCaseSections(project).map((section) => section.id);

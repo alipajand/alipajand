@@ -47,7 +47,7 @@ const RelatedLink = ({ link }: { link: ProjectLink }) => {
 
 /** Related work: writing and pages about the project, then its live links. */
 export const CaseStudyRelated = ({ projectName, section, index }: CaseStudyRelatedProps) => (
-  <CaseSection id={section.id} index={index} title={section.title}>
+  <CaseSection id={section.id} legacyId={section.legacyId} index={index} title={section.title}>
     <div>
       <ul className={styles.related} aria-label={projectRelatedLinksAriaLabel(projectName)}>
         {section.body.links.map((link) => (

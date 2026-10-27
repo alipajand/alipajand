@@ -24,7 +24,7 @@ interface CaseStudyDecisionsProps {
 
 /** Technical decisions: each call with its reasoning, trade-off and result. */
 export const CaseStudyDecisions = ({ section, index }: CaseStudyDecisionsProps) => (
-  <CaseSection id={section.id} index={index} title={section.title}>
+  <CaseSection id={section.id} legacyId={section.legacyId} index={index} title={section.title}>
     <div className={styles.decisions}>
       {section.body.decisions.map((decision, position) => (
         <DecisionCard key={decision.decision} index={position} labels={LABELS} {...decision} />

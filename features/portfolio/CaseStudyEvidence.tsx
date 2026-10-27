@@ -14,7 +14,7 @@ interface CaseStudyEvidenceProps {
 
 /** Interface evidence: every screenshot after the hero, each in its own ruled row. */
 export const CaseStudyEvidence = ({ project, section, index }: CaseStudyEvidenceProps) => (
-  <CaseSection id={section.id} index={index} title={section.title}>
+  <CaseSection id={section.id} legacyId={section.legacyId} index={index} title={section.title}>
     <div className={styles.evidence}>
       {section.body.figures.map((figure) =>
         figure.src ? (
