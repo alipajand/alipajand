@@ -1,0 +1,270 @@
+<title>Ali Pajand Engineering Principles</title>
+@@HEAD@@
+<style>
+@@BASE_CSS@@
+  /* Layout: two-line display, a hero where ten tangled lines settle into a ruled set, then one boxed row per principle. */
+  .display { margin: 0; padding: clamp(16px, 2.6vw, 34px) clamp(10px, 2vw, 24px) clamp(12px, 2vw, 26px); border-bottom: 1px solid var(--rule); overflow: hidden; font-family: var(--display); font-weight: 800; font-stretch: 125%; font-size: 10.2cqi; line-height: .86; letter-spacing: -.015em; text-transform: uppercase; white-space: nowrap; display: grid; gap: .06em; }
+  .display > span { display: inline-flex; width: max-content; align-items: center; gap: .18em; will-change: transform; }
+  .display > span:last-child { justify-self: end; }
+  .display .star { width: .38em; height: .38em; flex: none; }
+
+  .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-bottom: 1px solid var(--rule); }
+  .hero__copy { padding: 28px 24px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 22px; }
+  .hero__eyebrow { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--mute); }
+  .hero__lede { margin: 0; font-size: clamp(19px, 1.65vw, 24px); line-height: 1.4; font-weight: 500; max-width: 44ch; text-wrap: pretty; }
+  .ctas { display: grid; grid-template-columns: minmax(0, 1fr); border: 1px solid var(--rule); margin-top: auto; }
+  .ctas a { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 16px; text-decoration: none; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; transition: background .25s, color .25s; }
+  .ctas a:first-child { background: var(--line); color: var(--ink); border-bottom: 1px solid var(--rule); }
+  .ctas a:first-child:hover { background: var(--bone-2); }
+  .ctas a:last-child:hover { background: var(--line); color: var(--ink); }
+  .align { position: relative; min-height: 560px; overflow: hidden; }
+  .align canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .align__readout { position: absolute; right: 16px; bottom: 14px; background: var(--ink); border: 1px solid var(--rule); padding: 6px 10px; font-variant-numeric: tabular-nums; pointer-events: none; }
+
+  /* ── Index ── */
+  .index { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: column; grid-template-rows: repeat(5, auto); border-bottom: 1px solid var(--rule); }
+  .index a { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 14px 24px; height: 100%; text-decoration: none; border-bottom: 1px solid var(--rule); font-size: 17px; font-weight: 500; line-height: 1.3; transition: background .35s, color .35s; }
+  .index li:nth-child(-n + 5) a { border-right: 1px solid var(--rule); }
+  .index li:nth-child(5) a, .index li:nth-child(10) a { border-bottom: 0; }
+  .index a .mono { color: var(--mute); }
+  .index a:hover, .index a:focus-visible, .index a.on { background: var(--line); color: var(--ink); }
+  .index a:hover .mono, .index a:focus-visible .mono, .index a.on .mono { color: var(--mute-ink); }
+  .index a:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+
+  /* ── Principle ── */
+  .pr { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-bottom: 1px solid var(--rule); scroll-margin-top: 16px; }
+  .pr__side { border-right: 1px solid var(--rule); }
+  .pr__stick { position: sticky; top: 0; padding: 26px 24px 30px; display: grid; gap: 18px; }
+  .pr__n { font-family: var(--display); font-weight: 800; font-stretch: 125%; font-size: clamp(72px, 9cqi, 150px); line-height: .8; letter-spacing: -.02em; color: transparent; -webkit-text-stroke: 1px var(--line); transition: color .5s; }
+  .pr.on .pr__n { color: var(--line); }
+  .pr h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 115%; text-transform: uppercase; font-size: clamp(26px, 2.8vw, 46px); line-height: .95; text-wrap: balance; }
+  .pr__main { min-width: 0; display: grid; align-content: start; }
+  .pr__main > * { padding: 26px 24px; border-bottom: 1px solid var(--rule); }
+  .pr__main > *:last-child { border-bottom: 0; }
+  .pr__text { display: grid; gap: 18px; }
+  .pr__text p { margin: 0; font-size: 18px; line-height: 1.65; max-width: 62ch; }
+  .pr__text p:first-child { font-size: clamp(19px, 1.6vw, 23px); line-height: 1.45; font-weight: 500; }
+  .pr__text p + p { color: var(--mute); }
+  .ev { display: grid; gap: 12px; }
+  .ev .mono { color: var(--mute); }
+  .ev ul { list-style: none; margin: 0; padding: 0; display: grid; border: 1px solid var(--rule); }
+  .ev a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 13px 14px; text-decoration: none; border-bottom: 1px solid var(--rule); transition: background .25s, color .25s; }
+  .ev li:last-child a { border-bottom: 0; }
+  .ev a:hover, .ev a:focus-visible { background: var(--line); color: var(--ink); }
+  .ev a small { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); margin-left: auto; }
+  .ev a:hover small { color: var(--mute-ink); }
+
+  /* ── Band ── */
+  .close { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); }
+  .close__side { padding: 28px 24px; border-right: 1px solid var(--ink); }
+  .close blockquote { margin: 0; padding: 26px 24px 34px; font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(30px, 4.6cqi, 80px); line-height: .94; text-wrap: balance; }
+
+  @media (max-width: 960px) {
+    .index { grid-template-columns: minmax(0, 1fr); grid-auto-flow: row; grid-template-rows: none; }
+    .index li a { border-right: 0 !important; border-bottom: 1px solid var(--rule) !important; }
+    .index li:last-child a { border-bottom: 0 !important; }
+  }
+  @media (max-width: 760px) {
+    .display { font-size: 10cqi; padding-inline: 10px; }
+    .hero, .pr, .close { grid-template-columns: minmax(0, 1fr); }
+    .hero__copy, .pr__side, .close__side { border-right: 0; }
+    .hero__copy { padding: 22px 16px; border-bottom: 1px solid var(--rule); }
+    .align { min-height: 500px; }
+    .index a { padding: 12px 16px; font-size: 16px; grid-template-columns: 34px minmax(0, 1fr); }
+    .pr__side { border-bottom: 1px solid var(--rule); }
+    .pr__stick { position: static; padding: 22px 16px; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: 16px; }
+    .pr__n { font-size: 64px; }
+    .pr h2 { font-size: 7cqi; }
+    .pr__main > * { padding: 20px 16px; }
+    .pr__text p { font-size: 17px; }
+    .ev a small { display: none; }
+    .close__side { padding: 22px 16px 0; }
+    .close blockquote { padding: 14px 16px 26px; font-size: 8.4cqi; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pr__n { color: var(--line); }
+  }
+</style>
+@@CHROME@@
+<div class="frame">
+  <div class="shell">
+    @@NAV:none@@
+    <h1 class="display" id="display">
+      <span>Engineering</span>
+      <span><svg class="star" viewBox="0 0 20 20" aria-hidden="true"><use href="#spark"/></svg>Principles</span>
+    </h1>
+
+    <section class="hero" aria-label="Introduction">
+      <div class="hero__copy">
+        <div class="hero__eyebrow mono"><span>[ Principles ]</span><span>10 principles</span></div>
+        <p class="hero__lede">How I set technical direction and make decisions across SaaS products, enterprise dashboards, AI-assisted workflows, and startup delivery. The first half is about the systems and standards other engineers build on; the second is about the interface quality I hold those systems to. They're also a fair preview of what I'll argue for in a design review.</p>
+        <div class="ctas">
+          <a href="#principles">Principles on this page <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+          <a href="@@U_HOME@@#contact">Discuss a role <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        </div>
+      </div>
+      <div class="align" id="alignbox" aria-hidden="true">
+        <canvas id="align"></canvas>
+        <div class="align__readout mono" id="readout">Settled 00 / 10</div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" data-dir="1" id="ticker"></div>
+    </div>
+
+    <nav id="principles" aria-label="Principles on this page">
+      <ol class="index" id="index"></ol>
+    </nav>
+    <div id="list"></div>
+  </div>
+</div>
+
+<section class="band" aria-label="In a design review">
+  <div class="frame">
+    <div class="shell">
+      <div class="close">
+        <div class="close__side"><span class="mono">[ In a design review ]</span></div>
+        <blockquote>They're also a fair preview of what I'll argue for in a design review.</blockquote>
+      </div>
+      <div class="chevrons" id="chevrons" aria-hidden="true">@@CHEVRONS@@</div>
+    </div>
+  </div>
+</section>
+
+<div class="frame">
+  <div class="shell">
+    <nav class="next" aria-label="More">
+      <a href="@@U_WORK@@"><span class="mono">[ Case studies ]</span><strong>Portfolio <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+      <a href="@@U_WRITING@@"><span class="mono">[ Notes ]</span><strong>Writing <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+      <a href="@@U_HOME@@#contact"><span class="mono">[ Contact ]</span><strong>Get in touch <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+    </nav>
+    @@FOOT@@
+  </div>
+</div>
+
+<script>
+(() => {
+@@BASE_JS@@
+  // Content mirrors data/engineeringPrinciples.ts.
+  const SECTIONS = @@PRINCIPLES_JSON@@;
+  const href = (h) => link(h);
+  const kind = (h) => h.startsWith("/portfolio") ? "Case study" : "Writing";
+  const chev = `<span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span>`;
+
+  document.getElementById("index").innerHTML = SECTIONS.map((s, i) =>
+    `<li><a href="#${s.id}"><span class="mono">${pad(i)}</span><span>${esc(s.title)}</span></a></li>`).join("");
+  document.getElementById("list").innerHTML = SECTIONS.map((s, i) => `
+    <section class="pr" id="${s.id}" aria-labelledby="${s.id}-t">
+      <div class="pr__side"><div class="pr__stick">
+        <span class="pr__n" aria-hidden="true">${pad(i)}</span>
+        <h2 id="${s.id}-t">${esc(s.title)}</h2>
+      </div></div>
+      <div class="pr__main">
+        <div class="pr__text">${s.paragraphs.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+        <div class="ev">
+          <span class="mono">Where this shows up</span>
+          <ul>${s.evidence.map((e) => `<li><a href="${href(e.href)}"><span>${esc(e.label)}</span><small>${kind(e.href)}</small>${chev}</a></li>`).join("")}</ul>
+        </div>
+      </div>
+    </section>`).join("");
+  const run = `<div class="ticker__run">${SECTIONS.map((s, i) => `${i % 3 ? "" : `<svg><use href="#spark"/></svg>`}<span>${esc(s.title)}</span><span class="sep">///</span>`).join("")}</div>`;
+  document.getElementById("ticker").innerHTML = run + run.replace('class="ticker__run"', 'class="ticker__run" aria-hidden="true"');
+
+  // ── Hero: ten tangled lines settle, one after another, into an evenly ruled set as the hero scrolls away. ──
+  const canvas = document.getElementById("align");
+  const box = document.getElementById("alignbox");
+  const readout = document.getElementById("readout");
+  const pointer = { x: -1, y: -1 };
+  box.addEventListener("pointermove", (e) => { const r = box.getBoundingClientRect(); pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; });
+  box.addEventListener("pointerleave", () => { pointer.x = pointer.y = -1; });
+  const ease = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  let shown = -1;
+
+  const draw = (time, prog) => {
+    const { ctx, w, h } = fitCanvas(canvas);
+    ctx.clearRect(0, 0, w, h);
+    const narrow = w < 520;
+    const n = SECTIONS.length, top = 34, bottom = 64, gap = (h - top - bottom) / (n - 1);
+    const labelW = narrow ? 34 : Math.min(w * .42, 300);
+    const x0 = 16, x1 = w - 16;
+    let settled = 0;
+    for (let i = 0; i < n; i++) {
+      // Each line has its own window of the scroll; earlier principles settle first.
+      const k = ease(clamp(prog * 1.7 - i * .07, 0, 1));
+      if (k > .98) settled++;
+      const yT = top + i * gap;
+      const seed = i * 1.7;
+      ctx.beginPath();
+      for (let x = x0; x <= x1; x += 6) {
+        const u = (x - x0) / (x1 - x0);
+        const amp = Math.min(gap * 1.6, 60);
+        const tangle = (Math.sin(u * 7 + seed + time * .0006) * .6 + Math.sin(u * 17 - seed * 2 + time * .0009) * .25 + (4.5 - i) / 4.5 * .9 * Math.sin(u * 3.1 + seed)) * amp;
+        let y = yT + tangle * (1 - k);
+        if (pointer.x >= 0) {
+          const dx = x - pointer.x, dy = y - pointer.y, d2 = dx * dx + dy * dy;
+          y += Math.exp(-d2 / 1800) * 14 * (dy >= 0 ? 1 : -1);
+        }
+        x === x0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = `rgba(${LINE},${.25 + k * .6})`;
+      ctx.lineWidth = k > .98 ? 1.4 : 1;
+      ctx.stroke();
+      if (k > .6) {
+        // Label sits on a chip once the line is nearly straight.
+        const a = (k - .6) / .4;
+        ctx.font = `500 12px "Geist Mono", ui-monospace, monospace`;
+        ctx.textBaseline = "middle";
+        let t = narrow ? pad(i) : `${pad(i)}  ${SECTIONS[i].title}`;
+        while (ctx.measureText(t).width > labelW - 16 && t.length > 6) t = t.slice(0, -2).trimEnd() + "…";
+        const tw = ctx.measureText(t).width + 16;
+        ctx.globalAlpha = a;
+        ctx.fillStyle = k > .98 ? "#ecece6" : "#0f0f0e";
+        ctx.fillRect(x0 + 8, yT - 11, tw, 22);
+        ctx.strokeStyle = `rgba(${LINE},.6)`; ctx.strokeRect(x0 + 8.5, yT - 10.5, tw - 1, 21);
+        ctx.fillStyle = k > .98 ? "#0f0f0e" : "#ecece6";
+        ctx.fillText(t, x0 + 16, yT + 1);
+        ctx.globalAlpha = 1;
+      }
+    }
+    if (settled !== shown) { shown = settled; readout.textContent = `Settled ${String(settled).padStart(2, "0")} / ${n}`; }
+  };
+
+  const hero = box.closest(".hero");
+  const heroProg = () => {
+    const r = hero.getBoundingClientRect();
+    return clamp((-r.top + innerHeight * .75) / (r.height + innerHeight * .25), 0, 1);
+  };
+
+  if (reduce) {
+    const still = () => draw(0, 1);
+    still();
+    document.fonts && document.fonts.ready.then(still);
+    addEventListener("resize", still);
+    return;
+  }
+
+  const display = document.getElementById("display");
+  const [l1, l2] = display.children;
+  const prs = [...document.querySelectorAll(".pr")];
+  const idx = [...document.querySelectorAll(".index a")];
+  let heroVisible = true;
+  new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; }).observe(hero);
+  runPortal((time, { y, vh }) => {
+    // Display: the two lines start pulled toward each other and part to the edges as you scroll.
+    const free = (span) => display.clientWidth - parseFloat(getComputedStyle(display).paddingLeft) * 2 - span.offsetWidth;
+    const k = 1 - clamp(y / (vh * .6), 0, 1);
+    const star = l2.querySelector(".star");
+    l1.style.transform = `translateX(${(Math.max(0, free(l1)) * .5 * k).toFixed(1)}px)`;
+    l2.style.transform = `translateX(${(-Math.max(0, free(l2)) * .5 * k).toFixed(1)}px)`;
+    star.style.transform = `rotate(${(y * .35).toFixed(1)}deg)`;
+
+    let cur = -1;
+    prs.forEach((p, i) => { const r = p.getBoundingClientRect(); if (r.top < vh * .4 && r.bottom > vh * .4) cur = i; });
+    prs.forEach((p, i) => p.classList.toggle("on", i === cur));
+    idx.forEach((a, i) => a.classList.toggle("on", i === cur));
+
+    if (heroVisible) draw(time, heroProg());
+  });
+})();
+</script>

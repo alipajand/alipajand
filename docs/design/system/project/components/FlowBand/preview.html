@@ -1,0 +1,12 @@
+<!-- @dsCard group="Diagrams" height=380 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Geist+Mono:wght@400;500&display=swap">
+<div class="shell" style="border:0">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="spark" viewBox="0 0 20 20"><path d="M10 0 C10.6 7 13 9.4 20 10 C13 10.6 10.6 13 10 20 C9.4 13 7 10.6 0 10 C7 9.4 9.4 7 10 0Z" fill="currentColor"/></symbol>
+<symbol id="chev" viewBox="0 0 40 16"><path d="M2 2 L8 8 L2 14 M13 2 L19 8 L13 14 M24 2 L30 8 L24 14"/></symbol>
+</defs></svg>
+<figure class="dg dg--flow"><figcaption class="dg__band-head"><span class="mono">[ Diagram · Technical decisions ]</span><span class="dg__title">From uploaded document to confirmed contract data</span></figcaption>
+<ol class="flow" style="--steps:5"><li class="done"><span class="mono">Step 01</span><b>Upload</b><p>Document ingestion is wired to async extraction state from the start.</p></li><li class="done"><span class="mono">Step 02</span><b>Queue job</b><p>Redis/BullMQ hands the document to the Python worker behind an explicit job contract.</p></li><li class="on"><span class="mono">Step 03</span><b>Extract</b><p>AWS Textract and OpenAI produce suggested values. The job can fail or retry without touching confirmed data.</p></li><li><span class="mono">Step 04</span><b>Review</b><p>The verification UI shows suggested values apart from confirmed ones, with source context attached.</p></li><li><span class="mono">Step 05</span><b>Confirm</b><p>Values become confirmed contract data only through explicit user review.</p></li></ol>
+<div class="flow__loop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg><span>Failed or partial extraction stays visible as its own state and can be retried independently.</span></div></figure>
+</div>
+<script></script>

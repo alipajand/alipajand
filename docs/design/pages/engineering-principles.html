@@ -1,0 +1,586 @@
+<title>Ali Pajand Engineering Principles</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ink: #0f0f0e;
+    --ink-2: #1b1b19;
+    --bone: #d8d8d3;
+    --bone-2: #c9c9c3;
+    --line: #ecece6;
+    --rule: #5b5b56;
+    --mute: #a3a39c;
+    --mute-ink: #4b4b46;
+    --display: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+    --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ink); }
+  body { background: var(--ink); color: var(--line); font-family: var(--sans); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--line); outline-offset: 3px; }
+  .frame { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+  .shell { border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); container-type: inline-size; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .mute { color: var(--mute); }
+  canvas { display: block; }
+  .chev { display: inline-flex; overflow: hidden; width: 40px; flex: none; }
+  .chev svg { flex: none; width: 40px; height: 16px; transition: transform .45s cubic-bezier(.6, .05, .2, 1); }
+  .chev path { fill: none; stroke: currentColor; stroke-width: 2.2; }
+  a:hover .chev svg, a:focus-visible .chev svg { transform: translateX(8px); }
+
+  /* ── Nav ── */
+  .nav { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-top: 16px; }
+  .nav > * { border-right: 1px solid var(--rule); min-height: 56px; display: flex; align-items: center; }
+  .nav > *:nth-child(3) { border-right: 0; }
+  .nav__name { padding-inline: 16px; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; text-decoration: none; }
+  .nav__links { gap: 22px; padding-inline: 20px; }
+  .nav__links a { text-decoration: none; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+  .nav__links a:hover { text-decoration: underline; text-underline-offset: 5px; }
+  .nav__links a[aria-current] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+  .nav__cta { display: grid; grid-template-rows: 1fr 1fr; align-items: stretch; min-width: 200px; }
+  .nav__cta > * { display: flex; align-items: center; justify-content: center; padding-inline: 18px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+  .nav__cta > :first-child { border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .nav__cta a { transition: background .25s, color .25s; }
+  .nav__cta a:hover { background: var(--line); color: var(--ink); }
+  .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; min-height: 0 !important; border: 0 !important; background: var(--line); transform-origin: left; transform: scaleX(var(--p, 0)); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line); margin-right: 9px; animation: blink 2.4s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+
+  /* ── Display ── */
+  .name {
+    margin: 0;
+    padding: clamp(16px, 2.6vw, 34px) clamp(10px, 2vw, 24px) clamp(12px, 2vw, 26px);
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between; gap: .15em;
+    overflow: hidden;
+    font-family: var(--display); font-weight: 800; font-stretch: 125%;
+    font-size: 11.6cqi; line-height: .82; letter-spacing: -.015em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .name > span { display: block; will-change: transform; }
+  .name .star { width: .38em; height: .38em; flex: none; }
+
+  /* ── Ticker ── */
+  .ticker { overflow: hidden; border-bottom: 1px solid var(--rule); padding-block: 9px; }
+  .ticker__track { display: flex; width: max-content; will-change: transform; }
+  .ticker__run { display: flex; align-items: center; gap: 18px; padding-right: 18px; white-space: nowrap; font-style: italic; font-size: 15px; }
+  .ticker__run .sep { font-style: normal; color: var(--mute); }
+  .ticker__run svg { width: 14px; height: 14px; flex: none; }
+
+  /* ── Section heads ── */
+  .head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 34px 24px 18px; border-bottom: 1px solid var(--rule); }
+  .head h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5.4vw, 88px); line-height: .9; text-wrap: balance; }
+  .head p { margin: 0; color: var(--mute); max-width: 52ch; }
+  .head a { text-decoration: none; display: inline-flex; gap: 10px; align-items: center; }
+  .head a:hover { text-decoration: underline; text-underline-offset: 5px; }
+
+  /* ── Light band ── */
+  .band { background: var(--bone); color: var(--ink); }
+  .band .shell { border-color: var(--bone-2); }
+  .band .mono { color: var(--mute-ink); }
+  .chevrons { display: flex; align-items: center; overflow: hidden; padding: 10px 12px; border-top: 1px solid var(--ink); }
+  .chevrons svg { flex: none; width: clamp(40px, 5vw, 76px); height: auto; transition: opacity .3s, transform .3s; }
+  .chevrons svg path { fill: none; stroke: var(--ink); stroke-width: 7; }
+  .chevrons svg.off { opacity: .16; transform: translateX(-6px); }
+
+  /* ── Next links + footer ── */
+  .next { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+  .next a { display: flex; flex-direction: column; gap: 22px; padding: 22px 24px; border-right: 1px solid var(--rule); text-decoration: none; transition: background .3s, color .3s; }
+  .next a:last-child { border-right: 0; }
+  .next a .mono { color: var(--mute); transition: color .3s; }
+  .next a strong { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--display); font-stretch: 118%; font-weight: 800; text-transform: uppercase; font-size: clamp(20px, 2vw, 30px); line-height: 1; }
+  .next a:hover, .next a:focus-visible { background: var(--line); color: var(--ink); }
+  .next a:hover .mono, .next a:focus-visible .mono { color: var(--mute-ink); }
+  .next a:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .foot { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); margin-bottom: 16px; }
+  .foot > * { padding: 14px 24px; border-right: 1px solid var(--rule); color: var(--mute); }
+  .foot > *:last-child { border-right: 0; text-align: right; }
+
+  @media (max-width: 760px) {
+    .nav { grid-template-columns: minmax(0, 1fr) auto; }
+    .nav > *:nth-child(2) { border-right: 0; }
+    .nav__links { grid-column: 1 / -1; grid-row: 2; border-top: 1px solid var(--rule); min-height: 46px; justify-content: space-between; gap: 8px; padding-inline: 16px; }
+    .nav__links a { font-size: 12px; letter-spacing: .06em; white-space: nowrap; }
+    .nav__cta { min-width: 0; border-right: 0 !important; }
+    .nav__cta > * { padding-inline: 12px; }
+    .nav__name { padding-inline: 12px; font-size: 13px; }
+    .name { padding-inline: 10px; }
+    .head { padding-inline: 16px; }
+    .head h2 { font-size: min(34px, 9cqi); }
+    .next { grid-template-columns: minmax(0, 1fr); }
+    .next a { border-right: 0; border-bottom: 1px solid var(--rule); padding: 20px 16px; }
+    .next a:last-child { border-bottom: 0; }
+    .foot { grid-template-columns: minmax(0, 1fr); }
+    .foot > * { border-right: 0; border-bottom: 1px solid var(--rule); padding-inline: 16px; text-align: left !important; }
+    .foot > *:last-child { border-bottom: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .ticker__run[aria-hidden] { display: none; }
+    .ticker__track { width: auto; }
+    .ticker__run { white-space: normal; flex-wrap: wrap; row-gap: 4px; }
+  }
+  /* ── Diagrams (layers, compare, flow) ── */
+  .dg { margin: 0; min-width: 0; }
+  .dg__head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--mute); margin-bottom: 14px; }
+  .dg__cap { margin: 14px 0 0; color: var(--mute); font-size: 15px; line-height: 1.5; max-width: 70ch; }
+
+  .layers { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .layers li { display: grid; grid-template-columns: 40px minmax(0, 5fr) minmax(0, 7fr); gap: 12px; align-items: baseline; padding: 14px 16px; border: 1px solid var(--rule); transition: background .4s, color .4s; }
+  .layers li:nth-child(2) { margin-inline: 2%; } .layers li:nth-child(3) { margin-inline: 4%; } .layers li:nth-child(4) { margin-inline: 6%; } .layers li:nth-child(n+5) { margin-inline: 8%; }
+  .layers li:last-child { border-style: dashed; }
+  .layers b { font-weight: 600; font-size: 17px; }
+  .layers span { color: var(--mute); font-size: 15px; line-height: 1.45; transition: color .4s; }
+  .layers .mono { padding-top: 2px; }
+  .layers li.on { background: var(--line); color: var(--ink); }
+  .layers li.on span { color: var(--mute-ink); }
+
+  .compare { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); border: 1px solid var(--rule); }
+  .compare > div { min-width: 0; border-right: 1px solid var(--rule); }
+  .compare > div:last-child { border-right: 0; }
+  .compare h4 { margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .compare > div:last-child h4 { background: var(--line); color: var(--ink); }
+  .compare ul { list-style: none; margin: 0; padding: 0; }
+  .compare li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--ink-2); font-size: 15px; line-height: 1.5; }
+  .compare li:last-child { border-bottom: 0; }
+  .compare > div:not(:last-child) li { color: var(--mute); }
+  .compare > div:not(:last-child) li::before { content: "×"; font-family: var(--mono); }
+  .compare > div:last-child li::before { content: "✓"; font-family: var(--mono); }
+
+  /* The flow always sits on bone. Steps become columns when the figure is wide enough. */
+  .dg--flow { background: var(--bone); color: var(--ink); container-type: inline-size; }
+  .dg--flow .mono { color: var(--mute-ink); }
+  .dg__band-head { display: grid; gap: 10px; padding: 26px 24px 18px; border-bottom: 1px solid var(--ink); }
+  .dg__title { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase; font-size: clamp(24px, 5.2cqi, 68px); line-height: .9; text-wrap: balance; }
+  .flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); }
+  .flow li { padding: 16px 20px; border-bottom: 1px solid var(--ink); display: grid; grid-template-columns: 76px minmax(0, 1fr); column-gap: 12px; row-gap: 8px; align-content: start; transition: background .4s, color .4s; }
+  .flow li:last-child { border-bottom: 0; }
+  .flow li .mono { grid-row: span 2; padding-top: 4px; }
+  .flow li b { font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(19px, 2.4cqi, 30px); line-height: 1; }
+  .flow li p { margin: 0; font-size: 15px; line-height: 1.5; }
+  .flow li.on { background: var(--ink); color: var(--line); }
+  .flow li.on .mono { color: var(--mute); }
+  .flow li.done .mono::after { content: " ✓"; }
+  @container (min-width: 1000px) {
+    .flow { grid-template-columns: repeat(var(--steps, 5), minmax(0, 1fr)); }
+    .flow li { grid-template-columns: minmax(0, 1fr); padding: 20px 20px 24px; border-bottom: 0; border-right: 1px solid var(--ink); }
+    .flow li:last-child { border-right: 0; }
+    .flow li .mono { grid-row: auto; padding-top: 0; }
+  }
+  .flow__loop { display: flex; gap: 12px; align-items: center; padding: 14px 24px; border-top: 1px solid var(--ink); font-size: 15px; }
+  .flow__loop svg { width: 22px; height: 22px; flex: none; }
+  .flow__loop svg path { fill: none; stroke: currentColor; stroke-width: 1.6; }
+  .flow__cap { margin: 0; padding: 0 24px 18px; font-size: 15px; color: var(--mute-ink); max-width: 80ch; }
+  .flow__loop + .flow__cap { padding-top: 0; }
+  .flow + .flow__cap { padding-top: 16px; border-top: 1px solid var(--ink); }
+
+  @media (max-width: 760px) {
+    .layers li { grid-template-columns: 30px minmax(0, 1fr); margin-inline: 0 !important; }
+    .layers li > span:last-child:not(.mono) { grid-column: 2; }
+    .compare { grid-template-columns: minmax(0, 1fr); }
+    .compare > div { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .compare > div:last-child { border-bottom: 0; }
+    .dg__band-head { padding: 22px 16px 16px; }
+    .flow li { padding: 16px; grid-template-columns: 66px minmax(0, 1fr); }
+    .flow__loop { padding: 14px 16px; }
+    .flow__cap { padding: 0 16px 16px; }
+  }
+
+  /* Layout: two-line display, a hero where ten tangled lines settle into a ruled set, then one boxed row per principle. */
+  .display { margin: 0; padding: clamp(16px, 2.6vw, 34px) clamp(10px, 2vw, 24px) clamp(12px, 2vw, 26px); border-bottom: 1px solid var(--rule); overflow: hidden; font-family: var(--display); font-weight: 800; font-stretch: 125%; font-size: 10.2cqi; line-height: .86; letter-spacing: -.015em; text-transform: uppercase; white-space: nowrap; display: grid; gap: .06em; }
+  .display > span { display: inline-flex; width: max-content; align-items: center; gap: .18em; will-change: transform; }
+  .display > span:last-child { justify-self: end; }
+  .display .star { width: .38em; height: .38em; flex: none; }
+
+  .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-bottom: 1px solid var(--rule); }
+  .hero__copy { padding: 28px 24px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 22px; }
+  .hero__eyebrow { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--mute); }
+  .hero__lede { margin: 0; font-size: clamp(19px, 1.65vw, 24px); line-height: 1.4; font-weight: 500; max-width: 44ch; text-wrap: pretty; }
+  .ctas { display: grid; grid-template-columns: minmax(0, 1fr); border: 1px solid var(--rule); margin-top: auto; }
+  .ctas a { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 16px; text-decoration: none; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; transition: background .25s, color .25s; }
+  .ctas a:first-child { background: var(--line); color: var(--ink); border-bottom: 1px solid var(--rule); }
+  .ctas a:first-child:hover { background: var(--bone-2); }
+  .ctas a:last-child:hover { background: var(--line); color: var(--ink); }
+  .align { position: relative; min-height: 560px; overflow: hidden; }
+  .align canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .align__readout { position: absolute; right: 16px; bottom: 14px; background: var(--ink); border: 1px solid var(--rule); padding: 6px 10px; font-variant-numeric: tabular-nums; pointer-events: none; }
+
+  /* ── Index ── */
+  .index { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: column; grid-template-rows: repeat(5, auto); border-bottom: 1px solid var(--rule); }
+  .index a { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 14px 24px; height: 100%; text-decoration: none; border-bottom: 1px solid var(--rule); font-size: 17px; font-weight: 500; line-height: 1.3; transition: background .35s, color .35s; }
+  .index li:nth-child(-n + 5) a { border-right: 1px solid var(--rule); }
+  .index li:nth-child(5) a, .index li:nth-child(10) a { border-bottom: 0; }
+  .index a .mono { color: var(--mute); }
+  .index a:hover, .index a:focus-visible, .index a.on { background: var(--line); color: var(--ink); }
+  .index a:hover .mono, .index a:focus-visible .mono, .index a.on .mono { color: var(--mute-ink); }
+  .index a:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+
+  /* ── Principle ── */
+  .pr { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-bottom: 1px solid var(--rule); scroll-margin-top: 16px; }
+  .pr__side { border-right: 1px solid var(--rule); }
+  .pr__stick { position: sticky; top: 0; padding: 26px 24px 30px; display: grid; gap: 18px; }
+  .pr__n { font-family: var(--display); font-weight: 800; font-stretch: 125%; font-size: clamp(72px, 9cqi, 150px); line-height: .8; letter-spacing: -.02em; color: transparent; -webkit-text-stroke: 1px var(--line); transition: color .5s; }
+  .pr.on .pr__n { color: var(--line); }
+  .pr h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 115%; text-transform: uppercase; font-size: clamp(26px, 2.8vw, 46px); line-height: .95; text-wrap: balance; }
+  .pr__main { min-width: 0; display: grid; align-content: start; }
+  .pr__main > * { padding: 26px 24px; border-bottom: 1px solid var(--rule); }
+  .pr__main > *:last-child { border-bottom: 0; }
+  .pr__text { display: grid; gap: 18px; }
+  .pr__text p { margin: 0; font-size: 18px; line-height: 1.65; max-width: 62ch; }
+  .pr__text p:first-child { font-size: clamp(19px, 1.6vw, 23px); line-height: 1.45; font-weight: 500; }
+  .pr__text p + p { color: var(--mute); }
+  .ev { display: grid; gap: 12px; }
+  .ev .mono { color: var(--mute); }
+  .ev ul { list-style: none; margin: 0; padding: 0; display: grid; border: 1px solid var(--rule); }
+  .ev a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 13px 14px; text-decoration: none; border-bottom: 1px solid var(--rule); transition: background .25s, color .25s; }
+  .ev li:last-child a { border-bottom: 0; }
+  .ev a:hover, .ev a:focus-visible { background: var(--line); color: var(--ink); }
+  .ev a small { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); margin-left: auto; }
+  .ev a:hover small { color: var(--mute-ink); }
+
+  /* ── Band ── */
+  .close { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); }
+  .close__side { padding: 28px 24px; border-right: 1px solid var(--ink); }
+  .close blockquote { margin: 0; padding: 26px 24px 34px; font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(30px, 4.6cqi, 80px); line-height: .94; text-wrap: balance; }
+
+  @media (max-width: 960px) {
+    .index { grid-template-columns: minmax(0, 1fr); grid-auto-flow: row; grid-template-rows: none; }
+    .index li a { border-right: 0 !important; border-bottom: 1px solid var(--rule) !important; }
+    .index li:last-child a { border-bottom: 0 !important; }
+  }
+  @media (max-width: 760px) {
+    .display { font-size: 10cqi; padding-inline: 10px; }
+    .hero, .pr, .close { grid-template-columns: minmax(0, 1fr); }
+    .hero__copy, .pr__side, .close__side { border-right: 0; }
+    .hero__copy { padding: 22px 16px; border-bottom: 1px solid var(--rule); }
+    .align { min-height: 500px; }
+    .index a { padding: 12px 16px; font-size: 16px; grid-template-columns: 34px minmax(0, 1fr); }
+    .pr__side { border-bottom: 1px solid var(--rule); }
+    .pr__stick { position: static; padding: 22px 16px; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: 16px; }
+    .pr__n { font-size: 64px; }
+    .pr h2 { font-size: 7cqi; }
+    .pr__main > * { padding: 20px 16px; }
+    .pr__text p { font-size: 17px; }
+    .ev a small { display: none; }
+    .close__side { padding: 22px 16px 0; }
+    .close blockquote { padding: 14px 16px 26px; font-size: 8.4cqi; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pr__n { color: var(--line); }
+  }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="spark" viewBox="0 0 20 20"><path d="M10 0 C10.6 7 13 9.4 20 10 C13 10.6 10.6 13 10 20 C9.4 13 7 10.6 0 10 C7 9.4 9.4 7 10 0Z" fill="currentColor"/></symbol>
+    <symbol id="ring" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="10" r="4.5"/><ellipse cx="10" cy="10" rx="9" ry="3" transform="rotate(-20 10 10)"/></g></symbol>
+    <symbol id="chev" viewBox="0 0 40 16"><path d="M2 2 L8 8 L2 14 M13 2 L19 8 L13 14 M24 2 L30 8 L24 14"/></symbol>
+  </defs>
+</svg>
+
+<div class="frame">
+  <div class="shell">
+    <header class="nav" aria-label="Site">
+      <a class="nav__name" href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6">Ali Pajand</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5">Work</a>
+        <a href="https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB">Writing</a>
+        <a href="https://claude.ai/artifact/31CgkES3BDjxyGvxFQ2FNa">Open source</a>
+        <a href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6#contact">Contact</a>
+      </nav>
+      <div class="nav__cta">
+        <span><span class="dot" aria-hidden="true"></span>Open to roles</span>
+        <a href="https://calendly.com/alipajand/intro">Book a call</a>
+      </div>
+      <span class="progress" id="progress" aria-hidden="true"></span>
+    </header>
+    <h1 class="display" id="display">
+      <span>Engineering</span>
+      <span><svg class="star" viewBox="0 0 20 20" aria-hidden="true"><use href="#spark"/></svg>Principles</span>
+    </h1>
+
+    <section class="hero" aria-label="Introduction">
+      <div class="hero__copy">
+        <div class="hero__eyebrow mono"><span>[ Principles ]</span><span>10 principles</span></div>
+        <p class="hero__lede">How I set technical direction and make decisions across SaaS products, enterprise dashboards, AI-assisted workflows, and startup delivery. The first half is about the systems and standards other engineers build on; the second is about the interface quality I hold those systems to. They're also a fair preview of what I'll argue for in a design review.</p>
+        <div class="ctas">
+          <a href="#principles">Principles on this page <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+          <a href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6#contact">Discuss a role <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        </div>
+      </div>
+      <div class="align" id="alignbox" aria-hidden="true">
+        <canvas id="align"></canvas>
+        <div class="align__readout mono" id="readout">Settled 00 / 10</div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" data-dir="1" id="ticker"></div>
+    </div>
+
+    <nav id="principles" aria-label="Principles on this page">
+      <ol class="index" id="index"></ol>
+    </nav>
+    <div id="list"></div>
+  </div>
+</div>
+
+<section class="band" aria-label="In a design review">
+  <div class="frame">
+    <div class="shell">
+      <div class="close">
+        <div class="close__side"><span class="mono">[ In a design review ]</span></div>
+        <blockquote>They're also a fair preview of what I'll argue for in a design review.</blockquote>
+      </div>
+      <div class="chevrons" id="chevrons" aria-hidden="true"><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg><svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<div class="frame">
+  <div class="shell">
+    <nav class="next" aria-label="More">
+      <a href="https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5"><span class="mono">[ Case studies ]</span><strong>Portfolio <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+      <a href="https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB"><span class="mono">[ Notes ]</span><strong>Writing <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+      <a href="https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6#contact"><span class="mono">[ Contact ]</span><strong>Get in touch <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+    </nav>
+    <footer class="foot mono">
+      <span>Ali Pajand</span>
+      <span>Montreal, Quebec, Canada</span>
+      <span>alipajand.com · 2026</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+(() => {
+  // Shared motion: tickers react to scroll velocity, the display words part on load and close as you scroll,
+  // chevrons light with progress, and the nav hairline tracks the page. Pages add their own work per frame.
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const LINE = "236,236,230";
+  const pad = (i) => String(i + 1).padStart(2, "0");
+  const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const fitCanvas = (c) => {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const w = c.clientWidth, h = c.clientHeight;
+    if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
+    const ctx = c.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx, w, h };
+  };
+  const runPortal = (onFrame) => {
+    const tracks = [...document.querySelectorAll(".ticker__track")].map((el) => ({ el, dir: +el.dataset.dir, x: 0 }));
+    const name = document.querySelector(".name[data-part]");
+    const chevrons = [...document.querySelectorAll("#chevrons svg")];
+    const chevBand = document.getElementById("chevrons");
+    const progress = document.getElementById("progress");
+    let lastY = scrollY, vel = 0;
+    const frame = (time) => {
+      const y = scrollY, vh = innerHeight;
+      vel += ((y - lastY) - vel) * .18; lastY = y;
+      const max = document.documentElement.scrollHeight - vh;
+      progress.style.setProperty("--p", (max > 0 ? y / max : 0).toFixed(4));
+      tracks.forEach((tr) => {
+        const half = tr.el.scrollWidth / 2;
+        tr.x -= (0.45 + Math.abs(vel) * .35) * tr.dir * (vel < -0.5 ? -1 : 1);
+        if (tr.x <= -half) tr.x += half;
+        if (tr.x > 0) tr.x -= half;
+        tr.el.style.transform = `translate3d(${tr.x.toFixed(1)}px,0,0)`;
+      });
+      if (name) {
+        const [w1, star, w2] = name.children;
+        const cs = getComputedStyle(name);
+        const free = name.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - w1.offsetWidth - w2.offsetWidth - star.getBoundingClientRect().width;
+        const shift = (1 - clamp(y / (vh * .6), 0, 1)) * Math.max(0, free) * .42;
+        w1.style.transform = `translateX(${shift.toFixed(1)}px)`;
+        w2.style.transform = `translateX(${(-shift).toFixed(1)}px)`;
+        star.style.transform = `rotate(${(y * .35).toFixed(1)}deg)`;
+      }
+      if (chevBand) {
+        const cr = chevBand.getBoundingClientRect();
+        const lit = Math.round(clamp((vh - cr.top) / (vh * .75), 0, 1) * chevrons.length);
+        chevrons.forEach((c, i) => c.classList.toggle("off", i >= lit));
+      }
+      onFrame(time, { y, vh, vel });
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  };
+  const LINKS = {"/":"https://claude.ai/artifact/RhQogPSvmVxoxcpBKfwZE6","/portfolio":"https://claude.ai/artifact/9TUST53v4UnUs7Hj2BToJ5","/portfolio/ledgerguard":"https://claude.ai/artifact/4sdB8697b2qpfmQArEkZ6v","/portfolio/alwaysgeeky":"https://claude.ai/artifact/5pYFq8zkJSZzkkYwxyBwhw","/portfolio/emplifi":"https://claude.ai/artifact/A9nYf9R1Ltk32JYjQMNEaq","/portfolio/agent-tooling":"https://claude.ai/artifact/UrP9eUpSXDJAoto7SM46Yn","/portfolio/tallyfolio":"https://claude.ai/artifact/PJzBMyJ9vQJ9u9Wpk4jiw9","/portfolio/controltech":"https://claude.ai/artifact/8sBpRgjrXNsK313wjNaBrj","/portfolio/mapbylaw":"https://claude.ai/artifact/Ez5bX39cieti12y95JwNP9","/open-source":"https://claude.ai/artifact/31CgkES3BDjxyGvxFQ2FNa","/writing":"https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB","/writing/agent-readiness-doctor":"https://claude.ai/artifact/3Sx5hgAkussh86nMQuy1e7","/writing/*":"https://claude.ai/artifact/EwmjeKW4abUewm7znxnD6X","/engineering-principles":"https://claude.ai/artifact/UEJn3JNHs6gMWhVjaYPT9a","/now":"https://claude.ai/artifact/NWAFxKDy1pf5wT617NFaHZ","/404":"https://claude.ai/artifact/1rKSHAEmNatbGeEdAsQnNU"};
+  const link = (p) => LINKS[p] || (/^\/writing\/[a-z0-9-]+$/.test(p) && LINKS["/writing/*"] ? LINKS["/writing/*"] + "#" + p.slice(9) : "https://alipajand.com" + p);
+  // Diagram blocks shared by case studies and articles. Specs follow utils/diagramBlocks.ts:
+  // layers stack and light one layer at a time, compare sets a dim column beside a lit one,
+  // flow runs numbered steps that light in order and keep a check once passed.
+  const dgHead = (title, label = "Diagram") => `<figcaption class="dg__head mono"><span>[ ${esc(label)} ]</span><span>${esc(title)}</span></figcaption>`;
+  const dgCap = (caption) => caption ? `<p class="dg__cap">${esc(caption)}</p>` : "";
+  const loopIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>`;
+
+  const renderLayers = (s) => `
+    <figure class="dg dg--layers">${dgHead(s.title)}
+      <ol class="layers" data-light>${s.layers.map((l, i) => `<li><span class="mono">${pad(i)}</span><b>${esc(l.label)}</b>${l.detail ? `<span>${esc(l.detail)}</span>` : ""}</li>`).join("")}</ol>
+      ${dgCap(s.caption)}
+    </figure>`;
+
+  const renderCompare = (s) => `
+    <figure class="dg dg--compare">${dgHead(s.title)}
+      <div class="compare" style="--cols:${s.columns.length}">${s.columns.map((c) => `<div><h4>${esc(c.label)}</h4><ul>${c.items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}</div>
+      ${dgCap(s.caption)}
+    </figure>`;
+
+  // The flow sits on the light band. `wide` lays the steps out as columns once the band has room.
+  const renderFlow = (s, label = "Diagram") => `
+    <figure class="dg dg--flow" data-flow>
+      <figcaption class="dg__band-head"><span class="mono">[ ${esc(label)} ]</span><span class="dg__title">${esc(s.title)}</span></figcaption>
+      <ol class="flow" style="--steps:${s.steps.length}">${s.steps.map((st, i) => `<li><span class="mono">Step ${pad(i)}</span><b>${esc(st.label)}</b>${st.detail ? `<p>${esc(st.detail)}</p>` : ""}</li>`).join("")}</ol>
+      ${s.loop ? `<div class="flow__loop">${loopIcon}<span>${esc(s.loop)}</span></div>` : ""}
+      ${s.caption ? `<p class="flow__cap">${esc(s.caption)}</p>` : ""}
+    </figure>`;
+
+  const renderDiagram = (s, label) =>
+    s.type === "layers" ? renderLayers(s) : s.type === "compare" ? renderCompare(s) : renderFlow(s, label);
+
+  // Called every frame: lights the layer or step that matches how far the diagram has crossed the screen.
+  const lightDiagrams = (vh) => {
+    document.querySelectorAll("[data-light]").forEach((box) => {
+      const r = box.getBoundingClientRect(), items = box.children;
+      const t = clamp((vh * .75 - r.top) / (r.height + vh * .2), 0, .999);
+      const on = r.top < vh && r.bottom > 0 ? Math.floor(t * items.length) : -1;
+      [...items].forEach((el, i) => el.classList.toggle("on", i === on));
+    });
+    document.querySelectorAll("[data-flow]").forEach((fig) => {
+      const r = fig.getBoundingClientRect(), steps = fig.querySelectorAll(".flow li");
+      const t = clamp((vh * .8 - r.top) / (r.height + vh * .1), 0, .999);
+      const on = r.bottom <= 0 ? steps.length : r.top < vh ? Math.floor(t * steps.length) : -1;
+      steps.forEach((el, i) => { el.classList.toggle("on", i === on); el.classList.toggle("done", i < on); });
+    });
+  };
+
+  // Content mirrors data/engineeringPrinciples.ts.
+  const SECTIONS = [{"id":"product-clarity","title":"Start from product clarity, not code volume","paragraphs":["Before choosing an architecture, I want to know what decision the user is making and what the product must never get wrong. In LedgerGuard, that was whether a contract date came from a model or from a person confirming it against the document. That one distinction shaped the data model, the API, and the UI.","Code written before that question is answered tends to be confident in the wrong places."],"evidence":[{"label":"LedgerGuard case study","href":"/portfolio/ledgerguard"},{"label":"Truth between extraction and finance","href":"/writing/ledgerguard-truth-between-extraction-and-finance"}]},{"id":"explicit-trade-offs","title":"Make trade-offs explicit and write them down","paragraphs":["Every meaningful decision costs something. I name the decision, why it was made, what it gives up, and what result I expect, so the people building on it can disagree with the reasoning instead of guessing at it.","For library and convention changes that affect several product surfaces, that means a design doc before the change and driving its adoption afterwards, not announcing a rule and hoping it sticks."],"evidence":[{"label":"AlwaysGeeky case study","href":"/portfolio/alwaysgeeky"},{"label":"How I approach senior frontend architecture","href":"/writing/how-i-approach-senior-frontend-architecture"}]},{"id":"enforced-standards","title":"Enforce standards with tooling, not memory","paragraphs":["Conventions that only live in people's heads decay as soon as the team is busy. I put the baseline behind CI gates and run the same lint, type, and test scripts in the editor, so the feedback an engineer sees locally matches what will actually block the pull request.","That keeps review attention, the scarcest resource on a team, on design decisions and product risk instead of on drift a machine could have caught."],"evidence":[{"label":"AlwaysGeeky case study","href":"/portfolio/alwaysgeeky"},{"label":"Moving deterministic checks into the editor with MCP","href":"/writing/why-i-automate-code-review-with-mcp"}]},{"id":"components-as-apis","title":"Treat shared components as APIs","paragraphs":["A component used across four product surfaces is an interface other engineers depend on. Its states, semantics, and escape hatches belong in the contract, documented where people already look, so each surface doesn't fill the gaps differently.","Adoption comes from making the shared path easier than the local workaround and migrating incrementally, not from an all-at-once rewrite."],"evidence":[{"label":"AlwaysGeeky case study","href":"/portfolio/alwaysgeeky"},{"label":"Design systems that stick","href":"/writing/design-systems-that-stick"}]},{"id":"ai-as-acceleration","title":"AI accelerates the work; it doesn't own the decisions","paragraphs":["I use AI coding agents for planning, implementation, testing, and investigation, in structured stages and anchored to the project's real checks. Architecture, security, product judgment, and final review stay with me, because AI can generate options but it cannot own the consequences.","The same rule shapes the tooling I build: deterministic checks that make weak agent context and risky changes visible, rather than claims of autonomous review."],"evidence":[{"label":"How I use AI in my frontend workflow","href":"/writing/how-i-use-ai-in-my-frontend-engineering-workflow"},{"label":"Agent tooling case study","href":"/portfolio/agent-tooling"}]},{"id":"honest-interfaces","title":"Build honest interfaces, especially around AI","paragraphs":["The UI should make the state of the system legible instead of smoothing over uncertainty. When data is partial, stale, or inferred, the interface should say so plainly rather than borrowing confidence from the design.","AI-assisted features need an explicit boundary between suggested output and confirmed truth: review flows where people can inspect the source, correct the result, and see what remains uncertain."],"evidence":[{"label":"LedgerGuard case study","href":"/portfolio/ledgerguard"},{"label":"MapBylaw recommendations","href":"/writing/mapbylaw-ai-recommendations"}]},{"id":"visible-states","title":"Design the async and edge-case states first","paragraphs":["Loading, retrying, partial success, failure, missing data, and long-running jobs are part of the product, not temporary engineering details. I want to know where they will surface before polishing the happy path.","When those states are invisible, users guess what the system is doing, and the result is duplicate actions and fragile workflows."],"evidence":[{"label":"LedgerGuard case study","href":"/portfolio/ledgerguard"},{"label":"Designing a document review workspace","href":"/writing/how-i-would-design-a-document-review-workspace"}]},{"id":"typed-contracts","title":"Prefer typed contracts and deterministic boundaries","paragraphs":["Typed API contracts reduce accidental ambiguity between frontend, backend, and tooling. I keep deterministic logic explicit so the product stays testable even when the surrounding workflow includes probabilistic systems.","That separation makes failures easier to explain and easier to recover from."],"evidence":[{"label":"How I approach senior frontend architecture","href":"/writing/how-i-approach-senior-frontend-architecture"},{"label":"TallyFolio case study","href":"/portfolio/tallyfolio"}]},{"id":"accessibility-quality","title":"Accessibility is product quality","paragraphs":["Semantic HTML, keyboard behavior, focus management, and motion preferences are not polish passes. They decide whether the product works reliably for real people, so they belong in the shared components and their defaults rather than in each screen.","Teams that defer accessibility usually end up with weaker abstractions and more expensive rework."],"evidence":[{"label":"AlwaysGeeky case study","href":"/portfolio/alwaysgeeky"},{"label":"How I approach senior frontend architecture","href":"/writing/how-i-approach-senior-frontend-architecture"}]},{"id":"next-engineer","title":"Optimize for the next engineer, not for cleverness","paragraphs":["I would rather leave behind a system another engineer can reason about than one that looks impressive in isolation. Clear naming, bounded responsibilities, and predictable patterns outlast dense abstractions.","The same goes for how I work with people: pairing and code review on component API design, accessibility, and TypeScript patterns, so the standards live in the team and not only in me."],"evidence":[{"label":"AlwaysGeeky case study","href":"/portfolio/alwaysgeeky"},{"label":"A frontend that owns almost no truth","href":"/writing/how-i-structure-a-frontend-that-owns-almost-no-truth"}]}];
+  const href = (h) => link(h);
+  const kind = (h) => h.startsWith("/portfolio") ? "Case study" : "Writing";
+  const chev = `<span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span>`;
+
+  document.getElementById("index").innerHTML = SECTIONS.map((s, i) =>
+    `<li><a href="#${s.id}"><span class="mono">${pad(i)}</span><span>${esc(s.title)}</span></a></li>`).join("");
+  document.getElementById("list").innerHTML = SECTIONS.map((s, i) => `
+    <section class="pr" id="${s.id}" aria-labelledby="${s.id}-t">
+      <div class="pr__side"><div class="pr__stick">
+        <span class="pr__n" aria-hidden="true">${pad(i)}</span>
+        <h2 id="${s.id}-t">${esc(s.title)}</h2>
+      </div></div>
+      <div class="pr__main">
+        <div class="pr__text">${s.paragraphs.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+        <div class="ev">
+          <span class="mono">Where this shows up</span>
+          <ul>${s.evidence.map((e) => `<li><a href="${href(e.href)}"><span>${esc(e.label)}</span><small>${kind(e.href)}</small>${chev}</a></li>`).join("")}</ul>
+        </div>
+      </div>
+    </section>`).join("");
+  const run = `<div class="ticker__run">${SECTIONS.map((s, i) => `${i % 3 ? "" : `<svg><use href="#spark"/></svg>`}<span>${esc(s.title)}</span><span class="sep">///</span>`).join("")}</div>`;
+  document.getElementById("ticker").innerHTML = run + run.replace('class="ticker__run"', 'class="ticker__run" aria-hidden="true"');
+
+  // ── Hero: ten tangled lines settle, one after another, into an evenly ruled set as the hero scrolls away. ──
+  const canvas = document.getElementById("align");
+  const box = document.getElementById("alignbox");
+  const readout = document.getElementById("readout");
+  const pointer = { x: -1, y: -1 };
+  box.addEventListener("pointermove", (e) => { const r = box.getBoundingClientRect(); pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; });
+  box.addEventListener("pointerleave", () => { pointer.x = pointer.y = -1; });
+  const ease = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  let shown = -1;
+
+  const draw = (time, prog) => {
+    const { ctx, w, h } = fitCanvas(canvas);
+    ctx.clearRect(0, 0, w, h);
+    const narrow = w < 520;
+    const n = SECTIONS.length, top = 34, bottom = 64, gap = (h - top - bottom) / (n - 1);
+    const labelW = narrow ? 34 : Math.min(w * .42, 300);
+    const x0 = 16, x1 = w - 16;
+    let settled = 0;
+    for (let i = 0; i < n; i++) {
+      // Each line has its own window of the scroll; earlier principles settle first.
+      const k = ease(clamp(prog * 1.7 - i * .07, 0, 1));
+      if (k > .98) settled++;
+      const yT = top + i * gap;
+      const seed = i * 1.7;
+      ctx.beginPath();
+      for (let x = x0; x <= x1; x += 6) {
+        const u = (x - x0) / (x1 - x0);
+        const amp = Math.min(gap * 1.6, 60);
+        const tangle = (Math.sin(u * 7 + seed + time * .0006) * .6 + Math.sin(u * 17 - seed * 2 + time * .0009) * .25 + (4.5 - i) / 4.5 * .9 * Math.sin(u * 3.1 + seed)) * amp;
+        let y = yT + tangle * (1 - k);
+        if (pointer.x >= 0) {
+          const dx = x - pointer.x, dy = y - pointer.y, d2 = dx * dx + dy * dy;
+          y += Math.exp(-d2 / 1800) * 14 * (dy >= 0 ? 1 : -1);
+        }
+        x === x0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = `rgba(${LINE},${.25 + k * .6})`;
+      ctx.lineWidth = k > .98 ? 1.4 : 1;
+      ctx.stroke();
+      if (k > .6) {
+        // Label sits on a chip once the line is nearly straight.
+        const a = (k - .6) / .4;
+        ctx.font = `500 12px "Geist Mono", ui-monospace, monospace`;
+        ctx.textBaseline = "middle";
+        let t = narrow ? pad(i) : `${pad(i)}  ${SECTIONS[i].title}`;
+        while (ctx.measureText(t).width > labelW - 16 && t.length > 6) t = t.slice(0, -2).trimEnd() + "…";
+        const tw = ctx.measureText(t).width + 16;
+        ctx.globalAlpha = a;
+        ctx.fillStyle = k > .98 ? "#ecece6" : "#0f0f0e";
+        ctx.fillRect(x0 + 8, yT - 11, tw, 22);
+        ctx.strokeStyle = `rgba(${LINE},.6)`; ctx.strokeRect(x0 + 8.5, yT - 10.5, tw - 1, 21);
+        ctx.fillStyle = k > .98 ? "#0f0f0e" : "#ecece6";
+        ctx.fillText(t, x0 + 16, yT + 1);
+        ctx.globalAlpha = 1;
+      }
+    }
+    if (settled !== shown) { shown = settled; readout.textContent = `Settled ${String(settled).padStart(2, "0")} / ${n}`; }
+  };
+
+  const hero = box.closest(".hero");
+  const heroProg = () => {
+    const r = hero.getBoundingClientRect();
+    return clamp((-r.top + innerHeight * .75) / (r.height + innerHeight * .25), 0, 1);
+  };
+
+  if (reduce) {
+    const still = () => draw(0, 1);
+    still();
+    document.fonts && document.fonts.ready.then(still);
+    addEventListener("resize", still);
+    return;
+  }
+
+  const display = document.getElementById("display");
+  const [l1, l2] = display.children;
+  const prs = [...document.querySelectorAll(".pr")];
+  const idx = [...document.querySelectorAll(".index a")];
+  let heroVisible = true;
+  new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; }).observe(hero);
+  runPortal((time, { y, vh }) => {
+    // Display: the two lines start pulled toward each other and part to the edges as you scroll.
+    const free = (span) => display.clientWidth - parseFloat(getComputedStyle(display).paddingLeft) * 2 - span.offsetWidth;
+    const k = 1 - clamp(y / (vh * .6), 0, 1);
+    const star = l2.querySelector(".star");
+    l1.style.transform = `translateX(${(Math.max(0, free(l1)) * .5 * k).toFixed(1)}px)`;
+    l2.style.transform = `translateX(${(-Math.max(0, free(l2)) * .5 * k).toFixed(1)}px)`;
+    star.style.transform = `rotate(${(y * .35).toFixed(1)}deg)`;
+
+    let cur = -1;
+    prs.forEach((p, i) => { const r = p.getBoundingClientRect(); if (r.top < vh * .4 && r.bottom > vh * .4) cur = i; });
+    prs.forEach((p, i) => p.classList.toggle("on", i === cur));
+    idx.forEach((a, i) => a.classList.toggle("on", i === cur));
+
+    if (heroVisible) draw(time, heroProg());
+  });
+})();
+</script>

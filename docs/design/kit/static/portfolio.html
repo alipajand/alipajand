@@ -1,0 +1,832 @@
+<title>Ali Pajand Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ink: #0f0f0e;
+    --bone: #d8d8d3;
+    --bone-2: #c9c9c3;
+    --line: #ecece6;
+    --rule: #5b5b56;
+    --mute: #a3a39c;
+    --mute-ink: #4b4b46;
+    --display: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+    --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ink); }
+  body {
+    background: var(--ink);
+    color: var(--line);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--line); outline-offset: 3px; }
+  .frame { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+  .shell { border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); container-type: inline-size; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  canvas { display: block; }
+
+  /* ── Boxed nav ───────────────────────────── */
+  .nav {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin-top: 16px;
+  }
+  .nav > * { border-right: 1px solid var(--rule); min-height: 56px; display: flex; align-items: center; }
+  .nav > *:nth-child(3) { border-right: 0; }
+  .nav__name { padding-inline: 16px; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; text-decoration: none; }
+  .nav__links { gap: 22px; padding-inline: 20px; }
+  .nav__links a { text-decoration: none; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+  .nav__links a[aria-current], .nav__links a:hover { text-decoration: underline; text-underline-offset: 5px; }
+  .nav__cta { display: grid; grid-template-rows: 1fr 1fr; align-items: stretch; min-width: 200px; }
+  .nav__cta > * { display: flex; align-items: center; justify-content: center; padding-inline: 18px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+  .nav__cta > :first-child { border-bottom: 1px solid var(--rule); color: var(--mute); font-variant-numeric: tabular-nums; }
+  .nav__cta a { transition: background .25s, color .25s; }
+  .nav__cta a:hover { background: var(--line); color: var(--ink); }
+  .progress {
+    position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; min-height: 0 !important;
+    background: var(--line); transform-origin: left; transform: scaleX(var(--p, 0)); border: 0 !important;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line); margin-right: 9px; animation: blink 2.4s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+
+  /* ── Hero: full-width lens field ────────── */
+  .hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 500px) minmax(0, 1fr);
+    min-height: min(84vh, 860px);
+    border-bottom: 1px solid var(--rule);
+    overflow: hidden;
+  }
+  .hero__field { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero__copy {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 28px 24px 24px;
+    background: var(--ink);
+    border-right: 1px solid var(--rule);
+  }
+  .hero__eyebrow { color: var(--mute); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .hero__lede { margin: 0; max-width: 30ch; font-size: clamp(22px, 2.3vw, 32px); line-height: 1.18; font-weight: 400; text-wrap: balance; }
+  .hero__lede b { font-weight: 700; font-stretch: 112%; }
+  .hero__meta { display: grid; gap: 4px; color: var(--mute); }
+  .hero__meta strong { color: var(--line); font-weight: 500; }
+  .hero__coords { position: absolute; z-index: 1; right: 16px; top: 16px; color: var(--mute); text-align: right; display: grid; gap: 2px; font-variant-numeric: tabular-nums; }
+  .scroll-cue {
+    position: absolute; z-index: 1; right: 16px; bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+    background: var(--ink); padding: 6px 10px; border: 1px solid var(--rule);
+  }
+  .scroll-cue i { display: block; width: 1px; height: 18px; background: var(--line); transform-origin: top; animation: cue 1.8s ease-in-out infinite; }
+  @keyframes cue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+  /* ── Ticker (offset driven by scroll velocity) ── */
+  .ticker { overflow: hidden; border-bottom: 1px solid var(--rule); padding-block: 9px; }
+  .ticker__track { display: flex; width: max-content; will-change: transform; }
+  .ticker__run { display: flex; align-items: center; gap: 18px; padding-right: 18px; white-space: nowrap; font-style: italic; font-size: 15px; }
+  .ticker__run .sep { font-style: normal; color: var(--mute); }
+  .ticker__run svg { width: 14px; height: 14px; flex: none; }
+
+  /* ── Display word ───────────────────────── */
+  .display {
+    margin: 0;
+    padding: clamp(14px, 2.4vw, 30px) clamp(10px, 2vw, 24px);
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between; gap: .2em;
+    overflow: hidden;
+    font-family: var(--display); font-weight: 800; font-stretch: 125%;
+    font-size: 7.7cqi; line-height: .86; letter-spacing: -.01em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .display > span { display: block; will-change: transform; }
+  .display .star { width: .42em; height: .42em; flex: none; }
+
+  /* ── Light band ─────────────────────────── */
+  .band { background: var(--bone); color: var(--ink); }
+  .band .shell { border-color: var(--bone-2); }
+  .band__top, .band__body { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .band__top { border-bottom: 1px solid var(--ink); }
+  .band__label { padding: 22px 24px; border-right: 1px solid var(--ink); display: grid; gap: 14px; align-content: start; }
+  .band__label h2 { margin: 0; font-family: var(--display); font-stretch: 125%; font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 3.4vw, 50px); line-height: .92; text-wrap: balance; }
+  .band__label .mono { color: var(--mute-ink); }
+  .chevrons { display: flex; align-items: center; overflow: hidden; padding-inline: 12px; }
+  .chevrons svg { flex: none; width: clamp(48px, 7vw, 104px); height: auto; transition: opacity .3s, transform .3s; }
+  .chevrons svg path { fill: none; stroke: var(--ink); stroke-width: 7; }
+  .chevrons svg.off { opacity: .16; transform: translateX(-6px); }
+  .band__intro { padding: 28px 24px 32px; border-right: 1px solid var(--ink); display: grid; gap: 18px; align-content: start; }
+  .band__intro p { margin: 0; max-width: 46ch; font-size: 17px; line-height: 1.55; }
+  .band__intro p.small { font-size: 15px; color: var(--mute-ink); }
+  .stackwords { position: relative; overflow: hidden; min-height: 440px; }
+  .stackwords__inner {
+    position: absolute; left: -8%; top: 50%;
+    display: grid;
+    transform: translate(var(--px, 0px), -50%) rotate(var(--rot, -14deg));
+    transform-origin: left center;
+  }
+  .stackwords span { font-family: var(--display); font-weight: 900; font-stretch: 125%; font-size: clamp(44px, 7.4vw, 120px); line-height: .9; text-transform: uppercase; white-space: nowrap; }
+  .stackwords span:nth-child(even) { color: #5d5d58; }
+  .stackwords span:nth-child(odd) { padding-left: .6em; }
+  .quote { position: absolute; right: 18px; bottom: 18px; max-width: 300px; background: var(--bone); border: 1px solid var(--ink); padding: 14px 16px; display: grid; gap: 8px; }
+  .quote p { margin: 0; font-style: italic; font-size: 16px; line-height: 1.35; }
+  .quote small { color: var(--mute-ink); }
+  .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+  .pillar { padding: 22px 24px 26px; display: grid; gap: 10px; align-content: start; border-right: 1px solid var(--ink); }
+  .pillar:last-child { border-right: 0; }
+  .pillar h3 { margin: 0; font-size: 26px; line-height: 1; font-weight: 500; }
+  .pillar p { margin: 0; font-size: 15px; color: var(--mute-ink); max-width: 40ch; }
+
+  /* ── Works index ────────────────────────── */
+  .works__head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 34px 24px 18px; border-bottom: 1px solid var(--rule); }
+  .works__head h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(34px, 5.4vw, 88px); line-height: .9; }
+  .works__head p { margin: 0; color: var(--mute); }
+  .group { display: flex; justify-content: space-between; gap: 12px; padding: 12px 24px; border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .group .x { letter-spacing: .3em; overflow: hidden; white-space: nowrap; }
+  .works ol { list-style: none; margin: 0; padding: 0; }
+  .work { border-bottom: 1px solid var(--rule); }
+  .work a {
+    position: relative; isolation: isolate;
+    display: grid;
+    grid-template-columns: 64px minmax(0, 4fr) minmax(0, 5fr) minmax(0, 2fr) 72px;
+    gap: 20px; align-items: start;
+    padding: 26px 24px;
+    text-decoration: none;
+    transition: color .35s cubic-bezier(.6, .05, .2, 1);
+  }
+  .work a::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--bone); transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.6, .05, .2, 1); }
+  .work a:hover, .work a:focus-visible { color: var(--ink); }
+  .work a:hover::before, .work a:focus-visible::before { transform: scaleX(1); }
+  .work a:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .work__idx { font-family: var(--mono); font-size: 14px; padding-top: 6px; }
+  .work__name { font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(24px, 2.7vw, 42px); line-height: .95; text-wrap: balance; }
+  .work__title { display: block; margin-top: 10px; font-family: var(--sans); font-stretch: 100%; font-weight: 500; text-transform: none; font-size: 15px; line-height: 1.3; }
+  .work__sum { margin: 0; font-size: 15px; line-height: 1.55; color: var(--mute); max-width: 62ch; transition: color .35s; }
+  .work a:hover .work__sum, .work a:focus-visible .work__sum, .work a:hover .work__role, .work a:focus-visible .work__role { color: var(--mute-ink); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .tags span { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; border: 1px solid currentColor; padding: 2px 7px; border-radius: 99px; opacity: .85; }
+  .work__role { display: grid; gap: 4px; color: var(--mute); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; padding-top: 6px; transition: color .35s; }
+  .work__go { justify-self: end; padding-top: 4px; display: flex; overflow: hidden; width: 54px; }
+  .work__go svg { flex: none; width: 54px; height: 22px; transition: transform .45s cubic-bezier(.6, .05, .2, 1); }
+  .work__go path { fill: none; stroke: currentColor; stroke-width: 2.2; }
+  .work a:hover .work__go svg, .work a:focus-visible .work__go svg { transform: translateX(10px); }
+
+  /* ── Sticky scene: flat grid folds into a sphere ── */
+  .scene { position: relative; height: 260vh; border-bottom: 1px solid var(--rule); }
+  .scene__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .scene__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .scene__head { position: absolute; left: 24px; top: 24px; right: 24px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--mute); }
+  .scene__title { position: absolute; left: 24px; top: 58px; margin: 0; max-width: 14ch; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(26px, 3.6vw, 56px); line-height: .92; }
+  .scene__steps { position: absolute; left: 24px; right: 24px; bottom: 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--rule); background: var(--ink); }
+  .step { padding: 14px 16px; border-right: 1px solid var(--rule); display: grid; gap: 6px; opacity: .38; transition: opacity .35s; }
+  .step:last-child { border-right: 0; }
+  .step.on { opacity: 1; }
+  .step strong { font-size: 18px; font-weight: 600; }
+  .step p { margin: 0; font-size: 14px; color: var(--mute); }
+  .scene__bar { position: absolute; left: 0; top: 0; height: 2px; width: 100%; background: var(--line); transform-origin: left; transform: scaleX(var(--t, 1)); }
+
+  /* ── Contact ────────────────────────────── */
+  .contact { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); border-bottom: 1px solid var(--rule); }
+  .contact__lead { padding: 30px 24px; border-right: 1px solid var(--rule); display: grid; gap: 18px; align-content: space-between; }
+  .contact__lead h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(44px, 9cqi, 150px); line-height: .86; }
+  .contact__lead p { margin: 0; color: var(--mute); max-width: 44ch; }
+  .contact__links { padding: 30px 24px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .links { display: grid; border: 1px solid var(--rule); }
+  .links a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px; text-decoration: none; border-bottom: 1px solid var(--rule); transition: background .25s, color .25s; }
+  .links a:last-child { border-bottom: 0; }
+  .links a:hover, .links a:focus-visible { background: var(--line); color: var(--ink); }
+  .links .v { font-family: var(--mono); font-size: 13px; opacity: .75; overflow-wrap: anywhere; text-align: right; }
+
+  .foot { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); margin-bottom: 16px; }
+  .foot > * { padding: 14px 24px; border-right: 1px solid var(--rule); color: var(--mute); }
+  .foot > *:last-child { border-right: 0; text-align: right; }
+
+  /* ── Responsive ─────────────────────────── */
+  @media (max-width: 960px) {
+    .work a { grid-template-columns: 48px minmax(0, 1fr) 54px; gap: 12px 16px; }
+    .work__body { grid-column: 2 / 3; }
+    .work__role { grid-column: 2 / 3; grid-row: 3; }
+    .work__go { grid-column: 3; grid-row: 1; }
+  }
+  @media (max-width: 760px) {
+    .nav { grid-template-columns: minmax(0, 1fr) auto; }
+    .nav > *:nth-child(2) { border-right: 0; }
+    .nav__links { grid-column: 1 / -1; grid-row: 2; border-top: 1px solid var(--rule); min-height: 46px; justify-content: space-between; gap: 8px; padding-inline: 16px; }
+    .nav__links a { font-size: 12px; letter-spacing: .06em; white-space: nowrap; }
+    .nav__cta { min-width: 0; border-right: 0 !important; }
+    .nav__cta > * { padding-inline: 12px; }
+    .nav__name { padding-inline: 12px; font-size: 13px; }
+    .hero, .band__top, .band__body, .contact { grid-template-columns: minmax(0, 1fr); }
+    .hero { grid-template-rows: auto 380px; min-height: 0; }
+    .hero__copy, .band__label, .band__intro, .contact__lead { border-right: 0; }
+    .hero__copy { border-bottom: 1px solid var(--rule); padding: 22px 16px; }
+    .hero__coords { display: none; }
+    .band__label { border-bottom: 1px solid var(--ink); padding: 20px 16px; }
+    .chevrons { padding-block: 10px; }
+    .band__intro { border-bottom: 1px solid var(--ink); padding: 22px 16px; }
+    .stackwords { min-height: 360px; }
+    .quote { left: 16px; right: 16px; max-width: none; }
+    .pillars { grid-template-columns: minmax(0, 1fr); }
+    .pillar { border-right: 0; border-bottom: 1px solid var(--ink); padding: 18px 16px; }
+    .pillar:last-child { border-bottom: 0; }
+    .works__head, .group { padding-inline: 16px; }
+    .work a { padding: 22px 16px; grid-template-columns: 36px minmax(0, 1fr) 40px; }
+    .work__go, .work__go svg { width: 40px; }
+    .scene { height: 220vh; }
+    .scene__head, .scene__title { left: 16px; right: 16px; }
+    .scene__title { font-size: 7.2cqi; max-width: none; }
+    .scene__steps { left: 16px; right: 16px; bottom: 16px; grid-template-columns: minmax(0, 1fr); }
+    .step { border-right: 0; border-bottom: 1px solid var(--rule); padding: 10px 14px; }
+    .step:last-child { border-bottom: 0; }
+    .step p { display: none; }
+    .step.on p { display: block; }
+    .contact__lead { border-bottom: 1px solid var(--rule); padding: 24px 16px; }
+    .contact__links { padding: 24px 16px; }
+    .foot { grid-template-columns: minmax(0, 1fr); }
+    .foot > * { border-right: 0; border-bottom: 1px solid var(--rule); padding-inline: 16px; text-align: left !important; }
+    .foot > *:last-child { border-bottom: 0; }
+    .display { font-size: 7.9cqi; padding-inline: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .ticker__run[aria-hidden] { display: none; }
+    .ticker__track { width: auto; }
+    .ticker__run { white-space: normal; flex-wrap: wrap; row-gap: 4px; }
+    .scene { height: auto; }
+    .scene__stage { position: relative; height: 640px; }
+    .step { opacity: 1; }
+    .step p { display: block !important; }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="spark" viewBox="0 0 20 20"><path d="M10 0 C10.6 7 13 9.4 20 10 C13 10.6 10.6 13 10 20 C9.4 13 7 10.6 0 10 C7 9.4 9.4 7 10 0Z" fill="currentColor"/></symbol>
+    <symbol id="ring" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10" cy="10" r="4.5"/><ellipse cx="10" cy="10" rx="9" ry="3" transform="rotate(-20 10 10)"/></g></symbol>
+  </defs>
+</svg>
+
+<div class="frame">
+  <div class="shell">
+    <header class="nav" aria-label="Site">
+      <a class="nav__name" href="https://alipajand.com">Ali Pajand</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="https://alipajand.com/portfolio" aria-current="page">Work</a>
+        <a href="https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB">Writing</a>
+        <a href="https://claude.ai/artifact/31CgkES3BDjxyGvxFQ2FNa">Open source</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav__cta">
+        <span><span class="dot" aria-hidden="true"></span>Open to roles</span>
+        <a href="https://calendly.com/alipajand/intro">Book a call</a>
+      </div>
+      <span class="progress" aria-hidden="true" id="progress"></span>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-lede">
+      <canvas class="hero__field" id="field" aria-hidden="true"></canvas>
+      <div class="hero__copy">
+        <div class="hero__eyebrow mono"><span>[ Portfolio ]</span><span>2018 — 2026</span></div>
+        <p class="hero__lede" id="hero-lede"><b>Senior Software Engineer.</b> Frontend architecture, design systems, and full-stack product work, from the first architecture call to production.</p>
+        <div class="hero__meta mono">
+          <span><strong>React · TypeScript · Next.js · Node.js</strong></span>
+          <span>Montreal, Canada · 9+ years</span>
+        </div>
+      </div>
+      <div class="hero__coords mono" aria-hidden="true"><span>45.5017° N</span><span>73.5673° W</span></div>
+      <div class="scroll-cue mono" aria-hidden="true"><i></i>Scroll</div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" data-dir="1">
+        <div class="ticker__run">
+          <span>Full-stack product engineering</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>React · Next.js · TypeScript</span><span class="sep">///</span>
+          <span>Node.js · Fastify · PostgreSQL · background jobs</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>Design systems as product infrastructure</span><span class="sep">///</span>
+        </div>
+        <div class="ticker__run" aria-hidden="true">
+          <span>Full-stack product engineering</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>React · Next.js · TypeScript</span><span class="sep">///</span>
+          <span>Node.js · Fastify · PostgreSQL · background jobs</span><span class="sep">///</span>
+          <svg><use href="#ring"/></svg><span>Design systems as product infrastructure</span><span class="sep">///</span>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="display" id="display">
+      <span>Selected</span>
+      <svg class="star" viewBox="0 0 20 20" aria-hidden="true"><use href="#spark"/></svg>
+      <span>Work</span>
+    </h1>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" data-dir="-1">
+        <div class="ticker__run">
+          <span>Explicit async, error, and empty states</span><span class="sep">///</span>
+          <svg><use href="#spark"/></svg><span>Accessible by default</span><span class="sep">///</span>
+          <span>Tests and CI as guardrails</span><span class="sep">///</span>
+          <svg><use href="#spark"/></svg><span>AI as acceleration, not authority</span><span class="sep">///</span>
+        </div>
+        <div class="ticker__run" aria-hidden="true">
+          <span>Explicit async, error, and empty states</span><span class="sep">///</span>
+          <svg><use href="#spark"/></svg><span>Accessible by default</span><span class="sep">///</span>
+          <span>Tests and CI as guardrails</span><span class="sep">///</span>
+          <svg><use href="#spark"/></svg><span>AI as acceleration, not authority</span><span class="sep">///</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="band" aria-labelledby="band-title">
+  <div class="frame">
+    <div class="shell">
+      <div class="band__top">
+        <div class="band__label">
+          <span class="mono">[ How to read this index ]</span>
+          <h2 id="band-title">Ordered by how much each one shows</h2>
+        </div>
+        <div class="chevrons" id="chevrons" aria-hidden="true">
+          <svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg>
+          <svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg>
+          <svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg>
+          <svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg>
+          <svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg>
+          <svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg>
+          <svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg>
+          <svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg>
+          <svg viewBox="0 0 40 60"><path d="M6 4 L32 30 L6 56"/></svg>
+        </div>
+      </div>
+      <div class="band__body">
+        <div class="band__intro">
+          <p>Nine-plus years of production web work, with frontend architecture as the specialization: React, Next.js, TypeScript, shared component systems, accessibility, and rendering performance in interfaces dense enough that those things decide whether the product is usable.</p>
+          <p class="small">Each write-up covers the problem, what I owned, the decisions that mattered, and what I traded away to get there. I use AI coding agents for implementation, testing, and investigation, and keep architecture, security, and final review on my side of the line.</p>
+        </div>
+        <div class="stackwords" aria-hidden="true">
+          <div class="stackwords__inner" id="stackwords">
+            <span>React</span><span>Next.js</span><span>TypeScript</span><span>Node.js</span><span>PostgreSQL</span>
+          </div>
+          <div class="quote">
+            <p>“AI as acceleration, not authority.”</p>
+            <small class="mono">— Operating principle</small>
+          </div>
+        </div>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <span class="mono">[ 01 ]</span>
+          <h3>Own the whole stack</h3>
+          <p>One product, built alone, from the Next.js App Router frontend through the Fastify API, PostgreSQL schema, and queue-backed document pipeline.</p>
+        </div>
+        <div class="pillar">
+          <span class="mono">[ 02 ]</span>
+          <h3>Build shared systems</h3>
+          <p>One React and TypeScript library under four product surfaces, with the conventions and CI gates that kept them consistent.</p>
+        </div>
+        <div class="pillar">
+          <span class="mono">[ 03 ]</span>
+          <h3>Check before merge</h3>
+          <p>Deterministic tools that turn repository readiness and pull-request risk into checks you run in CI rather than assume.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="frame">
+  <div class="shell">
+    <section class="works" aria-labelledby="works-title">
+      <div class="works__head">
+        <h2 id="works-title">Case studies</h2>
+        <p class="mono">7 projects · 2018 — present</p>
+      </div>
+
+      <div class="group mono"><span>Lead</span><span class="x" aria-hidden="true">××××××××××××</span><span>[3]</span></div>
+      <ol>
+        <li class="work"><a href="https://claude.ai/artifact/4sdB8697b2qpfmQArEkZ6v">
+          <span class="work__idx">[01]</span>
+          <span class="work__name">LedgerGuard<span class="work__title">Full-Stack AI Contract Intelligence</span></span>
+          <div class="work__body"><p class="work__sum">A multi-tenant contract-intelligence SaaS built alone across the Next.js App Router product, Fastify API, PostgreSQL schema, authentication, billing, and a queue-backed document pipeline. Probabilistic extraction never becomes confirmed contract data without a human reviewing the evidence.</p>
+            <span class="tags"><span>Next.js</span><span>Fastify</span><span>PostgreSQL</span><span>Redis/BullMQ</span><span>AI</span></span></div>
+          <span class="work__role"><span>Senior Product Engineer</span><span>2026 — Present</span></span>
+          <span class="work__go" aria-hidden="true"><svg viewBox="0 0 54 22"><path d="M2 2 L11 11 L2 20 M16 2 L25 11 L16 20 M30 2 L39 11 L30 20"/></svg></span>
+        </a></li>
+        <li class="work"><a href="https://alipajand.com/portfolio/alwaysgeeky">
+          <span class="work__idx">[02]</span>
+          <span class="work__name">AlwaysGeeky Games<span class="work__title">Shared Design System &amp; Frontend Standards</span></span>
+          <div class="work__body"><p class="work__sum">Four product surfaces, one React and TypeScript component library. Built, owned, and documented in Storybook, with component APIs, accessibility defaults, TypeScript and review rules, and CI gates that caught drift before it shipped.</p>
+            <span class="tags"><span>React</span><span>Next.js</span><span>Storybook</span><span>GraphQL</span><span>Accessibility</span></span></div>
+          <span class="work__role"><span>Senior Frontend Engineer</span><span>2024 — 2026</span></span>
+          <span class="work__go" aria-hidden="true"><svg viewBox="0 0 54 22"><path d="M2 2 L11 11 L2 20 M16 2 L25 11 L16 20 M30 2 L39 11 L30 20"/></svg></span>
+        </a></li>
+        <li class="work"><a href="https://alipajand.com/portfolio/emplifi">
+          <span class="work__idx">[03]</span>
+          <span class="work__name">Emplifi<span class="work__title">Enterprise Analytics</span></span>
+          <div class="work__body"><p class="work__sum">Data-heavy React, TypeScript, and D3.js analytics modules assembled from shared accessible components, running in desktop browsers and embedded mobile webviews, with rendering work profiled on the webview path.</p>
+            <span class="tags"><span>React</span><span>D3.js</span><span>Design systems</span><span>Performance</span></span></div>
+          <span class="work__role"><span>Senior Frontend Engineer</span><span>2022 — 2023</span></span>
+          <span class="work__go" aria-hidden="true"><svg viewBox="0 0 54 22"><path d="M2 2 L11 11 L2 20 M16 2 L25 11 L16 20 M30 2 L39 11 L30 20"/></svg></span>
+        </a></li>
+      </ol>
+
+      <div class="group mono"><span>Supporting</span><span class="x" aria-hidden="true">××××××××××××</span><span>[3]</span></div>
+      <ol start="4">
+        <li class="work"><a href="https://alipajand.com/portfolio/agent-tooling">
+          <span class="work__idx">[04]</span>
+          <span class="work__name">Agent Engineering Tools<span class="work__title">Deterministic AI-Agent Developer Tools</span></span>
+          <div class="work__body"><p class="work__sum">Three TypeScript CLIs and a GitHub Action that make repository readiness, agent instruction and settings quality, and pull-request risk into things you check in CI. Now with an MCP server, a portable skill, and editor plugins.</p>
+            <span class="tags"><span>TypeScript</span><span>CLI</span><span>GitHub Actions</span><span>Developer Experience</span></span></div>
+          <span class="work__role"><span>Independent</span><span>Ongoing</span></span>
+          <span class="work__go" aria-hidden="true"><svg viewBox="0 0 54 22"><path d="M2 2 L11 11 L2 20 M16 2 L25 11 L16 20 M30 2 L39 11 L30 20"/></svg></span>
+        </a></li>
+        <li class="work"><a href="https://alipajand.com/portfolio/tallyfolio">
+          <span class="work__idx">[05]</span>
+          <span class="work__name">TallyFolio<span class="work__title">Privacy-first personal finance tracker</span></span>
+          <div class="work__body"><p class="work__sum">A manual-first full-stack PWA with deterministic money math, CSV import review, forecasting, and production auth, built without asking anyone to hand over bank credentials.</p>
+            <span class="tags"><span>Full-stack product</span><span>Financial correctness</span><span>Privacy boundaries</span></span></div>
+          <span class="work__role"><span>Founder · Product Engineer · Designer</span><span>Independent</span></span>
+          <span class="work__go" aria-hidden="true"><svg viewBox="0 0 54 22"><path d="M2 2 L11 11 L2 20 M16 2 L25 11 L16 20 M30 2 L39 11 L30 20"/></svg></span>
+        </a></li>
+        <li class="work"><a href="https://alipajand.com/portfolio/controltech">
+          <span class="work__idx">[06]</span>
+          <span class="work__name">ControlTech<span class="work__title">Startup Studio Frontend Delivery</span></span>
+          <div class="work__body"><p class="work__sum">Four years across early-stage SaaS products, dashboards, and PWAs taken from MVP to production: multi-step workflows, validation, async state, and the Playwright, Cypress, and Jest coverage that made repeated releases survivable.</p>
+            <span class="tags"><span>React</span><span>PWA</span><span>Testing</span><span>CI/CD</span></span></div>
+          <span class="work__role"><span>Frontend Engineer</span><span>2018 — 2022</span></span>
+          <span class="work__go" aria-hidden="true"><svg viewBox="0 0 54 22"><path d="M2 2 L11 11 L2 20 M16 2 L25 11 L16 20 M30 2 L39 11 L30 20"/></svg></span>
+        </a></li>
+      </ol>
+
+      <div class="group mono"><span>Experiment</span><span class="x" aria-hidden="true">××××××××××××</span><span>[1]</span></div>
+      <ol start="7">
+        <li class="work"><a href="https://alipajand.com/portfolio/mapbylaw">
+          <span class="work__idx">[07]</span>
+          <span class="work__name">MapBylaw<span class="work__title">AI-Assisted Zoning Exploration</span></span>
+          <div class="work__body"><p class="work__sum">A zoning and property-feasibility experiment for Montreal: map-led exploration, and AI recommendations bound to one typed contract shared by the Fastify API, React dashboard, and React-PDF report. Out-of-schema output is rejected, not cleaned up.</p>
+            <span class="tags"><span>AI product UI</span><span>Typed API contracts</span><span>React-PDF</span></span></div>
+          <span class="work__role"><span>Independent</span><span>Product experiment</span></span>
+          <span class="work__go" aria-hidden="true"><svg viewBox="0 0 54 22"><path d="M2 2 L11 11 L2 20 M16 2 L25 11 L16 20 M30 2 L39 11 L30 20"/></svg></span>
+        </a></li>
+      </ol>
+    </section>
+
+    <section class="scene" id="scene" aria-labelledby="scene-title">
+      <div class="scene__stage">
+        <canvas class="scene__canvas" id="sceneCanvas" aria-hidden="true"></canvas>
+        <span class="scene__bar" aria-hidden="true" id="sceneBar"></span>
+        <div class="scene__head mono"><span>[ Operating model ]</span><span id="sceneReadout">fold 100%</span></div>
+        <h2 class="scene__title" id="scene-title">Design systems as product infrastructure</h2>
+        <div class="scene__steps">
+          <div class="step on"><span class="mono">[ 01 ] Parts</span><strong>Laid out flat</strong><p>Components, tokens, and states, each defined once.</p></div>
+          <div class="step on"><span class="mono">[ 02 ] Contract</span><strong>Pulled together</strong><p>Shared APIs and accessibility defaults hold them in shape.</p></div>
+          <div class="step on"><span class="mono">[ 03 ] System</span><strong>One library</strong><p>Enforced in CI, under every product surface.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact__lead">
+        <span class="mono" style="color:var(--mute)">[ Next step ]</span>
+        <h2 id="contact-title">Let’s talk</h2>
+        <p>Open to full-stack, senior frontend, and product engineering roles. Based in Montreal, open to remote work within Canada.</p>
+      </div>
+      <div class="contact__links">
+        <div class="links">
+          <a href="https://calendly.com/alipajand/intro"><span>Book an intro call</span><span class="v">calendly.com/alipajand/intro</span></a>
+          <a href="https://linkedin.com/in/alipajand"><span>LinkedIn</span><span class="v">linkedin.com/in/alipajand</span></a>
+          <a href="https://github.com/alipajand"><span>GitHub</span><span class="v">github.com/alipajand</span></a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot mono">
+      <span>Ali Pajand</span>
+      <span>Montreal, Canada</span>
+      <span>alipajand.com · 2026</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const ease = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const LINE = "236,236,230";
+
+  const fitCanvas = (c) => {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const w = c.clientWidth, h = c.clientHeight;
+    if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) {
+      c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+    }
+    const ctx = c.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx, w, h };
+  };
+
+  // ── Hero: the stack, from the first architecture call to production ──
+  // Six isometric plates; scroll pulls them apart, a signal travels down through each one.
+  const field = document.getElementById("field");
+  const hero = field.parentElement;
+  const copyEl = hero.querySelector(".hero__copy");
+  const pointer = { x: 0, y: 0, sx: 0, sy: 0 };
+  hero.addEventListener("pointermove", (e) => {
+    const r = hero.getBoundingClientRect();
+    pointer.x = (e.clientX - r.left) / r.width - .5;
+    pointer.y = (e.clientY - r.top) / r.height - .5;
+  });
+  hero.addEventListener("pointerleave", () => { pointer.x = 0; pointer.y = 0; });
+
+  const LAYERS = [
+    { name: "Architecture call", stack: "Product + system design", kind: "arch" },
+    { name: "Interface", stack: "React · Next.js · TypeScript", kind: "ui" },
+    { name: "Design system", stack: "Components · tokens · a11y", kind: "ds" },
+    { name: "API", stack: "Node.js · Fastify", kind: "api" },
+    { name: "Data + jobs", stack: "PostgreSQL · background jobs", kind: "data" },
+    { name: "Production", stack: "Tests · CI · release", kind: "prod" },
+  ];
+
+  const drawField = (time) => {
+    const { ctx, w, h } = fitCanvas(field);
+    ctx.clearRect(0, 0, w, h);
+    const narrow = w < 760;
+    const p = clamp(scrollY / Math.max(h, 1), 0, 1.2);
+    pointer.sx += (pointer.x - pointer.sx) * .06;
+    pointer.sy += (pointer.y - pointer.sy) * .06;
+
+    // Faint backdrop rules.
+    ctx.strokeStyle = `rgba(${LINE},.07)`; ctx.lineWidth = 1; ctx.beginPath();
+    for (let x = 12; x < w; x += 24) { ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h); }
+    ctx.stroke();
+
+    const copyW = narrow ? 0 : copyEl.offsetWidth;
+    const top = narrow ? copyEl.offsetHeight : 0;
+    const areaW = w - copyW, areaH = h - top;
+    // Measure the label column, then size the stack to fit beside it.
+    const nameFont = `500 ${narrow ? 11 : 12}px "Geist Mono", ui-monospace, monospace`;
+    const stackFont = `400 12px "Archivo", Arial, sans-serif`;
+    ctx.font = nameFont;
+    let labelW = Math.max(...LAYERS.map((L, i) => ctx.measureText(narrow ? L.name.toUpperCase() : `[0${i + 1}] ${L.name.toUpperCase()}`).width));
+    if (!narrow) { ctx.font = stackFont; labelW = Math.max(labelW, ...LAYERS.map((L) => ctx.measureText(L.stack).width)); }
+    const lead = narrow ? 14 : 28;
+    const S = clamp((areaW - labelW - lead - 48) / 3.7, 34, narrow ? 60 : 118);
+    const gap = (narrow ? clamp(areaH * .1, 30, 40) : clamp(areaH * .085, 44, 70)) * (1 + p * .85);
+    const blockW = 3.46 * S + lead + labelW;
+    const cx = copyW + Math.max(16, (areaW - blockW) / 2) + 1.73 * S + pointer.sx * 24;
+    const cyMid = top + areaH * .5 + pointer.sy * 16 - p * gap * .6;
+    const th = p * .55 + pointer.sx * .35 + Math.sin(time * .0003) * .035;
+    const ct = Math.cos(th), st = Math.sin(th);
+
+    const plates = LAYERS.map((L, i) => ({ ...L, i, cy: cyMid + (i - 2.5) * gap, dx: (i - 2.5) * p * 14 }));
+    const iso = (pl, x, z, lift = 0) => {
+      const xr = x * ct - z * st, zr = x * st + z * ct;
+      return [cx + pl.dx + (xr - zr) * .866, pl.cy + (xr + zr) * .5 + lift];
+    };
+    const poly = (pl, pts, lift = 0) => {
+      ctx.beginPath();
+      pts.forEach(([x, z], k) => { const [X, Y] = iso(pl, x, z, lift); k ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); });
+      ctx.closePath();
+    };
+    const seg = (pl, x1, z1, x2, z2) => {
+      const [a, b] = iso(pl, x1, z1), [c, d] = iso(pl, x2, z2);
+      ctx.moveTo(a, b); ctx.lineTo(c, d);
+    };
+    const rect = (pl, x1, z1, x2, z2) => { seg(pl, x1, z1, x2, z1); seg(pl, x2, z1, x2, z2); seg(pl, x2, z2, x1, z2); seg(pl, x1, z2, x1, z1); };
+    const ring = (pl, x, z, r) => {
+      for (let k = 0; k <= 36; k++) {
+        const a = k / 36 * Math.PI * 2, [X, Y] = iso(pl, x + Math.cos(a) * r, z + Math.sin(a) * r);
+        k ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y);
+      }
+    };
+
+    // Signal position: drifts on its own, scroll pushes it toward production.
+    const sig = ((time * .00012) + p * 1.4) % 1 * (LAYERS.length - 1);
+    const active = Math.round(sig);
+
+    const corners = [[-S, -S], [S, -S], [S, S], [-S, S]];
+    const pattern = (pl) => {
+      const s = S, k = s / 100;
+      ctx.beginPath();
+      if (pl.kind === "arch") {
+        ctx.setLineDash([4, 4]);
+        rect(pl, -70 * k, -60 * k, -15 * k, -20 * k); rect(pl, 15 * k, -60 * k, 70 * k, -20 * k); rect(pl, -30 * k, 20 * k, 30 * k, 65 * k);
+        seg(pl, -42 * k, -20 * k, -10 * k, 20 * k); seg(pl, 42 * k, -20 * k, 10 * k, 20 * k);
+      } else if (pl.kind === "ui") {
+        rect(pl, -78 * k, -78 * k, 78 * k, -56 * k); rect(pl, -78 * k, -46 * k, -40 * k, 78 * k);
+        for (let r = 0; r < 2; r++) for (let c = 0; c < 2; c++) rect(pl, (-30 + c * 55) * k, (-46 + r * 64) * k, (18 + c * 55) * k, (8 + r * 64) * k);
+      } else if (pl.kind === "ds") {
+        for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
+          const x = (-60 + c * 40) * k, z = (-60 + r * 40) * k;
+          (r + c) % 2 ? rect(pl, x - 11 * k, z - 11 * k, x + 11 * k, z + 11 * k) : (ctx.moveTo(...iso(pl, x + 12 * k, z)), ring(pl, x, z, 12 * k));
+        }
+      } else if (pl.kind === "api") {
+        const nodes = [[-62, -50], [62, -50], [-62, 50], [62, 50], [0, -72], [0, 72]];
+        nodes.forEach(([x, z]) => { seg(pl, 0, 0, x * k, z * k); ctx.moveTo(...iso(pl, (x + 9) * k, z * k)); ring(pl, x * k, z * k, 9 * k); });
+        ctx.moveTo(...iso(pl, 18 * k, 0)); ring(pl, 0, 0, 18 * k);
+      } else if (pl.kind === "data") {
+        rect(pl, -78 * k, -78 * k, 30 * k, 78 * k);
+        for (let r = 1; r < 6; r++) seg(pl, -78 * k, (-78 + r * 26) * k, 30 * k, (-78 + r * 26) * k);
+        seg(pl, -40 * k, -78 * k, -40 * k, 78 * k);
+        for (let q = 0; q < 4; q++) rect(pl, 46 * k, (-70 + q * 38) * k, 78 * k, (-44 + q * 38) * k);
+      } else {
+        [26, 50, 74].forEach((r) => { ctx.moveTo(...iso(pl, r * k, 0)); ring(pl, 0, 0, r * k); });
+        seg(pl, -14 * k, 0, -3 * k, 12 * k); seg(pl, -3 * k, 12 * k, 18 * k, -14 * k);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+    };
+
+    // Lower plates first so upper plates sit in front.
+    for (let i = plates.length - 1; i >= 0; i--) {
+      const pl = plates[i], on = i === active;
+      const thick = narrow ? 4 : 6;
+      // Slab edge.
+      ctx.strokeStyle = `rgba(${LINE},${on ? .7 : .3})`; ctx.lineWidth = 1;
+      poly(pl, corners, thick); ctx.fillStyle = "#0f0f0e"; ctx.fill(); ctx.stroke();
+      ctx.beginPath();
+      corners.forEach(([x, z]) => { const [X, Y] = iso(pl, x, z); ctx.moveTo(X, Y); ctx.lineTo(X, Y + thick); });
+      ctx.stroke();
+      // Top face.
+      poly(pl, corners);
+      ctx.fillStyle = on ? "#1b1b19" : "#0f0f0e"; ctx.fill();
+      ctx.strokeStyle = `rgba(${LINE},${on ? 1 : .6})`; ctx.lineWidth = on ? 1.4 : 1; ctx.stroke();
+      ctx.strokeStyle = `rgba(${LINE},${on ? .95 : .35})`; ctx.lineWidth = 1;
+      pattern(pl);
+    }
+
+    // The thread from first call to production, and the signal on it.
+    ctx.strokeStyle = `rgba(${LINE},.55)`; ctx.setLineDash([2, 5]); ctx.beginPath();
+    plates.forEach((pl, i) => { const [X, Y] = iso(pl, 0, 0); i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); });
+    ctx.stroke(); ctx.setLineDash([]);
+    const a = plates[Math.floor(sig)], b = plates[Math.min(Math.floor(sig) + 1, plates.length - 1)], f = sig % 1;
+    const [ax, ay] = iso(a, 0, 0), [bx, by] = iso(b, 0, 0);
+    const sx = ax + (bx - ax) * f, sy = ay + (by - ay) * f;
+    ctx.fillStyle = `rgba(${LINE},.18)`; ctx.beginPath(); ctx.arc(sx, sy, 11, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = `rgba(${LINE},1)`; ctx.beginPath(); ctx.arc(sx, sy, 4, 0, Math.PI * 2); ctx.fill();
+
+    // Labels in an aligned column to the right of the stack.
+    const rightOf = (pl) => corners.map(([x, z]) => iso(pl, x, z)).reduce((m, c) => c[0] > m[0] ? c : m);
+    const colX = Math.min(Math.max(...plates.map((pl) => rightOf(pl)[0])) + lead, w - labelW - 12);
+    plates.forEach((pl, i) => {
+      const on = i === active, [rx, ry] = rightOf(pl);
+      ctx.strokeStyle = `rgba(${LINE},${on ? .9 : .3})`; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(rx + 4, ry); ctx.lineTo(colX - 6, ry); ctx.stroke();
+      ctx.fillStyle = `rgba(${LINE},${on ? 1 : .62})`;
+      ctx.font = nameFont;
+      ctx.textBaseline = "middle";
+      ctx.fillText(narrow ? pl.name.toUpperCase() : `[0${i + 1}] ${pl.name.toUpperCase()}`, colX, ry - (narrow ? 0 : 7));
+      if (!narrow) {
+        ctx.fillStyle = `rgba(163,163,156,${on ? 1 : .7})`;
+        ctx.font = stackFont;
+        ctx.fillText(pl.stack, colX, ry + 10);
+      }
+    });
+  };
+
+  // ── Scene: a flat grid folds into a sphere as you scroll through it ──
+  const scene = document.getElementById("scene");
+  const sceneCanvas = document.getElementById("sceneCanvas");
+  const steps = [...scene.querySelectorAll(".step")];
+  const readout = document.getElementById("sceneReadout");
+  const bar = document.getElementById("sceneBar");
+  const LAT = 16, LON = 44;
+  const drawScene = (t, time) => {
+    const { ctx, w, h } = fitCanvas(sceneCanvas);
+    ctx.clearRect(0, 0, w, h);
+    const e = ease(clamp(t, 0, 1));
+    const f = Math.min(Math.max(w * .42, h * .62), w * 1.05);
+    const camZ = 4.2;
+    const rotY = e * Math.PI * 1.25 + time * .00012 * e;
+    const tilt = .68 - e * .5;
+    const sR = 1.35;
+    const cosY = Math.cos(rotY), sinY = Math.sin(rotY), cosX = Math.cos(tilt), sinX = Math.sin(tilt);
+    const cy0 = h * ((w < 760 ? .45 : .5) + (1 - e) * .06);
+    const pts = [];
+    for (let i = 0; i <= LAT; i++) {
+      const row = [];
+      const phi = -Math.PI / 2 + Math.PI * i / LAT;
+      for (let j = 0; j <= LON; j++) {
+        const th = Math.PI * 2 * j / LON;
+        const sx = sR * Math.cos(phi) * Math.sin(th), sy = sR * Math.sin(phi), sz = sR * Math.cos(phi) * Math.cos(th);
+        const px = (j / LON - .5) * 7.6, py = .75, pz = (i / LAT - .5) * 5;
+        let x = px + (sx - px) * e, y = py + (sy - py) * e, z = pz + (sz - pz) * e;
+        const x1 = x * cosY + z * sinY, z1 = -x * sinY + z * cosY;
+        const y2 = y * cosX - z1 * sinX, z2 = y * sinX + z1 * cosX;
+        const s = f / (camZ - z2);
+        row.push([w / 2 + x1 * s, cy0 + y2 * s, z2]);
+      }
+      pts.push(row);
+    }
+    const buckets = [new Path2D(), new Path2D(), new Path2D(), new Path2D()];
+    const seg = (a, b) => {
+      const k = clamp(Math.floor(((a[2] + b[2]) / 2 + 2.2) / 4.4 * 4), 0, 3);
+      buckets[k].moveTo(a[0], a[1]); buckets[k].lineTo(b[0], b[1]);
+    };
+    for (let i = 0; i <= LAT; i++) for (let j = 0; j < LON; j++) seg(pts[i][j], pts[i][j + 1]);
+    for (let j = 0; j <= LON; j++) for (let i = 0; i < LAT; i++) seg(pts[i][j], pts[i + 1][j]);
+    buckets.forEach((path, k) => {
+      ctx.strokeStyle = `rgba(${LINE},${[.14, .3, .55, .9][k]})`;
+      ctx.lineWidth = k === 3 ? 1.2 : 1;
+      ctx.stroke(path);
+    });
+    const pct = Math.round(e * 100);
+    readout.textContent = `fold ${String(pct).padStart(3, "0")}%`;
+    bar.style.setProperty("--t", clamp(t, 0, 1).toFixed(3));
+    const active = t < .34 ? 0 : t < .67 ? 1 : 2;
+    steps.forEach((s, k) => s.classList.toggle("on", reduce || k === active));
+  };
+
+  const sizeAll = (time = 0) => {
+    drawField(time);
+    drawScene(reduce ? 1 : sceneProgress(), time);
+  };
+  const sceneProgress = () => {
+    const r = scene.getBoundingClientRect();
+    return clamp(-r.top / Math.max(r.height - innerHeight, 1), 0, 1);
+  };
+
+  if (reduce) {
+    sizeAll();
+    document.fonts && document.fonts.ready.then(() => sizeAll());
+    addEventListener("resize", () => sizeAll());
+    return;
+  }
+
+  // ── Scroll-linked motion everywhere else ──
+  const tracks = [...document.querySelectorAll(".ticker__track")].map((el) => ({ el, dir: +el.dataset.dir, x: 0 }));
+  const display = document.getElementById("display");
+  const [word1, star, word2] = display.children;
+  const chevrons = [...document.querySelectorAll("#chevrons svg")];
+  const chevBand = document.getElementById("chevrons");
+  const stack = document.getElementById("stackwords");
+  const progress = document.getElementById("progress");
+
+  let lastY = scrollY, vel = 0;
+  const visible = new Map();
+  const io = new IntersectionObserver((entries) => entries.forEach((en) => visible.set(en.target, en.isIntersecting)));
+  [hero, scene].forEach((el) => { visible.set(el, true); io.observe(el); });
+
+  const frame = (time) => {
+    const y = scrollY, vh = innerHeight;
+    vel += ((y - lastY) - vel) * .18; lastY = y;
+    const max = document.documentElement.scrollHeight - vh;
+    progress.style.setProperty("--p", (max > 0 ? y / max : 0).toFixed(4));
+
+    // Tickers drift on their own and surge with scroll speed, in scroll direction.
+    tracks.forEach((tr) => {
+      const half = tr.el.scrollWidth / 2;
+      tr.x -= (0.45 + Math.abs(vel) * .35) * tr.dir * (vel < -0.5 ? -1 : 1);
+      if (tr.x <= -half) tr.x += half;
+      if (tr.x > 0) tr.x -= half;
+      tr.el.style.transform = `translate3d(${tr.x.toFixed(1)}px,0,0)`;
+    });
+
+    // Display words converge as they leave the centre of the screen.
+    const dr = display.getBoundingClientRect();
+    const off = clamp(Math.abs((dr.top + dr.height / 2) - vh / 2) / (vh / 2), 0, 1);
+    const cs = getComputedStyle(display);
+    const free = display.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - word1.offsetWidth - word2.offsetWidth - star.getBoundingClientRect().width;
+    const shift = off * Math.max(0, free) * .4;
+    word1.style.transform = `translateX(${shift.toFixed(1)}px)`;
+    word2.style.transform = `translateX(${(-shift).toFixed(1)}px)`;
+    star.style.transform = `rotate(${(y * .35).toFixed(1)}deg) scale(${(1 + Math.min(Math.abs(vel), 40) * .02).toFixed(3)})`;
+
+    // Chevrons light up one by one as the band passes.
+    const cr = chevBand.getBoundingClientRect();
+    const ct = clamp((vh - cr.top) / (vh * .7), 0, 1);
+    const lit = Math.round(ct * chevrons.length);
+    chevrons.forEach((c, k) => c.classList.toggle("off", k >= lit));
+
+    // Stack words slide and straighten with scroll.
+    const sr = stack.parentElement.getBoundingClientRect();
+    const st = clamp((vh / 2 - (sr.top + sr.height / 2)) / vh, -1, 1);
+    stack.style.setProperty("--px", `${(st * -160).toFixed(1)}px`);
+    stack.style.setProperty("--rot", `${(-14 + st * 8).toFixed(2)}deg`);
+
+    if (visible.get(hero)) drawField(time);
+    if (visible.get(scene)) drawScene(sceneProgress(), time);
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+})();
+</script>

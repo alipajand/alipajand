@@ -1,0 +1,342 @@
+<title>Ali Pajand Writing</title>
+@@HEAD@@
+<style>
+@@BASE_CSS@@
+  /* Layout: hero pairs the lede with a timeline of every post by topic; list rows filter by topic. */
+  .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-bottom: 1px solid var(--rule); }
+  .hero__copy { padding: 28px 24px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 22px; }
+  .hero__eyebrow { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--mute); }
+  .hero__lede { margin: 0; font-size: clamp(23px, 2.3vw, 34px); line-height: 1.16; font-weight: 500; text-wrap: balance; max-width: 26ch; }
+  .ctas { display: grid; grid-template-columns: minmax(0, 1fr); border: 1px solid var(--rule); margin-top: auto; }
+  .ctas a { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 16px; text-decoration: none; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; transition: background .25s, color .25s; }
+  .ctas a:first-child { background: var(--line); color: var(--ink); border-bottom: 1px solid var(--rule); }
+  .ctas a:first-child:hover { background: var(--bone-2); }
+  .ctas a:last-child:hover { background: var(--line); color: var(--ink); }
+  .time { position: relative; min-height: 520px; overflow: hidden; }
+  .time canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .time__readout { position: absolute; left: 16px; right: 16px; bottom: 14px; display: flex; gap: 0; pointer-events: none; }
+  .time__readout span { background: var(--ink); border: 1px solid var(--rule); padding: 6px 10px; white-space: nowrap; }
+  .time__readout span + span { border-left: 0; overflow: hidden; text-overflow: ellipsis; min-width: 0; text-transform: none; letter-spacing: .02em; }
+
+  .name { font-size: 9.4cqi; }
+
+  /* ── Featured ── */
+  .feature { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); text-decoration: none; border-bottom: 1px solid var(--rule); transition: color .4s cubic-bezier(.6, .05, .2, 1); }
+  .feature::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--bone); transform: scaleY(0); transform-origin: bottom; transition: transform .55s cubic-bezier(.6, .05, .2, 1); }
+  .feature:hover, .feature:focus-visible { color: var(--ink); }
+  .feature:hover::before, .feature:focus-visible::before { transform: scaleY(1); }
+  .feature:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .feature__title { padding: 26px 24px; border-right: 1px solid var(--rule); display: grid; gap: 18px; align-content: start; }
+  .feature h3 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase; font-size: clamp(32px, 4.4cqi, 72px); line-height: .92; text-wrap: balance; }
+  .feature__body { padding: 26px 24px; display: flex; flex-direction: column; gap: 16px; }
+  .feature__body p { margin: 0; font-size: 18px; line-height: 1.5; max-width: 46ch; }
+  .feature .mono, .feature .tagline { color: var(--mute); transition: color .4s; }
+  .feature:hover .mono, .feature:hover .tagline, .feature:focus-visible .mono, .feature:focus-visible .tagline { color: var(--mute-ink); }
+  .feature__go { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid currentColor; }
+  .tagline { font-size: 14px; }
+
+  /* ── Why it matters (band) ── */
+  .why { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); }
+  .why__side { padding: 28px 24px; border-right: 1px solid var(--ink); }
+  .why blockquote { margin: 0; padding: 28px 24px 34px; font-size: clamp(24px, 2.8cqi, 44px); line-height: 1.14; font-weight: 500; text-wrap: balance; max-width: 34ch; }
+
+  /* ── Filters + list ── */
+  .filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 16px 24px; border-bottom: 1px solid var(--rule); }
+  .filters__label { margin-right: 8px; color: var(--mute); }
+  .chip { font: inherit; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--line); background: transparent; border: 1px solid var(--rule); border-radius: 99px; padding: 5px 11px; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+  .chip span { color: var(--mute); margin-left: 6px; }
+  .chip:hover { border-color: var(--line); }
+  .chip[aria-pressed="true"] { background: var(--line); color: var(--ink); border-color: var(--line); }
+  .chip[aria-pressed="true"] span { color: var(--mute-ink); }
+  .count { margin-left: auto; color: var(--mute); }
+  .posts { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--rule); }
+  .posts li + li { border-top: 1px solid var(--rule); }
+  .post { display: grid; grid-template-columns: 170px minmax(0, 1fr) 170px; gap: 24px; padding: 22px 24px; text-decoration: none; transition: background .3s, color .3s; }
+  .post:hover, .post:focus-visible { background: var(--line); color: var(--ink); }
+  .post:focus-visible { outline-offset: -4px; outline-color: var(--ink); }
+  .post time { font-variant-numeric: tabular-nums; padding-top: 6px; }
+  .post__main { display: grid; gap: 10px; min-width: 0; }
+  .post h3 { margin: 0; font-size: clamp(21px, 1.9vw, 28px); line-height: 1.15; font-weight: 600; letter-spacing: -.01em; text-wrap: balance; }
+  .post p { margin: 0; color: var(--mute); max-width: 72ch; line-height: 1.6; }
+  .post .mono, .post .tagline { color: var(--mute); }
+  .post:hover p, .post:hover .mono, .post:hover .tagline, .post:focus-visible p, .post:focus-visible .mono, .post:focus-visible .tagline { color: var(--mute-ink); }
+  .post__go { display: flex; justify-content: flex-end; align-items: start; gap: 10px; padding-top: 6px; white-space: nowrap; }
+  .flag { justify-self: start; border: 1px solid currentColor; border-radius: 99px; padding: 2px 9px; }
+  .post--upcoming { background-image: repeating-linear-gradient(90deg, var(--rule) 0 6px, transparent 6px 12px); background-size: 100% 1px; background-repeat: no-repeat; }
+  .empty { margin: 0; padding: 22px 24px; color: var(--mute); }
+
+  @media (max-width: 960px) {
+    .post { grid-template-columns: 130px minmax(0, 1fr); }
+    .post__go { grid-column: 2; justify-content: flex-start; }
+  }
+  @media (max-width: 760px) {
+    .name { font-size: 9.2cqi; }
+    .hero, .feature, .why { grid-template-columns: minmax(0, 1fr); }
+    .hero__copy, .feature__title, .why__side { border-right: 0; }
+    .hero__copy { padding: 22px 16px; border-bottom: 1px solid var(--rule); }
+    .time { min-height: 460px; }
+    .time__readout { left: 12px; right: 12px; bottom: 12px; }
+    .feature__title { padding: 22px 16px 8px; }
+    .feature__body { padding: 8px 16px 22px; }
+    .feature h3 { font-size: 8cqi; }
+    .why__side { padding: 22px 16px 0; }
+    .why blockquote { padding: 16px 16px 26px; font-size: 22px; }
+    .filters { padding: 14px 16px; }
+    .count { margin-left: 0; width: 100%; }
+    .post { grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 20px 16px; }
+    .post time { padding-top: 0; }
+    .post__go { grid-column: 1; }
+    .empty { padding: 20px 16px; }
+  }
+</style>
+@@CHROME@@
+<div class="frame">
+  <div class="shell">
+    @@NAV:writing@@
+    <h1 class="name" data-part>
+      <span>Writing</span>
+      <svg class="star" viewBox="0 0 20 20" aria-hidden="true"><use href="#spark"/></svg>
+      <span aria-hidden="true">2026</span>
+    </h1>
+
+    <section class="hero" aria-label="Introduction">
+      <div class="hero__copy">
+        <div class="hero__eyebrow mono"><span>[ Writing ]</span><span id="total"></span></div>
+        <p class="hero__lede">Notes on frontend architecture, design systems, trustworthy AI interfaces, developer experience, and shipping software that holds up.</p>
+        <div class="ctas">
+          <a href="#posts">Browse all posts <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+          <a href="#featured">Featured <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></a>
+        </div>
+      </div>
+      <div class="time" id="timebox" aria-hidden="true">
+        <canvas id="time"></canvas>
+        <div class="time__readout mono"><span id="read-date"></span><span id="read-title"></span></div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" data-dir="1" id="ticker"></div>
+    </div>
+
+    <section id="featured" aria-labelledby="featured-title">
+      <div class="head"><h2 id="featured-title">Featured</h2></div>
+      <div id="feature"></div>
+    </section>
+  </div>
+</div>
+
+<section class="band" aria-label="Why it matters">
+  <div class="frame">
+    <div class="shell">
+      <div class="why">
+        <div class="why__side"><span class="mono">[ Why it matters ]</span></div>
+        <blockquote>These are the closest thing to watching me think: how I reason about architecture, product constraints, data integrity, performance, and where automated systems should stop and a person should decide.</blockquote>
+      </div>
+      <div class="chevrons" id="chevrons" aria-hidden="true">@@CHEVRONS@@</div>
+    </div>
+  </div>
+</section>
+
+<div class="frame">
+  <div class="shell">
+    <section id="posts" aria-labelledby="posts-title">
+      <div class="head"><h2 id="posts-title">All posts</h2></div>
+      <div class="filters" role="group" aria-label="Filter by topic">
+        <span class="filters__label mono">Topic</span>
+        <span id="chips" style="display:contents"></span>
+        <span class="count mono" id="count" role="status"></span>
+      </div>
+      <ul class="posts" id="list"></ul>
+    </section>
+
+    <nav class="next" aria-label="More">
+      <a href="@@U_OS@@"><span class="mono">[ Tools ]</span><strong>Open source <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+      <a href="@@U_PRINCIPLES@@"><span class="mono">[ Operating model ]</span><strong>Principles <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+      <a href="@@U_HOME@@#contact"><span class="mono">[ Contact ]</span><strong>Get in touch <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+    </nav>
+    @@FOOT@@
+  </div>
+</div>
+
+<script>
+(() => {
+@@BASE_JS@@
+  // Content mirrors content/posts frontmatter, newest first.
+  const POSTS = @@POSTS_JSON@@;
+  const POST_URL = (slug) => link(`/writing/${slug}`);
+
+  // Same rule as the site: a post dated after today (Toronto) is upcoming.
+  const today = (() => {
+    const p = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date());
+    const v = (t) => p.find((x) => x.type === t).value;
+    return `${v("year")}-${v("month")}-${v("day")}`;
+  })();
+  POSTS.forEach((p) => { p.upcoming = p.date > today; });
+  const fmt = (d, opts = { year: "numeric", month: "long", day: "numeric" }) => new Date(`${d}T12:00:00Z`).toLocaleDateString("en-US", { ...opts, timeZone: "America/Toronto" });
+
+  // Topic lanes: tags matched case-insensitively, most-used first.
+  const key = (t) => t.toLowerCase();
+  const laneCount = new Map();
+  POSTS.forEach((p) => new Set(p.tags.map(key)).forEach((k) => laneCount.set(k, (laneCount.get(k) || 0) + 1)));
+  const label = new Map();
+  POSTS.forEach((p) => p.tags.forEach((t) => { if (!label.has(key(t))) label.set(key(t), t); }));
+  const LANES = [...laneCount.entries()].filter(([, n]) => n >= 4).sort((a, b) => b[1] - a[1]).map(([k]) => k);
+
+  document.getElementById("total").textContent = `${POSTS.filter((p) => !p.upcoming).length} posts`;
+  const tickerRun = `<div class="ticker__run">${LANES.map((k, i) => `${i % 2 ? "" : `<svg><use href="#ring"/></svg>`}<span>${esc(label.get(k))}</span><span class="sep">///</span>`).join("")}</div>`;
+  document.getElementById("ticker").innerHTML = tickerRun + tickerRun.replace('class="ticker__run"', 'class="ticker__run" aria-hidden="true"');
+
+  const chev = `<span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span>`;
+  const featured = POSTS.find((p) => p.featured && !p.upcoming);
+  if (featured) {
+    document.getElementById("feature").innerHTML = `
+      <a class="feature" href="${POST_URL(featured.slug)}">
+        <div class="feature__title"><span class="mono">Featured · <time datetime="${featured.date}">${fmt(featured.date)}</time></span><h3>${esc(featured.title)}</h3></div>
+        <div class="feature__body">
+          <p>${esc(featured.excerpt)}</p>
+          <span class="tagline">${featured.tags.map(esc).join(" · ")}</span>
+          <span class="feature__go mono">Read article ${chev}</span>
+        </div>
+      </a>`;
+  }
+
+  const list = document.getElementById("list");
+  const count = document.getElementById("count");
+  let filter = "all";
+  const renderList = () => {
+    const shown = POSTS.filter((p) => filter === "all" || p.tags.some((t) => key(t) === filter));
+    list.innerHTML = shown.length ? shown.map((p) => `
+      <li><article><a class="post${p.upcoming ? " post--upcoming" : ""}" href="${POST_URL(p.slug)}" data-slug="${p.slug}">
+        <time class="mono" datetime="${p.date}">${fmt(p.date)}</time>
+        <div class="post__main">
+          ${p.upcoming ? `<span class="flag mono">Upcoming</span>` : p.featured ? `<span class="mono">Featured</span>` : ""}
+          <h3>${esc(p.title)}</h3>
+          <p>${esc(p.excerpt)}</p>
+          <span class="tagline">${p.tags.map(esc).join(" · ")}</span>
+        </div>
+        <span class="post__go mono">${p.upcoming ? "Preview article" : "Read article"} ${chev}</span>
+      </a></article></li>`).join("") : `<li><p class="empty">No posts yet. Check back soon.</p></li>`;
+    count.textContent = `${shown.length} of ${POSTS.length} posts`;
+  };
+  const chips = document.getElementById("chips");
+  chips.innerHTML = [["all", "All", POSTS.length], ...LANES.map((k) => [k, label.get(k), laneCount.get(k)])]
+    .map(([k, l, n]) => `<button class="chip" type="button" data-k="${esc(k)}" aria-pressed="${k === "all"}">${esc(l)}<span>${n}</span></button>`).join("");
+  chips.addEventListener("click", (e) => {
+    const b = e.target.closest(".chip");
+    if (!b) return;
+    filter = b.dataset.k;
+    chips.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", String(c === b)));
+    renderList();
+  });
+  renderList();
+
+  // ── Hero: every post on a 2026 timeline, one row per topic. Scroll walks the cursor oldest → newest. ──
+  const canvas = document.getElementById("time");
+  const box = document.getElementById("timebox");
+  const readDate = document.getElementById("read-date");
+  const readTitle = document.getElementById("read-title");
+  const chrono = [...POSTS].reverse();
+  const t0 = Date.parse("2026-01-01"), t1 = Date.parse("2026-11-01");
+  let hoverX = null, cursor = 0, current = -1;
+  box.addEventListener("pointermove", (e) => { hoverX = e.clientX - box.getBoundingClientRect().left; });
+  box.addEventListener("pointerleave", () => { hoverX = null; });
+
+  const draw = (time, prog) => {
+    const { ctx, w, h } = fitCanvas(canvas);
+    ctx.clearRect(0, 0, w, h);
+    const narrow = w < 520;
+    ctx.font = `500 ${narrow ? 10 : 12}px "Geist Mono", ui-monospace, monospace`;
+    const longest = Math.max(...LANES.map((k) => ctx.measureText(label.get(k).toUpperCase()).width));
+    const left = Math.min(narrow ? 110 : w * .34, longest + 30), right = 18, top = 30, bottom = 92;
+    const laneH = (h - top - bottom) / LANES.length;
+    const X = (d) => left + (Date.parse(d) - t0) / (t1 - t0) * (w - left - right);
+    const Y = (i) => top + (i + .5) * laneH;
+
+    // Month grid.
+    ctx.font = `500 11px "Geist Mono", ui-monospace, monospace`;
+    ctx.textBaseline = "top";
+    for (let m = 0; m < 10; m++) {
+      const x = X(`2026-${String(m + 1).padStart(2, "0")}-01`);
+      ctx.strokeStyle = `rgba(${LINE},.1)`;
+      ctx.beginPath(); ctx.moveTo(x + .5, top - 10); ctx.lineTo(x + .5, h - bottom + 8); ctx.stroke();
+      if (!narrow || m % 3 === 0) {
+        ctx.fillStyle = "rgba(163,163,156,1)";
+        ctx.fillText(new Date(Date.UTC(2026, m, 15)).toLocaleString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase(), x + 4, h - bottom + 14);
+      }
+    }
+
+    // Choose the lit post: pointer wins, otherwise scroll position.
+    let idx;
+    if (hoverX !== null && hoverX > left) {
+      let best = 0, bd = Infinity;
+      chrono.forEach((p, i) => { const d = Math.abs(X(p.date) - hoverX); if (d < bd) { bd = d; best = i; } });
+      idx = best;
+    } else {
+      idx = Math.round(prog * (chrono.length - 1));
+    }
+    cursor += (X(chrono[idx].date) - cursor) * .15;
+    if (!cursor) cursor = X(chrono[idx].date);
+
+    // Lanes.
+    LANES.forEach((k, i) => {
+      const y = Y(i), on = chrono[idx].tags.some((t) => key(t) === k);
+      ctx.strokeStyle = `rgba(${LINE},${on ? .5 : .2})`;
+      ctx.beginPath(); ctx.moveTo(left - 6, y + .5); ctx.lineTo(w - right, y + .5); ctx.stroke();
+      ctx.font = `500 ${narrow ? 10 : 12}px "Geist Mono", ui-monospace, monospace`;
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = on ? "#ecece6" : "rgba(163,163,156,1)";
+      let t = label.get(k).toUpperCase();
+      while (ctx.measureText(t).width > left - 20 && t.length > 3) t = t.slice(0, -2) + "…";
+      ctx.fillText(t, 12, y);
+    });
+
+    // Posts: a stem across the lanes it covers, a mark on each lane.
+    chrono.forEach((p, i) => {
+      const x = X(p.date), lit = i === idx;
+      const ys = LANES.map((k, li) => p.tags.some((t) => key(t) === k) ? Y(li) : null).filter((v) => v !== null);
+      if (!ys.length) return;
+      const wob = lit ? 0 : Math.sin(time * .0012 + i) * 1.2;
+      ctx.strokeStyle = `rgba(${LINE},${lit ? 1 : .35})`;
+      ctx.lineWidth = lit ? 1.6 : 1;
+      if (p.upcoming) ctx.setLineDash([3, 4]);
+      ctx.beginPath(); ctx.moveTo(x + wob, Math.min(...ys)); ctx.lineTo(x + wob, Math.max(...ys)); ctx.stroke();
+      ctx.setLineDash([]);
+      ys.forEach((y) => {
+        const r = lit ? 5.5 : 3.5;
+        if (p.upcoming) { ctx.fillStyle = "#0f0f0e"; ctx.fillRect(x + wob - r, y - r, r * 2, r * 2); ctx.strokeRect(x + wob - r + .5, y - r + .5, r * 2 - 1, r * 2 - 1); }
+        else { ctx.fillStyle = lit ? "#ecece6" : `rgba(${LINE},.7)`; ctx.fillRect(x + wob - r, y - r, r * 2, r * 2); }
+      });
+    });
+
+    // Cursor line.
+    ctx.strokeStyle = `rgba(${LINE},.9)`; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cursor + .5, top - 14); ctx.lineTo(cursor + .5, h - bottom + 8); ctx.stroke();
+    ctx.fillStyle = "#ecece6";
+    ctx.beginPath(); ctx.moveTo(cursor - 5, top - 18); ctx.lineTo(cursor + 5, top - 18); ctx.lineTo(cursor, top - 10); ctx.closePath(); ctx.fill();
+
+    if (idx !== current) {
+      current = idx;
+      const p = chrono[idx];
+      readDate.textContent = `${pad(idx)} / ${chrono.length} · ${fmt(p.date, { month: "short", day: "numeric" })}${p.upcoming ? " · Upcoming" : ""}`;
+      readTitle.textContent = p.title;
+    }
+  };
+
+  const hero = box.closest(".hero");
+  const heroProg = () => {
+    const r = hero.getBoundingClientRect();
+    return clamp((-r.top + innerHeight * .3) / (r.height + innerHeight * .2), 0, 1);
+  };
+
+  if (reduce) {
+    const still = () => draw(0, 1);
+    still();
+    document.fonts && document.fonts.ready.then(still);
+    addEventListener("resize", still);
+    return;
+  }
+  let heroVisible = true;
+  new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; }).observe(hero);
+  runPortal((time) => { if (heroVisible) draw(time, heroProg()); });
+})();
+</script>

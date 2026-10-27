@@ -5,3 +5,6 @@ node_modules
 *.min.js
 package-lock.json
 pnpm-lock.yaml
+
+# Generated design pages and kit fragments
+docs/design/

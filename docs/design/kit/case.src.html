@@ -1,0 +1,358 @@
+<title>@@CASE_NAME@@ Case Study</title>
+@@HEAD@@
+<style>
+@@BASE_CSS@@
+  /* Layout: name display, intro beside a framed hero screenshot that flattens on scroll (or beside the facts
+     when a project has no screenshots), a sticky chapter rail, then numbered sections. Layers and compare
+     diagrams sit inside their section; a flow diagram breaks out into a full-bleed light band after it. */
+  .crumbs { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 24px; border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .crumbs a { text-decoration: none; }
+  .crumbs a:hover { color: var(--line); text-decoration: underline; text-underline-offset: 4px; }
+  .crumbs [aria-current] { color: var(--line); }
+  .name { font-size: var(--fit, 8.8cqi); }
+
+  .intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border-bottom: 1px solid var(--rule); }
+  .intro__copy { padding: 28px 24px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 20px; }
+  .intro__copy .over { color: var(--mute); max-width: 48ch; text-transform: none; letter-spacing: .02em; font-size: 13px; line-height: 1.5; }
+  .intro h2 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(30px, 3.2vw, 52px); line-height: .92; text-wrap: balance; }
+  .intro__overview { margin: 0; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.5; max-width: 52ch; }
+  .facts { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--rule); }
+  .facts > div { padding: 10px 12px; display: grid; gap: 4px; border-bottom: 1px solid var(--rule); }
+  .facts > div:nth-child(odd) { border-right: 1px solid var(--rule); }
+  .facts > div:last-child { grid-column: 1 / -1; border-right: 0; border-bottom: 0; }
+  .facts--stack > div { grid-column: 1 / -1; border-right: 0 !important; }
+  .intro__meta { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: auto; min-width: 0; }
+  .intro--plain .intro__meta { margin-top: 0; }
+  .facts dt { color: var(--mute); }
+  .facts dd { margin: 0; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags span { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; border: 1px solid var(--rule); padding: 2px 8px; border-radius: 99px; }
+  .live { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; background: var(--line); color: var(--ink); text-decoration: none; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; transition: background .25s; }
+  .live:hover { background: var(--bone-2); }
+  .live small { font-family: var(--mono); letter-spacing: .02em; text-transform: none; font-size: 13px; margin-left: auto; min-width: 0; overflow-wrap: anywhere; text-align: right; }
+  .intro__shot { padding: 28px 24px 22px; display: grid; gap: 14px; align-content: center; perspective: 1400px; overflow: hidden; }
+
+  /* ── Screenshot frame ── */
+  .shot { margin: 0; display: grid; gap: 12px; }
+  .shot__win { position: relative; border: 1px solid var(--rule); background: var(--ink-2); transform-origin: 50% 100%; will-change: transform; }
+  .shot__bar { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--rule); color: var(--mute); }
+  .shot__bar i { width: 7px; height: 7px; border: 1px solid var(--rule); border-radius: 50%; }
+  .shot__bar span { margin-left: 6px; }
+  .shot__bar b { margin-left: auto; font-weight: 400; }
+  .shot button { all: unset; display: block; width: 100%; cursor: zoom-in; }
+  .shot button:focus-visible { outline: 2px solid var(--line); outline-offset: 3px; }
+  .shot img { display: block; width: 100%; height: auto; aspect-ratio: 1728 / 1084; background: #151515; }
+  .shot figcaption { font-size: 15px; line-height: 1.5; color: var(--mute); max-width: 72ch; }
+  .shot figcaption b { color: var(--line); font-weight: 600; }
+
+  /* ── Chapter rail ── */
+  .rail { position: sticky; top: 0; z-index: 5; background: var(--ink); border-bottom: 1px solid var(--rule); }
+  .rail ol { list-style: none; margin: 0; padding: 0; display: flex; overflow-x: auto; scrollbar-width: none; }
+  .rail ol::-webkit-scrollbar { display: none; }
+  .rail a { display: flex; gap: 8px; padding: 12px 16px; white-space: nowrap; text-decoration: none; border-right: 1px solid var(--rule); transition: background .25s, color .25s; }
+  .rail a span { color: var(--mute); }
+  .rail a:hover { background: var(--ink-2); }
+  .rail a.on { background: var(--line); color: var(--ink); }
+  .rail a.on span { color: var(--mute-ink); }
+  .rail__p { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--line); transform-origin: left; transform: scaleX(var(--p, 0)); }
+
+  /* ── Sections ── */
+  .sec { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); border-bottom: 1px solid var(--rule); scroll-margin-top: 50px; }
+  .sec__side { border-right: 1px solid var(--rule); }
+  .sec__stick { position: sticky; top: 50px; padding: 26px 24px; display: grid; gap: 12px; }
+  .sec__n { color: var(--mute); }
+  .sec h3 { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase; font-size: clamp(28px, 3vw, 50px); line-height: .92; text-wrap: balance; }
+  .sec__main { min-width: 0; display: grid; align-content: start; }
+  .sec__main > * { padding: 26px 24px; border-bottom: 1px solid var(--rule); min-width: 0; }
+  .sec__main > *:last-child { border-bottom: 0; }
+  .lead { margin: 0; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.5; max-width: 58ch; text-wrap: pretty; }
+  .items { list-style: none; margin: 0; padding: 0; display: grid; border: 1px solid var(--rule); }
+  .items li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 8px; padding: 14px 16px; border-bottom: 1px solid var(--rule); font-size: 17px; line-height: 1.55; }
+  .items li:last-child { border-bottom: 0; }
+  .items li::before { content: attr(data-n); font-family: var(--mono); font-size: 12px; color: var(--mute); padding-top: 4px; }
+  .cells { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--rule); }
+  .cells li { padding: 18px 16px 20px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); display: grid; gap: 14px; align-content: start; font-size: 16px; line-height: 1.55; }
+  .cells li:nth-child(2n) { border-right: 0; }
+  .cells li:last-child { grid-column: 1 / -1; border-right: 0; border-bottom: 0; }
+  .cells li::before { content: attr(data-n); font-family: var(--mono); font-size: 12px; color: var(--mute); }
+
+  /* Decisions. */
+  .decisions { display: grid; gap: 16px; }
+  .dec { border: 1px solid var(--rule); }
+  .dec__head { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 10px; padding: 16px; border-bottom: 1px solid var(--rule); }
+  .dec__head .mono { color: var(--mute); padding-top: 4px; }
+  .dec__head p { margin: 0; font-size: 18px; line-height: 1.45; font-weight: 500; }
+  .dec dl { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dec dl > div { padding: 14px 16px; border-right: 1px solid var(--rule); display: grid; gap: 8px; align-content: start; }
+  .dec dl > div:last-child { border-right: 0; }
+  .dec dt { color: var(--mute); }
+  .dec dd { margin: 0; font-size: 15px; line-height: 1.55; }
+  .dec dl > div:last-child dd { color: var(--line); }
+
+  /* ── Flow band ── */
+  .shell > .band { margin-left: calc(-1 * var(--gutter-l) - 1px); margin-right: calc(-1 * var(--gutter-r) - 1px); padding-left: var(--gutter-l); padding-right: var(--gutter-r); scroll-margin-top: 50px; }
+  .band__in { border-left: 1px solid var(--bone-2); border-right: 1px solid var(--bone-2); }
+  .intro--plain .intro__shot { align-content: start; gap: 18px; }
+  .lives { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: auto; }
+  .lives .live { margin: 0; }
+  .facts dd .tags { margin-top: 2px; }
+
+  /* ── Evidence ── */
+  .evidence { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .evidence > .shot { padding: 26px 24px; border-bottom: 1px solid var(--rule); }
+  .evidence > .shot:last-child { border-bottom: 0; }
+  .shot--side { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: end; gap: 24px; }
+  .shot--side figcaption { order: -1; }
+
+  /* ── Outcome ── */
+  .outcome { list-style: none; margin: 0; padding: 0; display: grid; }
+  .outcome li { padding: 22px 0; border-bottom: 1px solid var(--rule); font-size: clamp(20px, 1.9vw, 28px); line-height: 1.3; font-weight: 500; text-wrap: pretty; display: grid; grid-template-columns: 56px minmax(0, 1fr); }
+  .outcome li:first-child { padding-top: 0; }
+  .outcome li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .outcome li::before { content: attr(data-n); font-family: var(--mono); font-size: 12px; color: var(--mute); padding-top: 8px; }
+
+  .related { display: grid; border: 1px solid var(--rule); }
+  .related a { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px; text-decoration: none; border-bottom: 1px solid var(--rule); transition: background .25s, color .25s; }
+  .related a:last-child { border-bottom: 0; }
+  .related a:hover, .related a:focus-visible { background: var(--line); color: var(--ink); }
+  .related a > span:first-child { display: grid; gap: 4px; }
+  .related small { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+  .related a:hover small { color: var(--mute-ink); }
+  .pager { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-bottom: 1px solid var(--rule); }
+  .pager a { display: grid; gap: 14px; padding: 22px 24px; text-decoration: none; transition: background .3s, color .3s; }
+  .pager a:first-child { border-right: 1px solid var(--rule); }
+  .pager a .mono { color: var(--mute); }
+  .pager a strong { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--display); font-weight: 800; font-stretch: 118%; text-transform: uppercase; font-size: clamp(22px, 2.6vw, 40px); line-height: .95; }
+  .pager a:hover, .pager a:focus-visible { background: var(--line); color: var(--ink); }
+  .pager a:hover .mono { color: var(--mute-ink); }
+  .pager--single { grid-template-columns: minmax(0, 1fr); }
+  .pager--single a { border-right: 0 !important; }
+  .sec__main > .evidence { padding: 0; }
+
+  /* ── Lightbox ── */
+  .lb { padding: 0; border: 1px solid var(--rule); background: var(--ink); color: var(--line); max-width: min(1600px, 96vw); width: 96vw; max-height: 94vh; }
+  .lb::backdrop { background: rgba(15, 15, 14, .86); }
+  .lb__bar { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--rule); background: var(--ink); }
+  .lb__bar button { font: inherit; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--line); background: transparent; border: 1px solid var(--rule); padding: 6px 10px; cursor: pointer; }
+  .lb__bar button:hover { background: var(--line); color: var(--ink); }
+  .lb__img { overflow: auto; }
+  .lb img { display: block; width: 100%; min-width: 900px; height: auto; }
+
+  @media (max-width: 960px) {
+    .dec dl { grid-template-columns: minmax(0, 1fr); }
+    .dec dl > div { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .dec dl > div:last-child { border-bottom: 0; }
+    .shot--side { grid-template-columns: minmax(0, 1fr); }
+    .shot--side figcaption { order: 0; }
+  }
+  @media (max-width: 760px) {
+    .crumbs { padding-inline: 16px; }
+    .intro, .sec { grid-template-columns: minmax(0, 1fr); }
+    .intro__copy, .sec__side { border-right: 0; }
+    .intro__copy { padding: 22px 16px; border-bottom: 1px solid var(--rule); }
+    .intro__shot { padding: 18px 16px; }
+    .sec__side { border-bottom: 1px solid var(--rule); }
+    .sec__stick { position: static; padding: 22px 16px 18px; }
+    .sec h3 { font-size: 9cqi; }
+    .sec__main > * { padding: 20px 16px; }
+    .cells { grid-template-columns: minmax(0, 1fr); }
+    .cells li { border-right: 0; }
+    .dec__head { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+    .evidence > .shot { padding: 20px 16px; }
+    .outcome li { grid-template-columns: 40px minmax(0, 1fr); }
+    .pager { grid-template-columns: minmax(0, 1fr); }
+    .pager a { padding: 20px 16px; }
+    .pager a:first-child { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .shot__bar b { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .shot__win { transform: none !important; }
+  }
+</style>
+@@CHROME@@
+<div class="frame">
+  <div class="shell">
+    @@NAV:work@@
+    <nav class="crumbs mono" aria-label="Breadcrumb">
+      <a href="@@L:/@@">Home</a><span aria-hidden="true">/</span>
+      <a href="@@L:/portfolio@@">Portfolio</a><span aria-hidden="true">/</span>
+      <span aria-current="page">@@CASE_NAME@@</span>
+    </nav>
+    @@CASE_DISPLAY@@
+
+    <section class="intro" id="intro" aria-labelledby="cs-title">
+      <div class="intro__copy">
+        <p class="over mono" id="employer"></p>
+        <h2 id="cs-title"></h2>
+        <p class="intro__overview" id="overview"></p>
+        <div class="intro__meta" id="meta">
+          <dl class="facts" id="facts"></dl>
+          <div class="lives" id="lives"></div>
+        </div>
+      </div>
+      <div class="intro__shot" id="hero-shot"></div>
+    </section>
+
+    <nav class="rail" aria-label="Table of contents for @@CASE_NAME@@">
+      <ol id="rail"></ol>
+      <span class="rail__p" id="rail-p" aria-hidden="true"></span>
+    </nav>
+    <div id="sections"></div>
+
+    <nav class="pager" id="pager" aria-label="Case studies">
+      <a href="@@L:/portfolio@@"><span class="mono">[ Index ]</span><strong>Back to all case studies <span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span></strong></a>
+    </nav>
+    @@FOOT@@
+  </div>
+</div>
+
+<dialog class="lb" id="lb" aria-label="Screenshot">
+  <div class="lb__bar"><span class="mono" id="lb-title"></span><button type="button" id="lb-close">Close</button></div>
+  <div class="lb__img"><img id="lb-img" alt=""></div>
+</dialog>
+
+<script>
+(() => {
+@@BASE_JS@@
+  // Content is the project's entry in data/projects.ts; screenshots come from public/portfolio-media.
+  const P = @@CASE_JSON@@;
+  const IMG = @@CASE_IMG@@;
+  const NEXT = @@NEXT_JSON@@;
+  const cs = P.caseStudy;
+  const $ = (id) => document.getElementById(id);
+  const chev = `<span class="chev" aria-hidden="true"><svg><use href="#chev"/></svg></span>`;
+  const evidence = cs.interfaceEvidence ?? [];
+  const imgFor = (f) => IMG[f.src.split("/").pop().replace(/\.png$/, "")];
+  const host = (href) => href.replace(/^https?:\/\/|\/$/g, "");
+  const shot = (f, i, cls = "") => `
+    <figure class="shot ${cls}">
+      <div class="shot__win" data-tilt="${i === 0 ? 1 : 0}">
+        <div class="shot__bar mono" aria-hidden="true"><i></i><i></i><i></i><span>${esc(host(P.liveLinks?.[0]?.href ?? P.name))}</span><b>${esc(f.captionLead.replace(/\.$/, ""))}</b></div>
+        <button type="button" data-shot="${i}" aria-label="Enlarge: ${esc(f.captionLead.replace(/\.$/, ""))}"><img src="${imgFor(f)}" width="1728" height="1084" alt="${esc(f.alt)}"${i ? ' loading="lazy"' : ""} decoding="async"></button>
+      </div>
+      <figcaption><b>${esc(f.captionLead)}</b> ${esc(f.captionBody)}</figcaption>
+    </figure>`;
+
+  // ── Intro ──
+  $("employer").textContent = P.employerContext;
+  $("cs-title").textContent = P.caseStudyTitle;
+  $("overview").textContent = cs.overview;
+  const facts = [["Role", esc(P.role)], P.timeframe && ["Timeframe", esc(P.timeframe)], ["Stack", `<span class="tags">${P.capabilityTags.map((t) => `<span>${esc(t)}</span>`).join("")}</span>`]].filter(Boolean);
+  $("facts").innerHTML = facts.map(([k, v]) => `<div><dt class="mono">${k}</dt><dd>${v}</dd></div>`).join("");
+  $("facts").classList.toggle("facts--stack", facts.length % 2 === 0);
+  const lives = P.liveLinks ?? [];
+  $("lives").innerHTML = lives.map((l) => `<a class="live" href="${l.href}">${esc(l.label)} <small>${esc(host(l.href))}</small>${chev}</a>`).join("");
+  $("lives").hidden = !lives.length;
+  if (evidence.length) {
+    $("hero-shot").innerHTML = shot(evidence[0], 0);
+  } else {
+    // No screenshots: the facts and links take the right-hand column.
+    $("intro").classList.add("intro--plain");
+    $("hero-shot").append($("meta"));
+  }
+
+  // ── Sections, in the order of the site's case study page ──
+  const list = (arr, cls = "items") => `<ul class="${cls}">${arr.map((x, i) => `<li data-n="${pad(i)}">${esc(x)}</li>`).join("")}</ul>`;
+  const kindOf = (href) => href.startsWith("/writing") ? "Writing" : href.startsWith("/portfolio") ? "Case study" : href.startsWith("/") ? "Page" : host(href).split("/")[0];
+  const SECTIONS = [
+    { id: "context", title: "Context", blocks: cs.context && [`<p class="lead">${esc(cs.context)}</p>`] },
+    { id: "problem", title: "Problem", blocks: cs.problem && [`<p class="lead">${esc(cs.problem)}</p>`] },
+    { id: "role", title: "My role", blocks: cs.myRole?.length && [list(cs.myRole)] },
+    { id: "built", title: "What I built", blocks: cs.whatIBuilt?.length && [list(cs.whatIBuilt, "cells")] },
+    { id: "technical-decisions", title: "Technical decisions", blocks: cs.technicalDecisions?.length && [`<div class="decisions">${cs.technicalDecisions.map((d, i) => `
+      <article class="dec">
+        <div class="dec__head"><span class="mono">Decision ${pad(i)}</span><p>${esc(d.decision)}</p></div>
+        <dl><div><dt class="mono">Why</dt><dd>${esc(d.why)}</dd></div><div><dt class="mono">Trade-off</dt><dd>${esc(d.tradeOff)}</dd></div><div><dt class="mono">Result</dt><dd>${esc(d.result)}</dd></div></dl>
+      </article>`).join("")}</div>`] },
+    { id: "ux", title: "UX and detail decisions", blocks: cs.uxDecisions?.length && [list(cs.uxDecisions)] },
+    { id: "evidence", title: "Interface evidence", flush: true, blocks: evidence.length > 1 && [`<div class="evidence">${evidence.slice(1).map((f, i) => shot(f, i + 1, f.src.includes("login") ? "shot--side" : "")).join("")}</div>`] },
+    { id: "outcome", title: "Outcome", blocks: cs.outcome?.length && [`<ul class="outcome">${cs.outcome.map((x, i) => `<li data-n="${pad(i)}">${esc(x)}</li>`).join("")}</ul>`] },
+    { id: "improve", title: "What I would improve", blocks: cs.nextImprovements?.length && [list(cs.nextImprovements)] },
+    { id: "related", title: "Related work", blocks: (P.relatedLinks?.length || lives.length) && [`<div class="related">${[...(P.relatedLinks ?? []), ...lives].map((l) => `<a href="${link(l.href)}"><span><small>${esc(l.href.startsWith("/") ? kindOf(l.href) : l.label)}</small>${esc(l.href.startsWith("/") ? l.label : host(l.href))}</span>${chev}</a>`).join("")}</div>`] },
+  ].filter((s) => s.blocks);
+  // Diagrams attach to the section the data names; flows become a light band after that section.
+  const bands = {};
+  (cs.diagrams ?? []).forEach(({ section, spec }) => {
+    const s = SECTIONS.find((x) => x.id === section);
+    if (!s) return;
+    if (spec.type === "flow") bands[s.id] = renderDiagram(spec, `Diagram · ${s.title}`);
+    else s.blocks.push(renderDiagram(spec));
+  });
+  $("sections").innerHTML = SECTIONS.map((s, i) => `
+    <section class="sec" id="${s.id}" aria-labelledby="${s.id}-t">
+      <div class="sec__side"><div class="sec__stick"><span class="sec__n mono">[ ${pad(i)} ]</span><h3 id="${s.id}-t">${esc(s.title)}</h3></div></div>
+      <div class="sec__main">${s.flush ? s.blocks.join("") : s.blocks.map((b) => `<div>${b}</div>`).join("")}</div>
+    </section>${bands[s.id] ? `
+    <section class="band" data-for="${s.id}" aria-label="${esc(s.title)} diagram"><div class="band__in">${bands[s.id]}<div class="chevrons" id="chevrons" aria-hidden="true">@@CHEVRONS@@</div></div></section>` : ""}`).join("");
+  $("rail").innerHTML = SECTIONS.map((s, i) => `<li><a href="#${s.id}"><span class="mono">${pad(i)}</span>${esc(s.title)}</a></li>`).join("");
+  if (NEXT) $("pager").insertAdjacentHTML("beforeend", `<a href="${NEXT.href}"><span class="mono">[ Next case study ]</span><strong>${esc(NEXT.name)} ${chev}</strong></a>`);
+  else $("pager").classList.add("pager--single");
+
+  // ── Display word fits the frame whatever the project name ──
+  const name = document.querySelector(".name");
+  const fitName = () => {
+    name.style.removeProperty("--fit");
+    const [a, star, b] = name.children, cs2 = getComputedStyle(name);
+    const used = a.offsetWidth + b.offsetWidth + star.getBoundingClientRect().width + 2 * parseFloat(cs2.columnGap || 0);
+    const room = name.clientWidth - parseFloat(cs2.paddingLeft) - parseFloat(cs2.paddingRight);
+    const size = parseFloat(cs2.fontSize) * Math.min(1.5, room / used) * .96;
+    name.style.setProperty("--fit", `${Math.min(size, name.clientWidth * .16).toFixed(1)}px`);
+  };
+  fitName();
+  document.fonts?.ready.then(fitName);
+  addEventListener("resize", fitName);
+
+  // ── Lightbox for every screenshot ──
+  const lb = $("lb"), lbImg = $("lb-img"), lbTitle = $("lb-title");
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-shot]");
+    if (!b) return;
+    const f = evidence[+b.dataset.shot];
+    lbImg.src = imgFor(f); lbImg.alt = f.alt; lbTitle.textContent = f.captionLead.replace(/\.$/, "");
+    lb.showModal();
+  });
+  $("lb-close").addEventListener("click", () => lb.close());
+  lb.addEventListener("click", (e) => { if (e.target === lb) lb.close(); });
+
+  if (reduce) {
+    document.querySelectorAll(".flow li").forEach((li) => li.classList.add("done"));
+    return;
+  }
+
+  const railLinks = [...document.querySelectorAll("#rail a")];
+  const secs = SECTIONS.map((s) => $(s.id));
+  const railP = $("rail-p");
+  const band = document.querySelector(".band[data-for]");
+  const bandIndex = band ? SECTIONS.findIndex((s) => s.id === band.dataset.for) : -1;
+  const heroWin = document.querySelector('[data-tilt="1"]');
+  const tilt = { x: 0, y: 0, sx: 0, sy: 0 };
+  heroWin?.addEventListener("pointermove", (e) => { const r = heroWin.getBoundingClientRect(); tilt.x = (e.clientX - r.left) / r.width - .5; tilt.y = (e.clientY - r.top) / r.height - .5; });
+  heroWin?.addEventListener("pointerleave", () => { tilt.x = tilt.y = 0; });
+  let lastCur = -1;
+
+  runPortal((time, { y, vh }) => {
+    // Hero screenshot starts tipped back and flattens as you scroll into the page.
+    if (heroWin) {
+      const k = clamp(y / (vh * .55), 0, 1);
+      tilt.sx += (tilt.x - tilt.sx) * .08; tilt.sy += (tilt.y - tilt.sy) * .08;
+      heroWin.style.transform = `rotateX(${((1 - k) * 14 - tilt.sy * 4).toFixed(2)}deg) rotateY(${(tilt.sx * 5).toFixed(2)}deg) scale(${(.94 + k * .06).toFixed(3)})`;
+    }
+
+    // Chapter rail follows the section under the rail; the flow band counts as its section.
+    let cur = 0;
+    secs.forEach((s, i) => { if (s.getBoundingClientRect().top < vh * .3) cur = i; });
+    if (band) { const br = band.getBoundingClientRect(); if (br.top < vh * .3 && br.bottom > vh * .3) cur = bandIndex; }
+    if (y + vh >= document.documentElement.scrollHeight - 4) cur = secs.length - 1;
+    if (cur !== lastCur) {
+      lastCur = cur;
+      railLinks.forEach((a, i) => a.classList.toggle("on", i === cur));
+      const a = railLinks[cur], ol = a.closest("ol");
+      ol.scrollTo({ left: a.offsetLeft - ol.clientWidth / 2 + a.offsetWidth / 2, behavior: "smooth" });
+    }
+    const first = secs[0].getBoundingClientRect().top + y, last = secs[secs.length - 1].getBoundingClientRect().bottom + y;
+    railP.style.setProperty("--p", clamp((y + vh * .3 - first) / (last - first), 0, 1).toFixed(4));
+
+    lightDiagrams(vh);
+  });
+})();
+</script>
