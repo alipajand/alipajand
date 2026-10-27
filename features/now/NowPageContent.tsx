@@ -1,30 +1,31 @@
-import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
-import { NowSectionBlock } from "features/now/NowSectionBlock";
+import { NextLinks } from "components/hairline/NextLinks/NextLinks";
+import { NowBreadcrumbs } from "features/now/NowBreadcrumbs";
+import { NowDisplay } from "features/now/NowDisplay";
+import { NowIntro } from "features/now/NowIntro";
+import { NowSnapshot } from "features/now/NowSnapshot";
+import { NowStack } from "features/now/NowStack";
+import { NowWeekRuler } from "features/now/NowWeekRuler";
 import { nowBreadcrumbs } from "data/breadcrumbs";
-import { NOW_LEDE, NOW_PAGE_TITLE, NOW_SECTIONS } from "data/now";
-import { NOW_PAGE_HEADER_OVERLINE } from "data/pageChrome";
+import { NOW_SECTIONS, NOW_STACK_SECTION_ID } from "data/now";
+import { PAGE_NEXT_LINKS, PAGE_NEXT_LINKS_ARIA_LABEL } from "data/pageChrome";
+import { weekOfYear } from "utils/week";
 
-export const NowPageContent = () => {
-  return (
-    <main id="main-content" tabIndex={-1}>
-      <header>
-        <div>
-          <Breadcrumbs items={nowBreadcrumbs()} />
-          <p>{NOW_PAGE_HEADER_OVERLINE}</p>
-          <h1>{NOW_PAGE_TITLE}</h1>
-          <p>{NOW_LEDE}</p>
-        </div>
-      </header>
+interface NowPageContentProps {
+  /** Injected in tests; defaults to the render time. */
+  now?: Date;
+}
 
-      <div>
-        <div>
-          <div>
-            {NOW_SECTIONS.map((section) => (
-              <NowSectionBlock key={section.id} section={section} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </main>
-  );
-};
+const stackSection = NOW_SECTIONS.find((section) => section.id === NOW_STACK_SECTION_ID);
+const cellSections = NOW_SECTIONS.filter((section) => section !== stackSection);
+
+export const NowPageContent = ({ now = new Date() }: NowPageContentProps) => (
+  <main id="main-content" tabIndex={-1}>
+    <NowBreadcrumbs items={nowBreadcrumbs()} />
+    <NowDisplay year={now.getFullYear()} />
+    <NowIntro />
+    <NowWeekRuler year={now.getFullYear()} initialWeek={weekOfYear(now)} />
+    <NowSnapshot sections={cellSections} />
+    {stackSection ? <NowStack section={stackSection} position={cellSections.length + 1} /> : null}
+    <NextLinks links={PAGE_NEXT_LINKS} label={PAGE_NEXT_LINKS_ARIA_LABEL} />
+  </main>
+);
