@@ -41,15 +41,11 @@ const KNOWN_FINDINGS: KnownFinding[] = [
   {
     id: "RG-A2",
     rule: "scrollable-region-focusable",
-    within: "pre, dialog [class*='dialogImage']",
+    within: "dialog [class*='dialogImage']",
     reason:
-      "Wide post code blocks and the enlarged screenshot scroll sideways but cannot take keyboard focus outside Chromium.",
-    owner: "Post code blocks: features/writing/proseHtml.ts (#273). Screenshot: ScreenshotFrame.",
-    seenIn: [
-      "post-agent-instructions-are-code__390",
-      "post-mapbylaw-ai-recommendations__390",
-      "state__dialog-open",
-    ],
+      "The enlarged screenshot scrolls sideways but cannot take keyboard focus outside Chromium. Post code blocks are fixed in #273 and covered by e2e/scroll-regions.e2e.ts.",
+    owner: "ScreenshotFrame",
+    seenIn: ["state__dialog-open"],
   },
 ];
 

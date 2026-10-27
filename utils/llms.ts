@@ -6,7 +6,7 @@ import {
 } from "data/engineeringPrinciples";
 import { HOMEPAGE_HERO_BODY, HOMEPAGE_HERO_TITLE } from "data/homepage";
 import { LINKS } from "data/links";
-import { NOW_META_DESCRIPTION, NOW_SECTIONS } from "data/now";
+import { NOW_META_DESCRIPTION, NOW_SECTIONS, NOW_UPDATED } from "data/now";
 import {
   OPEN_SOURCE_INSTALL_NOTE,
   OPEN_SOURCE_META_DESCRIPTION,
@@ -255,6 +255,8 @@ export const buildLlmsFullTxt = ({
     principles,
     "",
     "## Now",
+    "",
+    `Updated: ${NOW_UPDATED}`,
     "",
     now,
     "",

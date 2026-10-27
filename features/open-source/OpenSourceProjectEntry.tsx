@@ -92,6 +92,7 @@ export const OpenSourceProjectEntry = ({ project, index }: OpenSourceProjectEntr
           <pre
             id={installId}
             className={styles.code}
+            role="region"
             tabIndex={0}
             aria-label={openSourceInstallAriaLabel(project.title)}
             data-steps={plain ? "" : undefined}
