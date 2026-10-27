@@ -1,0 +1,39 @@
+.figure {
+  min-width: 0;
+}
+
+/*
+ * The shared flow band bleeds to the screen edges on case studies. In an article it sits inside the
+ * prose column, as in the design: drop the bleed, the inner frame lines and the chevron row.
+ */
+.flow {
+  min-width: 0;
+}
+
+.flow > section {
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+.flow > section > div {
+  border-inline: 0;
+}
+
+.flow > section > div > div[aria-hidden="true"]:last-child {
+  display: none;
+}
+
+/*
+ * The design scales a diagram title down when its longest word would not fit the column. On the
+ * narrowest phones the band's title steps down a size and, as a last resort, breaks inside a word.
+ */
+.flow figcaption > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 420px) {
+  .flow figcaption > :last-child {
+    font-size: clamp(18px, 7.4cqi, 24px);
+  }
+}

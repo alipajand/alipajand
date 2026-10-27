@@ -1,0 +1,98 @@
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  padding: 30px 24px 16px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.title {
+  composes: display from "../../components/hairline/styles/type.module.css";
+  font-size: clamp(30px, 4.6vw, 72px);
+  line-height: 0.9;
+}
+
+.action {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 16px;
+  padding: 14px 24px;
+  text-decoration: none;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.row strong {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.date {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  color: var(--color-mute);
+}
+
+.row:hover,
+.row:focus-visible {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.row:focus-visible {
+  outline-color: var(--color-ink);
+  outline-offset: -4px;
+}
+
+.row:hover .date,
+.row:focus-visible .date {
+  color: var(--color-mute-ink);
+}
+
+.row[aria-current] {
+  color: var(--color-mute);
+}
+
+.row[aria-current]:hover,
+.row[aria-current]:focus-visible {
+  color: var(--color-ink);
+}
+
+@media (max-width: 760px) {
+  .head {
+    padding: 24px 16px 14px;
+  }
+
+  .title {
+    font-size: min(34px, 9cqi);
+  }
+
+  .row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 4px;
+    padding: 14px 16px;
+  }
+
+  .date {
+    grid-column: 1 / -1;
+  }
+}

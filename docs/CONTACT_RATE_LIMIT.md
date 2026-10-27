@@ -33,7 +33,7 @@ Why not in code: functions on Fluid Compute share instances unpredictably, so an
 
 ## Client behaviour
 
-The firewall's `429` body is not JSON. `useContactForm` checks the status and shows `CONTACT_FORM_ERROR_RATE_LIMITED` from `data/contactForm.ts`, which points to the email address as a fallback.
+The firewall answers with its own JSON body, `{"error":{"code":"429","message":"Too Many Requests","id":"…"}}`, and the header `x-vercel-mitigated: deny`. Its `error` is an object, not the handler's string, so `useContactForm` checks the status and shows `CONTACT_FORM_ERROR_RATE_LIMITED` from `data/contactForm.ts`, which points to the email address as a fallback.
 
 ## Verify
 

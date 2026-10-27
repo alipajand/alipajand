@@ -1,0 +1,30 @@
+.back {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  text-decoration: none;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.back:hover,
+.back:focus-visible {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.back:focus-visible {
+  outline-color: var(--color-ink);
+  outline-offset: -4px;
+}
+
+@media (max-width: 760px) {
+  .back {
+    padding-inline: 16px;
+  }
+}

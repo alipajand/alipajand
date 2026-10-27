@@ -2,9 +2,11 @@ import { notFound } from "next/navigation";
 
 import { ArticleJsonLd } from "components/ArticleJsonLd/ArticleJsonLd";
 import { BreadcrumbJsonLd } from "components/BreadcrumbJsonLd/BreadcrumbJsonLd";
+import { WritingLaunchPageContent } from "features/writing/WritingLaunchPageContent";
 import { WritingPostPageContent } from "features/writing/WritingPostPageContent";
 import { writingPostBreadcrumbs } from "data/breadcrumbs";
 import { CANONICAL_URL } from "data/site";
+import { WRITING_LAUNCH_ARTICLES } from "data/writing";
 import { getAllPosts, getPostBySlug } from "utils/posts";
 import { buildArticleMetadata } from "utils/metadata";
 import { toBreadcrumbJsonLdItems } from "utils/breadcrumbs";
@@ -34,6 +36,16 @@ export default async function PostPage({ params }: PageProps) {
   const { contentHtml, headings, diagrams, ...postForJsonLd } = post;
 
   const postUrl = `${CANONICAL_URL}/writing/${post.slug}`;
+  const article = {
+    slug: post.slug,
+    title: post.title,
+    date: post.date,
+    excerpt: post.excerpt,
+    tags: post.tags ?? [],
+    contentHtml,
+    headings,
+    diagrams,
+  };
 
   return (
     <>
@@ -41,13 +53,18 @@ export default async function PostPage({ params }: PageProps) {
       <BreadcrumbJsonLd
         items={toBreadcrumbJsonLdItems(writingPostBreadcrumbs(post.title), postUrl)}
       />
-      <WritingPostPageContent
-        title={post.title}
-        date={post.date}
-        contentHtml={contentHtml}
-        headings={headings}
-        diagrams={diagrams}
-      />
+      {WRITING_LAUNCH_ARTICLES.includes(post.slug) ? (
+        <WritingLaunchPageContent post={article} />
+      ) : (
+        <WritingPostPageContent
+          post={article}
+          posts={getAllPosts().map(({ slug: postSlug, title, date }) => ({
+            slug: postSlug,
+            title,
+            date,
+          }))}
+        />
+      )}
     </>
   );
 }
