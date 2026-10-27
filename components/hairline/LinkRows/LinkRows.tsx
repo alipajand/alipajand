@@ -1,6 +1,5 @@
 "use client";
 
-import { trackContactLinkClick } from "components/Contact/trackContactLinkClick";
 import styles from "components/hairline/LinkRows/LinkRows.module.css";
 import { EXTERNAL_LINK_NEW_TAB_HINT } from "data/pageChrome";
 
@@ -21,8 +20,7 @@ const isExternal = (href: string) => href.startsWith("http");
 const slug = (label: string) => label.toLowerCase().replace(/\s+/g, "_");
 
 /**
- * Boxed rows of direct links: label on the left, the address in mono on the right. Clicks are
- * reported with the existing contact-link analytics event.
+ * Boxed rows of direct links: label on the left, the address in mono on the right.
  */
 export const LinkRows = ({ links, analyticsPrefix, label }: LinkRowsProps) => (
   <ul className={styles.links} aria-label={label}>
@@ -36,7 +34,6 @@ export const LinkRows = ({ links, analyticsPrefix, label }: LinkRowsProps) => (
             rel={external ? "noopener noreferrer" : undefined}
             aria-label={`${link.label}: ${link.value}${external ? EXTERNAL_LINK_NEW_TAB_HINT : ""}`}
             data-analytics-event={`${analyticsPrefix}_${slug(link.label)}`}
-            onClick={() => trackContactLinkClick(link.label)}
           >
             <span>{link.label}</span>
             <span className={styles.value}>{link.value}</span>

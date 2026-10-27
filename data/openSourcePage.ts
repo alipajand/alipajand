@@ -276,3 +276,175 @@ export const OPEN_SOURCE_CTA_PRIMARY_LABEL = "Browse GitHub profile";
 export const OPEN_SOURCE_CTA_PRIMARY_HREF = "https://github.com/alipajand";
 export const OPEN_SOURCE_CTA_SECONDARY_LABEL = "Read my writing";
 export const OPEN_SOURCE_CTA_SECONDARY_HREF = "/writing";
+
+/** Display-only copy for the hairline layout of /open-source. */
+export const OPEN_SOURCE_DISPLAY_WORDS = ["Open", "Source"] as const;
+
+export const openSourceProjectCountLabel = (count: number): string => `${count} projects`;
+
+export const OPEN_SOURCE_HERO_PROJECTS_CTA_LABEL = "See the projects";
+
+/** The fixed note beside the hero diagram's readout. */
+export const OPEN_SOURCE_ROUTE_NOTE = "No LLM scoring";
+
+export const OPEN_SOURCE_INSTALL_NOTE_LABEL = "[ Install note ]";
+
+export const OPEN_SOURCE_PROJECTS_INDEX_ARIA_LABEL = "Projects on this page";
+
+/** The index column for entries without a version number. */
+export const OPEN_SOURCE_UNVERSIONED_LABEL = "Library";
+
+export const OPEN_SOURCE_COPY_LABEL = "Copy";
+export const OPEN_SOURCE_COPIED_LABEL = "Copied";
+export const OPEN_SOURCE_SELECTED_LABEL = "Selected";
+export const openSourceCopyAriaLabel = (projectTitle: string): string =>
+  `Copy the ${projectTitle} install command`;
+export const openSourceCopiedAnnouncement = (projectTitle: string): string =>
+  `${projectTitle} install command copied`;
+export const openSourceSelectedAnnouncement = (projectTitle: string): string =>
+  `${projectTitle} install command selected`;
+export const openSourceInstallAriaLabel = (projectTitle: string): string =>
+  `${projectTitle} install command`;
+
+/** The technology ticker under the hero, a subset of the technology badges. */
+export const OPEN_SOURCE_TECHNOLOGY_TICKER = [
+  "TypeScript",
+  "Node.js",
+  "CLI design",
+  "MCP server",
+  "Agent Skills",
+  "Editor plugins",
+  "GitHub Actions",
+  "SARIF / code scanning",
+  "Static analysis",
+  "Developer experience",
+] as const;
+
+export const OPEN_SOURCE_SHARED_PRINCIPLES_NOTE = "[ Shared across every tool ]";
+
+export const OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE =
+  "A snapshot of public GitHub contributions over the last year, taken from github.com/alipajand when this page was built.";
+export const OPEN_SOURCE_ACTIVITY_STAT_LABELS = {
+  total: "Last year",
+  totalUnit: "contributions",
+  active: "Active days",
+  streak: "Longest streak",
+  busiest: "Busiest day",
+} as const;
+export const OPEN_SOURCE_ACTIVITY_GITHUB_LABEL = "View on GitHub";
+export const OPEN_SOURCE_ACTIVITY_GITHUB_HREF = "https://github.com/alipajand";
+export const OPEN_SOURCE_ACTIVITY_LEGEND = { less: "Less", more: "More" } as const;
+export const OPEN_SOURCE_ACTIVITY_GRAPH_LABEL = "Contribution calendar, scrollable";
+export const OPEN_SOURCE_ACTIVITY_TABLE_CAPTION = "Contributions per month";
+
+export const OPEN_SOURCE_CTA_EYEBROW = "[ Source ]";
+export const OPEN_SOURCE_CTA_LINKS_LABEL = "Next";
+export const OPEN_SOURCE_CTA_WRITING_HINT = "alipajand.com/writing";
+export const OPEN_SOURCE_CTA_CONTACT_LABEL = "Get in touch";
+export const OPEN_SOURCE_CTA_CONTACT_HINT = "Contact";
+export const OPEN_SOURCE_CTA_CONTACT_HREF = "/#contact";
+
+export const OPEN_SOURCE_TITLE_ID = "page-title";
+export const OPEN_SOURCE_PROJECTS_ID = "projects";
+
+/** The second ticker, naming each tool. */
+export const OPEN_SOURCE_TOOL_TICKER = [
+  "agent-context-doctor",
+  "agent-pr-reviewer-lite",
+  "agent-readiness-kit",
+  "agent-readiness-action",
+  "Agent Readiness MCP",
+  "Agent Readiness Doctor",
+] as const;
+
+/** Anchor id of a project entry, also used by the project index. */
+export const openSourceProjectSlug = (title: string): string =>
+  `p-${title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")}`;
+
+/** The index column: the version, or a label for entries without one. */
+export const openSourceIndexVersionLabel = (project: OpenSourceProject): string =>
+  project.version ? `v${project.version}` : OPEN_SOURCE_UNVERSIONED_LABEL;
+
+/** Install text shown without a shell prompt: in-app steps and workflow YAML. */
+export const openSourceInstallIsSteps = (project: OpenSourceProject): boolean =>
+  project.install.includes("→");
+export const openSourceInstallIsYaml = (project: OpenSourceProject): boolean =>
+  project.install.startsWith("uses:");
+
+/** The hero diagram: inputs, the audit engines, and the surfaces that carry them. */
+export type OpenSourceRouteNodeKey =
+  "repo" | "diff" | "ark" | "acd" | "apr" | "action" | "mcp" | "skill" | "gitbot" | "review";
+
+export interface OpenSourceRouteNode {
+  /** 0 input, 1 engine, 2 surface. */
+  col: 0 | 1 | 2;
+  /** Vertical slot: 0–3 are the readiness lane, 5 is the review lane; 4 is the gap between them. */
+  slot: number;
+  label: string;
+  short: string;
+  /** The name in the readout, for surfaces. */
+  full?: string;
+  /** Instruction files listed inside the node. */
+  files?: readonly string[];
+}
+
+export const OPEN_SOURCE_ROUTE_COLUMNS = ["Input", "Engine", "Surface"] as const;
+
+export const OPEN_SOURCE_ROUTE_NODES: Record<OpenSourceRouteNodeKey, OpenSourceRouteNode> = {
+  repo: {
+    col: 0,
+    slot: 1.5,
+    label: "Repository",
+    short: "Repo",
+    files: ["AGENTS.md", "CLAUDE.md", ".cursor/rules", ".mcp.json"],
+  },
+  diff: { col: 0, slot: 5, label: "Pull request diff", short: "PR diff" },
+  ark: { col: 1, slot: 1, label: "agent-readiness-kit", short: "ark" },
+  acd: { col: 1, slot: 2, label: "agent-context-doctor", short: "acd" },
+  apr: { col: 1, slot: 5, label: "agent-pr-reviewer-lite", short: "pr-reviewer" },
+  action: {
+    col: 2,
+    slot: 0,
+    label: "GitHub Action",
+    short: "Action",
+    full: "agent-readiness-action",
+  },
+  mcp: { col: 2, slot: 1, label: "MCP server", short: "MCP", full: "Agent Readiness MCP" },
+  skill: { col: 2, slot: 2, label: "Skill + plugins", short: "Skill", full: "Skill and plugins" },
+  gitbot: { col: 2, slot: 3, label: "GitBot bot", short: "GitBot", full: "Agent Readiness Doctor" },
+  review: {
+    col: 2,
+    slot: 5,
+    label: "Files to review",
+    short: "Review",
+    full: "agent-pr-reviewer-lite",
+  },
+};
+
+export const OPEN_SOURCE_ROUTE_SURFACES: readonly OpenSourceRouteNodeKey[] = [
+  "action",
+  "mcp",
+  "skill",
+  "gitbot",
+  "review",
+];
+
+const pad2 = (value: number) => String(value).padStart(2, "0");
+
+export const openSourceRouteReadout = (active: number): string => {
+  const surface = OPEN_SOURCE_ROUTE_NODES[OPEN_SOURCE_ROUTE_SURFACES[active]];
+  return `${pad2(active + 1)} / ${pad2(OPEN_SOURCE_ROUTE_SURFACES.length)} · ${surface.full ?? surface.label}`;
+};
+
+export const openSourceActivitySnapshotLabel = (day: string): string => `[ Snapshot · ${day} ]`;
+export const openSourceActivityDaysLabel = (days: number): string => `of ${days}`;
+export const openSourceActivityStreakUnit = (days: number): string => (days === 1 ? "day" : "days");
+export const openSourceActivitySummary = (total: string, first: string, last: string): string =>
+  `${total} on GitHub between ${first} and ${last}`;
+export const OPEN_SOURCE_ACTIVITY_TABLE_HEADERS = {
+  month: "Month",
+  total: "Contributions",
+} as const;
