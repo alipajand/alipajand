@@ -35,7 +35,7 @@ interface ListedSuite {
 const listTests = (): ListedSpec[] => {
   const cli = require.resolve("@playwright/test/cli");
   // Playwright refuses to load specs while it detects Jest, so the child gets a plain environment.
-  const env = { ...process.env, CI: "" };
+  const env: NodeJS.ProcessEnv = { ...process.env, CI: "" };
   delete env.JEST_WORKER_ID;
   let output: string;
   try {
