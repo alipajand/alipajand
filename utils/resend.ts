@@ -27,6 +27,10 @@ export function isValidEmail(value: string): boolean {
     if (code <= 32 || code === 127) return false;
   }
 
+  // Address-list and display-name syntax would let one field carry several
+  // recipients (e.g. `"x",other@example.com` as a reply-to).
+  if (/[,;"<>()[\]\\]/.test(value)) return false;
+
   return true;
 }
 

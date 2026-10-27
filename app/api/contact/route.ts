@@ -15,13 +15,26 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, message } = body;
 
-    const n = typeof name === "string" ? name.trim() : "";
+    // The name lands in the subject line, so it is collapsed to a single line.
+    const n =
+      typeof name === "string"
+        ? name
+            .replace(/[\u0000-\u001f\u007f]+/g, " ")
+            .replace(/ {2,}/g, " ")
+            .trim()
+        : "";
     const e = typeof email === "string" ? email.trim() : "";
     const m = typeof message === "string" ? message.trim() : "";
+    const maxNameLength = 200;
+    const maxMessageLength = 10_000;
 
     if (!n) return NextResponse.json({ error: "Name is required" }, { status: 400 });
     if (!e) return NextResponse.json({ error: "Email is required" }, { status: 400 });
     if (!m) return NextResponse.json({ error: "Message is required" }, { status: 400 });
+    if (n.length > maxNameLength)
+      return NextResponse.json({ error: "Name is too long" }, { status: 400 });
+    if (m.length > maxMessageLength)
+      return NextResponse.json({ error: "Message is too long" }, { status: 400 });
     if (!isValidEmail(e))
       return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
 
