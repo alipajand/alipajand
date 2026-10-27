@@ -72,7 +72,9 @@ export const NowWeekRuler = ({ year, initialWeek }: NowWeekRulerProps) => {
       ctx.moveTo(cx, 44);
       ctx.lineTo(cx, base + 8);
       ctx.stroke();
-      label.style.left = `${clamp(cx, 70, w - 70)}px`;
+      // Keep the whole label inside the ruler near the first and last steps.
+      const half = Math.min(label.offsetWidth / 2, w / 2);
+      label.style.left = `${clamp(cx, half, w - half)}px`;
     }
 
     let live = true;
@@ -95,13 +97,15 @@ export const NowWeekRuler = ({ year, initialWeek }: NowWeekRulerProps) => {
     };
   });
 
-  const style = { "--week": initialWeek } as CSSProperties;
+  const label = nowWeekLabel(initialWeek);
+  // The label's length in characters, so CSS can keep the whole label inside the ruler.
+  const style = { "--week": initialWeek, "--label-chars": label.length } as CSSProperties;
 
   return (
     <div ref={ref} className={styles.ruler} style={style} aria-hidden="true">
       <canvas />
       <span className={styles.rulerLabel} data-label="">
-        {nowWeekLabel(initialWeek)}
+        {label}
       </span>
     </div>
   );

@@ -12,8 +12,17 @@
   composes: mono from "../../components/hairline/styles/type.module.css";
   position: absolute;
   top: 14px;
-  /* Server position of this week's cursor; the island replaces it with the drawn cursor's x. */
-  left: clamp(70px, calc(24px + (var(--week) - 0.5) * (100% - 48px) / 52), calc(100% - 70px));
+  /*
+   * Server position of this week's cursor, kept far enough from each edge that the whole label stays
+   * inside the ruler (mono glyphs are 1ch wide plus the 0.08em tracking, plus 8px padding a side).
+   * The island replaces it with the drawn cursor's x.
+   */
+  --label-half: calc(var(--label-chars) * (1ch + 0.08em) / 2 + 8px);
+  left: clamp(
+    var(--label-half),
+    calc(24px + (var(--week) - 0.5) * (100% - 48px) / 52),
+    calc(100% - var(--label-half))
+  );
   padding: 4px 8px;
   background: var(--color-line);
   color: var(--color-ink);

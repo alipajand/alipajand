@@ -65,6 +65,10 @@ export const NOW_ADDRESS_LABEL = "[ alipajand.com/now ]";
 export const nowStackCountLabel = (position: number, toolCount: number): string =>
   `[ ${String(position).padStart(2, "0")} ] · ${toolCount} tools`;
 
-/** The week ruler's cursor label, for example "Now · wk 43 / 52". */
-export const nowWeekLabel = (week: number): string =>
-  `Now · wk ${String(week).padStart(2, "0")} / 52`;
+/**
+ * The ruler's cursor label, for example "Week 43 of 52 · year progress". The ruler splits the year
+ * into 52 seven-day steps from January 1 (see `utils/week.ts`), so this is how far through the year
+ * the date is, not the ISO week number: October 27, 2026 is step 43 but ISO week 44, and ISO 2026 has
+ * 53 weeks.
+ */
+export const nowWeekLabel = (week: number): string => `Week ${week} of 52 · year progress`;
