@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, type Request as PlaywrightRequest, test } from "@playwright/test";
 
 import { horizontalOverflow, PAGES, scrollThrough, settle, VIEWPORTS } from "./support";
 
@@ -186,5 +186,144 @@ test.describe("contact form", () => {
     await expect(summaryLink).toBeVisible();
     await summaryLink.click();
     await expect(page.locator("#contact-name")).toBeFocused();
+  });
+
+  test("sends a JSON request under the API's size cap, then shows sending and success", async ({
+    page,
+  }) => {
+    // Intercepted only so no email is sent: the request is held, checked, then answered.
+    let release: () => void = () => {};
+    const held = new Promise<void>((resolve) => (release = resolve));
+    const captured: PlaywrightRequest[] = [];
+    await page.route("**/api/contact", async (route) => {
+      captured.push(route.request());
+      await held;
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: '{"success":true}',
+      });
+    });
+    await page.goto("/");
+    await page.locator("#contact-name").fill("Jane Doe");
+    await page.locator("#contact-email").fill("jane@example.com");
+    await page.locator("#contact-company").fill("Example Co");
+    // Each emoji is 2 UTF-16 code units; "Company: Example Co\n\n" adds 21.
+    await page.locator("#contact-message").fill("\u{1F600}".repeat(4_990));
+    const count = page.locator("#contact-message-count");
+    await expect(count).toHaveText("10,001 / 10,000 characters, including company");
+
+    // One over: leaving the field shows the error, and sending is refused without a request.
+    await page.locator("#contact-message").blur();
+    await expect(
+      page.getByRole("link", {
+        name: "Keep your message and company to 10,000 characters combined",
+      })
+    ).toBeVisible();
+    await page.getByRole("button", { name: /send message/i }).click();
+    await expect(page.locator("#contact-message-error")).toBeVisible();
+    expect(captured).toHaveLength(0);
+
+    // Exactly at the limit is sent.
+    await page.locator("#contact-message").fill("\u{1F600}".repeat(4_989) + "x");
+    await expect(count).toHaveText("10,000 / 10,000 characters, including company");
+    await expect(page.locator("#contact-message-error")).toHaveCount(0);
+    await page.getByRole("button", { name: /send message/i }).click();
+
+    await expect(page.getByRole("button", { name: /sending/i })).toBeDisabled();
+    await expect(page.locator("#contact-form")).toHaveAttribute("aria-busy", "true");
+    await expect.poll(() => captured.length).toBe(1);
+    const [request] = captured;
+    expect(request.method()).toBe("POST");
+    expect(await request.headerValue("content-type")).toBe("application/json");
+    expect(request.postDataBuffer()?.byteLength ?? Infinity).toBeLessThan(64 * 1024);
+    expect(request.postDataJSON()).toEqual({
+      name: "Jane Doe",
+      email: "jane@example.com",
+      message: `Company: Example Co\n\n${"\u{1F600}".repeat(4_989)}x`,
+    });
+
+    release();
+    await expect(page.getByRole("status")).toHaveText("Message sent. Thanks for reaching out.");
+    await expect(page.locator("#contact-message")).toHaveValue("");
+    await expect(count).toHaveText("0 / 10,000 characters");
+  });
+
+  test("blocks over-limit fields in the browser and sends nothing", async ({ page }) => {
+    let requests = 0;
+    await page.route("**/api/contact", (route) => {
+      requests += 1;
+      return route.fulfill({ status: 200, contentType: "application/json", body: "{}" });
+    });
+    await page.goto("/");
+    await page.locator("#contact-name").fill("N".repeat(201));
+    await page.locator("#contact-email").fill("jane@example.com");
+    await page.locator("#contact-message").fill("M".repeat(10_001));
+    const count = page.locator("#contact-message-count");
+    await expect(count).toHaveText("10,001 / 10,000 characters");
+    await expect(count).toHaveAttribute("data-over", "");
+    await page.getByRole("button", { name: /send message/i }).click();
+    await expect(
+      page.getByRole("link", { name: "Keep your name to 200 characters or fewer" })
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Keep your message to 10,000 characters or fewer" })
+    ).toBeVisible();
+    await expect(page.locator("#contact-message")).toHaveAttribute(
+      "aria-describedby",
+      "contact-message-hint contact-message-count contact-message-error"
+    );
+    expect(requests).toBe(0);
+  });
+
+  test("keeps the fields out of the URL when submitted without JavaScript", async ({ browser }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    const urls: string[] = [];
+    const posts: Array<{ url: string; status: number }> = [];
+    page.on("request", (request) => {
+      if (request.isNavigationRequest()) urls.push(request.url());
+    });
+    page.on("response", (response) => {
+      if (response.request().method() === "POST") {
+        posts.push({ url: response.url(), status: response.status() });
+      }
+    });
+    await page.goto("/");
+    await page.locator("#contact-name").fill("NoScriptName");
+    await page.locator("#contact-email").fill("noscript@example.com");
+    await page.locator("#contact-company").fill("NoScriptCompany");
+    await page.locator("#contact-message").fill("NoScriptMessage");
+    await Promise.all([
+      page.waitForURL("**/#contact"),
+      page.getByRole("button", { name: /send message/i }).click(),
+    ]);
+
+    // Posted to the page itself, which renders normally and does not echo or send anything.
+    expect(posts).toEqual([{ url: expect.stringMatching(/\/$/), status: 200 }]);
+    await expect(page.locator("#contact-form")).toBeVisible();
+    await expect(page.getByText("NoScriptMessage")).toHaveCount(0);
+    for (const url of [...urls, page.url()]) {
+      expect(url).not.toMatch(/NoScript|noscript%40|noscript@/i);
+      expect(url).not.toContain("?");
+    }
+    await context.close();
+  });
+
+  test("shows the generic message when the server answers 400", async ({ page }) => {
+    await page.route("**/api/contact", (route) =>
+      route.fulfill({
+        status: 400,
+        contentType: "application/json",
+        body: '{"error":"Message is too long"}',
+      })
+    );
+    await page.goto("/");
+    await page.locator("#contact-name").fill("Jane Doe");
+    await page.locator("#contact-email").fill("jane@example.com");
+    await page.locator("#contact-message").fill("Hello there");
+    await page.getByRole("button", { name: /send message/i }).click();
+    await expect(page.getByText("Something went wrong. Please try again.")).toBeVisible();
+    await expect(page.getByText("Message is too long")).toHaveCount(0);
   });
 });

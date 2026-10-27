@@ -6,6 +6,7 @@ import {
   useForm,
   type UseFormHandleSubmit,
   type UseFormRegister,
+  useWatch,
 } from "react-hook-form";
 
 import {
@@ -13,6 +14,7 @@ import {
   CONTACT_FORM_ERROR_NETWORK,
   CONTACT_FORM_ERROR_RATE_LIMITED,
 } from "data/contactForm";
+import { composeContactMessage, contactMessageLength } from "utils/contactFields";
 
 export type ContactFormStatus = "idle" | "loading" | "success" | "error";
 
@@ -30,6 +32,9 @@ export interface ContactFormSelectors {
   formState: FormState<ContactFormValues>;
   validationErrors: string[];
   errorSummaryRef: RefObject<HTMLDivElement | null>;
+  /** Message length as the server counts it, company line included. */
+  messageLength: number;
+  hasCompany: boolean;
 }
 
 export interface ContactFormActions {
@@ -49,13 +54,6 @@ const DEFAULT_VALUES: ContactFormValues = {
   message: "",
 };
 
-const composeMessage = (message: string, company: string): string => {
-  const trimmedMessage = message.trim();
-  const trimmedCompany = company.trim();
-  if (!trimmedCompany) return trimmedMessage;
-  return `Company: ${trimmedCompany}\n\n${trimmedMessage}`;
-};
-
 export const useContactForm = (): ContactFormHook => {
   const [status, setStatus] = useState<ContactFormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -67,6 +65,17 @@ export const useContactForm = (): ContactFormHook => {
   const {
     formState: { errors, submitCount },
   } = form;
+  const [message, company] = useWatch({ control: form.control, name: ["message", "company"] });
+  const messageLength = contactMessageLength(message, company);
+  const hasCompany = company.trim().length > 0;
+  // The company shares the message's length budget, so a message already checked is checked again.
+  // The reset after a successful send clears the message first, so nothing is flagged then.
+  useEffect(() => {
+    if (!form.getValues("message").trim()) return;
+    if (form.getFieldState("message").isTouched || form.formState.submitCount > 0) {
+      void form.trigger("message");
+    }
+  }, [company, form]);
   const validationErrors = useMemo(
     () =>
       [errors.name?.message, errors.email?.message, errors.message?.message].filter(
@@ -88,17 +97,21 @@ export const useContactForm = (): ContactFormHook => {
         body: JSON.stringify({
           name: data.name.trim(),
           email: data.email.trim(),
-          message: composeMessage(data.message, data.company),
+          message: composeContactMessage(data.message, data.company),
         }),
       });
       const body = await res.json().catch(() => ({}));
       if (!res.ok) {
         setStatus("error");
-        // 429 comes from the Vercel Firewall rule on this route, not from the handler.
+        // 429 comes from the Vercel Firewall rule on this route, not from the handler. The form
+        // applies the server's field rules first, so a 400 means the two have drifted or the
+        // request was altered; the server's wording is not shown.
         setErrorMessage(
           res.status === 429
             ? CONTACT_FORM_ERROR_RATE_LIMITED
-            : (body.error ?? CONTACT_FORM_ERROR_GENERIC)
+            : res.status === 400
+              ? CONTACT_FORM_ERROR_GENERIC
+              : (body.error ?? CONTACT_FORM_ERROR_GENERIC)
         );
         return;
       }
@@ -117,6 +130,8 @@ export const useContactForm = (): ContactFormHook => {
       formState: form.formState,
       validationErrors,
       errorSummaryRef,
+      messageLength,
+      hasCompany,
     },
     actions: {
       register: form.register,

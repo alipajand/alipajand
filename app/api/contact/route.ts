@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
+import {
+  CONTACT_MESSAGE_MAX_LENGTH,
+  CONTACT_NAME_MAX_LENGTH,
+  isValidEmail,
+  normalizeContactName,
+} from "utils/contactFields";
 import { readLimitedText } from "utils/readLimitedText";
-import { getFromEmail, getResend, getToEmail, isValidEmail } from "utils/resend";
+import { getFromEmail, getResend, getToEmail } from "utils/resend";
 
 /** Generous for a contact message; caps what one request can make the server buffer. */
 const MAX_BODY_BYTES = 64 * 1024;
@@ -31,24 +37,16 @@ export async function POST(request: Request) {
     const { name, email, message } = body;
 
     // The name lands in the subject line, so it is collapsed to a single line.
-    const n =
-      typeof name === "string"
-        ? name
-            .replace(/[\u0000-\u001f\u007f]+/g, " ")
-            .replace(/ {2,}/g, " ")
-            .trim()
-        : "";
+    const n = typeof name === "string" ? normalizeContactName(name) : "";
     const e = typeof email === "string" ? email.trim() : "";
     const m = typeof message === "string" ? message.trim() : "";
-    const maxNameLength = 200;
-    const maxMessageLength = 10_000;
 
     if (!n) return NextResponse.json({ error: "Name is required" }, { status: 400 });
     if (!e) return NextResponse.json({ error: "Email is required" }, { status: 400 });
     if (!m) return NextResponse.json({ error: "Message is required" }, { status: 400 });
-    if (n.length > maxNameLength)
+    if (n.length > CONTACT_NAME_MAX_LENGTH)
       return NextResponse.json({ error: "Name is too long" }, { status: 400 });
-    if (m.length > maxMessageLength)
+    if (m.length > CONTACT_MESSAGE_MAX_LENGTH)
       return NextResponse.json({ error: "Message is too long" }, { status: 400 });
     if (!isValidEmail(e))
       return NextResponse.json({ error: "Invalid email address" }, { status: 400 });

@@ -2,8 +2,8 @@
  * One scroll and resize listener and one animation-frame loop for the whole page. Events are
  * coalesced into a single frame; subscribers read the same measurements. Frames only run while
  * something changed (after the last scroll event the smoothed velocity decays to zero) or while an
- * on-screen island holds a continuous-frame request, such as a drifting ticker. With neither, the
- * scheduler goes idle.
+ * on-screen island holds a continuous-frame request for idle motion. With neither, the scheduler goes
+ * idle. While the tab is hidden it requests no frames; it resumes when the tab is shown again.
  */
 
 export interface ScrollFrame {
@@ -57,9 +57,17 @@ const run = (time: number) => {
   else lastTime = 0;
 };
 
+const isHidden = () => document.visibilityState === "hidden";
+
 const schedule = () => {
-  if (frameId || listeners.size === 0) return;
+  if (frameId || listeners.size === 0 || isHidden()) return;
   frameId = window.requestAnimationFrame(run);
+};
+
+const cancel = () => {
+  if (frameId) window.cancelAnimationFrame(frameId);
+  frameId = 0;
+  lastTime = 0;
 };
 
 const onPageShow = (event: PageTransitionEvent) => {
@@ -70,8 +78,10 @@ const onPageShow = (event: PageTransitionEvent) => {
   }
 };
 
+/** A hidden tab requests no frames at all, even if an island still holds the loop open. */
 const onVisibility = () => {
-  if (document.visibilityState === "visible") schedule();
+  if (isHidden()) cancel();
+  else schedule();
 };
 
 const attach = () => {
@@ -92,8 +102,7 @@ const detach = () => {
   window.removeEventListener("resize", schedule);
   window.removeEventListener("pageshow", onPageShow);
   document.removeEventListener("visibilitychange", onVisibility);
-  if (frameId) window.cancelAnimationFrame(frameId);
-  frameId = 0;
+  cancel();
 };
 
 /** Subscribes to coalesced scroll frames. The listener also receives one frame right away. */
@@ -127,3 +136,6 @@ export const holdContinuousFrames = (): (() => void) => {
 
 /** Number of active subscribers. Exposed for tests and leak checks. */
 export const getScrollSubscriberCount = (): number => listeners.size;
+
+/** Number of unreleased continuous-frame holds. Exposed for tests and leak checks. */
+export const getContinuousHoldCount = (): number => continuousHolds;

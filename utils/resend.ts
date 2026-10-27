@@ -1,37 +1,14 @@
 import { Resend } from "resend";
+import { isValidEmail } from "utils/contactFields";
 
-const MAX_EMAIL_LENGTH = 254;
+export { isValidEmail };
+
 const CONSUMER_DOMAINS = ["@gmail.com", "@yahoo.com", "@hotmail.com"];
 const FALLBACK_FROM = "onboarding@resend.dev";
 
 export function getResend(): Resend | null {
   const key = process.env.RESEND_API_KEY;
   return key ? new Resend(key) : null;
-}
-
-export function isValidEmail(value: string): boolean {
-  if (value.length === 0 || value.length > MAX_EMAIL_LENGTH) return false;
-
-  const at = value.indexOf("@");
-  if (at <= 0 || at !== value.lastIndexOf("@")) return false;
-
-  const local = value.slice(0, at);
-  const domain = value.slice(at + 1);
-  if (local.length === 0 || domain.length === 0) return false;
-
-  const dot = domain.lastIndexOf(".");
-  if (dot <= 0 || dot === domain.length - 1) return false;
-
-  for (let i = 0; i < value.length; i += 1) {
-    const code = value.charCodeAt(i);
-    if (code <= 32 || code === 127) return false;
-  }
-
-  // Address-list and display-name syntax would let one field carry several
-  // recipients (e.g. `"x",other@example.com` as a reply-to).
-  if (/[,;"<>()[\]\\]/.test(value)) return false;
-
-  return true;
 }
 
 function parseAngleEmail(value: string): string | null {
