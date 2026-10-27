@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 
 import NowPage, { metadata } from "../../../app/now/page";
 import { NowPageContent } from "features/now/NowPageContent";
@@ -85,6 +85,47 @@ describe("NowPageContent", () => {
     render(<NowPageContent now={new Date(2026, 0, 1)} />);
 
     expect(screen.getByText(nowWeekLabel(43))).toBeInTheDocument();
+  });
+
+  it("should draw the week ruler on the server so it shows without the canvas", () => {
+    const { container } = render(<NowPageContent now={RENDERED_AT} />);
+
+    const ruler = container.querySelector("[data-static-ruler]");
+    expect(ruler?.closest("[aria-hidden='true']")).not.toBeNull();
+    // 53 tick lines bound the 52 steps, plus the baseline.
+    const lines = Array.from(ruler?.querySelectorAll("line") ?? []);
+    expect(lines).toHaveLength(54);
+    const ticks = lines.slice(0, 53);
+    expect(ticks.filter((line) => line.getAttribute("stroke-opacity") === "0.9")).toHaveLength(43);
+    expect(ticks.map((line) => Number(line.getAttribute("x1")))).toEqual(
+      Array.from({ length: 53 }, (_, i) => i)
+    );
+    expect(ruler?.textContent).toBe("Q1Q2Q3Q4");
+    // No 2D context in jsdom, so the canvas never draws and the server ruler stays in view.
+    expect(ruler?.parentElement).not.toHaveAttribute("data-drawn");
+  });
+
+  it("should hand the ruler to the canvas once it draws", async () => {
+    jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
+      setTransform: jest.fn(),
+      clearRect: jest.fn(),
+      beginPath: jest.fn(),
+      moveTo: jest.fn(),
+      lineTo: jest.fn(),
+      stroke: jest.fn(),
+      fillText: jest.fn(),
+    } as unknown as CanvasRenderingContext2D);
+    Object.defineProperty(document, "fonts", {
+      configurable: true,
+      value: { ready: Promise.resolve() },
+    });
+    const { container } = render(<NowPageContent now={RENDERED_AT} />);
+
+    const ruler = container.querySelector("[data-static-ruler]")?.parentElement;
+    await waitFor(() => expect(ruler).toHaveAttribute("data-drawn"));
+    // The server copy is hidden in CSS, not removed, so the swap cannot move anything.
+    expect(container.querySelector("[data-static-ruler]")).toBeInTheDocument();
+    delete (document as { fonts?: unknown }).fonts;
   });
 
   it("should close with the next links", () => {
