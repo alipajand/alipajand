@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
+import { readLimitedText } from "utils/readLimitedText";
 import { getFromEmail, getResend, getToEmail, isValidEmail } from "utils/resend";
+
+/** Generous for a contact message; caps what one request can make the server buffer. */
+const MAX_BODY_BYTES = 64 * 1024;
 
 function escapeHtml(text: string): string {
   return text
@@ -11,8 +15,19 @@ function escapeHtml(text: string): string {
 }
 
 export async function POST(request: Request) {
+  // A JSON content type cannot be sent cross-site without a CORS preflight, which
+  // this route does not grant, so plain HTML forms on other origins are refused.
+  const contentType = request.headers.get("content-type") ?? "";
+  if (!/^application\/json\s*(;|$)/i.test(contentType.trim())) {
+    return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
+  }
+
   try {
-    const body = await request.json();
+    const raw = await readLimitedText(request, MAX_BODY_BYTES);
+    if (raw === null) {
+      return NextResponse.json({ error: "Message is too large" }, { status: 413 });
+    }
+    const body = JSON.parse(raw);
     const { name, email, message } = body;
 
     const n = typeof name === "string" ? name.trim() : "";
