@@ -1,6 +1,7 @@
 import { CANONICAL_URL, PERSON_SCHEMA_ID, SITE_NAME } from "data/site";
 import type { Project } from "data/projects";
 import { PORTFOLIO_PAGE_HEADER_TITLE } from "data/projects";
+import { serializeJsonLd } from "utils/jsonLd";
 
 interface ProjectCaseStudyJsonLdProps {
   project: Project;
@@ -50,7 +51,7 @@ export const ProjectCaseStudyJsonLd = ({ project }: ProjectCaseStudyJsonLdProps)
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 };

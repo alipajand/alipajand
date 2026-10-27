@@ -1,6 +1,7 @@
 import { CANONICAL_URL, PERSON_SCHEMA_ID, SITE_NAME } from "data/site";
 import { WRITING_INDEX_COLLECTION_NAME } from "data/writing";
 import type { PostSummary } from "utils/posts";
+import { serializeJsonLd } from "utils/jsonLd";
 
 interface ArticleJsonLdProps {
   post: PostSummary;
@@ -44,7 +45,7 @@ export const ArticleJsonLd = ({ post }: ArticleJsonLdProps) => {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 };

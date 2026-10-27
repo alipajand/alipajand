@@ -12,6 +12,7 @@ import {
   TAGLINE,
 } from "data/site";
 import { PROFILE_IMAGE_VARIANTS, profileImagePath } from "data/profileImage";
+import { serializeJsonLd } from "utils/jsonLd";
 
 const profileImageUrls = (
   Object.keys(PROFILE_IMAGE_VARIANTS) as (keyof typeof PROFILE_IMAGE_VARIANTS)[]
@@ -64,11 +65,11 @@ export const HomeStructuredData = () => {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(personSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(profilePageSchema) }}
       />
     </>
   );
