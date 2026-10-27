@@ -1,0 +1,274 @@
+{
+ "writing-1440": {
+  "reference": "docs/design/pages/writing.html",
+  "actual": "/writing",
+  "ref_height": 5008,
+  "actual_height": 5008,
+  "fold_pixels_changed": 1.24,
+  "fold_coarse_delta": 0.5
+ },
+ "writing-390": {
+  "reference": "docs/design/pages/writing.html",
+  "actual": "/writing",
+  "ref_height": 7921,
+  "actual_height": 7974,
+  "fold_pixels_changed": 3.29,
+  "fold_coarse_delta": 1.16
+ },
+ "agent-instructions-are-code-1440": {
+  "reference": "docs/design/pages/writing-reader.html#agent-instructions-are-code",
+  "actual": "/writing/agent-instructions-are-code",
+  "ref_height": 9968,
+  "actual_height": 9116,
+  "fold_pixels_changed": 0.21,
+  "fold_coarse_delta": 0.12
+ },
+ "agent-instructions-are-code-390": {
+  "reference": "docs/design/pages/writing-reader.html#agent-instructions-are-code",
+  "actual": "/writing/agent-instructions-are-code",
+  "ref_height": 16092,
+  "actual_height": 14658,
+  "fold_pixels_changed": 0.91,
+  "fold_coarse_delta": 0.39
+ },
+ "agent-readiness-doctor-1440": {
+  "reference": "docs/design/pages/agent-readiness-doctor.html",
+  "actual": "/writing/agent-readiness-doctor",
+  "ref_height": 5558,
+  "actual_height": 5559,
+  "fold_pixels_changed": 0.65,
+  "fold_coarse_delta": 0.34
+ },
+ "agent-readiness-doctor-390": {
+  "reference": "docs/design/pages/agent-readiness-doctor.html",
+  "actual": "/writing/agent-readiness-doctor",
+  "ref_height": 7583,
+  "actual_height": 7611,
+  "fold_pixels_changed": 0.95,
+  "fold_coarse_delta": 0.53
+ },
+ "building-tools-that-dont-fight-you-1440": {
+  "reference": "docs/design/pages/writing-reader.html#building-tools-that-dont-fight-you",
+  "actual": "/writing/building-tools-that-dont-fight-you",
+  "ref_height": 6855,
+  "actual_height": 6274,
+  "fold_pixels_changed": 0.22,
+  "fold_coarse_delta": 0.12
+ },
+ "building-tools-that-dont-fight-you-390": {
+  "reference": "docs/design/pages/writing-reader.html#building-tools-that-dont-fight-you",
+  "actual": "/writing/building-tools-that-dont-fight-you",
+  "ref_height": 11141,
+  "actual_height": 10253,
+  "fold_pixels_changed": 1.98,
+  "fold_coarse_delta": 0.76
+ },
+ "ci-tools-for-untrusted-pull-requests-1440": {
+  "reference": "docs/design/pages/writing-reader.html#ci-tools-for-untrusted-pull-requests",
+  "actual": "/writing/ci-tools-for-untrusted-pull-requests",
+  "ref_height": 10269,
+  "actual_height": 8607,
+  "fold_pixels_changed": 0.21,
+  "fold_coarse_delta": 0.12
+ },
+ "ci-tools-for-untrusted-pull-requests-390": {
+  "reference": "docs/design/pages/writing-reader.html#ci-tools-for-untrusted-pull-requests",
+  "actual": "/writing/ci-tools-for-untrusted-pull-requests",
+  "ref_height": 17072,
+  "actual_height": 14201,
+  "fold_pixels_changed": 0.46,
+  "fold_coarse_delta": 0.26
+ },
+ "design-systems-that-stick-1440": {
+  "reference": "docs/design/pages/writing-reader.html#design-systems-that-stick",
+  "actual": "/writing/design-systems-that-stick",
+  "ref_height": 10918,
+  "actual_height": 10187,
+  "fold_pixels_changed": 0.22,
+  "fold_coarse_delta": 0.12
+ },
+ "design-systems-that-stick-390": {
+  "reference": "docs/design/pages/writing-reader.html#design-systems-that-stick",
+  "actual": "/writing/design-systems-that-stick",
+  "ref_height": 18014,
+  "actual_height": 16967,
+  "fold_pixels_changed": 1.94,
+  "fold_coarse_delta": 0.76
+ },
+ "designing-a-small-library-for-logs-too-big-to-hold-1440": {
+  "reference": "docs/design/pages/writing-reader.html#designing-a-small-library-for-logs-too-big-to-hold",
+  "actual": "/writing/designing-a-small-library-for-logs-too-big-to-hold",
+  "ref_height": 11982,
+  "actual_height": 11935,
+  "fold_pixels_changed": 0.21,
+  "fold_coarse_delta": 0.12
+ },
+ "designing-a-small-library-for-logs-too-big-to-hold-390": {
+  "reference": "docs/design/pages/writing-reader.html#designing-a-small-library-for-logs-too-big-to-hold",
+  "actual": "/writing/designing-a-small-library-for-logs-too-big-to-hold",
+  "ref_height": 18857,
+  "actual_height": 18897,
+  "fold_pixels_changed": 0.45,
+  "fold_coarse_delta": 0.26
+ },
+ "deterministic-review-triage-for-agent-prs-1440": {
+  "reference": "docs/design/pages/writing-reader.html#deterministic-review-triage-for-agent-prs",
+  "actual": "/writing/deterministic-review-triage-for-agent-prs",
+  "ref_height": 8840,
+  "actual_height": 7921,
+  "fold_pixels_changed": 0.21,
+  "fold_coarse_delta": 0.12
+ },
+ "deterministic-review-triage-for-agent-prs-390": {
+  "reference": "docs/design/pages/writing-reader.html#deterministic-review-triage-for-agent-prs",
+  "actual": "/writing/deterministic-review-triage-for-agent-prs",
+  "ref_height": 14571,
+  "actual_height": 13017,
+  "fold_pixels_changed": 1.26,
+  "fold_coarse_delta": 0.51
+ },
+ "how-i-approach-senior-frontend-architecture-1440": {
+  "reference": "docs/design/pages/writing-reader.html#how-i-approach-senior-frontend-architecture",
+  "actual": "/writing/how-i-approach-senior-frontend-architecture",
+  "ref_height": 11037,
+  "actual_height": 10335,
+  "fold_pixels_changed": 0.22,
+  "fold_coarse_delta": 0.12
+ },
+ "how-i-approach-senior-frontend-architecture-390": {
+  "reference": "docs/design/pages/writing-reader.html#how-i-approach-senior-frontend-architecture",
+  "actual": "/writing/how-i-approach-senior-frontend-architecture",
+  "ref_height": 18142,
+  "actual_height": 17107,
+  "fold_pixels_changed": 1.08,
+  "fold_coarse_delta": 0.47
+ },
+ "how-i-structure-a-frontend-that-owns-almost-no-truth-1440": {
+  "reference": "docs/design/pages/writing-reader.html#how-i-structure-a-frontend-that-owns-almost-no-truth",
+  "actual": "/writing/how-i-structure-a-frontend-that-owns-almost-no-truth",
+  "ref_height": 10943,
+  "actual_height": 10060,
+  "fold_pixels_changed": 0.21,
+  "fold_coarse_delta": 0.12
+ },
+ "how-i-structure-a-frontend-that-owns-almost-no-truth-390": {
+  "reference": "docs/design/pages/writing-reader.html#how-i-structure-a-frontend-that-owns-almost-no-truth",
+  "actual": "/writing/how-i-structure-a-frontend-that-owns-almost-no-truth",
+  "ref_height": 18249,
+  "actual_height": 16822,
+  "fold_pixels_changed": 0.46,
+  "fold_coarse_delta": 0.26
+ },
+ "how-i-use-ai-in-my-frontend-engineering-workflow-1440": {
+  "reference": "docs/design/pages/writing-reader.html#how-i-use-ai-in-my-frontend-engineering-workflow",
+  "actual": "/writing/how-i-use-ai-in-my-frontend-engineering-workflow",
+  "ref_height": 11127,
+  "actual_height": 9749,
+  "fold_pixels_changed": 0.21,
+  "fold_coarse_delta": 0.12
+ },
+ "how-i-use-ai-in-my-frontend-engineering-workflow-390": {
+  "reference": "docs/design/pages/writing-reader.html#how-i-use-ai-in-my-frontend-engineering-workflow",
+  "actual": "/writing/how-i-use-ai-in-my-frontend-engineering-workflow",
+  "ref_height": 17783,
+  "actual_height": 15500,
+  "fold_pixels_changed": 1.23,
+  "fold_coarse_delta": 0.52
+ },
+ "how-i-would-build-a-real-time-backgammon-platform-1440": {
+  "reference": "docs/design/pages/writing-reader.html#how-i-would-build-a-real-time-backgammon-platform",
+  "actual": "/writing/how-i-would-build-a-real-time-backgammon-platform",
+  "ref_height": 23481,
+  "actual_height": 22692,
+  "fold_pixels_changed": 0.21,
+  "fold_coarse_delta": 0.12
+ },
+ "how-i-would-build-a-real-time-backgammon-platform-390": {
+  "reference": "docs/design/pages/writing-reader.html#how-i-would-build-a-real-time-backgammon-platform",
+  "actual": "/writing/how-i-would-build-a-real-time-backgammon-platform",
+  "ref_height": 34959,
+  "actual_height": 33628,
+  "fold_pixels_changed": 0.44,
+  "fold_coarse_delta": 0.25
+ },
+ "how-i-would-design-a-document-review-workspace-1440": {
+  "reference": "docs/design/pages/writing-reader.html#how-i-would-design-a-document-review-workspace",
+  "actual": "/writing/how-i-would-design-a-document-review-workspace",
+  "ref_height": 15087,
+  "actual_height": 15004,
+  "fold_pixels_changed": 0.21,
+  "fold_coarse_delta": 0.12
+ },
+ "how-i-would-design-a-document-review-workspace-390": {
+  "reference": "docs/design/pages/writing-reader.html#how-i-would-design-a-document-review-workspace",
+  "actual": "/writing/how-i-would-design-a-document-review-workspace",
+  "ref_height": 23936,
+  "actual_height": 23941,
+  "fold_pixels_changed": 0.44,
+  "fold_coarse_delta": 0.25
+ },
+ "ledgerguard-truth-between-extraction-and-finance-1440": {
+  "reference": "docs/design/pages/writing-reader.html#ledgerguard-truth-between-extraction-and-finance",
+  "actual": "/writing/ledgerguard-truth-between-extraction-and-finance",
+  "ref_height": 11195,
+  "actual_height": 10457,
+  "fold_pixels_changed": 0.21,
+  "fold_coarse_delta": 0.12
+ },
+ "ledgerguard-truth-between-extraction-and-finance-390": {
+  "reference": "docs/design/pages/writing-reader.html#ledgerguard-truth-between-extraction-and-finance",
+  "actual": "/writing/ledgerguard-truth-between-extraction-and-finance",
+  "ref_height": 18337,
+  "actual_height": 17213,
+  "fold_pixels_changed": 0.79,
+  "fold_coarse_delta": 0.36
+ },
+ "mapbylaw-ai-recommendations-1440": {
+  "reference": "docs/design/pages/writing-reader.html#mapbylaw-ai-recommendations",
+  "actual": "/writing/mapbylaw-ai-recommendations",
+  "ref_height": 10591,
+  "actual_height": 9860,
+  "fold_pixels_changed": 11.1,
+  "fold_coarse_delta": 6.81
+ },
+ "mapbylaw-ai-recommendations-390": {
+  "reference": "docs/design/pages/writing-reader.html#mapbylaw-ai-recommendations",
+  "actual": "/writing/mapbylaw-ai-recommendations",
+  "ref_height": 16473,
+  "actual_height": 15220,
+  "fold_pixels_changed": 10.25,
+  "fold_coarse_delta": 5.74
+ },
+ "preparing-integrations-for-anthropic-and-cursor-directories-1440": {
+  "reference": "docs/design/pages/writing-reader.html#preparing-integrations-for-anthropic-and-cursor-directories",
+  "actual": "/writing/preparing-integrations-for-anthropic-and-cursor-directories",
+  "ref_height": 7718,
+  "actual_height": 7702,
+  "fold_pixels_changed": 0.54,
+  "fold_coarse_delta": 0.29
+ },
+ "preparing-integrations-for-anthropic-and-cursor-directories-390": {
+  "reference": "docs/design/pages/writing-reader.html#preparing-integrations-for-anthropic-and-cursor-directories",
+  "actual": "/writing/preparing-integrations-for-anthropic-and-cursor-directories",
+  "ref_height": 12537,
+  "actual_height": 12602,
+  "fold_pixels_changed": 0.46,
+  "fold_coarse_delta": 0.26
+ },
+ "why-i-automate-code-review-with-mcp-1440": {
+  "reference": "docs/design/pages/writing-reader.html#why-i-automate-code-review-with-mcp",
+  "actual": "/writing/why-i-automate-code-review-with-mcp",
+  "ref_height": 10053,
+  "actual_height": 9555,
+  "fold_pixels_changed": 0.21,
+  "fold_coarse_delta": 0.12
+ },
+ "why-i-automate-code-review-with-mcp-390": {
+  "reference": "docs/design/pages/writing-reader.html#why-i-automate-code-review-with-mcp",
+  "actual": "/writing/why-i-automate-code-review-with-mcp",
+  "ref_height": 15960,
+  "actual_height": 14890,
+  "fold_pixels_changed": 0.82,
+  "fold_coarse_delta": 0.37
+ }
+}

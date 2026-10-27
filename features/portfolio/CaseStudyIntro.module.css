@@ -1,0 +1,128 @@
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px 24px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+/* The eyebrow keeps a paragraph's 1em margin, which the flex gap adds to, as in the design kit. */
+.over {
+  max-width: 48ch;
+  margin: 1em 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--color-mute);
+}
+
+.title {
+  composes: display from "../../components/hairline/styles/type.module.css";
+  font-stretch: 118%;
+  font-size: clamp(30px, 3.2vw, 52px);
+  line-height: 0.92;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.overview {
+  max-width: 52ch;
+  margin: 0;
+  font-size: clamp(18px, 1.5vw, 21px);
+  line-height: 1.5;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  min-width: 0;
+  margin-top: auto;
+}
+
+.plain .meta {
+  margin-top: 0;
+}
+
+/* Hero screenshot column; the perspective gives the tilted window its depth. */
+.side {
+  display: grid;
+  gap: 14px;
+  align-content: center;
+  padding: 28px 24px 22px;
+  overflow: hidden;
+  perspective: 1400px;
+}
+
+.plain .side {
+  align-content: start;
+  gap: 18px;
+}
+
+.lives {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--tone-rule);
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.live {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--color-line);
+  color: var(--color-ink);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.25s;
+}
+
+.live:hover {
+  background: var(--color-bone-2);
+}
+
+.live:focus-visible {
+  outline-offset: 3px;
+}
+
+.live small {
+  min-width: 0;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  text-align: right;
+  text-transform: none;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  .intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .copy {
+    padding: 22px 16px;
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .side {
+    padding: 18px 16px;
+  }
+}

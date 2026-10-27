@@ -1,63 +1,56 @@
-import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
-import { PostDiagram } from "components/diagrams/PostDiagram";
-import {
-  TableOfContents,
-  TableOfContentsDisclosure,
-} from "components/TableOfContents/TableOfContents";
-import { writingPostBreadcrumbs } from "data/breadcrumbs";
-import { splitContentAtDiagramSlots, type DiagramSpec } from "utils/diagramBlocks";
+import { NextLinks } from "components/hairline/NextLinks/NextLinks";
+import { WritingPostBody } from "features/writing/WritingPostBody";
+import { WritingPostCrumbs } from "features/writing/WritingPostCrumbs";
+import { WritingPostHeader } from "features/writing/WritingPostHeader";
+import { WritingPostMore } from "features/writing/WritingPostMore";
+import { WritingPostTicker } from "features/writing/WritingPostTicker";
+import type { WritingListPost } from "features/writing/writingModel";
+import { WRITING_ARTICLE_NEXT_LABEL, WRITING_ARTICLE_NEXT_LINKS } from "data/writing";
+import type { DiagramSpec } from "utils/diagramBlocks";
 import type { PostHeading } from "utils/headings";
-import { formatDate } from "utils/date";
 
-interface WritingPostPageContentProps {
+export interface WritingArticle {
+  slug: string;
   title: string;
   date: string;
+  excerpt: string;
+  tags: string[];
   contentHtml: string;
   headings: PostHeading[];
   diagrams: DiagramSpec[];
 }
 
-export const WritingPostPageContent = ({
-  title,
-  date,
-  contentHtml,
-  headings,
-  diagrams,
-}: WritingPostPageContentProps) => {
-  const segments = splitContentAtDiagramSlots(contentHtml);
+interface WritingPostPageContentProps {
+  post: WritingArticle;
+  /** Every post, newest first, for "More writing". */
+  posts: readonly Pick<WritingListPost, "slug" | "title" | "date">[];
+}
 
-  return (
-    <>
-      <div>
-        <main id="main-content" tabIndex={-1}>
-          <article>
-            <header>
-              <Breadcrumbs items={writingPostBreadcrumbs(title)} />
-              <p>
-                <time dateTime={date}>{formatDate(date)}</time>
-              </p>
-              <h1>{title}</h1>
-            </header>
-            <div>
-              <div>
-                <TableOfContentsDisclosure headings={headings} />
-                <div>
-                  {segments.map((segment, index) =>
-                    segment.kind === "html" ? (
-                      <div key={index} dangerouslySetInnerHTML={{ __html: segment.html }} />
-                    ) : diagrams[segment.index] ? (
-                      <PostDiagram key={index} spec={diagrams[segment.index]} />
-                    ) : null
-                  )}
-                </div>
-              </div>
-              <aside>
-                <TableOfContents headings={headings} />
-              </aside>
-            </div>
-          </article>
-        </main>
-      </div>
-    </>
-  );
-};
+/** A standard article: crumbs, section ticker, header, contents beside prose, more writing. */
+export const WritingPostPageContent = ({ post, posts }: WritingPostPageContentProps) => (
+  <main id="main-content" tabIndex={-1}>
+    <WritingPostCrumbs title={post.title} />
+    <WritingPostTicker
+      items={[
+        post.title,
+        ...post.headings.filter((heading) => heading.level === 2).map((heading) => heading.text),
+      ]}
+    />
+    <article aria-labelledby="post-title">
+      <WritingPostHeader
+        titleId="post-title"
+        title={post.title}
+        excerpt={post.excerpt}
+        date={post.date}
+        tags={post.tags}
+      />
+      <WritingPostBody
+        contentHtml={post.contentHtml}
+        headings={post.headings}
+        diagrams={post.diagrams}
+      />
+    </article>
+    <WritingPostMore posts={posts} currentSlug={post.slug} />
+    <NextLinks label={WRITING_ARTICLE_NEXT_LABEL} links={WRITING_ARTICLE_NEXT_LINKS} />
+  </main>
+);

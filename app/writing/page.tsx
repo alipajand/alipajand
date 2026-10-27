@@ -19,6 +19,8 @@ export default async function WritingPage() {
   const now = new Date();
   const posts = getAllPosts().map((post) => ({
     ...post,
+    tags: post.tags ?? [],
+    featured: post.featured === true,
     upcoming: !isPostPublished(post.date, now),
   }));
   const pageUrl = `${CANONICAL_URL}/writing`;

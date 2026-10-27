@@ -1,0 +1,100 @@
+/* The title's measuring box; its own font size is the title's largest size. */
+.titleBox {
+  container-type: inline-size;
+  font-size: clamp(34px, 5.8cqi, 104px);
+}
+
+.title {
+  --pad: 24px;
+  margin: 0;
+  padding: 30px var(--pad) 26px;
+  font-family: var(--font-display);
+  /* Shrinks only when the longest word (--fit-em, set from the text) would not fit the line. */
+  font-size: min(1em, calc((100cqi - 2 * var(--pad)) / var(--fit-em, 1)));
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 3fr) minmax(0, 6fr);
+  /* The artifact's list keeps a 1em gap below the title rule and above the scene. */
+  margin: 16px 0;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.meta > div {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 14px 24px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.meta > div:last-child {
+  border-right: 0;
+}
+
+.meta dt {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+.meta dd {
+  margin: 0;
+}
+
+.dek {
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+@media (max-width: 960px) {
+  .meta {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .meta > div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .meta > div:last-child {
+    grid-column: 1 / -1;
+    border-top: var(--stroke-hairline) solid var(--tone-rule);
+  }
+}
+
+@media (max-width: 760px) {
+  .titleBox {
+    font-size: 8.4cqi;
+  }
+
+  .title {
+    --pad: 16px;
+    padding: 22px var(--pad) 20px;
+  }
+
+  .meta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .meta > div {
+    padding-inline: 16px;
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .meta > div:last-child {
+    border-top: 0;
+    border-bottom: 0;
+  }
+}

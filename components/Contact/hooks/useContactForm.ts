@@ -8,7 +8,11 @@ import {
   type UseFormRegister,
 } from "react-hook-form";
 
-import { CONTACT_FORM_ERROR_GENERIC, CONTACT_FORM_ERROR_NETWORK } from "data/contactForm";
+import {
+  CONTACT_FORM_ERROR_GENERIC,
+  CONTACT_FORM_ERROR_NETWORK,
+  CONTACT_FORM_ERROR_RATE_LIMITED,
+} from "data/contactForm";
 
 export type ContactFormStatus = "idle" | "loading" | "success" | "error";
 
@@ -90,7 +94,12 @@ export const useContactForm = (): ContactFormHook => {
       const body = await res.json().catch(() => ({}));
       if (!res.ok) {
         setStatus("error");
-        setErrorMessage(body.error ?? CONTACT_FORM_ERROR_GENERIC);
+        // 429 comes from the Vercel Firewall rule on this route, not from the handler.
+        setErrorMessage(
+          res.status === 429
+            ? CONTACT_FORM_ERROR_RATE_LIMITED
+            : (body.error ?? CONTACT_FORM_ERROR_GENERIC)
+        );
         return;
       }
       setStatus("success");

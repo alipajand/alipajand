@@ -1,41 +1,44 @@
-import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
-import type { WritingIndexPost } from "features/writing/WritingIndexPost";
-import { WritingIndexPostListItem } from "features/writing/WritingIndexPostListItem";
-import { writingIndexBreadcrumbs } from "data/breadcrumbs";
+import { DisplayWord } from "components/hairline/DisplayWord/DisplayWord";
+import { NextLinks } from "components/hairline/NextLinks/NextLinks";
+import { Ticker } from "components/hairline/Ticker/Ticker";
+import styles from "features/writing/WritingIndexPageContent.module.css";
+import { WritingIndexFeatured } from "features/writing/WritingIndexFeatured";
+import { WritingIndexHero } from "features/writing/WritingIndexHero";
+import { WritingIndexPosts } from "features/writing/WritingIndexPosts";
+import { WritingIndexWhy } from "features/writing/WritingIndexWhy";
 import {
-  WRITING_INDEX_EMPTY_MESSAGE,
+  pickFeatured,
+  timelineRange,
+  topicLanes,
+  type WritingListPost,
+} from "features/writing/writingModel";
+import {
+  WRITING_INDEX_NEXT_LABEL,
+  WRITING_INDEX_NEXT_LINKS,
   WRITING_SECTION_HEADING,
-  WRITING_SECTION_LEDE,
-  WRITING_WHY_IT_MATTERS,
 } from "data/writing";
 
 interface WritingIndexPageContentProps {
-  posts: WritingIndexPost[];
+  /** Newest first; upcoming posts are flagged, not removed. */
+  posts: WritingListPost[];
 }
 
 export const WritingIndexPageContent = ({ posts }: WritingIndexPageContentProps) => {
-  return (
-    <div>
-      <main id="main-content" tabIndex={-1}>
-        <div>
-          <Breadcrumbs items={writingIndexBreadcrumbs()} />
-          <header>
-            <h1>{WRITING_SECTION_HEADING}</h1>
-            <p>{WRITING_SECTION_LEDE}</p>
-            <p>{WRITING_WHY_IT_MATTERS}</p>
-          </header>
+  const lanes = topicLanes(posts);
+  const range = timelineRange(posts.map((post) => post.date));
+  const featured = pickFeatured(posts);
 
-          {posts.length === 0 ? (
-            <p>{WRITING_INDEX_EMPTY_MESSAGE}</p>
-          ) : (
-            <ul>
-              {posts.map((post) => (
-                <WritingIndexPostListItem key={post.slug} post={post} />
-              ))}
-            </ul>
-          )}
-        </div>
-      </main>
-    </div>
+  return (
+    <main id="main-content" tabIndex={-1}>
+      <div className={styles.display}>
+        <DisplayWord as="h1" words={[WRITING_SECTION_HEADING, String(range.year)]} />
+      </div>
+      <WritingIndexHero posts={posts} lanes={lanes} range={range} hasFeatured={featured !== null} />
+      <Ticker items={lanes.map((lane) => lane.label)} icon="ring" direction={1} />
+      {featured ? <WritingIndexFeatured post={featured} /> : null}
+      <WritingIndexWhy />
+      <WritingIndexPosts posts={posts} lanes={lanes} />
+      <NextLinks label={WRITING_INDEX_NEXT_LABEL} links={WRITING_INDEX_NEXT_LINKS} />
+    </main>
   );
 };

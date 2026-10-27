@@ -32,7 +32,7 @@ export const CompareDiagram = ({
         const chosen = index === columns.length - 1;
         return (
           <div key={column.label} className={chosen ? styles.chosen : undefined}>
-            <h4>{column.label}</h4>
+            <h3>{column.label}</h3>
             <ul>
               {column.items.map((item) => (
                 <li key={item}>

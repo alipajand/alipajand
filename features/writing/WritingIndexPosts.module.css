@@ -1,0 +1,213 @@
+.mono {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 24px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.label {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  margin-right: 8px;
+  color: var(--color-mute);
+}
+
+.chip {
+  padding: 5px 11px;
+  font: inherit;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--color-line);
+  background: transparent;
+  border: var(--stroke-hairline) solid var(--tone-rule);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.chip span {
+  margin-left: 6px;
+  color: var(--color-mute);
+}
+
+.chip:hover {
+  border-color: var(--color-line);
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--color-line);
+  color: var(--color-ink);
+  border-color: var(--color-line);
+}
+
+.chip[aria-pressed="true"] span {
+  color: var(--color-mute-ink);
+}
+
+.count {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  margin-left: auto;
+  color: var(--color-mute);
+}
+
+.posts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.posts li + li {
+  border-top: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.post {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr) 170px;
+  gap: 24px;
+  padding: 22px 24px;
+  text-decoration: none;
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+
+.post:hover,
+.post:focus-visible {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.post:focus-visible {
+  outline-color: var(--color-ink);
+  outline-offset: -4px;
+}
+
+.date {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  padding-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.main {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.main h3 {
+  margin: 0;
+  font-size: clamp(21px, 1.9vw, 28px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.main p {
+  max-width: 72ch;
+  margin: 0;
+  line-height: 1.6;
+  color: var(--color-mute);
+}
+
+.tagline {
+  font-size: 14px;
+}
+
+.post .mono,
+.post .date,
+.post .tagline {
+  color: var(--color-mute);
+}
+
+.post:hover p,
+.post:hover .mono,
+.post:hover .date,
+.post:hover .tagline,
+.post:focus-visible p,
+.post:focus-visible .mono,
+.post:focus-visible .date,
+.post:focus-visible .tagline {
+  color: var(--color-mute-ink);
+}
+
+.go {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  display: flex;
+  justify-content: flex-end;
+  align-items: start;
+  gap: 10px;
+  padding-top: 6px;
+  white-space: nowrap;
+}
+
+.flag {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  justify-self: start;
+  padding: 2px 9px;
+  border: var(--stroke-hairline) solid currentColor;
+  border-radius: var(--radius-pill);
+}
+
+/* An upcoming post gets a dashed top rule. */
+.upcoming {
+  background-image: repeating-linear-gradient(90deg, var(--color-rule) 0 6px, transparent 6px 12px);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+}
+
+.empty {
+  margin: 0;
+  padding: 22px 24px;
+  color: var(--color-mute);
+}
+
+@media (max-width: 960px) {
+  .post {
+    grid-template-columns: 130px minmax(0, 1fr);
+  }
+
+  .go {
+    grid-column: 2;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .filters {
+    padding: 14px 16px;
+  }
+
+  .count {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .post {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: 20px 16px;
+  }
+
+  .date {
+    padding-top: 0;
+  }
+
+  .go {
+    grid-column: 1;
+  }
+
+  .empty {
+    padding: 20px 16px;
+  }
+}
