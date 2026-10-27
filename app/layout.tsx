@@ -11,17 +11,13 @@ import {
   TWITTER_HANDLE,
 } from "data/site";
 import { PropsWithChildren } from "react";
-import { Footer } from "components/Footer/Footer";
-import { FOOTER_LATEST_WRITINGS_COUNT } from "data/footer";
-import { getLatestPosts } from "utils/posts";
-import { Nav } from "components/Nav/Nav";
-import { SKIP_TO_CONTENT_LABEL } from "data/pageChrome";
+import { archivo, geistMono } from "./fonts";
+import { SiteShell } from "components/hairline/SiteShell/SiteShell";
 import { StructuredData } from "components/StructuredData/StructuredData";
 import { GatedGoogleAnalytics } from "components/Analytics/GatedGoogleAnalytics";
 import { GatedVercelAnalytics } from "components/Analytics/GatedVercelAnalytics";
 import { GatedVercelSpeedInsights } from "components/Analytics/GatedVercelSpeedInsights";
 import { RouteChangeFocus } from "components/RouteChangeFocus/RouteChangeFocus";
-import { SkipLink } from "components/SkipLink/SkipLink";
 import { FEED_PATH } from "utils/feed";
 import { LLMS_TXT_PATH } from "utils/llms";
 
@@ -87,6 +83,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  themeColor: "#0f0f0e",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -94,10 +92,8 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
-  const latestWritings = getLatestPosts(FOOTER_LATEST_WRITINGS_COUNT);
-
   return (
-    <html lang="en">
+    <html lang="en" className={`${archivo.variable} ${geistMono.variable}`}>
       <head>
         <link
           rel="alternate"
@@ -117,13 +113,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <GatedVercelAnalytics />
         <GatedVercelSpeedInsights />
 
-        <SkipLink href="#main-content" label={SKIP_TO_CONTENT_LABEL} />
-
         <StructuredData />
         <RouteChangeFocus />
-        <Nav />
-        {children}
-        <Footer latestWritings={latestWritings} />
+        <SiteShell>{children}</SiteShell>
       </body>
     </html>
   );

@@ -1,0 +1,59 @@
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.lead {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  padding: 30px 24px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.eyebrow {
+  composes: mono from "../hairline/styles/type.module.css";
+  color: var(--color-mute);
+}
+
+.title {
+  composes: display from "../hairline/styles/type.module.css";
+  font-size: clamp(44px, 8.6cqi, 150px);
+  line-height: 0.86;
+}
+
+.body {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--color-mute);
+}
+
+.availability {
+  margin: 0;
+  max-width: 52ch;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 30px 24px;
+}
+
+@media (max-width: 760px) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lead {
+    padding: 24px 16px;
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .links {
+    padding: 24px 16px;
+  }
+}

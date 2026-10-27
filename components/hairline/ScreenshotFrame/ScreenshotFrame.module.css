@@ -1,0 +1,161 @@
+.shot {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.window {
+  position: relative;
+  background: var(--color-ink-2);
+  border: var(--stroke-hairline) solid var(--tone-rule);
+  transform-origin: 50% 100%;
+}
+
+/* The resting tilt is CSS, so the first paint matches before the script takes over. */
+.tilted {
+  transform: rotateX(14deg) scale(0.94);
+  will-change: transform;
+}
+
+.bar {
+  composes: mono from "../styles/type.module.css";
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  color: var(--color-mute);
+}
+
+.bar i {
+  width: 7px;
+  height: 7px;
+  border: var(--stroke-hairline) solid var(--tone-rule);
+  border-radius: 50%;
+}
+
+.bar span {
+  margin-left: 6px;
+}
+
+.bar b {
+  margin-left: auto;
+  font-weight: 400;
+}
+
+.open {
+  all: unset;
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
+}
+
+.open:focus-visible {
+  outline: var(--stroke-progress) solid var(--color-line);
+  outline-offset: 3px;
+}
+
+.open img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #151515;
+}
+
+.shot figcaption {
+  max-width: 72ch;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-mute);
+}
+
+.shot figcaption b {
+  color: var(--color-line);
+  font-weight: 600;
+}
+
+.side {
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  align-items: end;
+  gap: 24px;
+}
+
+.side figcaption {
+  order: -1;
+}
+
+.dialog {
+  width: 96vw;
+  max-width: min(1600px, 96vw);
+  max-height: 94vh;
+  padding: 0;
+  background: var(--color-ink);
+  color: var(--color-line);
+  border: var(--stroke-hairline) solid var(--color-rule);
+}
+
+.dialog::backdrop {
+  background: rgb(15 15 14 / 86%);
+}
+
+.dialogBar {
+  composes: mono from "../styles/type.module.css";
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--color-ink);
+  border-bottom: var(--stroke-hairline) solid var(--color-rule);
+}
+
+.dialogBar button {
+  padding: 6px 10px;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--color-line);
+  background: transparent;
+  border: var(--stroke-hairline) solid var(--color-rule);
+  cursor: pointer;
+}
+
+.dialogBar button:hover {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.dialogImage {
+  overflow: auto;
+}
+
+.dialogImage img {
+  display: block;
+  width: 100%;
+  min-width: 900px;
+  height: auto;
+}
+
+@media (max-width: 960px) {
+  .side {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .side figcaption {
+    order: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .bar b {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilted {
+    transform: none;
+  }
+}

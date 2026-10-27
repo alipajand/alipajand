@@ -1,0 +1,90 @@
+/*
+ * Resting layout: the words sit `--reach` of the free space in from each edge. Outer spacers take
+ * `--reach` of the free space each and inner spacers share the rest, which reproduces the artifact's
+ * space-between line shifted by `reach * free`. With reduced motion the outer spacers collapse and the
+ * line is the artifact's static space-between layout.
+ */
+.display {
+  position: relative;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hero {
+  padding: clamp(16px, 2.6vw, 34px) clamp(10px, 2vw, 24px) clamp(12px, 2vw, 26px);
+  font-size: 11.6cqi;
+  line-height: 0.82;
+  letter-spacing: -0.015em;
+  --gap: 0.15em;
+  --star: 0.38em;
+}
+
+.index {
+  padding: clamp(14px, 2.4vw, 30px) clamp(10px, 2vw, 24px);
+  font-size: 7.7cqi;
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+  --gap: 0.2em;
+  --star: 0.42em;
+}
+
+.word {
+  display: block;
+  flex: none;
+  will-change: transform;
+}
+
+.star {
+  flex: none;
+  width: var(--star);
+  height: var(--star);
+}
+
+.outer,
+.inner {
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-width: 0;
+}
+
+.outer {
+  flex-grow: var(--reach);
+}
+
+.inner {
+  flex-grow: calc(0.5 - var(--reach));
+  min-width: var(--gap);
+}
+
+.srOnly {
+  composes: srOnly from "../styles/type.module.css";
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding-inline: 10px;
+    font-size: 11.4cqi;
+  }
+
+  .index {
+    font-size: 7.9cqi;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .outer {
+    flex-grow: 0;
+  }
+
+  .inner {
+    flex-grow: 0.5;
+  }
+}

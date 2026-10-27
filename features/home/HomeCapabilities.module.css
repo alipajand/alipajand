@@ -1,0 +1,70 @@
+.cap {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 5fr) minmax(0, 7fr);
+  gap: 20px;
+  padding: 24px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  transition:
+    background 0.4s,
+    color 0.4s;
+}
+
+.index {
+  padding-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.title {
+  composes: display from "../../components/hairline/styles/type.module.css";
+  font-stretch: 118%;
+  font-size: clamp(22px, 2.4vw, 36px);
+  line-height: 0.95;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
+  gap: 6px 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  color: var(--color-mute);
+  font-size: 15px;
+  transition: color 0.4s;
+}
+
+/* Data keeps sentence-case fragments; the artifact capitalises each item. */
+.list li::first-letter {
+  text-transform: uppercase;
+}
+
+.list li:not(:last-child)::after {
+  content: " ·";
+  color: var(--color-rule);
+}
+
+.cap[data-lit] {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.cap[data-lit] .list li {
+  color: var(--color-mute-ink);
+}
+
+@media (max-width: 760px) {
+  .cap {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 10px 14px;
+    padding: 20px 16px;
+  }
+
+  .list {
+    grid-column: 2;
+  }
+}

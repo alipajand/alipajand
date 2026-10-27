@@ -1,0 +1,69 @@
+.rail {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--color-ink);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.rail ol {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.rail ol::-webkit-scrollbar {
+  display: none;
+}
+
+.rail a {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  white-space: nowrap;
+  text-decoration: none;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.index {
+  composes: mono from "../styles/type.module.css";
+  color: var(--color-mute);
+}
+
+.rail a:hover {
+  background: var(--color-ink-2);
+}
+
+.rail a:focus-visible {
+  outline-offset: -4px;
+}
+
+.rail a[aria-current] {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.rail a[aria-current] .index {
+  color: var(--color-mute-ink);
+}
+
+.rail a[aria-current]:focus-visible {
+  outline-color: var(--color-ink);
+}
+
+.progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: var(--stroke-progress);
+  background: var(--color-line);
+  transform-origin: left;
+  transform: scaleX(var(--p, 0));
+}

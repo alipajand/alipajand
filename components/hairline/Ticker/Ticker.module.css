@@ -1,0 +1,56 @@
+.ticker {
+  overflow: hidden;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  padding-block: 9px;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.run {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  padding: 0 18px 0 0;
+  list-style: none;
+  white-space: nowrap;
+  font-style: italic;
+  font-size: 15px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.sep {
+  font-style: normal;
+  color: var(--tone-mute);
+}
+
+.icon {
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .run[aria-hidden] {
+    display: none;
+  }
+
+  .track {
+    width: auto;
+  }
+
+  .run {
+    flex-wrap: wrap;
+    row-gap: 4px;
+    white-space: normal;
+  }
+}

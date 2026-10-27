@@ -1,12 +1,14 @@
 import { render, screen, within } from "@testing-library/react";
 
 import { PortfolioPageContent } from "features/portfolio/PortfolioPageContent";
+import { PORTFOLIO_BAND_HEADING } from "data/portfolioIndex";
 import {
   PORTFOLIO_PAGE_INTRO,
   PORTFOLIO_PAGE_INTRO_LINKS,
   PORTFOLIO_PROFILE_DETAILS,
 } from "data/projects";
 import { PORTFOLIO_PROFILE_LINKS_ARIA_LABEL } from "data/projectsUi";
+import { getDedicatedCaseStudyProjects } from "utils/projects";
 
 jest.mock("next/link", () => {
   return function MockLink({
@@ -22,30 +24,40 @@ jest.mock("next/link", () => {
   };
 });
 
+const introSection = () => screen.getByRole("region", { name: PORTFOLIO_BAND_HEADING });
+
 describe("PortfolioPageContent", () => {
-  it("should render the portfolio H1 and required introduction", () => {
+  it("should name the page with a single Portfolio H1 and keep the profile details", () => {
     render(<PortfolioPageContent />);
 
+    expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
     expect(screen.getByRole("heading", { level: 1, name: "Portfolio" })).toBeInTheDocument();
-    const paragraphText = Array.from(document.querySelectorAll("header p")).map(
+    expect(screen.getByText(PORTFOLIO_PROFILE_DETAILS)).toBeInTheDocument();
+  });
+
+  it("should render every introduction paragraph unchanged", () => {
+    render(<PortfolioPageContent />);
+
+    const paragraphText = Array.from(introSection().querySelectorAll("p")).map(
       (node) => node.textContent
     );
     for (const paragraph of PORTFOLIO_PAGE_INTRO) {
       expect(paragraphText).toContain(paragraph);
     }
-    expect(screen.getByText(PORTFOLIO_PROFILE_DETAILS)).toBeInTheDocument();
   });
 
   it("should link case studies named in the introduction", () => {
     render(<PortfolioPageContent />);
 
-    const header = document.querySelector("header") as HTMLElement;
     for (const { text, href } of PORTFOLIO_PAGE_INTRO_LINKS) {
-      expect(within(header).getAllByRole("link", { name: text })[0]).toHaveAttribute("href", href);
+      expect(within(introSection()).getAllByRole("link", { name: text })[0]).toHaveAttribute(
+        "href",
+        href
+      );
     }
   });
 
-  it("should render GitHub, LinkedIn, and booking links in the profile section", () => {
+  it("should render GitHub, LinkedIn, and booking links in the profile list", () => {
     render(<PortfolioPageContent />);
 
     const profileLinks = screen.getByRole("list", { name: PORTFOLIO_PROFILE_LINKS_ARIA_LABEL });
@@ -59,13 +71,17 @@ describe("PortfolioPageContent", () => {
     ]);
   });
 
-  it("should render the text-first project index", () => {
+  it("should list every dedicated case study as a text-first row with a working link", () => {
     render(<PortfolioPageContent />);
 
-    expect(screen.getByRole("navigation", { name: "Breadcrumb" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2, name: "LedgerGuard" })).toBeInTheDocument();
-    expect(document.getElementById("case-studies")).toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Context" })).not.toBeInTheDocument();
+    const index = document.getElementById("case-studies") as HTMLElement;
+    expect(index).toBeInTheDocument();
+    for (const project of getDedicatedCaseStudyProjects()) {
+      const row = document.getElementById(`project-${project.id}`) as HTMLElement;
+      expect(row).toBeInTheDocument();
+      const link = within(row).getByRole("link");
+      expect(link.getAttribute("href")).toMatch(/^\/portfolio\//);
+    }
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 });

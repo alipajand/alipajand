@@ -1,0 +1,10 @@
+.frame {
+  padding-left: var(--gutter-l);
+  padding-right: var(--gutter-r);
+}
+
+.shell {
+  border-left: var(--stroke-hairline) solid var(--color-rule);
+  border-right: var(--stroke-hairline) solid var(--color-rule);
+  container-type: inline-size;
+}

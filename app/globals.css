@@ -1,1 +1,88 @@
 @import "tailwindcss";
+
+/*
+ * Pajand Hairline tokens (docs/design/system/project/tokens.json).
+ * One dark theme on purpose: ink ground, line text, rule hairlines, a single bone band.
+ */
+@theme static {
+  --color-ink: #0f0f0e;
+  --color-ink-2: #1b1b19;
+  --color-line: #ecece6;
+  --color-bone: #d8d8d3;
+  --color-bone-2: #c9c9c3;
+  --color-mute: #a3a39c;
+  --color-mute-ink: #4b4b46;
+  --color-rule: #5b5b56;
+  --color-placeholder: #6f6f69;
+
+  --font-display: var(--font-archivo), "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --breakpoint-narrow: 420px;
+  --breakpoint-stack: 760px;
+  --breakpoint-split: 960px;
+}
+
+:root {
+  --space-1: 6px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 34px;
+  --radius-pill: 99px;
+  --stroke-hairline: 1px;
+  --stroke-progress: 2px;
+  --ease-hairline: cubic-bezier(0.6, 0.05, 0.2, 1);
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+
+  /* Surface tones. Ink is the default; the bone band and lit rows redefine them. */
+  --tone-fg: var(--color-line);
+  --tone-mute: var(--color-mute);
+  --tone-rule: var(--color-rule);
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-ink);
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-line);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: var(--stroke-progress) solid var(--color-line);
+  outline-offset: 3px;
+}
+
+/* Route changes move focus to <main> so screen readers start at the new page; the whole column does
+   not need a focus ring for that. */
+main[tabindex="-1"]:focus {
+  outline: none;
+}
+
+canvas {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

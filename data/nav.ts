@@ -11,3 +11,7 @@ export const NAV_PRIMARY_LINKS = [
   { href: "/engineering-principles", label: "Principles" },
   { href: "/#contact", label: "Contact" },
 ] as const;
+
+export const NAV_STATUS_LABEL = "Open to roles";
+
+export const NAV_BOOK_CALL_LABEL = "Book a call";

@@ -1,0 +1,23 @@
+/* Shared frame for the inline diagrams: a mono head row above and a muted caption below. */
+.figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.head {
+  composes: mono from "../styles/type.module.css";
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  color: var(--tone-mute);
+}
+
+.caption {
+  max-width: 70ch;
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--tone-mute);
+}

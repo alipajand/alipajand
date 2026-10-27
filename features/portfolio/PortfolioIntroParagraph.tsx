@@ -9,10 +9,15 @@ interface IntroLink {
 interface PortfolioIntroParagraphProps {
   text: string;
   links: readonly IntroLink[];
+  className?: string;
 }
 
 /** Renders a paragraph, linking the first occurrence of each phrase in `links`. */
-export const PortfolioIntroParagraph = ({ text, links }: PortfolioIntroParagraphProps) => {
+export const PortfolioIntroParagraph = ({
+  text,
+  links,
+  className,
+}: PortfolioIntroParagraphProps) => {
   const matches = links
     .map((link) => ({ ...link, index: text.indexOf(link.text) }))
     .filter((match) => match.index >= 0)
@@ -32,5 +37,5 @@ export const PortfolioIntroParagraph = ({ text, links }: PortfolioIntroParagraph
   }
   parts.push(text.slice(cursor));
 
-  return <p>{parts}</p>;
+  return <p className={className}>{parts}</p>;
 };

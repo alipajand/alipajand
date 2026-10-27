@@ -1,0 +1,231 @@
+.top,
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+}
+
+.top {
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.label {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 22px 24px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.eyebrow {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  color: var(--tone-mute);
+}
+
+.heading {
+  composes: display from "../../components/hairline/styles/type.module.css";
+  font-size: clamp(26px, 3.4vw, 50px);
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.intro {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  padding: 28px 24px 32px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.intro p {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.intro .small {
+  font-size: 15px;
+  color: var(--tone-mute);
+}
+
+.stack {
+  position: relative;
+  min-height: 440px;
+  overflow: hidden;
+}
+
+.stackInner {
+  position: absolute;
+  top: 50%;
+  left: -8%;
+  display: grid;
+  transform: translate(var(--px, 0px), -50%) rotate(var(--rot, -14deg));
+  transform-origin: left center;
+}
+
+.stackInner span {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-stretch: 125%;
+  font-size: clamp(44px, 7.4vw, 120px);
+  line-height: 0.9;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.stackInner span:nth-child(even) {
+  color: #5d5d58;
+}
+
+.stackInner span:nth-child(odd) {
+  padding-left: 0.6em;
+}
+
+.quote {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: grid;
+  gap: 8px;
+  max-width: 300px;
+  margin: 0;
+  padding: 14px 16px;
+  background: var(--color-bone);
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.quote blockquote {
+  margin: 0;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.cite {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  color: var(--tone-mute);
+}
+
+.look {
+  border-top: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.lookHead {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.lookHead h3 {
+  margin: 0;
+  padding: 22px 24px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.lookHead p {
+  margin: 0;
+  padding: 22px 24px;
+  max-width: 62ch;
+  font-size: 15px;
+  color: var(--tone-mute);
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pillar {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 22px 24px 26px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.pillar:last-child {
+  border-right: 0;
+}
+
+.pillar h4 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.pillar p {
+  margin: 0;
+  max-width: 40ch;
+  font-size: 15px;
+  color: var(--tone-mute);
+}
+
+@media (max-width: 1200px) {
+  .pillars {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pillar:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .pillar:nth-child(-n + 2) {
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+}
+
+@media (max-width: 760px) {
+  .top,
+  .body,
+  .lookHead {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .label,
+  .intro,
+  .lookHead h3 {
+    padding: 20px 16px;
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .intro {
+    padding-block: 22px;
+  }
+
+  .lookHead p {
+    padding: 18px 16px;
+  }
+
+  .stack {
+    min-height: 360px;
+  }
+
+  .quote {
+    left: 16px;
+    right: 16px;
+    max-width: none;
+  }
+
+  .pillars {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pillar {
+    padding: 18px 16px;
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .pillar:last-child {
+    border-bottom: 0;
+  }
+}

@@ -1,0 +1,20 @@
+/* Hidden until focused, then shown as a light chip over the top-left corner. */
+.skip {
+  composes: mono from "../styles/type.module.css";
+  position: absolute;
+  top: 8px;
+  left: var(--gutter-l);
+  z-index: 20;
+  padding: 10px 14px;
+  background: var(--color-line);
+  color: var(--color-ink);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip:focus,
+.skip:focus-visible {
+  transform: none;
+  outline-color: var(--color-ink);
+  outline-offset: -4px;
+}
