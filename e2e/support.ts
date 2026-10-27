@@ -44,39 +44,73 @@ export const scrollThrough = async (page: Page): Promise<void> => {
   await page.waitForTimeout(200);
 };
 
-/**
- * Every route family: the redesigned pages, the legacy-styled pages that share the shell, and a
- * 404. Used by the responsive gate; visual baselines stay on the smaller PAGES set.
- */
-export const AUDIT_ROUTES: ReadonlyArray<{
+export interface AuditRoute {
   name: string;
   path: string;
   status?: number;
-  /**
-   * Why undersized targets are tolerated for now. Only the pre-redesign case study and article
-   * layouts use it (their stacked "On this page" links are 17px tall); drop it when those pages
-   * move to the new layout.
-   */
-  waiveSmallTargets?: string;
-}> = [
-  { name: "home", path: "/" },
-  { name: "portfolio", path: "/portfolio" },
+  /** Page family, for grouping evidence and picking the matching `docs/design/pages` artifact. */
+  family:
+    | "home"
+    | "portfolio"
+    | "case-study"
+    | "writing"
+    | "article"
+    | "open-source"
+    | "engineering-principles"
+    | "now"
+    | "not-found";
+}
+
+export const CASE_STUDY_SLUGS = [
+  "ledgerguard",
+  "tallyfolio",
+  "alwaysgeeky",
+  "emplifi",
+  "controltech",
+  "agent-tooling",
+  "mapbylaw",
+] as const;
+
+/**
+ * Articles in the responsive gate: the Agent Readiness Doctor launch page, one with a comparison
+ * diagram, one with the MCP flow diagram, and MapBylaw.
+ */
+export const AUDIT_ARTICLE_SLUGS = [
+  "agent-readiness-doctor",
+  "agent-instructions-are-code",
+  "why-i-automate-code-review-with-mcp",
+  "mapbylaw-ai-recommendations",
+] as const;
+
+/** Every implemented page family, with every case study and four representative articles. */
+export const AUDIT_ROUTES: readonly AuditRoute[] = [
+  { name: "home", path: "/", family: "home" },
+  { name: "portfolio", path: "/portfolio", family: "portfolio" },
+  ...CASE_STUDY_SLUGS.map((slug) => ({
+    name: `case-${slug}`,
+    path: `/portfolio/${slug}`,
+    family: "case-study" as const,
+  })),
+  { name: "writing", path: "/writing", family: "writing" },
+  ...AUDIT_ARTICLE_SLUGS.map((slug) => ({
+    name: `post-${slug}`,
+    path: `/writing/${slug}`,
+    family: "article" as const,
+  })),
+  { name: "open-source", path: "/open-source", family: "open-source" },
   {
-    name: "case-study",
-    path: "/portfolio/ledgerguard",
-    waiveSmallTargets: "pre-redesign case study outline",
+    name: "engineering-principles",
+    path: "/engineering-principles",
+    family: "engineering-principles",
   },
-  { name: "writing", path: "/writing" },
-  {
-    name: "article",
-    path: "/writing/agent-readiness-doctor",
-    waiveSmallTargets: "pre-redesign article outline",
-  },
-  { name: "open-source", path: "/open-source" },
-  { name: "engineering-principles", path: "/engineering-principles" },
-  { name: "now", path: "/now" },
-  { name: "not-found", path: "/this-page-does-not-exist", status: 404 },
+  { name: "now", path: "/now", family: "now" },
+  { name: "not-found", path: "/this-page-does-not-exist", status: 404, family: "not-found" },
 ];
+
+/** One route per family, for the checks that do not need every case study and article. */
+export const FAMILY_ROUTES: readonly AuditRoute[] = AUDIT_ROUTES.filter(
+  (route, index) => AUDIT_ROUTES.findIndex((other) => other.family === route.family) === index
+);
 
 export interface AuditViewport {
   width: number;
