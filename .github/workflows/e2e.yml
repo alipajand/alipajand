@@ -4,12 +4,9 @@ on:
   pull_request:
   push:
     branches: [main]
+  # Renders Linux baselines from the branch or tag picked in "Use workflow from"
+  # (`gh workflow run e2e.yml --ref <branch>`).
   workflow_dispatch:
-    inputs:
-      ref:
-        description: Branch, tag or SHA to render Linux visual baselines from
-        required: true
-        default: main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
@@ -89,8 +86,8 @@ jobs:
           retention-days: 7
 
   update-visual-baselines:
-    # Manual only. It builds an arbitrary ref, so it reads no cache, saves no cache and keeps no
-    # token in the checkout.
+    # Manual only, on the dispatched ref itself (no ref input). It still reads and saves no cache
+    # and keeps no token in the checkout.
     if: github.event_name == 'workflow_dispatch'
     name: update-visual-baselines
     runs-on: ubuntu-latest
@@ -102,10 +99,9 @@ jobs:
       options: --ipc=host
 
     steps:
-      - name: Checkout ${{ inputs.ref }}
+      - name: Checkout ${{ github.ref_name }}
         uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.ref }}
           persist-credentials: false
 
       - name: Set up pnpm
@@ -134,7 +130,7 @@ jobs:
       - name: Upload Linux baselines for review
         uses: actions/upload-artifact@v7
         with:
-          name: linux-visual-baselines
+          name: linux-visual-baselines-${{ github.sha }}
           path: e2e/__screenshots__/**/*-linux.png
           if-no-files-found: error
           retention-days: 14
