@@ -39,7 +39,7 @@ const focusField = (event: MouseEvent<HTMLAnchorElement>) => {
 };
 
 /**
- * The contact form. Validation, submission and analytics live in `useContactForm`; this component
+ * The contact form. Validation and submission live in `useContactForm`; this component
  * only renders the fields, the linked error summary and the status line.
  */
 export const ContactForm = () => {
@@ -76,7 +76,6 @@ export const ContactForm = () => {
       aria-labelledby="contact-form-heading"
       aria-busy={isSubmitting}
       noValidate
-      data-analytics-form="contact"
     >
       <div className={styles.head}>
         <h3 id="contact-form-heading">{CONTACT_FORM_SECTION_HEADING}</h3>
@@ -237,7 +236,6 @@ export const ContactForm = () => {
           className={styles.submit}
           disabled={isSubmitting}
           aria-busy={isSubmitting}
-          data-analytics-event="contact_form_submit_click"
         >
           {isSubmitting ? CONTACT_FORM_SUBMIT_LOADING : CONTACT_FORM_SUBMIT_IDLE}
           <Chev />

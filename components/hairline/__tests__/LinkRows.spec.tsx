@@ -9,16 +9,16 @@ const LINKS = [
 ];
 
 describe("LinkRows", () => {
-  it("should tag each link with its analytics event name", () => {
-    render(<LinkRows links={LINKS} analyticsPrefix="contact_link" label="Direct" />);
+  it("should render a labelled list of links with no tracking attributes", () => {
+    render(<LinkRows links={LINKS} label="Direct" />);
 
-    expect(screen.getByRole("list", { name: "Direct" })).toBeInTheDocument();
-    const book = screen.getByRole("link", { name: /^Book a call/ });
-    expect(book).toHaveAttribute("data-analytics-event", "contact_link_book_a_call");
+    const list = screen.getByRole("list", { name: "Direct" });
+    expect(list.querySelectorAll("[data-analytics-event]")).toHaveLength(0);
+    expect(screen.getAllByRole("link")).toHaveLength(LINKS.length);
   });
 
   it("should open only external links in a new tab and say so", () => {
-    render(<LinkRows links={LINKS} analyticsPrefix="contact_link" />);
+    render(<LinkRows links={LINKS} />);
 
     const email = screen.getByRole("link", { name: "Email: name@example.com" });
     expect(email).not.toHaveAttribute("target");

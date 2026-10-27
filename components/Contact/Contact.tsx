@@ -24,7 +24,7 @@ export const Contact = () => (
     </div>
     <div className={styles.links}>
       <span className={styles.eyebrow}>{CONTACT_DIRECT_LABEL}</span>
-      <LinkRows links={LINKS} analyticsPrefix="contact_link" label={CONTACT_DIRECT_LABEL} />
+      <LinkRows links={LINKS} label={CONTACT_DIRECT_LABEL} />
     </div>
   </section>
 );

@@ -17,7 +17,7 @@ current markup and are out of scope here.
   `composes`. Tailwind remains for its preflight only.
 - **Rendering.** Everything is a Server Component except these narrow client islands:
   `SiteNavigation` (menu disclosure and scroll progress), `DisplayWord`, `Ticker`, `BandChevrons`,
-  `LitList`, `LinkRows` (analytics click), `StrataCanvas`, `PlatesField`, `StackWords`,
+  `LitList`, `StrataCanvas`, `PlatesField`, `StackWords`,
   `OperatingModelScene`, `ChapterRail`, `ScreenshotFrame`, `LayersDiagram`, `FlowBand`, and the
   existing `ContactForm`. Each renders complete, readable markup on the server; script only adds
   motion or interaction.
@@ -45,7 +45,7 @@ current markup and are out of scope here.
 | `SectionHead` / `SectionFoot` | server | `{ title, titleId, lede?, note?, action? }`; foot `{ count, action }`. |
 | `DisplayWord` | client | `{ words: [a, b], variant: "hero" \| "index", as: "h1" \| "p", motion: "scroll" \| "center", reach, pulse }`. Rest layout is pure CSS; screen readers get the words once as text. |
 | `Ticker` | client | `{ items, icon, direction, label? }`. Scroll-velocity driven only. With `label` it is one labelled list; without, it is decorative. The duplicate run is always hidden; reduced motion wraps it. |
-| `Tags`, `LinkRows`, `LitList` | server / client / client | Pill list; contact rows with `data-analytics-event` and click tracking; list that lights the row nearest the viewport centre. |
+| `Tags`, `LinkRows`, `LitList` | server / server / client | Pill list; boxed contact rows that label new-tab links; list that lights the row nearest the viewport centre. |
 | `NextLinks` | server | `{ label, links: { eyebrow, title, href }[] }` rendered as a labelled `nav`. |
 | `FactsPanel` | server | `{ facts: { term, detail }[], stacked? }` rendered as a `dl`. |
 | `ChapterRail` | client | `{ label, chapters: { id, label }[] }`. In-page links work without JS. With JS it adds `aria-current` on the chapter under the top 30%, a `[data-chapter-for]` band counting as its chapter, and a progress line. |
@@ -100,7 +100,7 @@ Visual regression baselines for all six required viewports, plus no-JS at 1440, 
   - `useMotion`: setup and teardown, no listener leaks, idle after settle, reduced-motion re-setup, failure fallback, route reset;
   - `createEasedPointer`;
   - `SiteNavigation`: links, `aria-current`, disclosure, Escape with focus return, closing on link choice and on route change;
-  - `Ticker`, `DisplayWord`, `LinkRows` (analytics and new-tab labelling);
+  - `Ticker`, `DisplayWord`, `LinkRows` (new-tab labelling);
   - case-study parts: sections, facts, decisions, next links, chapter rail, screenshot dialog, layers, compare, flow under reduced motion;
   - contact form error-summary links;
   - the rewritten portfolio spec.

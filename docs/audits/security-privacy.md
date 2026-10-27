@@ -20,7 +20,7 @@ Severity: P0 Critical, P1 High, P2 Medium, P3 Low, Info (no defect, or accepted 
 | SEC-06 | P3   | Resend error messages and setup hints are shown to visitors                                                                      | Fixed in #232 (merged)                              |
 | SEC-07 | P3   | Path traversal in post slug: `/writing/..%2F..%2FREADME/opengraph-image` reads `README.md`                                       | Fixed in #233 (merged)                              |
 | SEC-08 | P2   | No rate limiting or bot check on `/api/contact`; documented edge rate limit could not be confirmed                               | Fixed: Vercel Firewall rule (verified live)         |
-| SEC-09 | P2   | Google Analytics script loads on every visit before any consent decision; it is live in production                               | Open; owner decided: remove GA, keep Vercel         |
+| SEC-09 | P2   | Google Analytics script loads on every visit before any consent decision; it is live in production                               | Fixed in #237 (merged); GA removed, Vercel kept     |
 | SEC-10 | P3   | Dependency advisories (brace-expansion pinned to a vulnerable 5.0.9, source-map-js, zod); build/lint-time only                   | Fixed in #234 (merged)                              |
 | SEC-11 | P3   | Post Markdown is rendered without sanitising: raw HTML, `<script>`, event handlers and `javascript:` links pass through          | Fix in #256 (draft): build-time allowlist sanitiser |
 | SEC-19 | P3   | JSON-LD is inlined with `JSON.stringify` only, so a `</script>` in any value would end the script element                        | Open; owner decided: fix in a small PR              |
@@ -101,7 +101,7 @@ Severity: P0 Critical, P1 High, P2 Medium, P3 Low, Info (no defect, or accepted 
 - **Remedy options** (owner decision, tracked as DEC-8 / Q-13 in `docs/design/implementation-audit/`):
   1. Drop GA and rely on Vercel Web Analytics (no cookies). This is the smallest change and removes the issue.
   2. Keep GA behind an explicit opt-in: no `gtag.js` request and no cookie until consent, Consent Mode v2 defaulting to `denied`, GPC/DNT honoured, and a short privacy note.
-- **Status.** Open. Owner decision: option 1, remove GA and keep Vercel Web Analytics and Speed Insights. Any future GA integration needs its own consent design and privacy review. Fix in a separate PR.
+- **Status.** Fixed in #237 (merged). Owner decision: option 1, remove GA and keep Vercel Web Analytics and Speed Insights. Any future GA integration needs its own consent design and privacy review. Checked on production on 2026-10-27: `/` and `/now` contain no `googletagmanager` or `gtag(`. The `data-analytics-*` attributes that #237 left in place (nothing reads them) are removed in a follow-up. Outside the repository: `NEXT_PUBLIC_GA_MEASUREMENT_ID` can be deleted from the Vercel project; nothing reads it.
 
 ### SEC-10 · P3 · Dependency advisories
 
