@@ -1,0 +1,335 @@
+/*
+ * The refactor scene. At rest (no JavaScript, reduced motion) it is one still frame at step 3. Once
+ * the scene script marks it ready it becomes a tall runway with a sticky stage that steps 1 → 3.
+ */
+.scene {
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.scene[data-ready] {
+  height: 260vh;
+}
+
+.stick {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 560px;
+}
+
+.scene[data-ready] .stick {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 12px 0;
+  padding: 0;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.steps li {
+  display: grid;
+  gap: 4px;
+  padding: 14px 24px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  list-style: none;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+  transition:
+    background 0.4s,
+    color 0.4s;
+}
+
+.steps li:last-child {
+  border-right: 0;
+}
+
+.steps b {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.scene[data-step="1"] .steps li:nth-child(1),
+.scene[data-step="2"] .steps li:nth-child(2),
+.scene[data-step="3"] .steps li:nth-child(3) {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 120px minmax(0, 1fr);
+  align-items: center;
+  min-height: 0;
+  padding: 24px;
+}
+
+.panel {
+  min-width: 0;
+  background: var(--color-ink);
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.panelHead,
+.status {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+.panelHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-content: center;
+  gap: 8px;
+  min-height: clamp(84px, 13vh, 140px);
+  padding: 14px;
+  font-family: var(--font-mono);
+  font-size: clamp(13px, 1.25vw, 18px);
+  border-bottom: var(--stroke-hairline) solid var(--color-ink-2);
+}
+
+.n {
+  color: var(--color-mute);
+}
+
+.row small {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-mute);
+}
+
+.val {
+  position: relative;
+  display: inline-grid;
+}
+
+.val > * {
+  grid-area: 1 / 1;
+  transition:
+    opacity 0.45s,
+    transform 0.45s var(--ease-hairline);
+}
+
+.new {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.scene:is([data-step="2"], [data-step="3"]) .repo .old {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.scene:is([data-step="2"], [data-step="3"]) .repo .new {
+  opacity: 1;
+  transform: none;
+}
+
+.diff {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+}
+
+.del,
+.add {
+  display: none;
+  text-decoration: none;
+}
+
+.scene[data-step="2"] .stale {
+  color: var(--color-mute);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.scene[data-step="3"] .stale {
+  display: none;
+}
+
+.scene[data-step="3"] .del,
+.scene[data-step="3"] .add {
+  display: inline-block;
+}
+
+.del {
+  color: var(--color-mute);
+  text-decoration: line-through;
+}
+
+.del::before {
+  content: "− " / "";
+  display: inline-block;
+  text-decoration: none;
+}
+
+.add {
+  padding: 1px 5px;
+  color: var(--color-ink);
+  background: var(--color-line);
+}
+
+.add::before {
+  content: "+ " / "";
+}
+
+.status {
+  padding: 10px 14px;
+  border-top: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.status [data-s] {
+  display: none;
+}
+
+.scene[data-step="1"] .status [data-s="1"],
+.scene[data-step="2"] .status [data-s="2"],
+.scene[data-step="3"] .status [data-s="3"] {
+  display: inline;
+}
+
+.links {
+  position: relative;
+  height: 100%;
+}
+
+.links svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.links path {
+  fill: none;
+  stroke: var(--color-line);
+  stroke-width: 1.2;
+  transition:
+    stroke-dasharray 0.3s,
+    opacity 0.3s;
+}
+
+.scene[data-step="2"] .links path {
+  stroke-dasharray: 3 6;
+  opacity: 0.55;
+}
+
+.x {
+  position: absolute;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--color-ink);
+  border: var(--stroke-hairline) solid var(--color-line);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+}
+
+.scene[data-step="2"] .x {
+  opacity: 1;
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 12px 24px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  border-top: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.foot span:first-child {
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+@media (max-width: 760px) {
+  .steps li {
+    padding: 10px;
+  }
+
+  .steps b {
+    font-size: 13px;
+  }
+
+  .stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 44px auto;
+    align-content: center;
+    padding: 14px 16px;
+  }
+
+  .row {
+    min-height: 0;
+    padding: 9px 12px;
+    font-size: 12.5px;
+  }
+
+  .row small {
+    font-size: 12px;
+  }
+
+  .links svg {
+    display: none;
+  }
+
+  .links::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: var(--stroke-hairline) solid var(--color-line);
+  }
+
+  .scene[data-step="2"] .links::before {
+    border-left-style: dashed;
+    opacity: 0.55;
+  }
+
+  .x {
+    top: 50% !important;
+  }
+
+  .x + .x {
+    display: none;
+  }
+
+  .foot {
+    padding: 10px 16px;
+  }
+}
