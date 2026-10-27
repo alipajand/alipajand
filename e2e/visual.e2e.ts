@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { PAGES, settle, VIEWPORTS } from "./support";
+import { PAGES, settle, VIEWPORTS, VISUAL } from "./support";
 
 /*
  * Full-page baselines at every required viewport. Reduced motion keeps scroll-driven islands at
@@ -10,19 +10,21 @@ test.use({ reducedMotion: "reduce" });
 
 for (const { name, path } of PAGES) {
   for (const viewport of VIEWPORTS) {
-    test(`${name} matches its baseline at ${viewport.width}x${viewport.height}`, async ({
-      page,
-    }) => {
-      await page.setViewportSize(viewport);
-      await page.goto(path);
-      await settle(page);
-      await expect(page).toHaveScreenshot(`${name}-${viewport.width}x${viewport.height}.png`, {
-        fullPage: true,
-      });
-    });
+    test(
+      `${name} matches its baseline at ${viewport.width}x${viewport.height}`,
+      VISUAL,
+      async ({ page }) => {
+        await page.setViewportSize(viewport);
+        await page.goto(path);
+        await settle(page);
+        await expect(page).toHaveScreenshot(`${name}-${viewport.width}x${viewport.height}.png`, {
+          fullPage: true,
+        });
+      }
+    );
   }
 
-  test(`${name} matches its no-JavaScript baseline`, async ({ browser }) => {
+  test(`${name} matches its no-JavaScript baseline`, VISUAL, async ({ browser }) => {
     const context = await browser.newContext({
       javaScriptEnabled: false,
       viewport: { width: 1440, height: 900 },

@@ -1,0 +1,135 @@
+name: E2E
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag or SHA to render Linux visual baselines from
+        required: true
+        default: main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+# The browser, its system libraries and fonts come from the pinned Playwright image, so a render
+# only changes when the image tag (kept equal to @playwright/test) or the site changes.
+env:
+  TZ: UTC
+  LANG: C.UTF-8
+  HUSKY: "0"
+  NEXT_TELEMETRY_DISABLED: "1"
+
+jobs:
+  e2e:
+    if: github.event_name != 'workflow_dispatch'
+    name: Playwright e2e (Chromium, Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.0-noble
+      options: --ipc=host
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check the image matches @playwright/test
+        run: test "$(pnpm exec playwright --version)" = "Version 1.64.0"
+
+      - name: Build
+        run: pnpm build
+
+      - name: Run behavioural, responsive and accessibility checks
+        run: pnpm exec playwright test --grep-invert @visual
+
+      - name: Look for Linux visual baselines
+        id: baselines
+        run: |
+          if ls e2e/__screenshots__/*/*-linux.png > /dev/null 2>&1; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            message="No Linux baselines in e2e/__screenshots__ yet, so visual comparison was skipped. Run the update-visual-baselines workflow, review its artifact and commit the *-linux.png files to turn it on."
+            echo "::notice title=Visual comparison skipped::$message"
+            echo "### Visual comparison skipped" >> "$GITHUB_STEP_SUMMARY"
+            echo "$message" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Compare visual baselines
+        if: steps.baselines.outputs.present == 'true'
+        run: pnpm exec playwright test --grep @visual
+
+      - name: Upload the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  update-visual-baselines:
+    if: github.event_name == 'workflow_dispatch'
+    name: update-visual-baselines
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.0-noble
+      options: --ipc=host
+
+    steps:
+      - name: Checkout ${{ inputs.ref }}
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check the image matches @playwright/test
+        run: test "$(pnpm exec playwright --version)" = "Version 1.64.0"
+
+      - name: Build
+        run: pnpm build
+
+      # Renders the Linux baselines only; nothing is committed. Review the artifact against the
+      # macOS baselines before copying it into e2e/__screenshots__.
+      - name: Render Linux baselines
+        run: pnpm exec playwright test --grep @visual --update-snapshots=all
+
+      - name: Upload Linux baselines for review
+        uses: actions/upload-artifact@v7
+        with:
+          name: linux-visual-baselines
+          path: e2e/__screenshots__/**/*-linux.png
+          if-no-files-found: error
+          retention-days: 14
