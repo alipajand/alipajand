@@ -48,6 +48,22 @@
   white-space: nowrap;
 }
 
+/*
+ * On one row (wider than 520px) the words stay small but the tap area grows to 44px tall, inside
+ * the 56px (46px from 960px down) row, without moving a pixel.
+ */
+@media (min-width: 521px) {
+  .links a {
+    position: relative;
+  }
+
+  .links a::after {
+    content: "";
+    position: absolute;
+    inset: -15px 0;
+  }
+}
+
 .links a:hover {
   text-decoration: underline;
   text-underline-offset: 5px;
