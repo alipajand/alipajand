@@ -23,8 +23,23 @@ const touchContext = (viewport: { width: number; height: number }) => ({
 const name = (viewport: { width: number; height: number }) =>
   `${viewport.width}x${viewport.height}`;
 
-test.describe("screenshot dialogs", () => {
+/*
+ * Case studies that show product screenshots. Emplifi, ControlTech and Agent tooling have none,
+ * so the smoke tests cover them and this list must grow when one gains a screenshot.
+ */
+const DIALOG_SLUGS = ["ledgerguard", "tallyfolio", "alwaysgeeky", "mapbylaw"] as const;
+
+test("the screenshot list matches the case studies that have screenshots", async ({ page }) => {
+  const withShots: string[] = [];
   for (const slug of CASE_STUDY_SLUGS) {
+    await page.goto(`/portfolio/${slug}`);
+    if ((await page.locator("button[aria-haspopup='dialog']").count()) > 0) withShots.push(slug);
+  }
+  expect(withShots).toEqual([...DIALOG_SLUGS]);
+});
+
+test.describe("screenshot dialogs", () => {
+  for (const slug of DIALOG_SLUGS) {
     for (const viewport of [PHONE, TABLET, TABLET_LANDSCAPE, DESKTOP]) {
       test(`${slug}: opens, fits, traps focus and closes at ${name(viewport)}`, async ({
         browser,
@@ -47,19 +62,24 @@ test.describe("screenshot dialogs", () => {
         await expect(dialog).toBeVisible();
         const fit = await dialog.evaluate((element) => {
           const box = element.getBoundingClientRect();
-          const image = element.querySelector("img")!.getBoundingClientRect();
+          const frame = element.querySelector("div:has(> img)") as HTMLElement;
+          const image = frame.querySelector("img")!.getBoundingClientRect();
           const close = element.querySelector("button")!.getBoundingClientRect();
           const vw = document.documentElement.clientWidth;
           const vh = window.innerHeight;
+          const overflowX = getComputedStyle(frame).overflowX;
           return {
             dialogInside:
               box.left >= -1 && box.top >= -1 && box.right <= vw + 1 && box.bottom <= vh + 1,
-            imageInside:
-              image.left >= box.left - 1 &&
-              image.right <= box.right + 1 &&
-              image.top >= box.top - 1 &&
-              image.bottom <= box.bottom + 1,
+            // The enlarged image keeps a 900px minimum so text stays legible; narrower screens pan it.
             imageWidth: Math.round(image.width),
+            pansSideways: frame.scrollWidth > frame.clientWidth,
+            panReachable:
+              frame.scrollWidth <= frame.clientWidth ||
+              overflowX === "auto" ||
+              overflowX === "scroll",
+            pansVertically: element.scrollHeight > element.clientHeight,
+            panKeyboardReachable: frame.tabIndex >= 0,
             close: { width: Math.round(close.width), height: Math.round(close.height) },
           };
         });
@@ -96,7 +116,7 @@ test.describe("screenshot dialogs", () => {
         });
 
         expect(fit.dialogInside, "dialog fits the viewport").toBe(true);
-        expect(fit.imageInside, "enlarged screenshot is not cut off").toBe(true);
+        expect(fit.panReachable, "image wider than the dialog can be panned").toBe(true);
         expect(fit.close.height, "close button height").toBeGreaterThanOrEqual(24);
         expect(fit.close.width, "close button width").toBeGreaterThanOrEqual(24);
         expect(escaped, "focus left the open dialog").toEqual([]);
@@ -105,14 +125,21 @@ test.describe("screenshot dialogs", () => {
         await expect(dialog).toBeHidden();
         await expect(opener).toBeFocused();
 
-        // The close button and a tap on the backdrop close it too.
+        // The close button and a click on the backdrop close it too.
         await opener.click();
         await expect(page.locator("dialog[open]")).toBeVisible();
         await page.locator("dialog[open]").getByRole("button").first().click();
         await expect(page.locator("dialog[open]")).toHaveCount(0);
         await opener.click();
-        await page.mouse.click(2, 2);
-        await expect(page.locator("dialog[open]")).toHaveCount(0);
+        const open = page.locator("dialog[open]");
+        await expect(open).toBeVisible();
+        const rect = (await open.boundingBox())!;
+        const outside =
+          rect.y > 4
+            ? { x: rect.x + rect.width / 2, y: rect.y / 2 }
+            : { x: rect.x / 2, y: rect.y + rect.height / 2 };
+        await page.mouse.click(outside.x, outside.y);
+        await expect(open).toHaveCount(0);
         expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
         await context.close();
       });
