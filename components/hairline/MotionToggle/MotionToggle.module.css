@@ -17,7 +17,7 @@
   cursor: pointer;
 }
 
-/* A 44px-tall tap area around the mono label, without changing the footer row. */
+/* A 44px-tall tap area around the mono label, inside the footer cell's padding. */
 .toggle::after {
   content: "";
   position: absolute;
