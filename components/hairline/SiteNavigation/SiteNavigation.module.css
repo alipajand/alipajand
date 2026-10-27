@@ -282,3 +282,31 @@
     text-underline-offset: 5px;
   }
 }
+
+/*
+ * Without scripting the disclosure button can't open, so the links stay in their second row and
+ * wrap instead of folding behind it.
+ */
+@media (max-width: 520px) and (scripting: none) {
+  .links {
+    display: flex;
+    padding-block: 2px;
+  }
+
+  .links ul {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0 18px;
+  }
+
+  /* Each link keeps a 44px-tall tap area, matching the wider layouts. */
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .menu {
+    display: none;
+  }
+}

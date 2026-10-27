@@ -112,6 +112,25 @@ for (const { name, path } of PAGES) {
       await context.close();
     });
 
+    test("shows the primary links and direct channels on a phone without JavaScript", async ({
+      browser,
+    }) => {
+      const context = await browser.newContext({
+        javaScriptEnabled: false,
+        viewport: { width: 390, height: 844 },
+      });
+      const page = await context.newPage();
+      await page.goto(path);
+      // The disclosure button needs script, so the links stay out in the header instead.
+      await expect(page.getByRole("button", { name: "Open menu" })).toBeHidden();
+      const primary = page.getByRole("navigation", { name: "Primary" }).first();
+      for (const link of await primary.getByRole("link").all()) await expect(link).toBeVisible();
+      const channels = page.getByRole("list", { name: "Direct links" });
+      for (const link of await channels.getByRole("link").all()) await expect(link).toBeVisible();
+      expect(await horizontalOverflow(page)).toBe(0);
+      await context.close();
+    });
+
     test("links only to pages and anchors that exist", async ({ page, request }) => {
       await page.goto(path);
       const hrefs = await page.evaluate(() =>
