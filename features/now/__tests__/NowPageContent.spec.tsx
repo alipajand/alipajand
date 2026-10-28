@@ -9,7 +9,8 @@ import {
   NOW_SECTIONS,
   NOW_STACK_SECTION_ID,
   nowStackCountLabel,
-  nowWeekLabel,
+  NOW_RULER_LABEL,
+  NOW_RULER_STEP,
 } from "data/now";
 import { PAGE_NEXT_LINKS, PAGE_NEXT_LINKS_ARIA_LABEL } from "data/pageChrome";
 import { CANONICAL_URL } from "data/site";
@@ -30,7 +31,7 @@ afterEach(() => {
 
 describe("NowPageContent", () => {
   it("should own the main landmark with the dated title as its only h1", () => {
-    render(<NowPageContent now={RENDERED_AT} />);
+    render(<NowPageContent />);
 
     const main = screen.getByRole("main");
     expect(main).toHaveAttribute("id", "main-content");
@@ -43,7 +44,7 @@ describe("NowPageContent", () => {
   });
 
   it("should keep the breadcrumb trail with the current page marked", () => {
-    render(<NowPageContent now={RENDERED_AT} />);
+    render(<NowPageContent />);
 
     const crumbs = screen.getByRole("navigation", { name: "Breadcrumb" });
     expect(within(crumbs).getByRole("link", { name: "Home" })).toHaveAttribute("href", "/");
@@ -51,7 +52,7 @@ describe("NowPageContent", () => {
   });
 
   it("should render every section and item", () => {
-    render(<NowPageContent now={RENDERED_AT} />);
+    render(<NowPageContent />);
 
     NOW_SECTIONS.filter((section) => section.id !== NOW_STACK_SECTION_ID).forEach((section) => {
       const block = screen.getByRole("region", { name: section.title });
@@ -68,7 +69,7 @@ describe("NowPageContent", () => {
   });
 
   it("should list every tool in the current stack band", () => {
-    render(<NowPageContent now={RENDERED_AT} />);
+    render(<NowPageContent />);
 
     const stack = NOW_SECTIONS.find((section) => section.id === NOW_STACK_SECTION_ID);
     const tools = stack?.items.join(" · ").split(" · ") ?? [];
@@ -80,15 +81,21 @@ describe("NowPageContent", () => {
     });
   });
 
-  it("should label the week ruler with the visitor's current week", () => {
-    jest.useFakeTimers({ now: RENDERED_AT });
-    render(<NowPageContent now={new Date(2026, 0, 1)} />);
+  it.each([new Date(2026, 0, 1), RENDERED_AT, new Date(2031, 6, 1)])(
+    "should mark the as-of date on the ruler whatever the clock (%s)",
+    (now) => {
+      jest.useFakeTimers({ now });
+      const { container } = render(<NowPageContent />);
 
-    expect(screen.getByText(nowWeekLabel(43))).toBeInTheDocument();
-  });
+      expect(screen.getByText(NOW_RULER_LABEL)).toBeInTheDocument();
+      expect(screen.queryByText(/today/i)).toBeNull();
+      const ruler = container.querySelector("[data-static-ruler]")?.parentElement;
+      expect(ruler?.getAttribute("style")).toContain(`--week: ${NOW_RULER_STEP}`);
+    }
+  );
 
   it("should draw the week ruler on the server so it shows without the canvas", () => {
-    const { container } = render(<NowPageContent now={RENDERED_AT} />);
+    const { container } = render(<NowPageContent />);
 
     const ruler = container.querySelector("[data-static-ruler]");
     expect(ruler?.closest("[aria-hidden='true']")).not.toBeNull();
@@ -96,7 +103,9 @@ describe("NowPageContent", () => {
     const lines = Array.from(ruler?.querySelectorAll("line") ?? []);
     expect(lines).toHaveLength(54);
     const ticks = lines.slice(0, 53);
-    expect(ticks.filter((line) => line.getAttribute("stroke-opacity") === "0.9")).toHaveLength(43);
+    expect(ticks.filter((line) => line.getAttribute("stroke-opacity") === "0.9")).toHaveLength(
+      NOW_RULER_STEP
+    );
     expect(ticks.map((line) => Number(line.getAttribute("x1")))).toEqual(
       Array.from({ length: 53 }, (_, i) => i)
     );
@@ -119,7 +128,7 @@ describe("NowPageContent", () => {
       configurable: true,
       value: { ready: Promise.resolve() },
     });
-    const { container } = render(<NowPageContent now={RENDERED_AT} />);
+    const { container } = render(<NowPageContent />);
 
     const ruler = container.querySelector("[data-static-ruler]")?.parentElement;
     await waitFor(() => expect(ruler).toHaveAttribute("data-drawn"));
@@ -129,7 +138,7 @@ describe("NowPageContent", () => {
   });
 
   it("should close with the next links", () => {
-    render(<NowPageContent now={RENDERED_AT} />);
+    render(<NowPageContent />);
 
     const next = screen.getByRole("navigation", { name: PAGE_NEXT_LINKS_ARIA_LABEL });
     expect(within(next).getAllByRole("link")).toHaveLength(PAGE_NEXT_LINKS.length);
@@ -137,7 +146,7 @@ describe("NowPageContent", () => {
 
   it("should leave nothing lit with reduced motion", () => {
     installMatchMedia(true);
-    const { container } = render(<NowPageContent now={RENDERED_AT} />);
+    const { container } = render(<NowPageContent />);
 
     expect(container.querySelectorAll("[data-lit]")).toHaveLength(0);
   });
