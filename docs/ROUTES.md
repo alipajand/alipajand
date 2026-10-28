@@ -1,18 +1,26 @@
 # Routes
 
-All routes use the Next.js 15 App Router. Pages are Server Components by default.
+All routes use the Next.js 16 App Router. Pages are Server Components; interactive parts are small
+client islands inside them. The rendering column is what `pnpm build` reports: ○ static, ● static
+from `generateStaticParams`, ƒ rendered per request.
 
 ## Page routes
 
-| Route                     | File                                  | Description                                                         |
-| ------------------------- | ------------------------------------- | ------------------------------------------------------------------- |
-| `/`                       | `app/page.tsx`                        | Homepage — hero, proof strip, selected work, contact teaser         |
-| `/portfolio`              | `app/portfolio/page.tsx`              | Full portfolio — about, experience, case studies, skills, education |
-| `/writing`                | `app/writing/page.tsx`                | Blog post listing                                                   |
-| `/writing/[slug]`         | `app/writing/[slug]/page.tsx`         | Individual blog post (Markdown from `content/`)                     |
-| `/now`                    | `app/now/page.tsx`                    | Current status (what I'm working on)                                |
-| `/engineering-principles` | `app/engineering-principles/page.tsx` | Engineering philosophy and principles                               |
-| `*` (not found)           | `app/not-found.tsx`                   | 404 page                                                            |
+| Route                     | File                                  | Rendering | Description                                                                       |
+| ------------------------- | ------------------------------------- | --------- | --------------------------------------------------------------------------------- |
+| `/`                       | `app/page.tsx`                        | ƒ         | Homepage: hero, selected work, about, capabilities, open source, writing, contact |
+| `/portfolio`              | `app/portfolio/page.tsx`              | ○         | Index of case studies                                                             |
+| `/portfolio/[slug]`       | `app/portfolio/[slug]/page.tsx`       | ●         | One case study per dedicated project in `data/projects.ts`                        |
+| `/open-source`            | `app/open-source/page.tsx`            | ○         | Open-source tools and the contribution snapshot                                   |
+| `/writing`                | `app/writing/page.tsx`                | ƒ         | Writing index, with scheduled posts labelled as upcoming                          |
+| `/writing/[slug]`         | `app/writing/[slug]/page.tsx`         | ●         | One article per Markdown file in `content/posts/`                                 |
+| `/now`                    | `app/now/page.tsx`                    | ○         | Current focus, dated by `NOW_UPDATED` in `data/now.ts`                            |
+| `/engineering-principles` | `app/engineering-principles/page.tsx` | ○         | Engineering principles                                                            |
+| `*` (not found)           | `app/not-found.tsx`                   | ○         | 404 page (`noindex`)                                                              |
+
+`/` and `/writing` are `force-dynamic` so they can compare post dates with the current day in
+Toronto. [decisions/writing-publication-policy.md](decisions/writing-publication-policy.md) explains
+why, and lists the routes that still show a scheduled post before its date.
 
 ## API routes
 
@@ -21,17 +29,29 @@ All routes use the Next.js 15 App Router. Pages are Server Components by default
 | `/api/contact`         | POST   | `app/api/contact/route.ts`         | Contact form handler (Resend)          |
 | `/api/webhooks/resend` | POST   | `app/api/webhooks/resend/route.ts` | Forwards inbound mail (Resend webhook) |
 
-## Special files
+See [API.md](API.md) for request and response details.
 
-| File                      | Purpose                                   |
-| ------------------------- | ----------------------------------------- |
-| `app/sitemap.ts`          | Auto-generated XML sitemap                |
-| `app/robots.ts`           | robots.txt configuration                  |
-| `app/layout.tsx`          | Root layout — fonts, analytics, providers |
-| `app/apple-icon.tsx`      | Apple touch icon (generated)              |
-| `app/icon.tsx`            | Favicon (generated)                       |
-| `app/opengraph-image.tsx` | Default OG image (generated)              |
+## Generated files and feeds
+
+| Path                                 | File                                     | Purpose                                         |
+| ------------------------------------ | ---------------------------------------- | ----------------------------------------------- |
+| `/sitemap.xml`                       | `app/sitemap.ts`                         | XML sitemap                                     |
+| `/robots.txt`                        | `app/robots.ts`                          | Crawler rules                                   |
+| `/feed.xml`                          | `app/feed.xml/route.ts`                  | RSS feed of posts (`force-static`)              |
+| `/llms.txt`                          | `app/llms.txt/route.ts`                  | Site summary for language models                |
+| `/llms-full.txt`                     | `app/llms-full.txt/route.ts`             | Full text of case studies and posts             |
+| `/opengraph-image`                   | `app/opengraph-image.tsx`                | Default Open Graph image                        |
+| `/writing/[slug]/opengraph-image`    | `app/writing/[slug]/opengraph-image.tsx` | Per-article Open Graph image                    |
+| `/icon`, `/apple-icon`               | `app/icon.tsx`, `app/apple-icon.tsx`     | Favicon and Apple touch icon                    |
+| `/images/profile-{1x1,4x3,16x9}.png` | `app/images/profile-*.png/route.ts`      | Profile images referenced by the Person JSON-LD |
+
+## Redirects
+
+`next.config.ts` redirects `/blog` to `/writing` and `/blog/:slug` to `/writing/:slug`
+permanently.
 
 ## Slug stability
 
-Blog post slugs are derived from `content/*.md` filenames. **Do not rename Markdown files** without setting up redirects — external links and SEO rankings depend on slug stability.
+Post slugs are the filenames in `content/posts/` without `.md`, and case-study slugs are the `slug`
+fields in `data/projects.ts`. Do not rename either without adding a redirect: external links and
+search rankings depend on them.
