@@ -1,4 +1,5 @@
 import { CaseSection } from "components/hairline/CaseSection/CaseSection";
+import { ReviewSample } from "components/hairline/ReviewSample/ReviewSample";
 import { ScreenshotFrame } from "components/hairline/ScreenshotFrame/ScreenshotFrame";
 import styles from "features/portfolio/CaseStudyEvidence.module.css";
 import { CaseStudySectionDiagrams } from "features/portfolio/CaseStudySectionDiagrams";
@@ -12,10 +13,14 @@ interface CaseStudyEvidenceProps {
   index: number;
 }
 
-/** Interface evidence: every screenshot after the hero, each in its own ruled row. */
+/**
+ * Interface evidence: the interactive sample when the project has one, then every screenshot after
+ * the hero, each in its own ruled row.
+ */
 export const CaseStudyEvidence = ({ project, section, index }: CaseStudyEvidenceProps) => (
   <CaseSection id={section.id} legacyId={section.legacyId} index={index} title={section.title}>
     <div className={styles.evidence}>
+      {section.body.sample ? <ReviewSample {...section.body.sample} /> : null}
       {section.body.figures.map((figure) =>
         figure.src ? (
           <ScreenshotFrame
