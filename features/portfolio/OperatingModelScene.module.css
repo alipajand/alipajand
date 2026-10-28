@@ -13,6 +13,25 @@
   overflow: hidden;
 }
 
+/*
+ * The runway comes from media queries, not from the scene script, so the server-rendered page is
+ * already as tall as the hydrated one and Back, Forward or a reload restores the reader's place
+ * against the final layout. `[data-ready]` keeps the same runway in browsers without the
+ * `scripting` media feature.
+ */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .scene:not([data-motion="failed"]) {
+    height: 260vh;
+  }
+
+  .scene:not([data-motion="failed"]) .stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+  }
+}
+
 .scene[data-ready] {
   height: 260vh;
 }
@@ -129,6 +148,12 @@
   margin: 0;
   font-size: 14px;
   color: var(--color-mute);
+}
+
+@media (max-width: 760px) and (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .scene:not([data-motion="failed"]) {
+    height: 220vh;
+  }
 }
 
 @media (max-width: 760px) {
