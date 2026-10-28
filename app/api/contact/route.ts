@@ -20,6 +20,18 @@ function escapeHtml(text: string): string {
     .replace(/'/g, "&#039;");
 }
 
+/** The body as a JSON object, or null when it is not valid JSON or not an object. */
+function parseJsonObject(raw: string): Record<string, unknown> | null {
+  try {
+    const value: unknown = JSON.parse(raw);
+    return typeof value === "object" && value !== null && !Array.isArray(value)
+      ? (value as Record<string, unknown>)
+      : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function POST(request: Request) {
   // A JSON content type cannot be sent cross-site without a CORS preflight, which
   // this route does not grant, so plain HTML forms on other origins are refused.
@@ -33,7 +45,8 @@ export async function POST(request: Request) {
     if (raw === null) {
       return NextResponse.json({ error: "Message is too large" }, { status: 413 });
     }
-    const body = JSON.parse(raw);
+    const body = parseJsonObject(raw);
+    if (!body) return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
     const { name, email, message } = body;
 
     // The name lands in the subject line, so it is collapsed to a single line.
