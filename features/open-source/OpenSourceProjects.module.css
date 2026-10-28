@@ -349,6 +349,61 @@
   outline-offset: -4px;
 }
 
+.refs {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.refs li {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  max-width: 78ch;
+}
+
+.refTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.refBody {
+  margin: 0;
+  color: var(--tone-mute);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.refLink {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 4px;
+  padding: 0 14px;
+  border: var(--stroke-hairline) solid var(--tone-rule);
+  text-decoration: none;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.refLink:hover,
+.refLink:focus-visible {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.refLink:focus-visible {
+  outline-color: var(--color-ink);
+  outline-offset: -4px;
+}
+
 @media (max-width: 960px) {
   .index a {
     grid-template-columns: 40px minmax(0, 1fr) 90px;

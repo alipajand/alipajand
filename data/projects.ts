@@ -1334,6 +1334,7 @@ export const PROJECTS: Project[] = [
       outcome: [
         "Shipped v1.0 of all four projects in September 2026: three CLIs installable from GitHub release tags and a GitHub Action referenced as alipajand/agent-readiness-action@v1.",
         "Released Action v1.2.0 and integrations v0.1.2 in October 2026. The MCP package is published on npm and in the official MCP Registry; the skill and Claude Code plugin install from GitHub. The local Cursor plugin passed acceptance tests, while directory submissions remain under review in the October 14 record.",
+        "In October 2026, the integrations 0.1.2 commit in agent-readiness-action was selected for the XERJ Corpus Hub as an attributed open-source reference.",
         "Kept architecture, security, validation, and final decisions under human engineering review.",
       ],
       nextImprovements: [
@@ -1416,6 +1417,10 @@ export const PROJECTS: Project[] = [
     relatedLinks: [
       { label: "Open Source page", href: "/open-source" },
       { label: "GitHub profile", href: "https://github.com/alipajand" },
+      {
+        label: "XERJ Corpus Hub contributor profile",
+        href: "https://hub.xerj.org/contributors/alipajand",
+      },
     ],
   },
   {

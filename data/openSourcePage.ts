@@ -3,6 +3,14 @@ export interface OpenSourceArticle {
   href: string;
 }
 
+export interface OpenSourceExternalReference {
+  title: string;
+  body: string;
+  href: string;
+  linkLabel: string;
+  linkAriaLabel: string;
+}
+
 export interface OpenSourceProject {
   title: string;
   repositoryUrl: string;
@@ -15,6 +23,7 @@ export interface OpenSourceProject {
   testedCapabilities: string[];
   contribution: string;
   articles?: OpenSourceArticle[];
+  externalReferences?: OpenSourceExternalReference[];
 }
 
 export interface OpenSourcePrinciple {
@@ -51,6 +60,8 @@ export const OPEN_SOURCE_CONTRIBUTION_LABEL = "What it demonstrates";
 export const OPEN_SOURCE_REPOSITORY_LINK_LABEL = "Repository";
 
 export const OPEN_SOURCE_ARTICLES_LABEL = "Related writing";
+
+export const OPEN_SOURCE_EXTERNAL_REFERENCES_LABEL = "External reference";
 
 const ARTICLE_INSTRUCTION_FILES: OpenSourceArticle = {
   title: "Agent instruction files are code. Lint them like code.",
@@ -223,6 +234,15 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
     contribution:
       "I design CI tooling on the assumption that the repository it runs on may be hostile, because on a pull request it can be.",
     articles: [ARTICLE_UNTRUSTED_PRS, ARTICLE_INSTRUCTION_FILES],
+    externalReferences: [
+      {
+        title: "Selected for the XERJ Corpus Hub",
+        body: "Agent Readiness integration work was selected as an attributed open-source reference for AI-assisted software development.",
+        href: "https://hub.xerj.org/contributors/alipajand",
+        linkLabel: "View contributor profile",
+        linkAriaLabel: "View contributor profile on the XERJ Corpus Hub",
+      },
+    ],
   },
 ];
 

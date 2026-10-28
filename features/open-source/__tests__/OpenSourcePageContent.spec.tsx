@@ -14,6 +14,7 @@ import {
   OPEN_SOURCE_CTA_PRIMARY_LABEL,
   OPEN_SOURCE_CTA_SECONDARY_HREF,
   OPEN_SOURCE_CTA_SECONDARY_LABEL,
+  OPEN_SOURCE_EXTERNAL_REFERENCES_LABEL,
   OPEN_SOURCE_HEADER_HEADING,
   OPEN_SOURCE_HERO_PROJECTS_CTA_LABEL,
   OPEN_SOURCE_INSTALL_NOTE,
@@ -126,6 +127,37 @@ describe("OpenSourcePageContent", () => {
         name: "Keeping repository instructions useful with Agent Readiness Doctor",
       })
     ).toHaveAttribute("href", "/writing/agent-readiness-doctor");
+  });
+
+  it("should list an external reference only on the project it belongs to", () => {
+    renderPage();
+
+    const withReferences = OPEN_SOURCE_PROJECTS.filter(
+      (project) => project.externalReferences?.length
+    );
+    expect(withReferences.map((project) => project.title)).toEqual(["agent-readiness-action"]);
+
+    const action = article("agent-readiness-action");
+    const list = within(action).getByRole("list", { name: OPEN_SOURCE_EXTERNAL_REFERENCES_LABEL });
+    expect(within(list).getByText("Selected for the XERJ Corpus Hub")).toBeInTheDocument();
+    expect(
+      within(list).getByText(
+        "Agent Readiness integration work was selected as an attributed open-source reference for AI-assisted software development."
+      )
+    ).toBeInTheDocument();
+    const link = within(list).getByRole("link", {
+      name: "View contributor profile on the XERJ Corpus Hub",
+    });
+    expect(link).toHaveAttribute("href", "https://hub.xerj.org/contributors/alipajand");
+    expect(link).toHaveTextContent("View contributor profile");
+
+    OPEN_SOURCE_PROJECTS.filter((project) => !project.externalReferences?.length).forEach(
+      (project) => {
+        expect(
+          within(article(project.title)).queryByText(OPEN_SOURCE_EXTERNAL_REFERENCES_LABEL)
+        ).not.toBeInTheDocument();
+      }
+    );
   });
 
   it("should index every project with an in-page link to its entry", () => {
