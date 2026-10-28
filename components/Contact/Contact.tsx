@@ -1,21 +1,12 @@
-import Link from "next/link";
-
 import styles from "components/Contact/Contact.module.css";
 import { ContactForm } from "components/Contact/ContactForm";
-import { LinkRows } from "components/hairline/LinkRows/LinkRows";
-import {
-  CONTACT_AVAILABILITY,
-  CONTACT_DIRECT_LABEL,
-  CONTACT_NOW_HREF,
-  CONTACT_NOW_LEAD,
-  CONTACT_NOW_LINK_LABEL,
-  CONTACT_SECTION_BODY,
-  CONTACT_SECTION_HEADING,
-} from "data/contact";
+import { CONTACT_SECTION_BODY, CONTACT_SECTION_HEADING } from "data/contact";
 import { HOMEPAGE_CONTACT_EYEBROW } from "data/homepage";
-import { LINKS } from "data/links";
 
-/** Homepage contact: the pitch and form on the left, direct channels on the right. */
+/**
+ * Homepage contact: the pitch on the left, the form on the right. Availability and direct links
+ * follow in the "Let's talk" section rendered after it.
+ */
 export const Contact = () => (
   <section id="contact" className={styles.contact} aria-labelledby="contact-heading">
     <div className={styles.lead}>
@@ -24,15 +15,9 @@ export const Contact = () => (
         {CONTACT_SECTION_HEADING}
       </h2>
       <p className={styles.body}>{CONTACT_SECTION_BODY}</p>
-      <p className={styles.availability}>
-        {CONTACT_AVAILABILITY} {CONTACT_NOW_LEAD}{" "}
-        <Link href={CONTACT_NOW_HREF}>{CONTACT_NOW_LINK_LABEL}</Link>.
-      </p>
-      <ContactForm />
     </div>
-    <div className={styles.links}>
-      <span className={styles.eyebrow}>{CONTACT_DIRECT_LABEL}</span>
-      <LinkRows links={LINKS} label={CONTACT_DIRECT_LABEL} />
+    <div className={styles.formColumn}>
+      <ContactForm />
     </div>
   </section>
 );

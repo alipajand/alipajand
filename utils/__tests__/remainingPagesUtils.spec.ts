@@ -6,10 +6,8 @@ import {
 } from "data/openSourcePage";
 import {
   calendarLayout,
-  contributionLevels,
   contributionStats,
   monthlyContributions,
-  snapshotTotal,
   pluralize,
 } from "utils/contributions";
 import { WEEKS_IN_RULER, weekOfYear } from "utils/week";
@@ -31,30 +29,19 @@ describe("weekOfYear", () => {
 describe("contribution snapshot", () => {
   const snapshot = OPEN_SOURCE_CONTRIBUTION_SNAPSHOT;
 
-  // Public contributions only, for the full days 2025-10-26 to 2026-10-26 (decision A3).
-  it("should hold one count per full day before it was collected", () => {
-    const days = (Date.parse(snapshot.to) - Date.parse(snapshot.from)) / 86_400_000 + 1;
-    expect(snapshot.counts).toHaveLength(days);
-    expect(snapshot.to < snapshot.collectedAt.slice(0, 10)).toBe(true);
-    expect(snapshot.source).toMatch(/public repositories only/);
-    expect(snapshotTotal(snapshot)).toBe(910);
-    expect(snapshot.counts.filter(Boolean)).toHaveLength(82);
-  });
-
-  it("should shade active days by quartile and leave empty days at level 0", () => {
-    expect(contributionLevels([0, 1, 2, 3, 4, 0, 100])).toEqual([0, 1, 1, 2, 3, 0, 4]);
-    expect(contributionLevels([0, 0])).toEqual([0, 0]);
-    expect(contributionLevels([5])).toEqual([1]);
+  it("should hold one count and one level per day", () => {
+    expect(snapshot.levels).toHaveLength(snapshot.counts.length);
+    expect(snapshot.counts.reduce((sum, count) => sum + count, 0)).toBe(snapshot.total);
   });
 
   it("should derive the stats shown on the page", () => {
     const stats = contributionStats(snapshot);
-    expect(stats.total).toBe(910);
+    expect(stats.total).toBe(16511);
     expect(stats.days).toBe(snapshot.counts.length);
     expect(stats.activeDays).toBe(snapshot.counts.filter(Boolean).length);
     expect(stats.busiestCount).toBe(Math.max(...snapshot.counts));
     expect(stats.first.toISOString().slice(0, 10)).toBe(snapshot.from);
-    expect(stats.last.toISOString().slice(0, 10)).toBe(snapshot.to);
+    expect(stats.last.toISOString().slice(0, 10)).toBe(snapshot.taken);
   });
 
   it("should lay the calendar out one column per week, Sunday first", () => {
@@ -65,14 +52,13 @@ describe("contribution snapshot", () => {
     // October 26, 2025 was a Sunday, so the first column is full.
     expect(layout.weeks[0]).toHaveLength(7);
     expect(layout.months.length).toBeGreaterThanOrEqual(11);
-    expect(cells[cells.length - 1].label).toBe("Oct 26, 2026 · 2 public contributions");
-    expect(cells.every((cell) => (cell.count === 0) === (cell.level === 0))).toBe(true);
+    expect(cells[cells.length - 1].label).toBe("Oct 27, 2026 · 42 contributions");
   });
 
   it("should sum contributions per month", () => {
     const months = monthlyContributions(snapshot);
     expect(months[0].month).toBe("October 2025");
-    expect(months.reduce((sum, month) => sum + month.total, 0)).toBe(snapshotTotal(snapshot));
+    expect(months.reduce((sum, month) => sum + month.total, 0)).toBe(snapshot.total);
   });
 
   it("should pluralise counts", () => {

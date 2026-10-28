@@ -1,6 +1,6 @@
 # API reference
 
-The site has two server-side API routes. Every page is generated at build time (see [ROUTES.md](ROUTES.md)).
+The site has two server-side API routes. Every page is generated at build time; the writing routes are re-rendered hourly (see [ROUTES.md](ROUTES.md)).
 
 ## `POST /api/contact`
 

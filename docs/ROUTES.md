@@ -11,7 +11,7 @@ from `generateStaticParams`, ƒ rendered per request.
 | `/`                       | `app/page.tsx`                        | ○         | Homepage: hero, selected work, about, capabilities, open source, writing, contact |
 | `/portfolio`              | `app/portfolio/page.tsx`              | ○         | Index of case studies                                                             |
 | `/portfolio/[slug]`       | `app/portfolio/[slug]/page.tsx`       | ●         | One case study per dedicated project in `data/projects.ts`                        |
-| `/open-source`            | `app/open-source/page.tsx`            | ○         | Open-source tools and the contribution snapshot                                   |
+| `/open-source`            | `app/open-source/page.tsx`            | ƒ         | Open-source tools and the GitHub contribution calendar, cached for 6 hours        |
 | `/writing`                | `app/writing/page.tsx`                | ○         | Writing index of published posts                                                  |
 | `/writing/[slug]`         | `app/writing/[slug]/page.tsx`         | ●         | One article per published post; a scheduled one is a 404 unless it is a preview   |
 | `/now`                    | `app/now/page.tsx`                    | ○         | Current focus, dated by `NOW_UPDATED` in `data/now.ts`                            |
@@ -22,8 +22,10 @@ A post is a draft, scheduled until 00:00 America/Toronto on its `date`, or publi
 (`utils/publication.ts`). Only published posts appear on `/`, `/writing`, "More writing", the
 sitemap, RSS, `llms.txt` and `llms-full.txt`. Every non-draft slug is generated so it exists under
 `dynamicParams = false`; before its date the article and OG image answer 404, or a `noindex`
-preview without structured data when the post sets `preview: true`. All of this is evaluated at
-build time, so a scheduled post goes live with the first deployment after its date.
+preview without structured data when the post sets `preview: true`. All of this is evaluated when
+a route renders. Every one of these routes sets `revalidate = 3600`, so a scheduled post goes live
+within about an hour after midnight in Toronto, on the first visit to each route after that, with no
+deploy. A deployment publishes it at once.
 
 ## API routes
 

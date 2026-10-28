@@ -6,10 +6,16 @@ import { OpenSourceHero } from "features/open-source/OpenSourceHero";
 import { OpenSourcePrinciples } from "features/open-source/OpenSourcePrinciples";
 import { OpenSourceProjects } from "features/open-source/OpenSourceProjects";
 import { OpenSourceTechnology } from "features/open-source/OpenSourceTechnology";
+import type { ContributionSnapshot } from "data/openSourceActivity";
 import { OPEN_SOURCE_TECHNOLOGY_TICKER, OPEN_SOURCE_TOOL_TICKER } from "data/openSourcePage";
 
+interface OpenSourcePageContentProps {
+  /** The contribution calendar to draw, fetched by the route. */
+  activity: ContributionSnapshot;
+}
+
 /** The open-source page, composed in the artifact's section order. */
-export const OpenSourcePageContent = () => (
+export const OpenSourcePageContent = ({ activity }: OpenSourcePageContentProps) => (
   <main id="main-content" tabIndex={-1}>
     <OpenSourceDisplay />
     <OpenSourceHero />
@@ -17,7 +23,7 @@ export const OpenSourcePageContent = () => (
     <OpenSourceProjects />
     <OpenSourcePrinciples />
     <OpenSourceTechnology />
-    <OpenSourceActivity />
+    <OpenSourceActivity snapshot={activity} />
     <Ticker items={OPEN_SOURCE_TOOL_TICKER} icon="spark" direction={-1} />
     <OpenSourceCta />
   </main>

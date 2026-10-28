@@ -57,7 +57,7 @@ describe("PortfolioPageContent", () => {
     }
   });
 
-  it("should render GitHub, LinkedIn, and booking links in the profile list", () => {
+  it("should render email, GitHub, LinkedIn, and booking links in the profile list", () => {
     render(<PortfolioPageContent />);
 
     const profileLinks = screen.getByRole("list", { name: PORTFOLIO_PROFILE_LINKS_ARIA_LABEL });
@@ -65,6 +65,7 @@ describe("PortfolioPageContent", () => {
       .getAllByRole("link")
       .map((link) => link.getAttribute("href"));
     expect(hrefs).toEqual([
+      "mailto:alipajand@gmail.com",
       "https://github.com/alipajand",
       "https://linkedin.com/in/alipajand",
       "https://calendly.com/alipajand/intro",
