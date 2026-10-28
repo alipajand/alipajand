@@ -106,7 +106,7 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
       "The scanner writes nothing, runs no repository scripts, and makes no network requests. Workers have read access confined to the selected directory and their own script.",
       "Credential masking is pattern-based and applies to scanner output only; paths remain visible. The host client may send results and files it reads to its model provider.",
       "Verified with the MCP SDK, Inspector, and signed-in headless Claude Code. MCP in Cursor and Windows remain untested.",
-      "The October 14 publishing record also lists mcpserver.dev and MCPRush; MCPRush auto-indexed the package and its ownership claim awaits review. Glama remains submitted, awaiting review.",
+      "The October 14 publishing record also lists mcpserver.dev and MCPRush; MCPRush auto-indexed the package and approved the ownership claim that day. Glama rejected the submission on October 15 and a corrected one on October 17 without giving a reason; clarification has been requested.",
     ],
     contribution:
       "I made the same pinned audit engines available through MCP, with bounded workers and structured reports instead of model-generated scores.",
