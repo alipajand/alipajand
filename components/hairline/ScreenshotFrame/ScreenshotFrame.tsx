@@ -148,6 +148,10 @@ export const ScreenshotFrame = ({
         "--trim": `${((-trimTop / width) * 100).toFixed(4)}%`,
       } as CSSProperties)
     : undefined;
+  // The box keeps the source's ratio once the image loads. With only width and height attributes it
+  // switches to the served variant's own ratio, rounded to whole pixels when resized, and a lazy shot
+  // moved everything below it by a fraction of a pixel as it came into view.
+  const imageStyle: CSSProperties = { aspectRatio: `${width} / ${height}` };
 
   return (
     <figure className={layout === "side" ? `${styles.shot} ${styles.side}` : styles.shot}>
@@ -174,6 +178,7 @@ export const ScreenshotFrame = ({
               width={width}
               height={height}
               sizes={sizes}
+              style={imageStyle}
               priority={priority}
               loading={priority ? undefined : "lazy"}
             />
