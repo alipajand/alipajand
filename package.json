@@ -42,7 +42,7 @@
     "zod": "^4.6.6"
   },
   "devDependencies": {
-    "@asamuzakjp/css-color": "^7.1.7",
+    "@asamuzakjp/css-color": "^7.1.8",
     "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.64.0",
     "@tailwindcss/postcss": "^4.3.3",
