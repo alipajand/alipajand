@@ -1,6 +1,6 @@
 .contact {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   border-bottom: var(--stroke-hairline) solid var(--tone-rule);
 }
 
@@ -29,17 +29,8 @@
   color: var(--color-mute);
 }
 
-.availability {
-  margin: 0;
-  max-width: 52ch;
-}
-
-.links {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 14px;
-  padding: 30px 24px;
+.formColumn {
+  padding: 20px 24px 30px;
 }
 
 @media (max-width: 760px) {
@@ -53,7 +44,7 @@
     border-bottom: var(--stroke-hairline) solid var(--tone-rule);
   }
 
-  .links {
-    padding: 24px 16px;
+  .formColumn {
+    padding: 14px 16px 24px;
   }
 }

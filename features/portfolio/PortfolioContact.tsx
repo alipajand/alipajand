@@ -10,11 +10,20 @@ const PROFILE_LINKS = PORTFOLIO_PROFILE_LINK_LABELS.flatMap((label) => {
   return link ? [link] : [];
 });
 
-export const PortfolioContact = () => (
-  <section id="contact" className={styles.contact} aria-labelledby="portfolio-contact-heading">
+interface PortfolioContactProps {
+  /** The homepage already owns `#contact`, so it renders this section under its own ids. */
+  id?: string;
+  headingId?: string;
+}
+
+export const PortfolioContact = ({
+  id = "contact",
+  headingId = "portfolio-contact-heading",
+}: PortfolioContactProps) => (
+  <section id={id} className={styles.contact} aria-labelledby={headingId}>
     <div className={styles.lead}>
       <span className={styles.eyebrow}>{PORTFOLIO_CONTACT_EYEBROW}</span>
-      <h2 id="portfolio-contact-heading" className={styles.title}>
+      <h2 id={headingId} className={styles.title}>
         {PORTFOLIO_CONTACT_HEADING}
       </h2>
       <p className={styles.body}>{CONTACT_AVAILABILITY}</p>

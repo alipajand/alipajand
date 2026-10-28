@@ -34,9 +34,14 @@ export const projectCaseStudyTocAriaLabel = (projectName: string): string =>
 export const projectLiveLinksAriaLabel = (projectName: string): string =>
   `${projectName} live links`;
 
-export const PORTFOLIO_PROFILE_LINKS_ARIA_LABEL = "Profiles and booking";
+export const PORTFOLIO_PROFILE_LINKS_ARIA_LABEL = "Email, profiles, and booking";
 
-export const PORTFOLIO_PROFILE_LINK_LABELS = ["GitHub", "LinkedIn", "Book a call"] as const;
+export const PORTFOLIO_PROFILE_LINK_LABELS = [
+  "Email",
+  "GitHub",
+  "LinkedIn",
+  "Book a call",
+] as const;
 
 /* Case-study page chrome (hairline layout). */
 

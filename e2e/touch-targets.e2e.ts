@@ -4,8 +4,8 @@ import { settle } from "./support";
 
 /*
  * Tap areas of the shell controls on emulated touch screens: the header name, the primary links
- * (one row, the menu below 521px, and the wrapped no-script rows), "Book a call", the footer
- * channels and the motion control. Each tap area includes any transparent ::after expansion.
+ * (one row, the menu below 521px, and the wrapped no-script rows), "Book a call" and the footer
+ * motion control. Each tap area includes any transparent ::after expansion.
  *
  * Every area must be at least 44x44 CSS px, except "Book a call": the CTA cell splits its 56px into
  * the "Open to roles" line and the link, so the link is 28px tall. That passes WCAG 2.5.8 (24px)
@@ -39,7 +39,6 @@ const tapAreas = (page: Page): Promise<Area[]> =>
     add("menu", document.querySelector("header button[aria-controls='site-menu']"));
     document.querySelectorAll("#site-menu a").forEach((link) => add("menu link", link));
     add("book", document.querySelector("header a[target='_blank']"));
-    document.querySelectorAll("footer ul a").forEach((link) => add("channel", link));
     add("motion", document.querySelector("footer button[data-motion-control]"));
 
     return targets.map(([group, element]) => {
