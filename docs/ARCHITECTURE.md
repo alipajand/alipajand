@@ -67,18 +67,22 @@ Resend webhook       ──► app/api/webhooks/resend ──► Resend API (for
   `prefers-reduced-motion`, and stop idle animation when the visitor pauses motion.
 - Case studies and articles are generated at build time with `generateStaticParams`. Post HTML is
   sanitised against an allowlist during the build (`utils/sanitizePostHtml.ts`).
-- Every page and feed is static, including `/` and `/writing`. Which posts are published is decided
-  when the site is built, by one function (`utils/publication.ts`), so a scheduled post appears on
-  every surface with the first build after its date. See [ROUTES.md](ROUTES.md).
+- Every page and feed is static except `/open-source`, which renders per request. One function
+  (`utils/publication.ts`) decides which posts are published each time a route renders. The routes
+  that list or serve posts re-render hourly (ISR), each one independently, so a scheduled post
+  reaches each surface separately: no surface sees it before the first request an hour or more
+  after its date, and only a deployment publishes it everywhere at once. See
+  [ROUTES.md](ROUTES.md).
 
 ## Environment variables
 
-| Variable                | Purpose                                                                    | Required                       |
-| ----------------------- | -------------------------------------------------------------------------- | ------------------------------ |
-| `RESEND_API_KEY`        | Resend key for the contact form and inbound forwarding                     | Yes, or both routes answer 503 |
-| `RESEND_WEBHOOK_SECRET` | Verifies Resend webhook signatures                                         | For inbound forwarding         |
-| `CONTACT_EMAIL`         | Inbox for contact messages and forwarded mail (has a built-in default)     | No                             |
-| `RESEND_FROM`           | Sender address on a verified domain; falls back to `onboarding@resend.dev` | No                             |
+| Variable                | Purpose                                                                    | Required                                       |
+| ----------------------- | -------------------------------------------------------------------------- | ---------------------------------------------- |
+| `RESEND_API_KEY`        | Resend key for the contact form and inbound forwarding                     | Yes, or both routes answer 503                 |
+| `RESEND_WEBHOOK_SECRET` | Verifies Resend webhook signatures                                         | For inbound forwarding                         |
+| `CONTACT_EMAIL`         | Inbox for contact messages and forwarded mail (has a built-in default)     | No                                             |
+| `RESEND_FROM`           | Sender address on a verified domain; falls back to `onboarding@resend.dev` | No                                             |
+| `GITHUB_TOKEN`          | Reads the live contribution calendar on `/open-source` (read-only token)   | No; the committed snapshot is shown without it |
 
 `.env.example` documents each one. Never commit real values. All of them are read on the server
 only; none is prefixed with `NEXT_PUBLIC_`.
