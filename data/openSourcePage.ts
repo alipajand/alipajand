@@ -316,7 +316,7 @@ export const OPEN_SOURCE_TECHNOLOGY_TICKER = [
 export const OPEN_SOURCE_SHARED_PRINCIPLES_NOTE = "[ Shared across every tool ]";
 
 export const OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE =
-  "A dated snapshot of the GitHub contribution calendar on github.com/alipajand, refreshed by hand. GitHub counts private contributions there too, so it shows when I was active, not how much open-source work shipped.";
+  "A dated snapshot of the GitHub contribution calendar on github.com/alipajand, refreshed every few hours. GitHub counts private contributions there too, so it shows when I was active, not how much open-source work shipped.";
 export const OPEN_SOURCE_ACTIVITY_STAT_LABELS = {
   total: "Last year",
   totalUnit: "contributions",

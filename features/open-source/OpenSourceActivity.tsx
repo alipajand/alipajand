@@ -1,7 +1,7 @@
 import { SectionHead } from "components/hairline/SectionHead/SectionHead";
 import styles from "features/open-source/OpenSourceActivity.module.css";
 import { OpenSourceActivityGraph } from "features/open-source/OpenSourceActivityGraph";
-import { OPEN_SOURCE_CONTRIBUTION_SNAPSHOT } from "data/openSourceActivity";
+import type { ContributionSnapshot } from "data/openSourceActivity";
 import {
   OPEN_SOURCE_ACTIVITY_HEADING,
   OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE,
@@ -23,12 +23,15 @@ import {
 
 const formatCount = (count: number) => count.toLocaleString("en-US");
 
+interface OpenSourceActivityProps {
+  snapshot: ContributionSnapshot;
+}
+
 /**
- * Contribution activity from a dated snapshot of the public GitHub calendar: four stats, the
- * calendar itself (one column per week) and a per-month table for screen readers.
+ * Contribution activity from a dated copy of the GitHub calendar: four stats, the calendar itself
+ * (one column per week) and a per-month table for screen readers.
  */
-export const OpenSourceActivity = () => {
-  const snapshot = OPEN_SOURCE_CONTRIBUTION_SNAPSHOT;
+export const OpenSourceActivity = ({ snapshot }: OpenSourceActivityProps) => {
   const stats = contributionStats(snapshot);
   const calendar = calendarLayout(snapshot);
   const months = monthlyContributions(snapshot);

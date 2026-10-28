@@ -1,4 +1,5 @@
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import type { ReactElement } from "react";
 
 import OpenSourcePage, { metadata } from "../../../app/open-source/page";
 import { OpenSourcePageContent } from "features/open-source/OpenSourcePageContent";
@@ -47,7 +48,8 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-const renderPage = () => render(<OpenSourcePageContent />);
+const renderPage = () =>
+  render(<OpenSourcePageContent activity={OPEN_SOURCE_CONTRIBUTION_SNAPSHOT} />);
 
 const article = (title: string) =>
   document.getElementById(openSourceProjectSlug(title)) as HTMLElement;
@@ -333,8 +335,9 @@ describe("app/open-source/page", () => {
     );
   });
 
-  it("should render the collection and breadcrumb structured data with the page", () => {
-    const { container } = render(<OpenSourcePage />);
+  it("should render the collection and breadcrumb structured data with the page", async () => {
+    delete process.env.GITHUB_TOKEN;
+    const { container } = render((await OpenSourcePage()) as ReactElement);
 
     const blocks = Array.from(container.querySelectorAll('script[type="application/ld+json"]')).map(
       (script) => JSON.parse(script.textContent ?? "{}")

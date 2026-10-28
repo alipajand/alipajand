@@ -11,7 +11,7 @@ from `generateStaticParams`, ƒ rendered per request.
 | `/`                       | `app/page.tsx`                        | ƒ         | Homepage: hero, selected work, about, capabilities, open source, writing, contact |
 | `/portfolio`              | `app/portfolio/page.tsx`              | ○         | Index of case studies                                                             |
 | `/portfolio/[slug]`       | `app/portfolio/[slug]/page.tsx`       | ●         | One case study per dedicated project in `data/projects.ts`                        |
-| `/open-source`            | `app/open-source/page.tsx`            | ○         | Open-source tools and the contribution snapshot                                   |
+| `/open-source`            | `app/open-source/page.tsx`            | ○         | Open-source tools and the GitHub contribution calendar, revalidated every 6 hours |
 | `/writing`                | `app/writing/page.tsx`                | ƒ         | Writing index, with scheduled posts labelled as upcoming                          |
 | `/writing/[slug]`         | `app/writing/[slug]/page.tsx`         | ●         | One article per Markdown file in `content/posts/`                                 |
 | `/now`                    | `app/now/page.tsx`                    | ○         | Current focus, dated by `NOW_UPDATED` in `data/now.ts`                            |
