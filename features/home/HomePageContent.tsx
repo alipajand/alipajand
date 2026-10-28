@@ -9,6 +9,7 @@ import { HomeHero } from "features/home/HomeHero";
 import { HomeOpenSource } from "features/home/HomeOpenSource";
 import { HomeSelectedWork } from "features/home/HomeSelectedWork";
 import { HomeWriting } from "features/home/HomeWriting";
+import { PortfolioContact } from "features/portfolio/PortfolioContact";
 import {
   HOMEPAGE_CAPABILITY_TICKER,
   HOMEPAGE_DISPLAY_WORDS,
@@ -38,5 +39,6 @@ export const HomePageContent = ({ writingFeatured, writingRecent }: HomePageCont
       heading={HOMEPAGE_WRITING_HEADING}
     />
     <Contact />
+    <PortfolioContact id="lets-talk" headingId="lets-talk-heading" />
   </main>
 );

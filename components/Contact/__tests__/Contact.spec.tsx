@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { Contact } from "components/Contact/Contact";
-import { CONTACT_AVAILABILITY, CONTACT_SECTION_BODY } from "data/contact";
+import { CONTACT_SECTION_BODY } from "data/contact";
 import { CONTACT_FIELD_MESSAGE_HINT } from "data/contactForm";
 import { CONTACT_FORM_LEDE } from "data/site";
 
@@ -20,22 +20,11 @@ describe("Contact", () => {
       expect(screen.getByRole("heading", { name: /open to new work/i })).toBeInTheDocument();
     });
 
-    it("should render contact links for Email, LinkedIn, and GitHub", () => {
+    it("should leave direct links to the Let's talk section that follows it", () => {
       render(<Contact />);
 
-      expect(screen.getByText("alipajand@gmail.com")).toBeInTheDocument();
-      expect(screen.getByRole("link", { name: /email/i })).toBeInTheDocument();
-      expect(screen.getByRole("link", { name: /linkedin/i })).toBeInTheDocument();
-      expect(screen.getByRole("link", { name: /github/i })).toBeInTheDocument();
-    });
-
-    it("should render a booking link to the Calendly intro call", () => {
-      render(<Contact />);
-
-      expect(screen.getByRole("link", { name: /book a call/i })).toHaveAttribute(
-        "href",
-        "https://calendly.com/alipajand/intro"
-      );
+      expect(screen.queryByRole("link", { name: /email/i })).not.toBeInTheDocument();
+      expect(screen.queryByRole("link", { name: /book a call/i })).not.toBeInTheDocument();
     });
 
     it("should render reasons list and form jump CTA", () => {
@@ -46,7 +35,6 @@ describe("Contact", () => {
     it("should render the updated hiring paragraph", () => {
       render(<Contact />);
       expect(screen.getByText(CONTACT_SECTION_BODY)).toBeInTheDocument();
-      expect(screen.getByText(CONTACT_AVAILABILITY)).toBeInTheDocument();
     });
 
     it("should keep the form introduction distinct from the message-field hint", () => {
