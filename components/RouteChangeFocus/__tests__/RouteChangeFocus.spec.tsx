@@ -184,6 +184,8 @@ describe("RouteChangeFocus", () => {
       window.history.replaceState(null, "", "/writing");
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
+    // A link navigation updates the address before its route renders.
+    window.history.replaceState(null, "", "/now");
     usePathname.mockReturnValue("/now");
 
     act(() => {
@@ -193,6 +195,37 @@ describe("RouteChangeFocus", () => {
     expect(scrollToTopMock).toHaveBeenCalled();
 
     window.history.replaceState(null, "", "/");
+  });
+
+  it("should keep the restored position when Back is pressed before the next page renders", () => {
+    const main = document.createElement("main");
+    main.id = "main-content";
+    main.tabIndex = -1;
+    document.body.appendChild(main);
+    window.history.replaceState(null, "", "/writing/post");
+    usePathname.mockReturnValue("/writing/post");
+    const { rerender } = render(<RouteChangeFocus />);
+
+    // A link to /writing has pushed its address; Back is pressed before /writing renders.
+    act(() => {
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    });
+
+    // /writing still commits, for an address the browser has already left, then the post again.
+    usePathname.mockReturnValue("/writing");
+    act(() => {
+      rerender(<RouteChangeFocus />);
+    });
+    usePathname.mockReturnValue("/writing/post");
+    act(() => {
+      rerender(<RouteChangeFocus />);
+    });
+
+    expect(scrollToTopMock).not.toHaveBeenCalled();
+    expect(document.activeElement).toBe(main);
+
+    window.history.replaceState(null, "", "/");
+    document.body.innerHTML = "";
   });
 
   it("should scroll to a hash target when only the fragment changes outside /portfolio", () => {
