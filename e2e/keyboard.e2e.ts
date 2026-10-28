@@ -117,6 +117,39 @@ const markTabbables = (page: Page) =>
     };
   });
 
+/**
+ * Resolves once the page has stopped scrolling with the focused control on screen. WebKit on Linux
+ * animates the scroll that brings a focused control into view, under load starts it late, and now
+ * and then drops it, so reading the page straight away finds the control off screen or part-way
+ * in. If the control is still entirely off screen after a second, it is scrolled into view the
+ * way the engine would have; one that still cannot be seen is reported as hidden. A control that
+ * is on screen but covered is left where it is, so covered stops still fail.
+ */
+const scrollRest = (page: Page) =>
+  page.evaluate(async () => {
+    const frame = () => new Promise((resolve) => requestAnimationFrame(resolve));
+    const onScreen = () => {
+      const active = document.activeElement;
+      if (!active || active === document.body) return true;
+      const box = active.getBoundingClientRect();
+      return box.bottom > 0 && box.top < window.innerHeight;
+    };
+    const rest = async (frames: number) => {
+      let still = 0;
+      let last = `${window.scrollX},${window.scrollY}`;
+      for (let i = 0; i < frames && (still < 3 || !onScreen()); i += 1) {
+        await frame();
+        const now = `${window.scrollX},${window.scrollY}`;
+        still = now === last ? still + 1 : 0;
+        last = now;
+      }
+    };
+    await rest(60);
+    if (onScreen()) return;
+    (document.activeElement as HTMLElement).scrollIntoView({ block: "nearest", inline: "nearest" });
+    await rest(300);
+  });
+
 /** Where focus is now: its `data-kb` index, and whether any of it is visible and uncovered. */
 const focusState = (page: Page) =>
   page.evaluate(() => {
@@ -125,10 +158,14 @@ const focusState = (page: Page) =>
     const box = active.getBoundingClientRect();
     const vw = document.documentElement.clientWidth;
     const vh = window.innerHeight;
+    // A link that wraps has one rect per line, and its bounding box spans text that is not the
+    // link, so sample each line's own rect.
+    const rects = Array.from(active.getClientRects());
     const points: [number, number][] = [];
-    for (const fx of [0.1, 0.5, 0.9])
-      for (const fy of [0.2, 0.5, 0.8])
-        points.push([box.left + box.width * fx, box.top + box.height * fy]);
+    for (const rect of rects.length > 0 ? rects : [box])
+      for (const fx of [0.1, 0.5, 0.9])
+        for (const fy of [0.2, 0.5, 0.8])
+          points.push([rect.left + rect.width * fx, rect.top + rect.height * fy]);
     const visible = points.some(([x, y]) => {
       if (x < 0 || y < 0 || x >= vw || y >= vh) return false;
       const hit = document.elementFromPoint(x, y);
@@ -157,10 +194,19 @@ const finishTransitions = (page: Page) =>
   );
 
 /** True when the pixels around the focused element change once focus leaves it. */
-const showsFocus = async (
-  page: Page,
-  box: { x: number; y: number; width: number; height: number }
-) => {
+const showsFocus = async (page: Page) => {
+  // Linux WebKit scrolls a focused field only far enough to show its text, and even a full
+  // "nearest" scroll leaves the inputs' focus underline (a shadow under the border) past the
+  // viewport edge. Centre the control so the comparison asks whether it has an indicator, not
+  // where the engine stopped scrolling.
+  await page.evaluate(() =>
+    (document.activeElement as HTMLElement).scrollIntoView({ block: "center", inline: "nearest" })
+  );
+  await scrollRest(page);
+  const box = await page.evaluate(() => {
+    const rect = document.activeElement!.getBoundingClientRect();
+    return { x: rect.left, y: rect.top, width: rect.width, height: rect.height };
+  });
   const viewport = page.viewportSize()!;
   const x = Math.max(0, box.x - 6);
   const y = Math.max(0, box.y - 6);
@@ -230,6 +276,7 @@ const walk = async (
   const unmarked: string[] = [];
   for (let step = 0; step < count * 2 + 10; step += 1) {
     await page.keyboard.press(tabKey(browserName), KEY_HOLD);
+    await scrollRest(page);
     const state = await focusState(page);
     // Past the last control focus goes to the browser's own controls (the body, to the page), then
     // back to the first. A page that focused its content on load starts mid-way, so keep going
@@ -242,7 +289,7 @@ const walk = async (
     if (reached.has(state.index)) break;
     reached.add(state.index);
     if (!state.visible) hidden.push(state.describe);
-    else if (checkIndicator && !(await showsFocus(page, state.box))) {
+    else if (checkIndicator && !(await showsFocus(page))) {
       noIndicator.push(state.describe);
     }
   }
