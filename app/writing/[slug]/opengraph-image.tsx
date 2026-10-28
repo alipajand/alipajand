@@ -1,7 +1,11 @@
+import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
 
 import { SITE_NAME } from "data/site";
 import { getAllPosts, getPostBySlug } from "utils/posts";
+
+/** Only the generated slugs exist; any other slug is a 404 that is neither rendered nor cached. */
+export const dynamicParams = false;
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -23,12 +27,7 @@ export default async function WritingPostOpenGraphImage({
 }) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-
-  const title = post?.title ?? "Writing";
-  const excerpt = post
-    ? truncate(post.excerpt, 220)
-    : `${SITE_NAME}: notes on product engineering and DX.`;
-  const label = post ? "Article" : "Writing";
+  if (!post) notFound();
 
   return new ImageResponse(
     <div
@@ -53,7 +52,7 @@ export default async function WritingPostOpenGraphImage({
             color: "#a3a3a3",
           }}
         >
-          {label}
+          Article
         </div>
         <div
           style={{
@@ -66,7 +65,7 @@ export default async function WritingPostOpenGraphImage({
             maxHeight: 280,
           }}
         >
-          <span>{truncate(title, 120)}</span>
+          <span>{truncate(post.title, 120)}</span>
         </div>
         <div
           style={{
@@ -77,7 +76,7 @@ export default async function WritingPostOpenGraphImage({
             maxWidth: 1000,
           }}
         >
-          <span>{excerpt}</span>
+          <span>{truncate(post.excerpt, 220)}</span>
         </div>
       </div>
       <div
