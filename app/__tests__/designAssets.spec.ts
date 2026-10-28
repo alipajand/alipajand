@@ -41,7 +41,7 @@ const PORTFOLIO_MEDIA: Record<string, string> = {
 
 /**
  * SHA-256 of images that show the owner's login identity in a dashboard account row. They are
- * still in git history (see docs/audits/history-exposure.md); none may return to the tree.
+ * still in git history (see docs/decisions/open.md); none may return to the tree.
  */
 const UNREDACTED_IMAGES: Record<string, string> = {
   "public/portfolio-media/mapbylaw-dashboard.png (original capture)":
