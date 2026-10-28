@@ -30,7 +30,13 @@
 }
 
 .formColumn {
-  padding: 20px 24px 30px;
+  padding: 24px;
+  background: var(--color-line);
+}
+
+.formColumn form {
+  margin-top: 0;
+  background: var(--color-ink);
 }
 
 @media (max-width: 760px) {
@@ -45,6 +51,6 @@
   }
 
   .formColumn {
-    padding: 14px 16px 24px;
+    padding: 16px;
   }
 }
