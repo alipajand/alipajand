@@ -330,11 +330,8 @@ test.describe("remaining pages visual baselines", () => {
           await page.setViewportSize(viewport);
           await page.goto(path);
           await settle(page);
-          await expectBaseline(page, {
-            fullPage: true,
-            // The week ruler follows the visitor's calendar week; everything else is fixed.
-            mask: [page.locator("[data-label]").locator("..")],
-          });
+          // The ruler marks NOW_UPDATED, so nothing on these pages follows the clock.
+          await expectBaseline(page, { fullPage: true });
         }
       );
     }

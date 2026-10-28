@@ -44,8 +44,11 @@ describe("NOW_UPDATED", () => {
 });
 
 describe("/now as-of date", () => {
+  afterEach(() => jest.useRealTimers());
+
   it("should take the title year from NOW_UPDATED, not the clock", () => {
-    render(<NowPageContent now={new Date(2031, 6, 1)} />);
+    jest.useFakeTimers({ now: new Date(2031, 6, 1) });
+    render(<NowPageContent />);
 
     expect(screen.getByRole("heading", { level: 1 })).toHaveAccessibleName(
       `${NOW_PAGE_TITLE} ${NOW_YEAR}`
@@ -53,7 +56,8 @@ describe("/now as-of date", () => {
   });
 
   it("should show the date the content was last revised", () => {
-    render(<NowPageContent now={new Date(2031, 6, 1)} />);
+    jest.useFakeTimers({ now: new Date(2031, 6, 1) });
+    render(<NowPageContent />);
 
     const intro = screen.getByRole("region", { name: "About this page" });
     // The lede also says "updated when priorities shift", so match the whole line.
