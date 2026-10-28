@@ -15,7 +15,7 @@
    ```
    The full field list is in [DATA_MODEL.md](DATA_MODEL.md#frontmatter-schema).
 2. The slug is derived from the filename. **Do not rename it after publishing** (SEO and external links will break).
-3. A date after today in Toronto schedules the post: it stays off every list and feed, and its URL answers 404, until the first deployment on or after that date. Set `preview: true` to serve it at its URL before then, `noindex` and unlisted. Keep drafts out of this repository until they are ready to schedule; it is public.
+3. A date after today in Toronto schedules the post: it stays off every list and feed, and its URL answers 404, until about an hour after midnight in Toronto on that date (or the first deployment on or after it). Set `preview: true` to serve it at its URL before then, `noindex` and unlisted. Keep drafts out of this repository until they are ready to schedule; it is public.
 4. Run `pnpm test && pnpm build` to verify the post parses, passes the HTML allowlist and generates statically.
 
 ### Updating site content
@@ -54,4 +54,4 @@ All site copy lives in `data/*.ts`. Edit there and run `pnpm test && pnpm build`
 
 ## Rollback
 
-To roll back a production deployment: use the Vercel dashboard to promote a previous deployment. No database migrations are needed: there is no database, and the only server code is the two API routes and the per-request rendering of `/` and `/writing`.
+To roll back a production deployment: use the Vercel dashboard to promote a previous deployment. No database migrations are needed: there is no database, and the only server code is the two API routes and the hourly re-render of the routes that list or serve posts.

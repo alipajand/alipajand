@@ -7,16 +7,12 @@ and `docs/audits/` before this file replaced them.
 
 ## Writing publication
 
-Publication states (draft, scheduled, published, opt-in `preview: true`) are implemented in
-`utils/publication.ts` and decided at build time, so today a scheduled post goes live with the first
-deployment on or after its date. What remains is how it goes live without a deploy.
+Every route that lists or serves posts re-renders hourly (`revalidate = 3600`), so a scheduled post
+goes live within about an hour of its date without a deploy.
 
-| ID  | Question                                            | Recommended                                                                              | Alternatives                                                    |
-| --- | --------------------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| D3  | What makes the date take effect without a deploy    | Vercel cron → `revalidatePath("/", "layout")`, with `revalidate = 86400` as a safety net | Time-based ISR (`revalidate = 3600`); or publish only on deploy |
-| D5  | `/` and `/writing` rendering                        | Already static, so every surface agrees; confirm, or ask for `force-dynamic` back        | Keep `force-dynamic` lists, which then disagree with articles   |
-| P2  | Vercel plan and cron precision                      | Confirm the plan; Hobby's `5 5 * * *` (up to about 2 h late in summer) is acceptable     | Pro with minute precision                                       |
-| P3  | Who creates `CRON_SECRET` and reviews `vercel.json` | The owner, before the cron PR merges; a missing secret answers 401                       | Not applicable if D3 is not the cron                            |
+| ID  | Question                     | Recommended                                                                               | Alternative                                                   |
+| --- | ---------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| D5  | `/` and `/writing` rendering | Static with hourly ISR, so every surface agrees; confirm, or ask for `force-dynamic` back | Keep `force-dynamic` lists, which then disagree with articles |
 
 ## Unredacted screenshots in git history
 

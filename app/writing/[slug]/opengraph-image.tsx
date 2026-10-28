@@ -8,6 +8,9 @@ import { getGeneratedPostSlugs, getRoutablePost } from "utils/posts";
 /** Only the generated slugs exist; any other slug is a 404 that is neither rendered nor cached. */
 export const dynamicParams = false;
 
+/** Hourly, so a scheduled post goes live within an hour of its date without a deploy. */
+export const revalidate = 3600;
+
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
