@@ -56,7 +56,12 @@ describe("buildCaseSections", () => {
       ...ledgerguard,
       relatedLinks: [],
       liveLinks: [],
-      caseStudy: { ...ledgerguard.caseStudy, nextImprovements: [], interfaceEvidence: [] },
+      caseStudy: {
+        ...ledgerguard.caseStudy,
+        nextImprovements: [],
+        interfaceEvidence: [],
+        reviewSample: undefined,
+      },
     } as Project;
     const ids = buildCaseSections(bare).map((section) => section.id);
     expect(ids).not.toContain("improve");
@@ -70,6 +75,24 @@ describe("buildCaseSections", () => {
     expect(evidence.body).toEqual({
       kind: "evidence",
       figures: project.caseStudy.interfaceEvidence!.slice(1),
+      sample: project.caseStudy.reviewSample,
+    });
+  });
+
+  it("shows evidence for an interactive sample even without extra screenshots", () => {
+    const ledgerguard = getProjectBySlug("ledgerguard")!;
+    const sampleOnly = {
+      ...ledgerguard,
+      caseStudy: {
+        ...ledgerguard.caseStudy,
+        interfaceEvidence: ledgerguard.caseStudy.interfaceEvidence!.slice(0, 1),
+      },
+    } as Project;
+    const evidence = buildCaseSections(sampleOnly).find((section) => section.id === "evidence");
+    expect(evidence?.body).toEqual({
+      kind: "evidence",
+      figures: [],
+      sample: ledgerguard.caseStudy.reviewSample,
     });
   });
 

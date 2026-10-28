@@ -4,6 +4,7 @@ import type {
   ProjectDecision,
   ProjectFigure,
   ProjectLink,
+  ReviewSample,
 } from "data/projects";
 import {
   PROJECT_CASE_STUDY_SECTION_CONTEXT,
@@ -24,7 +25,7 @@ export type CaseSectionBody =
   | { kind: "lead"; text: string }
   | { kind: "items"; items: string[]; layout: "rows" | "cells" }
   | { kind: "decisions"; decisions: ProjectDecision[] }
-  | { kind: "evidence"; figures: ProjectFigure[] }
+  | { kind: "evidence"; figures: ProjectFigure[]; sample?: ReviewSample }
   | { kind: "outcome"; items: string[] }
   | { kind: "related"; links: ProjectLink[] };
 
@@ -62,7 +63,8 @@ export const legacyTitleId = (projectId: string): string => `${projectId}-headin
 /**
  * Builds the numbered sections of a case study from its project data. Sections with nothing to
  * show are left out, so numbering and the chapter rail always match what is on the page. The first
- * screenshot is the intro's hero shot; the rest form "Interface evidence".
+ * screenshot is the intro's hero shot; the rest, after any interactive sample, form "Interface
+ * evidence".
  */
 export const buildCaseSections = (project: Project): CaseSectionModel[] => {
   const cs = project.caseStudy;
@@ -105,7 +107,10 @@ export const buildCaseSections = (project: Project): CaseSectionModel[] => {
     {
       id: "evidence",
       title: PROJECT_CASE_STUDY_SECTION_EVIDENCE,
-      body: evidence.length > 1 ? { kind: "evidence", figures: evidence.slice(1) } : null,
+      body:
+        evidence.length > 1 || cs.reviewSample
+          ? { kind: "evidence", figures: evidence.slice(1), sample: cs.reviewSample }
+          : null,
     },
     {
       id: "outcome",

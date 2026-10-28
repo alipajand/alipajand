@@ -28,10 +28,14 @@ const PORTFOLIO_MEDIA: Record<string, string> = {
   "alwaysgeeky-login.png": "edd769a8da1d188a0a5efd17ca33c0a7cb554542e3b9d830dbc68dca8ce99b73",
   "alwaysgeeky-marketplace.png": "00e2baf7cb8ef834da027574d846f1c5c65e0d3e8c1bdb1e533b44994865d72a",
   "data-flow.png": "f0472dbd3a2ffaa1e9f8bddff0fe4e70dddead3a3a45cac94b24fca197e1cc5b",
-  "ledgerguard-dashboard-redacted.png":
-    "c0572aa58601911756983eafaebdd78d469c2c0fdd90847dcb4eebbddd75b5a1",
-  "ledgerguard-landing.png": "56042712819f7af82044f49ac9171b4019edab55809ffe30f7ae3d3771d03cbe",
-  "ledgerguard-login.png": "ff914f968f6b29482c1a3b9673c1d6a069825346e3339d8018bcc4f398cfe01f",
+  "ledgerguard-contracts-sample.png":
+    "8768128d97348b3fd73a4db560a5d3ddc5781b308bed2cfa721dbdfbb81a5707",
+  "ledgerguard-dashboard-sample.png":
+    "d2a831b2a5be0e2c67b4abb7ed39cc43a0b0f6b17972200dee3f2d77541465c1",
+  "ledgerguard-landing.png": "41821930111e598fdfe3860138588572c45501fdad7ee2ba57c3a5840a09b946",
+  "ledgerguard-login.png": "aa85028de5d5dd1d67b051a92555327c0451afa3822063a0b7cd10b262e6ce29",
+  "ledgerguard-review-sample.png":
+    "03172f1928d83d265e4626a7a8f98dbf1c0a6b8c248e862df03c7f758c61b2c7",
   "mapbylaw-dashboard-redacted.png":
     "f9bf7369181f20dc5b91e796535e245bba3592155d487e48c7bcd2ca227c3d8b",
   "mapbylaw-landing.png": "5744c1fb0e6c8e8152d455a6f7b53d07fbeb38325789b691788233fed899bb37",

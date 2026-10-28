@@ -171,9 +171,9 @@ describe("case-study screenshots", () => {
     }
   });
 
-  it("uses the redacted dashboard copies and no longer ships the originals", () => {
+  it("uses fictional or redacted dashboards and no longer ships the originals", () => {
     const sources = PROJECTS.flatMap((p) => p.caseStudy.interfaceEvidence ?? []).map((f) => f.src);
-    expect(sources).toContain("/portfolio-media/ledgerguard-dashboard-redacted.png");
+    expect(sources).toContain("/portfolio-media/ledgerguard-dashboard-sample.png");
     expect(sources).toContain("/portfolio-media/mapbylaw-dashboard-redacted.png");
     for (const original of UNREDACTED_ORIGINALS) {
       expect(sources).not.toContain(original);
@@ -184,13 +184,16 @@ describe("case-study screenshots", () => {
   it("says which screenshot details are edited or sample data, in caption and alt text", () => {
     const figure = (slug: string, src: string) =>
       getProjectBySlug(slug)!.caseStudy.interfaceEvidence!.find((f) => f.src === src)!;
-    const ledgerguard = figure(
-      "ledgerguard",
-      "/portfolio-media/ledgerguard-dashboard-redacted.png"
-    );
-    expect(ledgerguard.provenance).toBe("Account details replaced");
-    expect(ledgerguard.captionBody).toMatch(/workspace name and account email are replaced/);
-    expect(ledgerguard.alt).toMatch(/DEMO WORKSPACE and demo@example\.com/);
+    for (const src of [
+      "/portfolio-media/ledgerguard-dashboard-sample.png",
+      "/portfolio-media/ledgerguard-contracts-sample.png",
+      "/portfolio-media/ledgerguard-review-sample.png",
+    ]) {
+      const ledgerguard = figure("ledgerguard", src);
+      expect(ledgerguard.provenance).toBe("Redesign, fictional data");
+      expect(ledgerguard.captionBody).toMatch(/redesign with a fictional (workspace|contract)/);
+      expect(ledgerguard.alt).toMatch(/fictional/);
+    }
     const mapbylaw = figure("mapbylaw", "/portfolio-media/mapbylaw-dashboard-redacted.png");
     expect(mapbylaw.provenance).toBe("Account row blurred");
     expect(mapbylaw.captionBody).toMatch(/account name and email are blurred/);
@@ -203,12 +206,12 @@ describe("case-study screenshots", () => {
   it("shows the provenance note beside each edited or sample screenshot", () => {
     for (const [slug, note] of [
       ["tallyfolio", "Sample data"],
-      ["ledgerguard", "Account details replaced"],
+      ["ledgerguard", "Redesign, fictional data"],
       ["mapbylaw", "Account row blurred"],
     ] as const) {
       const { unmount } = renderCase(slug);
       const evidence = screen.getByRole("region", { name: "Interface evidence" });
-      expect(within(evidence).getByText(note)).toBeVisible();
+      for (const label of within(evidence).getAllByText(note)) expect(label).toBeVisible();
       unmount();
     }
   });

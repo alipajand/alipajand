@@ -1,0 +1,289 @@
+/* The review sample: a totals strip over three ruled panes (contracts, terms, source clause). The
+   evidence row around it supplies the padding and rule. */
+.frame {
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.totals {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.totals > div {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  min-width: 0;
+}
+
+.totals > div + div {
+  border-left: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.totalLabel {
+  composes: mono from "../styles/type.module.css";
+  color: var(--tone-mute);
+}
+
+.totals dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+}
+
+.totals > div + div dd {
+  color: var(--tone-mute);
+}
+
+.panes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.15fr);
+}
+
+.panes > section {
+  min-width: 0;
+}
+
+.panes > section + section {
+  border-left: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.paneHead {
+  composes: mono from "../styles/type.module.css";
+  margin: 0;
+  padding: 12px 16px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  color: var(--tone-mute);
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list li + li {
+  border-top: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.row {
+  all: unset;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  min-height: 56px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.row:hover {
+  background: var(--color-ink-2);
+}
+
+.row:focus-visible {
+  outline: var(--stroke-progress) solid var(--color-line);
+  outline-offset: -2px;
+}
+
+.row[aria-pressed="true"] {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+/* The selected row is filled with the outline's colour, so its focus ring switches to ink. */
+.row[aria-pressed="true"]:focus-visible {
+  outline-color: var(--color-ink);
+}
+
+.row[aria-pressed="true"] .meta,
+.row[aria-pressed="true"] .suggested {
+  color: var(--color-mute-ink);
+}
+
+.rowMain {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rowMain b {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.rowSide {
+  display: grid;
+  gap: 2px;
+  justify-items: end;
+  text-align: right;
+}
+
+.meta {
+  font-size: 13px;
+  color: var(--tone-mute);
+}
+
+.amount {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.confirmed {
+  composes: mono from "../styles/type.module.css";
+  white-space: nowrap;
+}
+
+.suggested {
+  composes: mono from "../styles/type.module.css";
+  white-space: nowrap;
+  color: var(--tone-mute);
+}
+
+.source {
+  display: flex;
+  flex-direction: column;
+}
+
+.clause {
+  margin: 0;
+  padding: 16px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.clause p {
+  margin: 0;
+}
+
+.clause mark {
+  padding: 0 2px;
+  background: var(--color-bone);
+  color: var(--color-ink);
+}
+
+.reading {
+  margin: 0;
+  padding: 0 16px;
+  font-size: 14px;
+  color: var(--tone-mute);
+}
+
+.reading b {
+  color: var(--color-line);
+  font-weight: 600;
+}
+
+.confirm,
+.reset {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: var(--stroke-hairline) solid var(--color-line);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.confirm {
+  margin: 16px;
+  margin-top: auto;
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.source .reading + .confirm {
+  margin-top: 16px;
+}
+
+.confirm:hover {
+  background: var(--color-bone);
+}
+
+.confirm[aria-disabled="true"] {
+  background: transparent;
+  color: var(--color-line);
+  border-color: var(--tone-rule);
+  cursor: default;
+}
+
+.confirm:focus-visible,
+.reset:focus-visible {
+  outline: var(--stroke-progress) solid var(--color-line);
+  outline-offset: 3px;
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+
+.reset {
+  margin-top: 14px;
+  border-color: var(--tone-rule);
+  font-weight: 400;
+}
+
+.reset:hover {
+  border-color: var(--color-line);
+}
+
+@media (max-width: 960px) {
+  .panes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panes > section + section {
+    border-left: 0;
+    border-top: var(--stroke-hairline) solid var(--tone-rule);
+  }
+}
+
+@media (max-width: 760px) {
+  .totals {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .totals > div + div {
+    border-left: 0;
+    border-top: var(--stroke-hairline) solid var(--tone-rule);
+  }
+}
+
+/* On the narrowest phones the status or amount drops under the row's text instead of beside it. */
+@media (max-width: 420px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .rowSide {
+    justify-items: start;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    transition: none;
+  }
+}
