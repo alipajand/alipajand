@@ -3,7 +3,7 @@ import {
   OPEN_SOURCE_CONTRIBUTION_SNAPSHOT,
 } from "data/openSourceActivity";
 
-/** How long a fetched calendar is reused before the page regenerates, in seconds (6 hours). */
+/** How long a fetched calendar is reused from the data cache, in seconds (6 hours). */
 export const CONTRIBUTIONS_REVALIDATE_SECONDS = 21600;
 
 const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";

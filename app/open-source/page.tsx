@@ -16,9 +16,10 @@ import { getContributionSnapshot } from "utils/githubContributions";
 
 export const metadata: Metadata = buildOpenSourceMetadata();
 
-// Regenerate every 6 hours so the contribution calendar ends at the latest day GitHub reports.
-// Keep in step with CONTRIBUTIONS_REVALIDATE_SECONDS; route config has to be a literal.
-export const revalidate = 21600;
+// Rendered per request so the contribution calendar ends at the latest day GitHub reports; the
+// GitHub response itself is cached for 6 hours (see utils/githubContributions.ts). An ISR page
+// would send `stale-while-revalidate`, which lets browsers cache its RSC prefetches.
+export const dynamic = "force-dynamic";
 
 export default async function OpenSourcePage() {
   const activity = await getContributionSnapshot();
