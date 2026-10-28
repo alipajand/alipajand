@@ -23,9 +23,24 @@ A post is a draft, scheduled until 00:00 America/Toronto on its `date`, or publi
 sitemap, RSS, `llms.txt` and `llms-full.txt`. Every non-draft slug is generated so it exists under
 `dynamicParams = false`; before its date the article and OG image answer 404, or a `noindex`
 preview without structured data when the post sets `preview: true`. All of this is evaluated when
-a route renders. Every one of these routes sets `revalidate = 3600`, so a scheduled post goes live
-within about an hour after midnight in Toronto, on the first visit to each route after that, with no
-deploy. A deployment publishes it at once.
+a route renders. Every one of these routes is static with hourly ISR (`revalidate = 3600`), so a
+scheduled post goes live without a deploy. A deployment publishes it at once.
+
+What hourly ISR does and does not promise:
+
+- **First request is stale.** A cached render older than an hour is still served to the first
+  request after that hour; that request starts a re-render in the background, and later requests
+  get the new page. A route nobody visits keeps its old render, so "within an hour" holds only for
+  routes with traffic.
+- **Routes revalidate independently.** `/`, `/writing`, each article, its OG image, the sitemap,
+  RSS, `llms.txt` and `llms-full.txt` each keep their own cache and their own hour. Each one
+  re-renders on its own next request.
+- **No simultaneous publication.** For a while after midnight in Toronto a post can be listed on one
+  surface and absent from another, or its article can still answer 404. Only a deployment flips
+  every route at once.
+
+There is no scheduled job that warms these routes. Publication runs on visitor traffic or a
+deploy.
 
 ## API routes
 
