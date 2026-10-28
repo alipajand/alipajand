@@ -16,6 +16,12 @@ export const metadata: Metadata = {
     description: NOT_FOUND_DESCRIPTION,
     locale: "en_US",
   },
+  // Without this block the page inherits the homepage's Twitter title and description.
+  twitter: {
+    card: "summary_large_image",
+    title: NOT_FOUND_TITLE,
+    description: NOT_FOUND_DESCRIPTION,
+  },
 };
 
 export default function NotFound() {

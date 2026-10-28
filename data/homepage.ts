@@ -6,14 +6,6 @@ export interface HomepageCaseStudy {
   supportingLine?: string;
   tags: string[];
   href: string;
-  image?: {
-    src: string;
-    alt: string;
-    caption?: string;
-    illustrative?: false;
-  };
-  illustrativeLabel?: string;
-  illustrativeBody?: string;
 }
 
 export const HOMEPAGE_HERO_NAME = "Ali Pajand";
@@ -42,11 +34,6 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
       "The hard part wasn't the model call. It was keeping probabilistic extraction from ever becoming confirmed contract data without a human reviewing the evidence.",
     tags: ["Next.js", "TypeScript", "Node.js", "Fastify", "PostgreSQL", "Redis/BullMQ", "AI"],
     href: "/portfolio/ledgerguard",
-    image: {
-      src: "/portfolio-media/ledgerguard-dashboard-redacted.png",
-      alt: "LedgerGuard Contracts dashboard showing contract status, renewal risk, and review workflows, with the workspace name and account email replaced by demo placeholders.",
-      caption: "Product screenshot, account details replaced",
-    },
   },
   {
     id: "alwaysgeeky",
@@ -58,11 +45,6 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
       "Component APIs, accessibility, TypeScript and code-review conventions, and CI gates that kept the four surfaces from drifting apart.",
     tags: ["React", "Next.js", "TypeScript", "Storybook", "GraphQL", "Accessibility"],
     href: "/portfolio/alwaysgeeky",
-    image: {
-      src: "/portfolio-media/alwaysgeeky-marketplace.png",
-      alt: "AlwaysGeeky marketplace interface built on shared design-system components.",
-      caption: "Marketplace surface",
-    },
   },
 ];
 
