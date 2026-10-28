@@ -28,8 +28,6 @@ export const WRITING_INDEX_COLLECTION_NAME =
 
 export const WRITING_TOC_ARIA_LABEL = "Table of contents";
 
-export const WRITING_UPCOMING_LABEL = "Upcoming";
-
 /*
  * Hairline writing pages: labels around the post content (titles, dates, excerpts and tags come from
  * content/posts).
@@ -50,10 +48,8 @@ export const WRITING_FILTER_ALL = "All";
 export const writingShownCount = (shown: number, total: number): string =>
   `${shown} of ${total} posts`;
 export const WRITING_READ_ARTICLE = "Read article";
-export const WRITING_PREVIEW_ARTICLE = "Preview article";
 /** A tag becomes a topic lane (timeline row, ticker item, filter chip) once this many posts use it. */
 export const WRITING_TOPIC_LANE_MIN_POSTS = 4;
-export const WRITING_TIMELINE_UPCOMING = "Upcoming";
 
 export const WRITING_INDEX_NEXT_LABEL = "More";
 export const WRITING_INDEX_NEXT_LINKS: readonly NextLink[] = [

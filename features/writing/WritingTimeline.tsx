@@ -11,12 +11,11 @@ import {
   type TopicLane,
   type WritingListPost,
 } from "features/writing/writingModel";
-import { WRITING_TIMELINE_UPCOMING } from "data/writing";
 import { formatShortDate } from "utils/date";
-import { clamp, fitCanvas, INK, LINE, LINE_RGB, tokenFontFamily } from "utils/motion/canvas";
+import { clamp, fitCanvas, LINE, LINE_RGB, tokenFontFamily } from "utils/motion/canvas";
 import { useMotion } from "utils/motion/useMotion";
 
-type TimelinePost = Pick<WritingListPost, "slug" | "title" | "date" | "tags" | "upcoming">;
+type TimelinePost = Pick<WritingListPost, "slug" | "title" | "date" | "tags">;
 
 interface WritingTimelineProps {
   /** Oldest first. */
@@ -33,9 +32,7 @@ const shortMonthDay = (date: string) => formatShortDate(date).replace(/,\s*\d{4}
 export const timelineReadout = (posts: readonly TimelinePost[], index: number): string => {
   const post = posts[index];
   if (!post) return "";
-  return `${pad(index)} / ${posts.length} · ${shortMonthDay(post.date)}${
-    post.upcoming ? ` · ${WRITING_TIMELINE_UPCOMING}` : ""
-  }`;
+  return `${pad(index)} / ${posts.length} · ${shortMonthDay(post.date)}`;
 };
 
 /**
@@ -161,22 +158,14 @@ export const WritingTimeline = ({ posts, lanes, range }: WritingTimelineProps) =
         const wob = lit ? 0 : Math.sin(time * 0.0012 + index) * 1.2;
         ctx.strokeStyle = `rgba(${LINE_RGB},${lit ? 1 : 0.35})`;
         ctx.lineWidth = lit ? 1.6 : 1;
-        if (post.upcoming) ctx.setLineDash([3, 4]);
         ctx.beginPath();
         ctx.moveTo(x + wob, Math.min(...ys));
         ctx.lineTo(x + wob, Math.max(...ys));
         ctx.stroke();
-        ctx.setLineDash([]);
         ys.forEach((y) => {
           const r = lit ? 5.5 : 3.5;
-          if (post.upcoming) {
-            ctx.fillStyle = INK;
-            ctx.fillRect(x + wob - r, y - r, r * 2, r * 2);
-            ctx.strokeRect(x + wob - r + 0.5, y - r + 0.5, r * 2 - 1, r * 2 - 1);
-          } else {
-            ctx.fillStyle = lit ? LINE : `rgba(${LINE_RGB},.7)`;
-            ctx.fillRect(x + wob - r, y - r, r * 2, r * 2);
-          }
+          ctx.fillStyle = lit ? LINE : `rgba(${LINE_RGB},.7)`;
+          ctx.fillRect(x + wob - r, y - r, r * 2, r * 2);
         });
       });
 

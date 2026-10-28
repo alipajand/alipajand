@@ -20,7 +20,6 @@ interface WritingIndexHeroProps {
 
 /** The lede and its two jump links beside the topic timeline. */
 export const WritingIndexHero = ({ posts, lanes, range, hasFeatured }: WritingIndexHeroProps) => {
-  const published = posts.filter((post) => !post.upcoming).length;
   const chrono = [...posts].reverse();
 
   return (
@@ -28,7 +27,7 @@ export const WritingIndexHero = ({ posts, lanes, range, hasFeatured }: WritingIn
       <div className={styles.copy}>
         <div className={styles.eyebrow}>
           <span>{WRITING_INDEX_EYEBROW}</span>
-          <span>{writingPublishedCount(published)}</span>
+          <span>{writingPublishedCount(posts.length)}</span>
         </div>
         <p className={styles.lede}>{WRITING_SECTION_LEDE}</p>
         <div className={styles.ctas}>

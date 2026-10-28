@@ -19,7 +19,7 @@ import {
 } from "data/writing";
 
 interface WritingIndexPageContentProps {
-  /** Newest first; upcoming posts are flagged, not removed. */
+  /** Published posts, newest first. */
   posts: WritingListPost[];
 }
 
