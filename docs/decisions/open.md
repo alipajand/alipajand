@@ -11,12 +11,38 @@ Publication states (draft, scheduled, published, opt-in `preview: true`) are imp
 `utils/publication.ts` and decided at build time, so today a scheduled post goes live with the first
 deployment on or after its date. What remains is how it goes live without a deploy.
 
-| ID  | Question                                            | Recommended                                                                              | Alternatives                                                    |
-| --- | --------------------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| D3  | What makes the date take effect without a deploy    | Vercel cron → `revalidatePath("/", "layout")`, with `revalidate = 86400` as a safety net | Time-based ISR (`revalidate = 3600`); or publish only on deploy |
-| D5  | `/` and `/writing` rendering                        | Already static, so every surface agrees; confirm, or ask for `force-dynamic` back        | Keep `force-dynamic` lists, which then disagree with articles   |
-| P2  | Vercel plan and cron precision                      | Confirm the plan; Hobby's `5 5 * * *` (up to about 2 h late in summer) is acceptable     | Pro with minute precision                                       |
-| P3  | Who creates `CRON_SECRET` and reviews `vercel.json` | The owner, before the cron PR merges; a missing secret answers 401                       | Not applicable if D3 is not the cron                            |
+| ID  | Question                                            | Recommended                                                                                 | Alternatives                                                                     |
+| --- | --------------------------------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| D3  | What makes the date take effect without a deploy    | Time-based ISR: `revalidate = 3600` on `/`, `/writing`, `/writing/[slug]` and the sitemap   | Vercel cron → `revalidatePath`, once a preview deployment shows it works; deploy |
+| D5  | `/` and `/writing` rendering                        | Already static, so every surface agrees; confirm, or ask for `force-dynamic` back           | Keep `force-dynamic` lists, which then disagree with articles                    |
+| P2  | Vercel plan and cron precision                      | Not needed for ISR. For the cron: confirm the plan; Hobby's daily window can run ~2 h late  | Pro with minute precision                                                        |
+| P3  | Who creates `CRON_SECRET` and reviews `vercel.json` | Not needed for ISR. For the cron: the owner, before it merges; a missing secret answers 401 | —                                                                                |
+
+### Evidence for D3 (local `next start`, Next 16.4.3, 2026-10-28)
+
+A scratch post dated 2026-11-05 was built with the clock at 04:55Z (23:55 in Toronto, the day
+before) and served from 04:59:30Z, so midnight in Toronto passed while the server ran. Nothing was
+committed. The pinned clock ran ahead of the real time on purpose: a first run with the clock behind
+the real time gave the same result, but its cache files were newer than the clock, which made that
+run inconclusive.
+
+| Setup                                                    | Before midnight | First request after | Second request after |
+| -------------------------------------------------------- | --------------- | ------------------- | -------------------- |
+| Today (no `revalidate`)                                  | 404, one year   | 404                 | 404                  |
+| `revalidate = 30`                                        | 404             | 404, `STALE`        | 200 on every surface |
+| `revalidate = 86400` + route calling `revalidatePath(…)` | 404             | 404 after the call  | 404                  |
+
+- ISR works: the first visit after expiry gets the old page and starts a regeneration; the next
+  visit gets the published one. Each route regenerates on its own visit, so for up to an hour after
+  midnight a surface nobody has visited can still show the old state.
+- `revalidatePath("/", "layout")` and `revalidatePath("/writing/<slug>")` from a route handler did
+  not invalidate anything under `next start`. The Next.js docs say it should, and Vercel's cache is
+  not `next start`'s, so this is not evidence about production. It means the cron option needs a
+  preview-deployment test before anyone relies on it.
+- Deploy-only publication already works: every deployment starts with a fresh cache, and the
+  scheduled slug is a prerendered 404 that the next build turns into a page.
+- With ISR, the cost is about one regeneration per route per hour of traffic (four list routes and
+  each visited article). The Vercel plan and its ISR limits could not be read from here.
 
 ## Unredacted screenshots in git history
 
