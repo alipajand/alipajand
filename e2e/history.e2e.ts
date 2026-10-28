@@ -41,6 +41,47 @@ for (const viewport of [
       await expect.poll(async () => Math.abs((await scrollY(page)) - before)).toBeLessThan(40);
     });
 
+    // Back pressed right after an in-app link, before the next page has rendered: that page still
+    // commits after the popstate and used to scroll to the top. Runs in Chromium and in Playwright
+    // WebKit (not Safari).
+    for (const [engine, path, mark] of [
+      ["chromium", "/portfolio/ledgerguard", "main a[href^='/writing/']"],
+      ["webkit", "/portfolio/ledgerguard", "main a[href^='/writing/']"],
+      ["chromium", "/writing/agent-readiness-doctor", "main article a[href='/open-source']"],
+      ["webkit", "/writing/agent-readiness-doctor", "main article a[href='/open-source']"],
+    ] as const) {
+      test(`Back before the next page renders keeps the place on ${path} in ${engine}`, async ({
+        browser,
+        playwright,
+        baseURL,
+      }) => {
+        const target = engine === "webkit" ? await playwright.webkit.launch() : browser;
+        const context = await target.newContext({ baseURL, viewport });
+        try {
+          const page = await context.newPage();
+          await page.goto(path);
+          await settle(page);
+          await page.locator(mark).first().scrollIntoViewIfNeeded();
+          await settle(page);
+          const before = await scrollY(page);
+          expect(before).toBeGreaterThan(1000);
+
+          await page.evaluate(() =>
+            document.querySelector<HTMLAnchorElement>("header a[href='/writing']")!.click()
+          );
+          await page.waitForURL((url) => url.pathname === "/writing");
+          await page.goBack();
+          await page.waitForURL(`**${path}`);
+          await settle(page);
+          expect(Math.abs((await scrollY(page)) - before)).toBeLessThan(40);
+          await expect(page.locator("#main-content")).toBeFocused();
+        } finally {
+          await context.close();
+          if (target !== browser) await target.close();
+        }
+      });
+    }
+
     test("Back returns to an in-page section after leaving the page", async ({ page }) => {
       await page.goto("/portfolio/ledgerguard");
       await settle(page);
