@@ -101,6 +101,11 @@
   color: var(--color-ink);
 }
 
+/* The selected row is filled with the outline's colour, so its focus ring switches to ink. */
+.row[aria-pressed="true"]:focus-visible {
+  outline-color: var(--color-ink);
+}
+
 .row[aria-pressed="true"] .meta,
 .row[aria-pressed="true"] .suggested {
   color: var(--color-mute-ink);
