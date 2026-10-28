@@ -20,7 +20,8 @@ import { AUDIT_ROUTES, settle } from "./support";
  * disabled. Each finding names one rule, the elements it covers, why it is open and who owns it,
  * and the scans where it must still appear: when its fix lands those scans fail until the entry
  * goes, so an exception cannot outlive its defect. axe's "needs review" results are recorded with
- * the evidence but do not fail.
+ * the evidence but do not fail here; e2e/contrast-pixels.e2e.ts measures the contrast ones from
+ * pixels, and docs/audits/a11y-needs-review.md records the review.
  */
 
 const TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
@@ -75,9 +76,10 @@ const test = base.extend<
 /** The finding that covers every flagged element of a violation, if one does. */
 const coveredByFinding = async (
   page: Page,
-  violation: { id: string; targets: string[] }
+  violation: { id: string; targets: string[] },
+  findings: readonly KnownFinding[]
 ): Promise<string | null> => {
-  const finding = KNOWN_FINDINGS.find((entry) => entry.rule === violation.id);
+  const finding = findings.find((entry) => entry.rule === violation.id);
   if (!finding) return null;
   const covered = await page.evaluate(
     ({ targets, within }) =>
@@ -91,7 +93,12 @@ const coveredByFinding = async (
  * Runs axe and returns what must be empty: violations no finding covers, and findings listed for
  * this scan that no longer reproduce.
  */
-const scan = async (page: Page, label: string, browserName: BrowserName) => {
+const scan = async (
+  page: Page,
+  label: string,
+  browserName: BrowserName,
+  findings: readonly KnownFinding[] = KNOWN_FINDINGS
+) => {
   // Colours caught mid-transition after a click are not the colours a reader sees. A click can
   // scroll the page, and scroll scenes only change state on the next frames, so let those frames
   // run before collecting the transitions to wait for.
@@ -126,14 +133,16 @@ const scan = async (page: Page, label: string, browserName: BrowserName) => {
   const unlisted: typeof summary = [];
   const known: { id: string; finding: string }[] = [];
   for (const violation of summary) {
-    const finding = await coveredByFinding(page, violation);
+    const finding = await coveredByFinding(page, violation, findings);
     if (finding) known.push({ id: violation.id, finding });
     else unlisted.push(violation);
   }
-  const stale = KNOWN_FINDINGS.filter(
-    (finding) =>
-      finding.seenIn.includes(label) && !known.some((entry) => entry.finding === finding.id)
-  ).map((finding) => `${finding.id} no longer reproduces here: remove it from seenIn`);
+  const stale = findings
+    .filter(
+      (finding) =>
+        finding.seenIn.includes(label) && !known.some((entry) => entry.finding === finding.id)
+    )
+    .map((finding) => `${finding.id} no longer reproduces here: remove it from seenIn`);
   record(`axe__${browserName}__${label}`, {
     label,
     browserName,
@@ -244,6 +253,73 @@ for (const browserName of BROWSERS) {
         await expect(page.getByRole("link", { name: "Enter your name" })).toBeVisible();
         expect(await scan(page, "state__form-errors", browserName)).toEqual(CLEAN);
       });
+    });
+
+    // The guard itself: with no findings listed, a violation of each impact fails the scan; a
+    // finding covers only the elements it names; and a finding that no longer reproduces fails.
+    test("the exception guard fails on every impact and on a stale finding", async ({
+      openPage,
+    }) => {
+      const page = await openPage(browserName, { viewport: { width: 1440, height: 900 } });
+      await page.goto("/now");
+      await settle(page);
+      await page.evaluate(() => {
+        const probe = document.createElement("div");
+        probe.id = "guard-probe";
+        probe.innerHTML = [
+          // critical: image-alt
+          '<img src="/favicon.ico" width="16" height="16">',
+          // serious: color-contrast
+          '<p style="color:#262624;background:#0f0f0e">Low contrast</p>',
+          // minor: aria-deprecated-role
+          '<div role="directory">Deprecated role</div>',
+        ].join("");
+        document.getElementById("main-content")!.append(probe);
+        // moderate: html-xml-lang-mismatch
+        document.documentElement.setAttributeNS(
+          "http://www.w3.org/XML/1998/namespace",
+          "xml:lang",
+          "fr"
+        );
+      });
+      const label = "guard__probe";
+      const bare = await scan(page, label, browserName, []);
+      expect(
+        bare.unlisted.map((violation) => `${violation.id}:${violation.impact}`).sort()
+      ).toEqual([
+        "aria-deprecated-role:minor",
+        "color-contrast:serious",
+        "html-xml-lang-mismatch:moderate",
+        "image-alt:critical",
+      ]);
+
+      const covering: KnownFinding = {
+        id: "GUARD-1",
+        rule: "aria-deprecated-role",
+        within: "#guard-probe",
+        reason: "self-test",
+        owner: "a11y",
+        seenIn: [label],
+      };
+      const elsewhere: KnownFinding = { ...covering, id: "GUARD-2", within: "header" };
+      const stale: KnownFinding = { ...covering, id: "GUARD-3", rule: "region", seenIn: [label] };
+
+      const covered = await scan(page, label, browserName, [covering]);
+      expect(covered.unlisted.map((violation) => violation.id)).not.toContain(
+        "aria-deprecated-role"
+      );
+      expect(covered.stale).toEqual([]);
+
+      const wrongPlace = await scan(page, label, browserName, [elsewhere]);
+      expect(wrongPlace.unlisted.map((violation) => violation.id)).toContain(
+        "aria-deprecated-role"
+      );
+      expect(wrongPlace.stale).toEqual([
+        "GUARD-2 no longer reproduces here: remove it from seenIn",
+      ]);
+
+      const gone = await scan(page, label, browserName, [stale]);
+      expect(gone.stale).toEqual(["GUARD-3 no longer reproduces here: remove it from seenIn"]);
     });
 
     // RG-A3 (#264): the error summary links were 15px tall on a 21px pitch.
