@@ -19,7 +19,7 @@ jest.mock("utils/resend", () => ({
 
 import { createHmac } from "node:crypto";
 
-import { POST } from "../route";
+import { POST, WEBHOOK_MAX_BODY_BYTES } from "../route";
 
 const receivedEvent = {
   type: "email.received",
@@ -88,6 +88,43 @@ describe("POST /api/webhooks/resend", () => {
       payload: JSON.stringify(receivedEvent),
       headers: { id: "msg_1", timestamp: "1", signature: "v1,sig" },
       webhookSecret: "whsec_test",
+    });
+  });
+
+  describe("body size", () => {
+    const oversized = (headers: Record<string, string> = {}) =>
+      new Request("https://alipajand.com/api/webhooks/resend", {
+        method: "POST",
+        headers: {
+          "svix-id": "msg_1",
+          "svix-timestamp": "1",
+          "svix-signature": "v1,sig",
+          ...headers,
+        },
+        body: "x".repeat(WEBHOOK_MAX_BODY_BYTES + 1),
+      });
+
+    it("should answer 413 before verifying a body over the cap", async () => {
+      const res = await POST(oversized());
+      expect(res.status).toBe(413);
+      expect(verify).not.toHaveBeenCalled();
+      expect(send).not.toHaveBeenCalled();
+    });
+
+    it("should answer 413 when Content-Length declares more than the cap", async () => {
+      const res = await POST(oversized({ "content-length": String(WEBHOOK_MAX_BODY_BYTES * 10) }));
+      expect(res.status).toBe(413);
+      expect(verify).not.toHaveBeenCalled();
+    });
+
+    it("should still verify a body at the cap", async () => {
+      verify.mockReturnValue({ type: "email.delivered", data: {} });
+      const body = "x".repeat(WEBHOOK_MAX_BODY_BYTES);
+      const res = await POST(
+        new Request("https://alipajand.com/api/webhooks/resend", { method: "POST", body })
+      );
+      expect(res.status).toBe(200);
+      expect(verify).toHaveBeenCalledWith(expect.objectContaining({ payload: body }));
     });
   });
 
