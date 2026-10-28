@@ -12,6 +12,9 @@ import { publicationTimestamp } from "utils/publication";
 import { buildWritingIndexMetadata } from "utils/metadata";
 import { toBreadcrumbJsonLdItems } from "utils/breadcrumbs";
 
+/** Hourly, so a scheduled post goes live within an hour of its date without a deploy. */
+export const revalidate = 3600;
+
 export const metadata: Metadata = buildWritingIndexMetadata();
 
 export default async function WritingPage() {

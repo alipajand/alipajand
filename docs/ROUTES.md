@@ -22,8 +22,10 @@ A post is a draft, scheduled until 00:00 America/Toronto on its `date`, or publi
 (`utils/publication.ts`). Only published posts appear on `/`, `/writing`, "More writing", the
 sitemap, RSS, `llms.txt` and `llms-full.txt`. Every non-draft slug is generated so it exists under
 `dynamicParams = false`; before its date the article and OG image answer 404, or a `noindex`
-preview without structured data when the post sets `preview: true`. All of this is evaluated at
-build time, so a scheduled post goes live with the first deployment after its date.
+preview without structured data when the post sets `preview: true`. All of this is evaluated when
+a route renders. Every one of these routes sets `revalidate = 3600`, so a scheduled post goes live
+within about an hour after midnight in Toronto, on the first visit to each route after that, with no
+deploy. A deployment publishes it at once.
 
 ## API routes
 

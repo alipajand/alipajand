@@ -7,6 +7,9 @@ import { currentTime } from "utils/clock";
 import { getPublishedPosts } from "utils/posts";
 import { modifiedDate } from "utils/publication";
 
+/** Hourly, so a scheduled post goes live within an hour of its date without a deploy. */
+export const revalidate = 3600;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getPublishedPosts(currentTime());
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
