@@ -60,7 +60,7 @@ The site's form puts the optional company field into `message` as a leading `Com
 
 ### Implementation
 
-`app/api/contact/route.ts` checks the content type and size, parses and validates the body, then sends the email through the Resend SDK with the visitor's address as `replyTo`. Provider error details are logged on the server and not returned.
+`app/api/contact/route.ts` checks the content type and size, parses and validates the body, then sends the email through the Resend SDK with the visitor's address as `replyTo`. On a provider error only its code and HTTP status are logged; the provider message, which can quote email addresses, is neither logged nor returned.
 
 ---
 
@@ -70,6 +70,7 @@ Receives [Resend webhooks](https://resend.com/docs/dashboard/webhooks/introducti
 
 ### Behavior
 
+- Reads the body with a 256 KB cap before anything else; a larger body (declared or streamed) gets `413` and is never verified.
 - Verifies the Svix signature (`svix-id`, `svix-timestamp`, `svix-signature`) against `RESEND_WEBHOOK_SECRET`.
 - Ignores every event type except `email.received`.
 - Ignores inbound mail unless one of its recipients (`received_for`, falling back to `To`/`Cc`) is an `@alipajand.com` address. The Resend account also receives mail for other domains, which must not reach the personal inbox.
@@ -82,6 +83,7 @@ Receives [Resend webhooks](https://resend.com/docs/dashboard/webhooks/introducti
 | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `200 OK`                    | Forwarded, or event type / recipient domain ignored                                                                                 |
 | `400 Bad Request`           | Signature verification failed, or the signed body is not a valid event (no `type`, or an `email.received` event without `email_id`) |
+| `413 Payload Too Large`     | Body over 256 KB                                                                                                                    |
 | `500 Internal Server Error` | Loading or forwarding failed; Resend retries the event                                                                              |
 | `503 Service Unavailable`   | `RESEND_API_KEY` or `RESEND_WEBHOOK_SECRET` is not set                                                                              |
 

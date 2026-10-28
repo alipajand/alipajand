@@ -5,20 +5,12 @@ import {
   isValidEmail,
   normalizeContactName,
 } from "utils/contactFields";
+import { escapeHtml } from "utils/escapeHtml";
 import { readLimitedText } from "utils/readLimitedText";
 import { getFromEmail, getResend, getToEmail } from "utils/resend";
 
 /** Generous for a contact message; caps what one request can make the server buffer. */
 const MAX_BODY_BYTES = 64 * 1024;
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
 
 /** The body as a JSON object, or null when it is not valid JSON or not an object. */
 function parseJsonObject(raw: string): Record<string, unknown> | null {
@@ -82,8 +74,12 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      // Provider details (account limits, sender setup hints) stay in the server log.
-      console.error("Contact email send failed", { name: error.name, message: error.message });
+      // Only the error code and status are logged: the provider's message can quote the visitor's,
+      // the sender's or the recipient's address, and none of it is shown to the visitor.
+      console.error("Contact email send failed", {
+        name: error.name,
+        statusCode: error.statusCode,
+      });
       return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
     }
 
