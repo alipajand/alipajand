@@ -165,9 +165,15 @@
   color: var(--color-ink);
 }
 
+/*
+ * Only the sideways pan is contained. The pane never scrolls vertically (the dialog does, when the
+ * image is taller than the screen), so containing that axis too swallowed every vertical swipe on
+ * the image and left its lower part out of reach on short screens. The dialog's own containment
+ * still keeps the page behind it still.
+ */
 .dialogImage {
   overflow: auto;
-  overscroll-behavior: contain;
+  overscroll-behavior-x: contain;
 }
 
 /* The pane takes focus so arrow keys can pan a wide image; the ring sits inside the dialog edge. */
