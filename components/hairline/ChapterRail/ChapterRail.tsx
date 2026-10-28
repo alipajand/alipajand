@@ -4,6 +4,7 @@ import { useRef } from "react";
 
 import styles from "components/hairline/ChapterRail/ChapterRail.module.css";
 import { clamp } from "utils/motion/canvas";
+import { requestScrollFrame } from "utils/motion/scrollScheduler";
 import { useMotion } from "utils/motion/useMotion";
 
 export interface Chapter {
@@ -18,10 +19,15 @@ interface ChapterRailProps {
 
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
+/** Input that means the visitor is scrolling the page themselves. */
+const VISITOR_SCROLL_EVENTS = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
+
 /**
  * Sticky table of contents across the top of a case study. The chapter under the top third of the
  * screen is marked current and scrolled into view in the rail; a hairline shows overall progress.
- * Without JavaScript it is a plain list of in-page links.
+ * After a jump to a chapter (a rail link, a deep link, Back or Forward) that chapter stays marked
+ * until the visitor scrolls, even if it is too short to reach the top third or the page bottoms out
+ * before it reaches the top. Without JavaScript it is a plain list of in-page links.
  */
 export const ChapterRail = ({ chapters, label }: ChapterRailProps) => {
   const ref = useRef<HTMLElement>(null);
@@ -41,18 +47,60 @@ export const ChapterRail = ({ chapters, label }: ChapterRailProps) => {
       if (!list || !first || !last) return;
       let current = -1;
 
+      // Set by a jump, cleared by the visitor's own scrolling.
+      let jumped = true;
+      const onJump = () => {
+        jumped = true;
+        requestScrollFrame();
+      };
+      const onVisitorScroll = () => {
+        jumped = false;
+      };
+      const onClick = (event: MouseEvent) => {
+        const link = (event.target as Element | null)?.closest?.("a[href^='#']");
+        if (link) onJump();
+      };
+
+      /** The chapter the last jump went to, while the page still sits where that jump put it. */
+      const jumpedChapter = (y: number, vh: number, max: number) => {
+        if (!jumped || !window.location.hash) return -1;
+        let target: HTMLElement | null = null;
+        try {
+          target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+        } catch {
+          return -1;
+        }
+        if (!target) return -1;
+        const index = sections.findIndex((section) => section?.contains(target));
+        if (index === -1) return -1;
+        const top = target.getBoundingClientRect().top;
+        const margin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+        const atTarget = Math.abs(top - margin) <= 2;
+        const bottomedOut = y >= max - 4 && top > margin && top < vh;
+        return atTarget || bottomedOut ? index : -1;
+      };
+
+      window.addEventListener("hashchange", onJump);
+      document.addEventListener("click", onClick);
+      VISITOR_SCROLL_EVENTS.forEach((type) =>
+        window.addEventListener(type, onVisitorScroll, { passive: true })
+      );
+
       return {
         onScroll: ({ y, vh, max }) => {
-          let next = 0;
-          sections.forEach((section, index) => {
-            if (section && section.getBoundingClientRect().top < vh * 0.3) next = index;
-          });
-          bands.forEach((band, index) => {
-            if (!band) return;
-            const box = band.getBoundingClientRect();
-            if (box.top < vh * 0.3 && box.bottom > vh * 0.3) next = index;
-          });
-          if (y >= max - 4) next = chapters.length - 1;
+          let next = jumpedChapter(y, vh, max);
+          if (next === -1) {
+            next = 0;
+            sections.forEach((section, index) => {
+              if (section && section.getBoundingClientRect().top < vh * 0.3) next = index;
+            });
+            bands.forEach((band, index) => {
+              if (!band) return;
+              const box = band.getBoundingClientRect();
+              if (box.top < vh * 0.3 && box.bottom > vh * 0.3) next = index;
+            });
+            if (y >= max - 4) next = chapters.length - 1;
+          }
           if (next !== current) {
             current = next;
             links.forEach((link, index) => {
@@ -71,6 +119,11 @@ export const ChapterRail = ({ chapters, label }: ChapterRailProps) => {
           element.style.setProperty("--p", progress.toFixed(4));
         },
         destroy: () => {
+          window.removeEventListener("hashchange", onJump);
+          document.removeEventListener("click", onClick);
+          VISITOR_SCROLL_EVENTS.forEach((type) =>
+            window.removeEventListener(type, onVisitorScroll)
+          );
           links.forEach((link) => link.removeAttribute("aria-current"));
           element.style.removeProperty("--p");
         },
