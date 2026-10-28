@@ -35,6 +35,14 @@ export interface ScreenshotFrameProps {
 
 const trimStop = (text: string) => text.replace(/\.$/, "");
 
+/**
+ * The enlarged image's rendered width: the dialog is 96vw up to 1600px, and the image inside never
+ * drops below 900px (narrower screens pan it). Below 937px that floor is wider than 96vw, so a plain
+ * `96vw` asked for a candidate two to three times too small and the enlargement was blurrier than
+ * the inline shot.
+ */
+const DIALOG_IMAGE_SIZES = "(max-width: 937px) 900px, (min-width: 1667px) 1600px, 96vw";
+
 /** Pointer easing per 60 Hz frame and the tilt formula from the design kit's case-study script. */
 const POINTER_EASE = 0.08;
 const tiltTransform = (flatness: number, x: number, y: number) =>
@@ -199,7 +207,14 @@ export const ScreenshotFrame = ({
         </div>
         {/* Focusable so the keyboard can pan an image wider than the dialog (arrow keys). */}
         <div className={styles.dialogImage} tabIndex={0}>
-          <Image src={src} alt={alt} width={width} height={height} sizes="96vw" loading="lazy" />
+          <Image
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            sizes={DIALOG_IMAGE_SIZES}
+            loading="lazy"
+          />
         </div>
       </dialog>
     </figure>
