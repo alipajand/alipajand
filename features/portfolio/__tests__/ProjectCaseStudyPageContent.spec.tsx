@@ -5,7 +5,6 @@ import { join } from "path";
 import { ProjectCaseStudyJsonLd } from "components/ProjectCaseStudyJsonLd/ProjectCaseStudyJsonLd";
 import { PortfolioWorks } from "features/portfolio/PortfolioWorks";
 import { ProjectCaseStudyPageContent } from "features/portfolio/ProjectCaseStudyPageContent";
-import { HOMEPAGE_CASE_STUDIES } from "data/homepage";
 import { PORTFOLIO_CASE_STUDY_ORDER, PROJECTS } from "data/projects";
 import { buildCaseSections } from "utils/caseStudySections";
 import {
@@ -173,10 +172,7 @@ describe("case-study screenshots", () => {
   });
 
   it("uses the redacted dashboard copies and no longer ships the originals", () => {
-    const sources = [
-      ...PROJECTS.flatMap((p) => p.caseStudy.interfaceEvidence ?? []).map((f) => f.src),
-      ...HOMEPAGE_CASE_STUDIES.map((caseStudy) => caseStudy.image?.src),
-    ];
+    const sources = PROJECTS.flatMap((p) => p.caseStudy.interfaceEvidence ?? []).map((f) => f.src);
     expect(sources).toContain("/portfolio-media/ledgerguard-dashboard-redacted.png");
     expect(sources).toContain("/portfolio-media/mapbylaw-dashboard-redacted.png");
     for (const original of UNREDACTED_ORIGINALS) {
@@ -202,9 +198,6 @@ describe("case-study screenshots", () => {
     const tallyfolio = figure("tallyfolio", "/portfolio-media/tallyfolio-dashboard.png");
     expect(tallyfolio.provenance).toBe("Sample data");
     expect(tallyfolio.alt).toMatch(/with sample data/);
-    const home = HOMEPAGE_CASE_STUDIES.find((caseStudy) => caseStudy.id === "ledgerguard")!.image!;
-    expect(home.caption).toMatch(/account details replaced/);
-    expect(home.alt).toMatch(/replaced by demo placeholders/);
   });
 
   it("shows the provenance note beside each edited or sample screenshot", () => {

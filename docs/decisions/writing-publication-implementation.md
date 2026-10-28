@@ -5,6 +5,10 @@ Status: **proposal, nothing implemented.** This document changes no behaviour. I
 Decisions D1–D6 in that document are still **open owner decisions**; everything below assumes the
 recommended answers and says where a different answer changes the plan.
 
+The open decisions now live in
+[`writing-publication-decision-register.md`](./writing-publication-decision-register.md), which
+also corrects the parts of this document that went stale after #275.
+
 Baseline: `main` at `de7fac2`. Verified on 2026-10-27 between 18:45 and 19:30 America/Toronto with
 `pnpm build && pnpm start -p 3505` (Next.js 16.4.3, Turbopack). The example post is still
 `content/posts/preparing-integrations-for-anthropic-and-cursor-directories.md` (`date: "2026-10-28"`),

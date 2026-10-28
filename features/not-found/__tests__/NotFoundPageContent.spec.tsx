@@ -99,4 +99,10 @@ describe("app/not-found metadata", () => {
     );
     expect(metadata.openGraph).not.toHaveProperty("url");
   });
+
+  it("should not inherit the homepage's Twitter title and description", () => {
+    expect(metadata.twitter).toEqual(
+      expect.objectContaining({ title: NOT_FOUND_TITLE, description: NOT_FOUND_DESCRIPTION })
+    );
+  });
 });

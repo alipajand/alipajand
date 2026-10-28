@@ -14,6 +14,10 @@ Implementation of D3/D4, D5 and D7 belongs to a separate track (T7), as draft PR
 decisions; it does not propose code for those files. **T7 PRs: none were open when this was written;
 link them here when they are.**
 
+Follow-ups: D3/D4 shipped in #275, D5 in #270 and D7 in #267. D6 (ruler semantics) is proposed in
+[`now-ruler-semantics.md`](./now-ruler-semantics.md), and A3 (public versus private counts) in
+[`contribution-metrics-options.md`](./contribution-metrics-options.md).
+
 ## Kept from #253 and #259
 
 These are verified, merged and not reopened here:
