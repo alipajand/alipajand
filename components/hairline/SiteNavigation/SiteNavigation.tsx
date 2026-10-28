@@ -50,6 +50,14 @@ export const SiteNavigation = () => {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menu = useSiteMenu(pathname, menuButtonRef);
 
+  // Following the menu's link to the page already open changes no route, so RouteChangeFocus does
+  // not move focus. The focused link is hidden as the menu closes, which drops focus to the body;
+  // move it to the main content instead, as a route change does.
+  const followMenuLink = (href: string) => () => {
+    menu.close();
+    if (href === pathname) document.getElementById("main-content")?.focus({ preventScroll: true });
+  };
+
   const links = NAV_PRIMARY_LINKS.map((link) => ({
     ...link,
     current: navLinkAriaCurrent(link.href, pathname),
@@ -111,7 +119,7 @@ export const SiteNavigation = () => {
       >
         {links.map((link) => (
           <li key={link.href}>
-            <Link href={link.href} aria-current={link.current} onClick={menu.close}>
+            <Link href={link.href} aria-current={link.current} onClick={followMenuLink(link.href)}>
               {link.label}
               <Chev />
             </Link>

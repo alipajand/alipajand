@@ -70,7 +70,7 @@ export const WritingLaunchScene = () => {
       };
     }
 
-    // The tall scroll runway only exists while the scene can step.
+    // CSS already reserves the runway where it can tell that scripts run; this marks it for the rest.
     element.setAttribute("data-ready", "");
     return {
       onResize: drawWires,
