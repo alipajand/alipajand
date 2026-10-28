@@ -270,8 +270,19 @@ for (const browserName of ["chromium", "webkit"] as const) {
         // hydrated or settled. Waiting for the address rather than goBack's own promise matters:
         // Next replaces the history entry's state while hydrating, which Playwright can take for the
         // end of the traversal.
+        // A step taken while the tab is between documents can fail to read the history list before
+        // it navigates at all; try that step again rather than failing the place check.
         const step = async (go: () => Promise<unknown>, path: string) => {
-          await go();
+          for (let attempt = 0; ; attempt += 1) {
+            try {
+              await go();
+              break;
+            } catch (error) {
+              if (attempt >= 3 || !String(error).includes("Not attached to an active page")) {
+                throw error;
+              }
+            }
+          }
           await page.waitForURL(`**${path}`, { waitUntil: "commit" });
         };
         for (let round = 0; round < 3; round += 1) {

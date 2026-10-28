@@ -19,6 +19,7 @@ import { GatedVercelSpeedInsights } from "components/Analytics/GatedVercelSpeedI
 import { RouteChangeFocus } from "components/RouteChangeFocus/RouteChangeFocus";
 import { FEED_PATH } from "utils/feed";
 import { LLMS_TXT_PATH } from "utils/llms";
+import { SCROLL_PLACE_SCRIPT } from "utils/scrollPlace";
 
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_URL),
@@ -94,6 +95,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className={`${archivo.variable} ${geistMono.variable}`}>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: SCROLL_PLACE_SCRIPT }} />
         <link
           rel="alternate"
           type="application/rss+xml"
