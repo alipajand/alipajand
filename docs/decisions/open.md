@@ -46,20 +46,17 @@ exactly.
 
 ## Unredacted screenshots in git history
 
-The redacted dashboards replaced the originals in the tree, and a test keeps the originals out.
-They are still reachable in git history and old PR refs.
+Decided: no history rewrite; future commits use the GitHub noreply address. Every tracked file and
+embedded image is checked against the known exposed images (`app/__tests__/trackedImages.spec.ts`).
+What remains needs the owner, outside the repository:
 
-- **Recommended:** accept what remains in history (no rewrite). Switch future commits to the GitHub
-  noreply address.
-- **Also to decide:** whether to change the exposed product sign-in emails and the workspace name;
-  whether to delete old Vercel deployments that still serve the original images (about 70, behind
-  Vercel sign-in). The login email is already in every commit header that uses it, so renaming the
-  workspace does more than changing the logins.
-- **Outside the repository:** the private design previews linked from `docs/design/README.md`
-  (MapBylaw) and from #214 (concepts A, B and C) still embed the original dashboards. Republish them
-  from the current pages, or delete them.
-- **Alternative:** a one-off history rewrite plus a GitHub Support purge. This changes every SHA,
-  breaks open PRs and clones, and cannot reach copies that already exist elsewhere.
+- Whether to change the product sign-in emails and the workspace name that the originals show. The
+  login email is already in every commit header that used it, so renaming the workspace does more.
+- Whether to delete the old Vercel deployments that still serve the original images (about 70,
+  behind Vercel sign-in).
+- The MapBylaw design preview linked from `docs/design/README.md` still embeds the unredacted kit
+  dashboard (checked 2026-10-28; the LedgerGuard preview is clean). The previews linked from #214
+  (concepts A, B and C) were not checked. Republish them from the current pages, or delete them.
 
 ## Content and copy
 
@@ -86,12 +83,9 @@ checks from a base without #272 and turned `main` red until #290.
 
 ## Technical follow-ups (no decision needed)
 
-- `designAssets.spec.ts` checks only the known originals. Scan every tracked image, including
-  `e2e/__screenshots__`, and add the hashes of the first, too-light redactions.
 - WebKit axe on the Agent Readiness Doctor post at 390 px is flaky in CI.
 
 - Webhook route: cap the body size before verifying the signature (413 above the cap).
-- Post HTML sanitiser: allow `https:` image sources only.
 - `app/api/contact/route.ts` logs the provider's `error.message`.
 - One `escapeHtml` helper for the contact and webhook routes.
 - Sitemap `lastmod` comes from the build clock for 12 routes.

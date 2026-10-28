@@ -19,6 +19,38 @@ export interface ProjectFigure {
   layout?: "stacked" | "side";
 }
 
+/** One extracted term in the interactive review sample, with the clause it came from. */
+export interface ReviewSampleTerm {
+  id: string;
+  label: string;
+  value: string;
+  /** Terms start confirmed or as an unreviewed suggestion; the reader can confirm suggestions. */
+  status: "confirmed" | "suggested";
+  /** Where the clause sits in the document, such as "§ 9.2 · page 3". */
+  source: string;
+  /** The clause, split around the words the value was read from. */
+  clause: { before: string; match: string; after: string };
+}
+
+export interface ReviewSampleContract {
+  id: string;
+  vendor: string;
+  document: string;
+  /** Annual commitment in whole units of the sample's currency. */
+  annual: number;
+  /** The term whose confirmation lets the annual commitment count in totals. */
+  commitmentTermId: string;
+  terms: ReviewSampleTerm[];
+}
+
+/** A fictional, client-side sample of the review boundary: only confirmed terms count. */
+export interface ReviewSample {
+  title: string;
+  caption: string;
+  currency: string;
+  contracts: ReviewSampleContract[];
+}
+
 export interface ProjectDecision {
   decision: string;
   why: string;
@@ -59,6 +91,8 @@ export interface ProjectCaseStudy {
   outcome: string[];
   nextImprovements: string[];
   interfaceEvidence?: ProjectFigure[];
+  /** An interactive sample set at the top of "Interface evidence", before the screenshots. */
+  reviewSample?: ReviewSample;
   diagrams?: CaseStudyDiagram[];
 }
 
@@ -196,38 +230,205 @@ export const PROJECTS: Project[] = [
           type: "image",
           src: "/portfolio-media/ledgerguard-landing.png",
           width: 3456,
-          height: 2234,
-          trimTop: 67,
-          alt: "LedgerGuard landing page introducing AI-assisted contract intelligence for renewals and commitments.",
+          height: 2168,
+          alt: "LedgerGuard landing page headed “Know what you've committed to, and when you can still say no,” above a sample workspace preview listing upcoming notice deadlines and the confirmed terms of one contract.",
           captionLead: "Landing page.",
           captionBody:
-            "The public positioning frames the product around contract workflows rather than opaque AI output.",
+            "The public positioning frames the product around notice deadlines and committed spend, and the hero preview shows every term tied to the clause it came from.",
         },
         {
           type: "image",
           src: "/portfolio-media/ledgerguard-login.png",
           layout: "side",
+          host: "app.ledgerguard.io",
           width: 3456,
-          height: 2234,
-          trimTop: 67,
-          alt: "LedgerGuard sign-in screen for tenant-aware contract workflows.",
+          height: 2168,
+          alt: "LedgerGuard sign-in screen offering a one-time email link or a passkey.",
           captionLead: "Authentication.",
           captionBody:
             "The sign-in flow sits in front of tenant-aware document and dashboard work without over-claiming access controls beyond what is visible here.",
         },
         {
           type: "image",
-          src: "/portfolio-media/ledgerguard-dashboard-redacted.png",
+          src: "/portfolio-media/ledgerguard-dashboard-sample.png",
+          host: "app.ledgerguard.io",
           width: 3456,
-          height: 2234,
-          trimTop: 67,
-          provenance: "Account details replaced",
-          alt: "LedgerGuard Contracts list with portfolio filters, a priority breakdown, and contracts showing notice deadlines, renewal dates, committed values, and decision status. The workspace name and account email are replaced with DEMO WORKSPACE and demo@example.com.",
+          height: 2168,
+          provenance: "Redesign, fictional data",
+          alt: "LedgerGuard dashboard for a fictional workspace, Northwind Logistics: verified commitments, notice deadlines over the next 90 days split into verified and provisional, contracts awaiting verification, and a Needs attention queue grouped by notice deadline.",
           captionLead: "Dashboard.",
           captionBody:
-            "The dashboard keeps review state, contract visibility, and renewal workflows legible without treating extraction output as final by default. Captured from the live product; the workspace name and account email are replaced with demo placeholders.",
+            "Verified commitments and provisional dates are counted and drawn differently, so the queue shows what is safe to act on and what still needs a person. Shown from the redesign with a fictional workspace.",
+        },
+        {
+          type: "image",
+          src: "/portfolio-media/ledgerguard-contracts-sample.png",
+          host: "app.ledgerguard.io",
+          width: 3456,
+          height: 2168,
+          provenance: "Redesign, fictional data",
+          alt: "LedgerGuard Contracts list for a fictional workspace, with tabs for key terms to review, notice deadlines, failed processing and contracts excluded from totals, and rows grouped by notice deadline showing verification state and commitment.",
+          captionLead: "Contracts.",
+          captionBody:
+            "One list carries lifecycle, verification and notice timing per contract, and contracts in another currency are marked as left out of base-currency totals rather than converted silently. Shown from the redesign with a fictional workspace.",
+        },
+        {
+          type: "image",
+          src: "/portfolio-media/ledgerguard-review-sample.png",
+          host: "app.ledgerguard.io",
+          width: 3456,
+          height: 2168,
+          provenance: "Redesign, fictional data",
+          alt: "LedgerGuard document review workspace for a fictional master subscription agreement: extracted terms marked Ready to confirm or Needs review beside the source document, with renewal timing labelled as an unverified suggestion.",
+          captionLead: "Document review.",
+          captionBody:
+            "Extracted terms sit beside the source document, and renewal timing stays an unverified suggestion until the terms behind it are confirmed. Shown from the redesign with a fictional contract.",
         },
       ],
+      reviewSample: {
+        title: "Only confirmed terms count",
+        caption:
+          "Select a contract and a term to read the clause it came from. Confirming a contract's annual commitment is the only way it moves into the counted total. Vendors, clauses and amounts are invented, and nothing leaves this page.",
+        currency: "USD",
+        contracts: [
+          {
+            id: "halcyon",
+            vendor: "Halcyon Freight Systems",
+            document: "Master services agreement",
+            annual: 184000,
+            commitmentTermId: "fees",
+            terms: [
+              {
+                id: "fees",
+                label: "Annual commitment",
+                value: "USD 184,000",
+                status: "confirmed",
+                source: "§ 6.1 · page 2",
+                clause: {
+                  before: "Customer shall pay Halcyon an annual service fee of ",
+                  match: "one hundred eighty-four thousand US dollars (USD 184,000)",
+                  after: ", invoiced quarterly in advance.",
+                },
+              },
+              {
+                id: "notice",
+                label: "Notice period",
+                value: "30 days",
+                status: "confirmed",
+                source: "§ 12.2 · page 5",
+                clause: {
+                  before: "Either party may prevent renewal by written notice given ",
+                  match: "at least thirty (30) days",
+                  after: " before the end of the then-current term.",
+                },
+              },
+              {
+                id: "end",
+                label: "Current term ends",
+                value: "16 Nov 2026",
+                status: "confirmed",
+                source: "§ 12.1 · page 5",
+                clause: {
+                  before: "The initial term begins on the Effective Date and ends on ",
+                  match: "November 16, 2026",
+                  after: ".",
+                },
+              },
+            ],
+          },
+          {
+            id: "corvid",
+            vendor: "Corvid Security",
+            document: "Managed SOC order form",
+            annual: 62400,
+            commitmentTermId: "fees",
+            terms: [
+              {
+                id: "fees",
+                label: "Annual commitment",
+                value: "USD 62,400",
+                status: "suggested",
+                source: "Order form · page 1",
+                clause: {
+                  before: "Managed detection and response, 24×7 monitoring: ",
+                  match: "USD 5,200 per month, billed annually",
+                  after: " (USD 62,400 per year).",
+                },
+              },
+              {
+                id: "notice",
+                label: "Notice period",
+                value: "60 days",
+                status: "suggested",
+                source: "§ 4.3 · page 2",
+                clause: {
+                  before:
+                    "This Order Form renews for successive one-year terms unless Customer cancels ",
+                  match: "no later than sixty (60) days",
+                  after: " prior to renewal.",
+                },
+              },
+              {
+                id: "end",
+                label: "Current term ends",
+                value: "23 Dec 2026",
+                status: "confirmed",
+                source: "Order form · page 1",
+                clause: {
+                  before: "Service term: December 24, 2025 to ",
+                  match: "December 23, 2026",
+                  after: ".",
+                },
+              },
+            ],
+          },
+          {
+            id: "brightwave",
+            vendor: "Brightwave Analytics",
+            document: "Master subscription agreement",
+            annual: 96000,
+            commitmentTermId: "fees",
+            terms: [
+              {
+                id: "fees",
+                label: "Annual commitment",
+                value: "USD 96,000",
+                status: "suggested",
+                source: "§ 6.1 · page 2",
+                clause: {
+                  before: "Fees. ",
+                  match: "Annual Subscription Fee: USD 96,000",
+                  after: ", invoiced annually in advance. All fees are stated exclusive of taxes.",
+                },
+              },
+              {
+                id: "increase",
+                label: "Price increase",
+                value: "Up to 5% per renewal",
+                status: "suggested",
+                source: "§ 6.4 · page 3",
+                clause: {
+                  before: "Brightwave may increase the fees for any renewal term by ",
+                  match: "no more than five percent (5%)",
+                  after: " over the fees for the preceding term.",
+                },
+              },
+              {
+                id: "end",
+                label: "Current term ends",
+                value: "31 Mar 2027",
+                status: "suggested",
+                source: "Order form · page 1",
+                clause: {
+                  before: "Subscription End Date: ",
+                  match: "March 31, 2027",
+                  after: ".",
+                },
+              },
+            ],
+          },
+        ],
+      },
       outcome: [
         "Shipped a working end-to-end product: ingestion, extraction review, and contract visibility, live at ledgerguard.io.",
         "Reached 90% unit-test coverage on the web application.",
