@@ -97,9 +97,16 @@ describe("POST /api/contact request intake", () => {
     expect(send).not.toHaveBeenCalled();
   });
 
-  it("should keep the generic error for malformed JSON", async () => {
-    const res = await POST(makeRequest("{bad", { "content-type": "application/json" }));
-    expect(res.status).toBe(500);
-    expect(await res.json()).toEqual({ error: "Failed to send message" });
+  it.each([
+    ["malformed JSON", "{bad"],
+    ["an empty body", ""],
+    ["JSON null", "null"],
+    ["a JSON array", "[]"],
+    ["a JSON string", '"hello"'],
+  ])("should answer 400 to %s without sending mail", async (_label, body) => {
+    const res = await POST(makeRequest(body, { "content-type": "application/json" }));
+    expect(res.status).toBe(400);
+    expect(await res.json()).toEqual({ error: "Invalid request body" });
+    expect(send).not.toHaveBeenCalled();
   });
 });
