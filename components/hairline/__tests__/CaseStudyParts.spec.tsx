@@ -128,6 +128,21 @@ describe("case-study parts", () => {
     expect(close).toHaveBeenCalledTimes(2);
   });
 
+  it("should keep the screenshot's box at the source ratio whatever variant loads", () => {
+    render(
+      <ScreenshotFrame
+        src="/shot.png"
+        alt="Dashboard with alerts"
+        width={1728}
+        height={1084}
+        host="example.app"
+        captionLead="Alert review."
+      />
+    );
+    const [inline] = screen.getAllByAltText("Dashboard with alerts");
+    expect(inline.style.aspectRatio).toBe("1728 / 1084");
+  });
+
   it("should list layers in order with their details", () => {
     render(<LayersDiagram title="Stack" layers={STEPS} caption="Outer to inner." />);
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
