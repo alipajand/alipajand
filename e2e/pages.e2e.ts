@@ -175,6 +175,42 @@ test.describe("site menu", () => {
     await expect(panel).toBeHidden();
     await expect(page.getByRole("button", { name: "Open menu" })).toBeFocused();
   });
+
+  // Following the link to the open page changes no route; focus must not drop to the body as the
+  // focused link is hidden. Chromium and Playwright WebKit (not Safari).
+  test("moves focus to the main content after linking to the open page", async ({
+    browser,
+    playwright,
+    baseURL,
+  }) => {
+    const webkit = await playwright.webkit.launch();
+    try {
+      for (const [name, engine] of [
+        ["chromium", browser],
+        ["webkit", webkit],
+      ] as const) {
+        const context = await engine.newContext({ baseURL, viewport: { width: 390, height: 844 } });
+        const page = await context.newPage();
+        await page.goto("/portfolio");
+        await settle(page);
+        await page.getByRole("button", { name: "Open menu" }).focus();
+        await page.keyboard.press("Enter", { delay: 50 });
+        const panel = page.locator("#site-menu");
+        await panel.getByRole("link", { name: "Portfolio" }).focus();
+        await page.keyboard.press("Enter", { delay: 50 });
+        await expect(panel).toBeHidden();
+        await expect(page.locator("#main-content"), name).toBeFocused();
+        await page.keyboard.press(name === "webkit" ? "Alt+Tab" : "Tab", { delay: 50 });
+        const inMain = await page.evaluate(() =>
+          document.getElementById("main-content")!.contains(document.activeElement)
+        );
+        expect(inMain, `${name}: the next Tab continues in the main content`).toBe(true);
+        await context.close();
+      }
+    } finally {
+      await webkit.close();
+    }
+  });
 });
 
 test.describe("shell tap areas", () => {
