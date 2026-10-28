@@ -9,11 +9,9 @@ import { hasTopic, type TopicLane, type WritingListPost } from "features/writing
 import {
   WRITING_FEATURED_LABEL,
   WRITING_INDEX_EMPTY_MESSAGE,
-  WRITING_UPCOMING_LABEL,
   WRITING_FILTER_ALL,
   WRITING_FILTER_GROUP_LABEL,
   WRITING_FILTER_LABEL,
-  WRITING_PREVIEW_ARTICLE,
   WRITING_READ_ARTICLE,
   writingShownCount,
 } from "data/writing";
@@ -62,17 +60,12 @@ export const WritingPostFilters = ({ posts, lanes }: WritingPostFiltersProps) =>
           shown.map((post) => (
             <li key={post.slug}>
               <article>
-                <Link
-                  className={post.upcoming ? `${styles.post} ${styles.upcoming}` : styles.post}
-                  href={`/writing/${post.slug}`}
-                >
+                <Link className={styles.post} href={`/writing/${post.slug}`}>
                   <time className={styles.date} dateTime={post.date}>
                     {formatDate(post.date)}
                   </time>
                   <div className={styles.main}>
-                    {post.upcoming ? (
-                      <span className={styles.flag}>{WRITING_UPCOMING_LABEL}</span>
-                    ) : post.featured ? (
+                    {post.featured ? (
                       <span className={styles.mono}>{WRITING_FEATURED_LABEL}</span>
                     ) : null}
                     <h3>{post.title}</h3>
@@ -82,7 +75,7 @@ export const WritingPostFilters = ({ posts, lanes }: WritingPostFiltersProps) =>
                     ) : null}
                   </div>
                   <span className={styles.go}>
-                    {post.upcoming ? WRITING_PREVIEW_ARTICLE : WRITING_READ_ARTICLE}
+                    {WRITING_READ_ARTICLE}
                     <Chev />
                   </span>
                 </Link>

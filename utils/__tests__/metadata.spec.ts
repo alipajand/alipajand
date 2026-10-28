@@ -65,7 +65,7 @@ describe("utils/metadata", () => {
       publishedTime?: string;
     };
     expect(articleOg.type).toBe("article");
-    expect(articleOg.publishedTime).toBe("2025-01-01");
+    expect(articleOg.publishedTime).toBe("2025-01-01T00:00:00-05:00");
     const ogImages = m.openGraph?.images;
     expect(Array.isArray(ogImages) && ogImages[0]).toMatchObject({
       url: "/writing/my-post/opengraph-image",

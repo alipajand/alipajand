@@ -1,8 +1,14 @@
 import * as fs from "fs";
-import { isPostPublished } from "utils/date";
+import { isPublished } from "utils/publication";
 import { readdirSync } from "fs";
 import { join } from "path";
-import { getAllPosts, getLatestPosts, getPostBySlug, getPostsForWritingSection } from "utils/posts";
+import {
+  getAllPosts,
+  getLatestPosts,
+  getPostBySlug,
+  getPostsForWritingSection,
+  toPostSummary,
+} from "utils/posts";
 
 jest.mock("marked", () => ({
   marked: {
@@ -94,14 +100,15 @@ describe("utils/posts", () => {
 
   describe("getLatestPosts", () => {
     it("should return at most count posts", () => {
-      const posts = getLatestPosts(1);
+      const posts = getLatestPosts(1, new Date());
       expect(posts.length).toBeLessThanOrEqual(1);
     });
 
     it("should return same order as getAllPosts slice", () => {
       const all = getAllPosts();
-      const latest = getLatestPosts(2);
-      expect(latest).toEqual(all.filter((post) => isPostPublished(post.date)).slice(0, 2));
+      const now = new Date();
+      const latest = getLatestPosts(2, now);
+      expect(latest).toEqual(all.filter((post) => isPublished(post, now)).slice(0, 2));
     });
   });
 
@@ -126,9 +133,10 @@ describe("utils/posts", () => {
     });
 
     it("should return featured post when frontmatter marks one", () => {
-      const { featured, recent } = getPostsForWritingSection(2);
+      const now = new Date();
+      const { featured, recent } = getPostsForWritingSection(2, now);
       const all = getAllPosts();
-      const expectedFeatured = all.find((p) => p.featured === true && isPostPublished(p.date));
+      const expectedFeatured = all.find((p) => p.featured === true && isPublished(p, now));
       expect(featured).toEqual(expectedFeatured ?? null);
       if (featured) {
         expect(recent.some((p) => p.slug === featured.slug)).toBe(false);
@@ -136,8 +144,34 @@ describe("utils/posts", () => {
     });
 
     it("should limit recent to recentCount excluding featured", () => {
-      const { recent } = getPostsForWritingSection(2);
+      const { recent } = getPostsForWritingSection(2, new Date());
       expect(recent.length).toBeLessThanOrEqual(2);
     });
+  });
+});
+
+describe("toPostSummary", () => {
+  const valid = { title: "T", date: "2026-10-28", excerpt: "E" };
+
+  it("should keep the publication fields", () => {
+    expect(toPostSummary("a", { ...valid, updated: "2026-11-02", preview: true })).toEqual(
+      expect.objectContaining({ date: "2026-10-28", updated: "2026-11-02", preview: true })
+    );
+    expect(toPostSummary("a", { ...valid, draft: false })).not.toHaveProperty("draft");
+  });
+
+  it.each([
+    ["an unquoted date", { date: new Date("2026-10-28") }, /"date" must be a quoted/],
+    ["an impossible date", { date: "2026-02-30" }, /"date" must be a quoted/],
+    ["a missing date", { date: undefined }, /"date" must be a quoted/],
+    ["an invalid updated", { updated: "soon" }, /"updated" must be a quoted/],
+    ["updated before date", { updated: "2026-10-27" }, /"updated" is before "date"/],
+    ["a string flag", { draft: "true" }, /"draft" must be true or false/],
+    ["a draft preview", { draft: true, preview: true }, /a draft cannot also be a preview/],
+  ])("should reject %s, naming the file", (_label, extra, message) => {
+    expect(() => toPostSummary("broken", { ...valid, ...extra })).toThrow(message);
+    expect(() => toPostSummary("broken", { ...valid, ...extra })).toThrow(
+      "content/posts/broken.md"
+    );
   });
 });

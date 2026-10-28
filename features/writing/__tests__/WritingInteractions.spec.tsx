@@ -143,7 +143,6 @@ const POSTS: WritingListPost[] = [
     excerpt: "Next",
     tags: ["AI"],
     featured: false,
-    upcoming: true,
   },
   {
     slug: "systems",
@@ -152,7 +151,6 @@ const POSTS: WritingListPost[] = [
     excerpt: "Tokens",
     tags: ["Design systems"],
     featured: true,
-    upcoming: false,
   },
   {
     slug: "agents",
@@ -161,7 +159,6 @@ const POSTS: WritingListPost[] = [
     excerpt: "Checks",
     tags: ["ai", "DX"],
     featured: false,
-    upcoming: false,
   },
 ];
 
@@ -178,7 +175,7 @@ describe("WritingPostFilters", () => {
       "Systems",
       "Agents",
     ]);
-    expect(screen.getByRole("link", { name: /Soon/ })).toHaveTextContent("Preview article");
+    expect(screen.getByRole("link", { name: /Soon/ })).toHaveTextContent("Read article");
     expect(screen.getByRole("link", { name: /Systems/ })).toHaveTextContent("Featured");
     expect(screen.getByRole("link", { name: /Agents/ })).toHaveTextContent("Read article");
     expect(screen.getByRole("status")).toHaveTextContent("3 of 3 posts");

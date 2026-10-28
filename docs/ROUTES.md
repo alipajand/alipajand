@@ -8,19 +8,22 @@ from `generateStaticParams`, ƒ rendered per request.
 
 | Route                     | File                                  | Rendering | Description                                                                       |
 | ------------------------- | ------------------------------------- | --------- | --------------------------------------------------------------------------------- |
-| `/`                       | `app/page.tsx`                        | ƒ         | Homepage: hero, selected work, about, capabilities, open source, writing, contact |
+| `/`                       | `app/page.tsx`                        | ○         | Homepage: hero, selected work, about, capabilities, open source, writing, contact |
 | `/portfolio`              | `app/portfolio/page.tsx`              | ○         | Index of case studies                                                             |
 | `/portfolio/[slug]`       | `app/portfolio/[slug]/page.tsx`       | ●         | One case study per dedicated project in `data/projects.ts`                        |
 | `/open-source`            | `app/open-source/page.tsx`            | ○         | Open-source tools and the contribution snapshot                                   |
-| `/writing`                | `app/writing/page.tsx`                | ƒ         | Writing index, with scheduled posts labelled as upcoming                          |
-| `/writing/[slug]`         | `app/writing/[slug]/page.tsx`         | ●         | One article per Markdown file in `content/posts/`                                 |
+| `/writing`                | `app/writing/page.tsx`                | ○         | Writing index of published posts                                                  |
+| `/writing/[slug]`         | `app/writing/[slug]/page.tsx`         | ●         | One article per published post; a scheduled one is a 404 unless it is a preview   |
 | `/now`                    | `app/now/page.tsx`                    | ○         | Current focus, dated by `NOW_UPDATED` in `data/now.ts`                            |
 | `/engineering-principles` | `app/engineering-principles/page.tsx` | ○         | Engineering principles                                                            |
 | `*` (not found)           | `app/not-found.tsx`                   | ○         | 404 page (`noindex`)                                                              |
 
-`/` and `/writing` are `force-dynamic` so they can compare post dates with the current day in
-Toronto. [decisions/writing-publication-policy.md](decisions/writing-publication-policy.md) explains
-why, and lists the routes that still show a scheduled post before its date.
+A post is a draft, scheduled until 00:00 America/Toronto on its `date`, or published
+(`utils/publication.ts`). Only published posts appear on `/`, `/writing`, "More writing", the
+sitemap, RSS, `llms.txt` and `llms-full.txt`. Every non-draft slug is generated so it exists under
+`dynamicParams = false`; before its date the article and OG image answer 404, or a `noindex`
+preview without structured data when the post sets `preview: true`. All of this is evaluated at
+build time, so a scheduled post goes live with the first deployment after its date.
 
 ## API routes
 

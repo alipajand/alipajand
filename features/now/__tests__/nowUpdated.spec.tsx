@@ -5,12 +5,13 @@ import sitemap from "../../../app/sitemap";
 import { NowPageContent } from "features/now/NowPageContent";
 import { NOW_PAGE_TITLE, NOW_UPDATED, NOW_UPDATED_PREFIX, NOW_YEAR } from "data/now";
 import { CANONICAL_URL } from "data/site";
-import { formatShortDate, isPostPublished } from "utils/date";
+import { formatShortDate } from "utils/date";
+import { isPublished } from "utils/publication";
 import { buildLlmsFullTxt } from "utils/llms";
 import { installMatchMedia, installObservers } from "utils/motion/testEnvironment";
 
 jest.mock("utils/posts", () => ({
-  getAllPosts: () => [],
+  getPublishedPosts: () => [],
 }));
 
 beforeEach(() => {
@@ -34,7 +35,7 @@ describe("NOW_UPDATED", () => {
 
   it("should not be in the future", () => {
     // Today in the site's time zone, as for scheduled posts.
-    expect(isPostPublished(NOW_UPDATED)).toBe(true);
+    expect(isPublished({ date: NOW_UPDATED }, new Date())).toBe(true);
   });
 
   it("should give the display title its year", () => {

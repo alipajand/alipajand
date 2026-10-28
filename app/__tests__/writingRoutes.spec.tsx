@@ -5,8 +5,8 @@ import WritingPage, { metadata as indexMetadata } from "../writing/page";
 import PostPage, { generateMetadata, generateStaticParams } from "../writing/[slug]/page";
 import { CANONICAL_URL, SITE_NAME } from "data/site";
 import { WRITING_LAUNCH_ARTICLES } from "data/writing";
-import { isPostPublished } from "utils/date";
-import { getAllPosts, getPostBySlug } from "utils/posts";
+import { getAllPosts, getPostBySlug, getPublishedPosts } from "utils/posts";
+import { isPublished, publicationTimestamp } from "utils/publication";
 import { installMatchMedia, installObservers } from "utils/motion/testEnvironment";
 
 // The parser ships as ESM only; its UMD build is the same code in a form Jest can load.
@@ -34,6 +34,8 @@ jest.mock("next/link", () => {
 
 const TODAY = new Date("2026-10-27T16:00:00Z");
 const slugs = getAllPosts().map((post) => post.slug);
+const published = getPublishedPosts(TODAY).map((post) => post.slug);
+const scheduled = getAllPosts().filter((post) => !isPublished(post, TODAY));
 
 const renderPost = async (slug: string) =>
   render((await PostPage({ params: Promise.resolve({ slug }) })) as ReactElement);
@@ -60,13 +62,13 @@ describe("/writing", () => {
     expect(indexMetadata.description).toBeTruthy();
   });
 
-  it("should render one h1, every post and the topic filters", async () => {
+  it("should render one h1, every published post and the topic filters", async () => {
     const { container } = render((await WritingPage()) as ReactElement);
 
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
     expect(container.querySelector("main#main-content")).not.toBeNull();
     const list = container.querySelector("#posts ul") as HTMLElement;
-    for (const post of getAllPosts()) {
+    for (const post of getPublishedPosts(TODAY)) {
       expect(within(list).getByRole("heading", { level: 3, name: post.title })).toBeInTheDocument();
     }
     expect(screen.getByRole("group", { name: "Filter by topic" })).toBeInTheDocument();
@@ -74,13 +76,13 @@ describe("/writing", () => {
 });
 
 describe("/writing/[slug]", () => {
-  it("should statically generate every post", async () => {
+  it("should statically generate every post that is not a draft", async () => {
     expect((await generateStaticParams()).map(({ slug }) => slug).sort()).toEqual(
       [...slugs].sort()
     );
   });
 
-  it.each(slugs)("should keep the metadata for %s", async (slug) => {
+  it.each(published)("should keep the metadata for %s", async (slug) => {
     const post = getPostBySlug(slug)!;
     const meta = await generateMetadata({ params: Promise.resolve({ slug }) });
     const url = `${CANONICAL_URL}/writing/${slug}`;
@@ -92,7 +94,7 @@ describe("/writing/[slug]", () => {
       expect.objectContaining({
         type: "article",
         url,
-        publishedTime: post.date,
+        publishedTime: publicationTimestamp(post.date),
         images: [expect.objectContaining({ url: `/writing/${slug}/opengraph-image` })],
       })
     );
@@ -104,7 +106,7 @@ describe("/writing/[slug]", () => {
     });
   });
 
-  it.each(slugs)(
+  it.each(published)(
     "should render %s with one h1, its Article JSON-LD and a contents entry per heading",
     async (slug) => {
       const post = getPostBySlug(slug)!;
@@ -117,7 +119,7 @@ describe("/writing/[slug]", () => {
       expect(article).toEqual(
         expect.objectContaining({
           headline: post.title,
-          datePublished: post.date,
+          datePublished: publicationTimestamp(post.date),
           url: `${CANONICAL_URL}/writing/${slug}`,
         })
       );
@@ -148,7 +150,7 @@ describe("/writing/[slug]", () => {
   });
 
   it("should list the other posts under More writing and mark the current one", async () => {
-    const slug = slugs.find((value) => !WRITING_LAUNCH_ARTICLES.includes(value))!;
+    const slug = published.find((value) => !WRITING_LAUNCH_ARTICLES.includes(value))!;
     await renderPost(slug);
     const more = screen.getByRole("region", { name: "More writing" });
     const current = within(more)
@@ -175,24 +177,31 @@ describe("heading ids", () => {
   });
 });
 
-describe("upcoming posts on the index", () => {
-  const upcoming = getAllPosts().filter((post) => !isPostPublished(post.date, TODAY));
-
-  it("should flag them, link a preview and keep them out of the CollectionPage JSON-LD", async () => {
-    expect(upcoming.length).toBeGreaterThan(0);
+describe("scheduled posts", () => {
+  it("should leave them off the index and out of the CollectionPage JSON-LD", async () => {
+    expect(scheduled.length).toBeGreaterThan(0);
     const { container } = render((await WritingPage()) as ReactElement);
-    const collection = jsonLd(container).find((data) => data["@type"] === "CollectionPage");
-    const listed = JSON.stringify(collection);
-
-    for (const post of upcoming) {
-      const link = container.querySelector(`#posts a[href="/writing/${post.slug}"]`);
-      expect(link).toHaveTextContent("Upcoming");
-      expect(link).toHaveTextContent("Preview article");
+    const listed = JSON.stringify(
+      jsonLd(container).find((data) => data["@type"] === "CollectionPage")
+    );
+    for (const post of scheduled) {
+      expect(container.querySelector(`a[href="/writing/${post.slug}"]`)).toBeNull();
       expect(listed).not.toContain(`/writing/${post.slug}"`);
     }
-    const upcomingSlugs = upcoming.map((post) => post.slug);
-    for (const post of getAllPosts().filter((value) => !upcomingSlugs.includes(value.slug))) {
-      expect(listed).toContain(`/writing/${post.slug}`);
+    for (const slug of published) expect(listed).toContain(`/writing/${slug}"`);
+  });
+
+  it("should answer 404 for the article and keep it out of More writing", async () => {
+    for (const post of scheduled) {
+      await expect(renderPost(post.slug)).rejects.toThrow();
+      expect(await generateMetadata({ params: Promise.resolve({ slug: post.slug }) })).toEqual({
+        title: "Not found",
+      });
+    }
+    await renderPost(published.find((slug) => !WRITING_LAUNCH_ARTICLES.includes(slug))!);
+    const more = screen.getByRole("region", { name: "More writing" });
+    for (const post of scheduled) {
+      expect(more.querySelector(`a[href="/writing/${post.slug}"]`)).toBeNull();
     }
   });
 });
