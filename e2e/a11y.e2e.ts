@@ -56,8 +56,8 @@ const test = base.extend<
     },
     { scope: "worker" },
   ],
-  openPage: async ({ browser, webkit, baseURL }, provide) => {
-    const contexts: BrowserContext[] = [];
+  openPage: async ({ browser, webkit, baseURL }, provide, testInfo) => {
+    const contexts: { context: BrowserContext; traced: boolean }[] = [];
     await provide(async (name, options) => {
       const target = name === "webkit" ? await webkit() : browser;
       const context = await target.newContext({
@@ -66,10 +66,20 @@ const test = base.extend<
         timezoneId: "UTC",
         ...options,
       });
-      contexts.push(context);
+      const traced = name === "webkit";
+      if (traced) await context.tracing.start({ screenshots: true, snapshots: true });
+      contexts.push({ context, traced });
       return context.newPage();
     });
-    for (const context of contexts) await context.close();
+    const failed = testInfo.status !== testInfo.expectedStatus;
+    for (const [index, { context, traced }] of contexts.entries()) {
+      if (traced) {
+        await context.tracing
+          .stop(failed ? { path: testInfo.outputPath(`webkit-trace-${index}.zip`) } : undefined)
+          .catch(() => undefined);
+      }
+      await context.close();
+    }
   },
 });
 
