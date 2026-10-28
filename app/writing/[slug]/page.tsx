@@ -17,6 +17,9 @@ import type { Metadata } from "next";
 /** Only the generated slugs exist; any other slug is a 404 that is neither rendered nor cached. */
 export const dynamicParams = false;
 
+/** Hourly, so a scheduled post goes live within an hour of its date without a deploy. */
+export const revalidate = 3600;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
