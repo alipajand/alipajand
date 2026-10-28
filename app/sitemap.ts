@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { NOW_UPDATED } from "data/now";
 import { CANONICAL_URL } from "data/site";
 import { getDedicatedCaseStudySlugs } from "utils/projects";
 import { getAllPosts } from "utils/posts";
@@ -47,7 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${CANONICAL_URL}/now`,
-      lastModified: new Date(),
+      lastModified: NOW_UPDATED,
       changeFrequency: "weekly",
       priority: 0.72,
     },

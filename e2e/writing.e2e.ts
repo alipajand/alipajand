@@ -3,7 +3,14 @@ import { join } from "path";
 
 import { expect, type Page, test } from "@playwright/test";
 
-import { horizontalOverflow, scrollThrough, settle, VIEWPORTS, VISUAL_TAG } from "./support";
+import {
+  expectBaseline,
+  horizontalOverflow,
+  scrollThrough,
+  settle,
+  VIEWPORTS,
+  visualBaseline,
+} from "./support";
 
 const SLUGS = readdirSync(join(process.cwd(), "content", "posts"))
   .filter((file) => file.endsWith(".md"))
@@ -210,7 +217,7 @@ test.describe("writing: contents keyboard", () => {
   });
 });
 
-test.describe("writing: visual baselines", VISUAL_TAG, () => {
+test.describe("writing: visual baselines", () => {
   test.use({ reducedMotion: "reduce" });
 
   for (const name of VISUAL) {
@@ -219,17 +226,16 @@ test.describe("writing: visual baselines", VISUAL_TAG, () => {
       { width: 1440, height: 900 },
       { width: 390, height: 844 },
     ]) {
-      test(`${name} matches its baseline at ${viewport.width}x${viewport.height}`, async ({
-        page,
-      }) => {
-        await page.setViewportSize(viewport);
-        await page.goto(path);
-        await settle(page);
-        await expect(page).toHaveScreenshot(
-          `writing-${name}-${viewport.width}x${viewport.height}.png`,
-          { fullPage: true }
-        );
-      });
+      test(
+        `${name} matches its baseline at ${viewport.width}x${viewport.height}`,
+        visualBaseline(`writing-${name}-${viewport.width}x${viewport.height}`),
+        async ({ page }) => {
+          await page.setViewportSize(viewport);
+          await page.goto(path);
+          await settle(page);
+          await expectBaseline(page, { fullPage: true });
+        }
+      );
     }
   }
 });

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { BreadcrumbJsonLd } from "components/BreadcrumbJsonLd/BreadcrumbJsonLd";
 import { NowPageContent } from "features/now/NowPageContent";
+import { NowPageJsonLd } from "features/now/NowPageJsonLd";
 import { nowBreadcrumbs } from "data/breadcrumbs";
 import { CANONICAL_URL } from "data/site";
 import { buildNowMetadata } from "utils/metadata";
@@ -15,6 +16,7 @@ export default function NowPage() {
   return (
     <>
       <BreadcrumbJsonLd items={toBreadcrumbJsonLdItems(nowBreadcrumbs(), pageUrl)} />
+      <NowPageJsonLd />
       <NowPageContent />
     </>
   );

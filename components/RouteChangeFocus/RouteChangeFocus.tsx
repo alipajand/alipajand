@@ -9,15 +9,23 @@ import { scrollToTop } from "utils/scrollToTop";
 export const RouteChangeFocus = () => {
   const pathname = usePathname();
   const isFirstRender = useRef(true);
+  // The path a Back/Forward step is going to, so the route change it causes keeps the browser's
+  // restored scroll position instead of jumping to the top.
+  const traversalPath = useRef<string | null>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
-    }
+    const onPopState = () => {
+      traversalPath.current = window.location.pathname;
+    };
+
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
   useEffect(() => {
+    const isTraversal = traversalPath.current === pathname;
+    traversalPath.current = null;
+
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
@@ -27,6 +35,12 @@ export const RouteChangeFocus = () => {
     const isPortfolioIndex = pathname === "/portfolio";
 
     const handleRouteScroll = () => {
+      const main = document.getElementById("main-content");
+      if (isTraversal) {
+        main?.focus({ preventScroll: true });
+        return;
+      }
+
       scrollToTop();
 
       const hash = window.location.hash;
@@ -35,7 +49,6 @@ export const RouteChangeFocus = () => {
         return;
       }
 
-      const main = document.getElementById("main-content");
       main?.focus({ preventScroll: true });
     };
 
