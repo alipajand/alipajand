@@ -432,6 +432,8 @@ test.describe("chapter jumps and browser history", () => {
     test(`the rail marks every chapter jumped to, and Back and Forward, at ${viewport.width}px`, async ({
       page,
     }) => {
+      // Every chapter of all seven case studies, three times over.
+      test.setTimeout(120_000);
       await page.setViewportSize(viewport);
       for (const slug of CASE_STUDIES) {
         const path = `/portfolio/${slug}`;
