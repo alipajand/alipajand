@@ -29,8 +29,7 @@ export const LinkRows = ({ links, label }: LinkRowsProps) => (
             rel={external ? "noopener noreferrer" : undefined}
             aria-label={`${link.label}: ${link.value}${external ? EXTERNAL_LINK_NEW_TAB_HINT : ""}`}
           >
-            <span>{link.label}</span>
-            <span className={styles.value}>{link.value}</span>
+            <span>{link.label}</span> <span className={styles.value}>{link.value}</span>
           </a>
         </li>
       );

@@ -40,10 +40,9 @@ const CaseStudyMeta = ({ project }: { project: Project }) => {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${link.label} (${hostOf(link.href)})${EXTERNAL_LINK_NEW_TAB_HINT}`}
+                aria-label={`${link.label} ${hostOf(link.href)}${EXTERNAL_LINK_NEW_TAB_HINT}`}
               >
-                {link.label}
-                <small>{hostOf(link.href)}</small>
+                {link.label} <small>{hostOf(link.href)}</small>
                 <Chev />
               </a>
             </li>
