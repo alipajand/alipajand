@@ -21,11 +21,9 @@ lists were last checked on 2026-10-28.
   one (for example a CLI deploy) is not on it; the project's deployment list in Vercel is the
   final check.
 - **Published design previews.** Each one serves an exposed image byte for byte:
-  - MapBylaw page preview, https://claude.ai/artifact/Ez5bX39cieti12y95JwNP9 (linked from
-    `docs/design/README.md`): the unredacted MapBylaw kit dashboard.
-  - The three concept previews linked from #214: https://claude.ai/artifact/6gk5XktRx4nZMRWBmqRDag,
-    https://claude.ai/artifact/7fJ6yYv7t6YMJMSMjtDNbk and
-    https://claude.ai/artifact/21kVstkEg2EzVa5FWBoKBU (concept C). Each ships
+  - The MapBylaw page preview linked from `docs/design/README.md`: the unredacted MapBylaw kit
+    dashboard.
+  - The three concept previews linked from #214. Each ships
     `shared/media/{ledgerguard,mapbylaw}-dashboard-{640,1280}.webp`.
 
   Republish them from the current pages, or delete them. The other 16 previews linked from
