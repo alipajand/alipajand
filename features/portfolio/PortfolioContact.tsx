@@ -1,6 +1,13 @@
+import Link from "next/link";
+
 import { LinkRows } from "components/hairline/LinkRows/LinkRows";
 import styles from "features/portfolio/PortfolioContact.module.css";
-import { CONTACT_AVAILABILITY } from "data/contact";
+import {
+  CONTACT_AVAILABILITY,
+  CONTACT_NOW_HREF,
+  CONTACT_NOW_LEAD,
+  CONTACT_NOW_LINK_LABEL,
+} from "data/contact";
 import { LINKS } from "data/links";
 import { PORTFOLIO_CONTACT_EYEBROW, PORTFOLIO_CONTACT_HEADING } from "data/portfolioIndex";
 import { PORTFOLIO_PROFILE_LINK_LABELS, PORTFOLIO_PROFILE_LINKS_ARIA_LABEL } from "data/projectsUi";
@@ -26,7 +33,10 @@ export const PortfolioContact = ({
       <h2 id={headingId} className={styles.title}>
         {PORTFOLIO_CONTACT_HEADING}
       </h2>
-      <p className={styles.body}>{CONTACT_AVAILABILITY}</p>
+      <p className={styles.body}>
+        {CONTACT_AVAILABILITY} {CONTACT_NOW_LEAD}{" "}
+        <Link href={CONTACT_NOW_HREF}>{CONTACT_NOW_LINK_LABEL}</Link>.
+      </p>
     </div>
     <div className={styles.links}>
       <LinkRows links={PROFILE_LINKS} label={PORTFOLIO_PROFILE_LINKS_ARIA_LABEL} />

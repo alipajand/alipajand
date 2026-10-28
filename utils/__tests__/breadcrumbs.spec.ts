@@ -20,7 +20,7 @@ describe("utils/breadcrumbs", () => {
 
     expect(items).toEqual([
       { name: "Home", url: CANONICAL_URL },
-      { name: "Case studies", url: `${CANONICAL_URL}/portfolio` },
+      { name: "Portfolio", url: `${CANONICAL_URL}/portfolio` },
     ]);
   });
 

@@ -229,15 +229,17 @@ for (const slug of CASE_STUDIES) {
       await expect(page.locator(target)).toBeInViewport();
     });
 
-    test("opens live links in a new tab and reaches them from the keyboard", async ({ page }) => {
+    test("opens live links in the same tab and reaches them from the keyboard", async ({
+      page,
+    }) => {
       await page.goto(path);
       const external = page.locator('main a[href^="http"]');
       const count = await external.count();
       for (let index = 0; index < count; index += 1) {
         const link = external.nth(index);
-        await expect(link).toHaveAttribute("target", "_blank");
-        await expect(link).toHaveAttribute("rel", "noopener noreferrer");
-        await expect(link).toHaveAttribute("aria-label", /opens in new tab/);
+        await expect(link).not.toHaveAttribute("target", /.+/);
+        await expect(link).toHaveAttribute("rel", "noreferrer");
+        await expect(link).not.toHaveAttribute("aria-label", /new tab/);
         await link.focus();
         await expect(link).toBeFocused();
       }

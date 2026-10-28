@@ -16,9 +16,9 @@ goes live within about an hour of its date without a deploy.
 
 ## Unredacted screenshots in git history
 
-Decided: no history rewrite; future commits use the GitHub noreply address. Every tracked file and
-embedded image is checked against the known exposed images (`app/__tests__/trackedImages.spec.ts`).
-What remains needs the owner, outside the repository:
+Decided: no history rewrite. Commits keep the owner's own address, by the owner's decision. Every
+tracked file and embedded image is checked against the known exposed images
+(`app/__tests__/trackedImages.spec.ts`). What remains needs the owner, outside the repository:
 
 - Whether to change the product sign-in emails and the workspace name that the originals show. The
   login email is already in every commit header that used it, so renaming the workspace does more.
@@ -30,18 +30,8 @@ What remains needs the owner, outside the repository:
 
 ## Content and copy
 
-- `README.md` still states an "80% cut in unnecessary re-renders" figure that the site no longer
-  shows. Remove it or source it.
-- Wording to confirm: "9+ years in … Next.js", "Lead Frontend Engineer" in keywords and
-  `knowsAbout`, "staff-level", "across teams".
-- Screenshots: confirm the TallyFolio dashboard shows sample data. Fix the MapBylaw landing alt text
-  and caption, which do not match the image.
-- `components/Testimonials` and `data/testimonials.ts` are not rendered anywhere: delete both, or
-  keep the data and drop the component.
-- Nothing links to `/now`: add a link, or leave it unlinked on purpose.
-- Contact 429 message: include a direct address or not.
-- Case studies: breadcrumb label "Case studies" vs the design's "Portfolio", and whether live links
-  open in a new tab.
+- Confirm the TallyFolio dashboard screenshot shows sample data. It is labelled "Sample data", but
+  the credit cards in it carry real bank product names, which the image alone cannot settle.
 
 ## Branch protection
 
