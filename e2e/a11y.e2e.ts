@@ -37,17 +37,7 @@ interface KnownFinding {
   seenIn: string[];
 }
 
-const KNOWN_FINDINGS: KnownFinding[] = [
-  {
-    id: "RG-A2",
-    rule: "scrollable-region-focusable",
-    within: "dialog [class*='dialogImage']",
-    reason:
-      "The enlarged screenshot scrolls sideways but cannot take keyboard focus outside Chromium. Post code blocks are fixed in #273 and covered by e2e/scroll-regions.e2e.ts.",
-    owner: "ScreenshotFrame",
-    seenIn: ["state__dialog-open"],
-  },
-];
+const KNOWN_FINDINGS: KnownFinding[] = [];
 
 type BrowserName = "chromium" | "webkit";
 const BROWSERS: readonly BrowserName[] = ["chromium", "webkit"];

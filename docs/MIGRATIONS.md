@@ -4,18 +4,19 @@
 
 ### Adding a new writing post
 
-1. Create `content/<slug>.md` with gray-matter frontmatter:
+1. Create `content/posts/<slug>.md` with YAML frontmatter:
    ```
    ---
    title: "Post title"
    date: "YYYY-MM-DD"
-   description: "One-line summary"
+   excerpt: "One-line summary"
    tags: ["tag1", "tag2"]
    ---
    ```
-2. The slug is derived from the filename — **do not rename it after publishing** (SEO and external links will break).
-3. Add the post to the `data/posts/` index if one exists.
-4. Run `pnpm build` to verify static generation succeeds.
+   The full field list is in [DATA_MODEL.md](DATA_MODEL.md#frontmatter-schema).
+2. The slug is derived from the filename. **Do not rename it after publishing** (SEO and external links will break).
+3. A date after today in Toronto schedules the post. Read [decisions/writing-publication-policy.md](decisions/writing-publication-policy.md) first, because some surfaces still show a scheduled post before its date.
+4. Run `pnpm test && pnpm build` to verify the post parses, passes the HTML allowlist and generates statically.
 
 ### Updating site content
 
@@ -23,11 +24,12 @@ All site copy lives in `data/*.ts`. Edit there and run `pnpm test && pnpm build`
 
 ## Environment and secrets
 
-| Variable                | Purpose                               | Where to set     |
-| ----------------------- | ------------------------------------- | ---------------- |
-| `RESEND_API_KEY`        | Contact form email sender             | Vercel dashboard |
-| `CONTACT_TO_EMAIL`      | Recipient email address               | Vercel dashboard |
-| `RESEND_WEBHOOK_SECRET` | Verifies Resend inbound-mail webhooks | Vercel dashboard |
+| Variable                | Purpose                                   | Where to set     |
+| ----------------------- | ----------------------------------------- | ---------------- |
+| `RESEND_API_KEY`        | Contact form email and inbound forwarding | Vercel dashboard |
+| `RESEND_WEBHOOK_SECRET` | Verifies Resend inbound-mail webhooks     | Vercel dashboard |
+| `CONTACT_EMAIL`         | Recipient inbox (optional; has a default) | Vercel dashboard |
+| `RESEND_FROM`           | Sender on a verified domain (optional)    | Vercel dashboard |
 
 **Security rules:**
 
@@ -39,6 +41,7 @@ All site copy lives in `data/*.ts`. Edit there and run `pnpm test && pnpm build`
 ## Dependency upgrades
 
 - Run `pnpm up --latest` on a branch, verify `pnpm test && pnpm build` pass before merging.
+- Dependency overrides belong in `pnpm-workspace.yaml` (`overrides:`); pnpm does not read the npm-style `overrides` field in `package.json`.
 - Next.js major upgrades require reviewing the [Next.js upgrade guide](https://nextjs.org/docs/upgrading) for breaking changes to App Router and config.
 - Do not upgrade `react` or `react-dom` to a version not supported by the current Next.js major.
 
@@ -51,4 +54,4 @@ All site copy lives in `data/*.ts`. Edit there and run `pnpm test && pnpm build`
 
 ## Rollback
 
-To roll back a production deployment: use the Vercel dashboard to promote a previous deployment. No database migrations are needed — the site is fully static except for the contact API route.
+To roll back a production deployment: use the Vercel dashboard to promote a previous deployment. No database migrations are needed: there is no database, and the only server code is the two API routes and the per-request rendering of `/` and `/writing`.
