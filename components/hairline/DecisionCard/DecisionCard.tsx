@@ -18,7 +18,6 @@ interface DecisionCardProps {
 
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
-/** One technical decision: the call, then why, the trade-off, and the result side by side. */
 export const DecisionCard = ({
   index,
   decision,

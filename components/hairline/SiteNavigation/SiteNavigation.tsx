@@ -23,7 +23,6 @@ import { homeBrandAriaCurrent, navLinkAriaCurrent } from "utils/navAriaCurrent";
 
 const BOOK_CALL = LINKS.find((link) => link.label === NAV_BOOK_CALL_LABEL);
 
-/** The 2px line along the header's bottom edge that tracks how far the page has scrolled. */
 const ScrollProgress = ({ pathname }: { pathname: string }) => {
   const ref = useRef<HTMLSpanElement>(null);
 
@@ -41,10 +40,6 @@ const ScrollProgress = ({ pathname }: { pathname: string }) => {
   return <span ref={ref} className={styles.progress} aria-hidden="true" />;
 };
 
-/**
- * The boxed site header: name, primary links, the open-to-roles status and a booking link. Below
- * 960px the links drop to a second row; below 520px they fold behind a disclosure button.
- */
 export const SiteNavigation = () => {
   const pathname = usePathname() ?? "/";
   const menuButtonRef = useRef<HTMLButtonElement>(null);

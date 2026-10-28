@@ -15,7 +15,6 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-/** Drops the in-memory value, as a reload does, keeping localStorage. */
 const reload = () => {
   document.documentElement.removeAttribute("data-motion-paused");
   resetMotionPreferenceForTests();

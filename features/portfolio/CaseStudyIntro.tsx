@@ -14,7 +14,6 @@ import {
 } from "data/projectsUi";
 import { figureHost, hostOf } from "utils/caseStudySections";
 
-/** Role, timeframe and stack, then the live links as full-width bone rows. */
 const CaseStudyMeta = ({ project }: { project: Project }) => {
   const facts = [
     { term: PROJECT_FACT_ROLE_LABEL, detail: project.role },
@@ -51,10 +50,6 @@ const CaseStudyMeta = ({ project }: { project: Project }) => {
   );
 };
 
-/**
- * Employer context, title and overview beside the hero screenshot, which starts tipped back and
- * flattens as the page scrolls. Without screenshots the facts take the right-hand column.
- */
 export const CaseStudyIntro = ({ project }: { project: Project }) => {
   const hero = project.caseStudy.interfaceEvidence?.[0];
   return (

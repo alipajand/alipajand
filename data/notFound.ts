@@ -23,5 +23,4 @@ export const NOT_FOUND_STATUS_LABEL = "[ Status ]";
 
 export const NOT_FOUND_WAYS_ARIA_LABEL = "Ways back";
 
-/** Label drawn over the missing segment of the route line. */
 export const NOT_FOUND_ROUTE_LABEL = "No route";

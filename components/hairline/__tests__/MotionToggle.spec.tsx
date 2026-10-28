@@ -18,7 +18,6 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-/** The text a sighted visitor reads: everything in the button except aria-hidden parts. */
 const visibleText = (element: HTMLElement) =>
   Array.from(element.querySelectorAll<HTMLElement>(":scope > :not([aria-hidden]) > *"))
     .filter((node) => !node.closest("[aria-hidden]"))

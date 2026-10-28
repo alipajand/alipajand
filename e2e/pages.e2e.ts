@@ -210,7 +210,6 @@ test.describe("site menu", () => {
 });
 
 test.describe("shell tap areas", () => {
-  /** Hit-tests 21px above and below the centre, so a 44px-tall tap area passes. */
   const tapsAt44 = (locator: import("@playwright/test").Locator) =>
     locator.evaluate((element) => {
       element.scrollIntoView({ block: "center" });

@@ -30,7 +30,6 @@ import { settle } from "./support";
 type BrowserName = "chromium" | "webkit";
 const BROWSERS: readonly BrowserName[] = ["chromium", "webkit"];
 
-/** A page in Chromium (the configured browser) or Playwright WebKit, launched once per worker. */
 const test = base.extend<
   { openPage: (name: BrowserName, options?: BrowserContextOptions) => Promise<Page> },
   { webkit: () => Promise<Browser> }
@@ -64,7 +63,6 @@ const KEY_HOLD = { delay: 50 };
 const tabKey = (browserName: BrowserName, shift = false) =>
   `${shift ? "Shift+" : ""}${browserName === "webkit" ? "Alt+" : ""}Tab`;
 
-/** Every non-article route the sitemap lists, one article, and a missing page. */
 const ROUTES = [
   "/",
   "/portfolio",
@@ -83,10 +81,6 @@ const ROUTES = [
   "/this-page-does-not-exist",
 ];
 
-/**
- * Marks every element a reader should be able to Tab to with `data-kb="<n>"`: rendered, not
- * disabled, not inert, and not taken out of the order with a negative tabindex.
- */
 const markTabbables = (page: Page) =>
   page.evaluate(() => {
     const selector = [
@@ -117,14 +111,6 @@ const markTabbables = (page: Page) =>
     };
   });
 
-/**
- * Resolves once the page has stopped scrolling with the focused control on screen. WebKit on Linux
- * animates the scroll that brings a focused control into view, under load starts it late, and now
- * and then drops it, so reading the page straight away finds the control off screen or part-way
- * in. If the control is still entirely off screen after a second, it is scrolled into view the
- * way the engine would have; one that still cannot be seen is reported as hidden. A control that
- * is on screen but covered is left where it is, so covered stops still fail.
- */
 const scrollRest = (page: Page) =>
   page.evaluate(async () => {
     const frame = () => new Promise((resolve) => requestAnimationFrame(resolve));
@@ -150,7 +136,6 @@ const scrollRest = (page: Page) =>
     await rest(300);
   });
 
-/** Where focus is now: its `data-kb` index, and whether any of it is visible and uncovered. */
 const focusState = (page: Page) =>
   page.evaluate(() => {
     const active = document.activeElement as HTMLElement | null;
@@ -193,7 +178,6 @@ const finishTransitions = (page: Page) =>
     )
   );
 
-/** True when the pixels around the focused element change once focus leaves it. */
 const showsFocus = async (page: Page) => {
   // Linux WebKit scrolls a focused field only far enough to show its text, and even a full
   // "nearest" scroll leaves the inputs' focus underline (a shadow under the border) past the
@@ -250,11 +234,6 @@ const CLEAN_WALK: WalkResult = {
   unmarked: [],
 };
 
-/**
- * Loads `path` and Tabs through it from the top. Returns what must be empty: controls Tab never
- * reached, stops that were entirely hidden or covered, stops with no visible change (checked at
- * 1024px), focus landing on something that is not a control, and positive tabindex values.
- */
 const walk = async (
   page: Page,
   browserName: BrowserName,

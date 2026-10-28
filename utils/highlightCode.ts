@@ -19,23 +19,17 @@ for (const [name, language] of Object.entries(LANGUAGES)) {
   if (!hljs.getLanguage(name)) hljs.registerLanguage(name, language);
 }
 
-/** Fence names that highlight.js knows under another grammar. */
 const ALIASES: Record<string, string> = { tsx: "typescript", jsx: "javascript" };
 
 const escapeHtml = (value: string): string =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-/** The registered grammar for a fence's info string, or `plaintext`. */
 export const resolveCodeLanguage = (lang: string | undefined): string => {
   const name = (lang ?? "").trim().split(/\s+/)[0]?.toLowerCase() ?? "";
   const mapped = ALIASES[name] ?? name;
   return mapped && hljs.getLanguage(mapped) ? mapped : "plaintext";
 };
 
-/**
- * A fenced code block as `<pre><code class="hljs language-…">`. Text is escaped by highlight.js;
- * the class names keep the authored fence name so the language stays visible in the markup.
- */
 export const renderHighlightedCode = (code: string, lang: string | undefined): string => {
   const language = resolveCodeLanguage(lang);
   const authored = (lang ?? "").trim().split(/\s+/)[0] ?? "";

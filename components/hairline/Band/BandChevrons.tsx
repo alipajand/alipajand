@@ -9,16 +9,10 @@ import { useMotion } from "utils/motion/useMotion";
 
 interface BandChevronsProps {
   count: number;
-  /** `row` spans a band under its content; `cell` fills a grid cell beside a band heading. */
   layout?: "row" | "cell";
-  /** Fraction of the viewport height over which every chevron lights. */
   reach?: number;
 }
 
-/**
- * The chevron row in a bone band. Chevrons light one by one as the row scrolls into view. Without
- * JavaScript or with reduced motion they all stay lit.
- */
 export const BandChevrons = ({ count, layout = "row", reach = 0.75 }: BandChevronsProps) => {
   const ref = useRef<HTMLDivElement>(null);
 

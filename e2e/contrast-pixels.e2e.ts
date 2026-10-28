@@ -25,7 +25,6 @@ import { settle } from "./support";
 
 type BrowserName = "chromium" | "webkit";
 
-/** A page in Chromium (the configured browser) or Playwright WebKit, launched once per worker. */
 const test = base.extend<
   { openPage: (name: BrowserName, options?: BrowserContextOptions) => Promise<Page> },
   { webkit: () => Promise<Browser> }
@@ -55,7 +54,6 @@ const test = base.extend<
   },
 });
 
-/** The routes where axe leaves contrast for review, and every route with text over a canvas. */
 const ROUTES = [
   "/",
   "/portfolio",
@@ -104,10 +102,6 @@ interface Candidate {
   reason: string;
 }
 
-/**
- * axe's needs-review contrast nodes, plus text that sits over a canvas, each marked with
- * `data-px="<n>"`, at most PER_KIND per element class and reason.
- */
 const candidates = async (page: Page): Promise<Candidate[]> => {
   const results = await new AxeBuilder({ page }).withRules(["color-contrast"]).analyze();
   const review = (results.incomplete[0]?.nodes ?? []).map((node) => ({
@@ -173,7 +167,6 @@ interface Measured {
   glyphPixels: number;
 }
 
-/** Screenshots the text with and without its glyphs and measures it against what is behind. */
 const measure = async (page: Page, candidate: Candidate): Promise<Measured | null> => {
   await page.locator(candidate.target).evaluate((element) => {
     element.scrollIntoView({ block: "center", inline: "nearest" });

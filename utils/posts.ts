@@ -49,18 +49,14 @@ const toSafeSlug = (value: string): string => {
 
 export interface PostFrontmatter {
   title: string;
-  /** Publication day on the America/Toronto calendar, quoted: `"2026-10-28"`. */
   date: string;
-  /** Last substantive edit, quoted, on or after `date`. */
   updated?: string;
   excerpt: string;
   seoTitle?: string;
   seoDescription?: string;
   featured?: boolean;
   tags?: string[];
-  /** Never served. Drafts stay outside this repository; see utils/publication.ts. */
   draft?: boolean;
-  /** Before its date, answer at the URL as an unlisted, `noindex` preview. */
   preview?: boolean;
 }
 
@@ -93,12 +89,6 @@ const getPostSlugs = (): string[] => {
 
 const OPTIONAL_FLAGS = ["featured", "draft", "preview"] as const;
 
-/**
- * Frontmatter as a post summary. Publication fields are checked so a typo fails the build instead
- * of publishing early or never: `date` and `updated` must be quoted `YYYY-MM-DD` days (unquoted,
- * YAML turns them into timestamps), `updated` may not precede `date`, flags must be booleans, and
- * a draft cannot also be a preview.
- */
 export const toPostSummary = (slug: string, data: Record<string, unknown>): PostSummary => {
   const fail = (message: string): never => {
     throw new Error(`content/posts/${slug}.md: ${message}`);
@@ -133,10 +123,6 @@ export const toPostSummary = (slug: string, data: Record<string, unknown>): Post
   };
 };
 
-/**
- * Every post file, in every publication state, newest first. Only for code that decides
- * visibility itself (route params, validation); public surfaces use `getPublishedPosts`.
- */
 export const getAllPosts = (): PostSummary[] =>
   getPostSlugs()
     .map((slug) => {
@@ -145,7 +131,6 @@ export const getAllPosts = (): PostSummary[] =>
     })
     .sort((a, b) => b.date.localeCompare(a.date));
 
-/** Same alphabet `toSafeSlug` produces; anything else (e.g. `../`) is not a post. */
 const POST_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 const readPostFile = (slug: string): string | null => {
@@ -157,10 +142,6 @@ const readPostFile = (slug: string): string | null => {
   }
 };
 
-/**
- * Post Markdown to article HTML: diagram fences become slots, Markdown is rendered with highlighted
- * code, the result is sanitised against an allowlist, and h2/h3 get generated ids. Runs at build.
- */
 export const renderPostHtml = (
   markdown: string
 ): { html: string; headings: PostHeading[]; diagrams: DiagramSpec[] } => {
@@ -181,28 +162,20 @@ export const getPostBySlug = (slug: string): Post | null => {
   return { ...summary, contentHtml, headings, diagrams };
 };
 
-/** Post body as authored Markdown, without frontmatter. Used for plain-text exports. */
 export const getPostMarkdown = (slug: string): string | null => {
   const raw = readPostFile(slug);
   if (raw === null) return null;
   return parseFrontmatter(raw).content.trim();
 };
 
-/** Posts that are published at `now`: the only ones any list, feed, export or sitemap shows. */
 export const getPublishedPosts = (now: Date): PostSummary[] =>
   getAllPosts().filter((post) => isPublished(post, now));
 
-/**
- * Slugs the article and OG image routes generate: every post except drafts. A scheduled post is
- * generated so it exists in the route table (`dynamicParams = false`); until its date the page
- * answers 404, or a `noindex` preview when it opts in. See `isRoutable`.
- */
 export const getGeneratedPostSlugs = (): string[] =>
   getAllPosts()
     .filter((post) => post.draft !== true)
     .map((post) => post.slug);
 
-/** The post at `slug` if its article may be served at `now`. */
 export const getRoutablePost = (slug: string, now: Date): Post | null => {
   const post = getPostBySlug(slug);
   return post && isRoutable(post, now) ? post : null;

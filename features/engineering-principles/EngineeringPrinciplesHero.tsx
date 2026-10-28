@@ -14,7 +14,6 @@ import {
 
 const TITLES = ENGINEERING_PRINCIPLES_SECTIONS.map((section) => section.title);
 
-/** The introduction: lede and links on the left, the settling-lines diagram on the right. */
 export const EngineeringPrinciplesHero = () => (
   <section
     id="introduction"

@@ -38,10 +38,6 @@ const focusField = (event: MouseEvent<HTMLAnchorElement>) => {
   field.focus();
 };
 
-/**
- * The contact form. Validation and submission live in `useContactForm`; this component
- * only renders the fields, the linked error summary and the status line.
- */
 export const ContactForm = () => {
   const {
     selectors: {

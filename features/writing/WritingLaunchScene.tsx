@@ -9,17 +9,10 @@ import { useMotion } from "utils/motion/useMotion";
 
 const STEP_COUNT = 3;
 
-/** The step for scroll progress `t` through the tall scene. */
 export const launchSceneStep = (t: number): 1 | 2 | 3 => (t < 0.3 ? 1 : t < 0.64 ? 2 : 3);
 
 const stepLabel = (step: number) => `0${step} / 0${STEP_COUNT}`;
 
-/**
- * The post's own refactor example as a three-step scene: the instructions match the code, the code
- * moves and two references go stale, then the smallest edit is proposed for review. Scrolling
- * through the tall section steps it. Without JavaScript or with reduced motion it is one still frame
- * at the last step, one screen tall.
- */
 export const WritingLaunchScene = () => {
   const ref = useRef<HTMLElement>(null);
 

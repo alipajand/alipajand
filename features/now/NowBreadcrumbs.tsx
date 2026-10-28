@@ -8,7 +8,6 @@ interface NowBreadcrumbsProps {
   items: readonly BreadcrumbNavItem[];
 }
 
-/** The mono breadcrumb row under the navigation: earlier pages link, the current page is marked. */
 export const NowBreadcrumbs = ({ items }: NowBreadcrumbsProps) => (
   <nav className={styles.crumbs} aria-label="Breadcrumb">
     <ol>

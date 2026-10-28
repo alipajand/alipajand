@@ -18,11 +18,6 @@ const stripTags = (html: string): string => {
   return current;
 };
 
-/**
- * Plain-text label for a heading's inner HTML. `&amp;` is decoded last so an
- * escaped entity can't turn into markup, and any angle brackets left over are
- * dropped because the outline only needs readable text.
- */
 export const headingText = (innerHtml: string): string =>
   stripTags(innerHtml)
     .replace(/&lt;|&gt;/g, "")
@@ -33,7 +28,6 @@ export const headingText = (innerHtml: string): string =>
     .replace(/\s+/g, " ")
     .trim();
 
-/** Slugs are already `[a-z0-9-]`; escaping keeps the attribute safe if that ever changes. */
 const escapeAttribute = (value: string): string =>
   value
     .replace(/&/g, "&amp;")
@@ -49,10 +43,6 @@ export const slugifyHeading = (text: string): string =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "") || "section";
 
-/**
- * Adds stable ids to h2/h3 elements and returns the outline used by the
- * table of contents. Duplicate titles get a numeric suffix.
- */
 export const addHeadingIds = (html: string): { html: string; headings: PostHeading[] } => {
   const headings: PostHeading[] = [];
   const seen = new Map<string, number>();

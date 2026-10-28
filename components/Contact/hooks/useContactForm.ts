@@ -32,7 +32,6 @@ export interface ContactFormSelectors {
   formState: FormState<ContactFormValues>;
   validationErrors: string[];
   errorSummaryRef: RefObject<HTMLDivElement | null>;
-  /** Message length as the server counts it, company line included. */
   messageLength: number;
   hasCompany: boolean;
 }

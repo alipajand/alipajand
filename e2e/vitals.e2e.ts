@@ -15,7 +15,6 @@ const PHONE = { width: 390, height: 844 };
 const DESKTOP = { width: 1440, height: 900 };
 const SIZES = [PHONE, DESKTOP] as const;
 
-/** Looping animations still running; one-shot cues that end on their own are left out. */
 const runningAnimations = (page: Page) =>
   page.evaluate(
     () =>
@@ -28,7 +27,6 @@ const runningAnimations = (page: Page) =>
         ).length
   );
 
-/** Inline styles of every element that scripts animate, keyed by position in the document. */
 const inlineStyles = (page: Page) =>
   page.evaluate(() =>
     Array.from(document.querySelectorAll<HTMLElement>("[style]")).map(

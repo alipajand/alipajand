@@ -5,16 +5,9 @@ import {
   test,
 } from "@playwright/test";
 
-/**
- * Marks a screenshot comparison (`--grep @visual`) and names its baseline. The name is a test
- * annotation, so `playwright test --list` shows every expected baseline without running anything;
- * scripts/__tests__/visualBaselines.spec.ts checks that each one exists for macOS and Linux and that
- * no other PNG is left behind.
- */
 export const visualBaseline = (name: string) =>
   ({ tag: "@visual", annotation: { type: "baseline", description: `${name}.png` } }) as const;
 
-/** Compares the page with the baseline its test declared through `visualBaseline`. */
 export const expectBaseline = async (
   page: Page,
   options: PageAssertionsToHaveScreenshotOptions = {}
@@ -40,7 +33,6 @@ export const VIEWPORTS = [
   { width: 320, height: 720 },
 ] as const;
 
-/** Waits for web fonts and a settled layout so screenshots and measurements are stable. */
 export const settle = async (page: Page): Promise<void> => {
   await page.waitForLoadState("networkidle");
   await page.evaluate(() => document.fonts.ready.then(() => undefined));
@@ -52,7 +44,6 @@ export const settle = async (page: Page): Promise<void> => {
   );
 };
 
-/** Scrolls to the bottom in viewport steps, then back to the top, so scroll-driven islands run. */
 export const scrollThrough = async (page: Page): Promise<void> => {
   const height = await page.evaluate(() => document.documentElement.scrollHeight);
   const step = await page.evaluate(() => window.innerHeight * 0.8);
@@ -90,7 +81,6 @@ export interface AuditRoute {
   name: string;
   path: string;
   status?: number;
-  /** Page family, for grouping evidence and picking the matching `docs/design/pages` artifact. */
   family:
     | "home"
     | "portfolio"
@@ -113,10 +103,6 @@ export const CASE_STUDY_SLUGS = [
   "mapbylaw",
 ] as const;
 
-/**
- * Articles in the responsive gate: the Agent Readiness Doctor launch page, one with a comparison
- * diagram, one with the MCP flow diagram, and MapBylaw.
- */
 export const AUDIT_ARTICLE_SLUGS = [
   "agent-readiness-doctor",
   "agent-instructions-are-code",
@@ -124,7 +110,6 @@ export const AUDIT_ARTICLE_SLUGS = [
   "mapbylaw-ai-recommendations",
 ] as const;
 
-/** Every implemented page family, with every case study and four representative articles. */
 export const AUDIT_ROUTES: readonly AuditRoute[] = [
   { name: "home", path: "/", family: "home" },
   { name: "portfolio", path: "/portfolio", family: "portfolio" },
@@ -149,7 +134,6 @@ export const AUDIT_ROUTES: readonly AuditRoute[] = [
   { name: "not-found", path: "/this-page-does-not-exist", status: 404, family: "not-found" },
 ];
 
-/** One route per family, for the checks that do not need every case study and article. */
 export const FAMILY_ROUTES: readonly AuditRoute[] = AUDIT_ROUTES.filter(
   (route, index) => AUDIT_ROUTES.findIndex((other) => other.family === route.family) === index
 );
@@ -160,7 +144,6 @@ export interface AuditViewport {
   kind: "mobile" | "tablet" | "desktop";
 }
 
-/** Emulated device classes: phones (portrait and landscape), tablets both ways, desktops. */
 export const AUDIT_VIEWPORTS: readonly AuditViewport[] = [
   { width: 320, height: 568, kind: "mobile" },
   { width: 375, height: 812, kind: "mobile" },

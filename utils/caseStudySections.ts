@@ -20,7 +20,6 @@ import {
 } from "data/projectsUi";
 import type { CompareDiagramSpec, FlowDiagramSpec, LayersDiagramSpec } from "utils/diagramBlocks";
 
-/** The body of one numbered section, in the order the design kit lays them out. */
 export type CaseSectionBody =
   | { kind: "lead"; text: string }
   | { kind: "items"; items: string[]; layout: "rows" | "cells" }
@@ -30,42 +29,25 @@ export type CaseSectionBody =
   | { kind: "related"; links: ProjectLink[] };
 
 export interface CaseSectionModel {
-  /** In-page anchor, as in the design kit ("context", "role", "technical-decisions"…). */
   id: string;
-  /** The anchor this chapter had before the kit's ids ("ledgerguard-context"), kept for old links. */
   legacyId: string;
   title: string;
   body: CaseSectionBody;
-  /** Layers and compare diagrams set inside the section, after its body. */
   diagrams: Array<LayersDiagramSpec | CompareDiagramSpec>;
-  /** A flow diagram drawn as a full-bleed band right after the section. */
   flow?: FlowDiagramSpec;
 }
 
-/** Data keys whose anchor differs from the key itself. */
 const SECTION_ID: Partial<Record<CaseStudySectionKey, string>> = { "ux-decisions": "ux" };
 
 const sectionIdFor = (key: CaseStudySectionKey) => SECTION_ID[key] ?? key;
 
-/** Section ids whose earlier anchor used a different key. */
 const LEGACY_SECTION_KEY: Readonly<Record<string, string>> = { ux: "ux-decisions" };
 
-/**
- * The anchor a section had before the case studies took the kit's ids: project id, then section
- * key, as in `ledgerguard-context` or `ledgerguard-ux-decisions`.
- */
 export const legacySectionId = (projectId: string, id: string): string =>
   `${projectId}-${LEGACY_SECTION_KEY[id] ?? id}`;
 
-/** The id the case-study title carried before the kit's ids, now kept on the display name. */
 export const legacyTitleId = (projectId: string): string => `${projectId}-heading`;
 
-/**
- * Builds the numbered sections of a case study from its project data. Sections with nothing to
- * show are left out, so numbering and the chapter rail always match what is on the page. The first
- * screenshot is the intro's hero shot; the rest, after any interactive sample, form "Interface
- * evidence".
- */
 export const buildCaseSections = (project: Project): CaseSectionModel[] => {
   const cs = project.caseStudy;
   const evidence = cs.interfaceEvidence ?? [];
@@ -144,9 +126,7 @@ export const buildCaseSections = (project: Project): CaseSectionModel[] => {
   return sections;
 };
 
-/** "https://ledgerguard.io/" → "ledgerguard.io". */
 export const hostOf = (href: string): string => href.replace(/^https?:\/\/|\/$/g, "");
 
-/** Host shown in a screenshot's frame: the figure's own host, else the first live link's. */
 export const figureHost = (project: Project, figure: ProjectFigure): string =>
   figure.host ?? (project.liveLinks[0] ? hostOf(project.liveLinks[0].href) : project.name);

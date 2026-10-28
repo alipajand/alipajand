@@ -21,11 +21,9 @@ interface Area {
   label: string;
   group: string;
   box: { left: number; top: number; right: number; bottom: number };
-  /** Hit tests at the four edges of the box, 1px inside, plus the centre. */
   receivesTaps: boolean;
 }
 
-/** Collects the visible shell controls and their tap areas, in page coordinates. */
 const tapAreas = (page: Page): Promise<Area[]> =>
   page.evaluate(() => {
     const visible = (element: Element | null): element is HTMLElement =>

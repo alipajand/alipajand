@@ -2,7 +2,6 @@
 
 import { type RefObject, useCallback, useEffect, useState } from "react";
 
-/** Width at which the primary links no longer fit on one row and fold behind the menu button. */
 export const SITE_MENU_QUERY = "(max-width: 520px)";
 
 export interface SiteMenu {
@@ -11,11 +10,6 @@ export interface SiteMenu {
   close: () => void;
 }
 
-/**
- * A non-modal disclosure for the primary links on narrow screens. Escape closes it and returns
- * focus to the button; it also closes on route change and when the viewport grows past the
- * breakpoint, so a rotated phone never keeps a stale open menu.
- */
 export const useSiteMenu = (
   pathname: string,
   buttonRef: RefObject<HTMLButtonElement | null>

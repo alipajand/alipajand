@@ -12,7 +12,6 @@ interface PortfolioIntroParagraphProps {
   className?: string;
 }
 
-/** Renders a paragraph, linking the first occurrence of each phrase in `links`. */
 export const PortfolioIntroParagraph = ({
   text,
   links,

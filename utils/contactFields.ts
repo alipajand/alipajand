@@ -1,16 +1,7 @@
-/**
- * Contact form field rules shared by the form (`components/Contact`) and `POST /api/contact`,
- * so the browser never accepts input the server will refuse.
- *
- * Lengths are `String.prototype.length` (UTF-16 code units), which is what the server checks:
- * an emoji or other astral character counts as 2, a letter plus a combining mark counts as 2.
- */
-
 export const CONTACT_NAME_MAX_LENGTH = 200;
 export const CONTACT_MESSAGE_MAX_LENGTH = 10_000;
 export const CONTACT_EMAIL_MAX_LENGTH = 254;
 
-/** The name lands in the email subject, so control characters (CR, LF, tab, NUL, ...) collapse to one space. */
 export function normalizeContactName(value: string): string {
   return value
     .replace(/[\u0000-\u001f\u007f]+/g, " ")
@@ -43,7 +34,6 @@ export function isValidEmail(value: string): boolean {
   return true;
 }
 
-/** The form has no company field on the API; it is sent as the first line of the message. */
 export function composeContactMessage(message: string, company: string): string {
   const trimmedMessage = message.trim();
   const trimmedCompany = company.trim();
@@ -51,7 +41,6 @@ export function composeContactMessage(message: string, company: string): string 
   return `Company: ${trimmedCompany}\n\n${trimmedMessage}`;
 }
 
-/** Length of the message as the server measures it, including the company line. */
 export function contactMessageLength(message: string, company: string): number {
   return composeContactMessage(message, company).trim().length;
 }

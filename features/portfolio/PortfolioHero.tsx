@@ -4,10 +4,8 @@ import { PORTFOLIO_HERO_COORDINATES, PORTFOLIO_SCROLL_CUE } from "data/portfolio
 import { PORTFOLIO_PAGE_HEADER_TITLE, PORTFOLIO_PROFILE_DETAILS, PROJECTS } from "data/projects";
 import { TAGLINE } from "data/site";
 
-/** "Senior Software Engineer · Frontend … · React, TypeScript, …" → its three parts. */
 const [ROLE, FOCUS, STACK] = TAGLINE.split(" · ");
 
-/** First year any case study starts and the current year, from the project timeframes. */
 const yearSpan = (now = new Date()) => {
   const years = PROJECTS.flatMap((project) => project.timeframe?.match(/\d{4}/g) ?? []).map(Number);
   return `${Math.min(...years)} — ${now.getFullYear()}`;

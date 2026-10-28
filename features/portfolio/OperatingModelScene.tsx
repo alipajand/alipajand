@@ -19,14 +19,8 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
 
 const foldLabel = (fold: number) => `fold ${String(Math.round(fold * 100)).padStart(3, "0")}%`;
 
-/** The step lit for scroll progress `t`. */
 const activeStep = (t: number) => (t < 0.34 ? 0 : t < 0.67 ? 1 : 2);
 
-/**
- * A sticky scene: a flat grid of parts folds into a sphere while the section scrolls past, and the
- * three steps light in turn. Without JavaScript or with reduced motion the section is one
- * screen-height still frame, fully folded, with every step shown.
- */
 export const OperatingModelScene = () => {
   const ref = useRef<HTMLElement>(null);
 

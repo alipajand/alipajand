@@ -24,11 +24,9 @@ export const capture = async (page: Page, name: string): Promise<void> => {
   await page.screenshot({ path: path.join(dir, `${name}.jpg`), type: "jpeg", quality: 70 });
 };
 
-/** Where scroll recordings go, or undefined when evidence is off. */
 export const videoDir = (): string | undefined =>
   EVIDENCE_DIR ? path.join(EVIDENCE_DIR, "videos") : undefined;
 
-/** Vercel serves its analytics scripts only on its own hosting. */
 export const stubVercelScripts = (page: Page) =>
   page.route("**/_vercel/**", (route) =>
     route.fulfill({ status: 200, contentType: "text/javascript", body: "" })

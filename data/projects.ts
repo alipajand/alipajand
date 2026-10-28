@@ -9,26 +9,18 @@ export interface ProjectFigure {
   captionLead: string;
   captionBody: string;
   disclosureLabel?: string;
-  /** Host printed in the screenshot frame. Defaults to the project's first live link. */
   host?: string;
-  /** Short note on where the pixels come from, such as "Sample data", shown with the caption. */
   provenance?: string;
-  /** Rows of empty browser chrome at the top of the source image, hidden inside the frame. */
   trimTop?: number;
-  /** `side` sets the caption in a column beside the screenshot on wide screens. */
   layout?: "stacked" | "side";
 }
 
-/** One extracted term in the interactive review sample, with the clause it came from. */
 export interface ReviewSampleTerm {
   id: string;
   label: string;
   value: string;
-  /** Terms start confirmed or as an unreviewed suggestion; the reader can confirm suggestions. */
   status: "confirmed" | "suggested";
-  /** Where the clause sits in the document, such as "§ 9.2 · page 3". */
   source: string;
-  /** The clause, split around the words the value was read from. */
   clause: { before: string; match: string; after: string };
 }
 
@@ -36,14 +28,11 @@ export interface ReviewSampleContract {
   id: string;
   vendor: string;
   document: string;
-  /** Annual commitment in whole units of the sample's currency. */
   annual: number;
-  /** The term whose confirmation lets the annual commitment count in totals. */
   commitmentTermId: string;
   terms: ReviewSampleTerm[];
 }
 
-/** A fictional, client-side sample of the review boundary: only confirmed terms count. */
 export interface ReviewSample {
   title: string;
   caption: string;
@@ -74,7 +63,6 @@ export type CaseStudySectionKey =
   | "outcome"
   | "improve";
 
-/** An interactive diagram rendered at the end of one case study section. */
 export interface CaseStudyDiagram {
   section: CaseStudySectionKey;
   spec: FlowDiagramSpec | LayersDiagramSpec | CompareDiagramSpec;
@@ -91,7 +79,6 @@ export interface ProjectCaseStudy {
   outcome: string[];
   nextImprovements: string[];
   interfaceEvidence?: ProjectFigure[];
-  /** An interactive sample set at the top of "Interface evidence", before the screenshots. */
   reviewSample?: ReviewSample;
   diagrams?: CaseStudyDiagram[];
 }

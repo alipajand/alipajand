@@ -261,7 +261,6 @@ test.describe("writing filters", () => {
   }
 });
 
-/** Scrolls each sticky element's container past the top and checks it pins, uncovered. */
 const auditSticky = (page: Page) =>
   page.evaluate(async () => {
     const sleep = () =>

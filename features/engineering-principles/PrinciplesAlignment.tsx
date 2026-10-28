@@ -14,12 +14,6 @@ interface PrinciplesAlignmentProps {
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-/**
- * The hero image: one tangled line per principle. As the hero scrolls away the lines settle, one
- * after another, into an evenly ruled set with a label chip each; the pointer nudges the lines it
- * passes. While idle motion is allowed the tangles drift slowly over time, as in the artifact. With
- * reduced motion it draws the settled set once.
- */
 export const PrinciplesAlignment = ({ titles }: PrinciplesAlignmentProps) => {
   const ref = useRef<HTMLDivElement>(null);
 

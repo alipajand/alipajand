@@ -10,7 +10,6 @@ interface CaseStudyOutcomeProps {
 
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
-/** Outcome: the results as large numbered statements. */
 export const CaseStudyOutcome = ({ section, index }: CaseStudyOutcomeProps) => (
   <CaseSection id={section.id} legacyId={section.legacyId} index={index} title={section.title}>
     <div>

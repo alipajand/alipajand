@@ -22,11 +22,9 @@ export interface WritingArticle {
 
 interface WritingPostPageContentProps {
   post: WritingArticle;
-  /** Every post, newest first, for "More writing". */
   posts: readonly Pick<WritingListPost, "slug" | "title" | "date">[];
 }
 
-/** A standard article: crumbs, section ticker, header, contents beside prose, more writing. */
 export const WritingPostPageContent = ({ post, posts }: WritingPostPageContentProps) => (
   <main id="main-content" tabIndex={-1}>
     <WritingPostCrumbs title={post.title} />

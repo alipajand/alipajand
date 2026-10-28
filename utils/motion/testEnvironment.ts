@@ -1,12 +1,6 @@
-/**
- * Browser APIs that jsdom lacks, installed per test so motion islands can be exercised. Only test
- * files import this module.
- */
-
 type MediaListener = (event: MediaQueryListEvent) => void;
 
 export interface MediaControl {
-  /** Flips every installed query and notifies its listeners, like an OS setting change. */
   setMatches: (matches: boolean) => void;
 }
 
@@ -49,7 +43,6 @@ export const installObservers = (): void => {
   Object.assign(window, { IntersectionObserver: Observer, ResizeObserver: Observer });
 };
 
-/** Runs queued animation frames synchronously; returns how many ran. */
 export const installManualFrames = (): { flush: () => number; pending: () => number } => {
   let next = 1;
   const queue = new Map<number, FrameRequestCallback>();

@@ -66,12 +66,10 @@ export const PROJECT_FIGURE_CLOSE_LABEL = "Close";
 export const projectRelatedLinksAriaLabel = (projectName: string): string =>
   `${projectName} related work`;
 
-/** Head label on a flow band, such as "Diagram · Technical decisions". */
 export const projectFlowEyebrow = (sectionTitle: string): string => `Diagram · ${sectionTitle}`;
 
 export const projectFlowBandLabel = (sectionTitle: string): string => `${sectionTitle} diagram`;
 
-/** Small label over an internal related link: the kind of page it opens. */
 export const projectRelatedKind = (href: string): string => {
   if (href.startsWith("/writing")) return "Writing";
   if (href.startsWith("/portfolio")) return "Case study";

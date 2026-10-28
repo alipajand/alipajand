@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-/** Line drawings for the homepage case cards, keyed by project id. */
 const GLYPHS: Record<string, ReactNode> = {
   ledgerguard: (
     <>

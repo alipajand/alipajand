@@ -18,7 +18,6 @@ import { useMotion } from "utils/motion/useMotion";
 type TimelinePost = Pick<WritingListPost, "slug" | "title" | "date" | "tags">;
 
 interface WritingTimelineProps {
-  /** Oldest first. */
   posts: readonly TimelinePost[];
   lanes: readonly TopicLane[];
   range: TimelineRange;
@@ -26,7 +25,6 @@ interface WritingTimelineProps {
 
 const MUTE = "rgba(163,163,156,1)";
 
-/** "Oct 28" for the readout. */
 const shortMonthDay = (date: string) => formatShortDate(date).replace(/,\s*\d{4}$/, "");
 
 export const timelineReadout = (posts: readonly TimelinePost[], index: number): string => {
@@ -35,12 +33,6 @@ export const timelineReadout = (posts: readonly TimelinePost[], index: number): 
   return `${pad(index)} / ${posts.length} · ${shortMonthDay(post.date)}`;
 };
 
-/**
- * Every post on a timeline, one row per topic. Scrolling past the hero walks the cursor from the
- * oldest post to the newest; the pointer takes over while it is over the plot. Unlit marks drift by
- * a pixel while idle motion is allowed. With reduced motion it is one still frame on the newest post.
- * The canvas is decorative; the readout under it names the lit post.
- */
 export const WritingTimeline = ({ posts, lanes, range }: WritingTimelineProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const last = posts.length - 1;

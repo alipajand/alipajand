@@ -13,10 +13,6 @@ import { clamp } from "utils/motion/canvas";
 import { useMotion } from "utils/motion/useMotion";
 import type { LayersDiagramSpec } from "utils/diagramBlocks";
 
-/**
- * A stack of indented layers, the outermost first and the last one dashed. While the stack crosses
- * the screen one layer at a time is lit. Without JavaScript or with reduced motion nothing is lit.
- */
 export const LayersDiagram = ({ title, caption, layers }: Omit<LayersDiagramSpec, "type">) => {
   const ref = useRef<HTMLOListElement>(null);
 

@@ -133,12 +133,9 @@ const GLYPHS = {
 
 export type TitleFace = keyof typeof GLYPHS;
 
-/** Unknown characters count as a wide capital, so the estimate errs towards fitting. */
 const UNKNOWN = 1.1;
-/** Headroom for rounding and kerning differences between the table and the rendered text. */
 const SAFETY = 1.005;
 
-/** Width in em of the widest unbreakable run in a title (lines may break at spaces and after dashes). */
 export const longestWordEm = (title: string, face: TitleFace): number => {
   const glyphs: Record<string, number> = GLYPHS[face];
   const runs = title.toUpperCase().split(/\s+|(?<=[-–—])/);
@@ -148,6 +145,5 @@ export const longestWordEm = (title: string, face: TitleFace): number => {
   return Math.max(1, ...widths) * SAFETY;
 };
 
-/** Inline custom property the title CSS divides its box width by. */
 export const titleFitStyle = (title: string, face: TitleFace): CSSProperties =>
   ({ "--fit-em": longestWordEm(title, face).toFixed(3) }) as CSSProperties;

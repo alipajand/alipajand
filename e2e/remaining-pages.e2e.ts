@@ -43,7 +43,6 @@ const collectConsoleProblems = (page: Page) => {
   return problems;
 };
 
-/** Pauses idle motion the way the footer control does, before any script runs. */
 const pauseMotion = (page: Page) =>
   page.addInitScript(() => {
     try {

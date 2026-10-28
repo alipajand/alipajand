@@ -52,10 +52,6 @@ export const buildWritingIndexMetadata = (): Metadata => {
   };
 };
 
-/**
- * Article metadata. Times are the Toronto-midnight instants of `date` and `updated`, the same
- * instants as the feed and JSON-LD. A preview is kept out of search with `noindex, nofollow`.
- */
 export const buildArticleMetadata = (post: Post, { preview = false } = {}): Metadata => {
   const { contentHtml: _content, ...p } = post;
   void _content;

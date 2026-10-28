@@ -8,7 +8,6 @@ import { clamp, fitCanvas, LINE, LINE_RGB, tokenFontFamily } from "utils/motion/
 import { createEasedPointer } from "utils/motion/easedPointer";
 import { useMotion } from "utils/motion/useMotion";
 
-/** How many 45ms steps the code spends scrambling before its first digit settles. */
 const SCRAMBLE_LEAD = 6;
 const SCRAMBLE_STEP_MS = 45;
 
@@ -16,11 +15,6 @@ interface NotFoundRouteProps {
   code: string;
 }
 
-/**
- * The status code over a route line with one missing segment. The gap follows the pointer and eases
- * to a stop; on load the digits scramble once and settle (not while motion is paused). With reduced
- * motion the code is static and the gap stays centred.
- */
 export const NotFoundRoute = ({ code }: NotFoundRouteProps) => {
   const ref = useRef<HTMLDivElement>(null);
 

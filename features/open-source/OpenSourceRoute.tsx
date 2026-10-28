@@ -74,13 +74,6 @@ const bezier = (a: PlacedNode, b: PlacedNode, t: number): [number, number] => {
   ];
 };
 
-/**
- * The hero diagram: repository files and pull-request diffs flow through the audit engines to each
- * surface. Scrolling through the hero walks the lit surface, packets speed up with scroll velocity,
- * the faint grid drifts with the pointer, and a scan line steps through the instruction files over
- * time. When motion is paused the scan and the steady packet flow stop while scroll and pointer
- * motion continue; with reduced motion it draws the first surface once.
- */
 export const OpenSourceRoute = () => {
   const ref = useRef<HTMLDivElement>(null);
 

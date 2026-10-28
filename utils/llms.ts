@@ -38,10 +38,6 @@ const postUrl = (post: PostSummary): string => `${CANONICAL_URL}/writing/${post.
 
 const contactLines = (): string => LINKS.map((link) => `- ${link.label}: ${link.href}`).join("\n");
 
-/**
- * Short, link-first summary of the site following the llms.txt convention:
- * an H1, a blockquote summary, then sections of annotated links.
- */
 export const buildLlmsTxt = ({
   projects,
   posts,
@@ -162,10 +158,6 @@ const caseStudySection = (project: Project): string => {
     .join("\n");
 };
 
-/**
- * Long-form plain-text export of the site so answer engines can read the
- * substance without executing client-side code.
- */
 export const buildLlmsFullTxt = ({
   projects,
   posts,

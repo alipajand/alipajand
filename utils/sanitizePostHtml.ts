@@ -10,29 +10,17 @@ import { DIAGRAM_SLOT_ATTR } from "utils/diagramBlocks";
  * Markdown; `addHeadingIds` generates them after this step.
  */
 
-/** Schemes a link may use. Anything without a scheme is a relative URL or a `#` fragment. */
 const LINK_SCHEMES = ["http", "https", "mailto"];
-/** Images load without a click, so plain http (mixed content on this https site) is refused. */
 export const IMAGE_SCHEMES = ["https"];
 
 const SCHEME_RE = /^([a-z][a-z0-9+.-]*):/i;
 
-/**
- * The URL a browser would see, reduced to what decides its scheme: leading and trailing C0
- * controls and spaces are trimmed and tabs and newlines removed, as the URL parser does.
- */
 const urlHead = (value: string): string =>
   value
     .replace(/^[\u0000- ]+|[\u0000- ]+$/g, "")
     .replace(/[\t\n\r]/g, "")
     .split(/[/?#]/, 1)[0];
 
-/**
- * True when `value` is relative, a fragment, or uses one of `schemes`. Text entities are kept as
- * written (see `parser` below), so a character reference before the first `/`, `?` or `#` is
- * rejected outright: `javascript&colon;…` or `&#x6A;avascript:…` would otherwise reach the
- * browser, which decodes them into a scheme. Protocol-relative URLs (`//host`) are rejected too.
- */
 export const isAllowedUrl = (value: string, schemes: readonly string[]): boolean => {
   const head = urlHead(value);
   if (head.includes("&")) return false;

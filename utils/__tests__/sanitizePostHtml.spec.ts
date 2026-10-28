@@ -23,7 +23,6 @@ const html = (markdown: string): string => renderPostHtml(markdown).html.trim();
 
 const LABELS = { table: "Table", code: "Code" };
 
-/** The pipeline as it was before sanitising: diagram slots, Markdown, heading ids. */
 const unsanitised = (markdown: string): string => {
   const { markdown: withSlots } = extractDiagramBlocks(markdown);
   return addHeadingIds(marked.parse(withSlots, { async: false }) as string).html;

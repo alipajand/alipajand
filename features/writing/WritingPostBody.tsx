@@ -16,7 +16,6 @@ interface WritingPostBodyProps {
   variant?: "reader" | "launch";
 }
 
-/** The sticky contents beside the article text. */
 export const WritingPostBody = ({
   contentHtml,
   headings,

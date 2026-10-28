@@ -3,7 +3,6 @@ import { BandChevrons } from "components/hairline/Band/BandChevrons";
 import styles from "features/writing/WritingIndexWhy.module.css";
 import { WRITING_WHY_EYEBROW, WRITING_WHY_IT_MATTERS, WRITING_WHY_LABEL } from "data/writing";
 
-/** The bone band: why the writing is worth a reader's time. */
 export const WritingIndexWhy = () => (
   <Band id="why-it-matters" aria-label={WRITING_WHY_LABEL}>
     <div className={styles.why}>

@@ -30,7 +30,6 @@ export const CONTACT_VALIDATION_MESSAGE_REQUIRED = "Add a short message";
 export const CONTACT_VALIDATION_MESSAGE_TOO_LONG = `Keep your message to ${formatCount(CONTACT_MESSAGE_MAX_LENGTH)} characters or fewer`;
 export const CONTACT_VALIDATION_MESSAGE_WITH_COMPANY_TOO_LONG = `Keep your message and company to ${formatCount(CONTACT_MESSAGE_MAX_LENGTH)} characters combined`;
 
-/** e.g. "1,234 / 10,000 characters", with "including company" once a company is entered. */
 export const contactMessageCountLabel = (length: number, includesCompany: boolean): string =>
   `${formatCount(length)} / ${formatCount(CONTACT_MESSAGE_MAX_LENGTH)} characters${
     includesCompany ? ", including company" : ""

@@ -12,7 +12,6 @@ const PAUSE = "Pause automatic motion";
 const RESUME = "Resume automatic motion";
 const REDUCED = "Automatic motion off";
 
-/** Every route with a motion island, including the idle loops on open-source, principles and now. */
 const ROUTES = [
   "/",
   "/portfolio",
@@ -33,10 +32,6 @@ interface MotionProbe {
 
 type ProbeWindow = Window & { __probe: MotionProbe };
 
-/**
- * Counts animation-frame requests, frames still pending, live IntersectionObservers and the
- * window/document listeners the motion code adds, before any page script runs.
- */
 const installProbe = (page: Page) =>
   page.addInitScript(() => {
     const probe = {
@@ -115,7 +110,6 @@ const snapshot = (page: Page) =>
     return { listeners, observers: probe.observers };
   });
 
-/** Animation frames requested during `ms`, and the most that were ever pending at once. */
 const framesDuring = async (page: Page, ms: number) => {
   const start = await page.evaluate(() => {
     const probe = (window as unknown as ProbeWindow).__probe;
@@ -129,14 +123,8 @@ const framesDuring = async (page: Page, ms: number) => {
   }, start);
 };
 
-/** The display-type stack ticker on /now (CSS module class names keep their local name). */
 const NOW_TICKER = "main [class$='_ticker']";
 
-/**
- * Every family with an idle `onFrame` loop, and the island to bring on screen (null when it is at
- * the top): the open-source scan line, the principles alignment, the now and article tickers, the
- * writing index timeline and the case-study hero tilt.
- */
 const IDLE_LOOPS: ReadonlyArray<readonly [string, string | null]> = [
   ["/open-source", null],
   ["/engineering-principles", null],
@@ -148,7 +136,6 @@ const IDLE_LOOPS: ReadonlyArray<readonly [string, string | null]> = [
 
 const footerControl = (page: Page): Locator => page.locator("footer [data-motion-control]");
 
-/** Toggles without scrolling, so islands at the top of the page stay on screen. */
 const toggleInPlace = (page: Page) => footerControl(page).dispatchEvent("click");
 
 const setTabHidden = (page: Page, hidden: boolean) =>

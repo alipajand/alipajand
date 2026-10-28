@@ -21,12 +21,6 @@ const Run = ({ items, hidden }: { items: readonly string[]; hidden?: boolean }) 
   </div>
 );
 
-/**
- * The stack set in display type on the bone band. It drifts on its own and speeds up with scroll
- * velocity, as in the artifact; when motion is paused it moves only while scrolling, and with reduced
- * motion the duplicate run is dropped and the names wrap in place. Decorative: the same tools are
- * listed as text below it.
- */
 export const NowStackTicker = ({ items }: NowStackTickerProps) => {
   const ref = useRef<HTMLDivElement>(null);
   // Outlives a re-setup, which runs when the visitor pauses or resumes motion, so the band stays put.

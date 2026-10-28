@@ -5,11 +5,6 @@ import { defineConfig, devices } from "@playwright/test";
 const PORT = Number(process.env.E2E_PORT ?? 3456);
 const CI = Boolean(process.env.CI);
 
-/**
- * CI compares screenshots and never writes them: `updateSnapshots` is "none" there, and a CI run
- * that passes `--update-snapshots`/`-u` stops here. The one exception is the manual
- * update-visual-baselines job, which sets E2E_RENDER_BASELINES and uploads its renders for review.
- */
 const updateFlagIndex = process.argv.findIndex(
   (arg) => arg === "-u" || arg.startsWith("--update-snapshots")
 );
@@ -21,21 +16,8 @@ if (CI && updateFlagIndex !== -1 && !process.env.E2E_RENDER_BASELINES) {
   }
 }
 
-/**
- * The build (`pnpm build:e2e`) and the server both run as of this instant (see e2e/fixed-clock.cjs),
- * so which posts are published, and so the home and writing baselines, do not change when a
- * scheduled post goes live. It sits after the newest post's date, because published pages already
- * link to that post (a scheduled one is covered by the Jest publication tests). Moving it is a
- * content change: update `build:e2e` and re-record the home and writing baselines with it.
- */
 const SERVER_NOW = "2026-10-28T16:00:00.000Z";
 
-/**
- * Browser checks for every route, run against a production build (`pnpm build` first).
- * Visual baselines are platform specific (`{platform}` in the path): macOS baselines serve local
- * runs, Linux baselines serve CI once they are reviewed and committed. Screenshot tests carry the
- * `@visual` tag so CI can run them separately from the behavioural checks.
- */
 export default defineConfig({
   testDir: "e2e",
   testMatch: "**/*.e2e.ts",

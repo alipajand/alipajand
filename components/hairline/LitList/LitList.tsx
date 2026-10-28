@@ -8,14 +8,9 @@ import { useMotion } from "utils/motion/useMotion";
 interface LitListProps {
   children: ReactNode;
   className?: string;
-  /** Fraction of the viewport height a row's centre may sit from the middle and still light. */
   window?: number;
 }
 
-/**
- * An ordered list whose row nearest the middle of the screen is lit (`data-lit`). Rows style their
- * own lit state. Nothing is lit without JavaScript or with reduced motion.
- */
 export const LitList = ({ children, className, window: litWindow = 0.3 }: LitListProps) => {
   const ref = useRef<HTMLOListElement>(null);
 

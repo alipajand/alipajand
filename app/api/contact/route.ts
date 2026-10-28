@@ -9,10 +9,8 @@ import { escapeHtml } from "utils/escapeHtml";
 import { readLimitedText } from "utils/readLimitedText";
 import { getFromEmail, getResend, getToEmail } from "utils/resend";
 
-/** Generous for a contact message; caps what one request can make the server buffer. */
 const MAX_BODY_BYTES = 64 * 1024;
 
-/** The body as a JSON object, or null when it is not valid JSON or not an object. */
 function parseJsonObject(raw: string): Record<string, unknown> | null {
   try {
     const value: unknown = JSON.parse(raw);

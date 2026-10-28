@@ -4,21 +4,14 @@ import styles from "components/hairline/CaseSection/CaseSection.module.css";
 
 interface CaseSectionProps {
   id: string;
-  /**
-   * An earlier anchor for the same chapter, kept on an empty marker at the top of the section so
-   * links made before the anchors changed still land here, with or without JavaScript.
-   */
   legacyId?: string;
-  /** Zero-based position, shown as "[ 01 ]". */
   index: number;
   title: string;
-  /** Each child becomes one ruled row in the main column. */
   children: ReactNode;
 }
 
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
-/** A numbered case-study chapter: a sticky title column beside ruled content rows. */
 export const CaseSection = ({ id, legacyId, index, title, children }: CaseSectionProps) => (
   <section id={id} className={styles.section} aria-labelledby={`${id}-heading`}>
     <div className={styles.side}>
@@ -36,7 +29,6 @@ export const CaseSection = ({ id, legacyId, index, title, children }: CaseSectio
   </section>
 );
 
-/** The opening paragraph of a section, set larger. Its row spans the column; the text keeps its measure. */
 export const CaseLead = ({ children }: { children: ReactNode }) => (
   <div>
     <p className={styles.lead}>{children}</p>
@@ -45,11 +37,9 @@ export const CaseLead = ({ children }: { children: ReactNode }) => (
 
 interface CaseItemsProps {
   items: readonly string[];
-  /** `rows` is a numbered list; `cells` is a two-column grid whose last item spans the row. */
   layout?: "rows" | "cells";
 }
 
-/** Numbered points inside a section. */
 export const CaseItems = ({ items, layout = "rows" }: CaseItemsProps) => (
   <div>
     <ol className={layout === "cells" ? styles.cells : styles.items}>

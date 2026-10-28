@@ -1,16 +1,3 @@
-/**
- * Builds contact sheets and a compact summary from a gate run:
- *
- *   RESPONSIVE_EVIDENCE=/tmp/gate pnpm exec playwright test \
- *     e2e/responsive.e2e.ts e2e/interactions.e2e.ts e2e/a11y.e2e.ts e2e/vitals.e2e.ts
- *   node e2e/responsive-sheet.mjs /tmp/gate test-results/responsive-sheet \
- *     [--base http://localhost:3000]
- *
- * With `--base`, it also renders each pinned design page in docs/design/pages next to the running
- * build. Scroll recordings become frame strips when ffmpeg is on the PATH.
- *
- * Captures are emulated Chromium viewports, not real devices.
- */
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";

@@ -4,7 +4,6 @@ export const PROFILE_IMAGE_FOCUS = "Frontend architecture · Design systems · F
 
 export const PROFILE_IMAGE_DOMAIN = "alipajand.com";
 
-/** Aspect ratios Google asks for when a page offers images for search results. */
 export const PROFILE_IMAGE_VARIANTS = {
   "1x1": { width: 1200, height: 1200 },
   "4x3": { width: 1200, height: 900 },

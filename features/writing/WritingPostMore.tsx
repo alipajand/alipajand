@@ -7,12 +7,10 @@ import { WRITING_MORE_ACTION, WRITING_MORE_HEADING } from "data/writing";
 import { formatShortDate } from "utils/date";
 
 interface WritingPostMoreProps {
-  /** Newest first, the same list as the index. */
   posts: readonly Pick<WritingListPost, "slug" | "title" | "date">[];
   currentSlug: string;
 }
 
-/** "More writing": every post as a dated row; the one being read is marked and muted. */
 export const WritingPostMore = ({ posts, currentSlug }: WritingPostMoreProps) => (
   <section className={styles.more} aria-labelledby="more-title">
     <div className={styles.head}>

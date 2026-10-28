@@ -27,10 +27,6 @@ interface OpenSourceActivityProps {
   snapshot: ContributionSnapshot;
 }
 
-/**
- * Contribution activity from a dated copy of the GitHub calendar: four stats, the calendar itself
- * (one column per week) and a per-month table for screen readers.
- */
 export const OpenSourceActivity = ({ snapshot }: OpenSourceActivityProps) => {
   const stats = contributionStats(snapshot);
   const calendar = calendarLayout(snapshot);

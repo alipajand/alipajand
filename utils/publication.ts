@@ -17,9 +17,7 @@ import { SITE_TIME_ZONE } from "utils/date";
 export type PublicationState = "draft" | "scheduled" | "published";
 
 export interface PublicationFields {
-  /** Publication day, `YYYY-MM-DD`, on the America/Toronto calendar. */
   date: string;
-  /** Last substantive edit, `YYYY-MM-DD`, on or after `date`. */
   updated?: string;
   draft?: boolean;
   preview?: boolean;
@@ -27,7 +25,6 @@ export interface PublicationFields {
 
 export const DATE_ONLY_RE = /^\d{4}-\d{2}-\d{2}$/;
 
-/** True for a `YYYY-MM-DD` string that names a real calendar day. */
 export const isCalendarDate = (value: unknown): value is string => {
   if (typeof value !== "string" || !DATE_ONLY_RE.test(value)) return false;
   const [year, month, day] = value.split("-").map(Number);
@@ -48,7 +45,6 @@ const zoneParts = new Intl.DateTimeFormat("en-US", {
   second: "2-digit",
 });
 
-/** Minutes the site's time zone is ahead of UTC at `instant` (negative west of Greenwich). */
 const zoneOffsetMinutes = (instant: number): number => {
   const parts = Object.fromEntries(
     zoneParts.formatToParts(new Date(instant)).map(({ type, value }) => [type, Number(value)])
@@ -64,11 +60,6 @@ const zoneOffsetMinutes = (instant: number): number => {
   return Math.round((wall - Math.floor(instant / 1000) * 1000) / 60_000);
 };
 
-/**
- * The instant `date` begins in America/Toronto: local midnight. Toronto changes clocks at 02:00, so
- * midnight always exists and is never repeated; its offset is the one in force that night (EST,
- * -05:00, or EDT, -04:00), including on the days the clocks change.
- */
 export const publicationInstant = (date: string): Date => {
   if (!isCalendarDate(date)) throw new Error(`Not a YYYY-MM-DD date: ${JSON.stringify(date)}`);
   const [year, month, day] = date.split("-").map(Number);
@@ -77,7 +68,6 @@ export const publicationInstant = (date: string): Date => {
   return new Date(utcMidnight - zoneOffsetMinutes(guess) * 60_000);
 };
 
-/** `publicationInstant(date)` as ISO 8601 with the Toronto offset: `2026-10-28T00:00:00-04:00`. */
 export const publicationTimestamp = (date: string): string => {
   const instant = publicationInstant(date).getTime();
   const offset = zoneOffsetMinutes(instant);
@@ -92,17 +82,13 @@ export const publicationState = (post: PublicationFields, now: Date): Publicatio
   return publicationInstant(post.date).getTime() <= now.getTime() ? "published" : "scheduled";
 };
 
-/** Shown in lists, feeds, exports, the sitemap and structured data. */
 export const isPublished = (post: PublicationFields, now: Date): boolean =>
   publicationState(post, now) === "published";
 
-/** A scheduled post that opted into a public, unlisted, `noindex` preview. */
 export const isPreview = (post: PublicationFields, now: Date): boolean =>
   post.preview === true && publicationState(post, now) === "scheduled";
 
-/** Whether the article and its OG image answer at their URL. */
 export const isRoutable = (post: PublicationFields, now: Date): boolean =>
   isPublished(post, now) || isPreview(post, now);
 
-/** The day the post last changed: `updated` when given, otherwise `date`. */
 export const modifiedDate = (post: PublicationFields): string => post.updated ?? post.date;

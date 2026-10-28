@@ -1,6 +1,4 @@
-/**
- * @jest-environment node
- */
+/** @jest-environment node */
 import { execFileSync } from "child_process";
 import { readdirSync } from "fs";
 import { join, relative, sep } from "path";
@@ -14,7 +12,6 @@ import { join, relative, sep } from "path";
 
 const ROOT = process.cwd();
 const SCREENSHOTS = join(ROOT, "e2e", "__screenshots__");
-/** Local runs compare against macOS baselines, CI against Linux ones. */
 const PLATFORMS = ["darwin", "linux"] as const;
 
 interface ListedTest {
@@ -31,7 +28,6 @@ interface ListedSuite {
   suites?: ListedSuite[];
 }
 
-/** Every e2e test as Playwright sees it, without starting a browser or the server. */
 const listTests = (): ListedSpec[] => {
   const cli = require.resolve("@playwright/test/cli");
   // Playwright refuses to load specs while it detects Jest, so the child gets a plain environment.

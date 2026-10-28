@@ -8,25 +8,17 @@ import { clamp, fitCanvas, LINE_RGB, tokenFontFamily } from "utils/motion/canvas
 import { useMotion } from "utils/motion/useMotion";
 import { WEEKS_IN_RULER } from "utils/week";
 
-/** Tick heights above the baseline: quarter starts, roughly month starts, then every other week. */
 const QUARTER_TICK = 46;
 const MONTH_TICK = 26;
 const WEEK_TICK = 14;
-/** How far the cursor runs below the baseline. */
 const BELOW_BASE = 8;
 
-/** The height of tick `i`, shared by the canvas and the server ruler so both draw the same artwork. */
 export const rulerTickHeight = (i: number): number =>
   i % 13 === 0 ? QUARTER_TICK : i % 4.33 < 1 ? MONTH_TICK : WEEK_TICK;
 
 const TICKS = Array.from({ length: WEEKS_IN_RULER + 1 }, (_, i) => i);
 const QUARTERS = [0, 1, 2, 3];
 
-/**
- * The ruler drawn on the server as SVG ticks and positioned boxes, so it shows without JavaScript.
- * It sits over the blank canvas and is hidden once the canvas has drawn, so only one ruler shows at
- * a time and nothing moves when they swap.
- */
 const StaticRuler = ({ week }: { week: number }) => (
   <div className={styles.static} data-static-ruler="">
     <svg
@@ -66,11 +58,6 @@ const StaticRuler = ({ week }: { week: number }) => (
   </div>
 );
 
-/**
- * A ruler of the year's 52 weeks with a cursor on the step the content is dated (`NOW_UPDATED`).
- * Steps before it are drawn solid. The ruler drifts a little with scroll. Without JavaScript, a
- * server-drawn copy of the same ruler shows; the canvas replaces that copy once it draws.
- */
 export const NowWeekRuler = () => {
   const ref = useRef<HTMLDivElement>(null);
 

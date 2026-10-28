@@ -117,7 +117,6 @@ for (const viewport of [
 type BrowserName = "chromium" | "webkit";
 type OpenPage = (name: BrowserName, options?: BrowserContextOptions) => Promise<Page>;
 
-/** A page in Chromium (the configured browser) or Playwright WebKit, launched once per worker. */
 const sceneTest = test.extend<{ openPage: OpenPage }, { webkit: () => Promise<Browser> }>({
   webkit: [
     async ({ playwright }, provide) => {
@@ -146,7 +145,6 @@ const sceneTest = test.extend<{ openPage: OpenPage }, { webkit: () => Promise<Br
 
 const LAUNCH = "/writing/agent-readiness-doctor";
 const LAUNCH_SCENE = "section[data-step]";
-/** The first article link after the scene. Article prose links are plain anchors: a full load. */
 const LAUNCH_LINK = "main article a[href='/open-source']";
 const PORTFOLIO_SCENE = "section[aria-labelledby='operating-model-heading']";
 const TOLERANCE = 40;
@@ -156,13 +154,11 @@ interface Place {
   top: number;
 }
 
-/** The scroll offset, and where `anchor` sits in the viewport. */
 const place = async (page: Page, anchor: Locator): Promise<Place> => ({
   y: await scrollY(page),
   top: Math.round(await anchor.evaluate((element) => element.getBoundingClientRect().top)),
 });
 
-/** Scrolls with the wheel from the top through the scene until `anchor` is on screen. */
 const readTo = async (page: Page, anchor: Locator): Promise<Place> => {
   const vh = page.viewportSize()!.height;
   const target = await anchor.evaluate((element) => element.getBoundingClientRect().top);
@@ -172,7 +168,6 @@ const readTo = async (page: Page, anchor: Locator): Promise<Place> => {
   return place(page, anchor);
 };
 
-/** Waits for the page to settle, then checks that `anchor` is back where it was. */
 const expectRestored = async (page: Page, anchor: Locator, before: Place) => {
   await settle(page);
   const after = await place(page, anchor);
@@ -182,10 +177,6 @@ const expectRestored = async (page: Page, anchor: Locator, before: Place) => {
   expect(Math.abs(after.y - before.y), `scrollY, was ${before.y}`).toBeLessThan(TOLERANCE);
 };
 
-/**
- * The scene is as tall in the server markup, before any script runs, as on the hydrated page, so a
- * restored offset never points at a different layout.
- */
 const expectSameHeightBeforeScripts = async (page: Page, path: string, section: string) => {
   const height = (target: Page) =>
     target.evaluate(
@@ -209,7 +200,6 @@ interface MotionState {
 
 const MOTION_ON: MotionState = { name: "motion on", options: { reducedMotion: "no-preference" } };
 const REDUCED: MotionState = { name: "reduced motion", options: { reducedMotion: "reduce" } };
-/** The visitor paused automatic motion (MotionToggle); scroll-linked scenes still step. */
 const PAUSED: MotionState = { ...MOTION_ON, name: "motion paused", paused: true };
 
 for (const browserName of ["chromium", "webkit"] as const) {

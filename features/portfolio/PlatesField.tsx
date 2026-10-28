@@ -33,11 +33,6 @@ const CORNERS: readonly Point[] = [
   [-1, 1],
 ];
 
-/**
- * The portfolio hero field: six isometric plates from the first architecture call to production.
- * Scrolling pulls them apart and moves a signal down the stack; the pointer tilts them slightly.
- * It draws only on scroll, resize and pointer input. With reduced motion it draws one still frame.
- */
 export const PlatesField = () => {
   const ref = useRef<HTMLCanvasElement>(null);
 

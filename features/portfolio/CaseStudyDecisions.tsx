@@ -22,7 +22,6 @@ interface CaseStudyDecisionsProps {
   index: number;
 }
 
-/** Technical decisions: each call with its reasoning, trade-off and result. */
 export const CaseStudyDecisions = ({ section, index }: CaseStudyDecisionsProps) => (
   <CaseSection id={section.id} legacyId={section.legacyId} index={index} title={section.title}>
     <div className={styles.decisions}>

@@ -6,7 +6,6 @@ import { Spark } from "components/hairline/Icons/Icons";
 import tickerStyles from "components/hairline/Ticker/Ticker.module.css";
 import { useMotion } from "utils/motion/useMotion";
 
-/** The article ticker drifts at this many pixels per frame, plus a share of scroll speed. */
 const DRIFT = 0.45;
 const VELOCITY_SHARE = 0.35;
 
@@ -22,11 +21,6 @@ const Run = ({ items, hidden }: { items: readonly string[]; hidden?: boolean }) 
   </div>
 );
 
-/**
- * The article's title and section names on one sliding line, each followed by a spark. It drifts
- * slowly and speeds up with scrolling; paused motion leaves only the scroll-driven part, and reduced
- * motion wraps the line in place. Decorative: the same words are the heading and the contents.
- */
 export const WritingPostTicker = ({ items }: { items: readonly string[] }) => {
   const ref = useRef<HTMLDivElement>(null);
 

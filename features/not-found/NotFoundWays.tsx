@@ -4,7 +4,6 @@ import { Chev } from "components/hairline/Icons/Icons";
 import styles from "features/not-found/NotFoundWays.module.css";
 import { NOT_FOUND_WAYS, NOT_FOUND_WAYS_ARIA_LABEL } from "data/notFound";
 
-/** Two boxed ways back, set in display type. */
 export const NotFoundWays = () => (
   <nav className={styles.ways} aria-label={NOT_FOUND_WAYS_ARIA_LABEL}>
     {NOT_FOUND_WAYS.map((way, index) => (

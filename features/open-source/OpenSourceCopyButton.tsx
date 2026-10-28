@@ -17,14 +17,9 @@ const RESET_MS = 1600;
 interface OpenSourceCopyButtonProps {
   title: string;
   text: string;
-  /** Id of the `pre` holding the command, selected when the clipboard is unavailable. */
   targetId: string;
 }
 
-/**
- * Copies an install command. The clipboard write happens inside the click; when it is refused the
- * command is selected instead so the visitor can copy it by hand. Either outcome is announced.
- */
 export const OpenSourceCopyButton = ({ title, text, targetId }: OpenSourceCopyButtonProps) => {
   const [state, setState] = useState<"idle" | "copied" | "selected">("idle");
   const timer = useRef(0);

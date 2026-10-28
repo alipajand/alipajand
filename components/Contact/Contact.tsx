@@ -3,10 +3,6 @@ import { ContactForm } from "components/Contact/ContactForm";
 import { CONTACT_SECTION_BODY, CONTACT_SECTION_HEADING } from "data/contact";
 import { HOMEPAGE_CONTACT_EYEBROW } from "data/homepage";
 
-/**
- * Homepage contact: the pitch on the left, the form on the right. Availability and direct links
- * follow in the "Let's talk" section rendered after it.
- */
 export const Contact = () => (
   <section id="contact" className={styles.contact} aria-labelledby="contact-heading">
     <div className={styles.lead}>

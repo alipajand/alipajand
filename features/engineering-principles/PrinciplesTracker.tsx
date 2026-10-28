@@ -8,11 +8,6 @@ interface PrinciplesTrackerProps {
   children: ReactNode;
 }
 
-/**
- * Lights the principle crossing the upper 40% of the screen and its index row (`data-on`), and marks
- * that index link with `aria-current="location"`. The index links stay plain in-page anchors, so they
- * work without JavaScript; with reduced motion nothing is lit.
- */
 export const PrinciplesTracker = ({ children }: PrinciplesTrackerProps) => {
   const ref = useRef<HTMLDivElement>(null);
 

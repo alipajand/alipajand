@@ -7,10 +7,6 @@ import { PORTFOLIO_STACK_WORDS } from "data/portfolioIndex";
 import { clamp } from "utils/motion/canvas";
 import { useMotion } from "utils/motion/useMotion";
 
-/**
- * The rotated stack words beside the band intro. They slide and straighten as the band crosses the
- * screen; without JavaScript or with reduced motion they hold the artifact's resting angle.
- */
 export const StackWords = ({ children }: { children?: ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
 

@@ -5,22 +5,10 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-/**
- * Every tracked file, and every base64 image embedded in a tracked text file, is checked against
- * the images known to show the owner's account identity: the original dashboard captures, the
- * first LedgerGuard redaction (account row blurred, workspace name left in), and page renders and
- * baselines recorded while either was live. They are still in git history (see
- * docs/decisions/open.md); none may come back to the tree under any name.
- *
- * The check is byte-for-byte. A re-encoded or resized copy has a different hash, so a new capture
- * of a signed-in screen still needs a look before it is committed.
- */
-
 const ROOT = join(__dirname, "..", "..");
 
 const sha256 = (data: Buffer) => createHash("sha256").update(data).digest("hex");
 
-/** Path at the time (what it showed), SHA-256. */
 const EXPOSED_IMAGES: Array<[label: string, hash: string]> = [
   [
     "docs/design/implementation-audit/captures/case-ledgerguard-1440-prod-nojs.jpg (rendered before the LedgerGuard fix in 801b81f)",
@@ -162,7 +150,6 @@ const trackedFiles = (): string[] =>
     .split("\0")
     .filter(Boolean);
 
-/** Each tracked file's own bytes, plus each data URI image inside a tracked text file. */
 const payloads = (files: string[]): Array<{ where: string; hash: string }> =>
   files.flatMap((path) => {
     const data = readFileSync(join(ROOT, path));

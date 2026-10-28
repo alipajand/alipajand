@@ -44,7 +44,6 @@ afterEach(() => {
   jest.useRealTimers();
 });
 
-/** Whether each public surface shows the post at `now`, read through its real entry point. */
 const surfaces = async (slug: string, now: Date) => {
   jest.useFakeTimers().setSystemTime(now);
   const url = `${CANONICAL_URL}/writing/${slug}`;

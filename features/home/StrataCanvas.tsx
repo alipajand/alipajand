@@ -20,11 +20,6 @@ import { useMotion } from "utils/motion/useMotion";
 const REST_POINTER = 0.62;
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
-/**
- * The hero image: a cross-section of the stack from the interface down to the workers. Scrolling
- * drives a probe through the layers and the pointer moves it sideways. It only draws on scroll,
- * resize and pointer input; with reduced motion it draws once, fully descended.
- */
 export const StrataCanvas = () => {
   const ref = useRef<HTMLDivElement>(null);
 

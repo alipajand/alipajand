@@ -18,7 +18,6 @@ jest.mock("marked", () => ({
   marked: { parse: (content: string) => `<p>${content}</p>`, use: jest.fn() },
 }));
 
-/** The held-back 90% figure, or the 80% Emplifi figure that was removed. */
 const HELD_BACK = /(^|[^\d.])[89]0%/;
 
 const raw = (id: string) => PROJECTS.find((project) => project.id === id)!;

@@ -2,10 +2,8 @@ import type { Page } from "@playwright/test";
 
 export interface ShellTarget {
   target: string;
-  /** Hit-testable size, so transparent tap padding counts. */
   width: number;
   height: number;
-  /** Something else takes the pointer at the control's own centre. */
   covered: boolean;
 }
 
@@ -19,11 +17,6 @@ export interface LayoutReport {
   images: { src: string; broken: boolean; crop: number; spills: boolean }[];
 }
 
-/**
- * Measures what the eye catches on a small screen: sideways spill, clipped words, small or covered
- * targets and badly fitted images. Runs in the page; scrolls while probing the shell, then returns
- * to the top.
- */
 export const auditLayout = (page: Page): Promise<LayoutReport> =>
   page.evaluate(() => {
     const vw = document.documentElement.clientWidth;

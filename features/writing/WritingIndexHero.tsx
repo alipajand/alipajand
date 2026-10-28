@@ -18,7 +18,6 @@ interface WritingIndexHeroProps {
   hasFeatured: boolean;
 }
 
-/** The lede and its two jump links beside the topic timeline. */
 export const WritingIndexHero = ({ posts, lanes, range, hasFeatured }: WritingIndexHeroProps) => {
   const chrono = [...posts].reverse();
 

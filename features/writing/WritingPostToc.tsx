@@ -12,17 +12,11 @@ interface WritingPostTocProps {
   headings: readonly PostHeading[];
   label: string;
   eyebrow: string;
-  /** `reader` adds a reading-progress line under each entry; `launch` folds into a disclosure below 960px. */
   variant?: "reader" | "launch";
 }
 
-/** Fraction of the viewport height where a section counts as the one being read. */
 const READ_LINE = 0.35;
 
-/**
- * Moves focus to the heading after the browser has followed the in-page link, so the next Tab
- * continues from the section the reader chose.
- */
 const focusHeading = (event: MouseEvent<HTMLAnchorElement>) => {
   const id = event.currentTarget.hash.slice(1);
   const heading = id ? document.getElementById(id) : null;
@@ -33,7 +27,6 @@ const focusHeading = (event: MouseEvent<HTMLAnchorElement>) => {
   });
 };
 
-/** The section number for each h2 ("01", "02", …); h3 entries are unnumbered. */
 export const tocNumbers = (headings: readonly PostHeading[]): string[] =>
   headings.reduce<{ count: number; labels: string[] }>(
     ({ count, labels }, heading) =>
@@ -59,12 +52,6 @@ const TocList = ({ headings }: { headings: readonly PostHeading[] }) => {
   );
 };
 
-/**
- * The article's contents. In-page links work without JavaScript. With it, the section under the
- * reading line is marked `aria-current="location"` and lit, and in the reader layout each entry's
- * hairline fills as that section is read. Everything updates on scroll only; with reduced motion
- * the current section is still marked but the progress lines stay empty.
- */
 export const WritingPostToc = ({
   headings,
   label,

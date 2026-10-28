@@ -14,9 +14,6 @@ interface LinkRowsProps {
 
 const isExternal = (href: string) => href.startsWith("http");
 
-/**
- * Boxed rows of direct links: label on the left, the address in mono on the right.
- */
 export const LinkRows = ({ links, label }: LinkRowsProps) => (
   <ul className={styles.links} aria-label={label}>
     {links.map((link) => {

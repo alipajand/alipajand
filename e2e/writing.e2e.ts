@@ -22,7 +22,6 @@ const ROUTES = [
   ...SLUGS.map((slug) => ({ name: slug, path: `/writing/${slug}` })),
 ];
 
-/** Visual baselines: the index, the launch post and three articles covering every diagram type. */
 const VISUAL = [
   "writing",
   "agent-readiness-doctor",

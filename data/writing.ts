@@ -48,7 +48,6 @@ export const WRITING_FILTER_ALL = "All";
 export const writingShownCount = (shown: number, total: number): string =>
   `${shown} of ${total} posts`;
 export const WRITING_READ_ARTICLE = "Read article";
-/** A tag becomes a topic lane (timeline row, ticker item, filter chip) once this many posts use it. */
 export const WRITING_TOPIC_LANE_MIN_POSTS = 4;
 
 export const WRITING_INDEX_NEXT_LABEL = "More";
@@ -63,7 +62,6 @@ export const WRITING_ARTICLE_PUBLISHED = "Published";
 export const WRITING_ARTICLE_TOPICS = "Topics";
 export const WRITING_ARTICLE_SUMMARY = "Summary";
 export const WRITING_ARTICLE_TOC_EYEBROW = "[ On this page ]";
-/** The launch layout labels its contents plainly, and uses the same words for the phone disclosure. */
 export const WRITING_LAUNCH_TOC_EYEBROW = "On this page";
 export const WRITING_MORE_HEADING = "More writing";
 export const WRITING_MORE_ACTION = "All writing";
@@ -80,7 +78,6 @@ export const WRITING_ARTICLE_NEXT_LINKS: readonly NextLink[] = [
 ];
 
 // ── Agent Readiness Doctor ──
-/** Posts with the launch layout: the refactor scene above the article. */
 export const WRITING_LAUNCH_ARTICLES: readonly string[] = ["agent-readiness-doctor"];
 
 export const ARD_SCENE = {

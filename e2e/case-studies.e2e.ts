@@ -9,7 +9,6 @@ import {
   visualBaseline,
 } from "./support";
 
-/** Every dedicated case study, in portfolio order. */
 const CASE_STUDIES = [
   "ledgerguard",
   "alwaysgeeky",
@@ -20,7 +19,6 @@ const CASE_STUDIES = [
   "mapbylaw",
 ] as const;
 
-/** Case studies that open on a tilted hero screenshot; the rest set their facts beside the intro. */
 const WITH_HERO: ReadonlySet<string> = new Set([
   "ledgerguard",
   "alwaysgeeky",
@@ -28,11 +26,6 @@ const WITH_HERO: ReadonlySet<string> = new Set([
   "mapbylaw",
 ]);
 
-/**
- * Section anchors from before the case studies took the design kit's ids (#241), as
- * `<project>-<key>`, and the chapter each one now lands on. Interface evidence exists only on the
- * case studies with screenshots.
- */
 const LEGACY_SECTION_ANCHORS = {
   context: "context",
   problem: "problem",
@@ -60,7 +53,6 @@ const collectConsoleProblems = (page: Page) => {
   return problems;
 };
 
-/** Lazy screenshots load once scrolled near; wait until every one outside the lightboxes has. */
 const loadImages = async (page: Page) => {
   await scrollThrough(page);
   await page.waitForFunction(() =>

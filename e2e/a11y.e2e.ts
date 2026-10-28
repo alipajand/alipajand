@@ -30,11 +30,9 @@ const DISABLED_RULES: string[] = [];
 interface KnownFinding {
   id: string;
   rule: string;
-  /** Matches the flagged element (or an ancestor) in the page. */
   within: string;
   reason: string;
   owner: string;
-  /** Scan labels where the finding still reproduces. */
   seenIn: string[];
 }
 
@@ -43,7 +41,6 @@ const KNOWN_FINDINGS: KnownFinding[] = [];
 type BrowserName = "chromium" | "webkit";
 const BROWSERS: readonly BrowserName[] = ["chromium", "webkit"];
 
-/** A page in Chromium (the configured browser) or Playwright WebKit, launched once per worker. */
 const test = base.extend<
   { openPage: (name: BrowserName, options?: BrowserContextOptions) => Promise<Page> },
   { webkit: () => Promise<Browser> }
@@ -73,7 +70,6 @@ const test = base.extend<
   },
 });
 
-/** The finding that covers every flagged element of a violation, if one does. */
 const coveredByFinding = async (
   page: Page,
   violation: { id: string; targets: string[] },
@@ -89,10 +85,6 @@ const coveredByFinding = async (
   return covered ? finding.id : null;
 };
 
-/**
- * Runs axe and returns what must be empty: violations no finding covers, and findings listed for
- * this scan that no longer reproduce.
- */
 const scan = async (
   page: Page,
   label: string,

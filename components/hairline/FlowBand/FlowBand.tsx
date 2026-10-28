@@ -11,20 +11,13 @@ import { useMotion } from "utils/motion/useMotion";
 import type { FlowDiagramSpec } from "utils/diagramBlocks";
 
 interface FlowBandProps extends Omit<FlowDiagramSpec, "type"> {
-  /** The chapter this band follows; the chapter rail treats the band as part of it. */
   chapterId: string;
-  /** Accessible name of the band, usually "<chapter> diagram". */
   label: string;
-  /** Head label, such as "Diagram · Approach". */
   eyebrow?: string;
 }
 
 const MIN_LABEL_SIZE = 14;
 
-/**
- * A long single word can outgrow a flow column. Shrink the step labels together until each fits;
- * the caller only refits when the list's width changes or fonts finish loading.
- */
 const fitLabels = (labels: HTMLElement[]) => {
   if (labels.length === 0) return;
   labels.forEach((label) => {
@@ -42,12 +35,6 @@ const fitLabels = (labels: HTMLElement[]) => {
   labels.forEach((label) => (label.style.overflowWrap = ""));
 };
 
-/**
- * A numbered process on a full-bleed bone band, placed after the chapter it illustrates. Steps
- * stack on narrow screens and become columns once the band is 1000px wide. As the band crosses the
- * screen the current step inverts and passed steps keep a check; reduced motion shows every step
- * as passed.
- */
 export const FlowBand = ({
   chapterId,
   label,

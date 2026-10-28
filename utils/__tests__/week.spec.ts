@@ -1,6 +1,5 @@
 import { WEEKS_IN_RULER, weekOfYear } from "utils/week";
 
-/** Every hour of `year` in local time, with its zero-based local day of the year. */
 const hoursOf = (year: number) => {
   const hours: { date: Date; day: number }[] = [];
   for (let day = 0; new Date(year, 0, 1 + day).getFullYear() === year; day++) {

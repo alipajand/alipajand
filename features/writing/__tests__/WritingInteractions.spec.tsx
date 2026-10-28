@@ -33,7 +33,6 @@ const HEADINGS: PostHeading[] = [
 
 let frames: ReturnType<typeof installManualFrames>;
 
-/** Lays the headings out at fixed offsets from the viewport top. */
 const Article = ({ tops }: { tops: number[] }) => (
   <div data-prose="">
     {HEADINGS.map((heading, index) => {

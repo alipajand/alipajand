@@ -9,7 +9,6 @@ const getQuery = (): MediaQueryList | null =>
 
 export const prefersReducedMotion = (): boolean => getQuery()?.matches ?? false;
 
-/** Calls `listener` whenever the operating-system motion setting changes. */
 export const subscribeReducedMotion = (listener: (reduce: boolean) => void): (() => void) => {
   const query = getQuery();
   if (!query) return () => {};
@@ -18,10 +17,6 @@ export const subscribeReducedMotion = (listener: (reduce: boolean) => void): (()
   return () => query.removeEventListener("change", onChange);
 };
 
-/**
- * Live reduced-motion preference. The server snapshot is `false`, so motion islands render their
- * still state in markup and only start moving after hydration confirms the preference.
- */
 export const useReducedMotion = (): boolean =>
   useSyncExternalStore(
     (onStoreChange) => subscribeReducedMotion(onStoreChange),

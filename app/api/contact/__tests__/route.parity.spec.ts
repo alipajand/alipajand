@@ -29,7 +29,6 @@ function clientAccepts(values: ContactFormValues): boolean {
   );
 }
 
-/** The body the form sends (see `useContactForm`). */
 function serverBody(values: ContactFormValues) {
   return {
     name: values.name.trim(),

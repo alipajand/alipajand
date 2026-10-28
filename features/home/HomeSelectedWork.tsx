@@ -20,7 +20,6 @@ import {
 
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
-/** "LedgerGuard — Full-Stack AI Contract Intelligence" → name and subtitle. */
 const splitTitle = (title: string): [string, string | undefined] => {
   const [name, ...rest] = title.split(" — ");
   return [name, rest.length > 0 ? rest.join(" — ") : undefined];

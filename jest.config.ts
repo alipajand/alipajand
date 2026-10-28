@@ -27,10 +27,6 @@ const config: Config = {
   },
 };
 
-/**
- * ESM-only packages under `sanitize-html` (used by the build-time post sanitiser). `next/jest`
- * leaves all of `node_modules` untransformed, so these are let through to its SWC transform.
- */
 const ESM_PACKAGES = [
   "htmlparser2",
   "domhandler",

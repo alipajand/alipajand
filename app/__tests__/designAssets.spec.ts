@@ -4,13 +4,6 @@ import { createHash } from "node:crypto";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 
-/**
- * Guards for the screenshots shipped in `public/portfolio-media` and the design artifacts in
- * `docs/design`. The production dashboards were redacted before release, and the design kit
- * copies were regenerated from the redacted files. These tests stop an unredacted copy, or a
- * file derived byte-for-byte from one, from coming back by accident.
- */
-
 const ROOT = join(__dirname, "..", "..");
 const DESIGN = join(ROOT, "docs", "design");
 const MEDIA = join(ROOT, "public", "portfolio-media");
@@ -23,7 +16,6 @@ const filesUnder = (dir: string): string[] =>
     return entry.isDirectory() ? filesUnder(path) : [path];
   });
 
-/** SHA-256 of every file in `public/portfolio-media`, as approved on `main`. */
 const PORTFOLIO_MEDIA: Record<string, string> = {
   "alwaysgeeky-login.png": "edd769a8da1d188a0a5efd17ca33c0a7cb554542e3b9d830dbc68dca8ce99b73",
   "alwaysgeeky-marketplace.png": "00e2baf7cb8ef834da027574d846f1c5c65e0d3e8c1bdb1e533b44994865d72a",
@@ -43,10 +35,6 @@ const PORTFOLIO_MEDIA: Record<string, string> = {
   "tallyfolio-landing.png": "a5f69787ab75d7e866ee5fd5fe53bf3423c27f0641ea7906758f7f679e723003",
 };
 
-/**
- * SHA-256 of images that show the owner's login identity in a dashboard account row. They are
- * still in git history (see docs/decisions/open.md); none may return to the tree.
- */
 const UNREDACTED_IMAGES: Record<string, string> = {
   "public/portfolio-media/mapbylaw-dashboard.png (original capture)":
     "36794cbb9bf88a34451475dbef65786b4aa36f11fc729177f1eda3a5059458c5",
@@ -77,7 +65,6 @@ const UNREDACTED_IMAGES: Record<string, string> = {
 const DATA_URI = /data:image\/[a-z0-9.+-]+;base64,([A-Za-z0-9+/=\s]+)/gi;
 const TEXT_FILE = /\.(html?|md|css|js|mjs|json|svg)$/i;
 
-/** Every file under docs/design, plus every base64 image embedded in a text file there. */
 const designPayloads = (): Array<{ where: string; hash: string }> =>
   filesUnder(DESIGN).flatMap((path) => {
     const where = relative(ROOT, path);
@@ -135,7 +122,6 @@ describe("docs/design assets", () => {
 describe("docs/design pages", () => {
   const PAGES = join(DESIGN, "pages");
   const ATTRIBUTE = /\b(?:src|href)\s*=\s*(["'])(.*?)\1/gi;
-  /** External, in-page, generated (template or build placeholder) and inline references. */
   const NOT_A_FILE = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#|\$\{|@@)|\$\{/i;
 
   const pages = readdirSync(PAGES)

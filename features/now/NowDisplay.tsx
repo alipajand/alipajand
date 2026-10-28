@@ -6,7 +6,6 @@ interface NowDisplayProps {
   year: number;
 }
 
-/** The page title as the display line: "Now", the spark, then the current year. */
 export const NowDisplay = ({ year }: NowDisplayProps) => (
   <div className={styles.display}>
     <DisplayWord

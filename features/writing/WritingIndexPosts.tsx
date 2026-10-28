@@ -8,7 +8,6 @@ interface WritingIndexPostsProps {
   lanes: readonly TopicLane[];
 }
 
-/** "All posts": the topic filters and every post, newest first. */
 export const WritingIndexPosts = ({ posts, lanes }: WritingIndexPostsProps) => (
   <section id="posts" aria-labelledby="posts-title">
     <SectionHead title={WRITING_ALL_POSTS_HEADING} titleId="posts-title" />

@@ -13,20 +13,13 @@ export interface ScreenshotFrameProps {
   alt: string;
   width: number;
   height: number;
-  /** Bold lead of the caption; also the window title and the dialog title. */
   captionLead: string;
   captionBody?: string;
-  /** Host shown in the window bar: the host the captured page was served from. */
   host: string;
-  /** Short provenance note shown after the caption, such as "Sample data". */
   provenance?: string;
-  /** Rows of empty browser chrome at the top of the source image, hidden inside the window. */
   trimTop?: number;
-  /** `side` puts the caption in a column beside the image on wide screens. */
   layout?: "stacked" | "side";
-  /** The hero shot starts tipped back and flattens as the page scrolls. */
   tilt?: boolean;
-  /** Load eagerly with high priority; only for the first screenshot on the page. */
   priority?: boolean;
   sizes?: string;
   enlargeLabel?: string;
@@ -35,23 +28,12 @@ export interface ScreenshotFrameProps {
 
 const trimStop = (text: string) => text.replace(/\.$/, "");
 
-/**
- * The enlarged image's rendered width: the dialog is 96vw up to 1600px, and the image inside never
- * drops below 900px (narrower screens pan it). Below 937px that floor is wider than 96vw, so a plain
- * `96vw` asked for a candidate two to three times too small and the enlargement was blurrier than
- * the inline shot.
- */
 const DIALOG_IMAGE_SIZES = "(max-width: 937px) 900px, (min-width: 1667px) 1600px, 96vw";
 
-/** Pointer easing per 60 Hz frame and the tilt formula from the design kit's case-study script. */
 const POINTER_EASE = 0.08;
 const tiltTransform = (flatness: number, x: number, y: number) =>
   `rotateX(${((1 - flatness) * 14 - y * 4).toFixed(2)}deg) rotateY(${(x * 5).toFixed(2)}deg) scale(${(0.94 + flatness * 0.06).toFixed(3)})`;
 
-/**
- * A product screenshot in a hairline browser window. Clicking it opens the full-size image in a
- * native modal `<dialog>`, which handles focus and Escape; closing returns focus to the opener.
- */
 export const ScreenshotFrame = ({
   src,
   alt,
