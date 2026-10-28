@@ -17,7 +17,7 @@ import { proseSegments } from "features/writing/proseHtml";
 import { extractDiagramBlocks } from "utils/diagramBlocks";
 import { addHeadingIds } from "utils/headings";
 import { renderPostHtml } from "utils/posts";
-import { isAllowedUrl, sanitizePostHtml } from "utils/sanitizePostHtml";
+import { IMAGE_SCHEMES, isAllowedUrl, sanitizePostHtml } from "utils/sanitizePostHtml";
 
 const html = (markdown: string): string => renderPostHtml(markdown).html.trim();
 
@@ -130,6 +130,22 @@ describe("sanitizePostHtml", () => {
         '<p><img src="/a.png" alt="Alt" title="T" /></p>\n' +
           '<figure class="article-launch-poster"><img src="https://example.com/b.png" width="10" height="20" ' +
           'alt="B" loading="lazy" decoding="async" /><figcaption>Cap</figcaption></figure>'
+      );
+    });
+
+    // A plain-http image is mixed content on an https page, and its request can be read or swapped
+    // in transit. Relative sources stay allowed.
+    it("should drop an http image source and keep https and relative ones", () => {
+      expect(
+        html(
+          '<img src="http://example.com/a.png" alt="A" />\n\n' +
+            '<img src="HTTP://example.com/b.png" alt="B" />\n\n' +
+            '<img src="https://example.com/c.png" alt="C" />\n\n' +
+            '<img src="/d.png" alt="D" />\n'
+        )
+      ).toBe(
+        '<img alt="A" /><img alt="B" />' +
+          '<img src="https://example.com/c.png" alt="C" /><img src="/d.png" alt="D" />'
       );
     });
 
@@ -342,8 +358,10 @@ describe("sanitizePostHtml", () => {
       expect(isAllowedUrl(url, LINK)).toBe(false);
     });
 
-    it("should limit images to http and https", () => {
-      expect(isAllowedUrl("mailto:me@example.com", ["http", "https"])).toBe(false);
+    it("should limit images to https", () => {
+      expect(isAllowedUrl("mailto:me@example.com", IMAGE_SCHEMES)).toBe(false);
+      expect(isAllowedUrl("http://example.com/a.png", IMAGE_SCHEMES)).toBe(false);
+      expect(isAllowedUrl("https://example.com/a.png", IMAGE_SCHEMES)).toBe(true);
     });
   });
 });
