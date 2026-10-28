@@ -56,9 +56,6 @@ const test = base.extend<
     },
     { scope: "worker" },
   ],
-  // Contexts made here sit outside the configured `trace` option. WebKit ones record a trace that
-  // is kept in test-results/ (uploaded by CI) only when the test fails, so an intermittent WebKit
-  // failure leaves evidence (see docs/decisions/open.md).
   openPage: async ({ browser, webkit, baseURL }, provide, testInfo) => {
     const contexts: { context: BrowserContext; traced: boolean }[] = [];
     await provide(async (name, options) => {
