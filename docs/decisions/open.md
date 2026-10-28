@@ -65,7 +65,12 @@ They are still reachable in git history and old PR refs.
 - **Recommended:** accept what remains in history (no rewrite). Switch future commits to the GitHub
   noreply address.
 - **Also to decide:** whether to change the exposed product sign-in emails and the workspace name;
-  whether to delete old Vercel deployments that still serve the original images.
+  whether to delete old Vercel deployments that still serve the original images (about 70, behind
+  Vercel sign-in). The login email is already in every commit header that uses it, so renaming the
+  workspace does more than changing the logins.
+- **Outside the repository:** the private design previews linked from `docs/design/README.md`
+  (MapBylaw) and from #214 (concepts A, B and C) still embed the original dashboards. Republish them
+  from the current pages, or delete them.
 - **Alternative:** a one-off history rewrite plus a GitHub Support purge. This changes every SHA,
   breaks open PRs and clones, and cannot reach copies that already exist elsewhere.
 
@@ -84,7 +89,19 @@ They are still reachable in git history and old PR refs.
 - Case studies: breadcrumb label "Case studies" vs the design's "Portfolio", and whether live links
   open in a new tab.
 
+## Branch protection
+
+The `main` ruleset does not require branches to be up to date before merging. #285 merged on
+checks from a base without #272 and turned `main` red until #290.
+
+- **Recommended:** require up-to-date branches, or use a merge queue.
+- **Alternative:** keep it as is and re-run checks by hand before merging.
+
 ## Technical follow-ups (no decision needed)
+
+- `designAssets.spec.ts` checks only the known originals. Scan every tracked image, including
+  `e2e/__screenshots__`, and add the hashes of the first, too-light redactions.
+- WebKit axe on the Agent Readiness Doctor post at 390 px is flaky in CI.
 
 - Webhook route: cap the body size before verifying the signature (413 above the cap).
 - Post HTML sanitiser: allow `https:` image sources only.
