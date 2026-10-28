@@ -11,10 +11,9 @@ import { launchSceneStep } from "features/writing/WritingLaunchScene";
 import { timelineReadout } from "features/writing/WritingTimeline";
 import { WRITING_POST_MCP_FIGCAPTION } from "data/writing";
 
-const post = (tags: string[], extra: Partial<{ featured: boolean; upcoming: boolean }> = {}) => ({
+const post = (tags: string[], extra: Partial<{ featured: boolean }> = {}) => ({
   tags,
   featured: false,
-  upcoming: false,
   ...extra,
 });
 
@@ -41,11 +40,10 @@ describe("writingModel", () => {
     expect(hasTopic(post([]), "all")).toBe(true);
   });
 
-  it("should feature only a published post", () => {
-    const upcoming = post([], { featured: true, upcoming: true });
-    const published = post([], { featured: true });
-    expect(pickFeatured([upcoming, published])).toBe(published);
-    expect(pickFeatured([upcoming])).toBeNull();
+  it("should feature the first featured post", () => {
+    const featured = post([], { featured: true });
+    expect(pickFeatured([post([]), featured])).toBe(featured);
+    expect(pickFeatured([post([])])).toBeNull();
   });
 
   it("should pad indexes from one", () => {
@@ -72,11 +70,11 @@ describe("writingModel", () => {
 
   it("should describe the timeline position for the readout", () => {
     const posts = [
-      { slug: "a", title: "A", tags: [], date: "2026-03-04", upcoming: false },
-      { slug: "b", title: "B", tags: [], date: "2026-10-28", upcoming: true },
+      { slug: "a", title: "A", tags: [], date: "2026-03-04" },
+      { slug: "b", title: "B", tags: [], date: "2026-10-28" },
     ];
-    expect(timelineReadout(posts, 1)).toBe("02 / 2 · Oct 28 · Upcoming");
-    expect(timelineReadout(posts, 0)).not.toContain("Upcoming");
+    expect(timelineReadout(posts, 1)).toBe("02 / 2 · Oct 28");
+    expect(timelineReadout(posts, 0)).toBe("01 / 2 · Mar 4");
   });
 
   it("should step the launch scene at the artifact's thresholds", () => {

@@ -1,7 +1,7 @@
 /** @jest-environment node */
 
 jest.mock("utils/posts", () => ({
-  getAllPosts: () => [],
+  getPublishedPosts: () => [],
 }));
 
 import sitemap from "../sitemap";

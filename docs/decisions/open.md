@@ -7,26 +7,16 @@ and `docs/audits/` before this file replaced them.
 
 ## Writing publication
 
-Recommended policy: **Draft** is never served. **Scheduled** stays hidden until 00:00
-America/Toronto on its `date`. **Published** appears on every surface: article, OG image, home,
-`/writing`, "More writing", sitemap, RSS, `llms.txt` and `llms-full.txt`. **Public preview** is opt-in
-with `preview: true`: the article and its OG image only, `noindex`, and left out of every list and
-export. The repository is public, so anything committed under `content/posts/` can be read on GitHub
-whatever the site does.
+Publication states (draft, scheduled, published, opt-in `preview: true`) are implemented in
+`utils/publication.ts` and decided at build time, so today a scheduled post goes live with the first
+deployment on or after its date. What remains is how it goes live without a deploy.
 
-| ID  | Question                                            | Recommended                                                                               | Alternatives                                                                               |
-| --- | --------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| D1  | Publication states                                  | `draft` / `scheduled` / `published` plus opt-in preview, checked at build                 | The three states without preview; or keep today (every committed post is public at deploy) |
-| D2  | List previews on `/writing`?                        | No, a preview is reachable only by its URL                                                | Keep the "Upcoming · Preview article" row for previews                                     |
-| D3  | What makes the date take effect without a deploy    | Vercel cron → `revalidatePath("/", "layout")`, with `revalidate = 86400` as a safety net  | Time-based ISR (`revalidate = 3600`); or publish only on deploy                            |
-| D4  | Which calendar decides the day                      | America/Toronto, with one `publicationInstant(date)` shared by feed, metadata and JSON-LD | UTC                                                                                        |
-| D5  | `/` and `/writing` rendering                        | Static, refreshed by D3, once D3 is proven on a preview deployment                        | Keep `force-dynamic`                                                                       |
-| P1  | Where drafts live                                   | Outside this repository until they are ready to schedule                                  | `content/posts/` with `draft: true`, accepting that GitHub shows them                      |
-| P2  | Vercel plan and cron precision                      | Confirm the plan; Hobby's `5 5 * * *` (up to about 2 h late in summer) is acceptable      | Pro with minute precision                                                                  |
-| P3  | Who creates `CRON_SECRET` and reviews `vercel.json` | The owner, before the cron PR merges; a missing secret answers 401                        | Not applicable if D3 is not the cron                                                       |
-| P4  | May a published page link to an unpublished post?   | No: a test scans post Markdown and `data/**` hrefs at the real `now`                      | Yes, accepting a 404 until the date                                                        |
-| P5  | `datePublished` format                              | The Toronto-midnight instant with offset, the same instant as the feed `pubDate`          | Date only, as today                                                                        |
-| P6  | Optional `updated:` frontmatter                     | Yes, for `dateModified`, `article:modified_time` and sitemap `lastmod`                    | No, `dateModified` always equals `datePublished`                                           |
+| ID  | Question                                            | Recommended                                                                              | Alternatives                                                    |
+| --- | --------------------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| D3  | What makes the date take effect without a deploy    | Vercel cron → `revalidatePath("/", "layout")`, with `revalidate = 86400` as a safety net | Time-based ISR (`revalidate = 3600`); or publish only on deploy |
+| D5  | `/` and `/writing` rendering                        | Already static, so every surface agrees; confirm, or ask for `force-dynamic` back        | Keep `force-dynamic` lists, which then disagree with articles   |
+| P2  | Vercel plan and cron precision                      | Confirm the plan; Hobby's `5 5 * * *` (up to about 2 h late in summer) is acceptable     | Pro with minute precision                                       |
+| P3  | Who creates `CRON_SECRET` and reviews `vercel.json` | The owner, before the cron PR merges; a missing secret answers 401                       | Not applicable if D3 is not the cron                            |
 
 ## /now ruler
 

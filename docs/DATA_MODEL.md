@@ -40,18 +40,22 @@ frontmatter with js-yaml, renders Markdown with marked and highlight.js, and san
 ```yaml
 ---
 title: string # Post title (required)
-date: string # YYYY-MM-DD, read as a Toronto calendar day (required)
+date: string # Quoted "YYYY-MM-DD"; published from 00:00 America/Toronto that day (required)
+updated: string # Optional quoted "YYYY-MM-DD", not before date; drives dateModified and lastmod
 excerpt: string # One-line summary for listings, cards and the feed (required)
 seoTitle: string # Optional page/OG/Twitter title override
 seoDescription: string # Optional page/OG/Twitter description override
 featured: boolean # Optional; pins the post on the homepage and writing index
 tags: string[] # Topic tags (optional)
+preview: boolean # Optional; serve a scheduled post at its URL, noindex and unlisted
+draft: boolean # Optional; never served. Drafts belong outside this public repository
 ---
 ```
 
 The slug is the filename without `.md`. Slugs must be stable: renaming a file breaks existing
-URLs. A post dated after today is treated as scheduled; see
-[decisions/writing-publication-policy.md](decisions/writing-publication-policy.md).
+URLs. `toPostSummary` rejects a malformed `date` or `updated`, a non-boolean flag and a draft
+that is also a preview, so a typo fails the build. Publication states are in
+`utils/publication.ts` and [ROUTES.md](ROUTES.md#page-routes).
 
 ## Key TypeScript types
 
@@ -61,11 +65,14 @@ interface Post {
   slug: string;
   title: string;
   date: string;
+  updated?: string;
   excerpt: string;
   seoTitle?: string;
   seoDescription?: string;
   featured?: boolean;
   tags?: string[];
+  draft?: true;
+  preview?: true;
   contentHtml: string;
   headings: PostHeading[];
   diagrams: DiagramSpec[];
