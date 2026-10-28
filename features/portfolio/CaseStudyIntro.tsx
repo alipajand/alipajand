@@ -3,7 +3,6 @@ import { Chev } from "components/hairline/Icons/Icons";
 import { ScreenshotFrame } from "components/hairline/ScreenshotFrame/ScreenshotFrame";
 import { Tags } from "components/hairline/Tags/Tags";
 import styles from "features/portfolio/CaseStudyIntro.module.css";
-import { EXTERNAL_LINK_NEW_TAB_HINT } from "data/pageChrome";
 import type { Project } from "data/projects";
 import {
   PROJECT_FACT_ROLE_LABEL,
@@ -38,9 +37,8 @@ const CaseStudyMeta = ({ project }: { project: Project }) => {
               <a
                 className={styles.live}
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${link.label} ${hostOf(link.href)}${EXTERNAL_LINK_NEW_TAB_HINT}`}
+                rel="noreferrer"
+                aria-label={`${link.label} ${hostOf(link.href)}`}
               >
                 {link.label} <small>{hostOf(link.href)}</small>
                 <Chev />
