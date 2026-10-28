@@ -7,7 +7,6 @@ interface DiagramHeadProps {
   label?: string;
 }
 
-/** "[ Diagram ]" on the left, the diagram's title on the right. */
 export const DiagramHead = ({ title, label = "Diagram" }: DiagramHeadProps) => (
   <figcaption className={styles.head}>
     <span>[ {label} ]</span>

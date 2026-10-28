@@ -9,10 +9,6 @@ interface CaseStudyTextSectionProps {
   index: number;
 }
 
-/**
- * Context, Problem, My role, What I built, UX decisions and What I would improve: a lead paragraph
- * or numbered points (rows, or cells for "What I built"), then any diagrams the data attaches.
- */
 export const CaseStudyTextSection = ({ section, index }: CaseStudyTextSectionProps) => (
   <CaseSection id={section.id} legacyId={section.legacyId} index={index} title={section.title}>
     {section.body.kind === "lead" ? (

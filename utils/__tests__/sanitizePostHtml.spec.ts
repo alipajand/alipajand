@@ -23,7 +23,6 @@ const html = (markdown: string): string => renderPostHtml(markdown).html.trim();
 
 const LABELS = { table: "Table", code: "Code" };
 
-/** The pipeline as it was before sanitising: diagram slots, Markdown, heading ids. */
 const unsanitised = (markdown: string): string => {
   const { markdown: withSlots } = extractDiagramBlocks(markdown);
   return addHeadingIds(marked.parse(withSlots, { async: false }) as string).html;
@@ -133,8 +132,6 @@ describe("sanitizePostHtml", () => {
       );
     });
 
-    // A plain-http image is mixed content on an https page, and its request can be read or swapped
-    // in transit. Relative sources stay allowed.
     it("should drop an http image source and keep https and relative ones", () => {
       expect(
         html(

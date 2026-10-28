@@ -1,7 +1,3 @@
-/*
- * The kit grows each case-study name until the two words and the spark fill the row. `--fit` is that
- * size as a share of the row's inner width (data/projectsDisplay.ts), so the first paint matches.
- */
 .name > div > p {
   font-size: calc(var(--fit) * (100cqi - 2 * clamp(10px, 2vw, 24px)));
 }

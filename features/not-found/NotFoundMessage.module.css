@@ -14,10 +14,6 @@
 
 .title {
   composes: display from "../../components/hairline/styles/type.module.css";
-  /*
-   * Breaks after "not" in the web font and in its narrower fallback alike, so the swap when the
-   * font arrives does not move the copy below (the artifact shows the same two lines).
-   */
   max-width: 7.5em;
   font-size: clamp(34px, 5cqi, 76px);
   line-height: 0.9;

@@ -1,4 +1,3 @@
-/* Two lines, centred at rest, parted to the edges as the page scrolls. */
 .display {
   composes: display from "../../components/hairline/styles/type.module.css";
   display: grid;

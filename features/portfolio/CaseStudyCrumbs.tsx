@@ -4,7 +4,6 @@ import styles from "features/portfolio/CaseStudyCrumbs.module.css";
 import { portfolioCaseStudyBreadcrumbs } from "data/breadcrumbs";
 import { PROJECT_BREADCRUMB_ARIA_LABEL } from "data/projectsUi";
 
-/** Mono breadcrumb line under the navigation. */
 export const CaseStudyCrumbs = ({ name }: { name: string }) => {
   const items = portfolioCaseStudyBreadcrumbs(name);
   return (

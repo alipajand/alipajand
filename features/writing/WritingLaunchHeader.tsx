@@ -15,7 +15,6 @@ interface WritingLaunchHeaderProps {
   tags: readonly string[];
 }
 
-/** The launch article's wide display title over a boxed row of date, topics and summary. */
 export const WritingLaunchHeader = ({
   titleId,
   title,

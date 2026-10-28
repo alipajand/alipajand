@@ -8,7 +8,6 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
-/* Each post is one link target: the title link stretches over the card. */
 .post {
   position: relative;
   display: flex;

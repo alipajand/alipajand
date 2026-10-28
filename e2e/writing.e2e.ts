@@ -22,7 +22,6 @@ const ROUTES = [
   ...SLUGS.map((slug) => ({ name: slug, path: `/writing/${slug}` })),
 ];
 
-/** Visual baselines: the index, the launch post and three articles covering every diagram type. */
 const VISUAL = [
   "writing",
   "agent-readiness-doctor",
@@ -92,8 +91,6 @@ for (const { name, path } of ROUTES) {
     });
 
     test("goes idle once scrolling stops when motion is paused", async ({ page }) => {
-      // Idle drift (timeline wobble, ticker drift) runs until the visitor pauses motion; with it
-      // paused, nothing may keep requesting frames after the page comes to rest.
       await page.addInitScript(() => {
         window.localStorage.setItem("motion-paused", "1");
         const original = window.requestAnimationFrame.bind(window);

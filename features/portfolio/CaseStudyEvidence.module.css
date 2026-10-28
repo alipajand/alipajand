@@ -1,4 +1,3 @@
-/* The row itself is flush; each screenshot carries the section's row padding and rule. */
 div.evidence {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

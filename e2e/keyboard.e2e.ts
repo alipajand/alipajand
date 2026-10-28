@@ -11,26 +11,9 @@ import {
 import { record } from "./evidence";
 import { settle } from "./support";
 
-/*
- * Keyboard access and focus management, in Chromium and in Playwright WebKit (not Safari):
- *
- * - On every sitemap route and the 404 page, at 320, 768 and 1024px, Tab from the top reaches every
- *   visible focusable element, no element uses a positive tabindex, and each focused element is at
- *   least partly visible (WCAG 2.4.11). At 1024px each focus on the routes listed below (every
- *   page family, including the launch article) also changes the pixels around the element, so
- *   every stop has a visible indicator (WCAG 2.4.7), whichever way it is drawn.
- * - The skip link, route changes and the 404 page move focus to <main>.
- * - The site menu and the screenshot dialog take focus, keep it, close on Escape and give it back,
- *   and the dialog leaves the page where it was.
- *
- * WebKit's Tab skips links unless the reader turns on "Press Tab to highlight each item", so WebKit
- * walks with Option+Tab, as Safari readers do. Keys are held for 50ms, like a real key press.
- */
-
 type BrowserName = "chromium" | "webkit";
 const BROWSERS: readonly BrowserName[] = ["chromium", "webkit"];
 
-/** A page in Chromium (the configured browser) or Playwright WebKit, launched once per worker. */
 const test = base.extend<
   { openPage: (name: BrowserName, options?: BrowserContextOptions) => Promise<Page> },
   { webkit: () => Promise<Browser> }
@@ -64,7 +47,6 @@ const KEY_HOLD = { delay: 50 };
 const tabKey = (browserName: BrowserName, shift = false) =>
   `${shift ? "Shift+" : ""}${browserName === "webkit" ? "Alt+" : ""}Tab`;
 
-/** Every non-article route the sitemap lists, one article, and a missing page. */
 const ROUTES = [
   "/",
   "/portfolio",
@@ -83,10 +65,6 @@ const ROUTES = [
   "/this-page-does-not-exist",
 ];
 
-/**
- * Marks every element a reader should be able to Tab to with `data-kb="<n>"`: rendered, not
- * disabled, not inert, and not taken out of the order with a negative tabindex.
- */
 const markTabbables = (page: Page) =>
   page.evaluate(() => {
     const selector = [
@@ -105,7 +83,6 @@ const markTabbables = (page: Page) =>
         !element.closest("[inert]") &&
         element.getClientRects().length > 0 &&
         element.checkVisibility({ visibilityProperty: true }) &&
-        // A summary is only focusable as its details' first summary.
         (element.tagName !== "SUMMARY" || element.parentElement?.tagName === "DETAILS")
     );
     elements.forEach((element, index) => element.setAttribute("data-kb", String(index)));
@@ -117,14 +94,6 @@ const markTabbables = (page: Page) =>
     };
   });
 
-/**
- * Resolves once the page has stopped scrolling with the focused control on screen. WebKit on Linux
- * animates the scroll that brings a focused control into view, under load starts it late, and now
- * and then drops it, so reading the page straight away finds the control off screen or part-way
- * in. If the control is still entirely off screen after a second, it is scrolled into view the
- * way the engine would have; one that still cannot be seen is reported as hidden. A control that
- * is on screen but covered is left where it is, so covered stops still fail.
- */
 const scrollRest = (page: Page) =>
   page.evaluate(async () => {
     const frame = () => new Promise((resolve) => requestAnimationFrame(resolve));
@@ -150,7 +119,6 @@ const scrollRest = (page: Page) =>
     await rest(300);
   });
 
-/** Where focus is now: its `data-kb` index, and whether any of it is visible and uncovered. */
 const focusState = (page: Page) =>
   page.evaluate(() => {
     const active = document.activeElement as HTMLElement | null;
@@ -158,8 +126,6 @@ const focusState = (page: Page) =>
     const box = active.getBoundingClientRect();
     const vw = document.documentElement.clientWidth;
     const vh = window.innerHeight;
-    // A link that wraps has one rect per line, and its bounding box spans text that is not the
-    // link, so sample each line's own rect.
     const rects = Array.from(active.getClientRects());
     const points: [number, number][] = [];
     for (const rect of rects.length > 0 ? rects : [box])
@@ -193,12 +159,7 @@ const finishTransitions = (page: Page) =>
     )
   );
 
-/** True when the pixels around the focused element change once focus leaves it. */
 const showsFocus = async (page: Page) => {
-  // Linux WebKit scrolls a focused field only far enough to show its text, and even a full
-  // "nearest" scroll leaves the inputs' focus underline (a shadow under the border) past the
-  // viewport edge. Centre the control so the comparison asks whether it has an indicator, not
-  // where the engine stopped scrolling.
   await page.evaluate(() =>
     (document.activeElement as HTMLElement).scrollIntoView({ block: "center", inline: "nearest" })
   );
@@ -250,11 +211,6 @@ const CLEAN_WALK: WalkResult = {
   unmarked: [],
 };
 
-/**
- * Loads `path` and Tabs through it from the top. Returns what must be empty: controls Tab never
- * reached, stops that were entirely hidden or covered, stops with no visible change (checked at
- * 1024px), focus landing on something that is not a control, and positive tabindex values.
- */
 const walk = async (
   page: Page,
   browserName: BrowserName,
@@ -265,7 +221,6 @@ const walk = async (
   await page.goto(path);
   await settle(page);
   const { count, positive } = await markTabbables(page);
-  // Start from the document itself, as a reader arriving on the page does.
   await page.evaluate(() => {
     (document.activeElement as HTMLElement | null)?.blur();
     window.scrollTo(0, 0);
@@ -278,9 +233,6 @@ const walk = async (
     await page.keyboard.press(tabKey(browserName), KEY_HOLD);
     await scrollRest(page);
     const state = await focusState(page);
-    // Past the last control focus goes to the browser's own controls (the body, to the page), then
-    // back to the first. A page that focused its content on load starts mid-way, so keep going
-    // round until a control comes up a second time.
     if (!state) continue;
     if (state.index === null) {
       unmarked.push(state.describe);
@@ -333,7 +285,6 @@ for (const browserName of BROWSERS) {
         const page = await openPage(browserName, { viewport: viewportFor(width) });
         const failures: Record<string, WalkResult> = {};
         for (const path of articles) {
-          // The focus indicator is checked on the launch article above; articles share its parts.
           const result = await walk(page, browserName, path, width, false);
           if (JSON.stringify(result) !== JSON.stringify(CLEAN_WALK)) failures[path] = result;
         }
@@ -365,7 +316,6 @@ for (const browserName of BROWSERS) {
       await expect(page).toHaveURL(/\/writing$/);
       await expect(page.locator("#main-content")).toBeFocused();
       expect(await page.evaluate(() => window.scrollY)).toBe(0);
-      // The next Tab continues from the top of the new page's content, not the old link.
       await page.keyboard.press(tabKey(browserName), KEY_HOLD);
       const next = await page.evaluate(
         () =>
@@ -391,7 +341,6 @@ for (const browserName of BROWSERS) {
       expect(inMain, "Tab from the focused 404 content stays in it").toBe(true);
     });
 
-    // The links fold behind the menu button at 520px and below.
     for (const width of [320, 520]) {
       test(`the site menu takes focus, closes on Escape and returns focus at ${width}px`, async ({
         openPage,
@@ -412,7 +361,6 @@ for (const browserName of BROWSERS) {
         await expect(panel).toBeHidden();
         await expect(open).toBeFocused();
 
-        // Following a menu link closes the menu and lands focus in the new page.
         await page.keyboard.press("Enter", KEY_HOLD);
         await expect(panel).toBeVisible();
         await panel.getByRole("link", { name: "Writing" }).focus();
@@ -444,9 +392,6 @@ for (const browserName of BROWSERS) {
         const pane: Locator = dialog.locator("div:has(> img)");
         await expect(close).toBeFocused();
 
-        // Tab and Shift+Tab cycle between the close button and the image, never the page behind.
-        // Past the last stop a native modal dialog hands focus to the browser's own controls,
-        // which the page sees as the body; the next Tab comes back into the dialog.
         const stops: string[] = [];
         for (const shift of [false, false, false, true, true]) {
           await page.keyboard.press(tabKey(browserName, shift), KEY_HOLD);
@@ -462,7 +407,6 @@ for (const browserName of BROWSERS) {
         expect(stops.filter((stop) => stop.startsWith("outside"))).toEqual([]);
         expect(stops).toContain("image");
 
-        // Arrow keys pan the image when it is wider than the dialog.
         await pane.focus();
         await expect(pane).toBeFocused();
         const wide = await pane.evaluate((element) => element.scrollWidth > element.clientWidth);
@@ -479,7 +423,6 @@ for (const browserName of BROWSERS) {
         await expect(opener).toBeFocused();
         expect(await page.evaluate(() => window.scrollY)).toBe(scrollY);
 
-        // A click on the backdrop closes it too, with the same focus return and scroll position.
         await page.keyboard.press("Enter", KEY_HOLD);
         await expect(dialog).toBeVisible();
         const box = (await dialog.boundingBox())!;

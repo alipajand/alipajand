@@ -99,7 +99,6 @@ describe("NowPageContent", () => {
 
     const ruler = container.querySelector("[data-static-ruler]");
     expect(ruler?.closest("[aria-hidden='true']")).not.toBeNull();
-    // 53 tick lines bound the 52 steps, plus the baseline.
     const lines = Array.from(ruler?.querySelectorAll("line") ?? []);
     expect(lines).toHaveLength(54);
     const ticks = lines.slice(0, 53);
@@ -110,7 +109,6 @@ describe("NowPageContent", () => {
       Array.from({ length: 53 }, (_, i) => i)
     );
     expect(ruler?.textContent).toBe("Q1Q2Q3Q4");
-    // No 2D context in jsdom, so the canvas never draws and the server ruler stays in view.
     expect(ruler?.parentElement).not.toHaveAttribute("data-drawn");
   });
 
@@ -132,7 +130,6 @@ describe("NowPageContent", () => {
 
     const ruler = container.querySelector("[data-static-ruler]")?.parentElement;
     await waitFor(() => expect(ruler).toHaveAttribute("data-drawn"));
-    // The server copy is hidden in CSS, not removed, so the swap cannot move anything.
     expect(container.querySelector("[data-static-ruler]")).toBeInTheDocument();
     delete (document as { fonts?: unknown }).fonts;
   });

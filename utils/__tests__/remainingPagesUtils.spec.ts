@@ -49,7 +49,6 @@ describe("contribution snapshot", () => {
     const cells = layout.weeks.flat();
     expect(cells).toHaveLength(snapshot.counts.length);
     expect(cells.map((cell) => cell.index)).toEqual(snapshot.counts.map((_, index) => index));
-    // October 26, 2025 was a Sunday, so the first column is full.
     expect(layout.weeks[0]).toHaveLength(7);
     expect(layout.months.length).toBeGreaterThanOrEqual(11);
     expect(cells[cells.length - 1].label).toBe("Oct 27, 2026 · 42 contributions");

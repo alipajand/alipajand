@@ -1,4 +1,3 @@
-/* Stacked above the page so oversized display type below it can never swallow header clicks. */
 .nav {
   position: relative;
   z-index: 1;
@@ -48,10 +47,6 @@
   white-space: nowrap;
 }
 
-/*
- * On one row (wider than 520px) the words stay small but the tap area grows to 44px tall, inside
- * the 56px (46px from 960px down) row, without moving a pixel.
- */
 @media (min-width: 521px) {
   .links a {
     position: relative;
@@ -119,7 +114,6 @@
   animation: blink 2.4s ease-in-out infinite;
 }
 
-/* The blink is idle motion: the footer's pause control and reduced motion both stop it. */
 :global(:root[data-motion-paused]) .dot {
   animation: none;
 }
@@ -148,7 +142,6 @@
   pointer-events: none;
 }
 
-/* The disclosure only exists below 520px. */
 .menu,
 .panel {
   display: none;
@@ -283,10 +276,6 @@
   }
 }
 
-/*
- * Without scripting the disclosure button can't open, so the links stay in their second row and
- * wrap instead of folding behind it.
- */
 @media (max-width: 520px) and (scripting: none) {
   .links {
     display: flex;
@@ -299,7 +288,6 @@
     gap: 0 18px;
   }
 
-  /* Each link keeps a 44px-tall tap area, matching the wider layouts. */
   .links a {
     display: inline-flex;
     align-items: center;

@@ -184,7 +184,6 @@ describe("RouteChangeFocus", () => {
       window.history.replaceState(null, "", "/writing");
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
-    // A link navigation updates the address before its route renders.
     window.history.replaceState(null, "", "/now");
     usePathname.mockReturnValue("/now");
 
@@ -206,12 +205,10 @@ describe("RouteChangeFocus", () => {
     usePathname.mockReturnValue("/writing/post");
     const { rerender } = render(<RouteChangeFocus />);
 
-    // A link to /writing has pushed its address; Back is pressed before /writing renders.
     act(() => {
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
 
-    // /writing still commits, for an address the browser has already left, then the post again.
     usePathname.mockReturnValue("/writing");
     act(() => {
       rerender(<RouteChangeFocus />);

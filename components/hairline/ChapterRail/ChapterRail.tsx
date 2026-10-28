@@ -19,16 +19,8 @@ interface ChapterRailProps {
 
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
-/** Input that means the visitor is scrolling the page themselves. */
 const VISITOR_SCROLL_EVENTS = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
 
-/**
- * Sticky table of contents across the top of a case study. The chapter under the top third of the
- * screen is marked current and scrolled into view in the rail; a hairline shows overall progress.
- * After a jump to a chapter (a rail link, a deep link, Back or Forward) that chapter stays marked
- * until the visitor scrolls, even if it is too short to reach the top third or the page bottoms out
- * before it reaches the top. Without JavaScript it is a plain list of in-page links.
- */
 export const ChapterRail = ({ chapters, label }: ChapterRailProps) => {
   const ref = useRef<HTMLElement>(null);
 
@@ -38,7 +30,6 @@ export const ChapterRail = ({ chapters, label }: ChapterRailProps) => {
       const list = element.querySelector("ol");
       const links = Array.from(element.querySelectorAll<HTMLAnchorElement>("a"));
       const sections = chapters.map((chapter) => document.getElementById(chapter.id));
-      // A full-bleed band that belongs to a chapter (such as its flow diagram) counts as that chapter.
       const bands = chapters.map((chapter) =>
         document.querySelector<HTMLElement>(`[data-chapter-for="${chapter.id}"]`)
       );
@@ -47,7 +38,6 @@ export const ChapterRail = ({ chapters, label }: ChapterRailProps) => {
       if (!list || !first || !last) return;
       let current = -1;
 
-      // Set by a jump, cleared by the visitor's own scrolling.
       let jumped = true;
       const onJump = () => {
         jumped = true;
@@ -61,7 +51,6 @@ export const ChapterRail = ({ chapters, label }: ChapterRailProps) => {
         if (link) onJump();
       };
 
-      /** The chapter the last jump went to, while the page still sits where that jump put it. */
       const jumpedChapter = (y: number, vh: number, max: number) => {
         if (!jumped || !window.location.hash) return -1;
         let target: HTMLElement | null = null;

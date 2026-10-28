@@ -13,7 +13,6 @@ interface CaseStudyRelatedProps {
   index: number;
 }
 
-/** An internal page shows its kind over its title; an external one shows its label over its host. */
 const RelatedLink = ({ link }: { link: ProjectLink }) => {
   if (link.href.startsWith("/")) {
     return (
@@ -42,7 +41,6 @@ const RelatedLink = ({ link }: { link: ProjectLink }) => {
   );
 };
 
-/** Related work: writing and pages about the project, then its live links. */
 export const CaseStudyRelated = ({ projectName, section, index }: CaseStudyRelatedProps) => (
   <CaseSection id={section.id} legacyId={section.legacyId} index={index} title={section.title}>
     <div>

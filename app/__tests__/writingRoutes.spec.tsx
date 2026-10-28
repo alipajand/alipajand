@@ -9,7 +9,6 @@ import { getAllPosts, getPostBySlug, getPublishedPosts } from "utils/posts";
 import { isPublished, publicationTimestamp } from "utils/publication";
 import { installMatchMedia, installObservers } from "utils/motion/testEnvironment";
 
-// The parser ships as ESM only; its UMD build is the same code in a form Jest can load.
 jest.mock("marked", () =>
   jest.requireActual(
     jest

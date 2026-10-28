@@ -2,7 +2,6 @@ import type { ContributionSnapshot } from "data/openSourceActivity";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
-/** Grid geometry of the contribution calendar, in SVG user units. */
 export const CALENDAR_PITCH = 15;
 export const CALENDAR_CELL = 12;
 export const CALENDAR_LEFT = 30;
@@ -61,7 +60,6 @@ export interface CalendarCell {
   y: number;
   level: number;
   count: number;
-  /** "Oct 20, 2026 · 574 contributions", for the readout under the calendar. */
   label: string;
 }
 
@@ -73,10 +71,6 @@ export interface CalendarLayout {
   weekdays: { y: number; label: string }[];
 }
 
-/**
- * One column per week, Sunday at the top, like GitHub's calendar. Month labels sit over the week that
- * holds the 1st (skipping the last, partial column); Mon, Wed and Fri label the rows.
- */
 export const calendarLayout = (snapshot: ContributionSnapshot): CalendarLayout => {
   const lead = dayOfSnapshot(snapshot, 0).getUTCDay();
   const weekCount = Math.ceil((snapshot.counts.length + lead) / 7);
@@ -118,7 +112,6 @@ export const calendarLayout = (snapshot: ContributionSnapshot): CalendarLayout =
   };
 };
 
-/** Contributions per calendar month, oldest first, for the text alternative to the graph. */
 export const monthlyContributions = (
   snapshot: ContributionSnapshot
 ): { month: string; total: number }[] => {

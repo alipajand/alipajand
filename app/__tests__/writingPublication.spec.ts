@@ -1,13 +1,5 @@
 /** @jest-environment node */
 
-/*
- * Pins the publication policy for posts (see utils/publication.ts). A post is a draft, scheduled
- * until 00:00 America/Toronto on its `date`, or published. Only published posts appear on any
- * list, feed, export or sitemap; a scheduled post's article and OG image answer 404 unless it
- * opts into a `noindex` preview. Every surface reads the same clock, so they agree on either side
- * of midnight.
- */
-
 jest.mock("marked", () =>
   jest.requireActual(
     jest
@@ -34,7 +26,6 @@ import {
 } from "utils/posts";
 import { isPublished, publicationInstant } from "utils/publication";
 
-// The 2026-10-28 post is the repository's scheduled fixture: Toronto midnight is 04:00 UTC (EDT).
 const SCHEDULED = "preparing-integrations-for-anthropic-and-cursor-directories";
 const MIDNIGHT = publicationInstant("2026-10-28");
 const BEFORE = new Date(MIDNIGHT.getTime() - 1);
@@ -44,7 +35,6 @@ afterEach(() => {
   jest.useRealTimers();
 });
 
-/** Whether each public surface shows the post at `now`, read through its real entry point. */
 const surfaces = async (slug: string, now: Date) => {
   jest.useFakeTimers().setSystemTime(now);
   const url = `${CANONICAL_URL}/writing/${slug}`;
@@ -99,7 +89,6 @@ describe("writing publication policy", () => {
     expect(params).toHaveLength(getAllPosts().filter((post) => !post.draft).length);
   });
 
-  // P4: a link from a published page to an unpublished post is a 404 until that post's date.
   it("should not link from a published page to a post that is not published yet", () => {
     const now = new Date();
     const published = new Set(getPublishedPosts(now).map((post) => post.slug));

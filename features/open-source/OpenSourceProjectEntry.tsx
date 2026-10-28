@@ -25,11 +25,6 @@ interface OpenSourceProjectEntryProps {
   index: number;
 }
 
-/**
- * One project: a sticky side with the numeral, name, release, format and repository link, and a
- * main column with the summary, install command, why it matters, what it demonstrates and related
- * writing.
- */
 export const OpenSourceProjectEntry = ({ project, index }: OpenSourceProjectEntryProps) => {
   const slug = openSourceProjectSlug(project.title);
   const titleId = `${slug}-t`;

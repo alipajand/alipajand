@@ -8,11 +8,6 @@
   height: 132px;
 }
 
-/*
- * The server-drawn ruler, laid over the canvas with the canvas's geometry: 24px side margins, the
- * baseline 26px above the bottom, ticks up to 46px above it, the cursor from 44px down to 8px below
- * the baseline. Hidden, not removed, once the canvas has drawn, so the swap moves nothing.
- */
 .static {
   position: absolute;
   inset: 0;
@@ -65,11 +60,6 @@
   composes: mono from "../../components/hairline/styles/type.module.css";
   position: absolute;
   top: 14px;
-  /*
-   * Server position of this week's cursor, kept far enough from each edge that the whole label stays
-   * inside the ruler (mono glyphs are 1ch wide plus the 0.08em tracking, plus 8px padding a side).
-   * The island replaces it with the drawn cursor's x.
-   */
   --label-half: calc(var(--label-chars) * (1ch + 0.08em) / 2 + 8px);
   left: clamp(
     var(--label-half),

@@ -9,10 +9,8 @@ import { escapeHtml } from "utils/escapeHtml";
 import { readLimitedText } from "utils/readLimitedText";
 import { getFromEmail, getResend, getToEmail } from "utils/resend";
 
-/** Generous for a contact message; caps what one request can make the server buffer. */
 const MAX_BODY_BYTES = 64 * 1024;
 
-/** The body as a JSON object, or null when it is not valid JSON or not an object. */
 function parseJsonObject(raw: string): Record<string, unknown> | null {
   try {
     const value: unknown = JSON.parse(raw);
@@ -25,8 +23,6 @@ function parseJsonObject(raw: string): Record<string, unknown> | null {
 }
 
 export async function POST(request: Request) {
-  // A JSON content type cannot be sent cross-site without a CORS preflight, which
-  // this route does not grant, so plain HTML forms on other origins are refused.
   const contentType = request.headers.get("content-type") ?? "";
   if (!/^application\/json\s*(;|$)/i.test(contentType.trim())) {
     return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
@@ -41,7 +37,6 @@ export async function POST(request: Request) {
     if (!body) return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
     const { name, email, message } = body;
 
-    // The name lands in the subject line, so it is collapsed to a single line.
     const n = typeof name === "string" ? normalizeContactName(name) : "";
     const e = typeof email === "string" ? email.trim() : "";
     const m = typeof message === "string" ? message.trim() : "";
@@ -74,8 +69,6 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      // Only the error code and status are logged: the provider's message can quote the visitor's,
-      // the sender's or the recipient's address, and none of it is shown to the visitor.
       console.error("Contact email send failed", {
         name: error.name,
         statusCode: error.statusCode,

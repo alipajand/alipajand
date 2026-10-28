@@ -38,10 +38,6 @@ const focusField = (event: MouseEvent<HTMLAnchorElement>) => {
   field.focus();
 };
 
-/**
- * The contact form. Validation and submission live in `useContactForm`; this component
- * only renders the fields, the linked error summary and the status line.
- */
 export const ContactForm = () => {
   const {
     selectors: {
@@ -63,9 +59,6 @@ export const ContactForm = () => {
     { id: "contact-message", message: errors.message?.message },
   ].filter((item): item is { id: string; message: string } => Boolean(item.message));
 
-  // Without JavaScript (or before hydration) the browser submits natively. POST keeps the fields
-  // out of the URL, history and request logs; the home page answers it like a GET and ignores the
-  // body, so nothing is sent. The API stays JSON-only.
   return (
     <form
       id="contact-form"
@@ -202,7 +195,6 @@ export const ContactForm = () => {
           <p id="contact-message-hint" className={styles.hint}>
             {CONTACT_FIELD_MESSAGE_HINT}
           </p>
-          {/* Read with the field through aria-describedby, not announced on every keystroke. */}
           <p
             id="contact-message-count"
             className={styles.count}

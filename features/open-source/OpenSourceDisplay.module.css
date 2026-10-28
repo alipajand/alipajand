@@ -1,7 +1,3 @@
-/*
- * The shared display word at the size the artifact settles on: its 10.4cqi line is scaled down by the
- * title-fit script until both words fit, which lands at 9.5cqi (9.26cqi on phones).
- */
 .display > p {
   font-size: 9.5cqi;
 }

@@ -50,12 +50,10 @@ export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
 
 export const HOMEPAGE_WRITING_HEADING = "Writing";
 
-/** Display line under the navigation. The `<h1>` stays the positioning line above. */
 export const HOMEPAGE_DISPLAY_WORDS = ["Ali", "Pajand"] as const;
 
 export const HOMEPAGE_PROOF_ARIA_LABEL = "At a glance";
 
-/** Layers drawn in the hero cross-section, top to bottom. */
 export const HOME_STRATA_LAYERS = [
   { name: "Interface", stack: "React · Next.js · TypeScript" },
   { name: "Design system", stack: "Component APIs · a11y · Storybook" },
@@ -64,7 +62,6 @@ export const HOME_STRATA_LAYERS = [
   { name: "Workers", stack: "Redis/BullMQ · background jobs" },
 ] as const;
 
-/** Phrases in the ticker under the proof row: the five capability areas. */
 export const HOMEPAGE_CAPABILITY_TICKER = [
   "Frontend architecture",
   "Design systems & UI engineering",
@@ -73,7 +70,6 @@ export const HOMEPAGE_CAPABILITY_TICKER = [
   "Performance & observability",
 ] as const;
 
-/** Phrases in the ticker above the open-source section. */
 export const HOMEPAGE_TOOLING_TICKER = [
   "Deterministic rules",
   "Human review in charge",
@@ -83,10 +79,8 @@ export const HOMEPAGE_TOOLING_TICKER = [
 
 export const HOMEPAGE_ABOUT_EYEBROW = "[ About ]";
 
-/** Labels above each About paragraph, in order. */
 export const HOMEPAGE_ABOUT_LABELS = ["Start", "Scope", "Strength", "Leadership"] as const;
 
-/** Index of the About paragraph repeated as the pull quote. */
 export const HOMEPAGE_ABOUT_PULL_INDEX = 2;
 
 export const HOMEPAGE_CONTACT_EYEBROW = "[ Contact ]";

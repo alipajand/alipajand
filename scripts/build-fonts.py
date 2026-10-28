@@ -38,7 +38,6 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "app", "fonts")
 GEIST_MONO = os.path.join(ROOT, "node_modules", "geist", "dist", "fonts", "geist-mono", "GeistMono-Variable.woff2")
 
-# Google Fonts "latin" unicode-range, plus the symbol blocks (U+2100-27FF) Geist Mono covers.
 LATIN = (
     list(range(0x0000, 0x0100))
     + [0x0131, 0x0152, 0x0153, 0x02BB, 0x02BC, 0x02C6, 0x02DA, 0x02DC, 0x0304, 0x0308, 0x0329]
@@ -47,13 +46,10 @@ LATIN = (
 )
 SYMBOLS = list(range(0x2100, 0x2800))
 
-
-# Font-wide values that subsetting and instancing recalculate from the remaining glyphs.
 FONT_WIDE_BOUNDS = {
     "head": ["xMin", "yMin", "xMax", "yMax"],
     "hhea": ["advanceWidthMax", "minLeftSideBearing", "minRightSideBearing", "xMaxExtent"],
 }
-
 
 def save(font, source_path, name):
     source = TTFont(source_path)
@@ -67,7 +63,6 @@ def save(font, source_path, name):
     path = os.path.join(OUT, name)
     font.save(path)
     print(f"{name}: {os.path.getsize(path)} bytes")
-
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -88,12 +83,11 @@ def main():
     options.name_languages = ["*"]
     options.notdef_outline = True
     options.hinting = True
-    options.glyph_names = True  # keep post format 2 like the source; format 3 changes 1x rendering
+    options.glyph_names = True
     subsetter = subset.Subsetter(options)
     subsetter.populate(unicodes=LATIN + SYMBOLS)
     subsetter.subset(mono)
     save(mono, args.geist_mono, "GeistMono-Latin.woff2")
-
 
 if __name__ == "__main__":
     main()

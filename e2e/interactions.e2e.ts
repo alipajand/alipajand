@@ -3,11 +3,6 @@ import { expect, type Page, test } from "@playwright/test";
 import { capture, record } from "./evidence";
 import { AUDIT_ROUTES, CASE_STUDY_SLUGS, horizontalOverflow, settle } from "./support";
 
-/*
- * Touch and keyboard interactions on emulated phones and tablets: screenshot dialogs, the article
- * contents, the case-study chapter rail, the writing filters, and sticky positioning.
- */
-
 const PHONE = { width: 390, height: 844 };
 const TABLET = { width: 768, height: 1024 };
 const TABLET_LANDSCAPE = { width: 1024, height: 768 };
@@ -23,10 +18,6 @@ const touchContext = (viewport: { width: number; height: number }) => ({
 const name = (viewport: { width: number; height: number }) =>
   `${viewport.width}x${viewport.height}`;
 
-/*
- * Case studies that show product screenshots. Emplifi, ControlTech and Agent tooling have none,
- * so the smoke tests cover them and this list must grow when one gains a screenshot.
- */
 const DIALOG_SLUGS = ["ledgerguard", "tallyfolio", "alwaysgeeky", "mapbylaw"] as const;
 
 test("the screenshot list matches the case studies that have screenshots", async ({ page }) => {
@@ -71,7 +62,6 @@ test.describe("screenshot dialogs", () => {
           return {
             dialogInside:
               box.left >= -1 && box.top >= -1 && box.right <= vw + 1 && box.bottom <= vh + 1,
-            // The enlarged image keeps a 900px minimum so text stays legible; narrower screens pan it.
             imageWidth: Math.round(image.width),
             pansSideways: frame.scrollWidth > frame.clientWidth,
             panReachable:
@@ -85,7 +75,6 @@ test.describe("screenshot dialogs", () => {
         });
         await capture(page, `dialog-${slug}__${name(viewport)}`);
 
-        // Focus starts in the dialog and Tab never reaches the page behind it.
         expect(await dialog.evaluate((element) => element.contains(document.activeElement))).toBe(
           true
         );
@@ -100,7 +89,6 @@ test.describe("screenshot dialogs", () => {
           if (outside) escaped.push(outside);
         }
 
-        // Background scroll while open: recorded, since the native dialog does not lock it.
         const scrollBefore = await page.evaluate(() => window.scrollY);
         await page.mouse.wheel(0, 400);
         await page.waitForTimeout(200);
@@ -125,7 +113,6 @@ test.describe("screenshot dialogs", () => {
         await expect(dialog).toBeHidden();
         await expect(opener).toBeFocused();
 
-        // The close button and a click on the backdrop close it too.
         await opener.click();
         await expect(page.locator("dialog[open]")).toBeVisible();
         await page.locator("dialog[open]").getByRole("button").first().click();
@@ -261,7 +248,6 @@ test.describe("writing filters", () => {
   }
 });
 
-/** Scrolls each sticky element's container past the top and checks it pins, uncovered. */
 const auditSticky = (page: Page) =>
   page.evaluate(async () => {
     const sleep = () =>

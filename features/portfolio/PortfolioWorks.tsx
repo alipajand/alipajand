@@ -10,7 +10,6 @@ import { getDedicatedCaseStudyProjects } from "utils/projects";
 const MAX_TAGS = 5;
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
-/** "Independent / Ongoing" and "2018–2022" → the stacked mono role lines. */
 const roleLines = (project: Project) => [
   ...project.role.split(" / "),
   ...(project.timeframe ? [project.timeframe.replace("–", " — ")] : []),

@@ -13,20 +13,13 @@ export interface ScreenshotFrameProps {
   alt: string;
   width: number;
   height: number;
-  /** Bold lead of the caption; also the window title and the dialog title. */
   captionLead: string;
   captionBody?: string;
-  /** Host shown in the window bar: the host the captured page was served from. */
   host: string;
-  /** Short provenance note shown after the caption, such as "Sample data". */
   provenance?: string;
-  /** Rows of empty browser chrome at the top of the source image, hidden inside the window. */
   trimTop?: number;
-  /** `side` puts the caption in a column beside the image on wide screens. */
   layout?: "stacked" | "side";
-  /** The hero shot starts tipped back and flattens as the page scrolls. */
   tilt?: boolean;
-  /** Load eagerly with high priority; only for the first screenshot on the page. */
   priority?: boolean;
   sizes?: string;
   enlargeLabel?: string;
@@ -35,23 +28,12 @@ export interface ScreenshotFrameProps {
 
 const trimStop = (text: string) => text.replace(/\.$/, "");
 
-/**
- * The enlarged image's rendered width: the dialog is 96vw up to 1600px, and the image inside never
- * drops below 900px (narrower screens pan it). Below 937px that floor is wider than 96vw, so a plain
- * `96vw` asked for a candidate two to three times too small and the enlargement was blurrier than
- * the inline shot.
- */
 const DIALOG_IMAGE_SIZES = "(max-width: 937px) 900px, (min-width: 1667px) 1600px, 96vw";
 
-/** Pointer easing per 60 Hz frame and the tilt formula from the design kit's case-study script. */
 const POINTER_EASE = 0.08;
 const tiltTransform = (flatness: number, x: number, y: number) =>
   `rotateX(${((1 - flatness) * 14 - y * 4).toFixed(2)}deg) rotateY(${(x * 5).toFixed(2)}deg) scale(${(0.94 + flatness * 0.06).toFixed(3)})`;
 
-/**
- * A product screenshot in a hairline browser window. Clicking it opens the full-size image in a
- * native modal `<dialog>`, which handles focus and Escape; closing returns focus to the opener.
- */
 export const ScreenshotFrame = ({
   src,
   alt,
@@ -101,7 +83,6 @@ export const ScreenshotFrame = ({
       };
 
       if (idleMotion) {
-        // The kit eases the pointer on every display frame while the shot is on screen.
         const eased = { x: 0, y: 0 };
         return {
           onFrame: ({ y, vh, step }) => {
@@ -115,7 +96,6 @@ export const ScreenshotFrame = ({
         };
       }
 
-      // Motion paused: scroll still flattens the shot and the pointer eases, then everything rests.
       const apply = () => {
         element.style.transform = tiltTransform(flatness, eased.x, eased.y);
       };
@@ -136,7 +116,6 @@ export const ScreenshotFrame = ({
   );
 
   const open = () => {
-    // The page's scrollbar width, so the scroll lock can keep the page from widening behind it.
     const root = document.documentElement;
     root.style.setProperty("--scroll-lock-gap", `${window.innerWidth - root.clientWidth}px`);
     dialogRef.current?.showModal();
@@ -148,9 +127,6 @@ export const ScreenshotFrame = ({
         "--trim": `${((-trimTop / width) * 100).toFixed(4)}%`,
       } as CSSProperties)
     : undefined;
-  // The box keeps the source's ratio once the image loads. With only width and height attributes it
-  // switches to the served variant's own ratio, rounded to whole pixels when resized, and a lazy shot
-  // moved everything below it by a fraction of a pixel as it came into view.
   const imageStyle: CSSProperties = { aspectRatio: `${width} / ${height}` };
 
   return (
@@ -210,7 +186,6 @@ export const ScreenshotFrame = ({
             {closeLabel}
           </button>
         </div>
-        {/* Focusable so the keyboard can pan an image wider than the dialog (arrow keys). */}
         <div className={styles.dialogImage} tabIndex={0}>
           <Image
             src={src}

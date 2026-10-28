@@ -10,11 +10,9 @@ import type { ContributionSnapshot } from "data/openSourceActivity";
 import { OPEN_SOURCE_TECHNOLOGY_TICKER, OPEN_SOURCE_TOOL_TICKER } from "data/openSourcePage";
 
 interface OpenSourcePageContentProps {
-  /** The contribution calendar to draw, fetched by the route. */
   activity: ContributionSnapshot;
 }
 
-/** The open-source page, composed in the artifact's section order. */
 export const OpenSourcePageContent = ({ activity }: OpenSourcePageContentProps) => (
   <main id="main-content" tabIndex={-1}>
     <OpenSourceDisplay />

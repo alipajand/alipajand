@@ -2,7 +2,6 @@
   composes: mono from "../../components/hairline/styles/type.module.css";
 }
 
-/* Featured: one link; a bone fill rises from the bottom on hover and focus. */
 .feature {
   position: relative;
   isolation: isolate;

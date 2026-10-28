@@ -43,7 +43,6 @@
   display: inline;
 }
 
-/* The launch layout lets the current title take its own line instead of truncating early. */
 .wrap ol {
   flex-wrap: wrap;
 }

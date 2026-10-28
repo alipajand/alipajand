@@ -2,11 +2,6 @@ import { expect, test } from "@playwright/test";
 
 import { settle } from "./support";
 
-/*
- * /now is dated by the hand-set NOW_UPDATED (data/now.ts), not by the build or the visitor's clock:
- * the title year, the visible "Updated" line, the WebPage dateModified and the sitemap lastmod all
- * carry the same date, and none of them moves when the year rolls over.
- */
 const NOW_UPDATED = "2026-05-08";
 const UPDATED_TEXT = "Updated May 8, 2026";
 
@@ -17,7 +12,6 @@ for (const { timezoneId, at } of [
   test(`keeps NOW_UPDATED's year after New Year in ${timezoneId}`, async ({ browser }) => {
     const context = await browser.newContext({ timezoneId });
     const page = await context.newPage();
-    // 00:30 on January 1, 2027, local time.
     await page.clock.install({ time: new Date(at) });
     await page.goto("/now");
     await settle(page);

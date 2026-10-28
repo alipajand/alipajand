@@ -11,7 +11,6 @@ interface WritingPostHeaderProps {
   tags: readonly string[];
 }
 
-/** Published date and topics beside the display title and its lede. */
 export const WritingPostHeader = ({
   titleId,
   title,

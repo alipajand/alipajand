@@ -1,6 +1,4 @@
 #!/usr/bin/env sh
-# Runs a command while sampling CPU load and memory every 2 seconds, then writes the peaks to the
-# job summary. Exits with the command's status. Usage: sample-resources.sh <label> <command...>
 set -u
 
 label="$1"

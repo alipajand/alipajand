@@ -13,43 +13,24 @@ import {
 
 export interface MotionContext<E extends Element> {
   element: E;
-  /** The live operating-system preference. Setup runs again when it changes. */
   reducedMotion: boolean;
-  /**
-   * Whether idle, time-based motion may run: false under reduced motion or when the visitor paused
-   * motion. Setup runs again when it changes. Return `onFrame` only when this is true.
-   */
   idleMotion: boolean;
 }
 
-/** What a motion island does once its element exists. Every callback is optional. */
 export interface MotionController {
-  /** Runs on coalesced scroll and resize frames while the element is on screen and the tab is visible. */
   onScroll?: (frame: ScrollFrame) => void;
-  /**
-   * Runs on every display frame while the element is on screen, the tab is visible and idle motion
-   * is allowed, for idle time-based motion. Providing it holds the shared frame loop open only during
-   * that time; it is ignored entirely while `idleMotion` is false.
-   */
   onFrame?: (frame: ScrollFrame) => void;
-  /** Runs when the element's own box changes size, including the first observation. */
   onResize?: () => void;
-  /** Runs when the element enters or leaves the screen, or the tab is hidden or shown. */
   onActiveChange?: (active: boolean) => void;
-  /** Runs on unmount, on route change and before a re-setup. Remove everything setup added. */
   destroy?: () => void;
 }
 
 export type MotionSetup<E extends Element> = (context: MotionContext<E>) => MotionController | void;
 
 export interface MotionOptions {
-  /** Skip setup entirely, for example when the island has nothing to animate. */
   enabled?: boolean;
-  /** Only deliver scroll frames while the element intersects the viewport (with this margin). */
   rootMargin?: string;
-  /** Deliver scroll frames even while off screen, for page-level indicators such as the progress line. */
   alwaysActive?: boolean;
-  /** Extra values that should tear the island down and set it up again, such as the pathname. */
   resetKey?: string | number;
 }
 
@@ -60,12 +41,6 @@ const markFailed = (element: Element, error: unknown) => {
   }
 };
 
-/**
- * Lifecycle for scroll-linked motion. It sets up after the element is in the DOM, re-runs on
- * reduced-motion changes and `resetKey` changes, pauses while off screen or in a hidden tab, reacts to
- * element resizes and back/forward-cache restores, and tears everything down on unmount. Any error in
- * setup or a frame stops the island and leaves the server-rendered still state in place.
- */
 export const useMotion = <E extends Element>(
   ref: RefObject<E | null>,
   setup: MotionSetup<E>,
@@ -89,8 +64,6 @@ export const useMotion = <E extends Element>(
     }
     if (!controller) return;
     const motion = controller;
-    // Idle motion only runs while it is allowed, even if a setup returned onFrame regardless, so
-    // reduced motion and the visitor's pause can never be bypassed by one island.
     const onFrame = idleMotion ? motion.onFrame : undefined;
 
     let stopped = false;

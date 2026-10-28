@@ -5,15 +5,12 @@ export interface CollectionPageJsonLdItem {
   url: string;
   name: string;
   description?: string;
-  /** schema.org type of the listed item, e.g. "Article" or "SoftwareSourceCode". */
   type: string;
-  /** Extra schema.org properties for the item (codeRepository, datePublished, ...). */
   properties?: Record<string, unknown>;
 }
 
 interface CollectionPageJsonLdProps {
   url: string;
-  /** Stable node id other schemas reference via isPartOf. Defaults to the page URL. */
   id?: string;
   name: string;
   description: string;

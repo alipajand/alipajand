@@ -15,17 +15,10 @@ import { useMotion } from "utils/motion/useMotion";
 
 interface OpenSourceActivityGraphProps {
   calendar: CalendarLayout;
-  /** Accessible name of the calendar image. */
   summary: string;
-  /** The readout while no day is under the pointer. */
   restLabel: string;
 }
 
-/**
- * The contribution calendar in a horizontally scrollable, focusable region that opens on the most
- * recent weeks. Weeks fill in left to right as the graph scrolls up the screen, and the readout
- * names the day under the pointer. Without JavaScript or with reduced motion every week shows.
- */
 export const OpenSourceActivityGraph = ({
   calendar,
   summary,

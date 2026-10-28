@@ -17,7 +17,6 @@
   cursor: pointer;
 }
 
-/* A 44px-tall tap area around the mono label, inside the footer cell's padding. */
 .toggle::after {
   content: "";
   position: absolute;
@@ -32,7 +31,6 @@
   outline-offset: 4px;
 }
 
-/* Both labels sit in one cell; the inactive one only holds the width. */
 .label {
   display: inline-grid;
 }
@@ -45,7 +43,6 @@
   visibility: hidden;
 }
 
-/* The mark shows what pressing does: two bars pause, a triangle resumes, a square is off. */
 .mark {
   flex: none;
   width: 8px;

@@ -3,12 +3,10 @@ import {
   OPEN_SOURCE_CONTRIBUTION_SNAPSHOT,
 } from "data/openSourceActivity";
 
-/** How long a fetched calendar is reused from the data cache, in seconds (6 hours). */
 export const CONTRIBUTIONS_REVALIDATE_SECONDS = 21600;
 
 const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
 const REQUEST_TIMEOUT_MS = 5000;
-// A year of days is 365 or 366, plus up to six from the partial first week.
 const MIN_DAYS = 300;
 
 const QUERY = `query ($login: String!) {
@@ -46,7 +44,6 @@ interface CalendarResponse {
   errors?: { message: string }[];
 }
 
-/** Turns GitHub's week-by-week calendar into the snapshot shape the page draws. */
 export const snapshotFromCalendar = (
   user: string,
   body: CalendarResponse
@@ -68,11 +65,6 @@ export const snapshotFromCalendar = (
   };
 };
 
-/**
- * The last year of the GitHub contribution calendar, read from the GraphQL API with `GITHUB_TOKEN`
- * and cached for {@link CONTRIBUTIONS_REVALIDATE_SECONDS}. Without a token, or when GitHub fails,
- * the page falls back to the committed snapshot in data/openSourceActivity.ts.
- */
 export const getContributionSnapshot = async (
   fallback: ContributionSnapshot = OPEN_SOURCE_CONTRIBUTION_SNAPSHOT
 ): Promise<ContributionSnapshot> => {

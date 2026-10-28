@@ -12,10 +12,6 @@ interface OpenSourceBadgesProps {
   badges: readonly string[];
 }
 
-/**
- * The technology grid. A single lit cell walks the grid as it scrolls through the screen; nothing is
- * lit without JavaScript or with reduced motion.
- */
 export const OpenSourceBadges = ({ badges }: OpenSourceBadgesProps) => {
   const ref = useRef<HTMLUListElement>(null);
 

@@ -18,7 +18,6 @@ beforeEach(() => {
   resetMotionPreferenceForTests();
   installMatchMedia(false);
   installObservers();
-  // Without a ResizeObserver, useMotion measures once at setup, so the run has a width to wrap at.
   Object.assign(window, { ResizeObserver: undefined });
   jest.spyOn(HTMLElement.prototype, "scrollWidth", "get").mockReturnValue(2000);
   clock = 0;

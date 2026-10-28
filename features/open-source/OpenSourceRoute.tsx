@@ -74,13 +74,6 @@ const bezier = (a: PlacedNode, b: PlacedNode, t: number): [number, number] => {
   ];
 };
 
-/**
- * The hero diagram: repository files and pull-request diffs flow through the audit engines to each
- * surface. Scrolling through the hero walks the lit surface, packets speed up with scroll velocity,
- * the faint grid drifts with the pointer, and a scan line steps through the instruction files over
- * time. When motion is paused the scan and the steady packet flow stop while scroll and pointer
- * motion continue; with reduced motion it draws the first surface once.
- */
 export const OpenSourceRoute = () => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -99,11 +92,9 @@ export const OpenSourceRoute = () => {
     let time = 0;
     let active = 0;
     let shown = -1;
-    // Smoothed pointer height for the grid drift; idle frames ease it, otherwise an eased pointer does.
     const pointer = { y: 0.5, sy: 0.5 };
 
     const doLayout = (ctx: CanvasRenderingContext2D, w: number, h: number): Layout => {
-      // The largest type size whose three columns fit; short labels when even that fails.
       let fs = 12;
       let useShort = false;
       let widths: number[];
@@ -130,7 +121,6 @@ export const OpenSourceRoute = () => {
         }
         break;
       }
-      // Tight outer margins so the space goes to the fans between columns.
       const spare = w - widths.reduce((a, b) => a + b, 0);
       const outer = Math.min(20, spare / 6);
       const gap = (spare - outer * 2) / 2;
@@ -175,7 +165,6 @@ export const OpenSourceRoute = () => {
       const litEdge = ([a, b]: Edge) =>
         b === activeKey || (review ? a === "diff" || b === "apr" : a === "repo");
 
-      // Column headers and the dashed lane divider.
       ctx.font = `500 11px ${mono}`;
       ctx.textBaseline = "middle";
       ctx.fillStyle = `rgba(${MUTE_RGB},1)`;
@@ -197,7 +186,6 @@ export const OpenSourceRoute = () => {
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // A faint grid that drifts with the pointer, like a plotter bed.
       ctx.strokeStyle = `rgba(${LINE_RGB},.05)`;
       const offset = (pointer.sy - 0.5) * 24;
       for (let y = 60 + (offset % 24); y < h; y += 24) {
@@ -207,7 +195,6 @@ export const OpenSourceRoute = () => {
         ctx.stroke();
       }
 
-      // Edges and packets.
       EDGES.forEach((edge, edgeIndex) => {
         const a = nodes[edge[0]];
         const b = nodes[edge[1]];
@@ -230,7 +217,6 @@ export const OpenSourceRoute = () => {
         }
       });
 
-      // Nodes.
       const rowH = Math.min(34, slotH * 0.62);
       for (const [key, node] of Object.entries(nodes) as [OpenSourceRouteNodeKey, PlacedNode][]) {
         const on =
@@ -248,7 +234,6 @@ export const OpenSourceRoute = () => {
         ctx.fillStyle = solid ? INK : `rgba(${LINE_RGB},${on ? 1 : 0.6})`;
         ctx.fillText(useShort ? node.short : node.label, node.x + fs, node.y + rowH / 2);
         if (node.showFiles && node.files) {
-          // A scan line steps through the instruction files the engines read.
           const files = node.files;
           const scan = Math.floor(time / 700) % files.length;
           files.forEach((file, index) => {
@@ -334,7 +319,6 @@ export const OpenSourceRoute = () => {
       onScroll: idleMotion
         ? undefined
         : ({ vel }) => {
-            // Paused: packets move only with scroll velocity and the file scan holds still.
             flow += Math.abs(vel) * 0.6;
             active = surfaceFromScroll();
             draw();

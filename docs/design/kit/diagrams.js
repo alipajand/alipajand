@@ -1,6 +1,3 @@
-  // Diagram blocks shared by case studies and articles. Specs follow utils/diagramBlocks.ts:
-  // layers stack and light one layer at a time, compare sets a dim column beside a lit one,
-  // flow runs numbered steps that light in order and keep a check once passed.
   const dgHead = (title, label = "Diagram") => `<figcaption class="dg__head mono"><span>[ ${esc(label)} ]</span><span>${esc(title)}</span></figcaption>`;
   const dgCap = (caption) => caption ? `<p class="dg__cap">${esc(caption)}</p>` : "";
   const loopIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>`;
@@ -17,7 +14,6 @@
       ${dgCap(s.caption)}
     </figure>`;
 
-  // The flow sits on the light band. `wide` lays the steps out as columns once the band has room.
   const renderFlow = (s, label = "Diagram") => `
     <figure class="dg dg--flow" data-flow>
       <figcaption class="dg__band-head"><span class="mono">[ ${esc(label)} ]</span><span class="dg__title">${esc(s.title)}</span></figcaption>
@@ -29,8 +25,6 @@
   const renderDiagram = (s, label) =>
     s.type === "layers" ? renderLayers(s) : s.type === "compare" ? renderCompare(s) : renderFlow(s, label);
 
-  // A long single word (READINESS) can outgrow a flow column. Shrink that flow's labels together
-  // until every word fits, and refit only when the list's width changes or the fonts finish loading.
   let fontGen = 0;
   document.fonts?.addEventListener?.("loadingdone", () => { fontGen++; });
   document.fonts?.ready.then(() => { fontGen++; });
@@ -40,7 +34,6 @@
     ol.dataset.fit = key;
     const labels = [...ol.querySelectorAll("li b")];
     if (!labels.length) return;
-    // Measure with word breaking off: the CSS break-word fallback would hide the overflow.
     labels.forEach((b) => { b.style.fontSize = ""; b.style.overflowWrap = "normal"; });
     let size = parseFloat(getComputedStyle(labels[0]).fontSize);
     while (size > 14 && labels.some((b) => b.scrollWidth > b.clientWidth + 1)) {
@@ -50,7 +43,6 @@
     labels.forEach((b) => { b.style.overflowWrap = ""; });
   };
 
-  // Called every frame: lights the layer or step that matches how far the diagram has crossed the screen.
   const lightDiagrams = (vh) => {
     document.querySelectorAll(".dg--flow .flow").forEach(fitFlowLabels);
     document.querySelectorAll("[data-light]").forEach((box) => {

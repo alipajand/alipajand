@@ -2,12 +2,6 @@ import { expect, test } from "@playwright/test";
 
 import { settle } from "./support";
 
-/*
- * The enlarged screenshot must load a candidate at least as wide as it renders, in device pixels.
- * On phones the image keeps a 900px floor and pans, so it renders far wider than the viewport.
- * Phone and tablet sizes are emulated.
- */
-
 const VIEWPORTS = [
   { width: 320, height: 640, scale: 2 },
   { width: 390, height: 844, scale: 3 },

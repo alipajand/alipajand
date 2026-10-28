@@ -14,17 +14,13 @@ const ms = (iso: string) => Date.parse(iso);
 
 describe("publicationInstant", () => {
   it.each([
-    // Standard time (EST, -05:00) and daylight time (EDT, -04:00).
     ["2026-01-20", "2026-01-20T05:00:00.000Z", "2026-01-20T00:00:00-05:00"],
     ["2026-10-28", "2026-10-28T04:00:00.000Z", "2026-10-28T00:00:00-04:00"],
-    // Clocks go forward at 02:00 on 2026-03-08: that midnight is still EST.
     ["2026-03-08", "2026-03-08T05:00:00.000Z", "2026-03-08T00:00:00-05:00"],
     ["2026-03-09", "2026-03-09T04:00:00.000Z", "2026-03-09T00:00:00-04:00"],
-    // Clocks go back at 02:00 on 2026-11-01: that midnight is still EDT.
     ["2026-11-01", "2026-11-01T04:00:00.000Z", "2026-11-01T00:00:00-04:00"],
     ["2026-11-02", "2026-11-02T05:00:00.000Z", "2026-11-02T00:00:00-05:00"],
     ["2027-03-14", "2027-03-14T05:00:00.000Z", "2027-03-14T00:00:00-05:00"],
-    // Year boundary and leap day.
     ["2027-01-01", "2027-01-01T05:00:00.000Z", "2027-01-01T00:00:00-05:00"],
     ["2028-02-29", "2028-02-29T05:00:00.000Z", "2028-02-29T00:00:00-05:00"],
   ])("%s starts at %s (%s)", (date, utc, withOffset) => {
@@ -53,9 +49,7 @@ describe("publicationState", () => {
   });
 
   it("follows Toronto, not UTC or the visitor's calendar", () => {
-    // 23:30 in Toronto on the 29th is already the 30th in UTC.
     expect(publicationState(post, at("2026-10-30T03:30:00Z"))).toBe("scheduled");
-    // 00:30 in Toronto on the 30th is still the 30th everywhere east of it.
     expect(publicationState(post, at("2026-10-30T04:30:00Z"))).toBe("published");
   });
 

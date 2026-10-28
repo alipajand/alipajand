@@ -7,10 +7,6 @@ import { WritingPostCrumbs } from "features/writing/WritingPostCrumbs";
 import type { WritingArticle } from "features/writing/WritingPostPageContent";
 import { WRITING_INDEX_NEXT_LABEL, WRITING_INDEX_NEXT_LINKS } from "data/writing";
 
-/**
- * The Agent Readiness Doctor launch article. The text still comes from its Markdown file; the
- * layout adds the refactor scene from the post's own example above the contents and prose.
- */
 export const WritingLaunchPageContent = ({ post }: { post: WritingArticle }) => (
   <main id="main-content" tabIndex={-1}>
     <WritingPostCrumbs title={post.title} wrap />

@@ -6,11 +6,9 @@ import type { NowSection } from "data/now";
 
 interface NowSectionBlockProps {
   section: NowSection;
-  /** 1-based position shown as the cell's mono index. */
   position: number;
 }
 
-/** One numbered snapshot cell: index, heading, dash list and an optional link out. */
 export const NowSectionBlock = ({ section, position }: NowSectionBlockProps) => {
   const headingId = `now-${section.id}-heading`;
 

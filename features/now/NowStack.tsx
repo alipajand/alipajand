@@ -6,14 +6,9 @@ import { type NowSection, nowStackCountLabel } from "data/now";
 
 interface NowStackProps {
   section: NowSection;
-  /** 1-based position after the snapshot cells. */
   position: number;
 }
 
-/**
- * The current stack on the bone band: a display-type ticker of the tools, then the same tools as a
- * list of chips. The stack line in data is one " · "-separated list.
- */
 export const NowStack = ({ section, position }: NowStackProps) => {
   const tools = section.items.join(" · ").split(" · ");
   const headingId = `now-${section.id}-heading`;

@@ -5,7 +5,6 @@ import { getDedicatedCaseStudyProjects } from "utils/projects";
 
 export const dynamic = "force-static";
 
-/** Hourly, so a scheduled post goes live within an hour of its date without a deploy. */
 export const revalidate = 3600;
 
 export function GET() {

@@ -2,37 +2,17 @@ import sanitizeHtml from "sanitize-html";
 
 import { DIAGRAM_SLOT_ATTR } from "utils/diagramBlocks";
 
-/*
- * Build-time allowlist for post HTML. Posts are rendered on the server from Markdown in the repo
- * and shipped as finished HTML, so this runs during the build and nothing here reaches the client.
- * Anything not listed is removed: unknown tags are unwrapped (their text kept), and `script`,
- * `style` and similar tags are dropped with their contents. Heading ids are not accepted from the
- * Markdown; `addHeadingIds` generates them after this step.
- */
-
-/** Schemes a link may use. Anything without a scheme is a relative URL or a `#` fragment. */
 const LINK_SCHEMES = ["http", "https", "mailto"];
-/** Images load without a click, so plain http (mixed content on this https site) is refused. */
 export const IMAGE_SCHEMES = ["https"];
 
 const SCHEME_RE = /^([a-z][a-z0-9+.-]*):/i;
 
-/**
- * The URL a browser would see, reduced to what decides its scheme: leading and trailing C0
- * controls and spaces are trimmed and tabs and newlines removed, as the URL parser does.
- */
 const urlHead = (value: string): string =>
   value
     .replace(/^[\u0000- ]+|[\u0000- ]+$/g, "")
     .replace(/[\t\n\r]/g, "")
     .split(/[/?#]/, 1)[0];
 
-/**
- * True when `value` is relative, a fragment, or uses one of `schemes`. Text entities are kept as
- * written (see `parser` below), so a character reference before the first `/`, `?` or `#` is
- * rejected outright: `javascript&colon;…` or `&#x6A;avascript:…` would otherwise reach the
- * browser, which decodes them into a scheme. Protocol-relative URLs (`//host`) are rejected too.
- */
 export const isAllowedUrl = (value: string, schemes: readonly string[]): boolean => {
   const head = urlHead(value);
   if (head.includes("&")) return false;
@@ -87,7 +67,6 @@ const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
     "br",
     "sup",
     "sub",
-    // Diagram slots left by `extractDiagramBlocks`; only `data-diagram-slot` is kept.
     "div",
   ],
   allowedAttributes: {
@@ -118,9 +97,6 @@ const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
     div: [DIAGRAM_SLOT_ATTR],
   },
   allowedClasses: {
-    // `renderHighlightedCode`: `hljs language-<fence>` on the block; `hljs-<scope>` tokens (such
-    // as `hljs-built_in`), sub-scope classes (`class_`, `function_`) and `language-<name>` spans
-    // that wrap an embedded language (JSX in TSX).
     code: ["hljs", /^language-[a-z0-9+#-]+$/],
     span: [/^hljs-[a-z0-9_-]+$/, /^[a-z0-9]+_+$/, /^language-[a-z0-9+#-]+$/],
     figure: ["article-launch-poster"],
@@ -140,9 +116,6 @@ const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
     },
   },
   disallowedTagsMode: "discard",
-  // Keep character references as written so the output matches the Markdown pipeline byte for
-  // byte (`&quot;`, `&#39;` in highlighted code). URLs are checked by `isAllowedUrl`, which does
-  // not rely on decoding.
   parser: { decodeEntities: false },
 };
 

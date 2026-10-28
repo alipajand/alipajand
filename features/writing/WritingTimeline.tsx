@@ -18,7 +18,6 @@ import { useMotion } from "utils/motion/useMotion";
 type TimelinePost = Pick<WritingListPost, "slug" | "title" | "date" | "tags">;
 
 interface WritingTimelineProps {
-  /** Oldest first. */
   posts: readonly TimelinePost[];
   lanes: readonly TopicLane[];
   range: TimelineRange;
@@ -26,7 +25,6 @@ interface WritingTimelineProps {
 
 const MUTE = "rgba(163,163,156,1)";
 
-/** "Oct 28" for the readout. */
 const shortMonthDay = (date: string) => formatShortDate(date).replace(/,\s*\d{4}$/, "");
 
 export const timelineReadout = (posts: readonly TimelinePost[], index: number): string => {
@@ -35,12 +33,6 @@ export const timelineReadout = (posts: readonly TimelinePost[], index: number): 
   return `${pad(index)} / ${posts.length} · ${shortMonthDay(post.date)}`;
 };
 
-/**
- * Every post on a timeline, one row per topic. Scrolling past the hero walks the cursor from the
- * oldest post to the newest; the pointer takes over while it is over the plot. Unlit marks drift by
- * a pixel while idle motion is allowed. With reduced motion it is one still frame on the newest post.
- * The canvas is decorative; the readout under it names the lit post.
- */
 export const WritingTimeline = ({ posts, lanes, range }: WritingTimelineProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const last = posts.length - 1;
@@ -88,7 +80,6 @@ export const WritingTimeline = ({ posts, lanes, range }: WritingTimelineProps) =
       const X = (date: string) => left + timelinePosition(date, range) * (w - left - right);
       const Y = (index: number) => top + (index + 0.5) * laneH;
 
-      // Month grid.
       ctx.font = `500 11px ${mono}`;
       ctx.textBaseline = "top";
       for (let m = 0; m < range.months; m++) {
@@ -111,7 +102,6 @@ export const WritingTimeline = ({ posts, lanes, range }: WritingTimelineProps) =
         }
       }
 
-      // The lit post: the pointer wins, otherwise the scroll position.
       let idx: number;
       if (hoverX !== null && hoverX > left) {
         let best = 0;
@@ -131,7 +121,6 @@ export const WritingTimeline = ({ posts, lanes, range }: WritingTimelineProps) =
       cursor = ease ? cursor + (target - cursor) * 0.15 * step : target;
       if (!cursor) cursor = target;
 
-      // Lanes.
       lanes.forEach((lane, index) => {
         const y = Y(index);
         const on = hasTopic(posts[idx], lane.key);
@@ -149,7 +138,6 @@ export const WritingTimeline = ({ posts, lanes, range }: WritingTimelineProps) =
         ctx.fillText(text, 12, y);
       });
 
-      // Posts: a stem across the lanes each covers and a mark on each lane.
       posts.forEach((post, index) => {
         const x = X(post.date);
         const lit = index === idx;
@@ -169,7 +157,6 @@ export const WritingTimeline = ({ posts, lanes, range }: WritingTimelineProps) =
         });
       });
 
-      // Cursor.
       ctx.strokeStyle = `rgba(${LINE_RGB},.9)`;
       ctx.lineWidth = 1;
       ctx.beginPath();

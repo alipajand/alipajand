@@ -15,7 +15,6 @@
   color: var(--color-mute-ink);
 }
 
-/* Declared in full: composing `display` let its 125% stretch win over this one in some bundles. */
 .title {
   margin: 0;
   font-family: var(--font-display);

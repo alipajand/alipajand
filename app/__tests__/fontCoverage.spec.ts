@@ -3,11 +3,6 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 
-/**
- * The self-hosted Archivo files only carry the Google Fonts "latin" slice (scripts/build-fonts.py).
- * A character outside it would quietly fall back to Arial, so new copy that needs one should fail
- * here and prompt a rebuild of the font files with the extra slice.
- */
 const LATIN_SLICE: Array<[number, number]> = [
   [0x0000, 0x00ff],
   [0x0131, 0x0131],
@@ -30,7 +25,6 @@ const LATIN_SLICE: Array<[number, number]> = [
   [0xfffd, 0xfffd],
 ];
 
-/** Symbols Archivo has never drawn; system fonts render them, as they did with next/font/google. */
 const SYSTEM_FONT_SYMBOLS = new Set(["←", "→", "↗", "↺", "▾", "✓"]);
 
 const ROOT = join(__dirname, "..", "..");
@@ -51,7 +45,6 @@ describe("font coverage", () => {
   it("should only use characters the self-hosted Archivo files carry", () => {
     const outside = new Map<string, string>();
     for (const file of SOURCE_DIRS.flatMap((dir) => sourceFiles(join(ROOT, dir)))) {
-      // Comments never render: drop block comments and whole-line `//` comments.
       const text = readFileSync(file, "utf8")
         .replace(/\/\*[\s\S]*?\*\//g, "")
         .replace(/^\s*\/\/.*$/gm, "");

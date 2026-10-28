@@ -2,10 +2,8 @@ import type { Page } from "@playwright/test";
 
 export interface ShellTarget {
   target: string;
-  /** Hit-testable size, so transparent tap padding counts. */
   width: number;
   height: number;
-  /** Something else takes the pointer at the control's own centre. */
   covered: boolean;
 }
 
@@ -19,11 +17,6 @@ export interface LayoutReport {
   images: { src: string; broken: boolean; crop: number; spills: boolean }[];
 }
 
-/**
- * Measures what the eye catches on a small screen: sideways spill, clipped words, small or covered
- * targets and badly fitted images. Runs in the page; scrolls while probing the shell, then returns
- * to the top.
- */
 export const auditLayout = (page: Page): Promise<LayoutReport> =>
   page.evaluate(() => {
     const vw = document.documentElement.clientWidth;
@@ -64,11 +57,9 @@ export const auditLayout = (page: Page): Promise<LayoutReport> =>
       })
       .map(describe);
 
-    // Text cut off inside a box that hides overflow. Tickers and the display line clip on purpose.
     const clippedText = all
       .filter((element) => {
         if (!isVisible(element) || !clips(element)) return false;
-        // Tickers, the display line and decorative rules clip on purpose.
         if (element.closest("[class*='ticker'], [class*='display'], [aria-hidden='true']")) {
           return false;
         }
@@ -109,7 +100,6 @@ export const auditLayout = (page: Page): Promise<LayoutReport> =>
     interactive.forEach((element, index) => {
       const rect = rects[index];
       if ((rect.width >= 24 && rect.height >= 24) || isInline(element)) return;
-      // WCAG 2.5.8 spacing exception: a 24px circle on the target's centre touches no other target.
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
       const crowded = rects.some((other, otherIndex) => {
@@ -127,7 +117,6 @@ export const auditLayout = (page: Page): Promise<LayoutReport> =>
       }
     });
 
-    // The shell's hit areas, probed with elementFromPoint so pseudo-element tap padding counts.
     const hitSize = (element: Element) => {
       element.scrollIntoView({ block: "center", inline: "nearest" });
       const rect = element.getBoundingClientRect();

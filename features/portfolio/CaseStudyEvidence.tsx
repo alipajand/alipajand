@@ -13,10 +13,6 @@ interface CaseStudyEvidenceProps {
   index: number;
 }
 
-/**
- * Interface evidence: the interactive sample when the project has one, then every screenshot after
- * the hero, each in its own ruled row.
- */
 export const CaseStudyEvidence = ({ project, section, index }: CaseStudyEvidenceProps) => (
   <CaseSection id={section.id} legacyId={section.legacyId} index={index} title={section.title}>
     <div className={styles.evidence}>

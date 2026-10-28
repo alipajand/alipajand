@@ -1,17 +1,11 @@
-# Dependabot version updates – alipajand.com
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
-
 version: 2
 updates:
-  # Root pnpm lockfile. No target-branch, so PRs open against the default branch.
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
     groups:
-      # React must move as a unit: react and react-dom assert identical
-      # versions at runtime, so splitting them across PRs breaks CI.
       react:
         patterns:
           - "react"
@@ -19,11 +13,9 @@ updates:
           - "@types/react"
           - "@types/react-dom"
     ignore:
-      # ESLint 10 breaks eslint-plugin-react until ecosystem catches up
       - dependency-name: "eslint"
         update-types: ["version-update:semver-major"]
 
-  # Workflow actions are pinned to commit SHAs; this keeps those pins current.
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

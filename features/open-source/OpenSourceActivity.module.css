@@ -177,7 +177,6 @@
 }
 
 @media (max-width: 760px) {
-  /* "Contribution" is too long for a phone at the section-head size; the artifact's title fit shrinks it. */
   .head h2 {
     font-size: min(34px, 8.5cqi);
   }

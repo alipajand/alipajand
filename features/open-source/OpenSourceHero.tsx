@@ -17,7 +17,6 @@ import {
   openSourceProjectCountLabel,
 } from "data/openSourcePage";
 
-/** The page title, lede and two ways in, beside the routing diagram. */
 export const OpenSourceHero = () => (
   <section className={styles.hero} aria-labelledby={OPEN_SOURCE_TITLE_ID}>
     <div className={styles.copy}>

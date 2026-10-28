@@ -64,7 +64,6 @@
   align-content: start;
   gap: 18px;
   padding: 26px 24px 30px;
-  /* The cell is the title's measuring box; its own font size is the title's largest size. */
   container-type: inline-size;
   font-size: clamp(32px, 5.2cqi, 76px);
 }
@@ -72,7 +71,6 @@
 .title {
   margin: 0;
   font-family: var(--font-display);
-  /* Shrinks only when the longest word (--fit-em, set from the text) would not fit the cell. */
   font-size: min(1em, calc(100cqi / var(--fit-em, 1)));
   font-weight: 800;
   font-stretch: 112%;

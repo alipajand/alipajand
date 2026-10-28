@@ -11,10 +11,6 @@ interface SiteShellProps {
   children: ReactNode;
 }
 
-/**
- * Every page sits in one continuous hairline column: header, the page's own `<main>`, footer.
- * Pages own their `<main id="main-content">` so they control its labelling and focus target.
- */
 export const SiteShell = ({ children }: SiteShellProps) => (
   <>
     <SkipLink className={styles.skip} href="#main-content" label={SKIP_TO_CONTENT_LABEL} />

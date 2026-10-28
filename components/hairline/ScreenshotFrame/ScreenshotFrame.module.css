@@ -11,7 +11,6 @@
   transform-origin: 50% 100%;
 }
 
-/* The resting tilt is CSS, so the first paint matches before the script takes over. */
 .tilted {
   transform: rotateX(14deg) scale(0.94);
   will-change: transform;
@@ -62,7 +61,6 @@
   background: #151515;
 }
 
-/* Hides the empty browser strip some captures carry, keeping the image's own aspect below it. */
 .crop {
   display: block;
   overflow: hidden;
@@ -105,7 +103,6 @@
 }
 
 .dialog {
-  /* The preflight reset zeroes every margin; a modal dialog needs the UA's auto margin to centre. */
   margin: auto;
   width: 96vw;
   max-width: min(1600px, 96vw);
@@ -121,13 +118,6 @@
   background: rgb(15 15 14 / 86%);
 }
 
-/*
- * A modal dialog does not stop the page behind it from scrolling, so wheel and touch scrolls on the
- * backdrop moved the page. Lock it while a screenshot is open. Where scrollbars take up room, hiding
- * the page's scrollbar would widen the page, so the body is padded by the scrollbar's width (set on
- * open). A reserved gutter instead would sit outside the backdrop: unshaded, not clickable, and the
- * dialog would centre on the page beside it rather than on the window.
- */
 :global(:root):has(.dialog[open]) {
   overflow: hidden;
 }
@@ -165,18 +155,11 @@
   color: var(--color-ink);
 }
 
-/*
- * Only the sideways pan is contained. The pane never scrolls vertically (the dialog does, when the
- * image is taller than the screen), so containing that axis too swallowed every vertical swipe on
- * the image and left its lower part out of reach on short screens. The dialog's own containment
- * still keeps the page behind it still.
- */
 .dialogImage {
   overflow: auto;
   overscroll-behavior-x: contain;
 }
 
-/* The pane takes focus so arrow keys can pan a wide image; the ring sits inside the dialog edge. */
 .dialogImage:focus-visible {
   outline-offset: -2px;
 }

@@ -18,5 +18,4 @@ const formatWith = (dateStr: string, month: "long" | "short"): string => {
 
 export const formatDate = (dateStr: string): string => formatWith(dateStr, "long");
 
-/** "Oct 12, 2026": the compact form used in mono labels. */
 export const formatShortDate = (dateStr: string): string => formatWith(dateStr, "short");

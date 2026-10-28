@@ -13,10 +13,8 @@ const projectOrder = new Map<string, number>(
 
 const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-/** Matches a suppressed figure as a whole number ("80%", not "180%"). */
 const figurePattern = (figure: string) => new RegExp(`(^|[^\\d.])${escapeRegExp(figure)}`);
 
-/** The figures held back for one project. */
 export const suppressedFiguresFor = (projectId: string): RegExp[] =>
   SUPPRESSED_CLAIMS.filter((claim) => claim.projectId === projectId).map((claim) =>
     figurePattern(claim.figure)
@@ -60,7 +58,6 @@ const scrubDiagram = (diagram: CaseStudyDiagram, carries: (text: string) => bool
   };
 };
 
-/** Every string in a value with its path, for the final leak check. */
 const walkStrings = (value: unknown, path: string, visit: (text: string, at: string) => void) => {
   if (typeof value === "string") visit(value, path);
   else if (Array.isArray(value))
@@ -69,10 +66,6 @@ const walkStrings = (value: unknown, path: string, visit: (text: string, at: str
     Object.entries(value).forEach(([key, item]) => walkStrings(item, `${path}.${key}`, visit));
 };
 
-/**
- * The publishable version of a project: suppressed claims removed (see `data/projectsPublication`).
- * Throws when a figure survives in a field that has no override, so a new leak fails the build.
- */
 export const toPublicProject = (project: Project): Project => {
   const patterns = suppressedFiguresFor(project.id);
   if (patterns.length === 0) return project;

@@ -1,4 +1,3 @@
-/* Hidden until focused, then shown as a light chip over the top-left corner. */
 .skip {
   composes: mono from "../styles/type.module.css";
   position: absolute;

@@ -2,12 +2,6 @@ import { type CDPSession, expect, type Page, test } from "@playwright/test";
 
 import { settle } from "./support";
 
-/*
- * The enlarged case-study screenshot: it opens centred, the page behind it stays put while it is
- * open and after it closes, and a wide image can be panned by touch and from the keyboard.
- * Phone and tablet sizes are emulated.
- */
-
 const SLUG = "ledgerguard";
 const VIEWPORTS = [
   { width: 1440, height: 900, touch: false },
@@ -20,8 +14,6 @@ const VIEWPORTS = [
 
 const pane = (page: Page) => page.locator("dialog[open] div:has(> img)");
 
-// Raw touch points: Chromium on Linux ignores synthesized scroll gestures, even on a bare scrolling
-// div, but scrolls for real touch sequences.
 const swipe = async (
   cdp: CDPSession,
   x: number,
@@ -76,7 +68,6 @@ for (const viewport of VIEWPORTS) {
       expect(Math.abs(gaps.top - gaps.bottom), JSON.stringify(gaps)).toBeLessThanOrEqual(1);
       expect(gaps.left).toBeGreaterThan(0);
 
-      // Wheel over the image and over the backdrop: the page behind must not move.
       await page.mouse.move(viewport.width / 2, viewport.height / 2);
       await page.mouse.wheel(0, 600);
       await page.mouse.move(viewport.width - 2, viewport.height - 2);
@@ -129,7 +120,6 @@ for (const viewport of VIEWPORTS) {
             .poll(() => pane(page).evaluate((element) => element.scrollLeft))
             .toBeGreaterThan(0);
         }
-        // Vertical swipes on the image and on the backdrop leave the page where it was.
         await swipe(cdp, box.x + box.width / 2, box.y + box.height / 2, 0, -400);
         await swipe(cdp, viewport.width / 2, Math.max(4, box.y / 2), 0, -400);
         await page.waitForTimeout(300);
@@ -152,7 +142,6 @@ for (const viewport of VIEWPORTS) {
         const frame = (await dialog.boundingBox())!;
         const visibleBottom = Math.min(box.y + box.height, frame.y + frame.height);
         const cdp = await context.newCDPSession(page);
-        // Upward swipe in the middle of the image's visible part, away from the title bar.
         const startY = box.y + (visibleBottom - box.y) * 0.75;
         await swipe(cdp, box.x + box.width / 2, startY, 0, -(startY - box.y - 8));
         await expect.poll(() => dialog.evaluate((el) => el.scrollTop)).toBeGreaterThan(0);

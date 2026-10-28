@@ -12,10 +12,6 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
 const ROWS = Math.ceil(ENGINEERING_PRINCIPLES_SECTIONS.length / 2);
 const LAST = ENGINEERING_PRINCIPLES_SECTIONS.length - 1;
 
-/**
- * The index of principles (two columns, filled top to bottom) followed by one boxed row per
- * principle. The principle on screen is lit here and in the index.
- */
 export const EngineeringPrinciplesList = () => (
   <PrinciplesTracker>
     <nav id="principles" aria-label={ENGINEERING_PRINCIPLES_TOC_ARIA_LABEL}>

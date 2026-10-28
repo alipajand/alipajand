@@ -2,17 +2,6 @@ import { expect, type Page, test } from "@playwright/test";
 
 import { settle } from "./support";
 
-/*
- * Tap areas of the shell controls on emulated touch screens: the header name, the primary links
- * (one row, the menu below 521px, and the wrapped no-script rows), "Book a call" and the footer
- * motion control. Each tap area includes any transparent ::after expansion.
- *
- * Every area must be at least 44x44 CSS px, except "Book a call": the CTA cell splits its 56px into
- * the "Open to roles" line and the link, so the link is 28px tall. That passes WCAG 2.5.8 (24px)
- * and growing it is an open design decision, so it is held to 24px here. No two areas may overlap,
- * and each one must actually receive taps across its whole box.
- */
-
 const WIDTHS = [320, 375, 390, 768, 1024] as const;
 const MIN = 44;
 const BOOK_CALL_MIN = 24;
@@ -21,11 +10,9 @@ interface Area {
   label: string;
   group: string;
   box: { left: number; top: number; right: number; bottom: number };
-  /** Hit tests at the four edges of the box, 1px inside, plus the centre. */
   receivesTaps: boolean;
 }
 
-/** Collects the visible shell controls and their tap areas, in page coordinates. */
 const tapAreas = (page: Page): Promise<Area[]> =>
   page.evaluate(() => {
     const visible = (element: Element | null): element is HTMLElement =>
@@ -45,7 +32,6 @@ const tapAreas = (page: Page): Promise<Area[]> =>
       element.scrollIntoView({ block: "center" });
       const rect = element.getBoundingClientRect();
       let { left, top, right, bottom } = rect;
-      // A transparent, absolutely positioned ::after widens the tap area without moving pixels.
       const after = getComputedStyle(element, "::after");
       if (after.content !== "none" && after.position === "absolute") {
         const px = (value: string) => (value.endsWith("px") ? parseFloat(value) : 0);
@@ -88,7 +74,6 @@ const check = (areas: Area[]) => {
     expect(height, name).toBeGreaterThanOrEqual(min - 0.5);
     expect(area.receivesTaps, `${name} receives taps across its box`).toBe(true);
   }
-  // Rounding can make neighbours share a sub-pixel edge; anything more is an overlap.
   const overlaps: string[] = [];
   areas.forEach((a, i) =>
     areas.slice(i + 1).forEach((b) => {

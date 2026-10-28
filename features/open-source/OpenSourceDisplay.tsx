@@ -2,7 +2,6 @@ import { DisplayWord } from "components/hairline/DisplayWord/DisplayWord";
 import styles from "features/open-source/OpenSourceDisplay.module.css";
 import { OPEN_SOURCE_DISPLAY_WORDS } from "data/openSourcePage";
 
-/** The decorative display line above the hero; the page title is the hero heading. */
 export const OpenSourceDisplay = () => (
   <div className={styles.display} aria-hidden="true">
     <DisplayWord words={OPEN_SOURCE_DISPLAY_WORDS} variant="hero" motion="scroll" reach={0.42} />

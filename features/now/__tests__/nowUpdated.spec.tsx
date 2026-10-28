@@ -29,12 +29,10 @@ describe("NOW_UPDATED", () => {
     expect(NOW_UPDATED).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     const parsed = new Date(`${NOW_UPDATED}T00:00:00Z`);
     expect(Number.isNaN(parsed.getTime())).toBe(false);
-    // Rejects dates that roll over, such as 2026-02-30.
     expect(parsed.toISOString().slice(0, 10)).toBe(NOW_UPDATED);
   });
 
   it("should not be in the future", () => {
-    // Today in the site's time zone, as for scheduled posts.
     expect(isPublished({ date: NOW_UPDATED }, new Date())).toBe(true);
   });
 
@@ -60,7 +58,6 @@ describe("/now as-of date", () => {
     render(<NowPageContent />);
 
     const intro = screen.getByRole("region", { name: "About this page" });
-    // The lede also says "updated when priorities shift", so match the whole line.
     const line = within(intro).getByText(
       (_, element) =>
         element?.tagName === "P" &&

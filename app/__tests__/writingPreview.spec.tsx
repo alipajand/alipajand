@@ -5,12 +5,6 @@ import PostPage, { generateMetadata } from "../writing/[slug]/page";
 import { getPublishedPosts } from "utils/posts";
 import { installMatchMedia, installObservers } from "utils/motion/testEnvironment";
 
-/*
- * A scheduled post with `preview: true` is served at its URL before its date, marked `noindex` and
- * left without structured data. The repository has no preview post, so the scheduled fixture is
- * served as one here.
- */
-
 jest.mock("marked", () =>
   jest.requireActual(
     jest

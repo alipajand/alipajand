@@ -1,6 +1,5 @@
 import { WRITING_TOPIC_LANE_MIN_POSTS } from "data/writing";
 
-/** The fields the index, timeline and "More writing" list need from a post. */
 export interface WritingListPost {
   slug: string;
   title: string;
@@ -11,19 +10,13 @@ export interface WritingListPost {
 }
 
 export interface TopicLane {
-  /** Lower-cased tag, the filter key. */
   key: string;
-  /** The tag as first written in the newest post that uses it. */
   label: string;
   count: number;
 }
 
 export const topicKey = (tag: string): string => tag.toLowerCase();
 
-/**
- * Topic lanes: tags matched case-insensitively, kept once at least `min` posts use them, most used
- * first. Ties keep the order in which the tags first appear in the newest-first list.
- */
 export const topicLanes = (
   posts: readonly Pick<WritingListPost, "tags">[],
   min = WRITING_TOPIC_LANE_MIN_POSTS
@@ -43,31 +36,21 @@ export const topicLanes = (
 export const hasTopic = (post: Pick<WritingListPost, "tags">, key: string): boolean =>
   key === "all" || post.tags.some((tag) => topicKey(tag) === key);
 
-/** The featured post: the first one marked featured. Only published posts reach the index. */
 export const pickFeatured = <P extends Pick<WritingListPost, "featured">>(
   posts: readonly P[]
 ): P | null => posts.find((post) => post.featured) ?? null;
 
-/** "01", "02", … */
 export const pad = (index: number): string => String(index + 1).padStart(2, "0");
 
 const MONTH_MS = (date: string) => Date.parse(`${date}T00:00:00Z`);
 
 export interface TimelineRange {
-  /** First day of the first month shown (UTC ms). */
   start: number;
-  /** First day of the month after the newest post (UTC ms). */
   end: number;
-  /** Number of month gridlines from `start`. */
   months: number;
   year: number;
 }
 
-/**
- * The timeline spans whole months: from January of the oldest post's year to the first day of the
- * month after the newest post. With every post in 2026 and the newest on 28 October, that is
- * 1 January to 1 November with ten gridlines, as in the design.
- */
 export const timelineRange = (dates: readonly string[]): TimelineRange => {
   const sorted = [...dates].filter(Boolean).sort();
   const first = sorted[0] ?? "2026-01-01";
@@ -81,6 +64,5 @@ export const timelineRange = (dates: readonly string[]): TimelineRange => {
   return { start, end, months, year: endYear };
 };
 
-/** Position of a date on the range, 0 to 1. */
 export const timelinePosition = (date: string, range: TimelineRange): number =>
   (MONTH_MS(date) - range.start) / Math.max(range.end - range.start, 1);

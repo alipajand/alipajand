@@ -1,9 +1,3 @@
-/*
- * Resting layout: the words sit `--reach` of the free space in from each edge. Outer spacers take
- * `--reach` of the free space each and inner spacers share the rest, which reproduces the artifact's
- * space-between line shifted by `reach * free`. With reduced motion the outer spacers collapse and the
- * line is the artifact's static space-between layout.
- */
 .display {
   position: relative;
   margin: 0;

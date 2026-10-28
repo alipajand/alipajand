@@ -17,7 +17,6 @@ import {
   OPEN_SOURCE_CTA_WRITING_HINT,
 } from "data/openSourcePage";
 
-/** The closing call to action: the repositories first, then writing and contact. */
 export const OpenSourceCta = () => (
   <section id="explore" className={styles.cta} aria-labelledby="cta-title">
     <div className={styles.lead}>

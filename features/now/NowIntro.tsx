@@ -9,7 +9,6 @@ import {
 import { NOW_PAGE_HEADER_OVERLINE } from "data/pageChrome";
 import { formatShortDate } from "utils/date";
 
-/** The page address and overline beside the lede, with the date the content was last revised. */
 export const NowIntro = () => (
   <section id="about-this-page" className={styles.intro} aria-label={NOW_INTRO_ARIA_LABEL}>
     <div className={styles.over}>

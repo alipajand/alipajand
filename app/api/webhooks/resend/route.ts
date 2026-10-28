@@ -4,20 +4,14 @@ import { escapeHtml } from "utils/escapeHtml";
 import { readLimitedText } from "utils/readLimitedText";
 import { getFromEmail, getResend, getToEmail } from "utils/resend";
 
-/**
- * Resend's events carry metadata only (the message is fetched by id), so a few KiB is typical.
- * A body over this is refused before the signature check reads or hashes it.
- */
 export const WEBHOOK_MAX_BODY_BYTES = 256 * 1024;
 
-/** Only mail addressed to this domain is forwarded; the Resend account also receives for other domains. */
 const FORWARD_DOMAIN = "alipajand.com";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-/** The string entries of a list field; anything that is not an array counts as empty. */
 function stringList(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((v): v is string => typeof v === "string") : [];
 }
@@ -35,7 +29,6 @@ function isForForwardDomain(address: string): boolean {
 
 const FORWARD_LABEL = "Forwarded external message";
 
-/** Values Resend documents for each `authentication` result. */
 const AUTH_RESULTS = new Set(["pass", "fail", "gray", "processing_failed", "unknown"]);
 const AUTH_CHECKS = [
   ["spf", "SPF"],
@@ -45,7 +38,6 @@ const AUTH_CHECKS = [
 
 type ProvenanceField = { label: string; value: string };
 
-/** Collapses line breaks and other control characters so a value stays on one line. */
 function singleLine(value: string): string {
   return value
     .replace(/[\u0000-\u001f\u007f]+/g, " ")
@@ -60,14 +52,6 @@ function headerValue(headers: Record<string, string> | null, name: string): stri
   return typeof value === "string" && value.trim() ? value : undefined;
 }
 
-/**
- * SPF/DKIM/DMARC results from Resend's `authentication` field, which its API
- * documents as computed by the receiving server rather than read from the
- * message, so a sender cannot forge them. The SDK types do not declare the
- * field yet, so only the documented values are accepted. A missing field or an
- * unknown value yields nothing: absence is never shown as a result, and
- * headers such as `Authentication-Results` are never read.
- */
 function providerAuthentication(email: GetReceivingEmailResponseSuccess): string | undefined {
   const auth: unknown = (email as { authentication?: unknown }).authentication;
   if (!auth || typeof auth !== "object") return undefined;
@@ -78,11 +62,6 @@ function providerAuthentication(email: GetReceivingEmailResponseSuccess): string
   return results.length > 0 ? results.join(", ") : undefined;
 }
 
-/**
- * The original sender as the message states it, plus Resend's checks when it
- * reports them. The forward is sent and signed from this domain, so without
- * this block an external message reads as if it came from here.
- */
 function provenanceFields(email: GetReceivingEmailResponseSuccess): ProvenanceField[] {
   const fields: ProvenanceField[] = [
     { label: "From", value: typeof email.from === "string" ? email.from : "" },
@@ -118,7 +97,6 @@ function provenanceHtml(fields: ProvenanceField[]): string {
   );
 }
 
-/** Puts the block at the top of the visible body, after `<body>` when the HTML has one. */
 function prependHtml(html: string, block: string): string {
   const body = /<body\b[^>]*>/i.exec(html);
   if (!body) return block + html;
@@ -126,15 +104,6 @@ function prependHtml(html: string, block: string): string {
   return html.slice(0, at) + block + html.slice(at);
 }
 
-/**
- * Receives Resend webhooks and forwards inbound mail (e.g. info@alipajand.com)
- * to the personal inbox. Replies go straight to the original sender. Each
- * forward opens with a labelled block naming the original sender, recipients
- * and date, so it cannot pass for mail sent from this domain.
- *
- * Non-2xx responses make Resend retry, so failures that may be transient
- * return 500 and the send is made idempotent per inbound email id.
- */
 export async function POST(request: Request) {
   const secret = process.env.RESEND_WEBHOOK_SECRET;
   const resend = getResend();
@@ -162,8 +131,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  // A correctly signed body can still be empty (verify then returns undefined)
-  // or not the documented shape; answer 400 instead of throwing a TypeError.
   if (!isRecord(event) || typeof event.type !== "string") {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }

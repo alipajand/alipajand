@@ -146,7 +146,6 @@ describe.each(PORTFOLIO_CASE_STUDY_ORDER.map((slug) => [slug]))("/portfolio/%s",
   });
 });
 
-/** Unedited dashboard captures that showed the signed-in account; only the redacted copies ship. */
 const UNREDACTED_ORIGINALS = [
   "/portfolio-media/ledgerguard-dashboard.png",
   "/portfolio-media/mapbylaw-dashboard.png",

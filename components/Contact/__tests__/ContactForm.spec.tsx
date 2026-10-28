@@ -246,7 +246,6 @@ describe("ContactForm limits shared with the API", () => {
   it("should collapse CR/LF and tabs in the name before counting it, as the server does", async () => {
     okResponse();
     render(<ContactForm />);
-    // Text inputs drop CR/LF themselves; the tabs remain and collapse to one space: 200 characters.
     fillForm(`${"N".repeat(100)}\t\r\n\t${"N".repeat(99)}`, "jane@example.com", "Hello");
     const { name } = await expectSent();
     expect(name.length).toBeGreaterThan(200);
@@ -272,7 +271,6 @@ describe("ContactForm limits shared with the API", () => {
     render(<ContactForm />);
     fillForm("Jane", "jane@example.com", "M".repeat(9_990));
     fireEvent.change(company(), { target: { value: "Acme" } });
-    // "Company: Acme\n\n" adds 15 characters.
     expect(count()).toHaveTextContent("10,005 / 10,000 characters, including company");
     await expectBlocked(CONTACT_VALIDATION_MESSAGE_WITH_COMPANY_TOO_LONG);
 

@@ -7,7 +7,6 @@ import {
   PROJECT_SECTION_LINK_BACK,
 } from "data/projectsUi";
 
-/** Back to the index, and on to the next case study in portfolio order when there is one. */
 export const CaseStudyPager = ({ nextProject }: { nextProject?: Project }) => (
   <NextLinks
     variant="pager"

@@ -14,12 +14,6 @@ interface PrinciplesAlignmentProps {
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-/**
- * The hero image: one tangled line per principle. As the hero scrolls away the lines settle, one
- * after another, into an evenly ruled set with a label chip each; the pointer nudges the lines it
- * passes. While idle motion is allowed the tangles drift slowly over time, as in the artifact. With
- * reduced motion it draws the settled set once.
- */
 export const PrinciplesAlignment = ({ titles }: PrinciplesAlignmentProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -59,7 +53,6 @@ export const PrinciplesAlignment = ({ titles }: PrinciplesAlignmentProps) => {
       const x1 = w - 16;
       let settled = 0;
       for (let i = 0; i < n; i++) {
-        // Each line has its own window of the scroll; earlier principles settle first.
         const k = ease(clamp(prog * 1.7 - i * 0.07, 0, 1));
         if (k > 0.98) settled++;
         const yT = top + i * gap;
@@ -86,7 +79,6 @@ export const PrinciplesAlignment = ({ titles }: PrinciplesAlignmentProps) => {
         ctx.lineWidth = k > 0.98 ? 1.4 : 1;
         ctx.stroke();
         if (k > 0.6) {
-          // The label sits on a chip once the line is nearly straight.
           const alpha = (k - 0.6) / 0.4;
           ctx.font = `500 12px ${mono}`;
           ctx.textBaseline = "middle";

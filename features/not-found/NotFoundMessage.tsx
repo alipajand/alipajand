@@ -8,7 +8,6 @@ import {
   NOT_FOUND_TITLE_ID,
 } from "data/notFound";
 
-/** The status line, the page title, what happened and the keyboard tip. */
 export const NotFoundMessage = () => (
   <section className={styles.message} aria-labelledby={NOT_FOUND_TITLE_ID}>
     <p className={styles.status}>

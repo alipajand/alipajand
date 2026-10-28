@@ -11,21 +11,8 @@ import {
 import { record } from "./evidence";
 import { settle } from "./support";
 
-/*
- * Text whose contrast axe cannot judge, measured from pixels instead. axe leaves text as "needs
- * review" when its backdrop is a pseudo-element, a gradient, an image or an overlapping element,
- * and it never reads the pixels of a <canvas>, so text drawn over one passes unseen. For each such
- * text (up to two per kind of element and reason) this test screenshots the text, screenshots it
- * again with only that text's glyphs made transparent, and compares the text colour with the real
- * backdrop pixels under its glyphs. The lowest-contrast 5% of those pixels must still reach WCAG
- * AA: 4.5:1, or 3:1 for large text. Outlined text with a transparent fill is measured by its
- * stroke. Set RESPONSIVE_EVIDENCE to keep every measured node and its ratio. Runs in Chromium and
- * in Playwright WebKit (not Safari).
- */
-
 type BrowserName = "chromium" | "webkit";
 
-/** A page in Chromium (the configured browser) or Playwright WebKit, launched once per worker. */
 const test = base.extend<
   { openPage: (name: BrowserName, options?: BrowserContextOptions) => Promise<Page> },
   { webkit: () => Promise<Browser> }
@@ -55,7 +42,6 @@ const test = base.extend<
   },
 });
 
-/** The routes where axe leaves contrast for review, and every route with text over a canvas. */
 const ROUTES = [
   "/",
   "/portfolio",
@@ -104,10 +90,6 @@ interface Candidate {
   reason: string;
 }
 
-/**
- * axe's needs-review contrast nodes, plus text that sits over a canvas, each marked with
- * `data-px="<n>"`, at most PER_KIND per element class and reason.
- */
 const candidates = async (page: Page): Promise<Candidate[]> => {
   const results = await new AxeBuilder({ page }).withRules(["color-contrast"]).analyze();
   const review = (results.incomplete[0]?.nodes ?? []).map((node) => ({
@@ -173,7 +155,6 @@ interface Measured {
   glyphPixels: number;
 }
 
-/** Screenshots the text with and without its glyphs and measures it against what is behind. */
 const measure = async (page: Page, candidate: Candidate): Promise<Measured | null> => {
   await page.locator(candidate.target).evaluate((element) => {
     element.scrollIntoView({ block: "center", inline: "nearest" });
@@ -205,9 +186,7 @@ const measure = async (page: Page, candidate: Candidate): Promise<Measured | nul
     bottom = Math.min(vh, Math.ceil(bottom));
     const style = getComputedStyle(element);
     const parse = (value: string) => (value.match(/[\d.]+/g) ?? ["0", "0", "0", "0"]).map(Number);
-    // SVG text is painted with its fill, not its colour.
     let colour = parse(element instanceof SVGElement ? style.fill : style.color);
-    // Outlined text: a transparent fill drawn with a stroke reads as its stroke colour.
     if ((colour[3] ?? 1) === 0 && parseFloat(style.webkitTextStrokeWidth) > 0) {
       colour = parse(style.webkitTextStrokeColor);
     }
@@ -261,7 +240,6 @@ const measure = async (page: Page, candidate: Candidate): Promise<Measured | nul
       };
       const luminance = (r: number, g: number, bl: number) =>
         0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(bl);
-      // Pixels the glyphs change, grown by one pixel so antialiased edges count.
       const glyph = new Uint8Array(width * height);
       for (let i = 0; i < width * height; i += 1) {
         const o = i * 4;
@@ -315,7 +293,6 @@ for (const browserName of ["chromium", "webkit"] as const) {
           const page = await openPage(browserName, { viewport, deviceScaleFactor: 2 });
           await page.goto(path);
           await settle(page);
-          // A row that slides under the pointer would be caught mid-way through its hover change.
           await page.mouse.move(1, 1);
           await finishTransitions(page);
           const list = await candidates(page);

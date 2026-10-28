@@ -12,7 +12,6 @@ describe("SCROLL_PLACE_SCRIPT", () => {
     Object.defineProperty(window, "scrollY", { configurable: true, value: y });
   };
 
-  // jsdom has no navigation timing entries.
   const setNavigationType = (type?: string) => {
     Object.defineProperty(performance, "getEntriesByType", {
       configurable: true,

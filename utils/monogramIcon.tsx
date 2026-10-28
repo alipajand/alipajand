@@ -1,10 +1,5 @@
 import { ImageResponse } from "next/og";
 
-/**
- * Renders the "AP" monogram as a square PNG. Font size and corner radius scale
- * with the canvas so the mark stays legible at every icon size (browser tab,
- * Apple touch icon, and the favicon Google shows in search results).
- */
 export function renderMonogramIcon(px: number, { rounded = true } = {}) {
   return new ImageResponse(
     <div

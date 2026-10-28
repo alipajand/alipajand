@@ -18,7 +18,6 @@ const PROFILE_LINKS = PORTFOLIO_PROFILE_LINK_LABELS.flatMap((label) => {
 });
 
 interface PortfolioContactProps {
-  /** The homepage already owns `#contact`, so it renders this section under its own ids. */
   id?: string;
   headingId?: string;
 }

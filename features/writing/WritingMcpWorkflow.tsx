@@ -13,7 +13,6 @@ import {
 import { WRITING_POST_MCP_FIGCAPTION, writingDiagramBandLabel } from "data/writing";
 import type { FlowDiagramSpec } from "utils/diagramBlocks";
 
-/** The editor → MCP server → checks loop as a three-step flow with a feedback line. */
 export const mcpWorkflowFlow = (caption?: string): FlowDiagramSpec => ({
   type: "flow",
   title: MCP_WORKFLOW_DIAGRAM_TITLE,
@@ -29,7 +28,6 @@ export const mcpWorkflowFlow = (caption?: string): FlowDiagramSpec => ({
   caption: caption ?? WRITING_POST_MCP_FIGCAPTION,
 });
 
-/** The `mcp-workflow` diagram block, drawn as a hairline flow in place of the old SVG figure. */
 export const WritingMcpWorkflow = ({
   caption,
   sectionId,

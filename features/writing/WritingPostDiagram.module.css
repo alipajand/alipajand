@@ -2,10 +2,6 @@
   min-width: 0;
 }
 
-/*
- * The shared flow band bleeds to the screen edges on case studies. In an article it sits inside the
- * prose column, as in the design: drop the bleed, the inner frame lines and the chevron row.
- */
 .flow {
   min-width: 0;
 }
@@ -23,10 +19,6 @@
   display: none;
 }
 
-/*
- * The design scales a diagram title down when its longest word would not fit the column. On the
- * narrowest phones the band's title steps down a size and, as a last resort, breaks inside a word.
- */
 .flow figcaption > * {
   min-width: 0;
   overflow-wrap: anywhere;

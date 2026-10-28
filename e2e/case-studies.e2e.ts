@@ -9,7 +9,6 @@ import {
   visualBaseline,
 } from "./support";
 
-/** Every dedicated case study, in portfolio order. */
 const CASE_STUDIES = [
   "ledgerguard",
   "alwaysgeeky",
@@ -20,7 +19,6 @@ const CASE_STUDIES = [
   "mapbylaw",
 ] as const;
 
-/** Case studies that open on a tilted hero screenshot; the rest set their facts beside the intro. */
 const WITH_HERO: ReadonlySet<string> = new Set([
   "ledgerguard",
   "alwaysgeeky",
@@ -28,11 +26,6 @@ const WITH_HERO: ReadonlySet<string> = new Set([
   "mapbylaw",
 ]);
 
-/**
- * Section anchors from before the case studies took the design kit's ids (#241), as
- * `<project>-<key>`, and the chapter each one now lands on. Interface evidence exists only on the
- * case studies with screenshots.
- */
 const LEGACY_SECTION_ANCHORS = {
   context: "context",
   problem: "problem",
@@ -60,7 +53,6 @@ const collectConsoleProblems = (page: Page) => {
   return problems;
 };
 
-/** Lazy screenshots load once scrolled near; wait until every one outside the lightboxes has. */
 const loadImages = async (page: Page) => {
   await scrollThrough(page);
   await page.waitForFunction(() =>
@@ -325,7 +317,6 @@ test.describe("anchors from before the kit's ids", () => {
       }
       await expect(page.locator(`#${slug}-heading`)).toHaveCount(1);
 
-      // A deep link to an old anchor puts its chapter where the new anchor would.
       await page.goto(`${path}#${slug}-ux-decisions`);
       const ux = page.locator("#ux");
       await expect(ux).toBeInViewport();
@@ -377,7 +368,6 @@ test.describe("screenshot dialog on every case study with screenshots", () => {
 
         await opener.click();
         await expect(dialog).toBeVisible();
-        // The backdrop is whatever the viewport shows outside the dialog box.
         const box = (await dialog.boundingBox())!;
         const viewport = page.viewportSize()!;
         const backdrop = { x: viewport.width - 4, y: viewport.height - 4 };
@@ -422,11 +412,6 @@ test.describe("chapter jumps and browser history", () => {
     });
   }
 
-  /*
-   * After a jump the rail marks the chapter jumped to, even one too short to reach the marking line
-   * (the top third) or one the page bottoms out before (the last chapters). It follows the visitor's
-   * own scrolling again afterwards.
-   */
   for (const viewport of [
     { width: 1440, height: 900 },
     { width: 390, height: 844 },
@@ -434,7 +419,6 @@ test.describe("chapter jumps and browser history", () => {
     test(`the rail marks every chapter jumped to, and Back and Forward, at ${viewport.width}px`, async ({
       page,
     }) => {
-      // Every chapter of all seven case studies, three times over.
       test.setTimeout(120_000);
       await page.setViewportSize(viewport);
       for (const slug of CASE_STUDIES) {
@@ -463,7 +447,6 @@ test.describe("chapter jumps and browser history", () => {
           await expect(current, `${slug}: Forward to ${hash}`).toHaveAttribute("href", hash);
         }
 
-        // The visitor's own scrolling takes over again.
         await page.mouse.wheel(0, -100_000);
         await expect(current, `${slug}: scrolled to the top`).toHaveAttribute("href", hashes[0]);
         await page.mouse.wheel(0, 100_000);

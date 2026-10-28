@@ -8,15 +8,9 @@ import type { DiagramSpec } from "utils/diagramBlocks";
 
 interface WritingPostDiagramProps {
   spec: DiagramSpec;
-  /** The section the diagram follows; flows count as part of it for the contents. */
   sectionId: string;
 }
 
-/**
- * One ```diagram block inside the article column. Layers and compare use the shared figures as
- * they are. A flow is the shared bone band, held inside the column instead of bleeding to the
- * screen edges.
- */
 export const WritingPostDiagram = ({ spec, sectionId }: WritingPostDiagramProps) => {
   switch (spec.type) {
     case "layers": {

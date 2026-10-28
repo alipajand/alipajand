@@ -29,7 +29,6 @@ function clientAccepts(values: ContactFormValues): boolean {
   );
 }
 
-/** The body the form sends (see `useContactForm`). */
 function serverBody(values: ContactFormValues) {
   return {
     name: values.name.trim(),
@@ -119,14 +118,12 @@ describe("contact form rules and POST /api/contact agree", () => {
   });
 
   it("should refuse a blank message with a company in the form, which the server would send", async () => {
-    // The composed body is "Company: Acme\n\n", which the server trims to a non-empty message.
     const values = { ...base, message: "   ", company: "Acme" };
     expect(clientAccepts(values)).toBe(false);
     expect(await serverStatus(serverBody(values))).toBe(200);
   });
 
   it("should keep any body within the field limits under the 64 KB request cap", () => {
-    // JSON escapes a control character as \u00XX: 6 bytes for one code unit, the worst case.
     const worst = serverBody({
       name: "\u0001".repeat(200),
       email: `${"a".repeat(242)}@example.com`,
