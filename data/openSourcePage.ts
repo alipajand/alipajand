@@ -316,10 +316,10 @@ export const OPEN_SOURCE_TECHNOLOGY_TICKER = [
 export const OPEN_SOURCE_SHARED_PRINCIPLES_NOTE = "[ Shared across every tool ]";
 
 export const OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE =
-  "Contributions to public repositories on GitHub over a year, counted the way GitHub counts them. Private work is left out. A dated snapshot, refreshed by hand.";
+  "A dated snapshot of the GitHub contribution calendar on github.com/alipajand, kept up to date. GitHub counts private contributions there too, so it shows when I was active, not how much open-source work shipped.";
 export const OPEN_SOURCE_ACTIVITY_STAT_LABELS = {
   total: "Last year",
-  totalUnit: "public contributions",
+  totalUnit: "contributions",
   active: "Active days",
   streak: "Longest streak",
   busiest: "Busiest day",
@@ -436,10 +436,8 @@ export const openSourceActivityDaysLabel = (days: number): string => `of ${days}
 export const openSourceActivityStreakUnit = (days: number): string => (days === 1 ? "day" : "days");
 export const openSourceActivitySummary = (total: string, first: string, last: string): string =>
   `${total} on GitHub between ${first} and ${last}`;
-/** The counted noun, pluralized by `pluralize`, in the summary and the per-day readout. */
-export const OPEN_SOURCE_ACTIVITY_COUNT_NOUN = "public contribution";
 export const openSourceActivityTableCaption = (first: string, last: string): string =>
-  `Public contributions per month, ${first} to ${last}`;
+  `Contributions per month, ${first} to ${last}`;
 export const OPEN_SOURCE_ACTIVITY_TABLE_HEADERS = {
   month: "Month",
   total: "Contributions",
