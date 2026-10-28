@@ -51,19 +51,38 @@ describe("POST /api/contact provider errors", () => {
     expect(await res.json()).toEqual({ error: "Failed to send message" });
   });
 
-  it("should log the provider error for the owner without the visitor's message", async () => {
+  it("should log the provider error code and status for the owner", async () => {
     send.mockResolvedValue({
       data: null,
-      error: { name: "rate_limit_exceeded", message: "Too many requests" },
+      error: { name: "rate_limit_exceeded", message: "Too many requests", statusCode: 429 },
     });
 
     await post();
 
     expect(consoleError).toHaveBeenCalledWith("Contact email send failed", {
       name: "rate_limit_exceeded",
-      message: "Too many requests",
+      statusCode: 429,
     });
-    expect(JSON.stringify(consoleError.mock.calls)).not.toContain("Hello");
+  });
+
+  // Provider messages can quote the recipient, the sender or the visitor's address.
+  it("should keep the provider message, addresses and the visitor's text out of the log", async () => {
+    send.mockResolvedValue({
+      data: null,
+      error: {
+        name: "validation_error",
+        message: "Invalid `reply_to`: ada@example.com. Sending to inbox@example.com failed.",
+        statusCode: 422,
+      },
+    });
+
+    await post();
+
+    const logged = JSON.stringify(consoleError.mock.calls);
+    expect(logged).not.toContain("ada@example.com");
+    expect(logged).not.toContain("inbox@example.com");
+    expect(logged).not.toContain("Hello");
+    expect(logged).not.toContain("Invalid");
   });
 
   it("should still report success when the provider accepts the email", async () => {
