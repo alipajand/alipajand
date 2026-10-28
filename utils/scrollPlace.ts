@@ -1,20 +1,7 @@
-/** sessionStorage key for the scroll offset of each history entry, by Navigation API entry key. */
 export const SCROLL_PLACE_STORAGE_KEY = "scroll-place";
 
-/** Entries kept; the oldest go first. */
 export const SCROLL_PLACE_LIMIT = 50;
 
-/**
- * Inline head script that keeps the reader's place across quick Back and Forward steps between
- * full page loads.
- *
- * The browser records a history entry's scroll offset when the page is left. Step through it before
- * the browser has restored the offset and it records the top of the page instead, so the next Back
- * lands at the top. The script keeps its own copy of each entry's offset, stops recording while a
- * restore is still owed, and applies the owed offset on load if the browser did not.
- *
- * Browsers without the Navigation API keep the native behavior.
- */
 export const SCROLL_PLACE_SCRIPT = `(function () {
   var nav = window.navigation;
   if (!nav || !nav.currentEntry) return;

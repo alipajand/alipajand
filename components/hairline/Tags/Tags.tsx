@@ -5,7 +5,6 @@ interface TagsProps {
   label?: string;
 }
 
-/** Pill chips for a stack or capability list. Rendered as a list so the count is announced. */
 export const Tags = ({ tags, label }: TagsProps) => (
   <ul className={styles.tags} aria-label={label}>
     {tags.map((tag) => (

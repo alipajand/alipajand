@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-/*
- * Pajand Hairline tokens (docs/design/system/project/tokens.json).
- * One dark theme on purpose: ink ground, line text, rule hairlines, a single bone band.
- */
-/* Arial sized to Archivo's metrics, shown until Archivo loads (see app/fonts.ts). */
 @font-face {
   font-family: "Archivo Fallback";
   src: local("Arial");
@@ -47,7 +42,6 @@
   --gutter-l: max(16px, env(safe-area-inset-left, 0px));
   --gutter-r: max(16px, env(safe-area-inset-right, 0px));
 
-  /* Surface tones. Ink is the default; the bone band and lit rows redefine them. */
   --tone-fg: var(--color-line);
   --tone-mute: var(--color-mute);
   --tone-rule: var(--color-rule);
@@ -78,8 +72,6 @@ a {
   outline-offset: 3px;
 }
 
-/* Route changes move focus to <main> so screen readers start at the new page; the whole column does
-   not need a focus ring for that. */
 main[tabindex="-1"]:focus {
   outline: none;
 }

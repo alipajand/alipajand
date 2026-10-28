@@ -45,7 +45,6 @@
 }
 
 .tickerItem {
-  /* Names and sparks are separate flex items, so either can start a wrapped line. */
   display: contents;
 }
 
@@ -87,7 +86,6 @@
 
   .tickerRun {
     flex-wrap: wrap;
-    /* The band's 26px gap outranks the base 4px row gap in the artifact, so rows sit 26px apart. */
     row-gap: 26px;
     white-space: normal;
   }

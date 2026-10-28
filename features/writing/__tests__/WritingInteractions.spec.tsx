@@ -33,7 +33,6 @@ const HEADINGS: PostHeading[] = [
 
 let frames: ReturnType<typeof installManualFrames>;
 
-/** Lays the headings out at fixed offsets from the viewport top. */
 const Article = ({ tops }: { tops: number[] }) => (
   <div data-prose="">
     {HEADINGS.map((heading, index) => {
@@ -188,7 +187,6 @@ describe("WritingPostFilters", () => {
     const ai = within(group).getByRole("button", { name: /AI/ });
     expect(all).toHaveAttribute("aria-pressed", "true");
 
-    // Native buttons: Enter and Space activate them, so a click covers the keyboard path too.
     expect(ai.tagName).toBe("BUTTON");
     expect(ai).toHaveAttribute("type", "button");
     fireEvent.click(ai);

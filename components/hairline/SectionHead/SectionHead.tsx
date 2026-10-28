@@ -12,9 +12,7 @@ export interface SectionAction {
 interface SectionHeadProps {
   title: string;
   titleId: string;
-  /** Muted copy beside the title. Pass several paragraphs as an array. */
   lede?: string | readonly string[];
-  /** A short mono note beside the title, such as a count. */
   note?: string;
   action?: SectionAction;
 }
@@ -26,10 +24,6 @@ const ActionLink = ({ action }: { action: SectionAction }) => (
   </Link>
 );
 
-/**
- * A section's header row: an uppercase display title with an optional lede, note or link. When a
- * lede and a link are both given, the link sits under the lede on the right.
- */
 export const SectionHead = ({ title, titleId, lede, note, action }: SectionHeadProps) => {
   const paragraphs = lede === undefined ? [] : typeof lede === "string" ? [lede] : lede;
 
@@ -55,12 +49,10 @@ export const SectionHead = ({ title, titleId, lede, note, action }: SectionHeadP
 };
 
 interface SectionFootProps {
-  /** A mono count such as "2 of 7 case studies". */
   count: ReactNode;
   action: SectionAction;
 }
 
-/** The slim row closing a section: a count on the left and a link to the full index. */
 export const SectionFoot = ({ count, action }: SectionFootProps) => (
   <div className={`${styles.head} ${styles.foot}`}>
     <span className={styles.count}>{count}</span>

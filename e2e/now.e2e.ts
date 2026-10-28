@@ -2,11 +2,6 @@ import { type Browser, expect, test } from "@playwright/test";
 
 import { horizontalOverflow, settle } from "./support";
 
-/*
- * The /now week ruler. Without JavaScript the server-drawn ruler shows the 52 steps and the cursor;
- * with JavaScript the canvas draws over the same box and the server copy is hidden, so the band
- * neither stays blank nor shows two rulers, and nothing shifts when they swap.
- */
 const WIDTHS = [
   { width: 1440, height: 900, canvasHeight: 132 },
   { width: 390, height: 844, canvasHeight: 110 },
@@ -65,7 +60,6 @@ for (const { width, height, canvasHeight } of WIDTHS) {
 
       const withJs = await rulerBox(browser, true, width);
       const withoutJs = await rulerBox(browser, false, width);
-      // Content above the ruler can differ without JavaScript, so compare the ruler's own box.
       expect({ width: withJs?.width, height: withJs?.height }).toEqual({
         width: withoutJs?.width,
         height: withoutJs?.height,

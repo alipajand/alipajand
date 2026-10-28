@@ -3,11 +3,6 @@ import { expect, test } from "@playwright/test";
 import { stubVercelScripts } from "./evidence";
 import { settle } from "./support";
 
-/*
- * Smoke tests for every route the site publishes: each page in the sitemap, the 404, and the
- * machine-readable endpoints.
- */
-
 const sitemapPaths = async (request: import("@playwright/test").APIRequestContext) => {
   const xml = await (await request.get("/sitemap.xml")).text();
   return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
@@ -61,7 +56,6 @@ test("unknown pages answer 404 with the site's not-found page", async ({ page })
   await expect(page.getByRole("navigation", { name: "Primary" }).first()).toBeVisible();
 });
 
-// Each unknown slug used to be rendered on demand and cached as a 404 for a year.
 for (const path of [
   "/writing/not-a-post",
   "/writing/not-a-post/opengraph-image",

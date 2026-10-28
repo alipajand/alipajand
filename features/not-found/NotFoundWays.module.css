@@ -62,7 +62,6 @@
 @media (max-width: 760px) {
   .way {
     padding: 20px 16px;
-    /* The artifact shrinks the label to fit; the 7.4cqi cap keeps "Portfolio" on one line down to 320px. */
     font-size: min(28px, 7.4cqi);
   }
 }

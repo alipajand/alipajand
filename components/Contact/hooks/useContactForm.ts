@@ -32,7 +32,6 @@ export interface ContactFormSelectors {
   formState: FormState<ContactFormValues>;
   validationErrors: string[];
   errorSummaryRef: RefObject<HTMLDivElement | null>;
-  /** Message length as the server counts it, company line included. */
   messageLength: number;
   hasCompany: boolean;
 }
@@ -68,8 +67,6 @@ export const useContactForm = (): ContactFormHook => {
   const [message, company] = useWatch({ control: form.control, name: ["message", "company"] });
   const messageLength = contactMessageLength(message, company);
   const hasCompany = company.trim().length > 0;
-  // The company shares the message's length budget, so a message already checked is checked again.
-  // The reset after a successful send clears the message first, so nothing is flagged then.
   useEffect(() => {
     if (!form.getValues("message").trim()) return;
     if (form.getFieldState("message").isTouched || form.formState.submitCount > 0) {
@@ -103,9 +100,6 @@ export const useContactForm = (): ContactFormHook => {
       const body = await res.json().catch(() => ({}));
       if (!res.ok) {
         setStatus("error");
-        // 429 comes from the Vercel Firewall rule on this route, not from the handler. The form
-        // applies the server's field rules first, so a 400 means the two have drifted or the
-        // request was altered; the server's wording is not shown.
         setErrorMessage(
           res.status === 429
             ? CONTACT_FORM_ERROR_RATE_LIMITED

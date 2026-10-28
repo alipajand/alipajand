@@ -20,11 +20,6 @@ import { useMotion } from "utils/motion/useMotion";
 const REST_POINTER = 0.62;
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
-/**
- * The hero image: a cross-section of the stack from the interface down to the workers. Scrolling
- * drives a probe through the layers and the pointer moves it sideways. It only draws on scroll,
- * resize and pointer input; with reduced motion it draws once, fully descended.
- */
 export const StrataCanvas = () => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -72,7 +67,6 @@ export const StrataCanvas = () => {
           ctx.beginPath();
           for (let x = 0; x <= w + 8; x += 8) {
             const dx = x - px;
-            // Layers part around the probe as it passes through them.
             const part = reached
               ? Math.exp(-(dx * dx) / (2 * 26 * 26)) *
                 Math.max(0, 1 - Math.abs(base - tipY) / (bandH * 1.2)) *
@@ -94,7 +88,6 @@ export const StrataCanvas = () => {
           ctx.lineTo(w, top + 0.5);
           ctx.stroke();
         }
-        // Label on a solid chip so it reads over the lines.
         const title = `[${pad(i)}] ${layer.name.toUpperCase()}`;
         ctx.textBaseline = "top";
         ctx.font = `400 13px ${sans}`;
@@ -115,7 +108,6 @@ export const StrataCanvas = () => {
         }
       });
 
-      // The probe: a line from the surface to the current depth, with a tip and depth ticks.
       ctx.strokeStyle = `rgba(${LINE_RGB},1)`;
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -145,7 +137,6 @@ export const StrataCanvas = () => {
       readout.textContent = `Depth ${pad(active)} / ${pad(n - 1)} · ${HOME_STRATA_LAYERS[active].name}`;
     }
 
-    // The probe eases toward the pointer over a few frames, then stops.
     const pointer = createEasedPointer(draw, { x: REST_POINTER });
     const onPointerMove = (event: PointerEvent) => {
       const box = element.getBoundingClientRect();

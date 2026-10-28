@@ -1,4 +1,3 @@
-/* ── Index ── */
 .index {
   margin: 0;
   padding: 0;
@@ -63,7 +62,6 @@
   outline-offset: -4px;
 }
 
-/* ── Install note ── */
 .note {
   display: grid;
   grid-template-columns: 160px minmax(0, 1fr);
@@ -85,7 +83,6 @@
   line-height: 1.6;
 }
 
-/* ── Project ── */
 .project {
   display: grid;
   grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);

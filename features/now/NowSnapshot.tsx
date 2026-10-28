@@ -7,7 +7,6 @@ interface NowSnapshotProps {
   sections: readonly NowSection[];
 }
 
-/** The snapshot sections as numbered hairline cells; the cell crossing the middle of the screen lights. */
 export const NowSnapshot = ({ sections }: NowSnapshotProps) => (
   <LitList className={styles.cells} window={0.5}>
     {sections.map((section, index) => (

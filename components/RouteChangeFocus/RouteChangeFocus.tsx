@@ -9,8 +9,6 @@ import { scrollToTop } from "utils/scrollToTop";
 export const RouteChangeFocus = () => {
   const pathname = usePathname();
   const isFirstRender = useRef(true);
-  // The path a Back/Forward step is going to, so the route change it causes keeps the browser's
-  // restored scroll position instead of jumping to the top.
   const traversalPath = useRef<string | null>(null);
 
   useEffect(() => {
@@ -23,9 +21,6 @@ export const RouteChangeFocus = () => {
   }, []);
 
   useEffect(() => {
-    // Back or Forward pressed before the route being left to had finished rendering: that route
-    // still commits, after the popstate, for an address the browser has already left. Skip it, so
-    // it neither scrolls to the top nor uses up the traversal meant for the route that follows.
     if (traversalPath.current !== null && pathname !== window.location.pathname) return;
 
     const isTraversal = traversalPath.current === pathname;

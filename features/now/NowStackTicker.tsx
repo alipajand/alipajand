@@ -21,15 +21,8 @@ const Run = ({ items, hidden }: { items: readonly string[]; hidden?: boolean }) 
   </div>
 );
 
-/**
- * The stack set in display type on the bone band. It drifts on its own and speeds up with scroll
- * velocity, as in the artifact; when motion is paused it moves only while scrolling, and with reduced
- * motion the duplicate run is dropped and the names wrap in place. Decorative: the same tools are
- * listed as text below it.
- */
 export const NowStackTicker = ({ items }: NowStackTickerProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  // Outlives a re-setup, which runs when the visitor pauses or resumes motion, so the band stays put.
   const offset = useRef(0);
 
   useMotion(ref, ({ element, reducedMotion, idleMotion }) => {
@@ -53,7 +46,6 @@ export const NowStackTicker = ({ items }: NowStackTickerProps) => {
       onResize: () => {
         half = track.scrollWidth / 2;
       },
-      // Artifact: x -= (0.45 + |vel| * .35) * dir, reversed while scrolling up.
       onFrame: idleMotion
         ? ({ vel, step }) => move((0.45 + Math.abs(vel) * 0.35) * (vel < -0.5 ? -1 : 1) * step)
         : undefined,

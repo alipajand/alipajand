@@ -9,10 +9,6 @@ import {
   visualBaseline,
 } from "./support";
 
-/*
- * Browser checks and visual baselines for the open-source, engineering-principles, now and 404
- * routes. The 404 is reached through an unknown path so it is served with its real status.
- */
 const ROUTES = [
   { name: "open-source", path: "/open-source", status: 200 },
   { name: "engineering-principles", path: "/engineering-principles", status: 200 },
@@ -26,7 +22,6 @@ const BASELINE_VIEWPORTS = [
 ] as const;
 
 const stubVercelScripts = (page: Page) =>
-  // Vercel serves its analytics scripts only on its own hosting.
   page.route("**/_vercel/**", (route) =>
     route.fulfill({ status: 200, contentType: "text/javascript", body: "" })
   );
@@ -35,7 +30,6 @@ const collectConsoleProblems = (page: Page) => {
   const problems: string[] = [];
   page.on("console", (message) => {
     if (message.type() !== "error" && message.type() !== "warning") return;
-    // The 404 document itself is reported as a failed resource load.
     if (message.text().includes("status of 404")) return;
     problems.push(message.text());
   });
@@ -43,14 +37,11 @@ const collectConsoleProblems = (page: Page) => {
   return problems;
 };
 
-/** Pauses idle motion the way the footer control does, before any script runs. */
 const pauseMotion = (page: Page) =>
   page.addInitScript(() => {
     try {
       window.localStorage.setItem("motion-paused", "1");
-    } catch {
-      // Storage may be unavailable; the check below would then fail loudly.
-    }
+    } catch {}
   });
 
 for (const { name, path, status } of ROUTES) {
@@ -189,7 +180,6 @@ test.describe("not-found focus", () => {
     ).toBeFocused();
   });
 
-  // The 404 numerals' text box reaches up into the header row on wide screens.
   for (const width of [1280, 1920]) {
     test(`header links take a pointer click above the numerals at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
@@ -206,10 +196,6 @@ test.describe("not-found focus", () => {
   }
 });
 
-/*
- * The 404 code is set far larger than its line height, so its text box reaches up over the header.
- * Every shared header link must still take a click there, with or without JavaScript.
- */
 const MISSING_PATH = "/this-page-does-not-exist";
 
 const HEADER_LINKS = [
@@ -330,7 +316,6 @@ test.describe("remaining pages visual baselines", () => {
           await page.setViewportSize(viewport);
           await page.goto(path);
           await settle(page);
-          // The ruler marks NOW_UPDATED, so nothing on these pages follows the clock.
           await expectBaseline(page, { fullPage: true });
         }
       );

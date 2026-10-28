@@ -2,16 +2,10 @@ import { expect, type Page, test } from "@playwright/test";
 
 import { horizontalOverflow, settle } from "./support";
 
-/*
- * The /now ruler marks the date its content is dated (`NOW_UPDATED`), not the visitor's week: the
- * label reads "As of May 8, 2026" on every clock and without JavaScript, has no "Today" marker, and
- * stays inside the ruler at every width.
- */
 const WIDTHS = [1440, 390, 320] as const;
 
 const LABEL = "As of May 8, 2026";
 
-// The first and last days of the year, and a day well after the content date.
 const CLOCKS = ["2026-01-01T12:00:00Z", "2026-10-27T12:00:00Z", "2026-12-31T12:00:00Z"] as const;
 
 const labelInsideRuler = async (page: Page) => {

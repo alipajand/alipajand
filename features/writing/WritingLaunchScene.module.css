@@ -1,12 +1,3 @@
-/*
- * The refactor scene. At rest (no JavaScript, reduced motion) it is one still frame at step 3. When
- * it can step it is a tall runway with a sticky stage that steps 1 → 3.
- *
- * The runway comes from media queries, not from the scene script, so the server-rendered page is
- * already as tall as the hydrated one. A browser restoring the scroll position on Back, Forward or
- * reload does so against the final layout instead of one 1,500–2,500px shorter.
- * `[data-ready]` keeps the same runway in browsers without the `scripting` media feature.
- */
 .scene {
   border-bottom: var(--stroke-hairline) solid var(--tone-rule);
 }

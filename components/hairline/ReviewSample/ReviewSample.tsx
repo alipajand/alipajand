@@ -31,19 +31,12 @@ const initiallyConfirmed = (contracts: ReviewSampleContract[]) =>
     )
   );
 
-/** The first term still waiting for review, else the first term. */
 const firstTermId = (contract: ReviewSampleContract, confirmed: Set<string>) =>
   (contract.terms.find((t) => !confirmed.has(key(contract.id, t.id))) ?? contract.terms[0]).id;
 
-/** The first contract with a term left to review, so the sample opens on something to confirm. */
 const startContract = (contracts: ReviewSampleContract[], confirmed: Set<string>) =>
   contracts.find((c) => c.terms.some((t) => !confirmed.has(key(c.id, t.id)))) ?? contracts[0];
 
-/**
- * A fictional contract ledger the reader can work through: pick a contract, pick a term, read the
- * clause it came from and confirm it. A contract's annual commitment counts in the total only once
- * its commitment term is confirmed. State lives in the page and resets on reload.
- */
 export const ReviewSample = ({
   title,
   caption,

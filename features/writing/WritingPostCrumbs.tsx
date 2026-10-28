@@ -6,11 +6,9 @@ import { writingPostBreadcrumbs } from "data/breadcrumbs";
 
 interface WritingPostCrumbsProps {
   title: string;
-  /** Let the post title drop to its own line on phones (the launch article layout). */
   wrap?: boolean;
 }
 
-/** Home / Writing / the post, in mono. The BreadcrumbList JSON-LD carries the same trail. */
 export const WritingPostCrumbs = ({ title, wrap = false }: WritingPostCrumbsProps) => (
   <nav className={wrap ? `${styles.crumbs} ${styles.wrap}` : styles.crumbs} aria-label="Breadcrumb">
     <ol>

@@ -5,17 +5,10 @@ import { expect, type Page, test } from "@playwright/test";
 import { record, stubVercelScripts, videoDir } from "./evidence";
 import { AUDIT_ROUTES, FAMILY_ROUTES, settle } from "./support";
 
-/*
- * Motion and performance in emulated Chromium: scroll-linked motion plays and settles, automatic
- * motion stops with the footer control and with reduced motion, and Core Web Vitals measured
- * locally (no network or CPU throttling, so they are a floor, not field data).
- */
-
 const PHONE = { width: 390, height: 844 };
 const DESKTOP = { width: 1440, height: 900 };
 const SIZES = [PHONE, DESKTOP] as const;
 
-/** Looping animations still running; one-shot cues that end on their own are left out. */
 const runningAnimations = (page: Page) =>
   page.evaluate(
     () =>
@@ -28,7 +21,6 @@ const runningAnimations = (page: Page) =>
         ).length
   );
 
-/** Inline styles of every element that scripts animate, keyed by position in the document. */
 const inlineStyles = (page: Page) =>
   page.evaluate(() =>
     Array.from(document.querySelectorAll<HTMLElement>("[style]")).map(
@@ -76,24 +68,20 @@ for (const route of FAMILY_ROUTES) {
         const progress = await page
           .locator("header [class*='progress']")
           .evaluate((element) => (element as HTMLElement).style.getPropertyValue("--p"));
-        // A page shorter than the screen has nothing to track.
         if (scrollable) {
           expect(Number(progress), "scroll progress line follows the page").toBeGreaterThan(0);
         }
 
-        // Automatic motion runs until the footer control pauses it.
         const runningBefore = await runningAnimations(page);
         expect(runningBefore, "the status dot blinks").toBeGreaterThan(0);
         const pause = page.getByRole("button", { name: "Pause automatic motion" });
         await pause.scrollIntoViewIfNeeded();
         await pause.click();
         await expect(page.locator("html")).toHaveAttribute("data-motion-paused", "");
-        // Let the scroll that brought the control into view finish before counting frames.
         await page.waitForTimeout(1200);
         expect(await runningAnimations(page), "CSS animations after pausing").toBe(0);
         expect(await framesIn(page, 1000), "animation frames after pausing").toBe(0);
 
-        // Scroll-linked motion keeps answering the visitor while automatic motion is paused.
         if (scrollable) {
           const pausedBefore = await inlineStyles(page);
           await page.mouse.wheel(0, -size.height);
@@ -112,7 +100,6 @@ for (const route of FAMILY_ROUTES) {
           scrollLinkedChanges: moved.length,
           runningAnimationsBeforePause: runningBefore,
         });
-        // Leave the choice as found for other tests in this browser.
         await page.evaluate(() => window.localStorage.removeItem("motion-paused"));
       });
     }
@@ -186,7 +173,6 @@ for (const route of FAMILY_ROUTES) {
       await page.goto(route.path);
       await settle(page);
 
-      // Scripted interactions for INP: the menu on a phone, the motion control on a desktop.
       if (size === PHONE) {
         await page.getByRole("button", { name: "Open menu" }).tap();
         await page.getByRole("button", { name: "Close menu" }).tap();
@@ -217,7 +203,6 @@ for (const route of FAMILY_ROUTES) {
         viewport: size,
         lcp: Math.round(vitals.lcp),
         cls: Number(vitals.cls.toFixed(4)),
-        // The event timing API reports nothing under 16ms; 0 here means "under 16ms".
         inp: Math.round(vitals.inp),
         longTasks: vitals.long,
       });
@@ -225,7 +210,6 @@ for (const route of FAMILY_ROUTES) {
       expect(vitals.lcp, "LCP").toBeLessThan(2500);
       expect(vitals.cls, "CLS").toBeLessThan(0.1);
       expect(vitals.inp, "INP").toBeLessThan(200);
-      // Headless CPU timing is noisy; only a long freeze fails.
       expect(vitals.long.filter((duration) => duration >= 250)).toEqual([]);
       await context.close();
     });

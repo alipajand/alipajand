@@ -19,7 +19,6 @@ export const HomeAbout = () => (
         <h2 id="about-heading" className={styles.title}>
           {ABOUT_HEADING}
         </h2>
-        {/* The pull quote repeats a paragraph below, so it is presentational. */}
         <figure className={styles.pull} aria-hidden="true">
           <blockquote>{ABOUT_PARAGRAPHS[HOMEPAGE_ABOUT_PULL_INDEX]}</blockquote>
           <figcaption className={styles.cite}>— {HOMEPAGE_HERO_NAME}</figcaption>

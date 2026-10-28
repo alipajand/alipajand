@@ -12,7 +12,6 @@
   border-right: var(--stroke-hairline) solid var(--tone-rule);
 }
 
-/* The eyebrow keeps a paragraph's 1em margin, which the flex gap adds to, as in the design kit. */
 .over {
   max-width: 48ch;
   margin: 1em 0;
@@ -51,7 +50,6 @@
   margin-top: 0;
 }
 
-/* Hero screenshot column; the perspective gives the tilted window its depth. */
 .side {
   display: grid;
   gap: 14px;

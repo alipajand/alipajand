@@ -11,7 +11,6 @@ import {
 } from "data/writing";
 import { formatDate } from "utils/date";
 
-/** The featured post as one large link that fills with bone on hover. */
 export const WritingIndexFeatured = ({ post }: { post: WritingListPost }) => (
   <section id="featured" aria-labelledby="featured-title">
     <SectionHead title={WRITING_FEATURED_HEADING} titleId="featured-title" />

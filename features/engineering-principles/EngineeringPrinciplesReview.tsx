@@ -6,7 +6,6 @@ import {
   ENGINEERING_PRINCIPLES_REVIEW_QUOTE,
 } from "data/engineeringPrinciples";
 
-/** The closing bone band: the lede's last sentence set large, with the chevron row. */
 export const EngineeringPrinciplesReview = () => (
   <Band id="design-review" aria-labelledby="design-review-label">
     <div className={styles.close}>

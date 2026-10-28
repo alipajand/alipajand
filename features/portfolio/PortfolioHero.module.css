@@ -35,7 +35,6 @@
   color: var(--color-mute);
 }
 
-/* The page's <h1> reads as the bracketed eyebrow. */
 .title {
   margin: 0;
   font: inherit;
@@ -97,7 +96,6 @@
   border: var(--stroke-hairline) solid var(--tone-rule);
 }
 
-/* Two passes, then still: a hint, not a loop. */
 .cue i {
   display: block;
   width: 1px;

@@ -29,7 +29,6 @@ const postSlugs = readdirSync(join(process.cwd(), "content", "posts"))
 beforeEach(() => {
   installMatchMedia(false);
   installObservers();
-  // jsdom has no 2D context; the alignment diagram keeps its still rendering.
   jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null);
 });
 

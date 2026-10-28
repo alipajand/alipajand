@@ -14,7 +14,6 @@ import {
 } from "utils/projects";
 import type { Metadata } from "next";
 
-/** Only the generated slugs exist; any other slug is a 404 that is neither rendered nor cached. */
 export const dynamicParams = false;
 
 interface PageProps {

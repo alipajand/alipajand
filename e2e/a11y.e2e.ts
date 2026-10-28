@@ -11,30 +11,15 @@ import {
 import { record } from "./evidence";
 import { AUDIT_ROUTES, settle } from "./support";
 
-/*
- * Automated accessibility checks with axe-core (WCAG 2.0–2.2 A and AA rules) on every route at a
- * phone and a desktop width, and on the interactive states: open menu, open dialog, open contents,
- * filtered list and form errors. Every check runs in Chromium and in Playwright WebKit (not Safari).
- *
- * Every violation fails, whatever its impact, unless an open finding below covers it. No rule is
- * disabled. Each finding names one rule, the elements it covers, why it is open and who owns it,
- * and the scans where it must still appear: when its fix lands those scans fail until the entry
- * goes, so an exception cannot outlive its defect. axe's "needs review" results are recorded with
- * the evidence but do not fail here; e2e/contrast-pixels.e2e.ts measures the contrast ones from
- * pixels.
- */
-
 const TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 const DISABLED_RULES: string[] = [];
 
 interface KnownFinding {
   id: string;
   rule: string;
-  /** Matches the flagged element (or an ancestor) in the page. */
   within: string;
   reason: string;
   owner: string;
-  /** Scan labels where the finding still reproduces. */
   seenIn: string[];
 }
 
@@ -43,7 +28,6 @@ const KNOWN_FINDINGS: KnownFinding[] = [];
 type BrowserName = "chromium" | "webkit";
 const BROWSERS: readonly BrowserName[] = ["chromium", "webkit"];
 
-/** A page in Chromium (the configured browser) or Playwright WebKit, launched once per worker. */
 const test = base.extend<
   { openPage: (name: BrowserName, options?: BrowserContextOptions) => Promise<Page> },
   { webkit: () => Promise<Browser> }
@@ -83,7 +67,6 @@ const test = base.extend<
   },
 });
 
-/** The finding that covers every flagged element of a violation, if one does. */
 const coveredByFinding = async (
   page: Page,
   violation: { id: string; targets: string[] },
@@ -99,19 +82,12 @@ const coveredByFinding = async (
   return covered ? finding.id : null;
 };
 
-/**
- * Runs axe and returns what must be empty: violations no finding covers, and findings listed for
- * this scan that no longer reproduce.
- */
 const scan = async (
   page: Page,
   label: string,
   browserName: BrowserName,
   findings: readonly KnownFinding[] = KNOWN_FINDINGS
 ) => {
-  // Colours caught mid-transition after a click are not the colours a reader sees. A click can
-  // scroll the page, and scroll scenes only change state on the next frames, so let those frames
-  // run before collecting the transitions to wait for.
   await page.evaluate(
     () =>
       new Promise<void>((resolve) =>
@@ -265,8 +241,6 @@ for (const browserName of BROWSERS) {
       });
     });
 
-    // The guard itself: with no findings listed, a violation of each impact fails the scan; a
-    // finding covers only the elements it names; and a finding that no longer reproduces fails.
     test("the exception guard fails on every impact and on a stale finding", async ({
       openPage,
     }) => {
@@ -277,15 +251,11 @@ for (const browserName of BROWSERS) {
         const probe = document.createElement("div");
         probe.id = "guard-probe";
         probe.innerHTML = [
-          // critical: image-alt
           '<img src="/favicon.ico" width="16" height="16">',
-          // serious: color-contrast
           '<p style="color:#262624;background:#0f0f0e">Low contrast</p>',
-          // minor: aria-deprecated-role
           '<div role="directory">Deprecated role</div>',
         ].join("");
         document.getElementById("main-content")!.append(probe);
-        // moderate: html-xml-lang-mismatch
         document.documentElement.setAttributeNS(
           "http://www.w3.org/XML/1998/namespace",
           "xml:lang",
@@ -332,7 +302,6 @@ for (const browserName of BROWSERS) {
       expect(gone.stale).toEqual(["GUARD-3 no longer reproduces here: remove it from seenIn"]);
     });
 
-    // RG-A3 (#264): the error summary links were 15px tall on a 21px pitch.
     for (const width of [320, 390, 1440]) {
       test(`contact error summary links are 24px targets at ${width}px`, async ({ openPage }) => {
         const page = await openPage(browserName, { viewport: { width, height: 900 } });

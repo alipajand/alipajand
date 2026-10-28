@@ -19,7 +19,6 @@ import {
 } from "data/writing";
 
 interface WritingIndexPageContentProps {
-  /** Published posts, newest first. */
   posts: WritingListPost[];
 }
 

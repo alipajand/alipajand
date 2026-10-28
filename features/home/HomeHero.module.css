@@ -139,7 +139,6 @@
   font-size: 14px;
 }
 
-/* Data keeps sentence-case fragments; the artifact capitalises the first word. */
 .proof dd::first-letter {
   text-transform: uppercase;
 }

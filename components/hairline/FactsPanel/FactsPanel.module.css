@@ -31,7 +31,6 @@
 }
 
 .facts dt {
-  /* The mono role inline: `composes` only works on simple class selectors. */
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.08em;

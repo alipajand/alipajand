@@ -50,7 +50,6 @@
   outline-offset: -4px;
 }
 
-/* Case-study pager: index and next case side by side, with the larger kit title. */
 .pager {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }

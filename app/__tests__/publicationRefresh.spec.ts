@@ -1,11 +1,5 @@
 /** @jest-environment node */
 
-/*
- * Publication is decided when a route renders, so a scheduled post goes live without a deploy only
- * because every route that reads it is re-rendered on the same schedule. A route left out would
- * keep showing the old state while the others moved on.
- */
-
 import { readdirSync, readFileSync } from "fs";
 import path from "path";
 

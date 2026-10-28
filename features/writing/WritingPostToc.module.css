@@ -66,7 +66,6 @@
   display: none;
 }
 
-/* ── Reader: muted entries with a reading-progress hairline each ── */
 .reader .stick {
   max-height: 100vh;
   overflow: auto;
@@ -107,7 +106,6 @@
   background: var(--color-ink);
 }
 
-/* ── Launch: plain entries; below 960px the list folds into a disclosure ── */
 .launch .stick {
   padding: 26px 24px;
 }

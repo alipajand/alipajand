@@ -1,13 +1,5 @@
 import { useSyncExternalStore } from "react";
 
-/**
- * The visitor's "Pause automatic motion" choice. It stops motion that runs on its own: the
- * status-dot blink (CSS, through <html data-motion-paused>) and any `useMotion` island's `onFrame`
- * loop. Scroll-linked and pointer-driven motion keeps working, because it only moves in response to
- * the visitor. The choice is remembered per browser; if storage is unavailable it still applies to
- * the open page. Reduced motion is separate and always wins; see `useMotion`.
- */
-
 const STORAGE_KEY = "motion-paused";
 export const MOTION_PAUSED_ATTRIBUTE = "data-motion-paused";
 
@@ -42,14 +34,11 @@ export const setMotionPaused = (value: boolean): void => {
   try {
     if (value) window.localStorage.setItem(STORAGE_KEY, "1");
     else window.localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    // Storage can be unavailable (private mode, blocked site data); the choice still applies now.
-  }
+  } catch {}
   reflect(value);
   notify();
 };
 
-/** Picks up a choice made in another tab, or while this page sat in the back/forward cache. */
 const resync = () => {
   const stored = readStored();
   if (stored === paused) return;
@@ -81,11 +70,9 @@ export const subscribeMotionPaused = (listener: () => void): (() => void) => {
   };
 };
 
-/** Live pause preference. The server snapshot is `false`, matching the markup's default. */
 export const useMotionPaused = (): boolean =>
   useSyncExternalStore(subscribeMotionPaused, isMotionPaused, () => false);
 
-/** Forgets the cached value. Only tests call this. */
 export const resetMotionPreferenceForTests = (): void => {
   paused = null;
   listeners.clear();

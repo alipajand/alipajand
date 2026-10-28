@@ -202,7 +202,6 @@ describe("useMotion idle loop", () => {
       frames.flush();
     });
 
-  /** An island that asks for idle frames only when allowed, as the real islands do. */
   const politeSetup =
     (onFrame: jest.Mock): MotionSetup<HTMLDivElement> =>
     ({ idleMotion }) =>

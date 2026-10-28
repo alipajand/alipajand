@@ -1,5 +1,3 @@
-  // Shared motion: tickers react to scroll velocity, the display words part on load and close as you scroll,
-  // chevrons light with progress, and the nav hairline tracks the page. Pages add their own work per frame.
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const LINE = "236,236,230";

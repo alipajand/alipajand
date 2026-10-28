@@ -7,13 +7,8 @@ import { currentTime } from "utils/clock";
 import { getPublishedPosts } from "utils/posts";
 import { modifiedDate } from "utils/publication";
 
-/** Hourly, so a scheduled post goes live within an hour of its date without a deploy. */
 export const revalidate = 3600;
 
-/**
- * `lastModified` is set only where the content carries its own date (posts, /now). The other pages
- * have no recorded revision date, and the build time would claim every deploy changed them.
- */
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getPublishedPosts(currentTime());
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({

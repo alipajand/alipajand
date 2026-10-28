@@ -1,12 +1,3 @@
-/**
- * The display line at the top of each case study: the project name split around the spark.
- *
- * `words` follow the design kit's rule (split at the first space, else at the camel-case join, else
- * "<Name> / Case study"). `fit` is the font size as a share of the line's inner width, measured from
- * the design artifacts, where a script grows each name until it fills the row. Keeping it as data
- * gives the same size on the first paint, without JavaScript and without a layout shift.
- */
-
 export interface CaseStudyDisplay {
   words: readonly [string, string];
   fit: number;
@@ -22,7 +13,6 @@ export const CASE_STUDY_DISPLAY: Readonly<Record<string, CaseStudyDisplay>> = {
   mapbylaw: { words: ["Map", "Bylaw"], fit: 0.1191 },
 };
 
-/** The kit's split rule, used when a project has no entry above. */
 export const caseStudyDisplayFor = (slug: string, name: string): CaseStudyDisplay => {
   const known = CASE_STUDY_DISPLAY[slug];
   if (known) return known;

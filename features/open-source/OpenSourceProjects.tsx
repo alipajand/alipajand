@@ -16,7 +16,6 @@ import {
 
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
-/** The project index, the install note and one entry per project. */
 export const OpenSourceProjects = () => (
   <section id={OPEN_SOURCE_PROJECTS_ID} aria-labelledby="projects-title">
     <SectionHead

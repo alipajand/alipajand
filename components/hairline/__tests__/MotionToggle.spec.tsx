@@ -18,7 +18,6 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-/** The text a sighted visitor reads: everything in the button except aria-hidden parts. */
 const visibleText = (element: HTMLElement) =>
   Array.from(element.querySelectorAll<HTMLElement>(":scope > :not([aria-hidden]) > *"))
     .filter((node) => !node.closest("[aria-hidden]"))
@@ -78,14 +77,12 @@ describe("MotionToggle", () => {
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
     expect(screen.getByText(MOTION_REDUCED_LABEL)).toBeInTheDocument();
 
-    // The system setting is turned off while the page is open: the stored pause comes back.
     act(() => media.setMatches(false));
     expect(screen.getByRole("button", { name: MOTION_RESUME_LABEL })).toBeInTheDocument();
 
     act(() => media.setMatches(true));
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
     expect(screen.getByText(MOTION_REDUCED_LABEL)).toBeInTheDocument();
-    // The visitor's own choice is kept for later.
     expect(window.localStorage.getItem("motion-paused")).toBe("1");
   });
 });

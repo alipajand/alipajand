@@ -15,7 +15,6 @@ const LEVEL_NAMES = [
   "FOURTH_QUARTILE",
 ] as const;
 
-/** A year of days from Sunday Oct 26, 2025, grouped into weeks the way GitHub returns them. */
 const calendarBody = (days = 368) => {
   const start = Date.parse("2025-10-26T00:00:00Z");
   const all = Array.from({ length: days }, (_, index) => ({

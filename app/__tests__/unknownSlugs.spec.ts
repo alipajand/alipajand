@@ -1,12 +1,5 @@
 /** @jest-environment node */
 
-/*
- * An unknown slug under a dynamic segment must be a plain 404. With the default `dynamicParams`,
- * Next.js renders any slug on demand, answers 404 with a one-year `s-maxage` and writes a route
- * cache entry per slug, and the OG image route draws a generic card with 200. Only the slugs from
- * `generateStaticParams` may render.
- */
-
 jest.mock("marked", () =>
   jest.requireActual(
     jest

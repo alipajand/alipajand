@@ -18,7 +18,6 @@ function parseAngleEmail(value: string): string | null {
   return value.slice(lt + 1, gt).trim();
 }
 
-/** Inbox that receives contact form submissions and forwarded inbound mail. */
 export function getToEmail(): string {
   const raw = process.env.CONTACT_EMAIL?.trim() ?? "alipajand@gmail.com";
   const parsed = parseAngleEmail(raw);

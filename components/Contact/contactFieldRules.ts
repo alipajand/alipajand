@@ -20,12 +20,6 @@ import {
 
 type Rules<K extends keyof ContactFormValues> = RegisterOptions<ContactFormValues, K>;
 
-/**
- * Field rules that mirror `POST /api/contact` on the values the form will actually send
- * (trimmed, name normalised, company folded into the message), so anything that passes here
- * passes there. No native `maxlength`: it would truncate a paste silently and cannot see the
- * company's share of the message budget.
- */
 export const contactFieldRules: {
   name: Rules<"name">;
   email: Rules<"email">;

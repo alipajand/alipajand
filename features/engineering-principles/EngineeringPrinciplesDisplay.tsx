@@ -12,11 +12,6 @@ interface EngineeringPrinciplesDisplayProps {
   lines: readonly [string, string];
 }
 
-/**
- * The two-line page title. At the top of the page both lines sit centred, pulled toward each other;
- * they part to the edges over the first 60% of a screen of scrolling. The centred rest is pure CSS,
- * so the first paint and no-JS rendering match; reduced motion shows the parted layout.
- */
 export const EngineeringPrinciplesDisplay = ({ lines }: EngineeringPrinciplesDisplayProps) => {
   const ref = useRef<HTMLHeadingElement>(null);
 

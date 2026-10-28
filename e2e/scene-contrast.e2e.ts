@@ -11,16 +11,8 @@ import {
 
 import { settle } from "./support";
 
-/*
- * RG-A1: the scroll scenes' step lists keep WCAG AA text contrast in every state. Each step is made
- * current in turn by scrolling, then axe's `color-contrast` rule runs on the step list once the
- * transition has finished. The portfolio scene is also checked halfway through its transition, and
- * every scene again under reduced motion. Runs in Chromium and in Playwright WebKit (not Safari).
- */
-
 type BrowserName = "chromium" | "webkit";
 
-/** A page in Chromium (the configured browser) or Playwright WebKit, launched once per worker. */
 const test = base.extend<
   { openPage: (name: BrowserName, options?: BrowserContextOptions) => Promise<Page> },
   { webkit: () => Promise<Browser> }
@@ -54,9 +46,7 @@ interface Scene {
   name: string;
   path: string;
   section: string;
-  /** Scroll progress through the section at which step 1, 2 and 3 is current. */
   stops: [number, number, number];
-  /** Waits until step `index` (0-based) is the current one. */
   current: (section: Locator, index: number) => Promise<void>;
 }
 
@@ -108,7 +98,6 @@ const finishTransitions = (page: Page) =>
     )
   );
 
-/** Contrast failures in the step list, plus any text axe could not judge (so a pass is real). */
 const contrast = async (page: Page, scene: Scene) => {
   const results = await new AxeBuilder({ page })
     .include(`${scene.section} ol`)
@@ -173,7 +162,6 @@ for (const browserName of ["chromium", "webkit"] as const) {
     await finishTransitions(page);
     await scrollTo(section, scene.stops[1]);
     await scene.current(section, 1);
-    // Freeze every running transition at its midpoint, where the two states blend most.
     const frozen = await page.evaluate(
       () =>
         document.getAnimations().filter((animation) => {

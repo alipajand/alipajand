@@ -27,11 +27,6 @@ const loadGeist = async () => {
   ];
 };
 
-/**
- * Name-first card used for search-result thumbnails and social previews.
- * Everything is centered and scaled from the short edge, so the name stays
- * readable when Google crops the image down to a small square.
- */
 export async function renderProfileImage({ width, height }: { width: number; height: number }) {
   const unit = Math.min(width, height) / 100;
   const isSquare = width === height;

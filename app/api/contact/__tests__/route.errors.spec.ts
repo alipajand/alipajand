@@ -65,7 +65,6 @@ describe("POST /api/contact provider errors", () => {
     });
   });
 
-  // Provider messages can quote the recipient, the sender or the visitor's address.
   it("should keep the provider message, addresses and the visitor's text out of the log", async () => {
     send.mockResolvedValue({
       data: null,

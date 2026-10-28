@@ -270,21 +270,18 @@ export const OPEN_SOURCE_CTA_PRIMARY_HREF = "https://github.com/alipajand";
 export const OPEN_SOURCE_CTA_SECONDARY_LABEL = "Read my writing";
 export const OPEN_SOURCE_CTA_SECONDARY_HREF = "/writing";
 
-/** Display-only copy for the hairline layout of /open-source. */
 export const OPEN_SOURCE_DISPLAY_WORDS = ["Open", "Source"] as const;
 
 export const openSourceProjectCountLabel = (count: number): string => `${count} projects`;
 
 export const OPEN_SOURCE_HERO_PROJECTS_CTA_LABEL = "See the projects";
 
-/** The fixed note beside the hero diagram's readout. */
 export const OPEN_SOURCE_ROUTE_NOTE = "No LLM scoring";
 
 export const OPEN_SOURCE_INSTALL_NOTE_LABEL = "[ Install note ]";
 
 export const OPEN_SOURCE_PROJECTS_INDEX_ARIA_LABEL = "Projects on this page";
 
-/** The index column for entries without a version number. */
 export const OPEN_SOURCE_UNVERSIONED_LABEL = "Library";
 
 export const OPEN_SOURCE_COPY_LABEL = "Copy";
@@ -299,7 +296,6 @@ export const openSourceSelectedAnnouncement = (projectTitle: string): string =>
 export const openSourceInstallAriaLabel = (projectTitle: string): string =>
   `${projectTitle} install command`;
 
-/** The technology ticker under the hero, a subset of the technology badges. */
 export const OPEN_SOURCE_TECHNOLOGY_TICKER = [
   "TypeScript",
   "Node.js",
@@ -339,7 +335,6 @@ export const OPEN_SOURCE_CTA_CONTACT_HREF = "/#contact";
 export const OPEN_SOURCE_TITLE_ID = "page-title";
 export const OPEN_SOURCE_PROJECTS_ID = "projects";
 
-/** The second ticker, naming each tool. */
 export const OPEN_SOURCE_TOOL_TICKER = [
   "agent-context-doctor",
   "agent-pr-reviewer-lite",
@@ -349,37 +344,29 @@ export const OPEN_SOURCE_TOOL_TICKER = [
   "Agent Readiness Doctor",
 ] as const;
 
-/** Anchor id of a project entry, also used by the project index. */
 export const openSourceProjectSlug = (title: string): string =>
   `p-${title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "")}`;
 
-/** The index column: the version, or a label for entries without one. */
 export const openSourceIndexVersionLabel = (project: OpenSourceProject): string =>
   project.version ? `v${project.version}` : OPEN_SOURCE_UNVERSIONED_LABEL;
 
-/** Install text shown without a shell prompt: in-app steps and workflow YAML. */
 export const openSourceInstallIsSteps = (project: OpenSourceProject): boolean =>
   project.install.includes("→");
 export const openSourceInstallIsYaml = (project: OpenSourceProject): boolean =>
   project.install.startsWith("uses:");
 
-/** The hero diagram: inputs, the audit engines, and the surfaces that carry them. */
 export type OpenSourceRouteNodeKey =
   "repo" | "diff" | "ark" | "acd" | "apr" | "action" | "mcp" | "skill" | "gitbot" | "review";
 
 export interface OpenSourceRouteNode {
-  /** 0 input, 1 engine, 2 surface. */
   col: 0 | 1 | 2;
-  /** Vertical slot: 0–3 are the readiness lane, 5 is the review lane; 4 is the gap between them. */
   slot: number;
   label: string;
   short: string;
-  /** The name in the readout, for surfaces. */
   full?: string;
-  /** Instruction files listed inside the node. */
   files?: readonly string[];
 }
 

@@ -18,7 +18,6 @@ describe("buildRssFeed", () => {
     expect(xml).toContain(`<atom:link href="${CANONICAL_URL}${FEED_PATH}"`);
     expect(xml).toContain("<title>Tools &amp; &lt;tests&gt;</title>");
     expect(xml).toContain(`<guid isPermaLink="true">${CANONICAL_URL}/writing/a-post</guid>`);
-    // Midnight in Toronto: EST on March 4, before the switch to daylight time.
     expect(xml).toContain("<pubDate>Wed, 04 Mar 2026 05:00:00 GMT</pubDate>");
     expect(xml).toContain("<category>dx</category>");
   });

@@ -13,7 +13,6 @@ const escapeXml = (value: string): string =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 
-/** RFC 822 time of the post's Toronto-midnight publication instant. */
 const toRfc822 = (date: string): string => publicationInstant(date).toUTCString();
 
 export const buildRssFeed = (posts: PostSummary[]): string => {

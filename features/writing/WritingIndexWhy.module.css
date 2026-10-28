@@ -2,7 +2,6 @@
   composes: mono from "../../components/hairline/styles/type.module.css";
 }
 
-/* Why it matters: a bone band with the quote beside its label. */
 .why {
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);

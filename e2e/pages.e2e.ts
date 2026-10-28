@@ -14,7 +14,6 @@ const collectConsoleProblems = (page: import("@playwright/test").Page) => {
 for (const { name, path } of PAGES) {
   test.describe(name, () => {
     test("renders without console errors or hydration warnings", async ({ page }) => {
-      // Vercel serves its analytics scripts only on its own hosting.
       await page.route("**/_vercel/**", (route) =>
         route.fulfill({ status: 200, contentType: "text/javascript", body: "" })
       );
@@ -119,7 +118,6 @@ for (const { name, path } of PAGES) {
       });
       const page = await context.newPage();
       await page.goto(path);
-      // The disclosure button needs script, so the links stay out in the header instead.
       await expect(page.getByRole("button", { name: "Open menu" })).toBeHidden();
       const primary = page.getByRole("navigation", { name: "Primary" }).first();
       for (const link of await primary.getByRole("link").all()) await expect(link).toBeVisible();
@@ -172,8 +170,6 @@ test.describe("site menu", () => {
     await expect(page.getByRole("button", { name: "Open menu" })).toBeFocused();
   });
 
-  // Following the link to the open page changes no route; focus must not drop to the body as the
-  // focused link is hidden. Chromium and Playwright WebKit (not Safari).
   test("moves focus to the main content after linking to the open page", async ({
     browser,
     playwright,
@@ -210,7 +206,6 @@ test.describe("site menu", () => {
 });
 
 test.describe("shell tap areas", () => {
-  /** Hit-tests 21px above and below the centre, so a 44px-tall tap area passes. */
   const tapsAt44 = (locator: import("@playwright/test").Locator) =>
     locator.evaluate((element) => {
       element.scrollIntoView({ block: "center" });
@@ -278,7 +273,6 @@ test.describe("contact form", () => {
   test("sends a JSON request under the API's size cap, then shows sending and success", async ({
     page,
   }) => {
-    // Intercepted only so no email is sent: the request is held, checked, then answered.
     let release: () => void = () => {};
     const held = new Promise<void>((resolve) => (release = resolve));
     const captured: PlaywrightRequest[] = [];
@@ -295,12 +289,10 @@ test.describe("contact form", () => {
     await page.locator("#contact-name").fill("Jane Doe");
     await page.locator("#contact-email").fill("jane@example.com");
     await page.locator("#contact-company").fill("Example Co");
-    // Each emoji is 2 UTF-16 code units; "Company: Example Co\n\n" adds 21.
     await page.locator("#contact-message").fill("\u{1F600}".repeat(4_990));
     const count = page.locator("#contact-message-count");
     await expect(count).toHaveText("10,001 / 10,000 characters, including company");
 
-    // One over: leaving the field shows the error, and sending is refused without a request.
     await page.locator("#contact-message").blur();
     await expect(
       page.getByRole("link", {
@@ -311,7 +303,6 @@ test.describe("contact form", () => {
     await expect(page.locator("#contact-message-error")).toBeVisible();
     expect(captured).toHaveLength(0);
 
-    // Exactly at the limit is sent.
     await page.locator("#contact-message").fill("\u{1F600}".repeat(4_989) + "x");
     await expect(count).toHaveText("10,000 / 10,000 characters, including company");
     await expect(page.locator("#contact-message-error")).toHaveCount(0);
@@ -386,7 +377,6 @@ test.describe("contact form", () => {
       page.getByRole("button", { name: /send message/i }).click(),
     ]);
 
-    // Posted to the page itself, which renders normally and does not echo or send anything.
     expect(posts).toEqual([{ url: expect.stringMatching(/\/$/), status: 200 }]);
     await expect(page.locator("#contact-form")).toBeVisible();
     await expect(page.getByText("NoScriptMessage")).toHaveCount(0);

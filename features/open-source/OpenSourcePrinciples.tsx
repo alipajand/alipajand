@@ -9,7 +9,6 @@ import {
 
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
-/** The bone band: the three working principles shared by every tool. */
 export const OpenSourcePrinciples = () => (
   <Band id="working-principles" aria-labelledby="principles-title">
     <div className={styles.head}>

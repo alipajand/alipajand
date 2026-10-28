@@ -22,10 +22,6 @@ interface WritingPostFiltersProps {
   lanes: readonly TopicLane[];
 }
 
-/**
- * Every post, newest first, with topic filters. The server renders the full list; the chips only
- * narrow it once the page is interactive, and the count is announced as a status.
- */
 export const WritingPostFilters = ({ posts, lanes }: WritingPostFiltersProps) => {
   const [filter, setFilter] = useState("all");
   const shown = posts.filter((post) => hasTopic(post, filter));

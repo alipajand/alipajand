@@ -7,7 +7,6 @@
   border-bottom: var(--stroke-hairline) solid var(--tone-rule);
 }
 
-/* The whole card is one link target: the title link stretches over it. */
 .case {
   position: relative;
   isolation: isolate;
@@ -141,7 +140,6 @@
   border-top: var(--stroke-hairline) solid currentColor;
 }
 
-/* The chevron slides when any part of the card is hovered, not only the title link. */
 .case:hover .go svg,
 .case:focus-within .go svg {
   transform: translateX(8px);

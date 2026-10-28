@@ -1,13 +1,6 @@
 import type { CSSProperties } from "react";
 
-/*
- * Display titles never break inside a word. The design measures each title in the browser and
- * shrinks it when its longest word would overflow; here the same limit is worked out on the server
- * from the display face's glyph widths, so the title renders at its final size with no script and
- * no layout shift. Widths are in em for Archivo ExtraBold set in capitals.
- */
 const GLYPHS = {
-  // font-stretch 112%, the reader title.
   reader: {
     A: 0.836,
     B: 0.826,
@@ -68,7 +61,6 @@ const GLYPHS = {
     "*": 0.419,
     _: 0.592,
   },
-  // font-stretch 125% with -0.01em tracking, the launch title.
   launch: {
     A: 0.923,
     B: 0.904,
@@ -133,12 +125,9 @@ const GLYPHS = {
 
 export type TitleFace = keyof typeof GLYPHS;
 
-/** Unknown characters count as a wide capital, so the estimate errs towards fitting. */
 const UNKNOWN = 1.1;
-/** Headroom for rounding and kerning differences between the table and the rendered text. */
 const SAFETY = 1.005;
 
-/** Width in em of the widest unbreakable run in a title (lines may break at spaces and after dashes). */
 export const longestWordEm = (title: string, face: TitleFace): number => {
   const glyphs: Record<string, number> = GLYPHS[face];
   const runs = title.toUpperCase().split(/\s+|(?<=[-–—])/);
@@ -148,6 +137,5 @@ export const longestWordEm = (title: string, face: TitleFace): number => {
   return Math.max(1, ...widths) * SAFETY;
 };
 
-/** Inline custom property the title CSS divides its box width by. */
 export const titleFitStyle = (title: string, face: TitleFace): CSSProperties =>
   ({ "--fit-em": longestWordEm(title, face).toFixed(3) }) as CSSProperties;

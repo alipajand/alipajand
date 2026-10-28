@@ -10,14 +10,9 @@ import {
 
 interface EngineeringPrinciplesSectionBlockProps {
   section: EngineeringPrinciplesSection;
-  /** 1-based position, drawn as the outlined numeral beside the heading. */
   number: number;
 }
 
-/**
- * One principle: a sticky side with the numeral and heading, and the reasoning with the case studies
- * and posts where it shows up. The section is focusable so in-page links land focus on it.
- */
 export const EngineeringPrinciplesSectionBlock = ({
   section,
   number,

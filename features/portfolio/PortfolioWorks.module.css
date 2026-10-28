@@ -21,7 +21,6 @@
   list-style: none;
 }
 
-/* One link target per row: the name link stretches over it. */
 .work {
   position: relative;
   isolation: isolate;
@@ -201,8 +200,6 @@
   }
 }
 
-/* Too narrow for a side column: the index and arrow share the top line and the name gets the full
-   width, so long single-word names never break mid-word. */
 @media (max-width: 420px) {
   .work {
     grid-template-columns: minmax(0, 1fr) 40px;

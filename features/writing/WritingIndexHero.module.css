@@ -1,4 +1,3 @@
-/* Hero: the lede beside a timeline of every post by topic. */
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);

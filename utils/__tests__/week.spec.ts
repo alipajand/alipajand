@@ -1,6 +1,5 @@
 import { WEEKS_IN_RULER, weekOfYear } from "utils/week";
 
-/** Every hour of `year` in local time, with its zero-based local day of the year. */
 const hoursOf = (year: number) => {
   const hours: { date: Date; day: number }[] = [];
   for (let day = 0; new Date(year, 0, 1 + day).getFullYear() === year; day++) {
@@ -11,9 +10,6 @@ const hoursOf = (year: number) => {
 };
 
 describe("weekOfYear", () => {
-  // In a time zone with daylight saving time, an hour is missing from the elapsed milliseconds after
-  // the spring change, so dividing them by a week's length used to put the first hour of each new week
-  // in the week before. Run this spec with TZ=America/Los_Angeles to exercise that case.
   it.each([2026, 2027, 2028])(
     "should follow the local calendar day for every hour of %i",
     (year) => {

@@ -2,11 +2,6 @@ import type { MetadataRoute } from "next";
 
 import { CANONICAL_URL } from "data/site";
 
-/**
- * AI answer-engine and search crawlers that are explicitly welcome to read the
- * public site. Listing them makes the intent unambiguous instead of relying on
- * the wildcard rule alone.
- */
 export const AI_CRAWLER_USER_AGENTS = [
   "GPTBot",
   "OAI-SearchBot",

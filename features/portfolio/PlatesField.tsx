@@ -33,11 +33,6 @@ const CORNERS: readonly Point[] = [
   [-1, 1],
 ];
 
-/**
- * The portfolio hero field: six isometric plates from the first architecture call to production.
- * Scrolling pulls them apart and moves a signal down the stack; the pointer tilts them slightly.
- * It draws only on scroll, resize and pointer input. With reduced motion it draws one still frame.
- */
 export const PlatesField = () => {
   const ref = useRef<HTMLCanvasElement>(null);
 
@@ -59,7 +54,6 @@ export const PlatesField = () => {
       const narrow = w < 760;
       const p = clamp(scrollY / Math.max(h, 1), 0, 1.2);
 
-      // Faint backdrop rules.
       ctx.strokeStyle = `rgba(${LINE_RGB},.07)`;
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -74,7 +68,6 @@ export const PlatesField = () => {
       const areaW = w - copyW;
       const areaH = h - top;
 
-      // Measure the label column, then size the stack to fit beside it.
       const nameFont = `500 ${narrow ? 11 : 12}px ${mono}`;
       const stackFont = `400 12px ${sans}`;
       const title = (index: number, name: string) =>
@@ -138,7 +131,6 @@ export const PlatesField = () => {
         }
       };
 
-      // Each plate carries a line drawing of what that layer is.
       const pattern = (pl: Plate) => {
         const k = S / 100;
         ctx.beginPath();
@@ -193,11 +185,9 @@ export const PlatesField = () => {
         ctx.setLineDash([]);
       };
 
-      // The signal sits on the stack and scroll pushes it toward production.
       const sig = ((p * 1.4) % 1) * (plates.length - 1);
       const active = Math.round(sig);
 
-      // Lower plates first so upper plates sit in front.
       for (let i = plates.length - 1; i >= 0; i--) {
         const pl = plates[i];
         const on = i === active;
@@ -226,7 +216,6 @@ export const PlatesField = () => {
         pattern(pl);
       }
 
-      // The thread from first call to production, and the signal on it.
       ctx.strokeStyle = `rgba(${LINE_RGB},.55)`;
       ctx.setLineDash([2, 5]);
       ctx.beginPath();
@@ -253,7 +242,6 @@ export const PlatesField = () => {
       ctx.arc(sx, sy, 4, 0, Math.PI * 2);
       ctx.fill();
 
-      // Labels in an aligned column to the right of the stack.
       const rightOf = (pl: Plate): Point =>
         CORNERS.map(([x, z]) => iso(pl, x * S, z * S)).reduce((m, c) => (c[0] > m[0] ? c : m));
       const colX = Math.min(

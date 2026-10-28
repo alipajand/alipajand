@@ -8,14 +8,8 @@ import { useMotion } from "utils/motion/useMotion";
 
 interface TickerProps {
   items: readonly string[];
-  /** Mark drawn before every second item. */
   icon: "ring" | "spark";
-  /** 1 moves left as the page scrolls down, -1 moves right. */
   direction?: 1 | -1;
-  /**
-   * Accessible name for the phrase list. Without it the ticker is decorative and hidden from
-   * assistive technology.
-   */
   label?: string;
 }
 
@@ -42,11 +36,6 @@ const Run = ({ items, icon, label, hidden }: RunProps) => (
   </ul>
 );
 
-/**
- * A single-line band of phrases that slides with scroll velocity. It only moves while the page is
- * scrolling, so it never animates on its own and needs no pause control. With reduced motion the
- * duplicate run is removed and the phrases wrap in place.
- */
 export const Ticker = ({ items, icon, direction = 1, label }: TickerProps) => {
   const ref = useRef<HTMLDivElement>(null);
 

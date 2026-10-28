@@ -9,15 +9,10 @@ import {
 import type { CompareDiagramSpec } from "utils/diagramBlocks";
 
 interface CompareDiagramProps extends Omit<CompareDiagramSpec, "type"> {
-  /** Spoken before each item so the marks are not the only signal. */
   rejectedLabel?: string;
   chosenLabel?: string;
 }
 
-/**
- * Side-by-side columns where the last column is the chosen approach: its header is lit and its
- * items carry a check; the others are muted with a cross.
- */
 export const CompareDiagram = ({
   title,
   caption,

@@ -10,21 +10,8 @@ import {
 
 import { settle } from "./support";
 
-/*
- * RG-A2: every region that scrolls inside the page can be reached and scrolled from the keyboard,
- * in Chromium and in Playwright WebKit (not Safari). Chromium lets the keyboard into any scroller;
- * WebKit only into one that is focusable itself or holds something focusable. The screenshot
- * dialog's image is covered with the dialog's own checks.
- *
- * Keys are held for 50ms, like a real key press: WebKit ignores an arrow key that goes down and up
- * in the same instant. WebKit's Tab skips links unless the reader turns on "Press Tab to highlight
- * each item", so the regions whose only focusable content is links are walked with Option+Tab
- * there, as Safari readers do.
- */
-
 type BrowserName = "chromium" | "webkit";
 
-/** A page in Chromium (the configured browser) or Playwright WebKit, launched once per worker. */
 const test = base.extend<
   { openPage: (name: BrowserName, options?: BrowserContextOptions) => Promise<Page> },
   { webkit: () => Promise<Browser> }
@@ -56,7 +43,6 @@ const test = base.extend<
 
 const KEY_HOLD = { delay: 50 };
 
-/** Marks every visible scroller that overflows (outside dialogs) with `data-scroller="<n>"`. */
 const markScrollers = (page: Page) =>
   page.evaluate(() =>
     Array.from(document.querySelectorAll<HTMLElement>("body *"))
@@ -118,7 +104,6 @@ interface RegionCase {
   name: string;
   path: string;
   width: number;
-  /** The scroll region itself, which takes focus. */
   region: string;
 }
 
@@ -148,7 +133,6 @@ interface ContainerCase {
   name: string;
   path: string;
   width: number;
-  /** A scroller whose only focusable content is links. */
   container: string;
 }
 
@@ -167,7 +151,6 @@ const CONTAINERS: ContainerCase[] = [
   },
 ];
 
-/** The first match that overflows, marked with `data-probe`. */
 const firstOverflowing = async (page: Page, selector: string): Promise<Locator> => {
   const found = await page.evaluate((selector) => {
     const element = Array.from(document.querySelectorAll<HTMLElement>(selector)).find(
@@ -182,7 +165,6 @@ const firstOverflowing = async (page: Page, selector: string): Promise<Locator> 
   return page.locator("[data-probe]");
 };
 
-/** Presses `key` until focus is inside `target` (or on it). */
 const tabInto = async (page: Page, target: Locator, key: string) => {
   for (let presses = 0; presses < 400; presses++) {
     await page.keyboard.press(key);
@@ -224,7 +206,6 @@ for (const browserName of ["chromium", "webkit"] as const) {
         await expect(region).toBeFocused();
         expect(await focusRing(page)).toEqual({ focusVisible: true, outline: true });
 
-        // The calendar opens on the latest week, at its right edge; everything else at the left.
         const before = await scrollPosition(region);
         const atEnd = before.left >= before.maxLeft - 1;
         await page.keyboard.press(atEnd ? "ArrowLeft" : "ArrowRight", KEY_HOLD);

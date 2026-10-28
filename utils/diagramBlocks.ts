@@ -120,10 +120,6 @@ export const parseDiagramSpec = (source: string): DiagramSpec => {
   }
 };
 
-/**
- * Pulls ```diagram fences out of markdown and leaves an HTML slot in their place,
- * so the page can render each spec as an interactive component.
- */
 export const extractDiagramBlocks = (
   markdown: string
 ): { markdown: string; diagrams: DiagramSpec[] } => {
@@ -135,11 +131,6 @@ export const extractDiagramBlocks = (
   return { markdown: output, diagrams };
 };
 
-/**
- * Every diagram slot in rendered post HTML must be one that `extractDiagramBlocks` created: slots
- * numbered 0, 1, 2, … in order, one per diagram. A slot written by hand in the Markdown would
- * otherwise render a second copy of a diagram, so it fails the build instead.
- */
 export const assertDiagramSlots = (html: string, count: number): void => {
   const slots = [...html.matchAll(DIAGRAM_SLOT_RE)].map((match) => Number(match[1]));
   const expected = Array.from({ length: count }, (_, index) => index);

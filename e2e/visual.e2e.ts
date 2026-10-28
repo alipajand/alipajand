@@ -2,10 +2,6 @@ import { test } from "@playwright/test";
 
 import { expectBaseline, PAGES, settle, VIEWPORTS, visualBaseline } from "./support";
 
-/*
- * Full-page baselines at every required viewport. Reduced motion keeps scroll-driven islands at
- * their rest state, so the captures are deterministic.
- */
 test.use({ reducedMotion: "reduce" });
 
 for (const { name, path } of PAGES) {

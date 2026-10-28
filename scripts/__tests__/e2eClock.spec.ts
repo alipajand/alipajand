@@ -5,8 +5,6 @@ import { join } from "path";
 
 const read = (file: string) => readFileSync(join(process.cwd(), file), "utf8");
 
-// The e2e build and the e2e server must agree on "now", or a scheduled post is built as one state
-// and served as if it were in another.
 describe("e2e clock", () => {
   it("should build with the same instant the server runs at", () => {
     const serverNow = read("playwright.config.ts").match(/const SERVER_NOW = "([^"]+)";/)?.[1];

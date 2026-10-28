@@ -3,11 +3,6 @@ import path from "node:path";
 
 import type { Page } from "@playwright/test";
 
-/*
- * Optional evidence output for the responsive gate. Set RESPONSIVE_EVIDENCE=<dir> to write
- * per-check JSON, top-of-page JPEG captures and scroll videos; e2e/responsive-sheet.mjs turns them
- * into contact sheets. Without the variable the checks run exactly the same and write nothing.
- */
 export const EVIDENCE_DIR = process.env.RESPONSIVE_EVIDENCE;
 
 export const record = (name: string, data: unknown): void => {
@@ -24,11 +19,9 @@ export const capture = async (page: Page, name: string): Promise<void> => {
   await page.screenshot({ path: path.join(dir, `${name}.jpg`), type: "jpeg", quality: 70 });
 };
 
-/** Where scroll recordings go, or undefined when evidence is off. */
 export const videoDir = (): string | undefined =>
   EVIDENCE_DIR ? path.join(EVIDENCE_DIR, "videos") : undefined;
 
-/** Vercel serves its analytics scripts only on its own hosting. */
 export const stubVercelScripts = (page: Page) =>
   page.route("**/_vercel/**", (route) =>
     route.fulfill({ status: 200, contentType: "text/javascript", body: "" })

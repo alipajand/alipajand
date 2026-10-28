@@ -2,17 +2,10 @@ import { expect, type Locator, type Page, test } from "@playwright/test";
 
 import { settle } from "./support";
 
-/*
- * The footer's automatic-motion control and the frame-loop lifecycle behind it: what the pause
- * stops, what it leaves alone, how it persists, and that navigation leaves no loops or listeners
- * behind. Runs against a production build (`pnpm build`, then `pnpm start`).
- */
-
 const PAUSE = "Pause automatic motion";
 const RESUME = "Resume automatic motion";
 const REDUCED = "Automatic motion off";
 
-/** Every route with a motion island, including the idle loops on open-source, principles and now. */
 const ROUTES = [
   "/",
   "/portfolio",
@@ -33,10 +26,6 @@ interface MotionProbe {
 
 type ProbeWindow = Window & { __probe: MotionProbe };
 
-/**
- * Counts animation-frame requests, frames still pending, live IntersectionObservers and the
- * window/document listeners the motion code adds, before any page script runs.
- */
 const installProbe = (page: Page) =>
   page.addInitScript(() => {
     const probe = {
@@ -115,7 +104,6 @@ const snapshot = (page: Page) =>
     return { listeners, observers: probe.observers };
   });
 
-/** Animation frames requested during `ms`, and the most that were ever pending at once. */
 const framesDuring = async (page: Page, ms: number) => {
   const start = await page.evaluate(() => {
     const probe = (window as unknown as ProbeWindow).__probe;
@@ -129,14 +117,8 @@ const framesDuring = async (page: Page, ms: number) => {
   }, start);
 };
 
-/** The display-type stack ticker on /now (CSS module class names keep their local name). */
 const NOW_TICKER = "main [class$='_ticker']";
 
-/**
- * Every family with an idle `onFrame` loop, and the island to bring on screen (null when it is at
- * the top): the open-source scan line, the principles alignment, the now and article tickers, the
- * writing index timeline and the case-study hero tilt.
- */
 const IDLE_LOOPS: ReadonlyArray<readonly [string, string | null]> = [
   ["/open-source", null],
   ["/engineering-principles", null],
@@ -148,7 +130,6 @@ const IDLE_LOOPS: ReadonlyArray<readonly [string, string | null]> = [
 
 const footerControl = (page: Page): Locator => page.locator("footer [data-motion-control]");
 
-/** Toggles without scrolling, so islands at the top of the page stay on screen. */
 const toggleInPlace = (page: Page) => footerControl(page).dispatchEvent("click");
 
 const setTabHidden = (page: Page, hidden: boolean) =>
@@ -235,7 +216,6 @@ test.describe("motion control", () => {
 
     await page.reload();
     await settle(page);
-    // Nothing could be stored, so a reload starts running again; nothing throws.
     await expect(page.getByRole("button", { name: PAUSE, exact: true })).toBeVisible();
     expect(errors).toEqual([]);
   });
@@ -260,7 +240,6 @@ test.describe("motion control", () => {
     await pause.click();
     await expect(footer.getByRole("button", { name: RESUME, exact: true })).toBeVisible();
 
-    // Reduced motion comes back on: no control can re-enable motion, the stored pause is kept.
     await page.emulateMedia({ reducedMotion: "reduce" });
     await expect(footer.getByRole("button")).toHaveCount(0);
     await expect(footer.getByText(REDUCED, { exact: true })).toBeVisible();
@@ -283,7 +262,6 @@ test.describe("automatic motion loop", () => {
     }) => {
       await page.goto(path);
       await settle(page);
-      // Bring an idle-motion island on screen when it sits below the fold.
       if (island) {
         await page
           .locator(island)
@@ -332,7 +310,6 @@ test.describe("automatic motion loop", () => {
           .first()
           .evaluate((element) => element.scrollIntoView({ block: "center" }));
       }
-      // Scroll-linked frames decay to rest within about 40 frames; idle loops would keep going.
       await page.waitForTimeout(1500);
       expect((await framesDuring(page, 800)).requested, path).toBe(0);
       await page.close();
@@ -349,11 +326,6 @@ test.describe("automatic motion loop", () => {
     await page.goto("/open-source");
     await other.goto("/open-source");
     await settle(page);
-    // Not `settle(other)`: `next start` sends the hourly-ISR routes (/ and /writing) with
-    // `stale-while-revalidate`, so this tab gets their nav-link prefetches stale from the cache the
-    // first tab filled, and Chrome never reports the background revalidation done, so the tab never
-    // reaches network idle. (Vercel sends `max-age=0, must-revalidate`, so browsers never do this in
-    // production.) Wait for what the test needs instead: the pause subscription and a running loop.
     await other.waitForFunction(
       () =>
         ((window as unknown as ProbeWindow).__probe.listeners.get("window:storage")?.size ?? 0) > 0
@@ -388,7 +360,6 @@ test.describe("automatic motion loop", () => {
     await page.mouse.wheel(0, 1600);
     await page.waitForTimeout(400);
     expect(await progress()).toBeGreaterThan(0);
-    // ...and goes idle again once the scroll settles.
     await page.waitForTimeout(1200);
     expect((await framesDuring(page, 800)).requested).toBe(0);
   });
@@ -416,7 +387,6 @@ test.describe("automatic motion loop", () => {
     await page.waitForTimeout(800);
     expect(await trackTransform()).toBe(still);
 
-    // The ticker sits near the end of the page, so scroll up to move it.
     await page.mouse.wheel(0, -300);
     await page.waitForTimeout(300);
     expect(await trackTransform()).not.toBe(still);
@@ -447,7 +417,6 @@ test.describe("navigation lifecycle", () => {
     await settle(page);
     await expect(footerControl(page)).toHaveAccessibleName(RESUME);
 
-    // Resume on a page with an idle loop, then leave it: the loop must not follow.
     await clickNav(page, "/open-source");
     await page.evaluate(() => window.scrollTo(0, 0));
     await toggleInPlace(page);
@@ -504,7 +473,6 @@ test.describe("navigation lifecycle", () => {
     const cycle = ["/portfolio", "/writing", "/engineering-principles", "/open-source"];
     for (let index = 0; index < 20; index += 1) {
       await clickNav(page, cycle[index % cycle.length]);
-      // Never more than the one shared frame in flight, whatever was left behind.
       expect(
         await page.evaluate(() => (window as unknown as ProbeWindow).__probe.pending.size)
       ).toBeLessThanOrEqual(1);
@@ -513,7 +481,6 @@ test.describe("navigation lifecycle", () => {
     await page.waitForTimeout(500);
     expect(await snapshot(page)).toEqual(baseline);
 
-    // With the only idle loop paused, nothing may still be asking for frames.
     await toggleInPlace(page);
     await expect(footerControl(page)).toHaveAccessibleName(RESUME);
     await page.waitForTimeout(1500);
@@ -531,8 +498,6 @@ test.describe("navigation lifecycle", () => {
 
     await page.goto(NOT_FOUND);
     await settle(page);
-    // Leave through the page's own "Home" link. Client-side navigation from the 404's header links
-    // is covered by "not-found header navigation" in remaining-pages.e2e.ts.
     await page.locator("main a[href='/']").first().click();
     await page.waitForURL((url) => url.pathname === "/");
     await settle(page);

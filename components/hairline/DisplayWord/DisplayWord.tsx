@@ -7,30 +7,17 @@ import styles from "components/hairline/DisplayWord/DisplayWord.module.css";
 import { clamp } from "utils/motion/canvas";
 import { useMotion } from "utils/motion/useMotion";
 
-/**
- * How the two words move.
- * - `scroll`: they start close to the star and part as the page scrolls past the first 60% of a screen.
- * - `center`: they part while the line crosses the middle of the screen and close again as it leaves.
- */
 export type DisplayWordMotion = "scroll" | "center";
 
 interface DisplayWordProps {
   words: readonly [string, string];
-  /** `hero` is the homepage name line; `index` is the smaller section display used on index pages. */
   variant?: "hero" | "index";
   as?: "h1" | "p";
   motion?: DisplayWordMotion;
-  /** Share of the free space each word travels toward the star at rest. */
   reach?: number;
-  /** Swell the star with scroll velocity. */
   pulse?: boolean;
 }
 
-/**
- * Two uppercase words split by a spark. The resting layout is pure CSS (flex spacers), so the first
- * paint, no-JS rendering and reduced motion all match the artifact without a layout jump; scripts
- * only add transforms on top.
- */
 export const DisplayWord = ({
   words,
   variant = "hero",

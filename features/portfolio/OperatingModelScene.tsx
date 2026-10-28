@@ -19,14 +19,8 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
 
 const foldLabel = (fold: number) => `fold ${String(Math.round(fold * 100)).padStart(3, "0")}%`;
 
-/** The step lit for scroll progress `t`. */
 const activeStep = (t: number) => (t < 0.34 ? 0 : t < 0.67 ? 1 : 2);
 
-/**
- * A sticky scene: a flat grid of parts folds into a sphere while the section scrolls past, and the
- * three steps light in turn. Without JavaScript or with reduced motion the section is one
- * screen-height still frame, fully folded, with every step shown.
- */
 export const OperatingModelScene = () => {
   const ref = useRef<HTMLElement>(null);
 
@@ -86,7 +80,6 @@ export const OperatingModelScene = () => {
         points.push(row);
       }
 
-      // Bucket segments by depth so nearer lines draw brighter.
       const buckets = DEPTH_ALPHA.map(() => new Path2D());
       const segment = (a: [number, number, number], b: [number, number, number]) => {
         const k = clamp(Math.floor((((a[2] + b[2]) / 2 + 2.2) / 4.4) * 4), 0, 3);
@@ -111,7 +104,6 @@ export const OperatingModelScene = () => {
       );
     };
 
-    // CSS already reserves the runway where it can tell that scripts run; this marks it for the rest.
     if (!reducedMotion) element.setAttribute("data-ready", "");
 
     return {

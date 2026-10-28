@@ -4,7 +4,6 @@ import styles from "components/hairline/Icons/Icons.module.css";
 
 type IconProps = Omit<SVGProps<SVGSVGElement>, "children" | "viewBox">;
 
-/** Four-point star between the halves of a display word and between ticker items. */
 export const Spark = (props: IconProps) => (
   <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false" {...props}>
     <path
@@ -14,7 +13,6 @@ export const Spark = (props: IconProps) => (
   </svg>
 );
 
-/** Orbit mark used in tickers. */
 export const Ring = (props: IconProps) => (
   <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false" {...props}>
     <g fill="none" stroke="currentColor" strokeWidth="1.4">
@@ -24,7 +22,6 @@ export const Ring = (props: IconProps) => (
   </svg>
 );
 
-/** Triple chevron that slides 8px right when its link is hovered or focused. */
 export const Chev = ({ className }: { className?: string }) => (
   <span className={className ? `${styles.chev} ${className}` : styles.chev} aria-hidden="true">
     <svg viewBox="0 0 40 16" focusable="false">
@@ -33,7 +30,6 @@ export const Chev = ({ className }: { className?: string }) => (
   </span>
 );
 
-/** The large single chevron used in band chevron rows. */
 export const BandChevron = (props: IconProps) => (
   <svg viewBox="0 0 40 60" aria-hidden="true" focusable="false" {...props}>
     <path d="M6 4 L32 30 L6 56" />

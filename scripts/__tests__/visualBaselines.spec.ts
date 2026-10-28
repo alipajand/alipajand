@@ -5,16 +5,8 @@ import { execFileSync } from "child_process";
 import { readdirSync } from "fs";
 import { join, relative, sep } from "path";
 
-/*
- * The visual baseline inventory comes from the specs themselves: Playwright lists every `@visual`
- * test with the baseline it declares (`visualBaseline()` in e2e/support.ts), and each one needs a
- * reviewed file per platform. A missing file would fail CI only on the platform that lacks it, and
- * an orphan is a baseline nothing compares any more, so both fail here.
- */
-
 const ROOT = process.cwd();
 const SCREENSHOTS = join(ROOT, "e2e", "__screenshots__");
-/** Local runs compare against macOS baselines, CI against Linux ones. */
 const PLATFORMS = ["darwin", "linux"] as const;
 
 interface ListedTest {
@@ -31,10 +23,8 @@ interface ListedSuite {
   suites?: ListedSuite[];
 }
 
-/** Every e2e test as Playwright sees it, without starting a browser or the server. */
 const listTests = (): ListedSpec[] => {
   const cli = require.resolve("@playwright/test/cli");
-  // Playwright refuses to load specs while it detects Jest, so the child gets a plain environment.
   const env: NodeJS.ProcessEnv = { ...process.env, CI: "" };
   delete env.JEST_WORKER_ID;
   let output: string;

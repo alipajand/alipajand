@@ -11,11 +11,6 @@ import {
   settle,
 } from "./support";
 
-/*
- * Responsive gate: every implemented route at 13 emulated viewports (Chromium device emulation,
- * not real devices), plus the shell's menu, rotation, history and the contact form.
- */
-
 const viewportName = (viewport: { width: number; height: number }) =>
   `${viewport.width}x${viewport.height}`;
 
@@ -79,7 +74,6 @@ test.describe("focus visibility", () => {
         const state = await page.evaluate(() => {
           const element = document.activeElement as HTMLElement | null;
           if (!element || element === document.body) return null;
-          // Rows draw the ring on themselves (`:has(:focus-visible)`), so ancestors count too.
           const hasRing = (node: Element) => {
             const style = getComputedStyle(node);
             return (
@@ -128,7 +122,6 @@ test.describe("site menu (emulated phones)", () => {
       await expect(closeButton).toHaveAttribute("aria-expanded", "true");
       await expect(closeButton).toHaveAttribute("aria-controls", "site-menu");
 
-      // A non-modal disclosure: Tab walks the panel in reading order, then leaves it.
       const links = panel.getByRole("link");
       const count = await links.count();
       await closeButton.focus();
@@ -142,7 +135,6 @@ test.describe("site menu (emulated phones)", () => {
         false
       );
 
-      // The panel pushes content down instead of covering it, so the page keeps scrolling.
       expect(await page.evaluate(() => getComputedStyle(document.body).overflowY)).not.toBe(
         "hidden"
       );

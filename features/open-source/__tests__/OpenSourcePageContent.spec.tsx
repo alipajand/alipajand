@@ -40,7 +40,6 @@ import { installMatchMedia, installObservers } from "utils/motion/testEnvironmen
 beforeEach(() => {
   installMatchMedia(false);
   installObservers();
-  // jsdom has no 2D context; the diagram keeps its still rendering.
   jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(null);
 });
 
@@ -191,7 +190,6 @@ describe("OpenSourcePageContent", () => {
     const table = screen.getByRole("table", {
       name: "Contributions per month, Oct 26, 2025 to Oct 27, 2026",
     });
-    // The visually-hidden box sits on a wrapper: a table grows past it to fit its content.
     expect(table).not.toHaveAttribute("class");
     expect(table.parentElement?.className).toMatch(/srOnly/);
     expect(

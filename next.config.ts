@@ -1,11 +1,5 @@
 import type { NextConfig } from "next";
 
-/**
- * Baseline response headers for every route. The CSP only sets directives that
- * do not depend on script or style sources (framing, base URL, form targets,
- * plugins), so inline Next.js bootstrap scripts, JSON-LD and analytics keep
- * working. HSTS is sent by the hosting edge and is not duplicated here.
- */
 export const securityHeaders = [
   {
     key: "Content-Security-Policy",

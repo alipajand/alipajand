@@ -51,11 +51,6 @@ const CaseStudySection = ({
   }
 };
 
-/**
- * One case study, in the design kit's order: breadcrumb, display name, intro with the hero shot,
- * the sticky chapter rail, the numbered sections (a flow diagram follows its section as a bone
- * band), then the pager. Which sections, figures and diagrams appear comes from the project data.
- */
 export const ProjectCaseStudyPageContent = ({
   project,
   nextProject,

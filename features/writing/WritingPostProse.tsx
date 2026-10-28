@@ -7,17 +7,11 @@ import type { DiagramSpec } from "utils/diagramBlocks";
 const PROSE_LABELS = { table: WRITING_TABLE_REGION_LABEL, code: WRITING_CODE_REGION_LABEL };
 
 interface WritingPostProseProps {
-  /** Post HTML from `renderPostHtml`: allowlist-sanitised at build, with heading ids and diagram slots. */
   contentHtml: string;
   diagrams: readonly DiagramSpec[];
-  /** `reader` is the standard article; `launch` is the Agent Readiness Doctor article. */
   variant?: "reader" | "launch";
 }
 
-/**
- * The article body: Markdown HTML with each ```diagram block rendered as a hairline figure in its
- * place. Sections are numbered "[ 01 ]" by CSS so the numbers always match the contents.
- */
 export const WritingPostProse = ({
   contentHtml,
   diagrams,

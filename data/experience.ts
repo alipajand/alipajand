@@ -1,8 +1,3 @@
-/**
- * Career history and education, newest first. These are resume facts: keep them in step with the
- * LinkedIn profile and change them only from a confirmed source, never to round up a claim.
- */
-
 export interface ExperienceEntry {
   id: string;
   organization: string;
