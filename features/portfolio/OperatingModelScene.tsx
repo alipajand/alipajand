@@ -111,7 +111,7 @@ export const OperatingModelScene = () => {
       );
     };
 
-    // The tall scroll runway only exists while the scene can animate.
+    // CSS already reserves the runway where it can tell that scripts run; this marks it for the rest.
     if (!reducedMotion) element.setAttribute("data-ready", "");
 
     return {
