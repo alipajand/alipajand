@@ -68,12 +68,13 @@ turned `main` red until #290.
 
 ## Technical follow-ups (no decision needed)
 
-- WebKit axe is flaky in CI and still has no root cause. Playwright records no traces
-  (`playwright.config.ts` sets no `trace`), so the next step is to capture one from a failing
-  attempt before changing the test. Each failure below passed on retry:
+- WebKit axe is flaky in CI and still has no root cause. Its contexts are created by hand in
+  `e2e/a11y.e2e.ts`, outside the configured `trace` option, so no failure has left a trace. #329
+  keeps one in `test-results/` for each failed WebKit scan. Read the next one before changing the
+  test.
   - `AxeBuilder.analyze()` hangs until the 30 s test timeout, always on the Agent Readiness Doctor
-    post at 390 px (runs 40606433458, 40739305931 and 40746303667). It did not reproduce in 20
-    local runs (macOS WebKit, about 2 s each).
+    post at 390 px (runs 40606433458, 40739305931, 40746303667 and 40756047367; the last failed
+    both attempts). It did not reproduce in 20 local runs (macOS WebKit, about 2 s each).
   - Unexpected `color-contrast` violations, each on an element that scroll-linked motion restyles
     after load. One is the active chapter-rail link, `a[href$="#context"]`, on case-alwaysgeeky
     and case-mapbylaw at 390 px and case-emplifi at 1440 px (runs 40739305931, 40747535192 and
