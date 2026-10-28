@@ -12,10 +12,17 @@ import {
 import { CANONICAL_URL } from "data/site";
 import { buildOpenSourceMetadata } from "utils/metadata";
 import { toBreadcrumbJsonLdItems } from "utils/breadcrumbs";
+import { getContributionSnapshot } from "utils/githubContributions";
 
 export const metadata: Metadata = buildOpenSourceMetadata();
 
-export default function OpenSourcePage() {
+// Rendered per request so the contribution calendar ends at the latest day GitHub reports; the
+// GitHub response itself is cached for 6 hours (see utils/githubContributions.ts). An ISR page
+// would send `stale-while-revalidate`, which lets browsers cache its RSC prefetches.
+export const dynamic = "force-dynamic";
+
+export default async function OpenSourcePage() {
+  const activity = await getContributionSnapshot();
   const pageUrl = `${CANONICAL_URL}/open-source`;
 
   return (
@@ -38,7 +45,7 @@ export default function OpenSourcePage() {
         }))}
       />
       <BreadcrumbJsonLd items={toBreadcrumbJsonLdItems(openSourceBreadcrumbs(), pageUrl)} />
-      <OpenSourcePageContent />
+      <OpenSourcePageContent activity={activity} />
     </>
   );
 }

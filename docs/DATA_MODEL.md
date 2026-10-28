@@ -15,7 +15,7 @@ data; there is no separate `types/` directory.
 | `data/projectsDisplay.ts`, `data/projectsUi.ts`              | Case-study display names and UI labels                                                 | `features/portfolio`                        |
 | `data/portfolioIndex.ts`, `data/portfolioFit.ts`             | Portfolio index copy                                                                   | `features/portfolio`                        |
 | `data/openSourcePage.ts`, `data/openSourceTools.ts`          | Open-source page copy and tool list                                                    | `features/open-source`, `features/home`     |
-| `data/openSourceActivity.ts`                                 | Dated snapshot of public contributions, with its source, for the activity graph        | `features/open-source`                      |
+| `data/openSourceActivity.ts`                                 | Fallback contribution snapshot when the live GitHub fetch is unavailable               | `features/open-source`                      |
 | `data/writing.ts`                                            | Writing labels and index copy                                                          | Writing routes, home writing section        |
 | `data/diagrams.ts`                                           | Labels for the MCP workflow diagram                                                    | `features/writing`, design kit              |
 | `data/now.ts`                                                | `/now` sections and the hand-set `NOW_UPDATED` date                                    | `/now`, sitemap                             |
