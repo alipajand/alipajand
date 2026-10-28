@@ -47,12 +47,7 @@ checks from a base without #272 and turned `main` red until #290.
 
 ## Technical follow-ups (no decision needed)
 
-- WebKit axe on the Agent Readiness Doctor post at 390 px is flaky in CI.
-
-- Post HTML sanitiser: allow `https:` image sources only.
-- Webhook route: cap the body size before verifying the signature (413 above the cap).
-- `app/api/contact/route.ts` logs the provider's `error.message`.
-- One `escapeHtml` helper for the contact and webhook routes.
-- Sitemap `lastmod` comes from the build clock for 12 routes.
-- `utils/scrollToTop.ts`: `SCROLL_TARGET_OFFSET` and `scrollToElement` are used only by the spec.
-- `@asamuzakjp/css-color` is a direct devDependency that nothing imports.
+- WebKit axe on the Agent Readiness Doctor post at 390 px is flaky in CI. In run 40606433458,
+  `AxeBuilder.analyze()` hung until the 30 s test timeout and passed on retry in 5 s. It did not
+  reproduce in 20 local runs (macOS WebKit, about 2 s each). Capture a trace from the next CI
+  failure before changing the test.
