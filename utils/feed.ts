@@ -1,6 +1,7 @@
 import { CANONICAL_URL, SITE_NAME } from "data/site";
 import { WRITING_INDEX_DESCRIPTION } from "data/writing";
 import type { PostSummary } from "utils/posts";
+import { publicationInstant } from "utils/publication";
 
 export const FEED_PATH = "/feed.xml";
 
@@ -12,10 +13,8 @@ const escapeXml = (value: string): string =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 
-const toRfc822 = (date: string): string | null => {
-  const parsed = new Date(date);
-  return Number.isNaN(parsed.getTime()) ? null : parsed.toUTCString();
-};
+/** RFC 822 time of the post's Toronto-midnight publication instant. */
+const toRfc822 = (date: string): string => publicationInstant(date).toUTCString();
 
 export const buildRssFeed = (posts: PostSummary[]): string => {
   const items = posts
@@ -31,7 +30,7 @@ export const buildRssFeed = (posts: PostSummary[]): string => {
         `      <link>${url}</link>`,
         `      <guid isPermaLink="true">${url}</guid>`,
         `      <description>${escapeXml(post.seoDescription ?? post.excerpt)}</description>`,
-        pubDate ? `      <pubDate>${pubDate}</pubDate>` : null,
+        `      <pubDate>${pubDate}</pubDate>`,
         categories || null,
         "    </item>",
       ]

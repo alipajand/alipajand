@@ -151,21 +151,6 @@
   white-space: nowrap;
 }
 
-.flag {
-  composes: mono from "../../components/hairline/styles/type.module.css";
-  justify-self: start;
-  padding: 2px 9px;
-  border: var(--stroke-hairline) solid currentColor;
-  border-radius: var(--radius-pill);
-}
-
-/* An upcoming post gets a dashed top rule. */
-.upcoming {
-  background-image: repeating-linear-gradient(90deg, var(--color-rule) 0 6px, transparent 6px 12px);
-  background-size: 100% 1px;
-  background-repeat: no-repeat;
-}
-
 .empty {
   margin: 0;
   padding: 22px 24px;

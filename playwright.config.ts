@@ -22,12 +22,13 @@ if (CI && updateFlagIndex !== -1 && !process.env.E2E_RENDER_BASELINES) {
 }
 
 /**
- * The server renders as of this instant (see e2e/fixed-clock.cjs), so the home page and /writing,
- * which mark posts dated after "today" in Toronto as upcoming, do not change when a scheduled post
- * goes live. It sits the day before the 2026-10-28 post so the baselines show both states. Moving
- * it is a content change: re-record the home and writing baselines with it.
+ * The build (`pnpm build:e2e`) and the server both run as of this instant (see e2e/fixed-clock.cjs),
+ * so which posts are published, and so the home and writing baselines, do not change when a
+ * scheduled post goes live. It sits after the newest post's date, because published pages already
+ * link to that post (a scheduled one is covered by the Jest publication tests). Moving it is a
+ * content change: update `build:e2e` and re-record the home and writing baselines with it.
  */
-const SERVER_NOW = "2026-10-27T16:00:00.000Z";
+const SERVER_NOW = "2026-10-28T16:00:00.000Z";
 
 /**
  * Browser checks for every route, run against a production build (`pnpm build` first).
