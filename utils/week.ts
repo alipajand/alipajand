@@ -17,3 +17,9 @@ export const weekOfYear = (date: Date): number => {
   );
   return Math.min(WEEKS_IN_RULER, Math.floor(day / 7) + 1);
 };
+
+/** The step a `YYYY-MM-DD` calendar day falls on, the same in every time zone. */
+export const weekOfCalendarDate = (date: string): number => {
+  const [year, month, day] = date.split("-").map(Number);
+  return weekOfYear(new Date(year, month - 1, day));
+};
