@@ -6,6 +6,7 @@ import styles from "features/open-source/OpenSourceProjects.module.css";
 import {
   OPEN_SOURCE_ARTICLES_LABEL,
   OPEN_SOURCE_CONTRIBUTION_LABEL,
+  OPEN_SOURCE_EXTERNAL_REFERENCES_LABEL,
   OPEN_SOURCE_FORMAT_LABEL,
   OPEN_SOURCE_INSTALL_LABEL,
   OPEN_SOURCE_RELEASE_LABEL,
@@ -125,6 +126,30 @@ export const OpenSourceProjectEntry = ({ project, index }: OpenSourceProjectEntr
                 <li key={article.href}>
                   <Link href={article.href}>
                     <span>{article.title}</span>
+                    <Chev />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {project.externalReferences?.length ? (
+          <div className={styles.block}>
+            <p className={styles.blockLabel} id={`${slug}-refs`}>
+              {OPEN_SOURCE_EXTERNAL_REFERENCES_LABEL}
+            </p>
+            <ul className={styles.refs} aria-labelledby={`${slug}-refs`}>
+              {project.externalReferences.map((reference) => (
+                <li key={reference.href}>
+                  <p className={styles.refTitle}>{reference.title}</p>
+                  <p className={styles.refBody}>{reference.body}</p>
+                  <Link
+                    className={styles.refLink}
+                    href={reference.href}
+                    aria-label={reference.linkAriaLabel}
+                  >
+                    <span>{reference.linkLabel}</span>
                     <Chev />
                   </Link>
                 </li>
