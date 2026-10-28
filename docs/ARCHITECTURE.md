@@ -67,8 +67,9 @@ Resend webhook       ──► app/api/webhooks/resend ──► Resend API (for
   `prefers-reduced-motion`, and stop idle animation when the visitor pauses motion.
 - Case studies and articles are generated at build time with `generateStaticParams`. Post HTML is
   sanitised against an allowlist during the build (`utils/sanitizePostHtml.ts`).
-- `/` and `/writing` are `force-dynamic` so scheduled posts appear on their date. Every other page
-  and feed is static. See [ROUTES.md](ROUTES.md).
+- Every page and feed is static, including `/` and `/writing`. Which posts are published is decided
+  when the site is built, by one function (`utils/publication.ts`), so a scheduled post appears on
+  every surface with the first build after its date. See [ROUTES.md](ROUTES.md).
 
 ## Environment variables
 

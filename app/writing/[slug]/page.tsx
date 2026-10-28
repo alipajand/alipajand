@@ -7,7 +7,9 @@ import { WritingPostPageContent } from "features/writing/WritingPostPageContent"
 import { writingPostBreadcrumbs } from "data/breadcrumbs";
 import { CANONICAL_URL } from "data/site";
 import { WRITING_LAUNCH_ARTICLES } from "data/writing";
-import { getAllPosts, getPostBySlug } from "utils/posts";
+import { currentTime } from "utils/clock";
+import { getGeneratedPostSlugs, getPublishedPosts, getRoutablePost } from "utils/posts";
+import { isPreview } from "utils/publication";
 import { buildArticleMetadata } from "utils/metadata";
 import { toBreadcrumbJsonLdItems } from "utils/breadcrumbs";
 import type { Metadata } from "next";
@@ -20,21 +22,24 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
-  return posts.map((p) => ({ slug: p.slug }));
+  return getGeneratedPostSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const now = currentTime();
+  const post = getRoutablePost(slug, now);
   if (!post) return { title: "Not found" };
-  return buildArticleMetadata(post);
+  return buildArticleMetadata(post, { preview: isPreview(post, now) });
 }
 
 export default async function PostPage({ params }: PageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const now = currentTime();
+  const post = getRoutablePost(slug, now);
   if (!post) notFound();
+  // A preview is unlisted: no structured data, and it is not among the posts it lists.
+  const preview = isPreview(post, now);
 
   const { contentHtml, headings, diagrams, ...postForJsonLd } = post;
 
@@ -52,16 +57,20 @@ export default async function PostPage({ params }: PageProps) {
 
   return (
     <>
-      <ArticleJsonLd post={postForJsonLd} />
-      <BreadcrumbJsonLd
-        items={toBreadcrumbJsonLdItems(writingPostBreadcrumbs(post.title), postUrl)}
-      />
+      {preview ? null : (
+        <>
+          <ArticleJsonLd post={postForJsonLd} />
+          <BreadcrumbJsonLd
+            items={toBreadcrumbJsonLdItems(writingPostBreadcrumbs(post.title), postUrl)}
+          />
+        </>
+      )}
       {WRITING_LAUNCH_ARTICLES.includes(post.slug) ? (
         <WritingLaunchPageContent post={article} />
       ) : (
         <WritingPostPageContent
           post={article}
-          posts={getAllPosts().map(({ slug: postSlug, title, date }) => ({
+          posts={getPublishedPosts(now).map(({ slug: postSlug, title, date }) => ({
             slug: postSlug,
             title,
             date,

@@ -15,7 +15,7 @@
    ```
    The full field list is in [DATA_MODEL.md](DATA_MODEL.md#frontmatter-schema).
 2. The slug is derived from the filename. **Do not rename it after publishing** (SEO and external links will break).
-3. A date after today in Toronto schedules the post. Read [decisions/writing-publication-policy.md](decisions/writing-publication-policy.md) first, because some surfaces still show a scheduled post before its date.
+3. A date after today in Toronto schedules the post: it stays off every list and feed, and its URL answers 404, until the first deployment on or after that date. Set `preview: true` to serve it at its URL before then, `noindex` and unlisted. Keep drafts out of this repository until they are ready to schedule; it is public.
 4. Run `pnpm test && pnpm build` to verify the post parses, passes the HTML allowlist and generates statically.
 
 ### Updating site content

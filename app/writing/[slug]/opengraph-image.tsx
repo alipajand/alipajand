@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
 
 import { SITE_NAME } from "data/site";
-import { getAllPosts, getPostBySlug } from "utils/posts";
+import { currentTime } from "utils/clock";
+import { getGeneratedPostSlugs, getRoutablePost } from "utils/posts";
 
 /** Only the generated slugs exist; any other slug is a 404 that is neither rendered nor cached. */
 export const dynamicParams = false;
@@ -11,8 +12,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
-  return posts.map((p) => ({ slug: p.slug }));
+  return getGeneratedPostSlugs().map((slug) => ({ slug }));
 }
 
 function truncate(text: string, max: number): string {
@@ -26,7 +26,7 @@ export default async function WritingPostOpenGraphImage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = getRoutablePost(slug, currentTime());
   if (!post) notFound();
 
   return new ImageResponse(

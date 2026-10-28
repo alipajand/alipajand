@@ -3,17 +3,19 @@ import type { MetadataRoute } from "next";
 import { NOW_UPDATED } from "data/now";
 import { CANONICAL_URL } from "data/site";
 import { getDedicatedCaseStudySlugs } from "utils/projects";
-import { getAllPosts } from "utils/posts";
+import { currentTime } from "utils/clock";
+import { getPublishedPosts } from "utils/posts";
+import { modifiedDate } from "utils/publication";
 
 /**
  * `lastModified` is set only where the content carries its own date (posts, /now). The other pages
  * have no recorded revision date, and the build time would claim every deploy changed them.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getAllPosts();
+  const posts = getPublishedPosts(currentTime());
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${CANONICAL_URL}/writing/${post.slug}`,
-    lastModified: post.date || new Date(),
+    lastModified: modifiedDate(post),
     changeFrequency: "monthly",
     priority: 0.7,
   }));

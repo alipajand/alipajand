@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:e2e": "E2E_NOW=2026-10-28T16:00:00.000Z NODE_OPTIONS=--require=./e2e/fixed-clock.cjs next build",
     "start": "next start",
     "lint": "eslint",
     "lint:fix": "eslint --fix",

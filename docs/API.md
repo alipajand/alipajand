@@ -1,6 +1,6 @@
 # API reference
 
-The site has two server-side API routes. Pages are generated at build time except `/` and `/writing`, which render per request (see [ROUTES.md](ROUTES.md)).
+The site has two server-side API routes. Every page is generated at build time (see [ROUTES.md](ROUTES.md)).
 
 ## `POST /api/contact`
 
