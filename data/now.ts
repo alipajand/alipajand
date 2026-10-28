@@ -1,3 +1,6 @@
+import { formatDate } from "utils/date";
+import { weekOfCalendarDate } from "utils/week";
+
 export const NOW_PAGE_TITLE = "Now";
 
 export const NOW_META_DESCRIPTION =
@@ -82,9 +85,11 @@ export const nowStackCountLabel = (position: number, toolCount: number): string 
   `[ ${String(position).padStart(2, "0")} ] · ${toolCount} tools`;
 
 /**
- * The ruler's cursor label, for example "Week 43 of 52 · year progress". The ruler splits the year
- * into 52 seven-day steps from January 1 (see `utils/week.ts`), so this is how far through the year
- * the date is, not the ISO week number: October 27, 2026 is step 43 but ISO week 44, and ISO 2026 has
- * 53 weeks.
+ * The ruler marks the step `NOW_UPDATED` falls on (52 seven-day steps from January 1, see
+ * `utils/week.ts`): step 19 for 2026-05-08. It is the same on the server, without JavaScript and on
+ * every visitor's clock, because it dates the content, not the visit.
  */
-export const nowWeekLabel = (week: number): string => `Week ${week} of 52 · year progress`;
+export const NOW_RULER_STEP = weekOfCalendarDate(NOW_UPDATED);
+
+/** The marker's label, for example "As of May 8, 2026". */
+export const NOW_RULER_LABEL = `As of ${formatDate(NOW_UPDATED)}`;

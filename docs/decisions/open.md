@@ -18,32 +18,6 @@ deployment on or after its date. What remains is how it goes live without a depl
 | P2  | Vercel plan and cron precision                      | Confirm the plan; Hobby's `5 5 * * *` (up to about 2 h late in summer) is acceptable     | Pro with minute precision                                       |
 | P3  | Who creates `CRON_SECRET` and reviews `vercel.json` | The owner, before the cron PR merges; a missing secret answers 401                       | Not applicable if D3 is not the cron                            |
 
-## /now ruler
-
-Today the ruler follows the visitor's clock (week 43 in late October) while the content is dated
-May 8, and it jumps from 52 back to 43 at each visitor's New Year. The no-JS ruler uses the build
-date.
-
-| ID  | Question            | Recommended                                                                                                          | Alternative                               |
-| --- | ------------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| R1  | Primary marker      | Mark `NOW_UPDATED` (step 19 for 2026-05-08), labelled "As of May 8, 2026", the same on server, no-JS and every clock | Keep today's behaviour                    |
-| R2  | "Today" marker      | Optional: dashed line with an outlined label, client only, only in `NOW_YEAR` and on or after `NOW_UPDATED`          | None, the ruler shows only the as-of date |
-| R3  | Intro wording       | Keep "Updated May 8, 2026"                                                                                           | "Content as of May 8, 2026"               |
-| R4  | `NOW_UPDATED` value | Keep 2026-05-08, the last content edit. No review is recorded; change it only after a real review                    | Set the date of a review                  |
-
-## Contribution numbers on /open-source
-
-About 94% of the shipped calendar total is private work. Measured for the full days 2025-10-26 to
-2026-10-26: 16,462 contributions, of which 910 are public.
-
-- **A (recommended):** public contributions only: 910 contributions, 82 active days.
-- **B:** keep the total, labelled "including private" everywhere it appears, with the public split
-  next to it.
-
-Either way: count full days only, and record the data source and the time the snapshot was taken.
-GitHub's API buckets commits by US Pacific day, so the per-day numbers cannot be shifted to Toronto
-exactly.
-
 ## Unredacted screenshots in git history
 
 Decided: no history rewrite. Commits keep the owner's own address, by the owner's decision. Every

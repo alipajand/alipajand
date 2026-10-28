@@ -1,4 +1,5 @@
 import type { ContributionSnapshot } from "data/openSourceActivity";
+import { OPEN_SOURCE_ACTIVITY_COUNT_NOUN } from "data/openSourcePage";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -18,6 +19,23 @@ export const formatSnapshotDay = (date: Date): string =>
     year: "numeric",
     timeZone: "UTC",
   });
+
+/** Contributions in the snapshot: the sum of its days, so the total cannot disagree with them. */
+export const snapshotTotal = (snapshot: ContributionSnapshot): number =>
+  snapshot.counts.reduce((sum, count) => sum + count, 0);
+
+/**
+ * Shade levels 1–4 for active days, split at the quartiles of the active days' counts, so one busy
+ * day does not wash out the rest of the year. A day with no contributions is level 0.
+ */
+export const contributionLevels = (counts: readonly number[]): (0 | 1 | 2 | 3 | 4)[] => {
+  const active = counts.filter(Boolean).sort((a, b) => a - b);
+  const quartile = (q: number) => active[Math.max(0, Math.ceil(active.length * q) - 1)] ?? 0;
+  const [q1, q2, q3] = [quartile(0.25), quartile(0.5), quartile(0.75)];
+  return counts.map((count) =>
+    count === 0 ? 0 : count <= q1 ? 1 : count <= q2 ? 2 : count <= q3 ? 3 : 4
+  );
+};
 
 export const pluralize = (count: number, word: string): string =>
   `${count.toLocaleString("en-US")} ${word}${count === 1 ? "" : "s"}`;
@@ -44,7 +62,7 @@ export const contributionStats = (snapshot: ContributionSnapshot): ContributionS
     if (count > counts[busiest]) busiest = index;
   });
   return {
-    total: snapshot.total,
+    total: snapshotTotal(snapshot),
     activeDays: counts.filter(Boolean).length,
     days: counts.length,
     longestStreak,
@@ -61,7 +79,7 @@ export interface CalendarCell {
   y: number;
   level: number;
   count: number;
-  /** "Oct 20, 2026 · 574 contributions", for the readout under the calendar. */
+  /** "Oct 20, 2026 · 12 public contributions", for the readout under the calendar. */
   label: string;
 }
 
@@ -82,6 +100,7 @@ export const calendarLayout = (snapshot: ContributionSnapshot): CalendarLayout =
   const weekCount = Math.ceil((snapshot.counts.length + lead) / 7);
   const weeks: CalendarCell[][] = Array.from({ length: weekCount }, () => []);
   const months: CalendarLayout["months"] = [];
+  const levels = contributionLevels(snapshot.counts);
   snapshot.counts.forEach((count, index) => {
     const at = index + lead;
     const column = Math.floor(at / 7);
@@ -91,9 +110,9 @@ export const calendarLayout = (snapshot: ContributionSnapshot): CalendarLayout =
       index,
       x: CALENDAR_LEFT + column * CALENDAR_PITCH,
       y: CALENDAR_TOP + row * CALENDAR_PITCH,
-      level: snapshot.levels[index] ?? 0,
+      level: levels[index],
       count,
-      label: `${formatSnapshotDay(day)} · ${pluralize(count, "contribution")}`,
+      label: `${formatSnapshotDay(day)} · ${pluralize(count, OPEN_SOURCE_ACTIVITY_COUNT_NOUN)}`,
     });
     if (day.getUTCDate() === 1 && column < weekCount - 1) {
       months.push({

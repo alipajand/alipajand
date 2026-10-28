@@ -1,56 +1,45 @@
 /**
- * A dated snapshot of the contribution calendar shown publicly on github.com/alipajand: one count and
- * one GitHub intensity level (0–4) per day, starting at `from`, exactly as GitHub draws them. The
- * calendar includes private contributions as anonymous counts, so these are not all public or
- * open-source work. Refresh it with `node --no-warnings docs/design/kit/build.mjs --activity`, which
- * reads the signed-out calendar HTML at github.com/users/alipajand/contributions, and copy the new
- * `activity.json` here.
+ * A dated snapshot of public GitHub contributions: one count per full day from `from` to `to`.
+ * Only contributions to public repositories are counted (commits on the default branch, pull
+ * requests, reviews, issues and new repositories); private work is left out. GitHub dates them by
+ * US Pacific day, so a day here can differ from the Toronto day near midnight.
+ *
+ * To refresh, query `user.contributionsCollection` with the GitHub GraphQL API in windows of up to
+ * 90 days, keep the items whose repository is public, and check that each window's public items plus
+ * `restrictedContributionsCount` equal its `contributionCalendar.totalContributions`. End at the last
+ * full day before `collectedAt`.
  */
 export interface ContributionSnapshot {
   user: string;
-  /** ISO date the snapshot was taken. */
-  taken: string;
+  /** Where the counts come from. */
+  source: string;
+  /** When the snapshot was collected, as an ISO timestamp. */
+  collectedAt: string;
   /** ISO date of the first day in `counts`. */
   from: string;
-  total: number;
+  /** ISO date of the last day in `counts`, the last full day before `collectedAt`. */
+  to: string;
   counts: readonly number[];
-  levels: readonly (0 | 1 | 2 | 3 | 4)[];
 }
 
 export const OPEN_SOURCE_CONTRIBUTION_SNAPSHOT: ContributionSnapshot = {
   user: "alipajand",
-  taken: "2026-10-27",
+  source: "GitHub GraphQL API, user.contributionsCollection, public repositories only",
+  collectedAt: "2026-10-28T16:45:08Z",
   from: "2025-10-26",
-  total: 16511,
+  to: "2026-10-26",
   counts: [
-    0, 18, 32, 13, 31, 8, 0, 0, 10, 20, 7, 13, 3, 0, 0, 23, 13, 14, 8, 8, 0, 0, 13, 9, 9, 1, 0, 0,
-    0, 6, 1, 0, 16, 3, 0, 0, 1, 16, 11, 13, 28, 0, 3, 30, 4, 0, 1, 2, 0, 0, 0, 1, 0, 2, 5, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 4, 6, 1, 0, 0, 2, 0, 3, 13, 1, 0, 0, 3, 0, 0, 0, 1,
-    0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 3, 0, 26, 1, 0, 0, 0, 0, 16, 29, 26, 0, 21, 69, 52, 55, 44, 139,
-    171, 95, 218, 145, 122, 98, 42, 222, 191, 180, 140, 146, 178, 202, 210, 172, 190, 222, 218, 167,
-    124, 254, 141, 63, 67, 91, 86, 75, 13, 12, 7, 58, 10, 35, 11, 12, 3, 27, 50, 17, 15, 50, 31, 37,
-    89, 81, 22, 59, 102, 84, 71, 60, 69, 37, 107, 33, 54, 28, 64, 96, 35, 33, 36, 16, 27, 37, 54,
-    58, 24, 28, 2, 6, 24, 26, 51, 29, 15, 3, 9, 20, 6, 61, 77, 37, 25, 12, 36, 58, 67, 42, 36, 41,
-    47, 17, 3, 26, 6, 1, 0, 22, 58, 92, 109, 109, 134, 11, 5, 53, 13, 52, 19, 2, 24, 33, 9, 44, 9,
-    48, 22, 39, 15, 41, 44, 40, 23, 19, 25, 29, 30, 22, 81, 53, 163, 117, 19, 56, 68, 30, 30, 7, 18,
-    11, 0, 0, 16, 20, 20, 25, 35, 15, 18, 3, 7, 8, 0, 12, 8, 4, 1, 37, 40, 13, 15, 20, 17, 5, 1, 6,
-    6, 13, 1, 44, 25, 29, 13, 0, 0, 5, 10, 13, 20, 11, 14, 16, 29, 115, 118, 90, 31, 47, 94, 136,
-    88, 103, 19, 64, 30, 73, 140, 71, 168, 83, 59, 36, 271, 102, 53, 0, 0, 5, 66, 40, 75, 58, 73,
-    258, 103, 31, 112, 121, 26, 8, 9, 162, 151, 138, 12, 0, 8, 69, 179, 92, 52, 132, 193, 42, 45,
-    115, 298, 203, 278, 574, 167, 55, 158, 93, 21, 81, 42,
-  ],
-  levels: [
-    0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0,
-    1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1,
-    0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 3, 2, 4, 3, 2, 2, 1, 4, 3, 3,
-    3, 3, 3, 3, 4, 3, 3, 4, 4, 3, 2, 4, 3, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 2, 2, 1, 1, 2, 2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 2, 2, 2, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 3, 2, 1, 1, 1, 1,
-    1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 1, 2, 3, 2, 3, 2,
-    1, 1, 4, 2, 1, 0, 0, 1, 1, 1, 2, 1, 2, 4, 2, 1, 2, 2, 1, 1, 1, 3, 3, 2, 1, 0, 1, 1, 3, 2, 1, 2,
-    3, 1, 1, 2, 4, 3, 4, 4, 3, 1, 3, 2, 1, 2, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4,
+    0, 0, 0, 0, 0, 0, 26, 1, 0, 0, 0, 0, 15, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 4, 0, 13, 0, 0,
+    8, 3, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 5, 0, 1, 0, 3, 0, 4, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+    0, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 2, 65,
+    21, 0, 0, 0, 0, 0, 3, 2, 0, 0, 0, 33, 0, 5, 10, 5, 0, 1, 6, 0, 0, 0, 22, 0, 3, 0, 2, 0, 3, 0, 0,
+    2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 1, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0,
+    0, 0, 0, 0, 26, 1, 1, 0, 0, 0, 2, 0, 0, 0, 2, 1, 0, 0, 2, 1, 0, 0, 1, 0, 0, 1, 2, 0, 0, 8, 2, 0,
+    0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 1, 0, 0, 0, 10, 0, 185, 0, 0, 0, 0, 2, 0, 6, 11, 0, 5, 0, 0, 4,
+    24, 101, 2, 0, 51, 9, 5, 3, 1, 0, 0, 0, 9, 0, 0, 4, 17, 0, 2,
   ],
 };
