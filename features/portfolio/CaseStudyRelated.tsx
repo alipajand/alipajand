@@ -34,11 +34,10 @@ const RelatedLink = ({ link }: { link: ProjectLink }) => {
       className={styles.link}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`${link.label} (${host})${EXTERNAL_LINK_NEW_TAB_HINT}`}
+      aria-label={`${link.label} ${host}${EXTERNAL_LINK_NEW_TAB_HINT}`}
     >
       <span>
-        <small>{link.label}</small>
-        {host}
+        <small>{link.label}</small> {host}
       </span>
       <Chev />
     </a>

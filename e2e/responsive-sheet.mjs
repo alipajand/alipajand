@@ -3,7 +3,7 @@
  *
  *   RESPONSIVE_EVIDENCE=/tmp/gate pnpm exec playwright test \
  *     e2e/responsive.e2e.ts e2e/interactions.e2e.ts e2e/a11y.e2e.ts e2e/vitals.e2e.ts
- *   node e2e/responsive-sheet.mjs /tmp/gate docs/audits/evidence/responsive \
+ *   node e2e/responsive-sheet.mjs /tmp/gate test-results/responsive-sheet \
  *     [--base http://localhost:3000]
  *
  * With `--base`, it also renders each pinned design page in docs/design/pages next to the running
@@ -22,7 +22,7 @@ import { chromium } from "@playwright/test";
 const args = process.argv.slice(2);
 const baseIndex = args.indexOf("--base");
 const base = baseIndex >= 0 ? args.splice(baseIndex, 2)[1] : null;
-const [source, target = "docs/audits/evidence/responsive"] = args;
+const [source, target = "test-results/responsive-sheet"] = args;
 if (!source) {
   console.error("usage: node e2e/responsive-sheet.mjs <evidence dir> [output dir] [--base url]");
   process.exit(1);

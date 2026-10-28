@@ -76,6 +76,35 @@ describe("SiteNavigation", () => {
     expect(menuPanel()).not.toBeVisible();
   });
 
+  it("should move focus to the main content when the menu links to the open page", () => {
+    const main = document.createElement("main");
+    main.id = "main-content";
+    main.tabIndex = -1;
+    document.body.append(main);
+    render(<SiteNavigation />);
+    fireEvent.click(menuButton());
+    const own = within(menuPanel()).getByRole("link", { name: "Portfolio" });
+    own.focus();
+    fireEvent.click(own);
+    expect(menuPanel()).not.toBeVisible();
+    expect(document.activeElement).toBe(main);
+    main.remove();
+  });
+
+  it("should leave focus to the route change when the menu links to another page", () => {
+    const main = document.createElement("main");
+    main.id = "main-content";
+    main.tabIndex = -1;
+    document.body.append(main);
+    render(<SiteNavigation />);
+    fireEvent.click(menuButton());
+    const other = within(menuPanel()).getByRole("link", { name: "Writing" });
+    other.focus();
+    fireEvent.click(other);
+    expect(document.activeElement).not.toBe(main);
+    main.remove();
+  });
+
   it("should close when the route changes", () => {
     const { rerender } = render(<SiteNavigation />);
     fireEvent.click(menuButton());
