@@ -1,3 +1,4 @@
+import { EDUCATION } from "data/experience";
 import { LINKS } from "data/links";
 import {
   CANONICAL_URL,
@@ -30,6 +31,10 @@ export const HomeStructuredData = () => {
     image: profileImageUrls,
     knowsAbout: KEYWORDS,
     knowsLanguage: ["English", "French"],
+    alumniOf: [...new Set(EDUCATION.map((entry) => entry.institution))].map((name) => ({
+      "@type": "CollegeOrUniversity",
+      name,
+    })),
     address: {
       "@type": "PostalAddress",
       addressLocality: PERSON_SCHEMA_ADDRESS_LOCALITY,

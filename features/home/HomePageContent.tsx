@@ -4,6 +4,7 @@ import { Ticker } from "components/hairline/Ticker/Ticker";
 import type { WritingPost } from "components/Writing/WritingPost";
 import { HomeAbout } from "features/home/HomeAbout";
 import { HomeCapabilities } from "features/home/HomeCapabilities";
+import { HomeExperience } from "features/home/HomeExperience";
 import { HomeHero } from "features/home/HomeHero";
 import { HomeOpenSource } from "features/home/HomeOpenSource";
 import { HomeSelectedWork } from "features/home/HomeSelectedWork";
@@ -27,6 +28,7 @@ export const HomePageContent = ({ writingFeatured, writingRecent }: HomePageCont
     <Ticker items={HOMEPAGE_CAPABILITY_TICKER} icon="ring" direction={1} />
     <HomeSelectedWork />
     <HomeAbout />
+    <HomeExperience />
     <HomeCapabilities />
     <Ticker items={HOMEPAGE_TOOLING_TICKER} icon="spark" direction={-1} />
     <HomeOpenSource />

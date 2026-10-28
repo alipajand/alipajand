@@ -96,7 +96,7 @@ export const PORTFOLIO_PAGE_INTRO_LINKS = [
 ] as const;
 
 export const PORTFOLIO_PROFILE_DETAILS =
-  "Based in Montreal, Canada. English: professional. French: intermediate.";
+  "Based in Montreal, Canada. English: professional. French: conversational.";
 
 export const PORTFOLIO_META_TITLE =
   "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems";
