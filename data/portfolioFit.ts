@@ -5,7 +5,7 @@ export const PORTFOLIO_ROLE_FIT_LABELS = [
   "Technical direction",
   "React / Next.js / TypeScript",
   "Design systems",
-  "Cross-team standards",
+  "Shared standards",
   "Mentoring",
   "Accessibility",
   "Rendering performance",

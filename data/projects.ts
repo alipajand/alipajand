@@ -118,7 +118,7 @@ export const PORTFOLIO_PAGE_HEADER_TITLE = "Portfolio";
 
 export const PORTFOLIO_PAGE_INTRO = [
   "Nine-plus years of production web work, with frontend architecture as the specialization: React, Next.js, TypeScript, shared component systems, accessibility, and rendering performance in interfaces dense enough that those things decide whether the product is usable.",
-  "The staff-level part is leverage, not a title: my roles were Senior, and the evidence is specific. At AlwaysGeeky I owned the shared design system four product surfaces were built on, wrote the design docs for its library and convention changes, drove adoption with the engineers building those surfaces, and mentored through pairing and code review. The standards were enforced in CI rather than by memory.",
+  "The point is leverage, not a title: my roles were Senior, and the evidence is specific. At AlwaysGeeky I owned the shared design system four product surfaces were built on, wrote the design docs for its library and convention changes, drove adoption with the engineers building those surfaces, and mentored through pairing and code review. The standards were enforced in CI rather than by memory.",
   "The case studies below are ordered by how much they show. LedgerGuard is a product I own end to end, from the Next.js App Router frontend through the Fastify API, PostgreSQL schema, and queue-backed document pipeline. AlwaysGeeky is the shared React and TypeScript library four product surfaces were built on, along with the conventions and CI gates that kept them consistent. Emplifi is dense D3 analytics and the rendering work that made it survive mobile webviews.",
   "Each write-up covers the problem, what I owned, the decisions that mattered, and what I traded away to get there. I use AI coding agents for implementation, testing, and investigation, and keep architecture, security, and final review on my side of the line.",
 ] as const;
@@ -974,10 +974,10 @@ export const PROJECTS: Project[] = [
     caseStudyTitle: "Enterprise Analytics",
     caseStudyMetaTitle: "Emplifi — Enterprise Analytics · Ali Pajand",
     caseStudyMetaDescription:
-      "Case study: React, TypeScript, and D3.js enterprise analytics modules built on shared accessible components, with an 80% reduction in unnecessary rendering and chart-update paint work. Senior Frontend Engineer — Ali Pajand.",
+      "Case study: React, TypeScript, and D3.js enterprise analytics modules built on shared accessible components, with rendering work profiled on the embedded mobile webview path. Senior Frontend Engineer — Ali Pajand.",
     employerContext: "Enterprise analytics dashboards with dense data views and embedded contexts.",
     cardProblem:
-      "Data-heavy React and TypeScript analytics modules built on D3.js, assembled from shared accessible components and their documentation, running in both desktop browsers and embedded mobile webviews. Profiling the webview path led to an 80% reduction in unnecessary re-renders and chart-update paint cost on lower-powered devices.",
+      "Data-heavy React, TypeScript, and D3.js analytics modules assembled from shared accessible components, running in desktop browsers and embedded mobile webviews, with rendering work profiled on the webview path.",
     role: "Senior Frontend Engineer",
     timeframe: "2022–2023",
     capabilityTags: [
@@ -1034,7 +1034,6 @@ export const PROJECTS: Project[] = [
         "Made motion serve orientation and hierarchy rather than decorative movement.",
       ],
       outcome: [
-        "Cut unnecessary re-renders and chart-update paint cost on lower-powered devices by 80%.",
         "Left behind reusable accessible components and documentation that colleagues credited with helping the team ship faster.",
         "Left behind patterns for balancing chart interaction against readability in dense product surfaces.",
         "Kept performance work anchored to the environments the dashboards actually ran in.",
@@ -1121,8 +1120,6 @@ export const PROJECTS: Project[] = [
               },
               {
                 label: "Reduce cost",
-                detail:
-                  "Cut unnecessary re-renders and chart-update paint cost on lower-powered devices by 80%.",
               },
               {
                 label: "Monitor release",
@@ -1516,10 +1513,10 @@ export const PROJECTS: Project[] = [
           width: 3456,
           height: 2234,
           trimTop: 67,
-          alt: "MapBylaw landing page introducing a zoning and bylaw exploration product experiment.",
+          alt: "MapBylaw landing page over a dark map of Montreal: a search box for a site, parcel, or address, the headline “Montreal development intelligence for acquisition and feasibility decisions”, and buttons to screen a site or see professional use.",
           captionLead: "Landing page.",
           captionBody:
-            "The public entry point positions the work as a clearer way to navigate zoning information, not as an official or exhaustive database.",
+            "The public entry point starts with a site search over the Montreal map and frames the product as early screening for acquisition and feasibility: zoning, PUM 2050 context, and heritage constraints before deeper diligence.",
         },
         {
           type: "image",

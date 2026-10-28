@@ -5,28 +5,27 @@ data; there is no separate `types/` directory.
 
 ## Content files
 
-| File                                                         | Holds                                                                                  | Used by                                     |
-| ------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ------------------------------------------- |
-| `data/site.ts`                                               | Name, canonical URL, tagline, meta descriptions, keywords, schema ids                  | Layout, metadata, JSON-LD, footer, llms     |
-| `data/homepage.ts`                                           | Hero copy, selected-work cards, strata layers                                          | `features/home`                             |
-| `data/about.ts`, `data/hiringFit.ts`, `data/selectedWork.ts` | Homepage sections                                                                      | `features/home`                             |
-| `data/projects.ts`                                           | `Project` records: case-study sections, figures, decisions, links; portfolio page copy | Portfolio routes, llms, JSON-LD             |
-| `data/projectsPublication.ts`                                | Claims withheld from public surfaces, and per-project public overrides                 | `utils/projects.ts` (`toPublicProject`)     |
-| `data/projectsDisplay.ts`, `data/projectsUi.ts`              | Case-study display names and UI labels                                                 | `features/portfolio`                        |
-| `data/portfolioIndex.ts`, `data/portfolioFit.ts`             | Portfolio index copy                                                                   | `features/portfolio`                        |
-| `data/openSourcePage.ts`, `data/openSourceTools.ts`          | Open-source page copy and tool list                                                    | `features/open-source`, `features/home`     |
-| `data/openSourceActivity.ts`                                 | Fallback contribution snapshot when the live GitHub fetch is unavailable               | `features/open-source`                      |
-| `data/writing.ts`                                            | Writing labels and index copy                                                          | Writing routes, home writing section        |
-| `data/diagrams.ts`                                           | Labels for the MCP workflow diagram                                                    | `features/writing`, design kit              |
-| `data/now.ts`                                                | `/now` sections and the hand-set `NOW_UPDATED` date                                    | `/now`, sitemap                             |
-| `data/engineeringPrinciples.ts`                              | Principles and their evidence links                                                    | `/engineering-principles`                   |
-| `data/contact.ts`, `data/contactForm.ts`                     | Contact section copy, form labels and error messages                                   | `components/Contact`                        |
-| `data/links.ts`                                              | Public profile links (GitHub, LinkedIn, email, booking)                                | Navigation, footer, contact, JSON-LD        |
-| `data/nav.ts`, `data/footer.ts`, `data/pageChrome.ts`        | Site shell labels                                                                      | `components/hairline`                       |
-| `data/breadcrumbs.ts`                                        | Breadcrumb trails per route                                                            | Breadcrumb components and BreadcrumbList    |
-| `data/notFound.ts`                                           | 404 copy                                                                               | `app/not-found.tsx`, `features/not-found`   |
-| `data/profileImage.ts`                                       | Profile image variants                                                                 | `/images/profile-*.png`, Person JSON-LD     |
-| `data/testimonials.ts`                                       | Peer quotes                                                                            | `components/Testimonials` (not on any page) |
+| File                                                         | Holds                                                                                  | Used by                                   |
+| ------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ----------------------------------------- |
+| `data/site.ts`                                               | Name, canonical URL, tagline, meta descriptions, keywords, schema ids                  | Layout, metadata, JSON-LD, footer, llms   |
+| `data/homepage.ts`                                           | Hero copy, selected-work cards, strata layers                                          | `features/home`                           |
+| `data/about.ts`, `data/hiringFit.ts`, `data/selectedWork.ts` | Homepage sections                                                                      | `features/home`                           |
+| `data/projects.ts`                                           | `Project` records: case-study sections, figures, decisions, links; portfolio page copy | Portfolio routes, llms, JSON-LD           |
+| `data/projectsPublication.ts`                                | Claims withheld from public surfaces, and per-project public overrides                 | `utils/projects.ts` (`toPublicProject`)   |
+| `data/projectsDisplay.ts`, `data/projectsUi.ts`              | Case-study display names and UI labels                                                 | `features/portfolio`                      |
+| `data/portfolioIndex.ts`, `data/portfolioFit.ts`             | Portfolio index copy                                                                   | `features/portfolio`                      |
+| `data/openSourcePage.ts`, `data/openSourceTools.ts`          | Open-source page copy and tool list                                                    | `features/open-source`, `features/home`   |
+| `data/openSourceActivity.ts`                                 | Fallback contribution snapshot when the live GitHub fetch is unavailable               | `features/open-source`                    |
+| `data/writing.ts`                                            | Writing labels and index copy                                                          | Writing routes, home writing section      |
+| `data/diagrams.ts`                                           | Labels for the MCP workflow diagram                                                    | `features/writing`, design kit            |
+| `data/now.ts`                                                | `/now` sections and the hand-set `NOW_UPDATED` date                                    | `/now`, sitemap                           |
+| `data/engineeringPrinciples.ts`                              | Principles and their evidence links                                                    | `/engineering-principles`                 |
+| `data/contact.ts`, `data/contactForm.ts`                     | Contact section copy, form labels and error messages                                   | `components/Contact`                      |
+| `data/links.ts`                                              | Public profile links (GitHub, LinkedIn, email, booking)                                | Navigation, footer, contact, JSON-LD      |
+| `data/nav.ts`, `data/footer.ts`, `data/pageChrome.ts`        | Site shell labels                                                                      | `components/hairline`                     |
+| `data/breadcrumbs.ts`                                        | Breadcrumb trails per route                                                            | Breadcrumb components and BreadcrumbList  |
+| `data/notFound.ts`                                           | 404 copy                                                                               | `app/not-found.tsx`, `features/not-found` |
+| `data/profileImage.ts`                                       | Profile image variants                                                                 | `/images/profile-*.png`, Person JSON-LD   |
 
 ## Writing posts
 

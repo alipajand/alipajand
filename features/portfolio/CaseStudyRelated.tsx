@@ -3,7 +3,6 @@ import Link from "next/link";
 import { CaseSection } from "components/hairline/CaseSection/CaseSection";
 import { Chev } from "components/hairline/Icons/Icons";
 import styles from "features/portfolio/CaseStudyRelated.module.css";
-import { EXTERNAL_LINK_NEW_TAB_HINT } from "data/pageChrome";
 import type { ProjectLink } from "data/projects";
 import { projectRelatedKind, projectRelatedLinksAriaLabel } from "data/projectsUi";
 import { type CaseSectionModel, hostOf } from "utils/caseStudySections";
@@ -32,9 +31,8 @@ const RelatedLink = ({ link }: { link: ProjectLink }) => {
     <a
       href={link.href}
       className={styles.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`${link.label} ${host}${EXTERNAL_LINK_NEW_TAB_HINT}`}
+      rel="noreferrer"
+      aria-label={`${link.label} ${host}`}
     >
       <span>
         <small>{link.label}</small> {host}

@@ -2,7 +2,7 @@
 
 Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js
 
-I've spent 9+ years building production products in React, TypeScript, and Next.js. I focus on frontend architecture, design systems, and complex SaaS workflows, and I also build the Node.js/Fastify APIs, PostgreSQL models, and background jobs behind them.
+I've spent 9+ years building production web applications, most recently in React, TypeScript, and Next.js. I focus on frontend architecture, design systems, and complex SaaS workflows, and I also build the Node.js/Fastify APIs, PostgreSQL models, and background jobs behind them.
 
 **Available for senior frontend, full-stack, and product engineering roles.**
 
@@ -22,7 +22,7 @@ I've spent 9+ years building production products in React, TypeScript, and Next.
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | [LedgerGuard](https://alipajand.com/portfolio/ledgerguard)       | Multi-tenant AI contract intelligence SaaS, built end to end: Next.js, Fastify, PostgreSQL, document pipeline |
 | [AlwaysGeeky Games](https://alipajand.com/portfolio/alwaysgeeky) | Shared React/TypeScript component library across four product surfaces, with CI gates and accessibility rules |
-| [Emplifi](https://alipajand.com/portfolio/emplifi)               | D3.js enterprise analytics, including an 80% cut in unnecessary re-renders and chart paint work in webviews   |
+| [Emplifi](https://alipajand.com/portfolio/emplifi)               | D3.js enterprise analytics on shared accessible components, profiled for embedded mobile webviews             |
 | [Agent tooling](https://alipajand.com/portfolio/agent-tooling)   | Deterministic TypeScript CLIs and a GitHub Action for AI-assisted development                                 |
 | [TallyFolio](https://alipajand.com/portfolio/tallyfolio)         | Privacy-first personal finance PWA with deterministic money math and CSV import review                        |
 | [ControlTech](https://alipajand.com/portfolio/controltech)       | Four years of taking early-stage SaaS products and PWAs from MVP to production                                |
