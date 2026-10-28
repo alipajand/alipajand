@@ -523,8 +523,8 @@ test.describe("navigation lifecycle", () => {
 
     await page.goto(NOT_FOUND);
     await settle(page);
-    // Header links on the 404 do not navigate client-side (a separate, pre-existing issue), so
-    // leave through the page's own "Home" link.
+    // Leave through the page's own "Home" link. Client-side navigation from the 404's header links
+    // is covered by "not-found header navigation" in remaining-pages.e2e.ts.
     await page.locator("main a[href='/']").first().click();
     await page.waitForURL((url) => url.pathname === "/");
     await settle(page);

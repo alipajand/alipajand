@@ -26,8 +26,6 @@ export const WRITING_POST_MCP_FIGCAPTION =
 export const WRITING_INDEX_COLLECTION_NAME =
   "Writing on Frontend Architecture and Product Engineering";
 
-export const WRITING_TOC_HEADING = "On this page";
-
 export const WRITING_TOC_ARIA_LABEL = "Table of contents";
 
 export const WRITING_UPCOMING_LABEL = "Upcoming";
