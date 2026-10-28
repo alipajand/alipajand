@@ -177,24 +177,25 @@ export const buildEngineeringPrinciplesMetadata = (): Metadata => {
 
 export const buildNowMetadata = (): Metadata => {
   const url = `${CANONICAL_URL}/now`;
-  const title = NOW_PAGE_TITLE;
+  // One title for the tab, Open Graph, Twitter and the WebPage JSON-LD (NowPageJsonLd).
+  const title = `${NOW_PAGE_TITLE} · ${SITE_NAME}`;
   const description = NOW_META_DESCRIPTION;
   return {
-    title: exactTitle(`${title} | ${SITE_NAME}`),
+    title: exactTitle(title),
     description,
     alternates: { canonical: url },
     openGraph: {
       type: "website",
       url,
       siteName: SITE_NAME,
-      title: `${title} · ${SITE_NAME}`,
+      title,
       description,
       locale: "en_US",
-      images: [{ ...defaultOgImage, alt: `${title} · ${SITE_NAME}` }],
+      images: [{ ...defaultOgImage, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} · ${SITE_NAME}`,
+      title,
       description,
       images: [defaultOgImage.url],
       ...twitterExtras(),
