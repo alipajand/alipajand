@@ -58,6 +58,25 @@ describe("buildLlmsFullTxt", () => {
     expect(withoutBody).toContain("Sample excerpt");
   });
 
+  it("should list every role and degree", () => {
+    const text = buildLlmsFullTxt({
+      projects: getDedicatedCaseStudyProjects(),
+      posts: [],
+      getPostMarkdown: () => null,
+    });
+
+    expect(text).toContain(
+      "### Independent freelance projects\n\nFreelance web developer · Alongside Rayvarz and ControlTech · 2015–2022\n\nBuilt web applications with Nuxt.js and Vue.js."
+    );
+    expect(text).toContain("### Rayvarz Software Engineering Company");
+    expect(text).toContain(
+      "- Master’s Degree, Computer Information Technology · 2014–2017 · Allameh Tabataba'i University"
+    );
+    expect(text).toContain(
+      "- Bachelor’s Degree, Engineering/Industrial Management · 2010–2014 · Allameh Tabataba'i University"
+    );
+  });
+
   it("should include each case study's decisions", () => {
     const text = buildLlmsFullTxt({
       projects: getDedicatedCaseStudyProjects(),

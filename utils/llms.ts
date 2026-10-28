@@ -1,4 +1,5 @@
 import { ABOUT_PARAGRAPHS } from "data/about";
+import { EDUCATION, EDUCATION_HEADING, EXPERIENCE, EXPERIENCE_HEADING } from "data/experience";
 import {
   ENGINEERING_PRINCIPLES_LEDE,
   ENGINEERING_PRINCIPLES_META_DESCRIPTION,
@@ -233,6 +234,18 @@ export const buildLlmsFullTxt = ({
     "## How I work",
     "",
     ABOUT_PARAGRAPHS.join("\n\n"),
+    "",
+    `## ${EXPERIENCE_HEADING}`,
+    "",
+    EXPERIENCE.map(
+      (entry) => `### ${entry.organization}\n\n${entry.role} · ${entry.period}\n\n${entry.summary}`
+    ).join("\n\n"),
+    "",
+    `## ${EDUCATION_HEADING}`,
+    "",
+    bulletList(
+      EDUCATION.map((entry) => `${entry.degree} · ${entry.period} · ${entry.institution}`)
+    ),
     "",
     "## Contact",
     "",

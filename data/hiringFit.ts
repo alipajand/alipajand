@@ -10,7 +10,7 @@ export const HIRING_FIT_CARDS: HiringFitCard[] = [
   {
     id: "frontend-architecture",
     title: "Frontend Architecture",
-    body: "React, Next.js App Router, TypeScript, Server Components, SSR and static rendering, component architecture, state and data-flow boundaries",
+    body: "React, Next.js App Router, TypeScript, Server Components, SSR and static rendering, component architecture, state and data-flow boundaries, TanStack Query, Zustand, Redux, Vue.js and Nuxt.js",
   },
   {
     id: "design-systems",
@@ -20,16 +20,16 @@ export const HIRING_FIT_CARDS: HiringFitCard[] = [
   {
     id: "full-stack-product-systems",
     title: "Full-Stack & Product Systems",
-    body: "Node.js, Fastify, REST and GraphQL APIs, PostgreSQL, Prisma, Supabase Auth and Storage, Redis/BullMQ background jobs, Python workers, Stripe, Docker, AWS",
+    body: "Node.js, Fastify, REST and GraphQL APIs, PostgreSQL, Prisma, Supabase Auth and Storage, Redis/BullMQ background jobs, Python workers, Stripe, Docker, AWS, Linux",
   },
   {
     id: "quality-developer-experience",
     title: "Quality & Developer Experience",
-    body: "Jest, React Testing Library, Playwright, Cypress, GitHub Actions, CI quality gates, code review, AI-assisted development with Cursor and custom MCP tooling",
+    body: "Jest, React Testing Library, Playwright, Cypress, GitHub Actions, CI quality gates, feature flags and staged rollouts, code review, AI-assisted development with Cursor and custom MCP tooling",
   },
   {
     id: "performance-observability",
     title: "Performance & Observability",
-    body: "D3.js, GSAP, rendering and paint optimization, mobile webview constraints, Web Vitals, Sentry, Hotjar",
+    body: "D3.js, GSAP, rendering and paint optimization, mobile webview constraints, Web Vitals, Chrome DevTools profiling, Sentry, Hotjar",
   },
 ];
