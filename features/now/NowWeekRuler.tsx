@@ -3,17 +3,10 @@
 import { type CSSProperties, useRef } from "react";
 
 import styles from "features/now/NowWeekRuler.module.css";
-import { nowWeekLabel } from "data/now";
+import { NOW_RULER_LABEL, NOW_RULER_STEP } from "data/now";
 import { clamp, fitCanvas, LINE_RGB, tokenFontFamily } from "utils/motion/canvas";
 import { useMotion } from "utils/motion/useMotion";
-import { WEEKS_IN_RULER, weekOfYear } from "utils/week";
-
-interface NowWeekRulerProps {
-  /** The year shown in the display line. */
-  year: number;
-  /** The week at render time; the island recomputes it from the visitor's clock. */
-  initialWeek: number;
-}
+import { WEEKS_IN_RULER } from "utils/week";
 
 /** Tick heights above the baseline: quarter starts, roughly month starts, then every other week. */
 const QUARTER_TICK = 46;
@@ -74,11 +67,11 @@ const StaticRuler = ({ week }: { week: number }) => (
 );
 
 /**
- * A ruler of the year's 52 weeks with a cursor on the current week. Weeks already passed are drawn
- * solid. The ruler drifts a little with scroll. Without JavaScript, a server-drawn copy of the ruler
- * and the label show the week the page was built in; the canvas replaces that copy once it draws.
+ * A ruler of the year's 52 weeks with a cursor on the step the content is dated (`NOW_UPDATED`).
+ * Steps before it are drawn solid. The ruler drifts a little with scroll. Without JavaScript, a
+ * server-drawn copy of the same ruler shows; the canvas replaces that copy once it draws.
  */
-export const NowWeekRuler = ({ year, initialWeek }: NowWeekRulerProps) => {
+export const NowWeekRuler = () => {
   const ref = useRef<HTMLDivElement>(null);
 
   useMotion(ref, ({ element, reducedMotion }) => {
@@ -88,9 +81,7 @@ export const NowWeekRuler = ({ year, initialWeek }: NowWeekRulerProps) => {
     const canvas: HTMLCanvasElement = canvasEl;
     const label: HTMLElement = labelEl;
     const mono = tokenFontFamily("--font-mono", "ui-monospace, monospace");
-    const now = new Date();
-    const week = now.getFullYear() === year ? weekOfYear(now) : initialWeek;
-    label.textContent = nowWeekLabel(week);
+    const week = NOW_RULER_STEP;
     let shift = 0;
 
     function draw() {
@@ -156,16 +147,18 @@ export const NowWeekRuler = ({ year, initialWeek }: NowWeekRulerProps) => {
     };
   });
 
-  const label = nowWeekLabel(initialWeek);
   // The label's length in characters, so CSS can keep the whole label inside the ruler.
-  const style = { "--week": initialWeek, "--label-chars": label.length } as CSSProperties;
+  const style = {
+    "--week": NOW_RULER_STEP,
+    "--label-chars": NOW_RULER_LABEL.length,
+  } as CSSProperties;
 
   return (
     <div ref={ref} className={styles.ruler} style={style} aria-hidden="true">
       <canvas />
-      <StaticRuler week={initialWeek} />
+      <StaticRuler week={NOW_RULER_STEP} />
       <span className={styles.rulerLabel} data-label="">
-        {label}
+        {NOW_RULER_LABEL}
       </span>
     </div>
   );

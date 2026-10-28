@@ -177,17 +177,17 @@ describe("OpenSourcePageContent", () => {
   it("should render the contribution snapshot with a text alternative", () => {
     renderPage();
 
-    expect(screen.getByText("16,511")).toBeInTheDocument();
+    expect(screen.getByText("910")).toBeInTheDocument();
     const graph = screen.getByRole("region", { name: OPEN_SOURCE_ACTIVITY_GRAPH_LABEL });
     expect(graph).toHaveAttribute("tabindex", "0");
     expect(within(graph).getByRole("img")).toHaveAccessibleName(
-      "16,511 contributions on GitHub between Oct 26, 2025 and Oct 27, 2026"
+      "910 public contributions on GitHub between Oct 26, 2025 and Oct 26, 2026"
     );
     expect(graph.querySelectorAll("rect")).toHaveLength(
       OPEN_SOURCE_CONTRIBUTION_SNAPSHOT.counts.length
     );
     const table = screen.getByRole("table", {
-      name: "Contributions per month, Oct 26, 2025 to Oct 27, 2026",
+      name: "Public contributions per month, Oct 26, 2025 to Oct 26, 2026",
     });
     // The visually-hidden box sits on a wrapper: a table grows past it to fit its content.
     expect(table).not.toHaveAttribute("class");
@@ -201,16 +201,17 @@ describe("OpenSourcePageContent", () => {
     const total = within(table)
       .getAllByRole("cell")
       .reduce((sum, cell) => sum + Number(cell.textContent?.replace(/,/g, "")), 0);
-    expect(total).toBe(OPEN_SOURCE_CONTRIBUTION_SNAPSHOT.total);
-    expect(screen.getByText("[ Snapshot · Oct 27, 2026 ]")).toBeInTheDocument();
+    expect(total).toBe(910);
+    expect(screen.getByText("[ Snapshot · Oct 28, 2026 ]")).toBeInTheDocument();
   });
 
-  it("should call the snapshot contributions and say it includes private ones", () => {
+  it("should call the snapshot public contributions and say private work is left out", () => {
     renderPage();
 
     const section = screen.getByRole("region", { name: OPEN_SOURCE_ACTIVITY_HEADING });
     expect(within(section).getByText(OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE)).toBeInTheDocument();
-    expect(OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE).toMatch(/private contributions/);
+    expect(OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE).toMatch(/public repositories/);
+    expect(OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE).toMatch(/Private work is left out/);
     expect(OPEN_SOURCE_ACTIVITY_SNAPSHOT_LEDE).not.toMatch(/when this page was built/);
     expect(section.textContent).not.toMatch(/\bcommits?\b/i);
   });
@@ -223,9 +224,9 @@ describe("OpenSourcePageContent", () => {
       `rect[data-i="${OPEN_SOURCE_CONTRIBUTION_SNAPSHOT.counts.length - 1}"]`
     );
     fireEvent.pointerOver(last as Element);
-    expect(screen.getByText("Oct 27, 2026 · 42 contributions")).toBeInTheDocument();
+    expect(screen.getByText("Oct 26, 2026 · 2 public contributions")).toBeInTheDocument();
     fireEvent.pointerLeave(graph);
-    expect(screen.getByText("[ Snapshot · Oct 27, 2026 ]")).toBeInTheDocument();
+    expect(screen.getByText("[ Snapshot · Oct 28, 2026 ]")).toBeInTheDocument();
   });
 
   it("should close with the repository, writing and contact links", () => {
