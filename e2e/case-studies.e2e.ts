@@ -419,4 +419,55 @@ test.describe("chapter jumps and browser history", () => {
       await at("#outcome");
     });
   }
+
+  /*
+   * After a jump the rail marks the chapter jumped to, even one too short to reach the marking line
+   * (the top third) or one the page bottoms out before (the last chapters). It follows the visitor's
+   * own scrolling again afterwards.
+   */
+  for (const viewport of [
+    { width: 1440, height: 900 },
+    { width: 390, height: 844 },
+  ]) {
+    test(`the rail marks every chapter jumped to, and Back and Forward, at ${viewport.width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize(viewport);
+      for (const slug of CASE_STUDIES) {
+        const path = `/portfolio/${slug}`;
+        await page.goto(path);
+        await settle(page);
+        const rail = page.getByRole("navigation", { name: /^Table of contents for / });
+        const current = rail.locator('a[aria-current="true"]');
+        const hashes = await rail
+          .locator("a[href^='#']")
+          .evaluateAll((links) => links.map((link) => link.getAttribute("href")!));
+
+        for (const hash of hashes) {
+          await rail.locator(`a[href="${hash}"]`).click();
+          await expect(page).toHaveURL(new RegExp(`${path}${hash}$`));
+          await expect(current, `${slug}: jump to ${hash}`).toHaveAttribute("href", hash);
+        }
+        for (const hash of hashes.slice(0, -1).reverse()) {
+          await page.goBack();
+          await expect(page).toHaveURL(new RegExp(`${path}${hash}$`));
+          await expect(current, `${slug}: Back to ${hash}`).toHaveAttribute("href", hash);
+        }
+        for (const hash of hashes.slice(1)) {
+          await page.goForward();
+          await expect(page).toHaveURL(new RegExp(`${path}${hash}$`));
+          await expect(current, `${slug}: Forward to ${hash}`).toHaveAttribute("href", hash);
+        }
+
+        // The visitor's own scrolling takes over again.
+        await page.mouse.wheel(0, -100_000);
+        await expect(current, `${slug}: scrolled to the top`).toHaveAttribute("href", hashes[0]);
+        await page.mouse.wheel(0, 100_000);
+        await expect(current, `${slug}: scrolled to the end`).toHaveAttribute(
+          "href",
+          hashes.at(-1)!
+        );
+      }
+    });
+  }
 });
