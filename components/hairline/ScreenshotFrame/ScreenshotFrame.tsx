@@ -127,6 +127,12 @@ export const ScreenshotFrame = ({
     { enabled: tilt }
   );
 
+  const open = () => {
+    // The page's scrollbar width, so the scroll lock can keep the page from widening behind it.
+    const root = document.documentElement;
+    root.style.setProperty("--scroll-lock-gap", `${window.innerWidth - root.clientWidth}px`);
+    dialogRef.current?.showModal();
+  };
   const close = () => dialogRef.current?.close();
   const cropStyle = trimTop
     ? ({
@@ -151,7 +157,7 @@ export const ScreenshotFrame = ({
           className={styles.open}
           aria-label={`${enlargeLabel}: ${title}`}
           aria-haspopup="dialog"
-          onClick={() => dialogRef.current?.showModal()}
+          onClick={open}
         >
           <span className={trimTop ? styles.crop : undefined} style={cropStyle}>
             <Image
@@ -191,7 +197,8 @@ export const ScreenshotFrame = ({
             {closeLabel}
           </button>
         </div>
-        <div className={styles.dialogImage}>
+        {/* Focusable so the keyboard can pan an image wider than the dialog (arrow keys). */}
+        <div className={styles.dialogImage} tabIndex={0}>
           <Image src={src} alt={alt} width={width} height={height} sizes="96vw" loading="lazy" />
         </div>
       </dialog>

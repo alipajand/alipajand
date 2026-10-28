@@ -152,6 +152,49 @@ describe("RouteChangeFocus", () => {
     document.body.innerHTML = "";
   });
 
+  it("should keep the restored scroll position after a Back or Forward step", () => {
+    const main = document.createElement("main");
+    main.id = "main-content";
+    main.tabIndex = -1;
+    document.body.appendChild(main);
+
+    const { rerender } = render(<RouteChangeFocus />);
+
+    act(() => {
+      window.history.replaceState(null, "", "/writing");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    });
+    usePathname.mockReturnValue("/writing");
+
+    act(() => {
+      rerender(<RouteChangeFocus />);
+    });
+
+    expect(scrollToTopMock).not.toHaveBeenCalled();
+    expect(document.activeElement).toBe(main);
+
+    window.history.replaceState(null, "", "/");
+    document.body.innerHTML = "";
+  });
+
+  it("should still scroll to top on a link navigation after a Back step to another page", () => {
+    const { rerender } = render(<RouteChangeFocus />);
+
+    act(() => {
+      window.history.replaceState(null, "", "/writing");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    });
+    usePathname.mockReturnValue("/now");
+
+    act(() => {
+      rerender(<RouteChangeFocus />);
+    });
+
+    expect(scrollToTopMock).toHaveBeenCalled();
+
+    window.history.replaceState(null, "", "/");
+  });
+
   it("should scroll to a hash target when only the fragment changes outside /portfolio", () => {
     const target = document.createElement("section");
     target.id = "writing-section";
