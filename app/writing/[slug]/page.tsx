@@ -12,6 +12,9 @@ import { buildArticleMetadata } from "utils/metadata";
 import { toBreadcrumbJsonLdItems } from "utils/breadcrumbs";
 import type { Metadata } from "next";
 
+/** Only the generated slugs exist; any other slug is a 404 that is neither rendered nor cached. */
+export const dynamicParams = false;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

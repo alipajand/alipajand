@@ -12,7 +12,8 @@ import { DIAGRAM_SLOT_ATTR } from "utils/diagramBlocks";
 
 /** Schemes a link may use. Anything without a scheme is a relative URL or a `#` fragment. */
 const LINK_SCHEMES = ["http", "https", "mailto"];
-const IMAGE_SCHEMES = ["http", "https"];
+/** Images load without a click, so plain http (mixed content on this https site) is refused. */
+export const IMAGE_SCHEMES = ["https"];
 
 const SCHEME_RE = /^([a-z][a-z0-9+.-]*):/i;
 

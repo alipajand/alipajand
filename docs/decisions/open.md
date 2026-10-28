@@ -28,9 +28,6 @@ whatever the site does.
 | P5  | `datePublished` format                              | The Toronto-midnight instant with offset, the same instant as the feed `pubDate`          | Date only, as today                                                                        |
 | P6  | Optional `updated:` frontmatter                     | Yes, for `dateModified`, `article:modified_time` and sitemap `lastmod`                    | No, `dateModified` always equals `datePublished`                                           |
 
-Related defect, independent of the policy: an unknown `/writing/<slug>` answers 404 with a one-year
-`s-maxage` and writes a cache entry. `dynamicParams = false` on the post route should come first.
-
 ## /now ruler
 
 Today the ruler follows the visitor's clock (week 43 in late October) while the content is dated
@@ -104,6 +101,9 @@ checks from a base without #272 and turned `main` red until #290.
 - WebKit axe on the Agent Readiness Doctor post at 390 px is flaky in CI.
 
 - Post HTML sanitiser: allow `https:` image sources only.
+- Webhook route: cap the body size before verifying the signature (413 above the cap).
+- `app/api/contact/route.ts` logs the provider's `error.message`.
+- One `escapeHtml` helper for the contact and webhook routes.
 - Sitemap `lastmod` comes from the build clock for 12 routes.
 - `utils/scrollToTop.ts`: `SCROLL_TARGET_OFFSET` and `scrollToElement` are used only by the spec.
 - `@asamuzakjp/css-color` is a direct devDependency that nothing imports.
