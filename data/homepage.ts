@@ -13,7 +13,7 @@ export const HOMEPAGE_HERO_EYEBROW = "Senior Software Engineer";
 export const HOMEPAGE_HERO_TITLE =
   "I build product systems from the interface down: frontend architecture, design systems, and the APIs behind them.";
 export const HOMEPAGE_HERO_BODY =
-  "Nine-plus years in React, TypeScript, and Next.js, mostly on SaaS, analytics, and marketplace products. I own frontend architecture and the standards around it: component APIs, accessibility, rendering performance, and review conventions, written up as design docs, taught through mentoring, and adopted across teams. When a product needs more than the interface, I build the Node.js APIs, data models, auth, and background workers behind it.";
+  "Nine-plus years building production web applications, most recently in React, TypeScript, and Next.js, mostly on SaaS, analytics, and marketplace products. I own frontend architecture and the standards around it: component APIs, accessibility, rendering performance, and review conventions, written up as design docs, taught through mentoring, and enforced in CI. When a product needs more than the interface, I build the Node.js APIs, data models, auth, and background workers behind it.";
 export const HOMEPAGE_HERO_LOCATION = "Based in Montreal, Quebec, Canada";
 export const HOMEPAGE_HERO_PRIMARY_CTA_LABEL = "View selected work";
 export const HOMEPAGE_HERO_PRIMARY_CTA_HREF = "/portfolio";

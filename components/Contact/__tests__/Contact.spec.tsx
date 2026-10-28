@@ -1,7 +1,12 @@
 import { render, screen } from "@testing-library/react";
 
 import { Contact } from "components/Contact/Contact";
-import { CONTACT_AVAILABILITY, CONTACT_SECTION_BODY } from "data/contact";
+import {
+  CONTACT_AVAILABILITY,
+  CONTACT_NOW_HREF,
+  CONTACT_NOW_LINK_LABEL,
+  CONTACT_SECTION_BODY,
+} from "data/contact";
 import { CONTACT_FIELD_MESSAGE_HINT } from "data/contactForm";
 import { CONTACT_FORM_LEDE } from "data/site";
 
@@ -46,7 +51,16 @@ describe("Contact", () => {
     it("should render the updated hiring paragraph", () => {
       render(<Contact />);
       expect(screen.getByText(CONTACT_SECTION_BODY)).toBeInTheDocument();
-      expect(screen.getByText(CONTACT_AVAILABILITY)).toBeInTheDocument();
+      expect(screen.getByText(CONTACT_AVAILABILITY, { exact: false })).toBeInTheDocument();
+    });
+
+    it("should point from the availability line to /now", () => {
+      render(<Contact />);
+      const link = screen.getByRole("link", { name: CONTACT_NOW_LINK_LABEL });
+      expect(link).toHaveAttribute("href", CONTACT_NOW_HREF);
+      expect(link.closest("p")).toHaveTextContent(
+        `${CONTACT_AVAILABILITY} See ${CONTACT_NOW_LINK_LABEL}.`
+      );
     });
 
     it("should keep the form introduction distinct from the message-field hint", () => {

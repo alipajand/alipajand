@@ -29,7 +29,7 @@ describe("utils/metadata", () => {
       "Ali Pajand — Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js"
     );
     expect(SITE_META_DESCRIPTION).toBe(
-      "Senior software engineer in Montreal with 9+ years in React, TypeScript, and Next.js. Frontend architecture and design systems for complex SaaS, with the Node.js APIs, data models, and async workflows behind them."
+      "Senior software engineer in Montreal with 9+ years building production web applications. Frontend architecture and design systems in React, TypeScript, and Next.js for complex SaaS, with the Node.js APIs, data models, and async workflows behind them."
     );
     expect(HOME_OPEN_GRAPH_TITLE).toBe(
       "Ali Pajand — Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js"

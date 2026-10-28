@@ -1,8 +1,9 @@
 /**
  * What the site publishes from `data/projects.ts`.
  *
- * Owner decision: the 80% Emplifi rendering figure and the 90% LedgerGuard coverage figure stay in
- * the project data, but no page, card, meta description, JSON-LD block or llms export renders them.
+ * Owner decision: the 90% LedgerGuard coverage figure stays in the project data, but no page, card,
+ * meta description, JSON-LD block or llms export renders it. (The unsourced 80% Emplifi rendering
+ * figure was removed from the data altogether.)
  * `utils/projects.ts` applies this policy in one place (`toPublicProject`) before any project leaves
  * the data layer:
  *
@@ -22,11 +23,6 @@ export interface SuppressedClaim {
 
 export const SUPPRESSED_CLAIMS: readonly SuppressedClaim[] = [
   {
-    projectId: "emplifi",
-    figure: "80%",
-    reason: "Re-render and paint reduction without a published measurement.",
-  },
-  {
     projectId: "ledgerguard",
     figure: "90%",
     reason: "Unit-test coverage figure without a published report.",
@@ -39,12 +35,4 @@ export interface PublicProjectOverrides {
   caseStudyMetaDescription?: string;
 }
 
-export const PUBLIC_PROJECT_OVERRIDES: Readonly<Record<string, PublicProjectOverrides>> = {
-  emplifi: {
-    // The portfolio index wording approved in docs/design/kit/static/portfolio.html.
-    cardProblem:
-      "Data-heavy React, TypeScript, and D3.js analytics modules assembled from shared accessible components, running in desktop browsers and embedded mobile webviews, with rendering work profiled on the webview path.",
-    caseStudyMetaDescription:
-      "Case study: React, TypeScript, and D3.js enterprise analytics modules built on shared accessible components, with rendering work profiled on the embedded mobile webview path. Senior Frontend Engineer — Ali Pajand.",
-  },
-};
+export const PUBLIC_PROJECT_OVERRIDES: Readonly<Record<string, PublicProjectOverrides>> = {};

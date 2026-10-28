@@ -19,7 +19,7 @@ export const KEYWORDS = [
   "TypeScript",
   "Design systems",
   "Senior Software Engineer",
-  "Lead Frontend Engineer",
+  "Senior Product Engineer",
   "Full-Stack Engineer",
   "Node.js",
   "Web accessibility",
@@ -31,7 +31,7 @@ export const KEYWORDS = [
 export const CANONICAL_URL = "https://alipajand.com";
 
 export const SITE_META_DESCRIPTION =
-  "Senior software engineer in Montreal with 9+ years in React, TypeScript, and Next.js. Frontend architecture and design systems for complex SaaS, with the Node.js APIs, data models, and async workflows behind them.";
+  "Senior software engineer in Montreal with 9+ years building production web applications. Frontend architecture and design systems in React, TypeScript, and Next.js for complex SaaS, with the Node.js APIs, data models, and async workflows behind them.";
 
 export const TWITTER_HANDLE: string | null = null;
 
@@ -42,14 +42,14 @@ export const WEBSITE_SCHEMA_ID = `${CANONICAL_URL}/#website`;
 export const CONTACT_FORM_LEDE = "Share enough context to make the conversation useful.";
 
 export const HERO_PROOF_ROW = [
-  { value: "9+ years", label: "React, TypeScript, and Next.js in production" },
+  { value: "9+ years", label: "building production web applications" },
   {
     value: "Frontend architecture",
     label: "component APIs, design systems, accessibility, rendering performance",
   },
   {
     value: "Technical leadership",
-    label: "design docs, mentoring, cross-team standards, CI quality gates",
+    label: "design docs, mentoring, shared standards, CI quality gates",
   },
   {
     value: "End-to-end delivery",

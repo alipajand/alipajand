@@ -1,9 +1,14 @@
+import Link from "next/link";
+
 import styles from "components/Contact/Contact.module.css";
 import { ContactForm } from "components/Contact/ContactForm";
 import { LinkRows } from "components/hairline/LinkRows/LinkRows";
 import {
   CONTACT_AVAILABILITY,
   CONTACT_DIRECT_LABEL,
+  CONTACT_NOW_HREF,
+  CONTACT_NOW_LEAD,
+  CONTACT_NOW_LINK_LABEL,
   CONTACT_SECTION_BODY,
   CONTACT_SECTION_HEADING,
 } from "data/contact";
@@ -19,7 +24,10 @@ export const Contact = () => (
         {CONTACT_SECTION_HEADING}
       </h2>
       <p className={styles.body}>{CONTACT_SECTION_BODY}</p>
-      <p className={styles.availability}>{CONTACT_AVAILABILITY}</p>
+      <p className={styles.availability}>
+        {CONTACT_AVAILABILITY} {CONTACT_NOW_LEAD}{" "}
+        <Link href={CONTACT_NOW_HREF}>{CONTACT_NOW_LINK_LABEL}</Link>.
+      </p>
       <ContactForm />
     </div>
     <div className={styles.links}>

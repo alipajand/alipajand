@@ -1,6 +1,6 @@
 export const BREADCRUMB_HOME_LABEL = "Home";
 
-export const BREADCRUMB_PORTFOLIO_LABEL = "Case studies";
+export const BREADCRUMB_PORTFOLIO_LABEL = "Portfolio";
 
 export const BREADCRUMB_WRITING_LABEL = "Writing";
 

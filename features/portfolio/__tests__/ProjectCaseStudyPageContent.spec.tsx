@@ -114,14 +114,13 @@ describe.each(PORTFOLIO_CASE_STUDY_ORDER.map((slug) => [slug]))("/portfolio/%s",
     expect(hrefs).toEqual(["/portfolio", ...(next ? [`/portfolio/${next.slug}`] : [])]);
   });
 
-  it("opens live and external links in a new tab and says so", () => {
-    renderCase(slug);
-    for (const link of screen
-      .getAllByRole("link")
-      .filter((a) => a.getAttribute("href")?.startsWith("http"))) {
-      expect(link).toHaveAttribute("target", "_blank");
-      expect(link).toHaveAttribute("rel", "noopener noreferrer");
-      expect(link.getAttribute("aria-label")).toMatch(/opens in new tab/);
+  it("opens live and external links in the same tab, like any other link", () => {
+    const { container } = renderCase(slug);
+    const external = Array.from(container.querySelectorAll<HTMLAnchorElement>('a[href^="http"]'));
+    for (const link of external) {
+      expect(link).not.toHaveAttribute("target");
+      expect(link).toHaveAttribute("rel", "noreferrer");
+      expect(link.getAttribute("aria-label") ?? "").not.toMatch(/new tab/);
     }
   });
 
