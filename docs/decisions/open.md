@@ -95,6 +95,7 @@ checks from a base without #272 and turned `main` red until #290.
 
 - WebKit axe on the Agent Readiness Doctor post at 390 px is flaky in CI.
 
+- Post HTML sanitiser: allow `https:` image sources only.
 - Webhook route: cap the body size before verifying the signature (413 above the cap).
 - `app/api/contact/route.ts` logs the provider's `error.message`.
 - One `escapeHtml` helper for the contact and webhook routes.

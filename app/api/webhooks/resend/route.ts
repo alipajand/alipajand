@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server";
 import type { Attachment, GetReceivingEmailResponseSuccess } from "resend";
+import { escapeHtml } from "utils/escapeHtml";
+import { readLimitedText } from "utils/readLimitedText";
 import { getFromEmail, getResend, getToEmail } from "utils/resend";
+
+/**
+ * Resend's events carry metadata only (the message is fetched by id), so a few KiB is typical.
+ * A body over this is refused before the signature check reads or hashes it.
+ */
+export const WEBHOOK_MAX_BODY_BYTES = 256 * 1024;
 
 /** Only mail addressed to this domain is forwarded; the Resend account also receives for other domains. */
 const FORWARD_DOMAIN = "alipajand.com";
@@ -43,15 +51,6 @@ function singleLine(value: string): string {
     .replace(/[\u0000-\u001f\u007f]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-}
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
 }
 
 function headerValue(headers: Record<string, string> | null, name: string): string | undefined {
@@ -143,7 +142,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Webhook is not configured" }, { status: 503 });
   }
 
-  const payload = await request.text();
+  const payload = await readLimitedText(request, WEBHOOK_MAX_BODY_BYTES);
+  if (payload === null) {
+    return NextResponse.json({ error: "Payload too large" }, { status: 413 });
+  }
 
   let event: unknown;
   try {
