@@ -349,8 +349,16 @@ test.describe("automatic motion loop", () => {
     await page.goto("/open-source");
     await other.goto("/open-source");
     await settle(page);
-    await settle(other);
-    expect((await framesDuring(other, 500)).requested).toBeGreaterThan(5);
+    // Not `settle(other)`: `next start` sends the hourly-ISR routes (/ and /writing) with
+    // `stale-while-revalidate`, so this tab gets their nav-link prefetches stale from the cache the
+    // first tab filled, and Chrome never reports the background revalidation done, so the tab never
+    // reaches network idle. (Vercel sends `max-age=0, must-revalidate`, so browsers never do this in
+    // production.) Wait for what the test needs instead: the pause subscription and a running loop.
+    await other.waitForFunction(
+      () =>
+        ((window as unknown as ProbeWindow).__probe.listeners.get("window:storage")?.size ?? 0) > 0
+    );
+    await expect.poll(async () => (await framesDuring(other, 500)).requested).toBeGreaterThan(5);
 
     await toggleInPlace(page);
     await expect(footerControl(other)).toHaveAccessibleName(RESUME);
