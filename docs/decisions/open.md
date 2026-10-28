@@ -28,9 +28,6 @@ whatever the site does.
 | P5  | `datePublished` format                              | The Toronto-midnight instant with offset, the same instant as the feed `pubDate`          | Date only, as today                                                                        |
 | P6  | Optional `updated:` frontmatter                     | Yes, for `dateModified`, `article:modified_time` and sitemap `lastmod`                    | No, `dateModified` always equals `datePublished`                                           |
 
-Related defect, independent of the policy: an unknown `/writing/<slug>` answers 404 with a one-year
-`s-maxage` and writes a cache entry. `dynamicParams = false` on the post route should come first.
-
 ## /now ruler
 
 Today the ruler follows the visitor's clock (week 43 in late October) while the content is dated

@@ -61,6 +61,19 @@ test("unknown pages answer 404 with the site's not-found page", async ({ page })
   await expect(page.getByRole("navigation", { name: "Primary" }).first()).toBeVisible();
 });
 
+// Each unknown slug used to be rendered on demand and cached as a 404 for a year.
+for (const path of [
+  "/writing/not-a-post",
+  "/writing/not-a-post/opengraph-image",
+  "/portfolio/not-a-case-study",
+]) {
+  test(`${path} answers an uncached 404`, async ({ request }) => {
+    const response = await request.get(path);
+    expect(response.status()).toBe(404);
+    expect(response.headers()["cache-control"]).toMatch(/no-store/);
+  });
+}
+
 for (const { path, type } of [
   { path: "/sitemap.xml", type: /xml/ },
   { path: "/robots.txt", type: /text\/plain/ },
