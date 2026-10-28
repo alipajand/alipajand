@@ -1,3 +1,4 @@
+import { modifiedDate, publicationTimestamp } from "utils/publication";
 import type { Metadata } from "next";
 
 import { ENGINEERING_PRINCIPLES_META_DESCRIPTION } from "data/engineeringPrinciples";
@@ -51,7 +52,11 @@ export const buildWritingIndexMetadata = (): Metadata => {
   };
 };
 
-export const buildArticleMetadata = (post: Post): Metadata => {
+/**
+ * Article metadata. Times are the Toronto-midnight instants of `date` and `updated`, the same
+ * instants as the feed and JSON-LD. A preview is kept out of search with `noindex, nofollow`.
+ */
+export const buildArticleMetadata = (post: Post, { preview = false } = {}): Metadata => {
   const { contentHtml: _content, ...p } = post;
   void _content;
   const url = `${CANONICAL_URL}/writing/${p.slug}`;
@@ -71,6 +76,7 @@ export const buildArticleMetadata = (post: Post): Metadata => {
     title: exactTitle(metaTitle),
     description: metaDescription,
     alternates: { canonical: url },
+    ...(preview ? { robots: { index: false, follow: false } } : {}),
     authors: [{ name: SITE_NAME, url: CANONICAL_URL }],
     openGraph: {
       type: "article",
@@ -79,8 +85,8 @@ export const buildArticleMetadata = (post: Post): Metadata => {
       title: socialTitle,
       description: metaDescription,
       locale: "en_US",
-      publishedTime: p.date,
-      modifiedTime: p.date,
+      publishedTime: publicationTimestamp(p.date),
+      modifiedTime: publicationTimestamp(modifiedDate(p)),
       authors: [SITE_NAME],
       images,
     },

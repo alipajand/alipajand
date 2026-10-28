@@ -1,14 +1,11 @@
 /** @jest-environment node */
 
 /*
- * Pins the current publication policy for posts dated after today (in the site's time zone). There
- * is no draft state: every Markdown file in content/posts is a post. A future-dated post is
- * previewed rather than hidden:
- * - shown on /writing, flagged "Upcoming" with a "Preview article" link;
- * - built as a static article route and listed in the sitemap, RSS feed, llms.txt and
- *   llms-full.txt;
- * - kept off the home page and out of the /writing CollectionPage structured data until its date.
- * If that policy changes, these expectations are the ones to update.
+ * Pins the publication policy for posts (see utils/publication.ts). A post is a draft, scheduled
+ * until 00:00 America/Toronto on its `date`, or published. Only published posts appear on any
+ * list, feed, export or sitemap; a scheduled post's article and OG image answer 404 unless it
+ * opts into a `noindex` preview. Every surface reads the same clock, so they agree on either side
+ * of midnight.
  */
 
 jest.mock("marked", () =>
@@ -28,63 +25,103 @@ import { GET as llms } from "../llms.txt/route";
 import sitemap from "../sitemap";
 import { generateStaticParams } from "../writing/[slug]/page";
 import { CANONICAL_URL } from "data/site";
-import { isPostPublished } from "utils/date";
-import { getAllPosts, getPostsForWritingSection, getPublishedPosts } from "utils/posts";
+import {
+  getAllPosts,
+  getPostMarkdown,
+  getPostsForWritingSection,
+  getPublishedPosts,
+  getRoutablePost,
+} from "utils/posts";
+import { isPublished, publicationInstant } from "utils/publication";
 
-const TODAY = new Date("2026-10-27T16:00:00Z");
-const DAY_AFTER = new Date("2026-10-29T16:00:00Z");
-const upcoming = () => getAllPosts().filter((post) => !isPostPublished(post.date, TODAY));
-
-beforeEach(() => {
-  jest.useFakeTimers().setSystemTime(TODAY);
-});
+// The 2026-10-28 post is the repository's scheduled fixture: Toronto midnight is 04:00 UTC (EDT).
+const SCHEDULED = "preparing-integrations-for-anthropic-and-cursor-directories";
+const MIDNIGHT = publicationInstant("2026-10-28");
+const BEFORE = new Date(MIDNIGHT.getTime() - 1);
+const AFTER = new Date(MIDNIGHT.getTime() + 60 * 60 * 1000);
 
 afterEach(() => {
   jest.useRealTimers();
 });
 
+/** Whether each public surface shows the post at `now`, read through its real entry point. */
+const surfaces = async (slug: string, now: Date) => {
+  jest.useFakeTimers().setSystemTime(now);
+  const url = `${CANONICAL_URL}/writing/${slug}`;
+  const { featured, recent } = getPostsForWritingSection(50, now);
+  const [rss, summary, full] = await Promise.all(
+    [feed(), llms(), llmsFull()].map((response) => response.text())
+  );
+  return {
+    article: getRoutablePost(slug, now) !== null,
+    writingIndex: getPublishedPosts(now).some((post) => post.slug === slug),
+    home: [featured, ...recent].some((post) => post?.slug === slug),
+    sitemap: sitemap().some((entry) => entry.url === url),
+    rss: rss.includes(`<guid isPermaLink="true">${url}</guid>`),
+    llms: summary.includes(url),
+    llmsFull: full.includes(url),
+  };
+};
+
 describe("writing publication policy", () => {
-  it("should have no draft state in post front matter", () => {
+  it("should keep drafts out of the repository (P1)", () => {
     const dir = join(process.cwd(), "content", "posts");
     for (const file of readdirSync(dir)) {
       const head = readFileSync(join(dir, file), "utf8").split("\n---")[0];
-      expect(head).not.toMatch(/^draft:/m);
+      expect(head).not.toMatch(/^draft:\s*true/m);
     }
   });
 
-  it("should treat a post dated tomorrow in Toronto as upcoming until its date", () => {
-    expect(upcoming().length).toBeGreaterThan(0);
-    for (const post of upcoming()) expect(post.date > "2026-10-27").toBe(true);
-    for (const post of upcoming()) {
-      expect(getPublishedPosts(TODAY).some((value) => value.slug === post.slug)).toBe(false);
+  it("should still have the scheduled fixture this file depends on", () => {
+    expect(getAllPosts().find((post) => post.slug === SCHEDULED)?.date).toBe("2026-10-28");
+    expect(MIDNIGHT.toISOString()).toBe("2026-10-28T04:00:00.000Z");
+  });
+
+  it.each([
+    ["one millisecond before Toronto midnight", BEFORE, false],
+    ["at Toronto midnight", MIDNIGHT, true],
+    ["an hour after Toronto midnight", AFTER, true],
+  ])("should show the post on every surface or none %s", async (_label, now, shown) => {
+    const seen = await surfaces(SCHEDULED, now);
+    expect(Object.values(seen).every((value) => value === shown)).toBe(true);
+  });
+
+  it("should agree with isPublished for every post at the same instant", async () => {
+    for (const post of getAllPosts()) {
+      const seen = await surfaces(post.slug, BEFORE);
+      for (const value of Object.values(seen)) expect(value).toBe(isPublished(post, BEFORE));
     }
-    expect(getPublishedPosts(DAY_AFTER)).toHaveLength(getAllPosts().length);
   });
 
-  it("should keep upcoming posts off the home page", () => {
-    const { featured, recent } = getPostsForWritingSection(20, TODAY);
-    const shown = [featured, ...recent].filter(Boolean).map((post) => post!.slug);
-    for (const post of upcoming()) expect(shown).not.toContain(post.slug);
-  });
-
-  it("should still build the article route and list it in the sitemap", async () => {
+  it("should generate every non-draft route so a scheduled slug exists in the route table", async () => {
     const params = (await generateStaticParams()).map(({ slug }) => slug);
-    const urls = sitemap().map((entry) => entry.url);
-    for (const post of upcoming()) {
-      expect(params).toContain(post.slug);
-      expect(urls).toContain(`${CANONICAL_URL}/writing/${post.slug}`);
-    }
+    expect(params).toContain(SCHEDULED);
+    expect(params).toHaveLength(getAllPosts().filter((post) => !post.draft).length);
   });
 
-  it("should still list it in the RSS feed, llms.txt and llms-full.txt", async () => {
-    const [rss, summary, full] = await Promise.all(
-      [feed(), llms(), llmsFull()].map((r) => r.text())
+  // P4: a link from a published page to an unpublished post is a 404 until that post's date.
+  it("should not link from a published page to a post that is not published yet", () => {
+    const now = new Date();
+    const published = new Set(getPublishedPosts(now).map((post) => post.slug));
+    const posts = new Set(getAllPosts().map((post) => post.slug));
+    const linked = (text: string) =>
+      [...text.matchAll(/\/writing\/([a-z0-9-]+)(?![a-z0-9.-])/g)].map((match) => match[1]);
+
+    const sources: Array<[string, string]> = [
+      ...[...published].map((slug): [string, string] => [slug, getPostMarkdown(slug) ?? ""]),
+      ...readdirSync(join(process.cwd(), "data"), { recursive: true })
+        .map(String)
+        .filter((file) => file.endsWith(".ts"))
+        .map((file): [string, string] => [
+          `data/${file}`,
+          readFileSync(join(process.cwd(), "data", file), "utf8"),
+        ]),
+    ];
+    const problems = sources.flatMap(([source, text]) =>
+      linked(text)
+        .filter((slug) => posts.has(slug) && !published.has(slug))
+        .map((slug) => `${source} links to unpublished /writing/${slug}`)
     );
-    for (const post of upcoming()) {
-      const url = `${CANONICAL_URL}/writing/${post.slug}`;
-      expect(rss).toContain(`<guid isPermaLink="true">${url}</guid>`);
-      expect(summary).toContain(url);
-      expect(full).toContain(url);
-    }
+    expect(problems).toEqual([]);
   });
 });

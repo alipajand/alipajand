@@ -8,8 +8,6 @@ export interface WritingListPost {
   excerpt: string;
   tags: string[];
   featured: boolean;
-  /** Dated after today in the site's time zone (shown, flagged, kept out of structured data). */
-  upcoming: boolean;
 }
 
 export interface TopicLane {
@@ -45,10 +43,10 @@ export const topicLanes = (
 export const hasTopic = (post: Pick<WritingListPost, "tags">, key: string): boolean =>
   key === "all" || post.tags.some((tag) => topicKey(tag) === key);
 
-/** The featured post: the first one marked featured that is already published. */
-export const pickFeatured = <P extends Pick<WritingListPost, "featured" | "upcoming">>(
+/** The featured post: the first one marked featured. Only published posts reach the index. */
+export const pickFeatured = <P extends Pick<WritingListPost, "featured">>(
   posts: readonly P[]
-): P | null => posts.find((post) => post.featured && !post.upcoming) ?? null;
+): P | null => posts.find((post) => post.featured) ?? null;
 
 /** "01", "02", … */
 export const pad = (index: number): string => String(index + 1).padStart(2, "0");
