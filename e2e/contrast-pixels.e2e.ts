@@ -19,8 +19,8 @@ import { settle } from "./support";
  * again with only that text's glyphs made transparent, and compares the text colour with the real
  * backdrop pixels under its glyphs. The lowest-contrast 5% of those pixels must still reach WCAG
  * AA: 4.5:1, or 3:1 for large text. Outlined text with a transparent fill is measured by its
- * stroke. The record is in docs/audits/a11y-needs-review.md. Runs in Chromium and in Playwright
- * WebKit (not Safari).
+ * stroke. Set RESPONSIVE_EVIDENCE to keep every measured node and its ratio. Runs in Chromium and
+ * in Playwright WebKit (not Safari).
  */
 
 type BrowserName = "chromium" | "webkit";

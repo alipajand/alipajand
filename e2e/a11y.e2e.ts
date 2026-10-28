@@ -21,7 +21,7 @@ import { AUDIT_ROUTES, settle } from "./support";
  * and the scans where it must still appear: when its fix lands those scans fail until the entry
  * goes, so an exception cannot outlive its defect. axe's "needs review" results are recorded with
  * the evidence but do not fail here; e2e/contrast-pixels.e2e.ts measures the contrast ones from
- * pixels, and docs/audits/a11y-needs-review.md records the review.
+ * pixels.
  */
 
 const TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
