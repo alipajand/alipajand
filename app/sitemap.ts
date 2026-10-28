@@ -5,6 +5,10 @@ import { CANONICAL_URL } from "data/site";
 import { getDedicatedCaseStudySlugs } from "utils/projects";
 import { getAllPosts } from "utils/posts";
 
+/**
+ * `lastModified` is set only where the content carries its own date (posts, /now). The other pages
+ * have no recorded revision date, and the build time would claim every deploy changed them.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
@@ -16,7 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const caseStudyEntries: MetadataRoute.Sitemap = getDedicatedCaseStudySlugs().map((slug) => ({
     url: `${CANONICAL_URL}/portfolio/${slug}`,
-    lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.8,
   }));
@@ -24,25 +27,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: CANONICAL_URL,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
     },
     {
       url: `${CANONICAL_URL}/writing`,
-      lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${CANONICAL_URL}/portfolio`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.85,
     },
     {
       url: `${CANONICAL_URL}/engineering-principles`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.75,
     },
@@ -54,7 +53,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${CANONICAL_URL}/open-source`,
-      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.78,
     },
