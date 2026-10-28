@@ -123,7 +123,9 @@ describe("utils/metadata", () => {
   it("should set canonical, title, and description for buildNowMetadata", () => {
     const m = buildNowMetadata();
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/now`);
-    expect(m.title).toEqual({ absolute: `${NOW_PAGE_TITLE} | Ali Pajand` });
+    expect(m.title).toEqual({ absolute: `${NOW_PAGE_TITLE} · Ali Pajand` });
+    expect(m.openGraph?.title).toBe(`${NOW_PAGE_TITLE} · Ali Pajand`);
+    expect(m.twitter?.title).toBe(`${NOW_PAGE_TITLE} · Ali Pajand`);
     expect(m.description).toBe(NOW_META_DESCRIPTION);
     expect(m.openGraph?.url).toBe(`${CANONICAL_URL}/now`);
   });
