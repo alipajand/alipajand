@@ -26,7 +26,12 @@ const WITH_HERO: ReadonlySet<string> = new Set([
   "mapbylaw",
 ]);
 
-const WITH_EVIDENCE: ReadonlySet<string> = new Set(["ledgerguard", "alwaysgeeky", "mapbylaw"]);
+const WITH_EVIDENCE: ReadonlySet<string> = new Set([
+  "ledgerguard",
+  "alwaysgeeky",
+  "mapbylaw",
+  "tallyfolio",
+]);
 
 const LEGACY_SECTION_ANCHORS = {
   context: "context",

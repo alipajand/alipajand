@@ -31,6 +31,10 @@ const PORTFOLIO_MEDIA: Record<string, string> = {
   "mapbylaw-dashboard-redacted.png":
     "f9bf7369181f20dc5b91e796535e245bba3592155d487e48c7bcd2ca227c3d8b",
   "mapbylaw-landing.png": "5744c1fb0e6c8e8152d455a6f7b53d07fbeb38325789b691788233fed899bb37",
+  "tallyfolio-dashboard-concept.png":
+    "68406acdf4dbaa81494e1ae65470d1d74417d36458165bb8920323be125a6a09",
+  "tallyfolio-drafts-concept.png":
+    "f0d7c70209692cf60dabea9ebec3e939cab31c2ceef3b256eff105c08b8d61c2",
   "tallyfolio-landing.png": "a5f69787ab75d7e866ee5fd5fe53bf3423c27f0641ea7906758f7f679e723003",
 };
 
