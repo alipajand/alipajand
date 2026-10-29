@@ -34,7 +34,7 @@ Local-first developer tools that make AI-assisted coding and review safer. No LL
 - [**agent-context-doctor**](https://github.com/alipajand/agent-context-doctor): audits `AGENTS.md`, `CLAUDE.md`, Cursor and Copilot rules, and committed Claude Code and MCP settings for contradictions, stale commands, secrets, and risky permissions
 - [**agent-pr-reviewer-lite**](https://github.com/alipajand/agent-pr-reviewer-lite): deterministic pre-screen that flags the files in a pull request that need human review before merge
 - [**agent-readiness-kit**](https://github.com/alipajand/agent-readiness-kit): scores how ready a repository is for AI coding agents across 13 categories and scaffolds the missing files
-- [**agent-readiness-action**](https://github.com/alipajand/agent-readiness-action): GitHub Action that runs agent-readiness-kit and agent-context-doctor on pull requests
+- [**agent-readiness-action**](https://github.com/alipajand/agent-readiness-action): GitHub Action that runs agent-readiness-kit and agent-context-doctor on pull requests; its integrations work was [selected for the XERJ Corpus Hub](https://hub.xerj.org/contributors/alipajand) as an attributed reference
 
 ## Writing
 

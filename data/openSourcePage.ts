@@ -3,6 +3,14 @@ export interface OpenSourceArticle {
   href: string;
 }
 
+export interface OpenSourceExternalReference {
+  title: string;
+  body: string;
+  href: string;
+  linkLabel: string;
+  linkAriaLabel: string;
+}
+
 export interface OpenSourceProject {
   title: string;
   repositoryUrl: string;
@@ -15,6 +23,7 @@ export interface OpenSourceProject {
   testedCapabilities: string[];
   contribution: string;
   articles?: OpenSourceArticle[];
+  externalReferences?: OpenSourceExternalReference[];
 }
 
 export interface OpenSourcePrinciple {
@@ -51,6 +60,8 @@ export const OPEN_SOURCE_CONTRIBUTION_LABEL = "What it demonstrates";
 export const OPEN_SOURCE_REPOSITORY_LINK_LABEL = "Repository";
 
 export const OPEN_SOURCE_ARTICLES_LABEL = "Related writing";
+
+export const OPEN_SOURCE_EXTERNAL_REFERENCES_LABEL = "External reference";
 
 const ARTICLE_INSTRUCTION_FILES: OpenSourceArticle = {
   title: "Agent instruction files are code. Lint them like code.",
@@ -95,7 +106,7 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
       "The scanner writes nothing, runs no repository scripts, and makes no network requests. Workers have read access confined to the selected directory and their own script.",
       "Credential masking is pattern-based and applies to scanner output only; paths remain visible. The host client may send results and files it reads to its model provider.",
       "Verified with the MCP SDK, Inspector, and signed-in headless Claude Code. MCP in Cursor and Windows remain untested.",
-      "The October 14 publishing record also lists mcpserver.dev and MCPRush; MCPRush auto-indexed the package and its ownership claim awaits review. Glama remains submitted, awaiting review.",
+      "The October 14 publishing record also lists mcpserver.dev and MCPRush; MCPRush auto-indexed the package and approved the ownership claim that day. Glama rejected the submission on October 15 and a corrected one on October 17 without giving a reason; clarification has been requested.",
     ],
     contribution:
       "I made the same pinned audit engines available through MCP, with bounded workers and structured reports instead of model-generated scores.",
@@ -223,6 +234,15 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
     contribution:
       "I design CI tooling on the assumption that the repository it runs on may be hostile, because on a pull request it can be.",
     articles: [ARTICLE_UNTRUSTED_PRS, ARTICLE_INSTRUCTION_FILES],
+    externalReferences: [
+      {
+        title: "Selected for the XERJ Corpus Hub",
+        body: "Agent Readiness integration work was selected as an attributed open-source reference for AI-assisted software development.",
+        href: "https://hub.xerj.org/contributors/alipajand",
+        linkLabel: "View contributor profile",
+        linkAriaLabel: "View contributor profile on the XERJ Corpus Hub",
+      },
+    ],
   },
 ];
 
