@@ -623,24 +623,36 @@ export const PROJECTS: Project[] = [
       interfaceEvidence: [
         {
           type: "image",
-          src: "/portfolio-media/tallyfolio-landing.png",
-          width: 3186,
-          height: 1768,
-          alt: "TallyFolio landing page",
-          captionLead: "Landing page.",
+          src: "/portfolio-media/tallyfolio-landing-concept.png",
+          width: 2880,
+          height: 1800,
+          provenance: "Redesign concept, synthetic data",
+          alt: "Proposed TallyFolio landing page in the dark theme, first screen, with synthetic sample data: the headline Your money, on one line of time, a short pitch, Explore the sample timeline and Create account buttons, and a cash chart from August to November 2026 showing 21,827.88 CAD today, a dashed forecast to 23,178.75 on 27 November, a Today marker on Wednesday 28 October, and a scheduled Rent item on 1 November.",
+          captionLead: "Landing page redesign.",
           captionBody:
-            "Public landing and support pages introduce the manual-first product positioning before authenticated finance workflows.",
+            "The public page explains the product with one cash time line: recorded rows, drafts, and scheduled bills on the same line, with today's balance kept apart from the forecast. Shown from the redesign concept with synthetic sample data.",
         },
         {
           type: "image",
           src: "/portfolio-media/tallyfolio-dashboard-concept.png",
           width: 2880,
-          height: 2680,
+          height: 1800,
           provenance: "Redesign concept, synthetic data",
-          alt: "Proposed TallyFolio dashboard redesign for one synthetic household, in the dark theme: an alert bar naming four things to review, summary tiles for October spending, October net, cash available, and a 26 November cash forecast, a 2026 time line with a fixed Today marker, and a year grid of spending by category and month with projected November and December columns.",
+          alt: "Proposed TallyFolio dashboard redesign for one synthetic household, in the dark theme, first screen: an alert bar naming three things that need attention, summary tiles for October spending, income, and net, cash across three accounts, and a 27 November forecast, a cash time rail with a Today marker and October focused, and a year grid of spending by category and month with over-plan cells underlined and estimated November and December columns.",
           captionLead: "Dashboard redesign.",
           captionBody:
             "The alert bar, year grid, and projected months exist in the app today; the summary tiles and the time line are proposed and not built. Shown from the redesign concept with a synthetic household.",
+        },
+        {
+          type: "image",
+          src: "/portfolio-media/tallyfolio-transactions-concept.png",
+          width: 2880,
+          height: 1800,
+          provenance: "Redesign concept, synthetic data",
+          alt: "Proposed TallyFolio Transactions page in the dark theme, first screen, with synthetic data: filters and a summary of matching rows, a Drafts panel with two pending drafts not counted yet, upcoming subscription charges marked as not counted until recorded, the ledger with a Today line, and an open row detail panel for an uncategorized 63.18 CAD Visa order showing what it counts toward, what it is excluded from, its CSV import source, and similar rows.",
+          captionLead: "Transaction details.",
+          captionBody:
+            "Opening a row shows how it counts: which totals it lands in, which it is left out of until categorized, where it came from, and similar rows from the same merchant. Shown from the redesign concept with synthetic data.",
         },
         {
           type: "image",
