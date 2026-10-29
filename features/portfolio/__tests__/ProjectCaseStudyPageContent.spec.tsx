@@ -201,11 +201,12 @@ describe("case-study screenshots", () => {
   it("shows TallyFolio's app only as dark redesign concepts with synthetic data", () => {
     const figures = getProjectBySlug("tallyfolio")!.caseStudy.interfaceEvidence!;
     expect(figures.map((f) => f.src)).toEqual([
-      "/portfolio-media/tallyfolio-landing.png",
+      "/portfolio-media/tallyfolio-landing-concept.png",
       "/portfolio-media/tallyfolio-dashboard-concept.png",
+      "/portfolio-media/tallyfolio-transactions-concept.png",
       "/portfolio-media/tallyfolio-drafts-concept.png",
     ]);
-    for (const figure of figures.slice(1)) {
+    for (const figure of figures) {
       expect(figure.provenance).toBe("Redesign concept, synthetic data");
       expect(figure.captionBody).toMatch(/redesign concept with (a )?synthetic/);
       expect(figure.alt).toMatch(/synthetic/);
