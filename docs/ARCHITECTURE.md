@@ -76,13 +76,13 @@ Resend webhook       ──► app/api/webhooks/resend ──► Resend API (for
 
 ## Environment variables
 
-| Variable                | Purpose                                                                    | Required                                       |
-| ----------------------- | -------------------------------------------------------------------------- | ---------------------------------------------- |
-| `RESEND_API_KEY`        | Resend key for the contact form and inbound forwarding                     | Yes, or both routes answer 503                 |
-| `RESEND_WEBHOOK_SECRET` | Verifies Resend webhook signatures                                         | For inbound forwarding                         |
-| `CONTACT_EMAIL`         | Inbox for contact messages and forwarded mail (has a built-in default)     | No                                             |
-| `RESEND_FROM`           | Sender address on a verified domain; falls back to `onboarding@resend.dev` | No                                             |
-| `GITHUB_TOKEN`          | Reads the live contribution calendar on `/open-source` (read-only token)   | No; the committed snapshot is shown without it |
+| Variable                | Purpose                                                                            | Required                                       |
+| ----------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------- |
+| `RESEND_API_KEY`        | Resend key for the contact form and inbound forwarding                             | Yes, or both routes answer 503                 |
+| `RESEND_WEBHOOK_SECRET` | Verifies Resend webhook signatures                                                 | For inbound forwarding                         |
+| `CONTACT_EMAIL`         | Inbox for contact messages and forwarded mail (has a built-in default)             | No                                             |
+| `RESEND_FROM`           | Sender address on a verified domain; falls back to `onboarding@resend.dev`         | No                                             |
+| `GITHUB_TOKEN`          | Reads the live contribution calendar on `/open-source` (classic, `read:user` only) | No; the committed snapshot is shown without it |
 
 `.env.example` documents each one. Never commit real values. All of them are read on the server
 only; none is prefixed with `NEXT_PUBLIC_`.
