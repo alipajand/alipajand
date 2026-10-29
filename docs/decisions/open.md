@@ -35,6 +35,11 @@ lists were last checked on 2026-10-28, the deployments against Vercel's own depl
   `docs/design/README.md`, the design system included, embed none of the known images. The check
   is byte for byte, so a re-encoded copy would not show up.
 
+  The TallyFolio page preview linked from `docs/design/README.md` was built from a page that
+  embedded the TallyFolio dashboard (`docs/design/kit/img/tallyfolio-dashboard.jpg`) until the
+  dashboard was removed. Its figures are not shown to be fictional. Republish it from the current
+  page, or delete it.
+
 - Whether to change the product sign-in emails and the workspace name that the originals show. The
   login email is already in every commit header that used it, so renaming the workspace does more.
 
@@ -49,18 +54,6 @@ Owner checklist, in order:
    `https://alipajand.com/portfolio-media/ledgerguard-dashboard.png` still returns 404.
 5. Republish or delete each design preview listed above, from its current page.
 6. Say so in a PR that removes the finished items from this list.
-
-## Content and copy
-
-- **TallyFolio dashboard screenshot (`public/portfolio-media/tallyfolio-dashboard.png`).** It is
-  labelled "Sample data" in `data/projects.ts`, but nothing in the repository shows that its
-  figures are fictional. It shows exact cents (income $3,580.66, net cash flow -$1,375.20) and
-  named credit cards with balances (Neo World Elite Mastercard, Scotia Momentum Visa Infinite). No
-  fixture or seed in this repository produced it.
-  - **Recommended:** confirm it shows a seeded demo workspace, and say where that seed lives.
-  - **If not confirmed:** the smallest safe change is to remove the dashboard from the TallyFolio
-    case study and keep `tallyfolio-landing.png`, whose panel is the product's own "Sample
-    workspace" marketing mock. A new capture from a seeded workspace can replace it later.
 
 ## Branch protection
 

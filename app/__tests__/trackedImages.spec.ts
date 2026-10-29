@@ -87,6 +87,10 @@ const EXPOSED_IMAGES: Array<[label: string, hash: string]> = [
     "e1fe16c1abe4da3e9d6045c455c91cbaa4b526a8ef8d264845fe2aa3a919b74f",
   ],
   [
+    "docs/design/kit/img/tallyfolio-dashboard.jpg (unverified financial figures)",
+    "88d6016113ac7134c14f472536799c19f078f0a9ae598481bd18cfda5288a25a",
+  ],
+  [
     "e2e/__screenshots__/case-studies.e2e.ts/ledgerguard-1440x900-darwin.png (rendered before the LedgerGuard fix in 801b81f)",
     "0974efe15b604b84f2a90f83b16b450b7cd22ae6027c621472dd497bf59ef2f6",
   ],
@@ -101,6 +105,22 @@ const EXPOSED_IMAGES: Array<[label: string, hash: string]> = [
   [
     "e2e/__screenshots__/case-studies.e2e.ts/mapbylaw-390x844-darwin.png (rendered before the LedgerGuard fix in 801b81f)",
     "11e779c8d24d3fec02755182439513ffa099b7fb656c0fedd22ff375da6cac49",
+  ],
+  [
+    "e2e/__screenshots__/case-studies.e2e.ts/tallyfolio-1440x900-darwin.png (rendered with the unverified TallyFolio dashboard)",
+    "8b26359ec01f3721b0e57a4a58d9c4d261a4c2fde2d63f8ad4cfcc5d254270d4",
+  ],
+  [
+    "e2e/__screenshots__/case-studies.e2e.ts/tallyfolio-1440x900-linux.png (rendered with the unverified TallyFolio dashboard)",
+    "f5ca7c577f8fff9647545e749adde3988638cab3a790b1b47a703b43b1a69f1e",
+  ],
+  [
+    "e2e/__screenshots__/case-studies.e2e.ts/tallyfolio-390x844-darwin.png (rendered with the unverified TallyFolio dashboard)",
+    "9777c73f07d0be1b84959abf7013b66dd162d9ac075b2ebc5c0692258faebac3",
+  ],
+  [
+    "e2e/__screenshots__/case-studies.e2e.ts/tallyfolio-390x844-linux.png (rendered with the unverified TallyFolio dashboard)",
+    "b27206eb9473ba81852ddc6470f3397b8bfab34562282a1b9081218a240697ae",
   ],
   [
     "portfolio-redesign artifacts/shared/media/ledgerguard-dashboard-1280.webp (unmerged branch)",
@@ -137,6 +157,10 @@ const EXPOSED_IMAGES: Array<[label: string, hash: string]> = [
   [
     "public/portfolio-media/mapbylaw-dashboard.png (original capture)",
     "36794cbb9bf88a34451475dbef65786b4aa36f11fc729177f1eda3a5059458c5",
+  ],
+  [
+    "public/portfolio-media/tallyfolio-dashboard.png (unverified financial figures)",
+    "029eb80ac8d8b375d080300586046eebb7cd138804374fb06c73911ef385aa34",
   ],
 ];
 

@@ -196,16 +196,28 @@ describe("case-study screenshots", () => {
     expect(mapbylaw.provenance).toBe("Account row blurred");
     expect(mapbylaw.captionBody).toMatch(/account name and email are blurred/);
     expect(mapbylaw.alt).toMatch(/account name and email in the sidebar are blurred/);
-    const tallyfolio = figure("tallyfolio", "/portfolio-media/tallyfolio-dashboard.png");
-    expect(tallyfolio.provenance).toBe("Sample data");
-    expect(tallyfolio.alt).toMatch(/with sample data/);
+  });
+
+  it("shows TallyFolio's app only as dark redesign concepts with synthetic data", () => {
+    const figures = getProjectBySlug("tallyfolio")!.caseStudy.interfaceEvidence!;
+    expect(figures.map((f) => f.src)).toEqual([
+      "/portfolio-media/tallyfolio-landing.png",
+      "/portfolio-media/tallyfolio-dashboard-concept.png",
+      "/portfolio-media/tallyfolio-drafts-concept.png",
+    ]);
+    for (const figure of figures.slice(1)) {
+      expect(figure.provenance).toBe("Redesign concept, synthetic data");
+      expect(figure.captionBody).toMatch(/redesign concept with (a )?synthetic/);
+      expect(figure.alt).toMatch(/synthetic/);
+      expect(figure.alt).toMatch(/dark theme/);
+    }
   });
 
   it("shows the provenance note beside each edited or sample screenshot", () => {
     for (const [slug, note] of [
-      ["tallyfolio", "Sample data"],
       ["ledgerguard", "Redesign, fictional data"],
       ["mapbylaw", "Account row blurred"],
+      ["tallyfolio", "Redesign concept, synthetic data"],
     ] as const) {
       const { unmount } = renderCase(slug);
       const evidence = screen.getByRole("region", { name: "Interface evidence" });

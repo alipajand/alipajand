@@ -570,6 +570,8 @@ export const PROJECTS: Project[] = [
         "CSV import review and transaction management.",
         "Budgets, reports, subscriptions, recurring schedules, and forecast views.",
         "Investments, asset register, and export/settings flows.",
+        "An optional MCP endpoint that lets an MCP client the user approves read their figures and propose transactions as drafts.",
+        "Settings › Security, which lists every signed-in session and connected MCP client and can end any of them.",
         "Public landing and support pages for the product.",
       ],
       technicalDecisions: [
@@ -600,9 +602,20 @@ export const PROJECTS: Project[] = [
           result:
             "The product can offer assistance without weakening the boundary around financial correctness.",
         },
+        {
+          decision:
+            "Serve MCP clients through the app's own readers and row-level security, and land every transaction a client proposes as a draft.",
+          why: "A connected assistant should see exactly the figures the pages show, and nothing it does should reach the ledger without the user.",
+          tradeOff:
+            "The endpoint is off unless enabled, clients are allowlisted by hand, and every request re-checks the token, a live session, and the access level the user approved, so connecting takes more setup than an API key.",
+          result:
+            "A figure read over MCP cannot disagree with the same figure on screen, and no MCP call creates a ledger row. Edit and delete levels are built but stay switched off in the database until separately approved.",
+        },
       ],
       uxDecisions: [
         "Used a manual-first import flow instead of requiring bank aggregation so users stay in control of what enters the system.",
+        "Gave each MCP connection a consent screen that names the client, the host it returns to, and the access level, with read and propose drafts as the default.",
+        "Kept proposed drafts in their own panel on Transactions, flagged when they look like a duplicate, and counted in no total until the user confirms them.",
         "Modeled subscriptions and recurring schedules as first-class workflows so forecasting stays aligned to schedule truth rather than transaction guesswork.",
         "Kept the product mobile/PWA-friendly for everyday use instead of assuming a desktop-only finance workflow.",
         "Separated asset tracking from everyday spending flows so investment and cash workflows do not blur together in the UI.",
@@ -620,21 +633,33 @@ export const PROJECTS: Project[] = [
         },
         {
           type: "image",
-          src: "/portfolio-media/tallyfolio-dashboard.png",
-          width: 3456,
-          height: 2234,
-          trimTop: 66,
-          provenance: "Sample data",
-          alt: "TallyFolio dashboard with sample data, showing monthly income, spending, and net cash flow, a 12-month cash-flow chart, spending by category, and bills and subscriptions, with navigation into reports, budgets, forecast, and import.",
-          captionLead: "Dashboard.",
+          src: "/portfolio-media/tallyfolio-dashboard-concept.png",
+          width: 2880,
+          height: 2680,
+          provenance: "Redesign concept, synthetic data",
+          alt: "Proposed TallyFolio dashboard redesign for one synthetic household, in the dark theme: an alert bar naming four things to review, summary tiles for October spending, October net, cash available, and a 26 November cash forecast, a 2026 time line with a fixed Today marker, and a year grid of spending by category and month with projected November and December columns.",
+          captionLead: "Dashboard redesign.",
           captionBody:
-            "The authenticated home surface orients everyday personal finance work around deterministic totals and clear paths into import review, budgets, and reporting.",
+            "The alert bar, year grid, and projected months exist in the app today; the summary tiles and the time line are proposed and not built. Shown from the redesign concept with a synthetic household.",
+        },
+        {
+          type: "image",
+          src: "/portfolio-media/tallyfolio-drafts-concept.png",
+          layout: "side",
+          width: 780,
+          height: 1240,
+          provenance: "Redesign concept, synthetic data",
+          alt: "TallyFolio Transactions screen at phone width in the dark theme, restyled, with synthetic data: a Drafts panel holding two proposed transactions, not counted yet, each with Confirm and Dismiss, one flagged as a possible duplicate of a Visa row, above the day's ledger rows.",
+          captionLead: "Drafts from a connected client.",
+          captionBody:
+            "Drafts an MCP client proposes wait above the ledger and count nowhere until confirmed. The panel exists in the app today; shown restyled from the redesign concept with synthetic data.",
         },
       ],
       outcome: [
         "Shipped a live full-stack finance product with privacy-conscious workflows and production-grade auth.",
         "Established deterministic finance logic across budgets, reports, forecasts, subscriptions, investments, and asset tracking.",
         "Created modern import and review workflows without depending on bank aggregation as the product baseline.",
+        "Built an optional MCP endpoint, off by default, through which an approved assistant reads the same figures as the app and proposes transactions only as drafts.",
       ],
       nextImprovements: [
         "Expand more product-level evidence around forecast edge cases, import recovery, and mobile-specific workflow detail.",
@@ -658,6 +683,11 @@ export const PROJECTS: Project[] = [
                 label: "Optional AI explanations",
                 detail:
                   "Constrained to explaining already-computed figures, never generating new financial advice.",
+              },
+              {
+                label: "Optional MCP endpoint",
+                detail:
+                  "Approved clients read through the same readers and row-level security as the pages; new transactions arrive only as drafts.",
               },
               {
                 label: "Pure finance domain modules",

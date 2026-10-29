@@ -26,6 +26,13 @@ const WITH_HERO: ReadonlySet<string> = new Set([
   "mapbylaw",
 ]);
 
+const WITH_EVIDENCE: ReadonlySet<string> = new Set([
+  "ledgerguard",
+  "alwaysgeeky",
+  "mapbylaw",
+  "tallyfolio",
+]);
+
 const LEGACY_SECTION_ANCHORS = {
   context: "context",
   problem: "problem",
@@ -310,7 +317,7 @@ test.describe("anchors from before the kit's ids", () => {
       const path = `/portfolio/${slug}`;
       await page.goto(path);
       for (const [key, chapter] of Object.entries(LEGACY_SECTION_ANCHORS)) {
-        if (key === "evidence" && !WITH_HERO.has(slug)) continue;
+        if (key === "evidence" && !WITH_EVIDENCE.has(slug)) continue;
         const marker = page.locator(`#${slug}-${key}`);
         await expect(marker, `#${slug}-${key}`).toHaveCount(1);
         expect(await marker.evaluate((element) => element.closest("section")?.id)).toBe(chapter);
@@ -349,7 +356,8 @@ test.describe("screenshot dialog on every case study with screenshots", () => {
       await settle(page);
       const openers = page.getByRole("button", { name: /^Enlarge: / });
       const count = await openers.count();
-      expect(count).toBeGreaterThan(1);
+      if (WITH_EVIDENCE.has(slug)) expect(count).toBeGreaterThan(1);
+      else expect(count).toBe(1);
       for (let index = 0; index < count; index += 1) {
         const opener = openers.nth(index);
         const name = (await opener.getAttribute("aria-label"))!.replace(/^Enlarge: /, "");
