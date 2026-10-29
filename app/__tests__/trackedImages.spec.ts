@@ -87,6 +87,10 @@ const EXPOSED_IMAGES: Array<[label: string, hash: string]> = [
     "e1fe16c1abe4da3e9d6045c455c91cbaa4b526a8ef8d264845fe2aa3a919b74f",
   ],
   [
+    "docs/design/kit/img/tallyfolio-dashboard.jpg (unverified financial figures)",
+    "88d6016113ac7134c14f472536799c19f078f0a9ae598481bd18cfda5288a25a",
+  ],
+  [
     "e2e/__screenshots__/case-studies.e2e.ts/ledgerguard-1440x900-darwin.png (rendered before the LedgerGuard fix in 801b81f)",
     "0974efe15b604b84f2a90f83b16b450b7cd22ae6027c621472dd497bf59ef2f6",
   ],
@@ -137,6 +141,10 @@ const EXPOSED_IMAGES: Array<[label: string, hash: string]> = [
   [
     "public/portfolio-media/mapbylaw-dashboard.png (original capture)",
     "36794cbb9bf88a34451475dbef65786b4aa36f11fc729177f1eda3a5059458c5",
+  ],
+  [
+    "public/portfolio-media/tallyfolio-dashboard.png (unverified financial figures)",
+    "029eb80ac8d8b375d080300586046eebb7cd138804374fb06c73911ef385aa34",
   ],
 ];
 

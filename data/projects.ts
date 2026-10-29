@@ -618,18 +618,6 @@ export const PROJECTS: Project[] = [
           captionBody:
             "Public landing and support pages introduce the manual-first product positioning before authenticated finance workflows.",
         },
-        {
-          type: "image",
-          src: "/portfolio-media/tallyfolio-dashboard.png",
-          width: 3456,
-          height: 2234,
-          trimTop: 66,
-          provenance: "Sample data",
-          alt: "TallyFolio dashboard with sample data, showing monthly income, spending, and net cash flow, a 12-month cash-flow chart, spending by category, and bills and subscriptions, with navigation into reports, budgets, forecast, and import.",
-          captionLead: "Dashboard.",
-          captionBody:
-            "The authenticated home surface orients everyday personal finance work around deterministic totals and clear paths into import review, budgets, and reporting.",
-        },
       ],
       outcome: [
         "Shipped a live full-stack finance product with privacy-conscious workflows and production-grade auth.",
