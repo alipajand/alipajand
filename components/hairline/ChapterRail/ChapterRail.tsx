@@ -50,6 +50,14 @@ export const ChapterRail = ({ chapters, label }: ChapterRailProps) => {
         const link = (event.target as Element | null)?.closest?.("a[href^='#']");
         if (link) onJump();
       };
+      const onFocusIn = (event: FocusEvent) => {
+        const box = (event.target as Element).getBoundingClientRect();
+        const left = list.getBoundingClientRect().left + list.clientLeft;
+        const right = left + list.clientWidth;
+        if (box.left < left || box.width > list.clientWidth)
+          list.scrollLeft += Math.floor(box.left - left);
+        else if (box.right > right) list.scrollLeft += Math.ceil(box.right - right);
+      };
 
       const jumpedChapter = (y: number, vh: number, max: number) => {
         if (!jumped || !window.location.hash) return -1;
@@ -71,6 +79,7 @@ export const ChapterRail = ({ chapters, label }: ChapterRailProps) => {
 
       window.addEventListener("hashchange", onJump);
       document.addEventListener("click", onClick);
+      list.addEventListener("focusin", onFocusIn);
       VISITOR_SCROLL_EVENTS.forEach((type) =>
         window.addEventListener(type, onVisitorScroll, { passive: true })
       );
@@ -110,6 +119,7 @@ export const ChapterRail = ({ chapters, label }: ChapterRailProps) => {
         destroy: () => {
           window.removeEventListener("hashchange", onJump);
           document.removeEventListener("click", onClick);
+          list.removeEventListener("focusin", onFocusIn);
           VISITOR_SCROLL_EVENTS.forEach((type) =>
             window.removeEventListener(type, onVisitorScroll)
           );
