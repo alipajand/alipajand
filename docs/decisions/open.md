@@ -10,16 +10,21 @@ and `docs/audits/` before this file replaced them.
 Decided: no history rewrite. Commits keep the owner's own address, by the owner's decision. Every
 tracked file and embedded image is checked against the known exposed images
 (`app/__tests__/trackedImages.spec.ts`). What remains needs the owner, outside the repository. These
-lists were last checked on 2026-10-28.
+lists were last checked on 2026-10-28, the deployments against Vercel's own deployment list.
 
-- **Vercel deployments.** 70 deployments of the `alipajand` project still exist behind Vercel
-  sign-in, and each was built from a commit whose `public/portfolio-media/` holds the original
-  `ledgerguard-dashboard.png` and `mapbylaw-dashboard.png`. They are production deployments from
-  2026-09-24 to 2026-10-27, from `6584d6c` to `bad0efe`: 66 ready builds and 4 failed builds. The
-  exact URLs are in the PR that added this list. Delete them, or confirm that sign-in protection
-  is enough. The list comes from GitHub's deployment records, so a deployment Vercel made without
-  one (for example a CLI deploy) is not on it; the project's deployment list in Vercel is the
-  final check.
+- **Vercel deployments.** 76 deployments of the `alipajand` project were built from a commit whose
+  `public/portfolio-media/` holds the original `ledgerguard-dashboard.png` and
+  `mapbylaw-dashboard.png`. All are production builds of `main` from 2026-09-24 to 2026-10-27,
+  from `6584d6c` to `bad0efe`, and all redirect to Vercel sign-in. The exact URLs are in the PR
+  that added this list.
+  - **70 ready.** These serve the images. Delete them, or confirm that sign-in protection is
+    enough.
+  - **5 failed** (`28cfcd1`, `5bd4983`, `6928659`, and `4706742` twice) **and 1 canceled**
+    (`d278ef2`). A failed or canceled build should have no output to serve, so deleting these is
+    cleanup.
+  - **Production aliases are not on the list.** `alipajand.com`, `alipajand-pajand.vercel.app` and
+    `alipajand-git-main-pajand.vercel.app` point to `alipajand-cc2kjhdnk` (`794d4b1`), which has
+    neither image. None of the 76 holds an alias.
 - **Published design previews.** Each one serves an exposed image byte for byte:
   - The MapBylaw page preview linked from `docs/design/README.md`: the unredacted MapBylaw kit
     dashboard.
@@ -32,6 +37,18 @@ lists were last checked on 2026-10-28.
 
 - Whether to change the product sign-in emails and the workspace name that the originals show. The
   login email is already in every commit header that used it, so renaming the workspace does more.
+
+Owner checklist, in order:
+
+1. In Vercel, open `alipajand` → Domains and confirm the three aliases above point to a deployment
+   built after `bad0efe`. If one points into the list, promote a current build first.
+2. Delete the 70 ready deployments by their deployment URL, never by alias or domain. Deleting them
+   also removes them as instant-rollback targets, which is intended.
+3. Optionally delete the 5 failed and 1 canceled deployments.
+4. Re-check Domains: `alipajand.com` still serves the current production deployment, and
+   `https://alipajand.com/portfolio-media/ledgerguard-dashboard.png` still returns 404.
+5. Republish or delete each design preview listed above, from its current page.
+6. Say so in a PR that removes the finished items from this list.
 
 ## Content and copy
 
@@ -64,12 +81,20 @@ turned `main` red until #290.
 
 - **Alternative:** keep it as is and re-run checks by hand before merging.
 
+Checked on 2026-10-28: the ruleset is unchanged, and both required contexts still run on `main`.
+`Lint, typecheck, test, build` comes from `ci.yml`. `Playwright e2e (Chromium, Linux)` is the
+aggregate job in `e2e.yml` that requires both shards. Both come from GitHub Actions (app 15368),
+which the ruleset names. A dry run of the command above changes only that one field.
+
 ## Technical follow-ups (no decision needed)
 
 - WebKit axe is flaky in CI and still has no root cause. Its contexts are created by hand in
   `e2e/a11y.e2e.ts`, outside the configured `trace` option, so no failure has left a trace. #329
   keeps one in `test-results/` for each failed WebKit scan. Read the next one before changing the
-  test.
+  test. As of 2026-10-28 there is none to read. No e2e run since #329 merged has failed a test (the
+  two failed runs stopped at the Playwright image version check), and none reported a flaky
+  retry. The report is uploaded only when a job fails, so a scan that fails and then passes on
+  retry leaves no trace either.
   - `AxeBuilder.analyze()` hangs until the 30 s test timeout, always on the Agent Readiness Doctor
     post at 390 px (runs 40606433458, 40739305931, 40746303667 and 40756047367; the last failed
     both attempts). It did not reproduce in 20 local runs (macOS WebKit, about 2 s each).
