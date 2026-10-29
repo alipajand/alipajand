@@ -107,6 +107,22 @@ const EXPOSED_IMAGES: Array<[label: string, hash: string]> = [
     "11e779c8d24d3fec02755182439513ffa099b7fb656c0fedd22ff375da6cac49",
   ],
   [
+    "e2e/__screenshots__/case-studies.e2e.ts/tallyfolio-1440x900-darwin.png (rendered with the unverified TallyFolio dashboard)",
+    "8b26359ec01f3721b0e57a4a58d9c4d261a4c2fde2d63f8ad4cfcc5d254270d4",
+  ],
+  [
+    "e2e/__screenshots__/case-studies.e2e.ts/tallyfolio-1440x900-linux.png (rendered with the unverified TallyFolio dashboard)",
+    "f5ca7c577f8fff9647545e749adde3988638cab3a790b1b47a703b43b1a69f1e",
+  ],
+  [
+    "e2e/__screenshots__/case-studies.e2e.ts/tallyfolio-390x844-darwin.png (rendered with the unverified TallyFolio dashboard)",
+    "9777c73f07d0be1b84959abf7013b66dd162d9ac075b2ebc5c0692258faebac3",
+  ],
+  [
+    "e2e/__screenshots__/case-studies.e2e.ts/tallyfolio-390x844-linux.png (rendered with the unverified TallyFolio dashboard)",
+    "b27206eb9473ba81852ddc6470f3397b8bfab34562282a1b9081218a240697ae",
+  ],
+  [
     "portfolio-redesign artifacts/shared/media/ledgerguard-dashboard-1280.webp (unmerged branch)",
     "b9911c9772c1342fe63fe939a15357ad12bb0763a9bf7a163a4ba5058f02a391",
   ],
