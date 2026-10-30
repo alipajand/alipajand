@@ -293,60 +293,62 @@ for (const browserName of BROWSERS) {
     }
 
     for (const width of [320, 768, 1024]) {
-      test(`Tab and Shift+Tab bring a barely visible rail link fully into view at ${width}px`, async ({
-        openPage,
-      }) => {
-        test.setTimeout(120_000);
-        const page = await openPage(browserName, { viewport: viewportFor(width) });
-        const failures: string[] = [];
-        for (const path of ROUTES.filter((route) => route.startsWith("/portfolio/"))) {
-          await page.goto(path);
-          await settle(page);
-          const list = page.locator("nav:has(a[href='#context']) ol");
-          await list.scrollIntoViewIfNeeded();
-          const links = list.locator("a");
-          const count = await links.count();
-          for (let index = 0; index < count - 1; index += 1) {
-            for (const shift of [false, true]) {
-              const from = links.nth(shift ? index + 1 : index);
-              const to = links.nth(shift ? index : index + 1);
-              await from.focus();
-              await to.evaluate(
-                (link, edge) => {
-                  const list = link.closest("ol")!;
-                  const port = list.getBoundingClientRect().left + list.clientLeft;
-                  const box = link.getBoundingClientRect();
-                  list.scrollLeft =
-                    edge === "start"
-                      ? Math.ceil(box.left - port + list.scrollLeft - list.clientWidth)
-                      : Math.floor(box.right - port + list.scrollLeft);
-                },
-                shift ? "end" : "start"
-              );
-              await page.keyboard.press(tabKey(browserName, shift), KEY_HOLD);
-              const clipped = await to.evaluate((link) => {
-                if (link !== document.activeElement) return "not focused";
-                const list = link.closest("ol")!;
-                const left = list.getBoundingClientRect().left + list.clientLeft;
-                const right = left + list.clientWidth;
-                const box = link.getBoundingClientRect();
-                const atStart = list.scrollLeft <= 0;
-                const atEnd = list.scrollLeft >= list.scrollWidth - list.clientWidth;
-                const fitsLeft = box.left >= left || (atStart && left - box.left < 1);
-                const fitsRight = box.right <= right || (atEnd && box.right - right < 1);
-                return fitsLeft && fitsRight
-                  ? null
-                  : `[${box.left}, ${box.right}] outside [${left}, ${right}]`;
-              });
-              if (clipped)
-                failures.push(
-                  `${path} ${shift ? "Shift+Tab" : "Tab"} to ${index + (shift ? 0 : 1)}: ${clipped}`
+      for (const reducedMotion of ["no-preference", "reduce"] as const) {
+        test(`Tab and Shift+Tab bring a barely visible rail link fully into view at ${width}px with ${reducedMotion} motion`, async ({
+          openPage,
+        }) => {
+          test.setTimeout(120_000);
+          const page = await openPage(browserName, { viewport: viewportFor(width), reducedMotion });
+          const failures: string[] = [];
+          for (const path of ROUTES.filter((route) => route.startsWith("/portfolio/"))) {
+            await page.goto(path);
+            await settle(page);
+            const list = page.locator("nav:has(a[href='#context']) ol");
+            await list.scrollIntoViewIfNeeded();
+            const links = list.locator("a");
+            const count = await links.count();
+            for (let index = 0; index < count - 1; index += 1) {
+              for (const shift of [false, true]) {
+                const from = links.nth(shift ? index + 1 : index);
+                const to = links.nth(shift ? index : index + 1);
+                await from.focus();
+                await to.evaluate(
+                  (link, edge) => {
+                    const list = link.closest("ol")!;
+                    const port = list.getBoundingClientRect().left + list.clientLeft;
+                    const box = link.getBoundingClientRect();
+                    list.scrollLeft =
+                      edge === "start"
+                        ? Math.ceil(box.left - port + list.scrollLeft - list.clientWidth)
+                        : Math.floor(box.right - port + list.scrollLeft);
+                  },
+                  shift ? "end" : "start"
                 );
+                await page.keyboard.press(tabKey(browserName, shift), KEY_HOLD);
+                const clipped = await to.evaluate((link) => {
+                  if (link !== document.activeElement) return "not focused";
+                  const list = link.closest("ol")!;
+                  const left = list.getBoundingClientRect().left + list.clientLeft;
+                  const right = left + list.clientWidth;
+                  const box = link.getBoundingClientRect();
+                  const atStart = list.scrollLeft <= 0;
+                  const atEnd = list.scrollLeft >= list.scrollWidth - list.clientWidth;
+                  const fitsLeft = box.left >= left || (atStart && left - box.left < 1);
+                  const fitsRight = box.right <= right || (atEnd && box.right - right < 1);
+                  return fitsLeft && fitsRight
+                    ? null
+                    : `[${box.left}, ${box.right}] outside [${left}, ${right}]`;
+                });
+                if (clipped)
+                  failures.push(
+                    `${path} ${shift ? "Shift+Tab" : "Tab"} to ${index + (shift ? 0 : 1)}: ${clipped}`
+                  );
+              }
             }
           }
-        }
-        expect(failures).toEqual([]);
-      });
+          expect(failures).toEqual([]);
+        });
+      }
     }
 
     test("the skip link is the first stop and moves focus to the main content", async ({
