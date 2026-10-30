@@ -1,0 +1,34 @@
+name: Agent readiness
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event_name == 'push' && github.sha || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Agent readiness audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Audit agent readiness and instruction files
+        uses: alipajand/agent-readiness-action@8e3b737539789992397b50496cf9c9ff23420b9e # v1.2.0
+        with:
+          context-audit: "true"
+          context-fail-on: high
+          baseline-ref: ${{ github.event.pull_request.base.sha }}
+          max-score-drop: ${{ github.event_name == 'pull_request' && '0' || '' }}
