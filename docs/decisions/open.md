@@ -5,14 +5,18 @@ decided, delete it here and record the outcome in the implementing PR; the code 
 the lasting record. The longer analysis behind these items is in the history of `docs/decisions/`
 and `docs/audits/` before this file replaced them.
 
-No owner decisions are open. The privacy cleanup of the original LedgerGuard, MapBylaw and
-TallyFolio screenshots is not finished: one decided action still waits on the owner, because the
-agent that checked it was not permitted to delete deployments.
+No new owner decisions are needed. Two previously decided actions remain incomplete: an
+owner-only Vercel privacy cleanup and restoring the GitHub main ruleset after a configuration drift.
 
 Pending:
 
 - **Delete the 62 old Vercel deployments that serve the originals.** Owner only; steps below. Not
-  done until each URL returns 404 or 410 when signed in.
+  done until each URL returns 404 or 410 when signed in. Re-inventory before execution; the
+  listed 62 IDs are a snapshot from 2026-10-31 and some may since have expired by retention.
+- **Restore strict required CI checks on `main`.** Ruleset `15352584` is active, but
+  `strict_required_status_checks_policy` was changed back to `false` at 2026-10-31 19:02 ET.
+  The previously decided setting is `true`. Verify the reason for the intervening change
+  before restoring it; see below.
 
 Done and verified on 2026-10-31:
 
@@ -22,8 +26,33 @@ Done and verified on 2026-10-31:
   in the account's artifact list. New previews at new URLs replace them (see
   `docs/design/README.md`), and the 12 previews that linked to them were republished.
 - **Concept previews from #214.** All three were deleted with their version history.
-- **Branch protection.** Ruleset 15352584 has `strict_required_status_checks_policy: true`; no
-  other field changed.
+- **Branch protection (historical, not current).** Strict checks were enabled and
+  read-back verified earlier on 2026-10-31, but the setting was subsequently reverted at 19:02 ET.
+  Restoration is now tracked as pending above.
+
+## Restore up-to-date required checks on main
+
+**Decided:** enforce up-to-date branches before merging; do not alter the two existing required
+check contexts or any other ruleset setting.
+
+**Observed at 2026-10-31 19:02 ET:** the live, active `main` ruleset `15352584` has
+`strict_required_status_checks_policy: false`, despite the earlier verified enablement.
+GitHub's ruleset `updated_at` is `2026-10-31T19:02:24.236-04:00`. The reason for the
+intervening administrative change is unverified.
+
+To complete:
+
+1. Confirm whether an authorized administrator deliberately reverted strict checks for
+   an ongoing change. Do not silently overwrite that action or unrelated concurrent settings.
+2. If no overriding decision exists, change only `strict_required_status_checks_policy` to
+   `true` under Settings → Rules → Rulesets → `main` → Require status checks to pass.
+3. Read back the live ruleset; verify strict mode is true and every other rule, required
+   check context, integration ID, enforcement state, and bypass actor is unchanged.
+4. Remove this pending item only after read-back verification. The required checks remain
+   `Lint, typecheck, test, build` and `Playwright e2e (Chromium, Linux)`.
+
+This is an external configuration action, not a repository-file change. An edited decision
+register alone does not fix the protection gap.
 
 ## Delete the old Vercel deployments that serve the original screenshots
 
