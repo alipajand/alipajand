@@ -3,7 +3,6 @@
 import {
   getDedicatedCaseStudyProjects,
   getDedicatedCaseStudySlugs,
-  getIndexOnlyProjects,
   getNextDedicatedCaseStudyProject,
   getOrderedProjects,
   getProjectBySlug,
@@ -71,7 +70,6 @@ describe("utils/projects", () => {
       "controltech",
       "mapbylaw",
     ]);
-    expect(getIndexOnlyProjects().map((project) => project.slug)).toEqual([]);
   });
 
   it("should return dedicated case-study slugs for static generation", () => {

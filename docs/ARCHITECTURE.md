@@ -12,7 +12,7 @@ The server-side surface is two API routes: the contact form and the Resend inbou
 app/                     App Router tree: pages, API routes, metadata routes, feeds
   layout.tsx             Root layout: fonts, site shell, analytics, structured data
   page.tsx               Homepage
-  portfolio/             /portfolio and /portfolio/[slug]
+  portfolio/             /portfolio and /portfolio/[slug], each with its own Open Graph image
   open-source/           /open-source
   writing/               /writing, /writing/[slug] and its Open Graph image
   now/                   /now
@@ -44,7 +44,7 @@ utils/                   Pure helpers and hooks
 
 e2e/                     Playwright specs (run against a production build)
 public/                  Static assets: case-study screenshots, post images
-docs/                    This documentation, audits, decisions and the design kit
+docs/                    This documentation, the decision register and the design kit
 ```
 
 ## Key data flow
@@ -89,15 +89,11 @@ only; none is prefixed with `NEXT_PUBLIC_`.
 
 ## Security considerations
 
-- Response headers are set in `next.config.ts` (`securityHeaders`): a CSP limited to
-  `frame-ancestors`, `base-uri`, `form-action` and `object-src`, plus `X-Frame-Options`,
-  `X-Content-Type-Options`, `Referrer-Policy` and `Permissions-Policy`. HSTS comes from the hosting
-  edge. There is no script or style CSP yet.
-- `POST /api/contact` accepts only `application/json` bodies up to 64 KB and enforces the field
-  limits in `utils/contactFields.ts`. A Vercel Firewall rule rate limits it (5 requests per
-  10 minutes per client IP, answered with `429`). The rule lives in the Vercel project, not in this
-  repository; [CONTACT_RATE_LIMIT.md](CONTACT_RATE_LIMIT.md) has its definition and how to verify
-  it.
+- Response headers are set in `next.config.ts` (`securityHeaders`). HSTS comes from the hosting
+  edge.
+- `POST /api/contact` accepts only `application/json` bodies with a size cap and enforces the field
+  limits in `utils/contactFields.ts`. It is rate limited at the edge; the rule is project
+  configuration in Vercel, not code in this repository.
 - The Resend webhook verifies the Svix signature before reading the event.
 - JSON-LD is serialised with `utils/jsonLd.ts`, which escapes characters that could close the
   script element.

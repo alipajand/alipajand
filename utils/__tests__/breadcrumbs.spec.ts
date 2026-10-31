@@ -2,7 +2,6 @@
 
 import {
   engineeringPrinciplesBreadcrumbs,
-  notFoundBreadcrumbs,
   nowBreadcrumbs,
   openSourceBreadcrumbs,
   portfolioIndexBreadcrumbs,
@@ -29,6 +28,5 @@ describe("utils/breadcrumbs", () => {
     expect(engineeringPrinciplesBreadcrumbs()).toHaveLength(2);
     expect(nowBreadcrumbs()).toHaveLength(2);
     expect(openSourceBreadcrumbs()).toHaveLength(2);
-    expect(notFoundBreadcrumbs()).toHaveLength(2);
   });
 });

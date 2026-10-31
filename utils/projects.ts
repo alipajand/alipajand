@@ -111,9 +111,6 @@ export const getOrderedProjects = (): Project[] =>
 export const getDedicatedCaseStudyProjects = (): Project[] =>
   getOrderedProjects().filter((project) => project.hasDedicatedCaseStudy);
 
-export const getIndexOnlyProjects = (): Project[] =>
-  getOrderedProjects().filter((project) => !project.hasDedicatedCaseStudy);
-
 export const getProjectBySlug = (slug: string): Project | undefined =>
   PUBLIC_PROJECTS.find((project) => project.slug === slug);
 

@@ -2,21 +2,21 @@
 
 ## Project overview
 
-**alipajand** is Ali Pajand's personal portfolio website — a Next.js 15 App Router site showcasing experience, projects, writing, and engineering principles. It is deployed to Vercel and uses Resend for the contact form.
+**alipajand** is Ali Pajand's personal portfolio website — a Next.js 16 App Router site showcasing experience, projects, writing, and engineering principles. It is deployed to Vercel and uses Resend for the contact form.
 
 There are no databases, no auth, and no multi-tenant concerns. All content is static TypeScript in `data/` and Markdown in `content/`.
 
 ## Stack
 
-| Layer     | Technology                                  |
-| --------- | ------------------------------------------- |
-| Framework | Next.js 15 App Router                       |
-| Language  | TypeScript                                  |
-| Styling   | Tailwind CSS v4                             |
-| Email     | Resend (`app/api/contact`)                  |
-| Testing   | Jest + @testing-library/react               |
-| Lint/fmt  | ESLint + Prettier                           |
-| CI        | GitHub Actions (`.github/workflows/ci.yml`) |
+| Layer     | Technology                                |
+| --------- | ----------------------------------------- |
+| Framework | Next.js 16 App Router                     |
+| Language  | TypeScript                                |
+| Styling   | Tailwind CSS v4                           |
+| Email     | Resend (`app/api/contact`)                |
+| Testing   | Jest + @testing-library/react, Playwright |
+| Lint/fmt  | ESLint + Prettier                         |
+| CI        | GitHub Actions (`.github/workflows/`)     |
 
 ## Architecture boundaries
 
@@ -46,6 +46,7 @@ pnpm build
 
 # Tests
 pnpm test
+pnpm test:e2e
 
 # Lint
 pnpm lint
@@ -67,7 +68,7 @@ pnpm format
 ## Content and copy rules
 
 - Static content lives in `data/*.ts` files — edit there, not scattered in JSX.
-- Blog posts/writing lives in `content/` as Markdown with gray-matter frontmatter.
+- Writing posts live in `content/posts/` as Markdown with YAML frontmatter (see `docs/DATA_MODEL.md`).
 - Do not change public slugs or URLs without explicit approval — they affect SEO and external links.
 
 ## Forbidden changes without approval

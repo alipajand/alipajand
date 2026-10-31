@@ -43,4 +43,4 @@ pnpm install
 pnpm dev
 ```
 
-Checks: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`. Architecture and route notes are in [`docs/`](docs/).
+Checks: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`. Architecture, route and data notes are in [`docs/`](docs/).

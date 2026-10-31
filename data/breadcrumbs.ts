@@ -10,8 +10,6 @@ export const BREADCRUMB_NOW_LABEL = "Now";
 
 export const BREADCRUMB_OPEN_SOURCE_LABEL = "Open source";
 
-export const BREADCRUMB_NOT_FOUND_LABEL = "Page not found";
-
 export type BreadcrumbNavItem = {
   label: string;
   href?: string;
@@ -52,9 +50,4 @@ export const nowBreadcrumbs = (): BreadcrumbNavItem[] => [
 export const openSourceBreadcrumbs = (): BreadcrumbNavItem[] => [
   { label: BREADCRUMB_HOME_LABEL, href: "/" },
   { label: BREADCRUMB_OPEN_SOURCE_LABEL },
-];
-
-export const notFoundBreadcrumbs = (): BreadcrumbNavItem[] => [
-  { label: BREADCRUMB_HOME_LABEL, href: "/" },
-  { label: BREADCRUMB_NOT_FOUND_LABEL },
 ];
