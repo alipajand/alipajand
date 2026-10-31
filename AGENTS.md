@@ -61,7 +61,7 @@ pnpm format
 ## Testing expectations
 
 - Run `pnpm test` before finishing any task.
-- Tests live colocated under `__tests__/` folders next to their subjects.
+- Tests live in `__tests__` folders next to their subjects.
 - Add or update tests when changing component behavior, hooks, or utility functions.
 - Do not disable tests or modify CI config without explicit approval.
 

@@ -51,7 +51,7 @@ pnpm build
 pnpm format:check
 ```
 
-Use `pnpm` only. Do not introduce npm, yarn, or bun lockfiles.
+Use `pnpm` only. Do not add `package-lock.json`, `yarn.lock` or `bun.lock` files.
 
 ## Branch and workflow
 
