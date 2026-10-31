@@ -16,6 +16,7 @@ jest.mock("next/navigation", () => ({
 
 import { notFound } from "next/navigation";
 
+import * as portfolioImage from "../portfolio/[slug]/opengraph-image";
 import * as portfolioPage from "../portfolio/[slug]/page";
 import * as writingImage from "../writing/[slug]/opengraph-image";
 import * as writingPage from "../writing/[slug]/page";
@@ -25,6 +26,7 @@ describe("dynamic segments", () => {
     ["/writing/[slug]", writingPage],
     ["/writing/[slug]/opengraph-image", writingImage],
     ["/portfolio/[slug]", portfolioPage],
+    ["/portfolio/[slug]/opengraph-image", portfolioImage],
   ])("%s should only render the slugs it generates", (_route, route) => {
     expect(route.dynamicParams).toBe(false);
   });
@@ -34,5 +36,11 @@ describe("dynamic segments", () => {
       writingImage.default({ params: Promise.resolve({ slug: "does-not-exist" }) })
     ).rejects.toThrow("NEXT_NOT_FOUND");
     expect(notFound).toHaveBeenCalled();
+  });
+
+  it("should answer an unknown case-study OG image with notFound instead of a generic card", async () => {
+    await expect(
+      portfolioImage.default({ params: Promise.resolve({ slug: "does-not-exist" }) })
+    ).rejects.toThrow("NEXT_NOT_FOUND");
   });
 });

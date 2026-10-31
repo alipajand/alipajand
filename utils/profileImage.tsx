@@ -14,7 +14,7 @@ const ACCENT = "#ea2b2b";
 
 const GEIST_DIR = join(process.cwd(), "node_modules", "geist", "dist", "fonts", "geist-sans");
 
-const loadGeist = async () => {
+export const loadGeist = async () => {
   const [regular, medium, bold] = await Promise.all(
     ["Geist-Regular.ttf", "Geist-Medium.ttf", "Geist-Bold.ttf"].map((file) =>
       readFile(join(GEIST_DIR, file))

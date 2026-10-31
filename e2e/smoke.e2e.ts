@@ -60,6 +60,7 @@ for (const path of [
   "/writing/not-a-post",
   "/writing/not-a-post/opengraph-image",
   "/portfolio/not-a-case-study",
+  "/portfolio/not-a-case-study/opengraph-image",
 ]) {
   test(`${path} answers an uncached 404`, async ({ request }) => {
     const response = await request.get(path);
@@ -79,6 +80,8 @@ for (const { path, type } of [
   { path: "/icon", type: /image\/png/ },
   { path: "/apple-icon", type: /image\/png/ },
   { path: "/writing/agent-readiness-doctor/opengraph-image", type: /image\/png/ },
+  { path: "/portfolio/opengraph-image", type: /image\/png/ },
+  { path: "/portfolio/ledgerguard/opengraph-image", type: /image\/png/ },
 ]) {
   test(`${path} answers 200 as ${type.source}`, async ({ request }) => {
     const response = await request.get(path);

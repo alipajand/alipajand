@@ -94,6 +94,10 @@ describe("utils/metadata", () => {
     expect(m.alternates?.canonical).toBe(`${CANONICAL_URL}/portfolio`);
     expect(m.description).toBe(PORTFOLIO_META_DESCRIPTION);
     expect(m.title).toEqual({ absolute: PORTFOLIO_META_TITLE });
+    expect(m.openGraph?.images).toEqual([
+      expect.objectContaining({ url: "/portfolio/opengraph-image" }),
+    ]);
+    expect(m.twitter?.images).toEqual(["/portfolio/opengraph-image"]);
   });
 
   it("should set canonical and case-study description for buildPortfolioCaseStudyMetadata", () => {
