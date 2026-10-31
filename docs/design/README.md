@@ -12,9 +12,9 @@ Design explorations for a full redesign of alipajand.com. Each page is a single 
 | AlwaysGeeky Games | `/portfolio/alwaysgeeky` | [pages/case-alwaysgeeky.html](pages/case-alwaysgeeky.html) | https://claude.ai/artifact/5pYFq8zkJSZzkkYwxyBwhw |
 | Emplifi | `/portfolio/emplifi` | [pages/case-emplifi.html](pages/case-emplifi.html) | https://claude.ai/artifact/A9nYf9R1Ltk32JYjQMNEaq |
 | Agent Tooling | `/portfolio/agent-tooling` | [pages/case-agent-tooling.html](pages/case-agent-tooling.html) | https://claude.ai/artifact/UrP9eUpSXDJAoto7SM46Yn |
-| TallyFolio | `/portfolio/tallyfolio` | [pages/case-tallyfolio.html](pages/case-tallyfolio.html) | https://claude.ai/artifact/PJzBMyJ9vQJ9u9Wpk4jiw9 |
+| TallyFolio | `/portfolio/tallyfolio` | [pages/case-tallyfolio.html](pages/case-tallyfolio.html) | https://claude.ai/artifact/MyCiaPKVLmdapmiJp7HNdd |
 | ControlTech | `/portfolio/controltech` | [pages/case-controltech.html](pages/case-controltech.html) | https://claude.ai/artifact/8sBpRgjrXNsK313wjNaBrj |
-| MapBylaw | `/portfolio/mapbylaw` | [pages/case-mapbylaw.html](pages/case-mapbylaw.html) | https://claude.ai/artifact/Ez5bX39cieti12y95JwNP9 |
+| MapBylaw | `/portfolio/mapbylaw` | [pages/case-mapbylaw.html](pages/case-mapbylaw.html) | https://claude.ai/artifact/7hBXAZ45iDmZfpLiXppmVK |
 | Open source | `/open-source` | [pages/open-source.html](pages/open-source.html) | https://claude.ai/artifact/31CgkES3BDjxyGvxFQ2FNa |
 | Writing | `/writing` | [pages/writing.html](pages/writing.html) | https://claude.ai/artifact/HP489SMrFwiakCoTwVUJvB |
 | Agent Readiness Doctor | `/writing/agent-readiness-doctor` | [pages/agent-readiness-doctor.html](pages/agent-readiness-doctor.html) | https://claude.ai/artifact/3Sx5hgAkussh86nMQuy1e7 |
