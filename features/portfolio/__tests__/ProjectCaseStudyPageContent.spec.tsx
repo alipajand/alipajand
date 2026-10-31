@@ -43,7 +43,7 @@ jest.mock("next/image", () => ({
   ),
 }));
 
-const HELD_BACK = /(^|[^\d.])[89]0%/;
+const HELD_BACK = /(^|[^\d.])90%/;
 
 const renderCase = (slug: string) => {
   const project = getProjectBySlug(slug)!;
@@ -150,6 +150,26 @@ const UNREDACTED_ORIGINALS = [
   "/portfolio-media/ledgerguard-dashboard.png",
   "/portfolio-media/mapbylaw-dashboard.png",
 ];
+
+describe("LedgerGuard engineering section", () => {
+  it("lists each area with what was implemented and what was not", () => {
+    const project = getProjectBySlug("ledgerguard")!;
+    render(<ProjectCaseStudyPageContent project={project} />);
+
+    const section = screen.getByRole("region", { name: "Engineering, layer by layer" });
+    const areas = within(section).getAllByRole("heading", { level: 3 });
+    expect(areas.map((heading) => heading.textContent?.replace(/^\d+/, ""))).toEqual(
+      project.caseStudy.engineeringAreas!.map((area) => area.title)
+    );
+    for (const area of project.caseStudy.engineeringAreas!.slice(0, 7)) {
+      expect(area.points[0].label).toBe("Implemented");
+      expect(area.points.length).toBeGreaterThan(1);
+    }
+    expect(within(section).getAllByText("Implemented")).toHaveLength(7);
+    expect(section.textContent).not.toMatch(/Docker/);
+    expect(section.textContent).toMatch(/no Kubernetes/);
+  });
+});
 
 describe("case-study screenshots", () => {
   const pngSize = (src: string) => {

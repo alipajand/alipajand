@@ -10,6 +10,8 @@ export const PROJECT_CASE_STUDY_SECTION_PROBLEM = "Problem";
 
 export const PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT = "What I built";
 
+export const PROJECT_CASE_STUDY_SECTION_ENGINEERING = "Engineering, layer by layer";
+
 export const PROJECT_CASE_STUDY_SECTION_TECHNICAL_DECISIONS = "Technical decisions";
 
 export const PROJECT_CASE_STUDY_SECTION_UX_DECISIONS = "UX and detail decisions";

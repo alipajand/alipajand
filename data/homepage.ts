@@ -11,40 +11,46 @@ export interface HomepageCaseStudy {
 export const HOMEPAGE_HERO_NAME = "Ali Pajand";
 export const HOMEPAGE_HERO_EYEBROW = "Senior Software Engineer";
 export const HOMEPAGE_HERO_TITLE =
-  "I build product systems from the interface down: frontend architecture, design systems, and the APIs behind them.";
+  "I build web products end to end, with deep expertise in frontend architecture.";
 export const HOMEPAGE_HERO_BODY =
-  "Nine-plus years building production web applications, most recently in React, TypeScript, and Next.js, mostly on SaaS, analytics, and marketplace products. I own frontend architecture and the standards around it: component APIs, accessibility, rendering performance, and review conventions, written up as design docs, taught through mentoring, and enforced in CI. When a product needs more than the interface, I build the Node.js APIs, data models, auth, and background workers behind it.";
+  "I'm a Montreal-based software engineer with 9+ years building production web applications. My strongest background is React, TypeScript, Next.js, and frontend architecture. I've also built full-stack products using Node.js/Fastify, PostgreSQL, Redis/BullMQ, and Python workers. My work spans shared design systems at AlwaysGeeky Games, enterprise analytics at Emplifi, and independently developed products such as LedgerGuard.";
 export const HOMEPAGE_HERO_LOCATION = "Based in Montreal, Quebec, Canada";
-export const HOMEPAGE_HERO_PRIMARY_CTA_LABEL = "View selected work";
+export const HOMEPAGE_HERO_PRIMARY_CTA_LABEL = "View engineering work";
 export const HOMEPAGE_HERO_PRIMARY_CTA_HREF = "/portfolio";
-export const HOMEPAGE_HERO_SECONDARY_CTA_LABEL = "Discuss a role";
+export const HOMEPAGE_HERO_SECONDARY_CTA_LABEL = "Contact me";
 export const HOMEPAGE_HERO_SECONDARY_CTA_HREF = "/#contact";
 
-export const HOMEPAGE_CASE_STUDIES_HEADING = "Selected Work";
+export const HOMEPAGE_CASE_STUDIES_HEADING =
+  "Engineering work, from interfaces to backend systems.";
 export const HOMEPAGE_CASE_STUDIES_LEDE =
-  "Two projects that show the range: one product I own end to end, and one shared frontend system four product surfaces were built on.";
+  "Three projects show different parts of my experience: independent full-stack delivery, shared frontend architecture across products, and performance engineering in enterprise applications.";
 export const HOMEPAGE_CASE_STUDIES: HomepageCaseStudy[] = [
   {
     id: "ledgerguard",
-    label: "Senior Product Engineer · 2026–Present",
-    title: "LedgerGuard — Full-Stack AI Contract Intelligence",
+    label: "Independent product · 2026–Present",
+    title: "LedgerGuard — Independent Full-Stack Product",
     summary:
-      "A multi-tenant contract-intelligence SaaS I designed and built alone: Next.js App Router product, Node.js/Fastify API, PostgreSQL data model, authentication, billing, and a queue-backed document pipeline.",
-    supportingLine:
-      "The hard part wasn't the model call. It was keeping probabilistic extraction from ever becoming confirmed contract data without a human reviewing the evidence.",
-    tags: ["Next.js", "TypeScript", "Node.js", "Fastify", "PostgreSQL", "Redis/BullMQ", "AI"],
+      "Designed and developed a multi-tenant contract-intelligence application across Next.js, Node.js/Fastify, PostgreSQL, and queue-backed processing. Built the document ingestion and review workflow so AI-extracted information remains unconfirmed until a person reviews its source evidence.",
+    tags: ["Next.js", "TypeScript", "Node.js", "Fastify", "PostgreSQL", "Redis/BullMQ", "Python"],
     href: "/portfolio/ledgerguard",
   },
   {
     id: "alwaysgeeky",
     label: "Senior Frontend Engineer · 2024–2026",
-    title: "AlwaysGeeky Games — Shared Design System & Frontend Standards",
+    title: "AlwaysGeeky Games — Shared Frontend Architecture",
     summary:
-      "Built and owned the React and TypeScript component library four product surfaces were built on, documented in Storybook, while shipping marketplace, authentication, and account workflows in Next.js.",
-    supportingLine:
-      "Component APIs, accessibility, TypeScript and code-review conventions, and CI gates that kept the four surfaces from drifting apart.",
-    tags: ["React", "Next.js", "TypeScript", "Storybook", "GraphQL", "Accessibility"],
+      "Owned a React and TypeScript component library used across four product surfaces. Built shared component APIs, documented conventions, supported adoption across engineering teams, and maintained quality through code review, accessibility standards, and CI checks.",
+    tags: ["React", "Next.js", "TypeScript", "Storybook", "Accessibility", "CI/CD"],
     href: "/portfolio/alwaysgeeky",
+  },
+  {
+    id: "emplifi",
+    label: "Senior Frontend Engineer · 2022–2023",
+    title: "Emplifi — Enterprise Analytics & Performance",
+    summary:
+      "Developed React and TypeScript analytics interfaces with D3.js for desktop and embedded environments. Profiled and optimized rendering behavior in mobile webviews, with measurable performance improvements, and contributed reusable components and engineering mentorship.",
+    tags: ["React", "TypeScript", "D3.js", "Performance", "Accessibility"],
+    href: "/portfolio/emplifi",
   },
 ];
 
@@ -63,11 +69,10 @@ export const HOME_STRATA_LAYERS = [
 ] as const;
 
 export const HOMEPAGE_CAPABILITY_TICKER = [
-  "Frontend architecture",
-  "Design systems & UI engineering",
-  "Full-stack & product systems",
-  "Quality & developer experience",
-  "Performance & observability",
+  "Frontend engineering",
+  "Full-stack product development",
+  "Engineering quality",
+  "Technical leadership",
 ] as const;
 
 export const HOMEPAGE_TOOLING_TICKER = [

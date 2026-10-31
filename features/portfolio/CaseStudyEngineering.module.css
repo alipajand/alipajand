@@ -1,0 +1,90 @@
+.areas {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.area {
+  border: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.title {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 16px;
+  border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.number {
+  composes: mono from "../../components/hairline/styles/type.module.css";
+  padding-top: 4px;
+  color: var(--color-mute);
+}
+
+.points {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  margin: 0;
+}
+
+.points > div {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 14px 16px;
+  border-right: var(--stroke-hairline) solid var(--tone-rule);
+}
+
+.points > div:first-child {
+  grid-column: span 2;
+}
+
+.points > div:last-child {
+  border-right: 0;
+}
+
+.points dt {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+.points dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+@media (max-width: 960px) {
+  .points {
+    grid-auto-flow: row;
+  }
+
+  .points > div,
+  .points > div:first-child {
+    grid-column: auto;
+    border-right: 0;
+    border-bottom: var(--stroke-hairline) solid var(--tone-rule);
+  }
+
+  .points > div:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .title {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+}

@@ -4,6 +4,11 @@ export const PORTFOLIO_HERO_COORDINATES = ["45.5017° N", "73.5673° W"] as cons
 
 export const PORTFOLIO_SCROLL_CUE = "Scroll";
 
+export const PORTFOLIO_HERO_ROLE = "Senior Software Engineer";
+export const PORTFOLIO_HERO_FOCUS =
+  "Frontend architecture, design systems, and full-stack product delivery";
+export const PORTFOLIO_HERO_STACK = "React · TypeScript · Next.js · Node.js · PostgreSQL";
+
 export const PORTFOLIO_HERO_LAYERS = [
   { name: "Architecture call", stack: "Product + system design", kind: "arch" },
   { name: "Interface", stack: "React · Next.js · TypeScript", kind: "ui" },

@@ -5,6 +5,7 @@ import { FlowBand } from "components/hairline/FlowBand/FlowBand";
 import { CaseStudyCrumbs } from "features/portfolio/CaseStudyCrumbs";
 import { CaseStudyDecisions } from "features/portfolio/CaseStudyDecisions";
 import { CaseStudyDisplayName } from "features/portfolio/CaseStudyDisplayName";
+import { CaseStudyEngineering } from "features/portfolio/CaseStudyEngineering";
 import { CaseStudyEvidence } from "features/portfolio/CaseStudyEvidence";
 import { CaseStudyIntro } from "features/portfolio/CaseStudyIntro";
 import { CaseStudyOutcome } from "features/portfolio/CaseStudyOutcome";
@@ -38,6 +39,8 @@ const CaseStudySection = ({
     case "lead":
     case "items":
       return <CaseStudyTextSection section={{ ...section, body }} index={index} />;
+    case "engineering":
+      return <CaseStudyEngineering section={{ ...section, body }} index={index} />;
     case "decisions":
       return <CaseStudyDecisions section={{ ...section, body }} index={index} />;
     case "evidence":

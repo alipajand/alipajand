@@ -32,9 +32,19 @@ describe("utils/projects", () => {
     const firstProject = getOrderedProjects()[0];
 
     expect(firstProject.slug).toBe("ledgerguard");
-    expect(firstProject.caseStudyTitle).toBe("Full-Stack AI Contract Intelligence");
-    expect(firstProject.cardProblem).toContain("Fastify API");
-    expect(firstProject.cardProblem).toContain("queue-backed document pipeline");
+    expect(firstProject.caseStudyTitle).toBe("Independent Full-Stack Engineering");
+    expect(firstProject.cardProblem).toContain("Node.js/Fastify");
+    expect(firstProject.cardProblem).toContain("queue-backed processing");
+    expect(firstProject.caseStudy.engineeringAreas?.map((area) => area.title)).toEqual([
+      "Application architecture and system boundaries",
+      "API design and authentication",
+      "PostgreSQL data model and tenant-scoped access",
+      "Redis/BullMQ jobs, retries, and failure states",
+      "Python extraction worker and AWS Textract",
+      "Human-in-the-loop review and confirmation",
+      "Testing, CI, security, and delivery",
+      "Trade-offs, known limitations, and lessons",
+    ]);
     expect(
       firstProject.caseStudy.technicalDecisions.some(
         (decision) =>

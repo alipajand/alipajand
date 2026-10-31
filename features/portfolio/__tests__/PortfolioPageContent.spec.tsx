@@ -2,11 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 
 import { PortfolioPageContent } from "features/portfolio/PortfolioPageContent";
 import { PORTFOLIO_BAND_HEADING } from "data/portfolioIndex";
-import {
-  PORTFOLIO_PAGE_INTRO,
-  PORTFOLIO_PAGE_INTRO_LINKS,
-  PORTFOLIO_PROFILE_DETAILS,
-} from "data/projects";
+import { PORTFOLIO_PAGE_INTRO, PORTFOLIO_PROFILE_DETAILS } from "data/projects";
 import { PORTFOLIO_PROFILE_LINKS_ARIA_LABEL } from "data/projectsUi";
 import { getDedicatedCaseStudyProjects } from "utils/projects";
 
@@ -27,11 +23,13 @@ jest.mock("next/link", () => {
 const introSection = () => screen.getByRole("region", { name: PORTFOLIO_BAND_HEADING });
 
 describe("PortfolioPageContent", () => {
-  it("should name the page with a single Portfolio H1 and keep the profile details", () => {
+  it("should name the page with a single Selected Engineering Work H1 and keep the profile details", () => {
     render(<PortfolioPageContent />);
 
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
-    expect(screen.getByRole("heading", { level: 1, name: "Portfolio" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Selected Engineering Work" })
+    ).toBeInTheDocument();
     expect(screen.getByText(PORTFOLIO_PROFILE_DETAILS)).toBeInTheDocument();
   });
 
@@ -43,17 +41,6 @@ describe("PortfolioPageContent", () => {
     );
     for (const paragraph of PORTFOLIO_PAGE_INTRO) {
       expect(paragraphText).toContain(paragraph);
-    }
-  });
-
-  it("should link case studies named in the introduction", () => {
-    render(<PortfolioPageContent />);
-
-    for (const { text, href } of PORTFOLIO_PAGE_INTRO_LINKS) {
-      expect(within(introSection()).getAllByRole("link", { name: text })[0]).toHaveAttribute(
-        "href",
-        href
-      );
     }
   });
 

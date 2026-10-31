@@ -1,49 +1,38 @@
 # Ali Pajand
 
-Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js
+Senior Software Engineer | React · TypeScript · Next.js · Node.js · PostgreSQL
 
-I've spent 9+ years building production web applications, most recently in React, TypeScript, and Next.js. I focus on frontend architecture, design systems, and complex SaaS workflows, and I also build the Node.js/Fastify APIs, PostgreSQL models, and background jobs behind them.
+I'm a software engineer based in Montreal, Canada, with 9+ years building production web applications. My strongest background is frontend architecture, React, TypeScript, Next.js, and design systems. I also build full-stack products independently, including Node.js APIs, PostgreSQL data models, authentication, and asynchronous processing.
 
-**Available for senior frontend, full-stack, and product engineering roles.**
+## Engineering experience
 
-[alipajand.com](https://alipajand.com) · [Portfolio](https://alipajand.com/portfolio) · [LinkedIn](https://www.linkedin.com/in/alipajand/) · [Book a call](https://calendly.com/alipajand/intro)
+- **AlwaysGeeky Games:** Owned a React/TypeScript component library shared across four product surfaces, with architecture documentation, accessibility standards, mentoring, and CI quality checks.
+- **Emplifi:** Built enterprise analytics interfaces with React, TypeScript, and D3.js, including performance optimization for constrained mobile webviews.
+- **LedgerGuard:** Independently developed a contract-intelligence application across Next.js, Fastify, PostgreSQL, and queue-backed document processing.
 
-## What I work on
+## Selected work
 
-- **Frontend architecture:** component APIs, rendering performance, and async, error, and empty states in data-heavy UI
-- **Design systems:** shared component libraries, Storybook, accessibility defaults, and the conventions that keep them consistent
-- **Full-stack delivery:** Node.js/Fastify APIs, PostgreSQL, auth, queue-backed background workers, and CI/CD
-- **AI product workflows:** interfaces where model output stays unconfirmed until a person has reviewed it
-- **Developer experience:** code review standards, CI quality gates, and tools for safer AI-assisted coding
+- [LedgerGuard](https://alipajand.com/portfolio/ledgerguard) — Independent full-stack product development
+- [AlwaysGeeky Games](https://alipajand.com/portfolio/alwaysgeeky) — Shared frontend architecture and engineering standards
+- [Emplifi](https://alipajand.com/portfolio/emplifi) — Enterprise analytics and performance engineering
+- [TallyFolio](https://alipajand.com/portfolio/tallyfolio) — Personal finance product engineering
 
-## Case studies
+## Developer tools
 
-| Project                                                          | What it shows                                                                                                 |
-| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| [LedgerGuard](https://alipajand.com/portfolio/ledgerguard)       | Multi-tenant AI contract intelligence SaaS, built end to end: Next.js, Fastify, PostgreSQL, document pipeline |
-| [AlwaysGeeky Games](https://alipajand.com/portfolio/alwaysgeeky) | Shared React/TypeScript component library across four product surfaces, with CI gates and accessibility rules |
-| [Emplifi](https://alipajand.com/portfolio/emplifi)               | D3.js enterprise analytics on shared accessible components, profiled for embedded mobile webviews             |
-| [Agent tooling](https://alipajand.com/portfolio/agent-tooling)   | Deterministic TypeScript CLIs and a GitHub Action for AI-assisted development                                 |
-| [TallyFolio](https://alipajand.com/portfolio/tallyfolio)         | Privacy-first personal finance PWA with deterministic money math and CSV import review                        |
-| [ControlTech](https://alipajand.com/portfolio/controltech)       | Four years of taking early-stage SaaS products and PWAs from MVP to production                                |
-
-## Open source
-
-Local-first developer tools that make AI-assisted coding and review safer. No LLM in the loop.
+TypeScript CLIs and a GitHub Action I build and maintain as developer-experience engineering: deterministic checks for repositories that use AI coding agents, with no LLM in the loop.
 
 - [**agent-context-doctor**](https://github.com/alipajand/agent-context-doctor): audits `AGENTS.md`, `CLAUDE.md`, Cursor and Copilot rules, and committed Claude Code and MCP settings for contradictions, stale commands, secrets, and risky permissions
 - [**agent-pr-reviewer-lite**](https://github.com/alipajand/agent-pr-reviewer-lite): deterministic pre-screen that flags the files in a pull request that need human review before merge
 - [**agent-readiness-kit**](https://github.com/alipajand/agent-readiness-kit): scores how ready a repository is for AI coding agents across 13 categories and scaffolds the missing files
 - [**agent-readiness-action**](https://github.com/alipajand/agent-readiness-action): GitHub Action that runs agent-readiness-kit and agent-context-doctor on pull requests; its integrations work was [selected for the XERJ Corpus Hub](https://hub.xerj.org/contributors/alipajand) as an attributed reference
 
-## Writing
+More in the [agent tooling case study](https://alipajand.com/portfolio/agent-tooling) and on [/open-source](https://alipajand.com/open-source).
 
-- [How I use AI in my frontend engineering workflow](https://alipajand.com/writing/how-i-use-ai-in-my-frontend-engineering-workflow)
-- [How I approach senior frontend architecture](https://alipajand.com/writing/how-i-approach-senior-frontend-architecture)
-- [The quiet failure mode in contract AI](https://alipajand.com/writing/ledgerguard-truth-between-extraction-and-finance)
-- [Design systems that stick](https://alipajand.com/writing/design-systems-that-stick)
+## Links
 
-More in [/writing](https://alipajand.com/writing) and [engineering principles](https://alipajand.com/engineering-principles).
+- Website: [alipajand.com](https://alipajand.com)
+- Portfolio: [alipajand.com/portfolio](https://alipajand.com/portfolio)
+- LinkedIn: [linkedin.com/in/alipajand](https://www.linkedin.com/in/alipajand/)
 
 ## About this repo
 
