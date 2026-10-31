@@ -5,8 +5,25 @@ decided, delete it here and record the outcome in the implementing PR; the code 
 the lasting record. The longer analysis behind these items is in the history of `docs/decisions/`
 and `docs/audits/` before this file replaced them.
 
-No owner decisions are open. One decided action still waits on the owner, because the agent that
-checked it was not permitted to delete deployments.
+No owner decisions are open. The privacy cleanup of the original LedgerGuard, MapBylaw and
+TallyFolio screenshots is not finished: one decided action still waits on the owner, because the
+agent that checked it was not permitted to delete deployments.
+
+Pending:
+
+- **Delete the 62 old Vercel deployments that serve the originals.** Owner only; steps below. Not
+  done until each URL returns 404 or 410 when signed in.
+
+Done and verified on 2026-10-31:
+
+- **MapBylaw and TallyFolio design previews.** Their versions 1–5 held the unredacted MapBylaw
+  dashboard and the unverified TallyFolio dashboard. Both records (`Ez5bX39cieti12y95JwNP9`,
+  `PJzBMyJ9vQJ9u9Wpk4jiw9`) were deleted, which removes every version, and they no longer appear
+  in the account's artifact list. New previews at new URLs replace them (see
+  `docs/design/README.md`), and the 12 previews that linked to them were republished.
+- **Concept previews from #214.** All three were deleted with their version history.
+- **Branch protection.** Ruleset 15352584 has `strict_required_status_checks_policy: true`; no
+  other field changed.
 
 ## Delete the old Vercel deployments that serve the original screenshots
 
