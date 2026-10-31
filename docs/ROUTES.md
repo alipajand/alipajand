@@ -49,21 +49,21 @@ deploy.
 | `/api/contact`         | POST   | `app/api/contact/route.ts`         | Contact form handler (Resend)          |
 | `/api/webhooks/resend` | POST   | `app/api/webhooks/resend/route.ts` | Forwards inbound mail (Resend webhook) |
 
-See [API.md](API.md) for request and response details.
-
 ## Generated files and feeds
 
-| Path                                 | File                                     | Purpose                                         |
-| ------------------------------------ | ---------------------------------------- | ----------------------------------------------- |
-| `/sitemap.xml`                       | `app/sitemap.ts`                         | XML sitemap                                     |
-| `/robots.txt`                        | `app/robots.ts`                          | Crawler rules                                   |
-| `/feed.xml`                          | `app/feed.xml/route.ts`                  | RSS feed of posts (`force-static`)              |
-| `/llms.txt`                          | `app/llms.txt/route.ts`                  | Site summary for language models                |
-| `/llms-full.txt`                     | `app/llms-full.txt/route.ts`             | Full text of case studies and posts             |
-| `/opengraph-image`                   | `app/opengraph-image.tsx`                | Default Open Graph image                        |
-| `/writing/[slug]/opengraph-image`    | `app/writing/[slug]/opengraph-image.tsx` | Per-article Open Graph image                    |
-| `/icon`, `/apple-icon`               | `app/icon.tsx`, `app/apple-icon.tsx`     | Favicon and Apple touch icon                    |
-| `/images/profile-{1x1,4x3,16x9}.png` | `app/images/profile-*.png/route.ts`      | Profile images referenced by the Person JSON-LD |
+| Path                                 | File                                       | Purpose                                         |
+| ------------------------------------ | ------------------------------------------ | ----------------------------------------------- |
+| `/sitemap.xml`                       | `app/sitemap.ts`                           | XML sitemap                                     |
+| `/robots.txt`                        | `app/robots.ts`                            | Crawler rules                                   |
+| `/feed.xml`                          | `app/feed.xml/route.ts`                    | RSS feed of posts (`force-static`)              |
+| `/llms.txt`                          | `app/llms.txt/route.ts`                    | Site summary for language models                |
+| `/llms-full.txt`                     | `app/llms-full.txt/route.ts`               | Full text of case studies and posts             |
+| `/opengraph-image`                   | `app/opengraph-image.tsx`                  | Default Open Graph image                        |
+| `/portfolio/opengraph-image`         | `app/portfolio/opengraph-image.tsx`        | Portfolio index Open Graph image                |
+| `/portfolio/[slug]/opengraph-image`  | `app/portfolio/[slug]/opengraph-image.tsx` | Per-case-study Open Graph image                 |
+| `/writing/[slug]/opengraph-image`    | `app/writing/[slug]/opengraph-image.tsx`   | Per-article Open Graph image                    |
+| `/icon`, `/apple-icon`               | `app/icon.tsx`, `app/apple-icon.tsx`       | Favicon and Apple touch icon                    |
+| `/images/profile-{1x1,4x3,16x9}.png` | `app/images/profile-*.png/route.ts`        | Profile images referenced by the Person JSON-LD |
 
 ## Redirects
 

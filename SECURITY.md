@@ -2,12 +2,7 @@
 
 ## Supported versions
 
-Security updates are considered for the current stable version of this project.
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.0.x   | :white_check_mark: |
-| < 1.0   | :x:                |
+Only the live site at [alipajand.com](https://alipajand.com) and the `main` branch receive security fixes.
 
 ## Reporting a vulnerability
 

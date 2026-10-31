@@ -2,13 +2,7 @@ import * as fs from "fs";
 import { isPublished } from "utils/publication";
 import { readdirSync } from "fs";
 import { join } from "path";
-import {
-  getAllPosts,
-  getLatestPosts,
-  getPostBySlug,
-  getPostsForWritingSection,
-  toPostSummary,
-} from "utils/posts";
+import { getAllPosts, getPostBySlug, getPostsForWritingSection, toPostSummary } from "utils/posts";
 
 jest.mock("marked", () => ({
   marked: {
@@ -98,20 +92,6 @@ describe("utils/posts", () => {
     });
   });
 
-  describe("getLatestPosts", () => {
-    it("should return at most count posts", () => {
-      const posts = getLatestPosts(1, new Date());
-      expect(posts.length).toBeLessThanOrEqual(1);
-    });
-
-    it("should return same order as getAllPosts slice", () => {
-      const all = getAllPosts();
-      const now = new Date();
-      const latest = getLatestPosts(2, now);
-      expect(latest).toEqual(all.filter((post) => isPublished(post, now)).slice(0, 2));
-    });
-  });
-
   describe("getPostsForWritingSection", () => {
     it("excludes future featured and recent posts until Eastern midnight", () => {
       jest.mocked(fs.readdirSync).mockReturnValue(["older.md", "scheduled.md"] as never);
@@ -125,11 +105,9 @@ describe("utils/posts", () => {
       const before = new Date("2026-10-28T03:59:59Z");
       expect(getPostsForWritingSection(4, before).featured).toBeNull();
       expect(getPostsForWritingSection(4, before).recent.map((p) => p.slug)).toEqual(["older"]);
-      expect(getLatestPosts(4, before).map((p) => p.slug)).toEqual(["older"]);
       const after = new Date("2026-10-28T04:00:00Z");
       expect(getPostsForWritingSection(4, after).featured?.slug).toBe("scheduled");
       expect(getPostsForWritingSection(4, after).recent.map((p) => p.slug)).toEqual(["older"]);
-      expect(getLatestPosts(1, after)[0].slug).toBe("scheduled");
     });
 
     it("should return featured post when frontmatter marks one", () => {

@@ -1,8 +1,5 @@
 export const SITE_NAME = "Ali Pajand";
 
-export const PROFESSIONAL_HEADLINE =
-  "Senior Software Engineer | React, TypeScript, Next.js, Node.js, PostgreSQL | Frontend Architecture";
-
 export const TAGLINE =
   "Senior Software Engineer · React, TypeScript, Next.js, Node.js, PostgreSQL · Frontend architecture";
 

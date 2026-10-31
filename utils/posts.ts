@@ -180,10 +180,6 @@ export const getRoutablePost = (slug: string, now: Date): Post | null => {
   return post && isRoutable(post, now) ? post : null;
 };
 
-export const getLatestPosts = (count: number, now: Date): PostSummary[] => {
-  return getPublishedPosts(now).slice(0, count);
-};
-
 export const getPostsForWritingSection = (
   recentCount: number,
   now: Date
