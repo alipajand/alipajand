@@ -70,7 +70,11 @@ describe.each(PORTFOLIO_CASE_STUDY_ORDER.map((slug) => [slug]))(
           url,
           title: project.caseStudyMetaTitle,
           description: project.caseStudyMetaDescription,
+          images: [expect.objectContaining({ url: `/portfolio/${slug}/opengraph-image` })],
         })
+      );
+      expect(metadata.twitter).toEqual(
+        expect.objectContaining({ images: [`/portfolio/${slug}/opengraph-image`] })
       );
     });
 

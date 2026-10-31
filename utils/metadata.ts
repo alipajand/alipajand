@@ -111,13 +111,13 @@ export const buildPortfolioMetadata = (): Metadata => {
       title,
       description,
       locale: "en_US",
-      images: [{ ...defaultOgImage, alt: title }],
+      images: [{ ...defaultOgImage, url: "/portfolio/opengraph-image", alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [defaultOgImage.url],
+      images: ["/portfolio/opengraph-image"],
       ...twitterExtras(),
     },
   };
@@ -138,13 +138,15 @@ export const buildPortfolioCaseStudyMetadata = (project: Project): Metadata => {
       title,
       description,
       locale: "en_US",
-      images: [{ ...defaultOgImage, alt: title }],
+      images: [
+        { ...defaultOgImage, url: `/portfolio/${project.slug}/opengraph-image`, alt: title },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [defaultOgImage.url],
+      images: [`/portfolio/${project.slug}/opengraph-image`],
       ...twitterExtras(),
     },
   };
