@@ -35,19 +35,19 @@ describe("HomeStructuredData", () => {
     expect(schema.description).toBe(SITE_META_DESCRIPTION);
     expect(schema.knowsAbout).toEqual(KEYWORDS);
     expect(schema.knowsAbout).toEqual([
-      "Frontend architecture",
       "React",
-      "Next.js",
       "TypeScript",
+      "Next.js",
+      "Frontend architecture",
       "Design systems",
-      "Senior Software Engineer",
-      "Senior Product Engineer",
-      "Full-Stack Engineer",
-      "Node.js",
       "Web accessibility",
+      "Frontend performance",
+      "Node.js",
+      "Fastify",
+      "PostgreSQL",
+      "Full-stack product development",
       "Data visualization",
       "Developer experience",
-      "AI-assisted software engineering",
     ]);
     expect(schema.address.addressLocality).toBe(PERSON_SCHEMA_ADDRESS_LOCALITY);
     expect(schema.address.addressRegion).toBe(PERSON_SCHEMA_ADDRESS_REGION);

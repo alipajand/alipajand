@@ -33,14 +33,14 @@ describe("portfolio case-study routes", () => {
     const tallyfolio = buildPortfolioCaseStudyMetadata(getProjectBySlug("tallyfolio")!);
 
     expect(ledgerguard.title).toEqual({
-      absolute: "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+      absolute: "LedgerGuard — Independent Full-Stack Engineering · Ali Pajand",
     });
     expect(ledgerguard.description).toBe(
-      "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD."
+      "Case study: An independently developed multi-tenant contract-intelligence application across Next.js, Node.js/Fastify, PostgreSQL, Redis/BullMQ jobs, and a Python extraction worker, with human review before any AI-extracted value becomes a confirmed record."
     );
     expect(ledgerguard.alternates?.canonical).toBe(`${CANONICAL_URL}/portfolio/ledgerguard`);
     expect(tallyfolio.title).toEqual({
-      absolute: "TallyFolio — Privacy-first Personal Finance Tracker · Ali Pajand",
+      absolute: "TallyFolio — Independent Personal Finance Product · Ali Pajand",
     });
     expect(tallyfolio.description).not.toEqual(ledgerguard.description);
   });

@@ -2,12 +2,14 @@ import type {
   CaseStudySectionKey,
   Project,
   ProjectDecision,
+  ProjectEngineeringArea,
   ProjectFigure,
   ProjectLink,
   ReviewSample,
 } from "data/projects";
 import {
   PROJECT_CASE_STUDY_SECTION_CONTEXT,
+  PROJECT_CASE_STUDY_SECTION_ENGINEERING,
   PROJECT_CASE_STUDY_SECTION_EVIDENCE,
   PROJECT_CASE_STUDY_SECTION_IMPROVE,
   PROJECT_CASE_STUDY_SECTION_OUTCOME,
@@ -23,6 +25,7 @@ import type { CompareDiagramSpec, FlowDiagramSpec, LayersDiagramSpec } from "uti
 export type CaseSectionBody =
   | { kind: "lead"; text: string }
   | { kind: "items"; items: string[]; layout: "rows" | "cells" }
+  | { kind: "engineering"; areas: ProjectEngineeringArea[] }
   | { kind: "decisions"; decisions: ProjectDecision[] }
   | { kind: "evidence"; figures: ProjectFigure[]; sample?: ReviewSample }
   | { kind: "outcome"; items: string[] }
@@ -73,6 +76,13 @@ export const buildCaseSections = (project: Project): CaseSectionModel[] => {
       id: "built",
       title: PROJECT_CASE_STUDY_SECTION_WHAT_I_BUILT,
       body: cs.whatIBuilt.length ? { kind: "items", items: cs.whatIBuilt, layout: "cells" } : null,
+    },
+    {
+      id: "engineering",
+      title: PROJECT_CASE_STUDY_SECTION_ENGINEERING,
+      body: cs.engineeringAreas?.length
+        ? { kind: "engineering", areas: cs.engineeringAreas }
+        : null,
     },
     {
       id: "technical-decisions",

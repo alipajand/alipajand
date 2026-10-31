@@ -1,37 +1,37 @@
 export const SITE_NAME = "Ali Pajand";
 
+export const PROFESSIONAL_HEADLINE =
+  "Senior Software Engineer | React, TypeScript, Next.js, Node.js, PostgreSQL | Frontend Architecture";
+
 export const TAGLINE =
-  "Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js";
+  "Senior Software Engineer · React, TypeScript, Next.js, Node.js, PostgreSQL · Frontend architecture";
 
-export const HOME_TITLE =
-  "Ali Pajand — Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js";
+export const HOME_TITLE = "Ali Pajand | Senior Software Engineer";
 
-export const HOME_OPEN_GRAPH_TITLE =
-  "Ali Pajand — Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js";
-
-export const HOME_OPEN_GRAPH_DESCRIPTION =
-  "Frontend architecture, design systems, and engineering standards for complex products, plus the APIs, data, and background work behind them.";
+export const HOME_OPEN_GRAPH_TITLE = HOME_TITLE;
 
 export const KEYWORDS = [
-  "Frontend architecture",
   "React",
-  "Next.js",
   "TypeScript",
+  "Next.js",
+  "Frontend architecture",
   "Design systems",
-  "Senior Software Engineer",
-  "Senior Product Engineer",
-  "Full-Stack Engineer",
-  "Node.js",
   "Web accessibility",
+  "Frontend performance",
+  "Node.js",
+  "Fastify",
+  "PostgreSQL",
+  "Full-stack product development",
   "Data visualization",
   "Developer experience",
-  "AI-assisted software engineering",
 ];
 
 export const CANONICAL_URL = "https://alipajand.com";
 
 export const SITE_META_DESCRIPTION =
-  "Senior software engineer in Montreal with 9+ years building production web applications. Frontend architecture and design systems in React, TypeScript, and Next.js for complex SaaS, with the Node.js APIs, data models, and async workflows behind them.";
+  "Senior Software Engineer in Montreal with 9+ years building production web applications, specializing in React, TypeScript, and Next.js, plus hands-on Node.js, PostgreSQL, and full-stack product development.";
+
+export const HOME_OPEN_GRAPH_DESCRIPTION = SITE_META_DESCRIPTION;
 
 export const TWITTER_HANDLE: string | null = null;
 
@@ -42,18 +42,16 @@ export const WEBSITE_SCHEMA_ID = `${CANONICAL_URL}/#website`;
 export const CONTACT_FORM_LEDE = "Share enough context to make the conversation useful.";
 
 export const HERO_PROOF_ROW = [
-  { value: "9+ years", label: "building production web applications" },
+  { value: "9+ years", label: "production web engineering" },
+  { value: "Four product surfaces", label: "shared React/TypeScript design system" },
   {
-    value: "Frontend architecture",
-    label: "component APIs, design systems, accessibility, rendering performance",
+    value: "Approximately 80%",
+    label:
+      "measured Emplifi rendering improvement: fewer unnecessary re-renders and less chart-update paint work in mobile webviews on lower-powered devices",
   },
   {
-    value: "Technical leadership",
-    label: "design docs, mentoring, shared standards, CI quality gates",
-  },
-  {
-    value: "End-to-end delivery",
-    label: "Node.js APIs, PostgreSQL, auth, background workers",
+    value: "End-to-end ownership",
+    label: "APIs, data models, background jobs, and frontend",
   },
 ] as const;
 

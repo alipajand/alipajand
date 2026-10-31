@@ -15,6 +15,21 @@
   font-size: 14px;
 }
 
+.head {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.depth {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--color-mute);
+  font-size: 14px;
+  line-height: 1.5;
+  transition: color 0.4s;
+}
+
 .title {
   composes: display from "../../components/hairline/styles/type.module.css";
   font-stretch: 118%;
@@ -52,6 +67,7 @@
   color: var(--color-ink);
 }
 
+.cap[data-lit] .depth,
 .cap[data-lit] .list li {
   color: var(--color-mute-ink);
 }

@@ -47,6 +47,16 @@ export interface ProjectDecision {
   result: string;
 }
 
+export interface ProjectEngineeringPoint {
+  label: string;
+  text: string;
+}
+
+export interface ProjectEngineeringArea {
+  title: string;
+  points: ProjectEngineeringPoint[];
+}
+
 export interface ProjectLink {
   label: string;
   href: string;
@@ -57,6 +67,7 @@ export type CaseStudySectionKey =
   | "problem"
   | "role"
   | "built"
+  | "engineering"
   | "technical-decisions"
   | "ux-decisions"
   | "evidence"
@@ -74,6 +85,7 @@ export interface ProjectCaseStudy {
   problem: string;
   myRole: string[];
   whatIBuilt: string[];
+  engineeringAreas?: ProjectEngineeringArea[];
   technicalDecisions: ProjectDecision[];
   uxDecisions: string[];
   outcome: string[];
@@ -103,27 +115,20 @@ export interface Project {
 
 export const PORTFOLIO_PAGE_HEADER_TITLE = "Portfolio";
 
-export const PORTFOLIO_PAGE_INTRO = [
-  "Nine-plus years of production web work, with frontend architecture as the specialization: React, Next.js, TypeScript, shared component systems, accessibility, and rendering performance in interfaces dense enough that those things decide whether the product is usable.",
-  "The point is leverage, not a title: my roles were Senior, and the evidence is specific. At AlwaysGeeky I owned the shared design system four product surfaces were built on, wrote the design docs for its library and convention changes, drove adoption with the engineers building those surfaces, and mentored through pairing and code review. The standards were enforced in CI rather than by memory.",
-  "The case studies below are ordered by how much they show. LedgerGuard is a product I own end to end, from the Next.js App Router frontend through the Fastify API, PostgreSQL schema, and queue-backed document pipeline. AlwaysGeeky is the shared React and TypeScript library four product surfaces were built on, along with the conventions and CI gates that kept them consistent. Emplifi is dense D3 analytics and the rendering work that made it survive mobile webviews.",
-  "Each write-up covers the problem, what I owned, the decisions that mattered, and what I traded away to get there. I use AI coding agents for implementation, testing, and investigation, and keep architecture, security, and final review on my side of the line.",
-] as const;
+export const PORTFOLIO_PAGE_HEADING = "Selected Engineering Work";
 
-export const PORTFOLIO_PAGE_INTRO_LINKS = [
-  { text: "LedgerGuard", href: "/portfolio/ledgerguard" },
-  { text: "AlwaysGeeky", href: "/portfolio/alwaysgeeky" },
-  { text: "Emplifi", href: "/portfolio/emplifi" },
+export const PORTFOLIO_PAGE_INTRO = [
+  "Production frontend engineering, shared design systems, performance optimization, and independently developed full-stack products. Each case study explains the problem, my responsibilities, the technical decisions, and the evidence behind the result.",
+  "My professional background is strongest in React, TypeScript, Next.js, and frontend architecture. My independent product work extends across Node.js APIs, PostgreSQL, authentication, asynchronous processing, and developer tooling.",
 ] as const;
 
 export const PORTFOLIO_PROFILE_DETAILS =
   "Based in Montreal, Canada. English: professional. French: conversational.";
 
-export const PORTFOLIO_META_TITLE =
-  "Ali Pajand — Engineering Portfolio | React, Next.js & Full-Stack Systems";
+export const PORTFOLIO_META_TITLE = "Engineering Portfolio | Ali Pajand";
 
 export const PORTFOLIO_META_DESCRIPTION =
-  "Case studies in frontend architecture, design systems, and end-to-end product delivery: React, Next.js, TypeScript, D3 analytics, Node.js APIs, PostgreSQL, and async AI workflows.";
+  "Engineering case studies covering React, TypeScript, Next.js, Node.js, PostgreSQL, frontend architecture, design systems, and full-stack product delivery.";
 
 export const PORTFOLIO_CASE_STUDY_ORDER = [
   "ledgerguard",
@@ -141,14 +146,14 @@ export const PROJECTS: Project[] = [
     slug: "ledgerguard",
     hasDedicatedCaseStudy: true,
     name: "LedgerGuard",
-    caseStudyTitle: "Full-Stack AI Contract Intelligence",
-    caseStudyMetaTitle: "LedgerGuard — Full-Stack AI Contract Intelligence · Ali Pajand",
+    caseStudyTitle: "Independent Full-Stack Engineering",
+    caseStudyMetaTitle: "LedgerGuard — Independent Full-Stack Engineering · Ali Pajand",
     caseStudyMetaDescription:
-      "Case study: End-to-end ownership of a multi-tenant AI contract intelligence product across Next.js, Node.js/Fastify, PostgreSQL, authentication, background workers, document processing, billing, Docker, and CI/CD.",
+      "Case study: An independently developed multi-tenant contract-intelligence application across Next.js, Node.js/Fastify, PostgreSQL, Redis/BullMQ jobs, and a Python extraction worker, with human review before any AI-extracted value becomes a confirmed record.",
     employerContext:
-      "AI contract intelligence SaaS for renewals, commitments, notice windows, and financial exposure.",
+      "Independently developed contract-intelligence application for renewals, commitments, notice windows, and financial exposure.",
     cardProblem:
-      "A multi-tenant contract-intelligence SaaS built alone across the Next.js App Router product, Fastify API, PostgreSQL schema, authentication, billing, and a queue-backed document pipeline. The design problem was keeping probabilistic extraction from becoming confirmed contract data without a human reviewing the evidence.",
+      "Designed and developed a multi-tenant contract-intelligence application across Next.js, Node.js/Fastify, PostgreSQL, and queue-backed processing. Built the document ingestion and review workflow so AI-extracted information remains unconfirmed until a person reviews its source evidence.",
     role: "Senior Product Engineer",
     timeframe: "2026–Present",
     capabilityTags: [
@@ -162,9 +167,9 @@ export const PROJECTS: Project[] = [
     ],
     caseStudy: {
       overview:
-        "LedgerGuard tracks contract renewals, commitments, notice windows, and financial exposure. I designed and built it alone: the product, the API, the data model, the document pipeline, billing, infrastructure, and delivery.",
+        "LedgerGuard is an independently developed contract-intelligence application that connects document ingestion, extraction, review, and financial commitments. I designed and implemented its Next.js frontend, Node.js/Fastify API, PostgreSQL data model, and asynchronous processing infrastructure. The central technical challenge was ensuring AI-generated suggestions never became confirmed financial records without explicit human review.",
       context:
-        "A Next.js App Router application sits in front of a Node.js/Fastify API, Supabase PostgreSQL/Auth/Storage, Redis/BullMQ orchestration, and a Python worker running AWS Textract and OpenAI extraction. Every tenant boundary, job contract, and API surface in that list is one I had to define, because there was nobody else to define them.",
+        "A Next.js App Router application sits in front of a Node.js/Fastify API, Supabase PostgreSQL/Auth/Storage, Redis/BullMQ orchestration, and a Python worker that uses AWS Textract for OCR and OpenAI models for structured extraction. Every tenant boundary, job contract, and API surface in that list is one I had to define, because there was nobody else to define them.",
       problem:
         "Extraction output is useless if the interface makes it look settled. Someone deciding whether to exercise a notice window needs to know whether a date came out of a model or out of a person confirming it against the document. The workflow had to carry that distinction from the database through to the screen, and stay legible while extraction was still running, partially done, or failed.",
       myRole: [
@@ -177,7 +182,117 @@ export const PROJECTS: Project[] = [
         "Tenant-aware dashboard navigation and the review surfaces for contract data.",
         "A verification UI that keeps suggested values visually and structurally apart from confirmed ones, with source context attached.",
         "Renewal and portfolio views that stay honest about which records are still incomplete.",
-        "API contracts, authentication, billing, job orchestration, Docker setup, and the CI/CD pipeline.",
+        "API contracts, authentication, Stripe billing, job orchestration, deployment configuration, and the CI/CD pipeline.",
+      ],
+      engineeringAreas: [
+        {
+          title: "Application architecture and system boundaries",
+          points: [
+            {
+              label: "Implemented",
+              text: "A pnpm monorepo: a Next.js App Router web app, a Node.js/Fastify API, and a Python extraction service driven by a Node.js BullMQ runner, with shared packages for the database, queue contracts, and UI. The web app talks only to the API, the API only enqueues work, and the worker reports back through authenticated internal routes. CI checks keep AI and LLM dependencies out of the API and enforce route layering.",
+            },
+            {
+              label: "Delegated to managed services",
+              text: "PostgreSQL, authentication, and file storage run on Supabase. The API, workers, and Redis run as managed Railway services and the web app on Vercel. There is no Kubernetes or self-managed container orchestration.",
+            },
+          ],
+        },
+        {
+          title: "API design and authentication",
+          points: [
+            {
+              label: "Implemented",
+              text: "Fastify routes validate input with zod schemas converted to JSON Schema per route, which also produces the OpenAPI description. Every request carries a Supabase session token that the API verifies, then resolves the caller's organization and checks role-based permissions through route-level wrappers. Sign-in is passwordless by design: email link or one-time code, passkeys, and Google, Apple, or SSO.",
+            },
+            {
+              label: "Delegated",
+              text: "Identity itself is Supabase Auth, not a custom identity service.",
+            },
+          ],
+        },
+        {
+          title: "PostgreSQL data model and tenant-scoped access",
+          points: [
+            {
+              label: "Implemented",
+              text: "An organization-based tenant model with optional department scoping. Schema changes ship as append-only SQL migrations run by a small TypeScript runner, and CI rejects edits to migrations that have already shipped. Tenant isolation is enforced in the API's data-access layer, where queries carry an explicit organization filter, and CI checks that tenant-scoped routes keep their organization and document scope.",
+            },
+            {
+              label: "Not built",
+              text: "Tenants share one PostgreSQL database. There is no per-tenant database or sharding, which is the right size for the product today.",
+            },
+          ],
+        },
+        {
+          title: "Redis/BullMQ jobs, retries, and failure states",
+          points: [
+            {
+              label: "Implemented",
+              text: "Six BullMQ queues, document processing among them, with zod-validated job payloads and exponential-backoff retries. When document processing runs out of attempts, the job moves to a dead-letter queue and the document records a failed state with a failure reason. Scheduled recovery jobs mark documents stuck in processing as failed, so nothing waits behind a spinner indefinitely. Failure codes sent by the worker never include document content.",
+            },
+            {
+              label: "Not built yet",
+              text: "Uptime monitors and alert routing for the queues. Today failures surface through Sentry and through document state in the product.",
+            },
+          ],
+        },
+        {
+          title: "Python extraction worker and AWS Textract",
+          points: [
+            {
+              label: "Implemented",
+              text: "The Python service reads embedded PDF text first and falls back to AWS Textract OCR page by page when a page has none. OpenAI models then produce structured extraction against a schema, and every value is stored with a confidence score, a source page, and a citation excerpt. An evaluation harness sits alongside the worker for checking extraction changes.",
+            },
+            {
+              label: "Not built",
+              text: "Textract runs in its synchronous mode only, so very large documents have to be split first. Extraction uses hosted models; there is no model training or fine-tuning.",
+            },
+          ],
+        },
+        {
+          title: "Human-in-the-loop review and confirmation",
+          points: [
+            {
+              label: "Implemented",
+              text: "Every extracted field starts as suggested. A person moves it to verified or corrected through a permission-checked update that compares versions before writing, so two reviewers cannot silently overwrite each other: the API rejects stale or missing versions and asks for open findings to be acknowledged first. Exports and the commitment ledger count only verified or corrected values.",
+            },
+            {
+              label: "Deliberately not built",
+              text: "Automatic confirmation above a confidence threshold. A high score still produces a suggestion, not a record.",
+            },
+          ],
+        },
+        {
+          title: "Testing, CI, security, and delivery",
+          points: [
+            {
+              label: "Implemented",
+              text: "Vitest across the API, web app, and shared packages, Playwright end-to-end specs, and pytest for the worker. API tests run against a real PostgreSQL database built from every migration. CI selects the jobs a change affects, then runs lint, typecheck, build, pnpm and pip audits, migration and boundary checks, and a release gate. Actions are pinned to commit SHAs, Dependabot covers npm, Python, and Actions, and Sentry runs in every app.",
+            },
+            {
+              label: "Not built yet",
+              text: "Coverage thresholds and static security analysis such as CodeQL. Without an enforced coverage report, I don't quote a coverage figure.",
+            },
+          ],
+        },
+        {
+          title: "Trade-offs, known limitations, and lessons",
+          points: [
+            {
+              label: "Trade-off",
+              text: "Separating the deterministic API from the probabilistic worker cost extra job contracts, a queue runner, and more failure states to design. It paid for itself because extraction can fail or retry without touching confirmed data.",
+            },
+            {
+              label: "Known limitations",
+              text: "Large scanned documents need splitting before OCR, queue alerting is not yet routed, and some data-access code still carries a leftover parameter from an earlier tenant-database design.",
+            },
+            {
+              label: "Lesson",
+              text: "The review boundary had to exist in the schema and the API before the interface could show it honestly. A label in the UI alone would have been easy to bypass.",
+            },
+          ],
+        },
       ],
       technicalDecisions: [
         {
@@ -542,20 +657,20 @@ export const PROJECTS: Project[] = [
     slug: "tallyfolio",
     hasDedicatedCaseStudy: true,
     name: "TallyFolio",
-    caseStudyTitle: "Privacy-first personal finance tracker",
-    caseStudyMetaTitle: "TallyFolio — Privacy-first Personal Finance Tracker · Ali Pajand",
+    caseStudyTitle: "Independent Personal Finance Product",
+    caseStudyMetaTitle: "TallyFolio — Independent Personal Finance Product · Ali Pajand",
     caseStudyMetaDescription:
-      "Case study: Privacy-first personal finance tracker built as a manual-first PWA. Next.js, TypeScript, deterministic financial calculations, import review workflows, and production-grade auth. Ali Pajand.",
+      "Case study: An independently developed personal finance PWA on Next.js, TypeScript, and Supabase PostgreSQL, with integer money math, per-user data access enforced by row-level security, CSV import review, and tested database policies. Ali Pajand.",
     employerContext:
-      "Full-stack PWA for manual-first personal finance tracking, reporting, forecasting, and asset management.",
+      "Independently developed, manual-first personal finance PWA. No bank connections.",
     cardProblem:
-      "Most personal finance apps make you choose between bank aggregation and a spreadsheet. TallyFolio is the third option: a full-stack PWA with deterministic money math, CSV import review, forecasting, and production auth, built without handing over bank credentials.",
+      "An independently developed personal finance product where correctness comes first: money stored as integer minor units and calculated in pure, tested modules, per-user data access enforced by PostgreSQL row-level security and checked by database tests, and imported or proposed transactions held for review before they count. There are no bank integrations; data enters through CSV import or by hand.",
     role: "Founder · Product Engineer · Designer",
     timeframe: "Independent",
     capabilityTags: ["Full-stack product", "Financial correctness", "Privacy boundaries"],
     caseStudy: {
       overview:
-        "A full-stack PWA for manual-first personal finance tracking, built with deterministic financial calculations, CSV import workflows, reports, forecasting, subscriptions, investments, and asset tracking.",
+        "TallyFolio is a personal finance PWA I develop independently on Next.js, TypeScript, and Supabase PostgreSQL. The engineering focus is correctness and data boundaries: integer money math in pure domain modules, per-user access enforced by row-level security, and transactions that pass through review before they reach any total. It does not connect to banks.",
       context:
         "TallyFolio is a manual-first personal finance product built around privacy, deterministic calculations, and everyday workflows that do not depend on bank aggregation. The product needed modern import, reporting, and forecasting UX without losing user control over the data model.",
       problem:
@@ -668,7 +783,8 @@ export const PROJECTS: Project[] = [
         },
       ],
       outcome: [
-        "Shipped a live full-stack finance product with privacy-conscious workflows and production-grade auth.",
+        "Shipped a live full-stack finance product with privacy-conscious workflows and authenticated, per-user data access.",
+        "Backed the data boundary with database tests: pgTAP suites check row-level security isolation between users, constraints, and atomic database functions, and run in CI against a local Supabase stack alongside Vitest unit tests and Playwright end-to-end checks.",
         "Established deterministic finance logic across budgets, reports, forecasts, subscriptions, investments, and asset tracking.",
         "Created modern import and review workflows without depending on bank aggregation as the product baseline.",
         "Built an optional MCP endpoint, off by default, through which an approved assistant reads the same figures as the app and proposes transactions only as drafts.",
@@ -790,21 +906,20 @@ export const PROJECTS: Project[] = [
     slug: "alwaysgeeky",
     hasDedicatedCaseStudy: true,
     name: "AlwaysGeeky Games",
-    caseStudyTitle: "Shared Design System & Frontend Standards",
-    caseStudyMetaTitle:
-      "AlwaysGeeky Games — Shared Design System & Frontend Standards · Ali Pajand",
+    caseStudyTitle: "Shared Frontend Architecture",
+    caseStudyMetaTitle: "AlwaysGeeky Games — Shared Frontend Architecture · Ali Pajand",
     caseStudyMetaDescription:
-      "Case study: A shared React and TypeScript component library across four product surfaces, with Storybook, accessibility work, TypeScript and review conventions, and CI quality gates. Senior Frontend Engineer — Ali Pajand.",
+      "Case study: Owning a shared React and TypeScript component library across four product surfaces, with component APIs, Storybook conventions, adoption support, accessibility standards, and CI checks. Senior Frontend Engineer — Ali Pajand.",
     employerContext:
       "Shared component library, frontend conventions, and product workflows across four product surfaces.",
     cardProblem:
-      "Four product surfaces, one React and TypeScript component library. I built and owned it, documented it in Storybook, and shipped marketplace, authentication, and account workflows on top of it. The lasting part was the conventions: component APIs, accessibility defaults, TypeScript and code-review rules, and CI gates that caught drift before it shipped.",
+      "Owned a React and TypeScript component library used across four product surfaces. Built shared component APIs, documented conventions, supported adoption across engineering teams, and maintained quality through code review, accessibility standards, and CI checks.",
     role: "Senior Frontend Engineer",
     timeframe: "2024–2026",
     capabilityTags: ["React", "Next.js", "TypeScript", "Storybook", "GraphQL", "Accessibility"],
     caseStudy: {
       overview:
-        "Four product surfaces shared one React and TypeScript component library. I built and owned it, and established the conventions that decided how teams were expected to build against it: component APIs, accessibility defaults, TypeScript rules, and what a review was supposed to catch.",
+        "At AlwaysGeeky Games, I owned a shared React and TypeScript component library used across four product surfaces. I defined component APIs, documented conventions in Storybook, supported migrations and adoption with other engineers, and reinforced accessibility and code-quality standards through reviews and CI. I also delivered product features across marketplace, account, and authentication workflows.",
       context:
         "The surfaces included a marketplace, authentication, product, and account experiences, all in Next.js on top of the shared library, documented in Storybook and integrated over GraphQL. Alongside the product work, we ran an AI-assisted development workflow using Cursor with MCP tooling, so the same lint, type, and test signals engineers saw in CI were available in the editor.",
       problem:
@@ -1000,13 +1115,13 @@ export const PROJECTS: Project[] = [
     slug: "emplifi",
     hasDedicatedCaseStudy: true,
     name: "Emplifi",
-    caseStudyTitle: "Enterprise Analytics",
-    caseStudyMetaTitle: "Emplifi — Enterprise Analytics · Ali Pajand",
+    caseStudyTitle: "Enterprise Analytics & Performance",
+    caseStudyMetaTitle: "Emplifi — Enterprise Analytics & Performance · Ali Pajand",
     caseStudyMetaDescription:
-      "Case study: React, TypeScript, and D3.js enterprise analytics modules built on shared accessible components, with rendering work profiled on the embedded mobile webview path. Senior Frontend Engineer — Ali Pajand.",
+      "Case study: React, TypeScript, and D3.js enterprise analytics dashboards on shared accessible components, with about 80% less unnecessary re-rendering and chart-update paint work on lower-powered mobile webviews. Senior Frontend Engineer — Ali Pajand.",
     employerContext: "Enterprise analytics dashboards with dense data views and embedded contexts.",
     cardProblem:
-      "Data-heavy React, TypeScript, and D3.js analytics modules assembled from shared accessible components, running in desktop browsers and embedded mobile webviews, with rendering work profiled on the webview path.",
+      "Developed React and TypeScript analytics interfaces with D3.js for desktop and embedded environments. Profiling the mobile-webview path cut unnecessary re-renders and chart-update paint cost by about 80% on lower-powered devices, alongside reusable accessible components and engineering mentorship.",
     role: "Senior Frontend Engineer",
     timeframe: "2022–2023",
     capabilityTags: [
@@ -1020,7 +1135,7 @@ export const PROJECTS: Project[] = [
     ],
     caseStudy: {
       overview:
-        "Enterprise social analytics: metric-heavy dashboards that had to stay readable and responsive while rendering a lot of data at once. Most of my work sat where chart behaviour, React composition, and the rendering budget meet.",
+        "At Emplifi, I developed data-intensive React and TypeScript dashboards using D3.js across desktop, embedded, and mobile-webview contexts. I investigated rendering bottlenecks, improved chart-update performance on constrained devices, built reusable accessible components, and mentored engineers through the company's formal mentoring program.",
       context:
         "The dashboards were React, TypeScript, D3.js, and GSAP, shipped to standard browsers and to embedded mobile webviews. The webviews were the constraint that mattered: they surfaced animation and layout cost that desktop testing never showed.",
       problem:
@@ -1030,6 +1145,7 @@ export const PROJECTS: Project[] = [
         "Profiled and reduced rendering cost in dense views, focusing on the embedded webview path where problems showed up first.",
         "Built the reusable, accessible components the dashboard modules were assembled from, and wrote the documentation that let other engineers use them without asking.",
         "Used Sentry and Hotjar to understand how the dashboards behaved after release rather than only in local testing.",
+        "Mentored one to two engineers through the company's formal mentoring program.",
       ],
       whatIBuilt: [
         "Metric-heavy dashboard modules with chart interactions and the UI around them.",
@@ -1063,6 +1179,7 @@ export const PROJECTS: Project[] = [
         "Made motion serve orientation and hierarchy rather than decorative movement.",
       ],
       outcome: [
+        "Cut unnecessary re-renders and chart-update paint cost on lower-powered devices by about 80%, measured by profiling the embedded mobile-webview path.",
         "Left behind reusable accessible components and documentation that colleagues credited with helping the team ship faster.",
         "Left behind patterns for balancing chart interaction against readability in dense product surfaces.",
         "Kept performance work anchored to the environments the dashboards actually ran in.",
@@ -1149,6 +1266,8 @@ export const PROJECTS: Project[] = [
               },
               {
                 label: "Reduce cost",
+                detail:
+                  "Cut unnecessary re-renders and chart-update paint cost on lower-powered devices by about 80%, measured by profiling the embedded mobile-webview path.",
               },
               {
                 label: "Monitor release",

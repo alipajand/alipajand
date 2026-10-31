@@ -24,6 +24,18 @@ const GLYPHS: Record<string, ReactNode> = {
       <circle cx="18" cy="54" r="4" />
     </>
   ),
+  emplifi: (
+    <>
+      <path d="M6 6 V66 H86" />
+      <path d="M14 54 L30 40 L44 46 L60 24 L78 30" />
+      <circle cx="30" cy="40" r="3" />
+      <circle cx="60" cy="24" r="3" />
+      <rect x="18" y="58" width="6" height="8" />
+      <rect x="34" y="52" width="6" height="14" />
+      <rect x="50" y="56" width="6" height="10" />
+      <rect x="66" y="48" width="6" height="18" />
+    </>
+  ),
 };
 
 export const CaseGlyph = ({ id, className }: { id: string; className?: string }) => {
