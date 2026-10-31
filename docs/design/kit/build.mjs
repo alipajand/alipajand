@@ -1,4 +1,5 @@
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { registerHooks } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -13,6 +14,19 @@ const OUT = join(KIT, "..", "pages");
 const previewAt = process.argv.indexOf("--preview");
 const PREVIEW = previewAt > -1 ? process.argv[previewAt + 1] : null;
 
+const PATH_ALIASES = Object.entries(JSON.parse(readFileSync(join(ROOT, "tsconfig.json"), "utf-8")).compilerOptions.paths).map(
+  ([alias, [target]]) => [alias.replace(/\*$/, ""), join(ROOT, target.replace(/\*$/, ""))]
+);
+registerHooks({
+  resolve(specifier, context, nextResolve) {
+    const match = PATH_ALIASES.find(([alias]) => specifier.startsWith(alias));
+    if (!match) return nextResolve(specifier, context);
+    const base = join(match[1], specifier.slice(match[0].length));
+    const file = [".ts", ".tsx", "/index.ts"].map((ext) => base + ext).find(existsSync);
+    return nextResolve(file ? pathToFileURL(file).href : specifier, context);
+  },
+});
+
 const kit = (name) => readFileSync(join(KIT, name), "utf-8");
 const fromRoot = (path) => import(pathToFileURL(join(ROOT, path)).href);
 const json = (value) => JSON.stringify(value).replace(/</g, "\\u003c");
@@ -26,6 +40,14 @@ const notFound = await fromRoot("data/notFound.ts");
 const mcp = await fromRoot("data/diagrams.ts");
 const { extractDiagramBlocks } = await fromRoot("utils/diagramBlocks.ts");
 const { addHeadingIds } = await fromRoot("utils/headings.ts");
+
+const kitImage = (src) => join(KIT, "img", `${src.split("/").pop().replace(/\.png$/, "")}.jpg`);
+const missingImages = PORTFOLIO_CASE_STUDY_ORDER.flatMap(
+  (slug) => PROJECTS.find((p) => p.slug === slug).caseStudy.interfaceEvidence?.map((f) => kitImage(f.src)) ?? []
+).filter((path) => !existsSync(path));
+if (missingImages.length) {
+  throw new Error(`Missing case study images in docs/design/kit/img:\n${missingImages.map((path) => `  ${path.split("/").pop()}`).join("\n")}`);
+}
 
 const URLS = JSON.parse(kit("urls.json"));
 const link = (path) => {
@@ -108,7 +130,7 @@ const caseImages = (project) =>
   Object.fromEntries(
     (project.caseStudy.interfaceEvidence ?? []).map((f) => {
       const name = f.src.split("/").pop().replace(/\.png$/, "");
-      return [name, dataUri(join(KIT, "img", `${name}.jpg`), "image/jpeg")];
+      return [name, dataUri(kitImage(f.src), "image/jpeg")];
     })
   );
 
