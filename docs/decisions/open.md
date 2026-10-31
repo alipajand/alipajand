@@ -5,21 +5,24 @@ decided, delete it here and record the outcome in the implementing PR; the code 
 the lasting record. The longer analysis behind these items is in the history of `docs/decisions/`
 and `docs/audits/` before this file replaced them.
 
-No owner decisions are open. The privacy cleanup of the original LedgerGuard, MapBylaw and
-TallyFolio screenshots is finished.
+No open owner decisions or pending privacy-cleanup actions remain.
 
-Done and verified on 2026-10-31:
+Privacy cleanup of the original LedgerGuard, MapBylaw and TallyFolio screenshots, completed on
+2026-10-31:
 
-- **MapBylaw and TallyFolio design previews.** Their versions 1–5 held the unredacted MapBylaw
-  dashboard and the unverified TallyFolio dashboard. Both records (`Ez5bX39cieti12y95JwNP9`,
-  `PJzBMyJ9vQJ9u9Wpk4jiw9`) were deleted, which removes every version, and they no longer appear
-  in the account's artifact list. New previews at new URLs replace them (see
-  `docs/design/README.md`), and the 12 previews that linked to them were republished.
+- **Historical Vercel deployments.** The owner removed the 62 production deployments that served
+  the original `/portfolio-media/ledgerguard-dashboard.png` and
+  `/portfolio-media/mapbylaw-dashboard.png` (Vercel CLI 65.9.0, team `pajand`). Authenticated
+  read-back: none of the 62 IDs is in the project's deployment list, direct lookups return 404
+  `not_found`, and every old URL returns 404 `DEPLOYMENT_NOT_FOUND` for both screenshot paths, not
+  a redirect to sign-in. Vercel can restore a deleted deployment for 30 days; none is active.
+- **Production.** `alipajand.com`, `alipajand-pajand.vercel.app` and
+  `alipajand-git-main-pajand.vercel.app` point to `dpl_BHvRX3ews7yx8KtxDU9jrgHH5Wo2` (`f86bf39`).
+  `/portfolio` returns 200 and both original screenshot paths return 404.
+- **MapBylaw and TallyFolio design previews.** The records holding versions 1–5
+  (`Ez5bX39cieti12y95JwNP9`, `PJzBMyJ9vQJ9u9Wpk4jiw9`) were deleted with their history and
+  replaced by sanitized previews at new URLs (see `docs/design/README.md`).
 - **Concept previews from #214.** All three were deleted with their version history.
-- **Old Vercel deployments.** The 62 production deployments that served the original
-  `/portfolio-media/ledgerguard-dashboard.png` and `/portfolio-media/mapbylaw-dashboard.png` are
-  deleted. None is in the project's deployment list, and each URL returns 404
-  `DEPLOYMENT_NOT_FOUND`. Production still serves 200 on `/` and `/portfolio`, and both original
-  paths return 404.
-- **Branch protection.** Ruleset 15352584 has `strict_required_status_checks_policy: true`; no
-  other field changed.
+- **Branch protection.** Ruleset 15352584 has `strict_required_status_checks_policy: true`, with
+  both required checks unchanged.
+- **Unchanged.** No sign-in identities were changed, and Git history was not rewritten.
