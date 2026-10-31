@@ -43,7 +43,7 @@ The kit in `kit/` turns the site's data into the pages:
 - `base.css`, `base.js`, `chrome.html`, `diagrams.css` and `diagrams.js` are shared by every page.
 - `fit.js` is added to the end of every page. It shrinks any title that would overflow.
 - Each `<page>.src.html` file is one page template, and `static/` holds the hand-built home, portfolio and open-source pages.
-- `img/` holds the case study screenshots, 1728px wide.
+- `img/` holds the case study screenshots, 1728px wide. Every screenshot a case study lists in `data/projects.ts` needs a JPEG here with the same name; the build stops and lists any that are missing before it writes a page.
 
 Build with Node 24 from the repository root:
 
