@@ -259,7 +259,6 @@ When summarizing work, include:
 - Location: Montreal, Canada
 - Site: alipajand.com
 - Positioning: Senior Software Engineer | React, TypeScript, Next.js, Node.js, PostgreSQL | Frontend Architecture
-- Canonical claims, timeline, and copy rules: `docs/career/positioning.md`
 - Experience: 9+ years
 - Core technologies: React, Next.js, TypeScript, Node.js, Fastify, PostgreSQL, design systems, accessibility, dashboards, AI product workflows, developer experience
 - Recent work includes LedgerGuard, AlwaysGeeky Games, Emplifi, ControlTech, and AI/DX open-source tooling

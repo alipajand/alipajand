@@ -43,4 +43,4 @@ pnpm install
 pnpm dev
 ```
 
-Checks: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`. Architecture and route notes are in [`docs/`](docs/). The positioning and copy rules for this site, the GitHub profile, and LinkedIn are in [`docs/career/`](docs/career/).
+Checks: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`. Architecture and route notes are in [`docs/`](docs/).
