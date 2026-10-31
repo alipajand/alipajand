@@ -139,6 +139,14 @@ const EXPOSED_IMAGES: Array<[label: string, hash: string]> = [
     "d02f1a4d2838f2b94a5e1c548db5e02bb0b8bcf9899de5dcbc28c7c3f91837eb",
   ],
   [
+    "portfolio-redesign artifacts/shared/media/tallyfolio-dashboard-1280.webp (unmerged branch)",
+    "6690967f127fd49c65743e6725f02152d5fb1c03b0bcc30fc5d4908c653b3d0e",
+  ],
+  [
+    "portfolio-redesign artifacts/shared/media/tallyfolio-dashboard-640.webp (unmerged branch)",
+    "714c9282ab353d6094fb1ca880d2a78a614ed63c7bc547c585ce916e5fadb86a",
+  ],
+  [
     "portfolio-redesign cinematic-exploration/prototype/media/ledgerguard-dashboard-1600.webp (unmerged branch)",
     "0ef5e23d3b79b00e635a5213a9f1868c8166baa1517644858fc0799a44c7afd2",
   ],
