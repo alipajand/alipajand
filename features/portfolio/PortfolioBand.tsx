@@ -1,6 +1,5 @@
 import { Band } from "components/hairline/Band/Band";
 import { BandChevrons } from "components/hairline/Band/BandChevrons";
-import { PortfolioIntroParagraph } from "features/portfolio/PortfolioIntroParagraph";
 import { StackWords } from "features/portfolio/StackWords";
 import styles from "features/portfolio/PortfolioBand.module.css";
 import {
@@ -14,7 +13,7 @@ import {
   PORTFOLIO_QUOTE,
   PORTFOLIO_QUOTE_CITE,
 } from "data/portfolioIndex";
-import { PORTFOLIO_PAGE_INTRO, PORTFOLIO_PAGE_INTRO_LINKS } from "data/projects";
+import { PORTFOLIO_PAGE_INTRO } from "data/projects";
 
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
@@ -32,12 +31,9 @@ export const PortfolioBand = () => (
     <div className={styles.body}>
       <div className={styles.intro}>
         {PORTFOLIO_PAGE_INTRO.map((paragraph, index) => (
-          <PortfolioIntroParagraph
-            key={paragraph}
-            text={paragraph}
-            links={PORTFOLIO_PAGE_INTRO_LINKS}
-            className={index === 0 ? undefined : styles.small}
-          />
+          <p key={paragraph} className={index === 0 ? undefined : styles.small}>
+            {paragraph}
+          </p>
         ))}
       </div>
       <StackWords>

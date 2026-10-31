@@ -9,6 +9,7 @@ describe("portfolio internal links", () => {
     expect(HOMEPAGE_CASE_STUDIES.map((caseStudy) => caseStudy.href)).toEqual([
       "/portfolio/ledgerguard",
       "/portfolio/alwaysgeeky",
+      "/portfolio/emplifi",
     ]);
   });
 

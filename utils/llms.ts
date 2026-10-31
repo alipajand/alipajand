@@ -138,6 +138,19 @@ const caseStudySection = (project: Project): string => {
     "",
     bulletList(caseStudy.whatIBuilt),
     "",
+    ...(caseStudy.engineeringAreas?.length
+      ? [
+          "#### Engineering, layer by layer",
+          "",
+          caseStudy.engineeringAreas
+            .map(
+              (area) =>
+                `- ${area.title}\n${area.points.map((point) => `  - ${point.label}: ${point.text}`).join("\n")}`
+            )
+            .join("\n"),
+          "",
+        ]
+      : []),
     "#### Technical decisions",
     "",
     decisions,

@@ -1,6 +1,7 @@
 export interface HiringFitCard {
   id: string;
   title: string;
+  depth: string;
   body: string;
 }
 
@@ -8,28 +9,29 @@ export const HIRING_FIT_HEADING = "Engineering Capabilities";
 
 export const HIRING_FIT_CARDS: HiringFitCard[] = [
   {
-    id: "frontend-architecture",
-    title: "Frontend Architecture",
-    body: "React, Next.js App Router, TypeScript, Server Components, SSR and static rendering, component architecture, state and data-flow boundaries, TanStack Query, Zustand, Redux, Vue.js and Nuxt.js",
+    id: "frontend-engineering",
+    title: "Frontend Engineering",
+    depth: "Primary specialization, across every professional role since 2015.",
+    body: "React, TypeScript, Next.js, Component architecture, Accessibility, Performance, State management, Design systems",
   },
   {
-    id: "design-systems",
-    title: "Design Systems & UI Engineering",
-    body: "Shared component libraries, component APIs, Storybook, semantic HTML, WCAG and keyboard behaviour, responsive systems, Tailwind CSS, Figma",
+    id: "full-stack-product-development",
+    title: "Full-Stack Product Development",
+    depth:
+      "Built hands-on in independent products (LedgerGuard, TallyFolio) and through API contract work at ControlTech. AWS appears as Textract OCR in LedgerGuard, not as a platform specialization.",
+    body: "Node.js, Fastify, API development, PostgreSQL, Supabase, Authentication, Background processing, Redis/BullMQ, Python workers",
   },
   {
-    id: "full-stack-product-systems",
-    title: "Full-Stack & Product Systems",
-    body: "Node.js, Fastify, REST and GraphQL APIs, PostgreSQL, Prisma, Supabase Auth and Storage, Redis/BullMQ background jobs, Python workers, Stripe, Docker, AWS, Linux",
+    id: "engineering-quality",
+    title: "Engineering Quality",
+    depth: "Practised in production teams and enforced in CI in my own products.",
+    body: "Testing, Code review, CI/CD, Observability, Git workflows, Security-conscious implementation, Release verification",
   },
   {
-    id: "quality-developer-experience",
-    title: "Quality & Developer Experience",
-    body: "Jest, React Testing Library, Playwright, Cypress, GitHub Actions, CI quality gates, feature flags and staged rollouts, code review, AI-assisted development with Cursor and custom MCP tooling",
-  },
-  {
-    id: "performance-observability",
-    title: "Performance & Observability",
-    body: "D3.js, GSAP, rendering and paint optimization, mobile webview constraints, Web Vitals, Chrome DevTools profiling, Sentry, Hotjar",
+    id: "technical-leadership",
+    title: "Technical Leadership",
+    depth:
+      "Senior individual-contributor leadership: design docs, standards, and mentoring, not people management.",
+    body: "Architecture decisions, Design documentation, Engineering standards, Code review, Mentoring, Adoption of shared systems",
   },
 ];

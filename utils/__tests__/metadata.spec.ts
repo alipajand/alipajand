@@ -25,18 +25,12 @@ import { getProjectBySlug } from "utils/projects";
 
 describe("utils/metadata", () => {
   it("should keep the homepage positioning metadata exact", () => {
-    expect(HOME_TITLE).toBe(
-      "Ali Pajand — Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js"
-    );
+    expect(HOME_TITLE).toBe("Ali Pajand | Senior Software Engineer");
     expect(SITE_META_DESCRIPTION).toBe(
-      "Senior software engineer in Montreal with 9+ years building production web applications. Frontend architecture and design systems in React, TypeScript, and Next.js for complex SaaS, with the Node.js APIs, data models, and async workflows behind them."
+      "Senior Software Engineer in Montreal with 9+ years building production web applications, specializing in React, TypeScript, and Next.js, plus hands-on Node.js, PostgreSQL, and full-stack product development."
     );
-    expect(HOME_OPEN_GRAPH_TITLE).toBe(
-      "Ali Pajand — Senior Software Engineer · Frontend architecture, design systems, and full-stack product work · React, TypeScript, Next.js, Node.js"
-    );
-    expect(HOME_OPEN_GRAPH_DESCRIPTION).toBe(
-      "Frontend architecture, design systems, and engineering standards for complex products, plus the APIs, data, and background work behind them."
-    );
+    expect(HOME_OPEN_GRAPH_TITLE).toBe(HOME_TITLE);
+    expect(HOME_OPEN_GRAPH_DESCRIPTION).toBe(SITE_META_DESCRIPTION);
   });
 
   it("should set canonical and descriptions for buildWritingIndexMetadata", () => {

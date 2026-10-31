@@ -19,7 +19,10 @@ export const HomeCapabilities = () => (
           <span className={styles.index} aria-hidden="true">
             [{pad(index)}]
           </span>
-          <h3 className={styles.title}>{card.title}</h3>
+          <div className={styles.head}>
+            <h3 className={styles.title}>{card.title}</h3>
+            <p className={styles.depth}>{card.depth}</p>
+          </div>
           <ul className={styles.list}>
             {card.body.split(", ").map((item) => (
               <li key={item}>{item}</li>

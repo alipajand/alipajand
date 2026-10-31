@@ -17,7 +17,7 @@ export const PORTFOLIO_ROLE_FIT_LABELS = [
 export const PORTFOLIO_LOOK_FOR_HEADING = "What to look for";
 
 export const PORTFOLIO_LOOK_FOR_LEDE =
-  "Four things run through every case study below. If you're hiring for frontend architecture, technical direction, or end-to-end ownership, these are the parts worth reading closely.";
+  "Four things run through the case studies below. If you're hiring for frontend architecture, technical direction, or end-to-end ownership, these are the parts worth reading closely.";
 
 export interface PortfolioLookForCard {
   title: string;
@@ -31,7 +31,7 @@ export const PORTFOLIO_LOOK_FOR_CARDS: PortfolioLookForCard[] = [
   },
   {
     title: "Systems other engineers build on",
-    body: "Shared component libraries, typed API contracts, Storybook documentation, and CI gates, plus the part that makes them stick: design docs, migration paths with deprecation instead of abrupt removal, and working directly with the engineers adopting them. The influence came from making change safe, not from authority.",
+    body: "Shared component libraries, typed API contracts, Storybook documentation, and CI gates, plus the part that makes them stick: design docs, migration paths with deprecation instead of abrupt removal, and working directly with the engineers adopting them.",
   },
   {
     title: "Complex product states",
@@ -39,6 +39,6 @@ export const PORTFOLIO_LOOK_FOR_CARDS: PortfolioLookForCard[] = [
   },
   {
     title: "Ownership past the browser",
-    body: "Where the product needed it, I built the API, the schema, the auth, and the queue behind the interface. LedgerGuard is the clearest case; ControlTech is where the habit started.",
+    body: "In my professional roles I worked through API contracts with the backend engineers who owned them. In independent products, LedgerGuard and TallyFolio, I built the API, the schema, the auth, and the queue behind the interface myself.",
   },
 ];
