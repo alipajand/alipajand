@@ -11,6 +11,7 @@ import {
   HOMEPAGE_HERO_TITLE,
   HOMEPAGE_PROOF_ARIA_LABEL,
 } from "data/homepage";
+import { HERO_PROFILE_LINKS_ARIA_LABEL } from "data/links";
 
 jest.mock("next/link", () => {
   return function MockLink({
@@ -45,6 +46,21 @@ describe("HomeHero", () => {
       "/portfolio"
     );
     expect(screen.getByRole("link", { name: "Contact me" })).toHaveAttribute("href", "/#contact");
+  });
+
+  it("shows GitHub, LinkedIn, and email links in the first screen", () => {
+    render(<HomeHero />);
+
+    const profileLinks = screen.getByRole("list", { name: HERO_PROFILE_LINKS_ARIA_LABEL });
+    const links = within(profileLinks).getAllByRole("link");
+    expect(links.map((link) => link.getAttribute("href"))).toEqual([
+      "https://github.com/alipajand",
+      "https://linkedin.com/in/alipajand",
+      "mailto:alipajand@gmail.com",
+    ]);
+    expect(links[0]).toHaveAttribute("target", "_blank");
+    expect(links[0]).toHaveAttribute("rel", "noopener noreferrer");
+    expect(links[2]).not.toHaveAttribute("target");
   });
 
   it("shows the four proof points, with the 80% figure scoped to Emplifi rendering", () => {

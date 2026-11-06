@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Chev } from "components/hairline/Icons/Icons";
+import { ProfileLinks } from "components/hairline/ProfileLinks/ProfileLinks";
 import { StrataCanvas } from "features/home/StrataCanvas";
 import styles from "features/home/HomeHero.module.css";
 import {
@@ -26,6 +27,7 @@ export const HomeHero = () => (
         </p>
         <h1 className={styles.lede}>{HOMEPAGE_HERO_TITLE}</h1>
         <p className={styles.body}>{HOMEPAGE_HERO_BODY}</p>
+        <ProfileLinks />
         <div className={styles.ctas}>
           <Link href={HOMEPAGE_HERO_PRIMARY_CTA_HREF}>
             {HOMEPAGE_HERO_PRIMARY_CTA_LABEL}

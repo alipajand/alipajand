@@ -1,0 +1,33 @@
+.links {
+  composes: mono from "../styles/type.module.css";
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 6px 10px;
+  border: var(--stroke-hairline) solid var(--tone-rule);
+  text-decoration: none;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.links a:hover,
+.links a:focus-visible {
+  background: var(--color-line);
+  color: var(--color-ink);
+}
+
+.links a:focus-visible {
+  outline-color: var(--color-ink);
+  outline-offset: -4px;
+}
