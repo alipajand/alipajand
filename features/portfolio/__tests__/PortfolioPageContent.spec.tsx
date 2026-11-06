@@ -1,6 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 
 import { PortfolioPageContent } from "features/portfolio/PortfolioPageContent";
+import { HERO_PROFILE_LINKS_ARIA_LABEL } from "data/links";
 import { PORTFOLIO_BAND_HEADING } from "data/portfolioIndex";
 import { PORTFOLIO_PAGE_INTRO, PORTFOLIO_PROFILE_DETAILS } from "data/projects";
 import { PORTFOLIO_PROFILE_LINKS_ARIA_LABEL } from "data/projectsUi";
@@ -42,6 +43,22 @@ describe("PortfolioPageContent", () => {
     for (const paragraph of PORTFOLIO_PAGE_INTRO) {
       expect(paragraphText).toContain(paragraph);
     }
+  });
+
+  it("should show GitHub, LinkedIn, and email links in the hero", () => {
+    render(<PortfolioPageContent />);
+
+    const hero = screen.getByRole("region", { name: "Selected Engineering Work" });
+    const profileLinks = within(hero).getByRole("list", { name: HERO_PROFILE_LINKS_ARIA_LABEL });
+    expect(
+      within(profileLinks)
+        .getAllByRole("link")
+        .map((link) => link.getAttribute("href"))
+    ).toEqual([
+      "https://github.com/alipajand",
+      "https://linkedin.com/in/alipajand",
+      "mailto:alipajand@gmail.com",
+    ]);
   });
 
   it("should render email, GitHub, LinkedIn, and booking links in the profile list", () => {

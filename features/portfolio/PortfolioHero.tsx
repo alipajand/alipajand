@@ -1,3 +1,4 @@
+import { ProfileLinks } from "components/hairline/ProfileLinks/ProfileLinks";
 import { PlatesField } from "features/portfolio/PlatesField";
 import styles from "features/portfolio/PortfolioHero.module.css";
 import {
@@ -33,6 +34,7 @@ export const PortfolioHero = () => (
         <strong>{PORTFOLIO_HERO_STACK}</strong>
         <span>{PORTFOLIO_PROFILE_DETAILS}</span>
       </p>
+      <ProfileLinks />
     </div>
     <div className={styles.coords} aria-hidden="true">
       {PORTFOLIO_HERO_COORDINATES.map((coordinate) => (

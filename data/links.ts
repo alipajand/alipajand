@@ -12,3 +12,7 @@ export const LINKS = [
   },
   { label: "GitHub", value: "github.com/alipajand", href: "https://github.com/alipajand" },
 ];
+
+export const HERO_PROFILE_LINKS_ARIA_LABEL = "GitHub, LinkedIn, and email";
+
+export const HERO_PROFILE_LINK_LABELS = ["GitHub", "LinkedIn", "Email"] as const;
