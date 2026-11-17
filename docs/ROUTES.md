@@ -64,6 +64,7 @@ deploy.
 | `/writing/[slug]/opengraph-image`    | `app/writing/[slug]/opengraph-image.tsx`   | Per-article Open Graph image                    |
 | `/icon`, `/apple-icon`               | `app/icon.tsx`, `app/apple-icon.tsx`       | Favicon and Apple touch icon                    |
 | `/images/profile-{1x1,4x3,16x9}.png` | `app/images/profile-*.png/route.ts`        | Profile images referenced by the Person JSON-LD |
+| `/images/icon-512.png`               | `app/images/icon-512.png/route.ts`         | 512px icon referenced by `public/manifest.json` |
 
 ## Redirects
 
