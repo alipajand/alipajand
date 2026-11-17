@@ -30,7 +30,6 @@ components/              Shared UI
   Contact/               Contact section and form (react-hook-form)
   *JsonLd/, StructuredData/, HomeStructuredData/   JSON-LD script tags
   RouteChangeFocus/, SkipLink/, NotFoundMainFocus/ Focus management
-  Analytics/             Vercel Analytics and Speed Insights, gated
 
 data/                    Typed copy and content: the source of truth for site text
 content/posts/           Markdown posts with YAML frontmatter
