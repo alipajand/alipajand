@@ -121,8 +121,8 @@ importers:
   .:
     dependencies:
       geist:
-        specifier: ^1.9.0
-        version: 1.9.0(next@16.4.5(@babel/core@7.29.7(supports-color@8.1.1))(@playwright/test@1.65.0)(@types/node@26.6.6)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))
+        specifier: ^1.9.2
+        version: 1.9.2(next@16.4.5(@babel/core@7.29.7(supports-color@8.1.1))(@playwright/test@1.65.0)(@types/node@26.6.6)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))
       highlight.js:
         specifier: ^11.11.1
         version: 11.12.0
@@ -145,8 +145,8 @@ importers:
         specifier: ^7.92.0
         version: 7.92.0(@types/react@19.3.0)(react@19.3.1)
       resend:
-        specifier: ^6.37.0
-        version: 6.37.0
+        specifier: ^6.38.1
+        version: 6.38.1
       sanitize-html:
         specifier: 2.18.1
         version: 2.18.1
@@ -2023,8 +2023,8 @@ packages:
   functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
 
-  geist@1.9.0:
-    resolution: {integrity: sha512-uxiyxH5PaKDaK2//ln06NxJEz5gc6771BTwSs1YFgNnASGtp1SYD3VZShSIijvlNwDjMgHnzqye4MmIUTspEzw==}
+  geist@1.9.2:
+    resolution: {integrity: sha512-UU1x2q5Khob0+i4csFvXk1Ki4DePdu7xISuXyEcj1tzQMg64oN7Kbuy4e5z5QhcUWbbvOMJNs3ZxYQqpsEMV3w==}
     peerDependencies:
       next: '>=13.2.0'
 
@@ -3026,8 +3026,8 @@ packages:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
 
-  resend@6.37.0:
-    resolution: {integrity: sha512-iYNhmhfXVomZr+TMIxf6oqj7kTeGqPDE+wGcYw1H4g8WMBR59NsbShnUz43dSYpStW16iEA6dZs+egqQmdm0zA==}
+  resend@6.38.1:
+    resolution: {integrity: sha512-166POyY8qTbxQQwYXQJ6hx7y1vnL51iB9WW76Xe1/bJsW03lCOWYW3eJW7nNlfvWM5ohI3WtUHnqO3rofiO8Lw==}
     engines: {node: '>=20'}
     peerDependencies:
       '@react-email/render': '*'
@@ -5474,7 +5474,7 @@ snapshots:
 
   functions-have-names@1.2.3: {}
 
-  geist@1.9.0(next@16.4.5(@babel/core@7.29.7(supports-color@8.1.1))(@playwright/test@1.65.0)(@types/node@26.6.6)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)):
+  geist@1.9.2(next@16.4.5(@babel/core@7.29.7(supports-color@8.1.1))(@playwright/test@1.65.0)(@types/node@26.6.6)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)):
     dependencies:
       next: 16.4.5(@babel/core@7.29.7(supports-color@8.1.1))(@playwright/test@1.65.0)(@types/node@26.6.6)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
 
@@ -6658,7 +6658,7 @@ snapshots:
 
   require-directory@2.1.1: {}
 
-  resend@6.37.0:
+  resend@6.38.1:
     dependencies:
       postal-mime: 2.7.6
       standardwebhooks: 1.1.1
