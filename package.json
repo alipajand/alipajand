@@ -20,7 +20,7 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.1.0",
-    "geist": "^1.9.0",
+    "geist": "^1.9.2",
     "highlight.js": "^11.11.1",
     "js-yaml": "5.5.0",
     "marked": "^18.2.0",
