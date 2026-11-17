@@ -14,8 +14,6 @@ import { PropsWithChildren } from "react";
 import { archivo, geistMono } from "./fonts";
 import { SiteShell } from "components/hairline/SiteShell/SiteShell";
 import { StructuredData } from "components/StructuredData/StructuredData";
-import { GatedVercelAnalytics } from "components/Analytics/GatedVercelAnalytics";
-import { GatedVercelSpeedInsights } from "components/Analytics/GatedVercelSpeedInsights";
 import { RouteChangeFocus } from "components/RouteChangeFocus/RouteChangeFocus";
 import { FEED_PATH } from "utils/feed";
 import { LLMS_TXT_PATH } from "utils/llms";
@@ -110,9 +108,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
         />
       </head>
       <body>
-        <GatedVercelAnalytics />
-        <GatedVercelSpeedInsights />
-
         <StructuredData />
         <RouteChangeFocus />
         <SiteShell>{children}</SiteShell>
