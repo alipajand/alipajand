@@ -3,6 +3,7 @@ import { expect, type Page, test } from "@playwright/test";
 import {
   expectBaseline,
   horizontalOverflow,
+  isConsoleProblem,
   scrollThrough,
   settle,
   VIEWPORTS,
@@ -29,7 +30,7 @@ const stubVercelScripts = (page: Page) =>
 const collectConsoleProblems = (page: Page) => {
   const problems: string[] = [];
   page.on("console", (message) => {
-    if (message.type() !== "error" && message.type() !== "warning") return;
+    if (!isConsoleProblem(message)) return;
     if (message.text().includes("status of 404")) return;
     problems.push(message.text());
   });

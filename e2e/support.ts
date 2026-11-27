@@ -1,9 +1,16 @@
 import {
   expect,
+  type ConsoleMessage,
   type Page,
   type PageAssertionsToHaveScreenshotOptions,
   test,
 } from "@playwright/test";
+
+// Keep the Topics opt-out for browsers that recognize it.
+export const isConsoleProblem = (message: ConsoleMessage) =>
+  (message.type() === "error" || message.type() === "warning") &&
+  message.text() !==
+    "Error with Permissions-Policy header: Unrecognized feature: 'browsing-topics'.";
 
 export const visualBaseline = (name: string) =>
   ({ tag: "@visual", annotation: { type: "baseline", description: `${name}.png` } }) as const;

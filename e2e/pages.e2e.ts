@@ -1,11 +1,18 @@
 import { expect, type Request as PlaywrightRequest, test } from "@playwright/test";
 
-import { horizontalOverflow, PAGES, scrollThrough, settle, VIEWPORTS } from "./support";
+import {
+  horizontalOverflow,
+  isConsoleProblem,
+  PAGES,
+  scrollThrough,
+  settle,
+  VIEWPORTS,
+} from "./support";
 
 const collectConsoleProblems = (page: import("@playwright/test").Page) => {
   const problems: string[] = [];
   page.on("console", (message) => {
-    if (message.type() === "error" || message.type() === "warning") problems.push(message.text());
+    if (isConsoleProblem(message)) problems.push(message.text());
   });
   page.on("pageerror", (error) => problems.push(error.message));
   return problems;
