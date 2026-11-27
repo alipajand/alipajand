@@ -3,6 +3,7 @@ import { expect, test, type Page } from "@playwright/test";
 import {
   expectBaseline,
   horizontalOverflow,
+  isConsoleProblem,
   scrollThrough,
   settle,
   VIEWPORTS,
@@ -54,7 +55,7 @@ const BASELINE_VIEWPORTS = [
 const collectConsoleProblems = (page: Page) => {
   const problems: string[] = [];
   page.on("console", (message) => {
-    if (message.type() === "error" || message.type() === "warning") problems.push(message.text());
+    if (isConsoleProblem(message)) problems.push(message.text());
   });
   page.on("pageerror", (error) => problems.push(error.message));
   return problems;
