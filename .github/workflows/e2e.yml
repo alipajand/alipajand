@@ -30,7 +30,7 @@ jobs:
       matrix:
         shard: [1, 2]
     container:
-      image: mcr.microsoft.com/playwright:v1.65.0-noble@sha256:6e3fb709361521eb27161606e6da6d2674e5e89fa16516cb37d6fdd91372273d
+      image: mcr.microsoft.com/playwright:v1.65.1-noble@sha256:1507cbfc550a63a6b7396791ca4f00df17beb56342d2447b3f106c306f525579
       options: --ipc=host
 
     steps:
@@ -52,7 +52,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Check the image matches @playwright/test
-        run: test "$(pnpm exec playwright --version)" = "Version 1.65.0"
+        run: test "$(pnpm exec playwright --version)" = "Version 1.65.1"
 
       - name: Check the visual baseline inventory
         run: pnpm exec jest scripts/__tests__/visualBaselines.spec.ts
@@ -108,7 +108,7 @@ jobs:
     permissions:
       contents: read
     container:
-      image: mcr.microsoft.com/playwright:v1.65.0-noble@sha256:6e3fb709361521eb27161606e6da6d2674e5e89fa16516cb37d6fdd91372273d
+      image: mcr.microsoft.com/playwright:v1.65.1-noble@sha256:1507cbfc550a63a6b7396791ca4f00df17beb56342d2447b3f106c306f525579
       options: --ipc=host
 
     steps:
@@ -130,7 +130,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Check the image matches @playwright/test
-        run: test "$(pnpm exec playwright --version)" = "Version 1.65.0"
+        run: test "$(pnpm exec playwright --version)" = "Version 1.65.1"
 
       - name: Build
         run: pnpm build:e2e
